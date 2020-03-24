@@ -164,7 +164,7 @@
 		}
 		el.appendChild(div);
 	}
-	newQuestion([[1,2,3],[3,4,5]],['','','',''],['','','','']);
+	//newQuestion([[1,2,3],[3,4,5]],['','','',''],['','','','']);
 	function updateSum(evt){
 		var el = evt.target;
 		var x = parseInt(el.textContent);
@@ -188,6 +188,8 @@
 	
 	}
 	ws.onmessage = function(evt){
+		var dm = JSON.parse(evt);
+		newQuestion(dm[0],dm[1],dm[2]);
 	}
 </script>
 

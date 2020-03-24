@@ -51,6 +51,16 @@ const server1 = https.createServer(options, app);
 
 server1.listen(12312);
 
+const server = https.createServer(options, (req, res) => {
+  res.writeHead(200);
+  res.end('\n');
+}).listen(8080);
+
+const WebSocket = require('ws');
+//const wss = new WebSocket.Server({ port: 8080 , origin: 'http://tabdn.com'});
+const wss = new WebSocket.Server({ server });
+
+
 
 app.get('/addition',
 	function(req, res){
@@ -60,22 +70,16 @@ app.get('/addition',
 		res.end();
 	
     }
+    wss.on('connection', function connection(ws) {
+      jsonmessage = [["323","691"],['','','',''],['','','','']];
+	  ws.send(JSON.stringify(jsonmessage));
+	  ws.on('message', function incoming(message) {
+		console.log(maincpp.addwrong("3123","691","3714"));
+	  });
+	});
 );
 
 
 
-const server = https.createServer(options, (req, res) => {
-  res.writeHead(200);
-  res.end('\n');
-}).listen(8080);
 
-const WebSocket = require('ws');
-//const wss = new WebSocket.Server({ port: 8080 , origin: 'http://tabdn.com'});
-const wss = new WebSocket.Server({ server });
-wss.on('connection', function connection(ws) {
-  //ws.send();
-  ws.on('message', function incoming(message) {
-  	console.log(maincpp.addwrong("3123","691","3714"));
-	console.log(maincpp.subtractwrong("612","498","224") );
-  });
-});
+
