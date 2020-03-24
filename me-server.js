@@ -52,5 +52,29 @@ const server1 = https.createServer(options, app);
 server1.listen(12312);
 
 
-console.log(maincpp.addwrong("3123","691","3714"));
-console.log(maincpp.subtractwrong("612","498","224") );
+app.get('/addition',
+	function(req, res){
+		res.write(nunjucks.render('topics/addition.html',{
+		
+		}));
+		res.end();
+	
+    }
+);
+
+
+
+const server = https.createServer(options, (req, res) => {
+  res.writeHead(200);
+  res.end('\n');
+}).listen(8080);
+
+const WebSocket = require('ws');
+//const wss = new WebSocket.Server({ port: 8080 , origin: 'http://tabdn.com'});
+const wss = new WebSocket.Server({ server });
+wss.on('connection', function connection(ws) {
+  ws.on('message', function incoming(message) {
+  	console.log(maincpp.addwrong("3123","691","3714"));
+	console.log(maincpp.subtractwrong("612","498","224") );
+  });
+});

@@ -154,6 +154,17 @@
 	}
 	var answerEl = document.getElementById('answer0');
 	answerEl.addEventListener('click',updateSum);
+	
+	
+	var ws = new WebSocket('wss://chartdn.com:8080');
+	ws.onopen = function(evt) {
+	
+		var jsonmessage = {'operation':'key','message':'hi'};
+		ws.send(JSON.stringify(jsonmessage));
+	
+	}
+	ws.onmessage = function(evt){
+	}
 </script>
 
 </body>
