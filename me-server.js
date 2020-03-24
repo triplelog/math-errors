@@ -7,7 +7,7 @@ const maincpp = require(binding);
 //const postfix = require('./postfix.js');
 
 //const mongoose = require('mongoose');
-//mongoose.connect('mongodb://localhost:27017/chartdn', {useNewUrlParser: true});
+//mongoose.connect('mongodb://localhost:27017/matherrors', {useNewUrlParser: true});
 
 
 
@@ -22,8 +22,8 @@ var crypto = require("crypto");
 //var datatypes = require('./datatypes.js');
 
 const options = {
-  key: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/fullchain.pem')
+  key: fs.readFileSync('/etc/letsencrypt/live/matherrors.com/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/matherrors.com/fullchain.pem')
 };
 
 
