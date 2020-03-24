@@ -60,7 +60,7 @@ const WebSocket = require('ws');
 //const wss = new WebSocket.Server({ port: 8080 , origin: 'http://tabdn.com'});
 const wss = new WebSocket.Server({ server });
 wss.on('connection', function connection(ws) {
-  jsonmessage = [["323","691"],['','','',''],['','','','']];
+  var jsonmessage = [["323","691"],['','','',''],['','','','']];
   ws.send(JSON.stringify(jsonmessage));
   ws.on('message', function incoming(message) {
 	console.log(maincpp.addwrong("3123","691","3714"));
