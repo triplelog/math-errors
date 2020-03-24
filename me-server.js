@@ -65,6 +65,10 @@ wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
     var dm = JSON.parse(message);
 	console.log(maincpp.addwrong(dm[0],dm[1],dm[2]));
+	var x = ""+Math.floor(Math.random() * 1000);
+	var y = ""+Math.floor(Math.random() * 1000);
+	var jsonmessage = [[x,y],['','','',''],['','','','']];
+  	ws.send(JSON.stringify(jsonmessage));
   });
 });
 
