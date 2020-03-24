@@ -25,7 +25,6 @@ const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/chartdn.com/fullchain.pem')
 };
-const { PerformanceObserver, performance } = require('perf_hooks');
 
 
 
