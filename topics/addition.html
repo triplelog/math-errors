@@ -193,6 +193,7 @@
 				answer +=10*parseInt(ell[i].textContent);
 			}
 		}
+		console.log(''+answer);
 		var jsonmessage = [input_numbers[0],input_numbers[1],''+answer];
 		ws.send(JSON.stringify(jsonmessage));
 	}
