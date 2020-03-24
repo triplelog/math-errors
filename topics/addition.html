@@ -141,8 +141,7 @@
 			for (var ii=numbers[i].length-1;ii>=0;ii--){
 				var span = document.createElement('span');
 				span.textContent = numbers[i][ii];
-				span.addEventListener('click',updateSum);
-				div.appendChild(span);
+				
 			}
 			if (i == numbers.length-1){
 				var span = document.createElement('span');
@@ -163,6 +162,9 @@
 			var span = document.createElement('span');
 			span.id = 'answer'+ii;
 			span.textContent = answer[answer.length-ii-1];
+			div.appendChild(span);
+			
+			span.addEventListener('click',updateSum);
 			div.appendChild(span);
 		}
 		el.appendChild(div);
