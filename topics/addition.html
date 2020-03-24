@@ -139,6 +139,7 @@
 			for (var ii=numbers[i].length-1;ii>=0;ii--){
 				var span = document.createElement('span');
 				span.textContent = numbers[i][ii];
+				span.addEventListener('click',updateSum);
 				div.appendChild(span);
 			}
 			if (i == numbers.length-1){
@@ -176,8 +177,7 @@
 		}
 		el.textContent = x;
 	}
-	var answerEl = document.getElementById('answer0');
-	answerEl.addEventListener('click',updateSum);
+	
 	
 	
 	var ws = new WebSocket('wss://matherrors.com:8080');
