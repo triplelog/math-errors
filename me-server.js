@@ -64,7 +64,7 @@ wss.on('connection', function connection(ws) {
   ws.send(JSON.stringify(jsonmessage));
   ws.on('message', function incoming(message) {
     var dm = JSON.parse(message);
-	console.log(maincpp.addwrong(dm[0],"691","3714"));
+	console.log(maincpp.addwrong(dm[0],dm[1],dm[2]));
   });
 });
 

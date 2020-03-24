@@ -120,7 +120,9 @@
 
 </div>
 <script>
+	var input_numbers;
 	function newQuestion(numbers,carries,answer){
+		input_numbers = numbers;
 		var el = document.getElementById('additionBlock');
 		el.innerHTML = '';
 		var div = document.createElement('div');
@@ -177,6 +179,11 @@
 		}
 		el.textContent = x;
 	}
+	function submitAnswer(){
+		var answer = "914"
+		var jsonmessage = [input_numbers[0],input_numbers[1],answer];
+		ws.send(JSON.stringify(jsonmessage));
+	}
 	
 	
 	
@@ -187,8 +194,7 @@
 	ws.onmessage = function(evt){
 		var dm = JSON.parse(evt.data);
 		newQuestion(dm[0],dm[1],dm[2]);
-		var jsonmessage = ["3123"];
-		ws.send(JSON.stringify(jsonmessage));
+		
 	}
 </script>
 
