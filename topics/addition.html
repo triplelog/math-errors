@@ -101,30 +101,10 @@
         <div class="pure-g">
             <div class="l-box pure-u-1 pure-u-md-1-3 pure-u-lg-1-3">
 
-                <div class="additionBlock">
-					<div class="carryRow">
-						{% for i in carries %}
-						<span>{{ i }}</span>
-						{% endfor %}
-					</div>
-					{% for i in numbers %}
-					<div class="addRow">
-						{% for ii in i.digits %}
-						<span>{{ ii }}</span>
-						{% endfor %}
-						{% if i.last %}
-						<span>+</span>
-						{% endif %}
-					</div>
-					{% endfor %}
-					<div class="lineRow">
-						<hr />
-					</div>
-					<div class="sumRow">
-						{% for i in range(0, answer.length) %}
-						<span id="answer{{ i }}">{{ answer[i] }}</span>
-						{% endfor %}
-					</div>
+                <div class="additionBlock" id="additionBlock">
+
+					
+					
 				</div>
                 
             </div>
@@ -140,6 +120,51 @@
 
 </div>
 <script>
+	function newQuestion(numbers,carries,answer){
+		var el = document.getElementById('additionBlock');
+		el.innerHTML = '';
+		var div = document.createElement('div');
+		div.classList.add('carryRow');
+		for (var i=0;i<carries.length;i++){
+			var span = document.createElement('span');
+			span.textContent = carries[i];
+			div.appendChild(span);
+		}
+		el.appendChild(div);
+		
+		
+		for (var i=0;i<numbers.length;i++){
+			div = document.createElement('div');
+			div.classList.add('addRow');
+			for (var ii=numbers[i].length-1;ii>=0;ii--){
+				var span = document.createElement('span');
+				span.textContent = numbers[i][ii];
+				div.appendChild(span);
+			}
+			if (i == numbers.length-1){
+				var span = document.createElement('span');
+				span.textContent = '+';
+				div.appendChild(span);
+			}
+			el.appendChild(div);
+		}
+		
+		div = document.createElement('div');
+		div.classList.add('lineRow');
+		div.appendChild(document.createElement('hr'));
+		el.appendChild(div);
+		
+		div = document.createElement('div');
+		div.classList.add('sumRow');
+		for (var ii=0;ii<answer.length;ii++){
+			var span = document.createElement('span');
+			span.id = 'answer'+ii;
+			span.textContent = answer[answer.length-ii-1];
+			div.appendChild(span);
+		}
+		el.appendChild(div);
+	}
+	newQuestion([[1,2,3],[3,4,5]],['','','',''],['','','','']);
 	function updateSum(evt){
 		var el = evt.target;
 		var x = parseInt(el.textContent);

@@ -54,10 +54,8 @@ server1.listen(12312);
 
 app.get('/addition',
 	function(req, res){
+		
 		res.write(nunjucks.render('topics/addition.html',{
-			carries: ['','','',''],
-			numbers: [{digits:[1,2,3]},{digits:[3,4,5],last:true}],
-			answer: ['','','',''],
 		}));
 		res.end();
 	
@@ -75,6 +73,7 @@ const WebSocket = require('ws');
 //const wss = new WebSocket.Server({ port: 8080 , origin: 'http://tabdn.com'});
 const wss = new WebSocket.Server({ server });
 wss.on('connection', function connection(ws) {
+  //ws.send();
   ws.on('message', function incoming(message) {
   	console.log(maincpp.addwrong("3123","691","3714"));
 	console.log(maincpp.subtractwrong("612","498","224") );
