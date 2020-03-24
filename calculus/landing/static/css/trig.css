@@ -1,0 +1,337 @@
+
+.box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+.left {
+    flex: 1;
+    margin: 10px;
+    
+}
+.middle {
+    flex: 2;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+
+}
+.right {
+    flex: 1;
+    margin: 10px;
+
+}
+.leftPitch {
+	flex: 3;
+	margin: 10px;
+}
+.rightPitch {
+	flex: 1;
+	margin: 10px;
+}
+
+.text {
+    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    
+}
+.textHalf {
+    flex: 1;
+    margin: 0 10 0 10;
+}
+.textThird {
+    flex: 1;
+    margin: 0 2px 0 2px;
+}
+.pitchThird {
+    width: 32%;
+    margin: 0 2px 0 2px;
+    padding: 0 2px 0 2px;
+    display: inline-block;
+    vertical-align: top;
+}
+.oneAB {
+border: 1px solid black;
+ width: 100%;
+}
+.video {
+
+}
+
+.pull {
+    margin: 5 0 0 0;
+    background-color: yellow;
+}
+
+#myCanvas {
+    border: 0px solid black;
+}
+
+button {
+    border: 2px solid dodgerblue;
+    background-color: white;
+    color: black;
+    padding: .5em 1em;
+    font-size: 1.5em;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.buttonHalf {
+    width: 45%;
+}
+button:hover {
+    background: dodgerblue;
+    color: white;
+}
+button.plot:hover {
+    background: white;
+    color: white;
+    border-color: black;
+    
+}
+
+.greenResource {
+	background-color: green;
+	color: white;
+	font-size:1.1em;
+	border: 1px solid black;
+}
+.redResource {
+	background-color: red;
+	color: white;
+	font-size:1.1em;
+	border: 1px solid black;
+}
+.greenText {
+    color: blue;
+}
+.redText {
+    color: red;
+}
+
+.dropdown1, .dropdown2, .dropdown3 {
+	position: relative;
+	z-index: 1;
+	overflow: visible;
+}
+
+.dropdown-content1, .dropdown-content2, .dropdown-content3 {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #111111;
+    color: white;
+    min-width: 160px;
+    box-shadow: 0px 12px 20px 0px rgba(0,0,0,0.33);
+    padding: 2px 4px;
+    z-index: 1;
+    overflow: visible;
+    top: 100%;
+    width: 100%;
+}
+
+.dropdown1:hover .dropdown-content1 {
+    display: block;
+    z-index: 1;
+    overflow: visible;
+}
+.dropdown-content1:hover ~ .dropdown1 {
+    background-color: #111111;
+}
+.dropdown2:hover .dropdown-content2 {
+    display: block;
+    z-index: 1;
+    overflow: visible;
+}
+.dropdown-content2:hover ~ .dropdown2 {
+    background-color: #111111;
+}
+.dropdown3:hover .dropdown-content3 {
+    display: block;
+    z-index: 1;
+    overflow: visible;
+}
+.dropdown-content3:hover ~ .dropdown3 {
+    background-color: #111111;
+}
+ul.navbar {
+	border-top: var(--border-width) solid var(--accent);
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+	height: 3.5em;
+    overflow: visible;
+    background-color: #999999;
+    position: relative;
+    z-index: 100;
+
+}
+ul.dropdown-content1, ul.dropdown-content2, ul.dropdown-content3 {
+	list-style-type: none;
+}
+
+li.nav {
+    float: right;
+}
+li.logo {
+    float: left;
+    height: 100%;
+}
+li.nav a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+}
+
+li.nav a:hover {
+    background-color: #111111;
+}
+li.logo a {
+    color: white;
+    text-align: center;
+    padding-left: 16px;
+    text-decoration: none;
+}
+
+li.logo a:hover {
+    background-color: #ffffff;
+}
+
+.dropdown-btn {
+	padding: .1em .15em;
+	border-radius: .25em;
+	background: linear-gradient(rgb(135,206,250), rgb(30,144,255));
+	border: 1px solid rgba(0,0,0,.3);
+	box-shadow: 0 1px white inset, 0 .3em .3em -.3em rgba(0,0,0,.3);
+	vertical-align: middle;
+	height: .8em;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+.helper {
+	height: 100%;
+	vertical-align: middle;
+	display: inline-block;
+}
+.caret {
+	display: inline-block;
+	position: relative;
+	top: -.4em;
+	width: 0;
+	height: 0;
+	margin-left: 2px;
+	vertical-align: middle;
+	border-top: .3em solid;
+	border-right: .3em solid transparent;
+	border-left: .3em solid transparent;
+}
+
+.doubleList li {
+float:left;
+
+}
+
+html, body {
+    height: 100%;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+/*footer*/
+
+.copyright {
+    margin: 15px 0;
+}
+
+/*home page*/
+
+.intro {
+    transform: translateY(22vh);
+}
+
+.intro > h1 {
+    color: #212121;
+    font-size: 12vh;
+}
+
+.intro > h2 {
+    color: #757575;
+    font-size: 3vmin;
+}
+
+.intro > .profile {
+    width: 10vh;
+    height: 10vh;
+    border-radius: 50%;
+}
+
+h1 {
+    color: #212121;
+    font-size: 12vh;
+}
+
+/*apply accent colour to links*/
+
+a:link, a:visited {
+    color: var(--accent);
+}
+
+a.icon:hover {
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--accent) !important;
+    text-decoration: underline black;
+}
+
+/*paginator at bottom of list view*/
+
+.pages {
+    padding: 15px 0;
+}
+
+.pages-icon {
+    padding: 0 15px;
+}
+
+/*list item for posts and projects*/
+
+.item {
+    padding: 10px 0;
+}
+
+.item-tag {
+    background-color: var(--accent);
+}
+
+
+/*navigation bar icons*/
+
+.navbar-icon {
+    font-size: 125%;
+    display: inline-block !important;
+}
+
+/*coloured borders at top and bottom of the page*/
+
+
+
+footer {
+    border-bottom: var(--border-width) solid var(--accent);
+}
+
+img {
+    max-width: 100%;
+}

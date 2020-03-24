@@ -1,0 +1,19 @@
+from django.shortcuts import render
+
+
+def trigonometric_functions_lesson(request):
+    vtitle = 'Trigonometric Derivatives Lesson - Calculus College'
+    meta_des = 'Learn how to differentiate the 6 trig and 6 inverse trig functions. Recognize when they appear and remember what the derivative is.'
+    vLessonTitle = 'Trigonometric Functions'
+    vFormal = 'Memorize the chart!'
+    vInformal = 'The most common functions, sin(x) and cos(x), become the other after differentiation. And only the derivative of functions that start with "c" are negated. '
+    vLinks = [{'href':'trigonometric_functions_worksheet.hmtl','title':'Trigonometric Functions Worksheet','description':"Work as many problems as you need. They're broken into many categories for your pleasure."}]
+    vLinks.append({'href':'http://www.math.brown.edu/UTRA/trigderivs.html','title':'Derivatives of Trigonometric Functions','description':'Brown University provides a quick summary of how to differentiate trigonometric functions.'})
+    vLinks.append({'href':'https://www.youtube.com/watch?v=apXayVtvCCc','title':'How to remember derivatives of trigonometric functions','description':'A video with some tips for remembering the derivatives of trig functions since you probably want to memorize them.'})
+    vFlowchart = 'static/img/trigonometric_functions_flowchart.png'
+    vparts = [{'header':'When do we apply trig differentiation?','text':'The function must be exactly of the form $\sin(x)$ or another trig or inverse trig function evaluated at $x$. There cannot be anything else inside the parentheses and the outside must simply be the trigonometric function. Other rules like the <a href="/chain_rule_lesson.html">chain rule</a> or <a href="/product_rule_lesson.html">product rule</a> will be required if the function is more complicated.'}]
+    vparts.append({'header':'How do we differentiate a trig function?','text':'There are twelve possible functions and you probably want to memorize each of their derivatives. If you learn the derivatives of sine and cosine then you can apply the quotient rule to determine the other four derivatives. However, most students just memorize these derivatives to save time and work on exams since there are a limited number of functions to learn. The table below lists the derivatives. If a function looks exactly like the function in the left column, then its derivative is found in the right column.'})
+    vparts.append({'header':'What are the derivatives of the trig functions?','text':'<div class="col-md-6" style="font-size:18px;"><table class="table table-bordered table-striped"><thead><tr><th>$f(x)$</th><th>$\\frac{d}{dx}[f(x)]$</th></tr></thead><tbody><tr><td>$\sin{(x)}$</td><td>$\cos{(x)}$</td></tr><tr><td>$\cos{(x)}$</td><td>$-\sin{(x)}$</td></tr><tr><td>$\\tan{(x)}$</td><td>$\sec^2{(x)}$</td></tr><tr><td>$\cot{(x)}$</td><td>$-\csc^2{(x)}$</td></tr><tr><td>$\sec{(x)}$</td><td>$\sec{(x)}\\tan{(x)}$</td></tr><tr><td>$\csc{(x)}$</td><td>$-\csc{(x)}\cot{(x)}$</td></tr></tbody></table></div><div class="col-md-6" style="font-size:18px;"><table class="table table-bordered table-striped"><thead><tr><th>$f(x)$</th><th>$\\frac{d}{dx}[f(x)]$</th></tr></thead><tbody><tr><td>$\sin^{-1}{(x)}$</td><td>$\\frac{1}{\sqrt{-x^2+1}}$</td></tr><tr><td>$\cos^{-1}{(x)}$</td><td>$\\frac{-1}{\sqrt{-x^2+1}}$</td></tr><tr><td>$\\tan^{-1}{(x)}$</td><td>$\\frac{1}{x^2+1}$</td></tr><tr><td>$\cot^{-1}{(x)}$</td><td>$\\frac{-1}{x^2+1}$</td></tr><tr><td>$\sec^{-1}{(x)}$</td><td>$\\frac{1}{|x|\sqrt{x^2-1}}$</td></tr><tr><td>$\csc^{-1}{(x)}$</td><td>$\\frac{-1}{|x|\sqrt{x^2-1}}$</td></tr></tbody></table></div>'})
+    next_lesson = 'A lesson on the <a href="sum_rule_lesson.html">Sum Rule</a>'
+
+    return render(request,'base_lesson.html',{'title':vtitle,'meta_des':meta_des,'LessonTitle':vLessonTitle,'Next':next_lesson,'Formal':vFormal,'Informal':vInformal,'Links':vLinks,'Flowchart':vFlowchart,'parts':vparts})

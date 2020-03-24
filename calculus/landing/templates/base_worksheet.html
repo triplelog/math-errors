@@ -1,0 +1,339 @@
+{% extends "base_generic.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block meta_des %}{{ meta_des }}{% endblock %}
+{% block morecss %}<link href="static/css/single_course.css" rel="stylesheet">{% endblock %}
+{% block content %}
+<section id="sub-header" >
+  	<div class="container">
+    
+    	<div class="row">
+        	<div class="col-md-12 text-center">
+            	<h1>{{ header_1 }}</h1>
+            </div>
+        </div><!-- End row -->
+
+    </div><!-- End container -->
+    <div class="divider_top"></div>
+  </section>
+  
+  <section id="main_content">
+  <div class="container">
+  
+
+	 <div class="row">
+     		<div class="col-lg-9">
+                    
+                    <div class="row">
+                    	<div class="col-xs-11">
+
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info" id="progressbar" role="progressbar" data-percentage="0" style="width: 0%;"></div>
+                                    <div class="progress-bar progress-bar-info" id="progressbarwidth" role="progressbar" data-percentage="0" style="display: none; width: 100%;"></div>
+                                </div>
+                        </div>
+			<div class="col-xs-1">
+				<i class="icon-trophy"></i>
+                        </div>
+                    </div><!-- End progress bar -->
+                    
+                    <hr>
+                    {% block form_stuff %}
+                    {% for section in sections %}
+                    
+                    <h3 class="chapter_course">{{ section.title }}</h3>
+                    {% for subsection in section.subsections %}
+                    <div>
+                    <div class="strip_single_course">
+			    <h4 class="{{ subsection.classinit }}"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ subsection.id }}">{{ subsection.title }}<i class="indicator pull-right icon-plus"></i></a></h4>
+
+                    </div><!-- end strip single course -->
+			<div class="strip_single_course collapse in" id="collapse{{ subsection.id }}">
+                  <div class="the_form">
+                            <form action="" method="post" data-ajax="false">
+                        {% csrf_token %}
+                        <div id="{{ subsection.id }}"><span id='question'>$\frac{d}{dx}[{{ subsection.question_latex }}]$</span><span id="question_l" style="display: none;">{{ subsection.question_latex }}</span><div id="Question_{{ subsection.id }}" style='display: none;'>{{ subsection.question_python }}</div>={{ subsection.form }}<a onclick="AjaxFormSubmit('#{{ subsection.id }}')" href="#" class="nosubmit">Submit Answer: </a><span id="message0"></span><br><span id="message"></span><span id="messageq0"></span><span id="messageq"></span><span id="messagea0"></span><span id="messagea"></span><span id="messagec0"></span><span id="messagec"></span><span id="messagess"></span></div>
+
+
+
+                        
+                        </form>
+                        </div>
+                        
+
+                    	</div><!-- end strip single course -->
+                      </div>
+                      {% endfor %}
+                    {% endfor %}
+                    {% endblock %}
+                                      
+                    
+                
+            </div><!-- End col-md-9  -->
+            
+            <aside class="col-lg-3 hidden-xs hidden-sm hidden-md">
+<div class="box_style_1">
+                    <h4>Printable Worksheet</h4>
+          <form action="" method="post" data-ajax="false">
+                        {% csrf_token %}
+                    
+                            {{ pform }}
+                     
+           <button type="submit" class="btn btn-lg btn-primary">Get Worksheet</button>
+           </form>
+           
+           </div>
+           <div class="box_style_1">
+                    <h4>Related content</h4>
+                    <ul class="list_1">
+                    {% for rc in related_content %}
+			  <li><a href="{{ rc.href }}">{{ rc.title }}</a></li>
+        {% endfor %}
+                     </ul>
+           </div>
+	   <div class="box_style_1">
+                    <h4>Legend</h4>
+                    <ul class="legend_course">
+                          <li id="tostart">Still to start</li>
+                          <li id="inprogress">In progress</li>
+                          <li id="completed">Completed</li>
+                     </ul>
+           </div>
+         </aside> <!-- End col-md-4 -->
+         <div class="col-sm-4 hidden-lg">
+<div class="box_style_1">
+                    <h4>Printable Worksheet</h4>
+          <form action="" method="post" data-ajax="false">
+                        {% csrf_token %}
+                            {{ pform }}
+                     
+           <button type="submit" class="btn btn-lg btn-primary">Get Worksheet</button>
+           </form>
+           
+           </div>
+       </div>
+          <div class="col-sm-4 hidden-lg">
+
+           <div class="box_style_1">
+                    <h4>Related content</h4>
+                    <ul class="list_1">
+                    {% for rc in related_content %}
+        <li><a href="{{ rc.href }}">{{ rc.title }}</a></li>
+        {% endfor %}
+                     </ul>
+           </div>
+           </div>
+           <div class="col-sm-4 hidden-lg">
+     <div class="box_style_1">
+                    <h4>Legend</h4>
+                    <ul class="legend_course">
+                          <li id="tostart">Still to start</li>
+                          <li id="inprogress">In progress</li>
+                          <li id="completed">Completed</li>
+                     </ul>
+           </div>
+         </div> <!-- End col-md-4 -->
+     	
+     </div><!-- End row -->
+  </div><!-- End container -->
+  </section>
+  <script>
+
+
+//For getting CSRF token
+function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+               var cookie = jQuery.trim(cookies[i]);
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) == (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+             }
+          }
+      }
+ return cookieValue;
+}
+
+
+function AjaxFormSubmit(form_id) {
+  var csrftoken = getCookie('csrftoken');
+    $.ajax({
+        url : '',
+        type : "POST",
+        data : { csrfmiddlewaretoken : csrftoken, your_name : '{"yn":"'.concat($(form_id).find('input').val()).concat('","yq_l":"').concat($(form_id).find('span#question_l').text()).concat('","yq":"').concat($(form_id).find('div').eq(0).text()).concat('","yt":"').concat($(form_id).get(0).id).concat('"}') }
+    }).done(function(returned_data){
+      $(form_id).find('span#message0').html('');
+      var rd_obj = JSON.parse(returned_data);
+      if (rd_obj.message.substring(0,5)=="Error"){
+        $(form_id).find('span#message').html(rd_obj.message);
+        $(form_id).find('span#messagec0').html('');
+        $(form_id).find('span#messagec').html('');
+        $(form_id).find('span#messageq0').html('');
+        $(form_id).find('span#messageq').html('');
+        $(form_id).find('span#messagea0').html('');
+        $(form_id).find('span#messagea').html('');
+        $(form_id).find('span#messagess').html('');
+        $(form_id).find('span#message0').html('');
+        ga('send', 'event', 'Worksheet_Answer', $(form_id).get(0).id, 'Error');
+      }
+      else{
+      if (rd_obj.message=='NO!'){
+        $(form_id).find('span#message').html('');
+        $(form_id).find('span#messageq0').html('Function: ');
+        el_q = $(form_id).find('span#messageq').get(0);
+        $(form_id).find('span#messageq').html(rd_obj.my_q);
+        katex.render(rd_obj.my_q,el_q);
+        $(form_id).find('span#messagea0').html('<br>Your Answer: ');
+        el_a = $(form_id).find('span#messagea').get(0);
+        $(form_id).find('span#messagea').html(rd_obj.my_a);
+        katex.render(rd_obj.my_a,el_a);
+        $(form_id).find('span#messagec0').html('<br>Correct Answer: ');
+        el_c = $(form_id).find('span#messagec').get(0);
+        $(form_id).find('span#messagec').html(rd_obj.c_a);
+        katex.render(rd_obj.c_a,el_c);
+        var t_url = '<br><a href="https://server0.calculuscollege.com/swipe.html?'.concat(rd_obj.my_function).concat('" target="_blank"> See Solution</a>');
+        $(form_id).find('span#messagess').html(t_url);
+      }
+      else {
+      $(form_id).find('span#message').html(rd_obj.message);
+
+      $(form_id).find('span#messageq0').html('<br>');
+        el_q = $(form_id).find('span#messageq').get(0);
+        $(form_id).find('span#messageq').html(rd_obj.my_a);
+        katex.render(rd_obj.my_a,el_q);
+        $(form_id).find('span#messagea0').html(' is the derivative of ');
+        el_a = $(form_id).find('span#messagea').get(0);
+        $(form_id).find('span#messagea').html(rd_obj.my_q);
+        katex.render(rd_obj.my_q,el_a);
+
+        $(form_id).find('span#messagec0').html('');
+        $(form_id).find('span#messagec').html('');
+        $(form_id).find('span#messagess').html('');
+        $(form_id).find('span#message0').html('');
+      }
+      el = $(form_id).find('span#question').get(0);
+      var baseStr = '\\frac{d}{dx}['.concat(rd_obj.question_latex).concat(']');
+      $(form_id).find('span#question').html(baseStr);
+      katex.render(baseStr,el);
+      $(form_id).find('span#question_l').html(rd_obj.question_latex);
+      $(form_id).find('div').eq(0).html(rd_obj.question_python);
+      var oldclass = $(form_id).parent().parent().parent().parent().find('h4').attr('class');
+
+      if( rd_obj.message != 'NO!' ){
+        if(oldclass.substring(oldclass.length-1,oldclass.length)!='C'){
+      var oldStr = $(form_id).parent().parent().parent().parent().find('h4').attr('class');
+        var str = 'C'.concat(oldStr);
+        var newStr = str.substring(0,str.length-1);
+        $(form_id).parent().parent().parent().parent().find('h4').attr('class', newStr);
+
+      var oldwidth = $('#progressbar').width();
+      var totalwidth = $('#progressbarwidth').width();
+      var tot_q = {{ fraction_questions }};
+      var frac_q = tot_q*1.0/oldclass.length;
+      var newwidth = new String(oldwidth + frac_q*totalwidth);
+      $('#progressbar').css('width',newwidth);
+      if (oldclass=='W' || oldclass=='CW' || oldclass=='CCW' || oldclass == 'CCCW' || oldclass=='B' || oldclass=='CB' || oldclass=='CCB' || oldclass == 'CCCB'){
+      $(form_id).parent().parent().parent().attr('class', 'strip_single_course collapse');
+      if ($(form_id).get(0).id=='One'){
+        $('#Two').find('input').focus();
+      }
+      if ($(form_id).get(0).id=='Two'){
+        $('#Three').find('input').focus();
+      }
+      if ($(form_id).get(0).id=='Three'){
+        $('#Four').find('input').focus();
+      }
+      if ($(form_id).get(0).id=='Four'){
+        $('#Five').find('input').focus();
+      }
+      if ($(form_id).get(0).id=='Five'){
+        $('#Six').find('input').focus();
+      }
+      if ($(form_id).get(0).id=='Six'){
+        $('#Seven').find('input').focus();
+      }
+      if ($(form_id).get(0).id=='Seven'){
+        $('#Eight').find('input').focus();
+      }
+      if ($(form_id).get(0).id=='Eight'){
+        $('#Nine').find('input').focus();
+      }
+      if ($(form_id).get(0).id=='Nine'){
+        $('#Ten').find('input').focus();
+      }
+      if ($(form_id).get(0).id=='Ten'){
+        $('#Eleven').find('input').focus();
+      }
+      }
+      } else {
+
+        var oldStr = $(form_id).parent().parent().parent().parent().find('h4').attr('class');
+        var str = 'C'.concat(oldStr);
+        var newStr = str.substring(0,str.length-1);
+        $(form_id).parent().parent().parent().parent().find('h4').attr('class', newStr);
+      }
+      ga('send', 'event', 'Worksheet_Answer', $(form_id).get(0).id,'Correct',1);
+      }  else{
+        if(oldclass.substring(oldclass.length-1,oldclass.length)=='C'){
+      var oldStr = $(form_id).parent().parent().parent().parent().find('h4').attr('class');
+        var str = 'W'.concat(oldStr);
+        var newStr = str.substring(0,str.length-1);
+        $(form_id).parent().parent().parent().parent().find('h4').attr('class', newStr);
+
+      var oldwidth = $('#progressbar').width();
+      var totalwidth = $('#progressbarwidth').width();
+      var tot_q = {{ fraction_questions }};
+      var frac_q = tot_q*1.0/oldclass.length;
+      var newwidth = new String(oldwidth - frac_q*totalwidth);
+      $('#progressbar').css('width',newwidth);
+      } else {
+        var oldStr = $(form_id).parent().parent().parent().parent().find('h4').attr('class');
+        var str = 'W'.concat(oldStr);
+        var newStr = str.substring(0,str.length-1);
+        $(form_id).parent().parent().parent().parent().find('h4').attr('class', newStr);
+      }
+      ga('send', 'event', 'Worksheet_Answer', $(form_id).get(0).id, 'Wrong',0);
+      }
+      
+      $(form_id).find('input').val("");
+      $(form_id).find('span#message0').html('');
+      
+    }});
+}
+
+function checkSubmit(e) {
+
+   if(e && e.keyCode == 13) {
+    e.preventDefault();
+    var target = e.target || e.srcElement;
+    var id = '#'.concat(target.parentNode.id);
+    $(id).find('span#message').html('<img src="https://i.imgur.com/xkyl15N.gif"></img>');
+    $(id).find('span#message0').html('');
+      AjaxFormSubmit(id);
+   }
+ }
+
+function doLatex(e,tval){
+   if (e && e.keycode != 13){
+    var target = e.target || e.srcElement;
+    var form_id = '#'.concat(target.parentNode.id);
+
+    var csrftoken = getCookie('csrftoken');
+    $.ajax({
+        url : '',
+        type : "POST",
+        data : { csrfmiddlewaretoken : csrftoken, your_name : '{"yn":"'.concat($(form_id).find('input').val()).concat('","yq":"').concat('LATEX').concat('"}') }
+    }).done(function(returned_data){
+      var rd_obj = JSON.parse(returned_data);
+      el = $(form_id).find('span#message0').get(0);
+      $(form_id).find('span#message0').html(rd_obj.message);
+      katex.render(rd_obj.message,el);
+  });
+   }
+   
+}
+</script>
+{% endblock %}
+

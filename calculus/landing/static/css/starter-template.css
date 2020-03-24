@@ -1,0 +1,39 @@
+body {
+  padding-top: 35px;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+.katex_div_il {
+display: inline;
+}
+#id_your_name {
+	width: 90%;
+}
+
+
+.the_form .btn {
+	margin-bottom: 20px;
+	margin-top: 0px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.btn {
+	margin-bottom: 0px;
+	margin-top: 0px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.share_row {
+	margin-top: 20px;
+	margin-bottom: 5px;
+
+}
+*:focus {
+outline: none;
+}
+
+}

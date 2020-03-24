@@ -1,0 +1,31 @@
+
+<!DOCTYPE HTML>
+<!--
+  Editorial by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>Calculus College</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="static/css/riemann.css" />
+  </head>
+  <body>
+	<p>What is the area of the region that is shaded light blue?</p>
+	<p>Draw 6 rectangles on the canvas. The computer will tell you the area of the rectangles and then you can make your best guess about the area of the region.</p>
+	<canvas id="canvas" width=500 height=500></canvas>
+	<br />Total area of rectangles: <span id="totalArea">0</span>
+	<br />Area of region?<input type="text" id="predArea"></input>
+	<button onclick="guessArea(5);">Submit</button>
+	<span id="actArea"></span>
+  <br />
+  <a href="riemannInteractiveFixed.html">Another example with fixed width rectangles</a>
+
+
+	  <script>var xfn = '-1*x*x+3*x+10';</script>
+      <script src="static/js/riemann.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,164 @@
+{% extends "base_generic.html" %}
+{% block title %}Derivative Calculator - Step by step solutions from Calculus College{% endblock %}
+{% block meta_des %}Become a master at taking derivatives. Try our free derivative calculator to get an interactive, step by step differentiation of any function.{% endblock %}
+{% block content %}
+
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+    <div class="container">
+      <div class="starter-template">
+        <div class="row" style="margin-top:25px; margin-bottom:25px;">
+            <div class="the_form" id="t_form">
+                <form action="" method="post" data-ajax="false">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit" class="btn btn-lg btn-primary" onClick="ga('send','event','Derivative_Calculator');"><b>Differentiate </b><span id="message"></span></button>
+            </form>
+            </div>
+            {% if is_derivative %}
+
+            {% endif %}
+            
+ 
+            
+
+            
+        </div>
+        <div class="row">
+          {% if is_derivative %}
+          <div class="row">
+              <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">The derivative of ${{ ofunction }}$ is:</h3>
+                    </div>
+                    <div class="panel-body">
+                      ${{ full_derivative }}$
+                    </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            <div class="row">
+                    
+                            {% if is_derivative %}
+                        <div class="panel panel-primary" data-role="page" id="pageone"><iframe src='https://server0.calculuscollege.com/swipe.html?{{ my_function }}' width="100%" height="900" frameborder="0" scrolling="no"></iframe></div>
+                        {% elif is_error %}
+                         <div class="row">
+                         <div class="col-md-3 hidden-xs hidden-sm"></div>
+                                      <div class="col-md-6"><div class="panel panel-primary">
+                            <div class="panel-heading">
+                                          <h1 class="panel-title">Error</h1>
+                                        </div>
+                                        <div class="panel-body text-left">
+                            You have entered a function, {{ my_function }}, that is invalid. Did you make a typo? Maybe some missing parentheses? Please carefully try again. If you really think your input was valid please email bugs@calculuscollege.com with your exact input.
+                                    
+
+                                  </div></div></div></div>
+                        {% else %}
+                        <div class="row">
+                                      <div class="col-md-6"><div class="panel panel-primary">
+                            <div class="panel-heading">
+                                          <h1 class="panel-title hidden-md">How to use the step by step derivative calculator</h1>
+                                          <h1 class="panel-title visible-md">How to use step by step derivative calculator</h1>
+                                        </div>
+                                        <div class="panel-body text-left">
+                            <ol>
+                              <li>Enter the function you want to differentiate in the box.</li>
+                              <li>Click Differentiate when the function appears as desired.</li>
+                              <li>A step by step interactive solution will appear here.</li>
+                              <li>Advance and go back with your right and left arrow keys.</li>
+                              <li>Follow along and make sure you understand each step.</li>
+                              <li>Enter another function and start again.</li>
+                            </ol>
+                                    
+                                  </div></div></div>
+
+                                  <div class="col-md-6"><div class="panel panel-primary">
+                            <div class="panel-heading">
+                                          <h1 class="panel-title">How to take the derivative of any function</h1>
+                                        </div>
+                                        <div class="panel-body text-left">
+                            <ol>
+                              <li>Check if the <a href="sum_rule_lesson.html">sum rule</a> can simplify the function.</li>
+                              <li>Check if the <a href="power_rule_lesson.html">power rule</a> applies.</li>
+                              <li>Check if the function is <a href="exponentials_logarithms_lesson.html">exponential, logarithmic</a>, or <a href="trigonometric_functions_lesson.html">trigonometric</a>.</li>
+                              <li>Check if the <a href="product_rule_lesson.html">product</a> or <a href="quotient_rule_lesson.html">quotient rule</a> applies.</li>
+                              <li>Check if the <a href="chain_rule_lesson.html">chain rule</a> applies.</li>
+                              <li>Check if <a href="logarithmic_differentiation_lesson.html">logarithmic differentiation</a> is necessary.</li>
+                              <li>Assuming one of the above applies, do it and repeat the process.</li>
+                              <li>When no more differentiation is required you have the derivative.</li>
+                              <li>Check out our <a href="derivatives_lesson.html">derivative lessons</a> for more help.</li>
+                              <li>Check out our <a href="derivatives_worksheet.html">derivative worksheets</a> for more practice.</li>
+                            </ol>
+                                    
+                                  </div></div></div>
+
+                                  </div>
+                                  <div class="row"><div class="col-md-1 hidden-xs hidden-sm hidden-md"></div><div class="col-md-11 hidden-xs hidden-sm"><img src='static/img/how_to_differentiate_flowchart.png' style="margin-left:30px; max-width:100%;"></img></div><div class="col-md-11 hidden-md hidden-lg"><img src='static/img/how_to_differentiate_flowchart.png' style="max-width:100%;"></img></div></div>
+                                      
+                        {% endif %}
+
+                    
+
+            </div>
+        </div>
+                        
+
+    </div>
+
+
+    </div><!-- /.container -->
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+
+  <script>
+
+
+//For getting CSRF token
+function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+               var cookie = jQuery.trim(cookies[i]);
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) == (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+             }
+          }
+      }
+ return cookieValue;
+}
+
+
+
+function doLatex(e){
+   if (e && e.keycode != 13){
+    var target = e.target || e.srcElement;
+    var form_id = '#t_form';
+
+    var csrftoken = getCookie('csrftoken');
+    $.ajax({
+        url : '',
+        type : "POST",
+        data : { csrfmiddlewaretoken : csrftoken, your_name : '{"yn":"'.concat($('#id_your_name').val()).concat('"}') }
+    }).done(function(returned_data){
+      var rd_obj = JSON.parse(returned_data);
+      el = $(form_id).find('span#message').get(0);
+      $(form_id).find('span#message').html(rd_obj.message);
+      katex.render(rd_obj.message,el);
+  });
+   }
+   
+}
+</script>
+
+{% endblock %}
+

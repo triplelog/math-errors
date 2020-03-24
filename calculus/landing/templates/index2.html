@@ -1,0 +1,201 @@
+{% load piwik %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Enter a function to get its derivative and an interactive, step by step solution. Use our calculator to solve homework problems or study for the next test.">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+
+    <title>Derivative Error Finder</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="static/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="static/css/starter-template.css" rel="stylesheet">
+    <link href="static/css/share.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+    <style>
+
+    #myCanvas {
+        display: block;
+        padding: 0;
+        margin: 0 auto;
+
+
+    }
+
+    @media(max-width:1200px) {
+
+        #myCanvas {
+            width: 100%;
+            height: auto;
+        }
+    }
+    .variable_link {
+      font-size: 25px;
+      text-decoration: underline;
+    }
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <script src="assets/js/ie-emulation-modes-warning.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+
+
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
+    <div class="container">
+
+      <div class="starter-template">
+        <div class="col-md-3 col-lg-4">
+            <div class="row visible-md visible-lg">
+                <h4>Enter Function Below:</h4>
+            </div>
+            <div class="row the_form">
+                <form action="" method="post" data-ajax="false">
+            {% csrf_token %}
+            {{ form }}
+            <br />
+            <button type="submit" class="btn btn-lg btn-primary" onclick="javascript:_paq.push(['trackEvent', 'Solve', 'Click']);">See Solution</button><br />
+            
+            </form>
+            </div>
+
+            
+
+            {% if is_derivative %}
+
+            {% endif %}
+            
+ 
+            
+
+            
+        </div>
+        <div class="col-md-9 col-lg-8">
+          {% if is_derivative %}
+          <div class="row">
+              <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">The derivative of <div class="katex_div_il">{{ ofunction }}</div> is:</h3>
+                    </div>
+                    <div class="panel-body katex_div">
+                      {{ full_derivative }}
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">{{ error |safe }}</h3>
+                    </div>
+                    
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            <div class="row">
+                    
+                            {% if is_derivative %}
+                        <div class="panel panel-primary" data-role="page" id="pageone"><iframe src='https://server0.calculuscollege.com/videoDerivative.html?var=x&{{ my_function }}' width="100%" height="900" frameborder="0" scrolling="no"></iframe></div>
+                        {% else %}
+                        <div class="row">
+                                      <div class="col-md-12"><div class="panel panel-primary">
+                            <div class="panel-heading">
+                                          <h1 class="panel-title">How to use the interactive step by step derivative calculator</h1>
+                                        </div>
+                                        <div class="panel-body text-left">
+                            <ol>
+                              <li>Enter the function you want to take the derivative of in the box to the left and click See Solution.</li>
+                              <li>Check that the function that appears below is actually the function you want the derivative of.</li>
+                              <li>A step by step interactive solution will appear here.</li>
+                              <li>Press the right arrow to advance a step and the left arrow to go back.</li>
+                              <li>Follow along and make sure you understand each step.</li>
+                              <li>Enter another function and start again.</li>
+                            </ol>
+                                    
+
+                                  </div></div></div></div>
+                                      
+                        {% endif %}
+
+                    
+
+            </div>
+        </div>
+                        
+        <script type="text/javascript">
+            // grab all elements in DOM with the class 'equation'
+            var tex = document.getElementsByClassName("katex_div");
+            // for each element, render the expression attribute
+            Array.prototype.forEach.call(tex, function(el) {
+                katex.render(el.innerHTML, el);
+            });
+            // grab all elements in DOM with the class 'equation'
+            var tex = document.getElementsByClassName("katex_div_il");
+            // for each element, render the expression attribute
+            Array.prototype.forEach.call(tex, function(el) {
+                katex.render(el.innerHTML, el);
+            });
+        </script>
+    </div>
+
+
+    </div><!-- /.container -->
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="static/js/ie10-viewport-bug-workaround.js"></script>
+    <script>
+$(document).on("pageshow", "[data-role='page']", function () {
+ $('div.ui-loader').remove();
+});
+</script>
+	{% piwik %}
+  </body>
+</html>
+

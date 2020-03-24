@@ -1,0 +1,102 @@
+{% extends "base_generic.html" %}
+{% block title %}Trigonometric Functions Lesson - Learn how to differentiate trigonometric functions with Calculus College{% endblock %}
+{% block content %}
+
+<section id="sub-header">
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 text-center">
+            <h1>How to differentiate trigonometric functions</h1>
+
+        </div>
+    </div><!-- End row -->
+</div><!-- End container -->
+<div class="divider_top"></div>
+</section><!-- End sub-header -->
+
+<section id="main_content">
+
+<div class="container">
+
+
+     <div class="row">
+     <aside class="col-md-4">
+        <div class=" box_style_1">
+                
+                <div class="widget">
+                    <h4>Formal Definition</h4>
+                    <p>
+                         If the function is x raised to a constant power, then the derivative is the exponent multiplied by x raised to the one less than the constant power.
+                    </p>
+                </div><!-- End widget -->
+               
+                
+                <div class="widget">
+                    <h4>Links</h4>
+                    
+                    <ul class="recent_post">
+                        <li>
+                        <i class="icon-link"></i><a href="#">Power Rule Worksheet</a>
+                        <div>Work as many problems as you need. They're broken into many categories for your pleasure.</div>
+                        </li>
+                        <li>
+                        <i class="icon-video"></i><a href="#">PatrickJMT Power Rule</a>
+                        <div>PatrickJMT works through a power rule problem.</div>
+                        </li>
+                        <li>
+                        <i class="icon-video"></i><a href="#">Khan Academy Power Rule</a>
+                        <div>A Khan Academy video about the power rule.</div>
+                        </li>
+                    </ul>
+                </div><!-- End widget -->
+                
+
+                
+            </div><!-- End box-sidebar -->
+     </aside><!-- End aside -->
+     
+     <div class="col-md-8">
+            <div class="post">
+                    <a href="blog_post.html" title="single_post.html"><img src="static/img/blog-3.jpg" alt="" class="img-responsive"></a>
+                    
+                    <h2><a href="single_post.html" title="single_post.html">The Derivatives of Trig Functions</a></h2>
+                    <p>
+                    Let's start with the two most commonly found trigonometric functions, sin(x) and cos(x). The derivatives are cos(x) and -sin(x), respectively. These functions simply flip to the other one, but remember that the derivative of cosine has that negative in front. These are the two derivatives that you must memorize, but it shouldn't be too hard.
+                    </p>
+                    <p>
+                    How about the derivatives of the other four functions: tan(x), cot(x), sec(x), and csc(x)? The derivatives are sec(x)^2, -csc(x)^2, sec(x)tan(x), and -csc(x)cot(x), respectively. If you haven't learned the quotient rule yet, then you have to learn these four as well. Once you learn the quotient rule you can get these derivatives by knowing the derivatives for sine and cosine, but it usually better to learn these derivatives to save time and reduce the likelihood of mistakes on exams.
+                    </p>
+                    <p>
+                    There are some nice patterns that make these derivatives easy to learn. First, the derivative of any of the functions that start with the letter c will have a negative in front of the derivative and those that do not start with the letter c will not. Then knowing the derivatives of sin(x), tan(x), and sec(x) will yield the other three derivatives by changing the function to its partner and adding a negative.
+                    </p>
+                    <p>
+                    What about inverse trigonometric functions like arcsin(x) and arccos(x)? The derivatives are ...
+                    </p>
+                    <p>
+                    What if the exponent is not a number like in x^c or x^{\pi}? The derivatives are cx^{c-1} and \pix^{\pi-1}. These may seem trickier, but the same rule applies even if the answer may not look as clean. 
+                    </p>
+                    <p>
+                    Now that we can confidently apply the power rule we should try to use it as often as possible. When the function looks like x^{[...]} it is obvious, but what about sqrt(x) or 1/x? People don't like writing x^{1/2} so generally the sqrt(x) notation is used, but for derivatives it is easier to rewrite radicals as fractional exponents because we already learned how to differentiate these functions. The same idea applies to powers of x in the denominator which can be rewritten as negative exponents. And if any rules of exponents can be applied then simplify before trying to differentiate. Rewrite a few functions so that the power rule can be applied.
+                    </p>
+                    <p>
+                    So far we've only differentiated with respect to x. Most of the time x is the variable of differentiation, but any letter or expression can play the role of x. Make sure you know what variable you are differentiating with respect to. f'(x), or dy/dx, is completely different from f'(t), or dy/dt. The derivative with respect to t will be 0 for any of the above functions like x^2. However, usually if you are asked to find f'(t) then the function will look like t^2 and the power rule is the exact same as for x. Try the examples below, but be mindful of the variable of differentiation at all times and you shouldn't have any issues.
+                    </p>
+                    The power rule also works when differentiating with respect to some expression involving x. You cannot apply the power rule unless the base is exactly what you are differentiating with respect to, but when using the chain rule you might be differentiating with respect to a rather complicated expression of x. If y=(2x+1)^12 then dy/dx will not be a direct application of the power rule, but dy/d(2x+1) will simply be 12(2x+1)^11. Try a few of these.
+                    </p>
+                    <p>
+                    Okay, so that covers the power rule. If you have followed along and worked the examples until you felt comfortable then you can move on to other rules. If you still have questions, work through the power rule worksheet, visit the Derivatives section of our forums to ask questions or read answers to previous questions, and/or check out the links to other resources on the left.
+                    </p>
+         
+         </div><!-- end post -->
+                
+                
+                
+                
+     </div><!-- End col-md-8-->   
+  
+    
+  </div>  <!-- End row-->    
+</div><!-- End container -->
+</section><!-- End main_content-->
+
+{% endblock %}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-IE">
+<head>
+  <meta charset="utf-8" />
+  <title>Calculus College demo of various things</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="static/css/videoStyles.css" />
+  <link rel="shortcut icon" href="static/img/bflylogocrop78dark.png" type="image/x-icon"/>
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv-printshiv.min.js" type="text/javascript"></script><![endif]-->
+</head>
+<body>
+  <h1>Demo of some things that somewhat work</h1>
+
+    Differentiate a function of x.
+
+    <form action="" method="post" data-ajax="false">
+    {% csrf_token %}
+    {{ form2 }}
+    <button type="submit" class="btn btn-lg btn-primary"><b>Video </b><span id="message"></span></button>
+    </form>
+
+    <br />Integrate a function of x.
+    <form action="" method="post" data-ajax="false">
+    {% csrf_token %}
+    {{ form4 }}
+    <button type="submit" class="btn btn-lg btn-primary"><b>Video </b><span id="message"></span></button>
+    </form>
+
+    <br />Evaluate trigonometric functions at the most common angles.
+    <form action="" method="post" data-ajax="false">
+    {% csrf_token %}
+    {{ form1 }}
+    <button type="submit" class="btn btn-lg btn-primary"><b>Video </b><span id="message"></span></button>
+    </form>
+
+    <br />Compute a Riemann sum.
+    <form action="" method="post" data-ajax="false">
+    {% csrf_token %}
+    {{ form3 }}
+    <button type="submit" class="btn btn-lg btn-primary"><b>Video </b><span id="message"></span></button>
+    </form>
+
+    <br />Determine the equation of the tangent line.
+    <form action="" method="post" data-ajax="false">
+    {% csrf_token %}
+    {{ form5 }}
+    <button type="submit" class="btn btn-lg btn-primary"><b>Video </b><span id="message"></span></button>
+    </form>
+
+    <br />Compute the Newton Approximation.
+    <form action="" method="post" data-ajax="false">
+    {% csrf_token %}
+    {{ form6 }}
+    <button type="submit" class="btn btn-lg btn-primary"><b>Video </b><span id="message"></span></button>
+    </form>
+
+    <br />Some non-video demos:
+    <br />Find your differentiation Error.
+    <form action="" method="post" data-ajax="false">
+    {% csrf_token %}
+    {{ form7 }}
+    <button type="submit" class="btn btn-lg btn-primary"><b>Check Answer </b><span id="message"></span></button>
+    </form>
+
+    <br />
+    <a href='/trigInteractive.html'>Click here for an interactive trigonometry activity</a>
+    <br />
+    <a href='/riemannInteractive.html'>Click here for an interactive Riemann sums activity</a>
+
+
+    
+
+  
+</body>
+</html>

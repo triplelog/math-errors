@@ -1,0 +1,147 @@
+{% extends "base_generic.html" %}
+{% block title %}Calculus College - Learn Calculus{% endblock %}
+{% block content %}
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
+    <div class="container">
+
+      <div class="starter-template">
+        <div class="row" style="margin-top:25px; margin-bottom:25px;">
+            <div class="col-md-3 visible-md visible-lg">
+                <h4>Enter Function to Differentiate:</h4>
+            </div>
+            <div class="the_form">
+                <form action="" method="post" data-ajax="false">
+            {% csrf_token %}
+            <div class="col-md-7">{{ form }}</div>
+
+            <div class="col-md-2"><button type="submit" class="btn btn-lg btn-primary" onclick="javascript:_paq.push(['trackEvent', 'Solve', 'Click']);">See Solution</button></div>
+            
+            </form>
+            </div>
+
+            
+
+            {% if is_derivative %}
+
+            {% endif %}
+            
+ 
+            
+
+            
+        </div>
+        <div class="row">
+          {% if is_derivative %}
+          <div class="row">
+              <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">The derivative of <div class="katex_div_il">{{ ofunction }}</div> is:</h3>
+                    </div>
+                    <div class="panel-body katex_div">
+                      {{ full_derivative }}
+                    </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            <div class="row">
+                    
+                            {% if is_derivative %}
+                        <div class="panel panel-primary" data-role="page" id="pageone"><iframe src='https://server1.triplelog.com/swipe.html?{{ my_function }}' width="100%" height="900" frameborder="0" scrolling="no"></iframe></div>
+                        {% else %}
+                        <div class="row">
+                                      <div class="col-md-6"><div class="panel panel-primary">
+                            <div class="panel-heading">
+                                          <h1 class="panel-title">How to use the interactive step by step derivative calculator</h1>
+                                        </div>
+                                        <div class="panel-body text-left">
+                            <ol>
+                              <li>Enter the function you want to differentiate in the box click See Solution.</li>
+                              <li>Check that the function that appears is actually the function you want to differentiate.</li>
+                              <li>A step by step interactive solution will appear here.</li>
+                              <li>Press the right arrow to advance a step and the left arrow to go back.</li>
+                              <li>Follow along and make sure you understand each step.</li>
+                              <li>Enter another function and start again.</li>
+                            </ol>
+                                    
+
+                                  </div></div></div>
+
+                                  <div class="col-md-6"><div class="panel panel-primary">
+                            <div class="panel-heading">
+                                          <h1 class="panel-title">How to take derivatives</h1>
+                                        </div>
+                                        <div class="panel-body text-left">
+                            <ol>
+                              <li>Check if the sum rule can simplify the function.</li>
+                              <li>Check if the power rule applies.</li>
+                              <li>Check if the function is exponential, logarithmic, or trigonometric.</li>
+                              <li>Check if the product or quotient rule applies.</li>
+                              <li>Check if the chain rules applies.</li>
+                              <li>Check if logarithmic differentiation is necessary.</li>
+                              <li>Assuming one of the above applies, do it and repeat the process.</li>
+                              <li>Eventually no more differentiation will be required and you have your derivative.</li>
+                            </ol>
+                                    
+
+                                  </div></div></div>
+
+
+
+                                  </div>
+                                      
+                        {% endif %}
+
+                    
+
+            </div>
+        </div>
+                        
+        <script type="text/javascript">
+            // grab all elements in DOM with the class 'equation'
+            var tex = document.getElementsByClassName("katex_div");
+            // for each element, render the expression attribute
+            Array.prototype.forEach.call(tex, function(el) {
+                katex.render(el.innerHTML, el);
+            });
+            // grab all elements in DOM with the class 'equation'
+            var tex = document.getElementsByClassName("katex_div_il");
+            // for each element, render the expression attribute
+            Array.prototype.forEach.call(tex, function(el) {
+                katex.render(el.innerHTML, el);
+            });
+        </script>
+    </div>
+
+
+    </div><!-- /.container -->
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="static/js/ie10-viewport-bug-workaround.js"></script>
+    <script>
+$(document).on("pageshow", "[data-role='page']", function () {
+ $('div.ui-loader').remove();
+});
+</script>
+{% endblock %}
+

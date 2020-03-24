@@ -1,0 +1,4 @@
+calculus/db.sqlite3
+calculus/calculus/__pycache__
+*.pyc
+/calculus/static/admin

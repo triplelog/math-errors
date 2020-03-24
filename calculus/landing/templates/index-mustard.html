@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calculus Videos</title>
+
+    
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+
+    <!-- Normalize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="static/css/videoStyles.css" />
+    <!-- Mustard UI -->
+    <link rel="stylesheet" href="static/css/mustard/dist/css/mustard-ui.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js" integrity="sha384-483A6DwYfKeDa0Q52fJmxFXkcPCFfnXMoXblOkJ4JcA8zATN6Tm78UNL72AKk+0O" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav style="background-color:rgba(255, 0, 0, 0.5);">
+        <div class="nav-container" style="background-color:rgba(0, 0, 0, 0.0);">
+            <div class="nav-logo">
+                <a href="/">Calculus Videos</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Solutions</a></li>
+                <li><a href="#">Explainers</a></li>
+                <li><a href="#">Q and A</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+
+        <section class="section-secondary" style="background-image: url('static/img/trianglify.png'); padding-top:0px;">
+            
+            <div class="container">
+
+                <!--<h2 class="h4">What are you looking for?</h2>-->
+
+                <div class="row" style="margin-top:0px;">
+                    <div class="col col-xs-12 col-lg-6">
+                        <div class="panel">
+                            <div class="panel-head">
+                                <h2 class="panel-title">Video Solutions</h2>
+                            </div>
+
+                            <div class="panel-body">
+                                <p>Step-by-step video solutions for a variety of calculus problems.</p>
+                            </div>
+
+                            <div class="panel-footer">
+                                <div class="form-control">
+                                    <input type="text" placeholder="Enter f(x) here...">
+                                </div>
+
+                                <div class="form-control">
+                                    <button class="button-primary">Differentiate</button>
+                                    <button class="button-primary">Integrate</button>
+                                    <button class="button-primary">More</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-xs-12 col-lg-6">
+                        <div class="panel">
+                            <div class="panel-head">
+                                <center><h2 class="panel-title">Explainer Videos</h2></center>
+                            </div>
+
+                            <div class="panel-body">
+                                <p>Watch explanations about important calculus topics like the chain rule, integration by parts, trigonometry, related rates, and more. </p>
+                            </div>
+
+                            <div class="panel-footer">
+                                <button class="button-primary">Radians</button>
+                                <button class="button-primary">Chain Rule</button>
+                                <button class="button-primary">More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <section class="section-tertiary">
+            <div class="container-large">
+                <div class="row">
+                    <figure id="videoContainer" data-fullscreen="false">
+                        <video id="video" controls preload="metadata">
+                          <source src="media/new/{{ videoUrl}}.mp4" type="video/mp4">
+                          <!-- Flash fallback -->
+                          <object type="application/x-shockwave-flash" data="flash-player.swf?videoUrl=http://iandevlin.github.io/mdn/video-player/video/tears-of-steel-battle-clip-medium.mp4" width="1024" height="576">
+                            <param name="movie" value="flash-player.swf?videoUrl=http://iandevlin.github.io/mdn/video-player/video/tears-of-steel-battle-clip-medium.mp4" />
+                            <param name="allowfullscreen" value="true" />
+                            <param name="wmode" value="transparent" />
+                            <param name="flashvars" value="controlbar=over&amp;image=img/poster.jpg&amp;file=flash-player.swf?http://iandevlin.github.io/mdn/video-player/videoUrl=video/tears-of-steel-battle-clip-medium.mp4" />
+                            <img alt="Tears of Steel poster image" src="img/poster.jpg" width="1024" height="428" title="No video playback possible, please download the video from the link below" />
+                          </object>
+                          <track label="English" kind="subtitles" srclang="en" src="media/new/{{ videoUrl}}.vtt" default>
+                          <!-- Offer download 
+                          <a href="http://iandevlin.github.io/mdn/video-player/video/tears-of-steel-battle-clip-medium.mp4">Download MP4</a>-->
+                        </video>
+                        <div id="video-controls" class="controls" data-state="hidden">
+                          <button id="backone" type="button" data-state="backone">Back</button>
+                          <button id="playpause" type="button" data-state="play">Play/Pause</button>
+                          <button id="forwardone" type="button" data-state="forwardone">Next</button>
+                          <div class="progress">
+                            <progress id="progress" value="0" min="0">
+                              <span id="progress-bar"></span>
+                            </progress>
+                            <span id="progressOver">
+                            </span>
+                          </div>
+                          <button id="mute" type="button" data-state="mute">Mute/Unmute</button>
+                          <button id="volinc" type="button" data-state="volup">Vol+</button>
+                          <button id="voldec" type="button" data-state="voldown">Vol-</button>
+                          <button id="fs" type="button" data-state="go-fullscreen">Fullscreen</button>
+                          <button id="settings" type="button" data-state="settings">Settings</button>
+                        </div>
+                        <figcaption id="figcaption">
+                          
+                        </figcaption>
+
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="section-tertiary"  style="background-image: url('static/img/trianglify2.png');">
+            <div class="container">
+                <h2 class="h4">Explainer Videos</h2>
+                <div class="pricing-table row">
+                    <div class="col col-md-6 col-lg-4">
+                        <div class="card">
+                            <h3 class="card-title">How to Differentiate</h3>
+                            <ul>
+                                <li><a href="differentiation_strategy.html">Differentiation Strategy</a></li>
+                                <li><a href="chain_rule.html">Chain Rule</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col col-md-6 col-lg-4">
+                        <div class="card">
+                            <h3 class="card-title">How to Integrate</h3>
+                            <ul>
+                                <li><a href="u_substitution.html">U Substitution</a></li>
+                                <li><a href="integration_by_parts.html">Integration by Parts</a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="col col-md-6 col-lg-4 col-lg-offset-0">
+                        <div class="card">
+                            <h3 class="card-title">More Topics</h3>
+                            <ul>
+                                <li><a href="why_radians.html">Why Radians?</a></li>
+                                <li><a href="newton_approximation.html">Newton Approximation</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <section class="section-secondary">
+            <div class="container">
+                <h2 class="h4">Video Solutions</h2>
+                <div class="pricing-table row">
+                    <div class="col col-sm-12 col-lg-6">
+                        <div class="card">
+                            <h3 class="card-title">Derivatives <small>(<a>help</a>)</small></h3>
+
+                            <form action="videoDerivative.html" method="get" data-ajax="false" id="derivativeSolution" autocomplete="off">
+                                <div class="form-control">
+                                    
+                                    {{ form1.der_fn.label_tag }}
+                                    {{ form1.der_fn }}
+                                    <p class="validation-error" style="display: none;">Please enter a valid function of x.</p>
+                                    
+                                
+                                </div>
+                                <span id="derivativeMessage" style="min-height: 3em; display: block;"></span>
+                                <ul class="card-actions">
+                                    <li>
+                                        <button type="submit" class="button-primary">See solution</button>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col col-sm-12 col-lg-6">
+                        <div class="card">
+                            <h3 class="card-title">Integrals <small>(<a>help</a>)</small></h3>
+
+                            <form action="videoIntegral.html" method="get" data-ajax="false" id="integralSolution" autocomplete="off">
+                                <div class="form-control">
+                                    
+                                    
+                                    {{ form2 }}
+                                    
+                                
+                                </div>
+                                <span id="integralMessage" style="min-height: 3em; display: block;"></span>
+                                <ul class="card-actions">
+                                    <li>
+                                        <button type="submit" class="button-primary">See solution</button>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col col-sm-12 col-lg-6">
+                        <div class="card">
+                            <h3 class="card-title">Riemann Sums <small>(<a>help</a>)</small></h3>
+
+                            <form action="videoRiemann.html" method="get" data-ajax="false" id="riemannSolution" autocomplete="off">
+                                <div class="form-control">
+                                    
+                                    {{ form3.rie_fn.label_tag }}
+                                    {{ form3.rie_fn }}
+                                    
+                                    
+                                
+                                </div>
+                                <div class="form-control-group">
+                                    <div class="form-control">
+                                        {{ form3.rie_a.label_tag }}
+                                        {{ form3.rie_a }}
+                                        <p class="validation-error" style="display: none;">Please enter a number.</p>
+                                    </div>
+
+                                    <div class="form-control">
+                                        {{ form3.rie_b.label_tag }}
+                                        {{ form3.rie_b }}
+                                    </div>
+                                </div>
+                                <div class="form-control-group">
+                                    <div class="form-control">
+                                        {{ form3.rie_n.label_tag }}
+                                        {{ form3.rie_n }}
+                                    </div>
+
+                                    <div class="form-control">
+                                        {{ form3.rie_r.label_tag }}
+                                        {{ form3.rie_r }}
+                                    </div>
+                                </div>
+                                <span id="riemannMessage"></span>
+                                <canvas id="riemannGraph" width="0" height="0"></canvas>
+                                <ul class="card-actions">
+                                    <li>
+                                        <button type="submit" class="button-primary">See solution</button>
+                                    </li>
+                                </ul>
+                            </form>
+
+                        </div>
+                    </div>
+                    <div class="col col-sm-12 col-lg-6">
+                        <div class="card">
+                            <h3 class="card-title">Tangent Lines <small>(<a>help</a>)</small></h3>
+
+                            <form action="videoTangent.html" method="get" data-ajax="false" id="tangentSolution" autocomplete="off">
+                                <div class="form-control">
+                                    
+                                    
+                                    {{ form4 }}
+                                    
+                                
+                                </div>
+                                <span id="tangentMessage"  style="min-height: 2em; display: block;"></span>
+                                <ul class="card-actions">
+                                    <li>
+                                        <button type="submit" class="button-primary">See solution</button>
+                                    </li>
+                                </ul>
+                            </form>
+
+                        </div>
+                    </div>
+                    <div class="col col-sm-12 col-lg-6">
+                        <div class="card">
+                            <h3 class="card-title">Newton Approximation <small>(<a>help</a>)</small></h3>
+
+                            <form action="videoNewton.html" method="get" data-ajax="false" id="newtonSolution" autocomplete="off">
+                                <div class="form-control">
+                                    
+                                    
+                                    {{ form5 }}
+                                    
+                                
+                                </div>
+                                <span id="newtonMessage"></span>
+                                <ul class="card-actions">
+                                    <li>
+                                        <button type="submit" class="button-primary">See solution</button>
+                                    </li>
+                                </ul>
+                            </form>
+
+                        </div>
+                    </div>
+                    <div class="col col-sm-12 col-lg-6">
+                        <div class="card">
+                            <h3 class="card-title">Trigonometric Values <small>(<a>help</a>)</small></h3>
+
+                            <form action="videoTrig.html" method="get" data-ajax="false" id="trigSolution" autocomplete="off">
+                                <div class="form-control">
+                                    
+                                    
+                                    {{ form6 }}
+                                    
+                                
+                                </div>
+                                <span id="trigMessage"></span>
+                                <img id="trigKnob" src='static/img/knob.png' style="display:none;"></img>
+                                <ul class="card-actions">
+                                    <li>
+                                        <button type="submit" class="button-primary">See solution</button>
+                                    </li>
+                                </ul>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <section class="section-tertiary" style="background-image: url('static/img/trianglify2.png');">
+            <div class="container">
+
+                <div class="pricing-table row">
+                    <div class="col col-md-6 col-lg-4 col-lg-offset-2">
+                        <div class="package">
+                            <p class="package-name">Free</p>
+                            <hr>
+
+                            <p class="price">$0</p>
+                            <!--<p class="disclaimer">per user</p>-->
+                            <hr>
+
+                            <ul class="features">
+                                <li>Watch explainer videos</li>
+                                <li>Watch unlocked solutions</li>
+                                <li>Occasional advertisements</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col col-md-6 col-lg-4">
+                        <div class="package featured">
+                            <p class="package-name">Premium</p>
+                            <hr>
+
+                            <p class="price">$5</p>
+                            <p class="disclaimer">6 months (non-recurring)</p>
+                            <hr>
+
+                            <ul class="features">
+                                <li>Access to every video</li>
+                                <li>Unlock 1 video for everyone</li>
+                                <li>Faster server</li>
+                                <li>Ad-free</li>
+                                <li>Support more/better videos<li>
+                            </ul>
+                            <button class="button-primary">Get Started</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+    <script>
+
+
+    function doLatexD(e){
+       if (e && e.keycode != 13){
+        var target = e.target || e.srcElement;
+        var uri = 'apiDerivative.html?q='+encodeURIComponent(target.value);
+
+
+          el = document.getElementById("derivativeMessage");
+          
+
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange=function() {
+            if (this.readyState == 4 && this.status == 200) {
+              katex.render(this.responseText,el);
+            }
+          };
+          xhttp.open("GET", uri, true);
+          xhttp.send();
+
+       }
+       
+    }
+    function doLatexI(e){
+       if (e && e.keycode != 13){
+        var target = e.target || e.srcElement;
+        var uri = 'apiIntegral.html?q='+encodeURIComponent(target.value);
+
+
+          el = document.getElementById("integralMessage");
+          
+
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange=function() {
+            if (this.readyState == 4 && this.status == 200) {
+              katex.render(this.responseText,el);
+            }
+          };
+          xhttp.open("GET", uri, true);
+          xhttp.send();
+
+       }
+       
+    }
+    function doLatexNewton(e,formn){
+       if (e && e.keycode != 13){
+        var target = e.target || e.srcElement;
+        if (formn == 1){
+            var uri = 'apiNewton.html?q='+encodeURIComponent(target.value)+'&x='+encodeURIComponent(document.getElementById('id_new_x').value);
+        }
+        else{
+            var uri = 'apiNewton.html?q='+encodeURIComponent(document.getElementById('id_new_fn').value)+'&x='+encodeURIComponent(target.value);
+        }
+
+
+          el = document.getElementById("newtonMessage");
+          
+
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange=function() {
+            if (this.readyState == 4 && this.status == 200) {
+              katex.render(this.responseText,el);
+            }
+          };
+          xhttp.open("GET", uri, true);
+          xhttp.send();
+
+       }
+       
+    }
+
+    function doLatexRiemann(e,formn){
+       if (e && e.keycode != 13){
+        var target = e.target || e.srcElement;
+        if (formn==1){
+        var uri = 'apiRiemann.html?q='+encodeURIComponent(target.value)+'&a='+encodeURIComponent(document.getElementById('id_rie_a').value)+'&b='+encodeURIComponent(document.getElementById('id_rie_b').value)+'&n='+encodeURIComponent(document.getElementById('id_rie_n').value)+'&r='+encodeURIComponent(document.getElementById('id_rie_r').value);
+        }
+        else if (formn==2){
+            var uri = 'apiRiemann.html?q='+encodeURIComponent(document.getElementById('id_rie_fn').value)+'&a='+encodeURIComponent(target.value)+'&b='+encodeURIComponent(document.getElementById('id_rie_b').value)+'&n='+encodeURIComponent(document.getElementById('id_rie_n').value)+'&r='+encodeURIComponent(document.getElementById('id_rie_r').value);
+        }
+        else if (formn==3){
+            var uri = 'apiRiemann.html?q='+encodeURIComponent(document.getElementById('id_rie_fn').value)+'&a='+encodeURIComponent(document.getElementById('id_rie_a').value)+'&b='+encodeURIComponent(target.value)+'&n='+encodeURIComponent(document.getElementById('id_rie_n').value)+'&r='+encodeURIComponent(document.getElementById('id_rie_r').value);
+        }
+        else if (formn==4){
+            var uri = 'apiRiemann.html?q='+encodeURIComponent(document.getElementById('id_rie_fn').value)+'&a='+encodeURIComponent(document.getElementById('id_rie_a').value)+'&b='+encodeURIComponent(document.getElementById('id_rie_b').value)+'&n='+encodeURIComponent(target.value)+'&r='+encodeURIComponent(document.getElementById('id_rie_r').value);
+        }
+        else if (formn==5){
+            var uri = 'apiRiemann.html?q='+encodeURIComponent(document.getElementById('id_rie_fn').value)+'&a='+encodeURIComponent(document.getElementById('id_rie_a').value)+'&b='+encodeURIComponent(document.getElementById('id_rie_b').value)+'&n='+encodeURIComponent(document.getElementById('id_rie_n').value)+'&r='+encodeURIComponent(target.value);
+        }
+
+
+          el = document.getElementById("riemannMessage");
+          
+
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange=function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var retText = this.responseText.split('|');
+              katex.render(retText[1],el);
+              changeRiemannCanvas(retText[0].replace('[','').replace(']','').split(','),retText[2].replace('[','').replace(']','').split(','),100,100);
+            }
+          };
+          xhttp.open("GET", uri, true);
+          xhttp.send();
+
+       }
+       
+    }
+    rieid = '';
+    elRiemann = document.getElementById("riemannGraph");
+
+    posrie = 0;
+    runrie = [];
+
+    function changeRiemannCanvas(heights,fnheights,cw,ch){
+
+        elRiemann.width = cw;
+        elRiemann.height = ch;
+        ctx = elRiemann.getContext('2d');
+        ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+        ctx.strokeStyle = 'rgba(0, 0, 0, 1)';
+
+        maxh = 0;
+        for (i=0;i<heights.length;i++){
+            if (Math.abs(parseFloat(heights[i]))>maxh){
+                maxh = Math.abs(parseFloat(heights[i]));
+            }
+        }
+        yskew = ch/2/maxh*.95;
+
+        nRects = heights.length;
+        ctx.beginPath();
+        ctx.moveTo(0,ch/2-parseFloat(fnheights[0])*yskew);
+        for (var i=1;i<nRects*10+1;i++){
+            if (parseFloat(fnheights[i])<0){
+                ctx.lineTo(i*cw/nRects/10,ch/2-parseFloat(fnheights[i])*yskew);
+            }
+            else{
+                ctx.lineTo(i*cw/nRects/10,ch/2-parseFloat(fnheights[i])*yskew);
+            }
+        }
+        ctx.stroke();
+        ctx.closePath();
+
+        runrie = heights;
+        clearInterval(rieid);
+        posrie =0;
+        rieid = setInterval(rieFrame, 10);
+
+    }
+
+    function rieFrame() {
+        cw = 100;
+        ch = 100;
+        maxint = 250;
+
+        maxh = 0;
+        for (i=0;i<runrie.length;i++){
+            if (Math.abs(parseFloat(runrie[i]))>maxh){
+                maxh = Math.abs(parseFloat(runrie[i]));
+            }
+        }
+        yskew = ch/2/maxh*.95;
+
+        if (posrie >= maxint ) {
+            clearInterval(rieid);
+        } else {
+            posrie++; 
+            ctx = elRiemann.getContext('2d');
+            
+            
+            nRects = runrie.length;
+
+            for (var i=0;i<nRects;i++){
+                if (i*maxint<posrie*nRects && (i+1)*maxint>=posrie*nRects){
+                    if (parseFloat(runrie[i])<0){
+                        ctx.fillStyle = 'rgba(255, 0, 0, '+nRects*.01+')';
+                        ctx.fillRect(i*cw/nRects,ch/2,cw/nRects,-1*parseFloat(runrie[i])*yskew*(posrie-i*maxint/nRects)/(maxint/nRects));
+                    }
+                    else{
+                        ctx.fillStyle = 'rgba(0, 0, 255, '+nRects*.01+')';
+                        ctx.fillRect(i*cw/nRects,ch/2-parseFloat(runrie[i])*yskew*(posrie-i*maxint/nRects)/(maxint/nRects),cw/nRects,parseFloat(runrie[i])*yskew*(posrie-i*maxint/nRects)/(maxint/nRects));
+                    }
+                    
+                }
+                if (Math.floor((i+1)*maxint/nRects)==posrie){
+                    if (parseFloat(runrie[i])<0){
+                        ctx.strokeStyle = 'rgba(0, 100, 100, .5)';
+                        ctx.strokeRect(i*cw/nRects,ch/2-parseFloat(runrie[i])*yskew,cw/nRects,parseFloat(runrie[i])*yskew);
+                    }
+                    else{
+                        ctx.strokeStyle = 'rgba(150, 150, 0, .5)';
+                        ctx.strokeRect(i*cw/nRects,ch/2-parseFloat(runrie[i])*yskew,cw/nRects,parseFloat(runrie[i])*yskew);
+                    }
+                }
+            }
+        }
+    }
+
+    function doLatexT(e,formn){
+       if (e && e.keycode != 13){
+        var target = e.target || e.srcElement;
+        if (formn == 1){
+            var uri = 'apiTangent.html?q='+encodeURIComponent(target.value)+'&x='+encodeURIComponent(document.getElementById("id_tan_x").value);
+        }
+        else{
+            var uri = 'apiTangent.html?q='+encodeURIComponent(document.getElementById("id_tan_fn").value)+'&x='+encodeURIComponent(target.value);
+        }
+
+
+          el = document.getElementById("tangentMessage");
+          
+
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange=function() {
+            if (this.readyState == 4 && this.status == 200) {
+              katex.render(this.responseText,el);
+
+            }
+          };
+          xhttp.open("GET", uri, true);
+          xhttp.send();
+
+       }
+       
+    }
+
+
+    trigid = '';
+    elKnob = document.getElementById("trigKnob");
+    pos = 0;
+    runtrig = [];
+
+    function doLatexTrig(e){
+       if (e && e.keycode != 13){
+        var target = e.target || e.srcElement;
+
+        el = document.getElementById("trigMessage");
+        
+        runtrig = trigvalues(target.value);
+        katex.render(runtrig[0],el);
+        
+        clearInterval(trigid);
+        pos =0;
+        elKnob.width = "50";
+        elKnob.style.display = "inline";
+        trigid = setInterval(trigFrame, 10);
+    
+
+
+       }
+       
+    }
+
+
+
+    function trigFrame() {
+
+        if (pos >= 200 ) {
+            clearInterval(trigid);
+        } else {
+            pos++; 
+            elKnob.style.transform = 'rotate('+runtrig[1]*-1*Math.PI/runtrig[2]*pos/200+'rad)';
+        }
+    }
+
+    function trigvalues(str){
+        var fn_type = str.substring(0,3);
+        var anglestr = '';
+        if (str[3] == '('){
+            if (str[str.length-1] == ')'){
+                anglestr = str.substring(4,str.length-1);
+            }
+            else{
+                return [];
+                anglestr = str.substring(4,str.length);
+            }
+        }
+        else{
+            anglestr = str.substring(3,str.length);
+        }
+        anglestr = anglestr.replace(/\*/g, '');
+        
+        var numer = '';
+        var denom = '';
+        
+        if (anglestr.indexOf('/')>-1){
+            denom = anglestr.substring(anglestr.indexOf('/')+1,anglestr.length);
+        }
+        else {
+            denom = '1';
+        }
+        
+        if (anglestr.search(/pi/i)>-1){
+            numer = anglestr.substring(0,anglestr.search(/pi/i));
+        }
+        else {
+            numer = '0';
+        }
+        
+        if (numer == ''){numer = '1'}
+        if (numer == '-'){numer = '-1'}
+
+        return [myLatex(fn_type,numer,denom)+'='+myValue(fn_type,numer,denom),numer,denom];
+
+    }
+
+    function myValue(fn_type,numer,denom){
+        var trigValue = 0;
+        var flip = false;
+        var isneg = false;
+        if (fn_type == 'sin'){trigValue = Math.sin(parseInt(numer)*Math.PI/parseInt(denom));}
+        else if (fn_type == 'cos'){trigValue = Math.cos(parseInt(numer)*Math.PI/parseInt(denom));}
+        else if (fn_type == 'tan'){}
+        else if (fn_type == 'sec'){trigValue = Math.cos(parseInt(numer)*Math.PI/parseInt(denom)); flip = true;}
+        else if (fn_type == 'csc'){trigValue = Math.sin(parseInt(numer)*Math.PI/parseInt(denom)); flip = true;}
+        else if (fn_type == 'cot'){}
+        
+        if (trigValue <0){
+            var valNumer = Math.round(Math.pow(trigValue*2,2),0); isneg = true;
+        }
+        else {
+            var valNumer = Math.round(Math.pow(trigValue*2,2),0);
+        }
+        var fracstr = '1';
+        if (valNumer == 1){
+            if (flip){fracstr = '2';}
+            else {fracstr = '\\frac{1}{2}';}
+        }
+        else if (valNumer == 2){
+            if (flip){fracstr = '\\sqrt{2}';}
+            else {fracstr = '\\frac{\\sqrt{2}}{2}';}
+        }
+        else if (valNumer == 3){
+            if (flip){fracstr = '\\frac{2}{\\sqrt{3}}';}
+            else {fracstr = '\\frac{\\sqrt{3}}{2}';}
+        }
+        else if (valNumer == 4){
+            if (flip){fracstr = '1';}
+            else {fracstr = '1';}
+        }
+        else if (valNumer == 0){
+            if (flip){fracstr = 'undefined';}
+            else {fracstr = '0';}
+        }
+        if (isneg) {
+            if (fracstr != '0' && fracstr != 'undefined'){
+                fracstr = '-'+fracstr;
+            }
+        }
+        
+        return fracstr;
+    }
+
+    function myLatex(fn_type,numer,denom){
+        if (numer == 0){
+            return '\\'+fn_type+'(0)';
+        }
+        else if (denom == 1){
+            if (numer == -1) {return '\\'+fn_type+'(-\\pi)';}
+            else if (numer == 1) {return '\\'+fn_type+'(\\pi)';}
+            else {
+                return '\\'+fn_type+'('+numer+'\\pi)';
+            }
+        }
+        else {
+            if (numer == -1) {return '\\'+fn_type+'(\\frac{-\\pi}{'+denom+'})';}
+            else if (numer == 1) {return '\\'+fn_type+'(\\frac{\\pi}{'+denom+'})';}
+            else {
+                return '\\'+fn_type+'(\\frac{'+numer+'\\pi}{'+denom+'})';
+            }
+        }
+        return ''
+    }
+    </script>
+    <!-- Footer -->
+    <footer>
+        <!--<div class="container">
+            <div class="row">
+                <div class="col col-lg-5">
+                    <div class="footer-text">
+                        <p class="h3">Footer Example</p>
+                        <p>This is an example of the footer component.  You don't have to use this layout, but it's a good example of what you can do with what's provided.  If you wanted to included more columns for links and remove this text block, you can.</p>
+                    </div>
+                </div>
+                <div class="col col-sm-6 col-lg-3 col-lg-offset-1">
+                    <h4 class="footer-links-category">Links Category 1</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Link #1</a></li>
+                        <li><a href="#">Link #2</a></li>
+                        <li><a href="#">Link #3</a></li>
+                    </ul>
+                </div>
+
+                <div class="col col-sm-6 col-lg-3">
+                    <h4 class="footer-links-category">Links Category 2</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Link #1</a></li>
+                        <li><a href="#">Link #2</a></li>
+                        <li><a href="#">Link #3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>-->
+
+        <p class="copyright align-center">Made by Triplelog, LLC.</p>
+
+    </footer>
+    <script>
+        var steps = [];
+
+    </script>
+    <script src="static/js/video-player.js"></script>
+
+
+    
+</body>
+</html>

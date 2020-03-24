@@ -1,0 +1,109 @@
+{% extends "base_generic.html" %}
+{% block title %}Power Rule Lesson - Learn the Power Rule with Calculus College{% endblock %}
+{% block content %}
+
+<section id="sub-header">
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 text-center">
+            <h1>Learn The Power Rule</h1>
+
+        </div>
+    </div><!-- End row -->
+</div><!-- End container -->
+<div class="divider_top"></div>
+</section><!-- End sub-header -->
+
+<section id="main_content">
+
+<div class="container">
+
+
+     <div class="row">
+     <aside class="col-md-4">
+        <div class=" box_style_1">
+                
+                <div class="widget">
+                    <h4>Formal Definition</h4>
+                    <p>
+                         
+                    </p>
+                </div><!-- End widget -->
+               <div class="widget">
+                    <h4>Informal Definition</h4>
+                    <p>
+                         If the function is x raised to a constant power, then the derivative is the exponent multiplied by x raised to the one less than the constant power.
+                    </p>
+                </div><!-- End widget -->
+                
+                <div class="widget">
+                    <h4>Links</h4>
+                    
+                    <ul class="recent_post">
+                        <li>
+                        <i class="icon-link"></i><a href="#">Power Rule Worksheet</a>
+                        <div>Work as many problems as you need. They're broken into many categories for your pleasure.</div>
+                        </li>
+                        <li>
+                        <i class="icon-video"></i><a href="#">PatrickJMT Power Rule</a>
+                        <div>PatrickJMT works through a power rule problem.</div>
+                        </li>
+                        <li>
+                        <i class="icon-video"></i><a href="#">Khan Academy Power Rule</a>
+                        <div>A Khan Academy video about the power rule.</div>
+                        </li>
+                    </ul>
+                </div><!-- End widget -->
+                
+
+                
+            </div><!-- End box-sidebar -->
+     </aside><!-- End aside -->
+     
+     <div class="col-md-8">
+            <div class="post">
+                    <a href="blog_post.html" title="single_post.html"><img src="static/img/pr_flow.png" alt="" class="img-responsive"></a>
+                    
+                    <h2><a href="single_post.html" title="single_post.html">When do we use the power rule? How is it used?</a></h2>
+                    <p>
+                     The power rule applies when x is raised to a constant power. It is important to note that the base must be exactly x, everything else must be in the exponent, and nothing in the exponent can depend on x.
+                    Once you've established that the power rule applies then the power rule is rather simple. The exponent is brought down to become the coefficient and the new exponent is one less than the original.
+                    </p>
+                                <p>
+                                The easiest cases are functions like x^3 or x^7. The derivatives are 3x^2 and 7x^6, respectively. Before moving on, make sure that you agree that these functions are easy to differentiate.
+                    </p>
+                    <p>
+                                Now what happens when the exponent is a negative number, say x^{-3} or x^{-7}?. The derivatives are -3x^{-4} and -7x^{-8}, respectively. If you thinking that's obvious, great. Negative exponents are no different than positive exponents. However, subtracting one from a negative number can seem weird to many students. If your natural reaction is that subtracting one from -7 should yield -6 because 6 is one less than 7, then you need to remember that this is not true and be careful whenever negative exponents appear. Try a few of these types until you're confident that you won't slip up when confronted with a more complicated derivative involving negative expoenents.
+                    </p>
+                    <p>
+                    What about fractional exponents like x^{1/2} or x^{7/4}? The derivatives are 1/2x^{-1/2} and 7/4x^{3/4}, respectively. Again we are applying the same rule so there is nothing new here. The exponent 1/2 is the most common and the derivative has -1/2 as the exponent, but that does not mean that the derivative of x^{1/3} has -1/3 in the exponent. Keep it simple and just always remember to always subtract one.
+                    </p>
+                    <p>
+                    What if the exponent is not a number like in x^c or x^{\pi}? The derivatives are cx^{c-1} and \pix^{\pi-1}. These may seem trickier, but the same rule applies even if the answer may not look as clean. 
+                    </p>
+                    <p>
+                    Now that we can confidently apply the power rule we should try to use it as often as possible. When the function looks like x^{[...]} it is obvious, but what about sqrt(x) or 1/x? People don't like writing x^{1/2} so generally the sqrt(x) notation is used, but for derivatives it is easier to rewrite radicals as fractional exponents because we already learned how to differentiate these functions. The same idea applies to powers of x in the denominator which can be rewritten as negative exponents. And if any rules of exponents can be applied then simplify before trying to differentiate. Rewrite a few functions so that the power rule can be applied.
+                    </p>
+                    <p>
+                    So far we've only differentiated with respect to x. Most of the time x is the variable of differentiation, but any letter or expression can play the role of x. Make sure you know what variable you are differentiating with respect to. f'(x), or dy/dx, is completely different from f'(t), or dy/dt. The derivative with respect to t will be 0 for any of the above functions like x^2. However, usually if you are asked to find f'(t) then the function will look like t^2 and the power rule is the exact same as for x. Try the examples below, but be mindful of the variable of differentiation at all times and you shouldn't have any issues.
+                    </p>
+                <p>
+                    The power rule also works when differentiating with respect to some expression involving x. You cannot apply the power rule unless the base is exactly what you are differentiating with respect to, but when using the chain rule you might be differentiating with respect to a rather complicated expression of x. If y=(2x+1)^12 then dy/dx will not be a direct application of the power rule, but dy/d(2x+1) will simply be 12(2x+1)^11. Try a few of these.
+                    </p>
+                    <p>
+                    Okay, so that covers the power rule. If you have followed along and worked the examples until you felt comfortable then you can move on to other rules. If you still have questions, work through the power rule worksheet, visit the Derivatives section of our forums to ask questions or read answers to previous questions, and/or check out the links to other resources on the left.
+                    </p>
+         
+         </div><!-- end post -->
+                
+                
+                
+                
+     </div><!-- End col-md-8-->   
+  
+    
+  </div>  <!-- End row-->    
+</div><!-- End container -->
+</section><!-- End main_content-->
+
+{% endblock %}

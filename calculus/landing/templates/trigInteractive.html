@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+         
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Quadrants for Trigonometry</title>
+        
+        <link rel="icon" href="">
+        
+        
+        <meta name="description" content="Learn how to determine the correct quadrant of any angle with video, interactive tools, and tips."/>
+        
+        <meta name="google-site-verification" content="iZk9UXmK-YrpxP_EEHKt6ju9nF23ZZW2DdKWKLtjmlA" />
+        <style>
+
+    html body {
+        font-family: 'Raleway', sans-serif;
+        background-color: white;
+    }
+
+    :root {
+        --accent: red;
+        --border-width:  5px ;
+    }
+
+</style>
+
+
+<link rel="stylesheet" href="static/css/trig.css">
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+ 
+
+
+
+
+ <meta name="generator" content="Hugo 0.42" />
+
+        
+        
+        
+		
+		<script src="static/js/CSSPlugin.min.js"></script>
+		<script src="static/js/Draggable.min.js"></script>
+		<script src="static/js/TweenLite.min.js"></script>
+		
+		
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.js" integrity="sha384-U8Vrjwb8fuHMt6ewaCy8uqeUXv4oitYACKdB0VziCerzt011iQ/0TqlSlv8MReCm" crossorigin="anonymous"></script>
+    	
+    	
+    </head>
+
+    <body>
+         
+
+
+<main>
+
+	<div class="box" id="bigBox">
+		<div class="left">
+			<span class="interactive">
+				
+				
+<img id="knob" src="static/img/knob.png" width="200" height="200"/>
+<div id="knobInfo"></div>
+<div>
+	Rotate the above knob until the angle is <span class="katexRender" id="angleSpot"></span> radians.
+</div>
+<div id="toporbottom" style="display: block; visibility: hidden;">
+	<button style="width: 48%; padding: 5px; margin: 1%;" onclick="answerClick(1);" id="torb1">Top</button><button style="width: 48%; padding: 5px; margin: 1%;" onclick="answerClick(2);" id="torb2">Bottom</button>
+</div>
+<div id="leftorright" style="display: block; visibility: hidden;">
+	<button style="width: 48%; padding: 5px; margin: 1%;" onclick="answerClick(3);" id="lorr1">Left</button><button style="width: 48%; padding: 5px; margin: 1%;" onclick="answerClick(4);" id="lorr2">Right</button>
+</div>
+<div id="quadrantName" style="display: block; visibility: hidden;">
+	<button style="width: 23%; padding: 5px; margin: 1%;" onclick="answerClick(5);" id="qn1">1</button><button style="width: 23%; padding: 5px; margin: 1%;" onclick="answerClick(6);" id="qn2">2</button><button style="width: 23%; padding: 5px; margin: 1%;" onclick="answerClick(7);" id="qn3">3</button><button style="width: 23%; padding: 5px; margin: 1%;" onclick="answerClick(8);" id="qn4">4</button>
+</div>
+<div style="display: flex; flex-direction: column; flex-wrap: nowrap; justify-content: space-around;" id="addAnswers">
+	<div style="flex: 1;" id="myAnswer"></div>
+</div>
+
+<script>
+var angleArray = [[30,1,6],[45,1,4],[60,1,3],[120,2,3],[135,3,4],[150,5,6],[210,-5,6],[225,-3,4],[240,-2,3],[300,-1,3],[315,-1,4],[330,-1,6]];
+var angleN = Math.trunc(Math.random()*12);
+var correctAngle = angleArray[angleN][0];
+var angleSpot = document.getElementById('angleSpot');
+if (angleArray[angleN][1] == 1){
+	katex.render("\\frac{\\pi}{"+angleArray[angleN][2].toString()+"}",angleSpot);
+}
+else if (angleArray[angleN][1] == -1){
+	katex.render("\\frac{-\\pi}{"+angleArray[angleN][2].toString()+"}",angleSpot);
+}
+else {
+	katex.render("\\frac{"+angleArray[angleN][1].toString()+"\\pi}{"+angleArray[angleN][2].toString()+"}",angleSpot);
+}
+
+var allQuadrants = false;
+
+var rotationSnap = 90;
+var knobEl = document.getElementById('knobInfo');
+
+function newQuestion() {
+	angleN = Math.trunc(Math.random()*12);
+	correctAngle = angleArray[angleN][0];
+	angleSpot = document.getElementById('angleSpot');
+	if (angleArray[angleN][1] == 1){
+		katex.render("\\frac{\\pi}{"+angleArray[angleN][2].toString()+"}",angleSpot);
+	}
+	else if (angleArray[angleN][1] == -1){
+		katex.render("\\frac{-\\pi}{"+angleArray[angleN][2].toString()+"}",angleSpot);
+	}
+	else {
+		katex.render("\\frac{"+angleArray[angleN][1].toString()+"\\pi}{"+angleArray[angleN][2].toString()+"}",angleSpot);
+	}
+	document.getElementById("torb1").style.backgroundColor = "white";
+	document.getElementById("torb2").style.backgroundColor = "white";
+	document.getElementById("lorr1").style.backgroundColor = "white";
+	document.getElementById("lorr2").style.backgroundColor = "white";
+	document.getElementById("toporbottom").style.visibility = "hidden";
+	document.getElementById("leftorright").style.visibility = "hidden";
+	document.getElementById("quadrantName").style.visibility = "hidden";
+}
+
+function answerClick(buttonId){
+	if (buttonId == 1 || buttonId == 2){
+		if ((correctAngle > 180 && buttonId ==2) || (correctAngle < 180 && buttonId ==1) ){
+			document.getElementById("torb"+buttonId.toString()).style.backgroundColor = "dodgerblue";
+			document.getElementById("torb"+(3-buttonId).toString()).style.backgroundColor = "white";
+			document.getElementById("leftorright").style.visibility = "visible";
+			greenRedRatio[0][1] = Math.min(greenRedRatio[0][1]+.1,.5);
+		}
+		else {
+			document.getElementById("torb"+buttonId.toString()).style.backgroundColor = "white";
+			document.getElementById("torb"+(3-buttonId).toString()).style.backgroundColor = "white";
+			greenRedRatio[0][1] = Math.max(greenRedRatio[0][1]-.25,0);
+		}
+		greenRed();
+	}
+	else if (buttonId == 3 || buttonId == 4){
+		if ((correctAngle < 270 && correctAngle > 90 && buttonId ==3) || ((correctAngle < 90 || correctAngle > 270) && buttonId ==4) ){
+			document.getElementById("lorr"+(buttonId-2).toString()).style.backgroundColor = "dodgerblue";
+			document.getElementById("lorr"+(5-buttonId).toString()).style.backgroundColor = "white";
+			document.getElementById("quadrantName").style.visibility = "visible";
+			greenRedRatio[1][1] = Math.min(greenRedRatio[1][1]+.1,.5);
+		}
+		else {
+			document.getElementById("lorr"+(buttonId-2).toString()).style.backgroundColor = "white";
+			document.getElementById("lorr"+(5-buttonId).toString()).style.backgroundColor = "white";
+			greenRedRatio[1][1] = Math.max(greenRedRatio[1][1]-.25,0);
+		}
+		greenRed();
+	}
+	else if (buttonId >= 5 && buttonId <= 8){
+		if ((correctAngle < 90 && buttonId == 5) || ((correctAngle < 180 || correctAngle > 90) && buttonId ==6) || ((correctAngle < 270 || correctAngle > 180) && buttonId ==7) || ((correctAngle < 360 || correctAngle > 270) && buttonId ==8) ){
+			addCorrect([angleArray[angleN][1],angleArray[angleN][2]],buttonId-4);
+			newQuestion();
+			greenRedRatio[3][1] = Math.min(greenRedRatio[3][1]+.1,.5);
+		}
+		else {
+			greenRedRatio[3][1] = Math.max(greenRedRatio[3][1]-.25,0);
+		}
+		greenRed();
+	}
+}
+Draggable.create("#knob", {
+    type:"rotation", //instead of "x,y" or "top,left", we can simply do "rotation" to make the object spinnable! 
+//Keep track of number of times around the circle
+	onDragEnd:function() {
+		var realAngle = 360-this.rotation;
+		if (realAngle == correctAngle) {
+			document.getElementById("toporbottom").style.visibility = "visible";
+		}
+	},
+   liveSnap:function(endValue) { 
+        //this function gets called when the mouse/finger is released and it plots where rotation should normally end and we can alter that value and return a new one instead. This gives us an easy way to apply custom snapping behavior with any logic we want. In this case, just make sure the end value snaps to 90-degree increments but only when the "snap" checkbox is selected.
+        angleNum = Math.round(endValue/15)*-1;
+
+        if (angleNum%12==1 || angleNum%12==5 || angleNum%12==7 || angleNum%12==11 || angleNum%12==-1 || angleNum%12==-5 || angleNum%12==-7 || angleNum%12==-11){
+        	if (endValue%30>15 || (endValue<0 && endValue%30>-15)){
+        		angleNum -=1;
+        	}
+        	else{
+        		angleNum +=1;
+        	}
+        }
+        if (angleNum%12==2 || angleNum%12==10 || angleNum%12==-2 || angleNum%12==-10){
+        	if (allQuadrants){
+        		katex.render('\\frac{'+(angleNum/2).toString()+'\\pi}{6}',knobEl);
+        	}
+        	else {
+        		if ((angleNum/2-1) %12 == 0){katex.render('\\frac{\\pi}{6}',knobEl);}
+        		else if ((angleNum/2-5) %12 == 0){katex.render('\\frac{5\\pi}{6}',knobEl);}
+        		else if ((angleNum/2-7) %12 == 0){katex.render('\\frac{-5\\pi}{6}',knobEl);}
+        		else if ((angleNum/2-11) %12 == 0){katex.render('\\frac{-1\\pi}{6}',knobEl);}
+        	}
+        }
+        else if (angleNum%12==3 || angleNum%12==9 || angleNum%12==-3 || angleNum%12==-9){
+        	if (allQuadrants){
+        		katex.render('\\frac{'+(angleNum/3).toString()+'\\pi}{4}',knobEl);
+        	}
+        	else {
+        		if ((angleNum/3-1) %8 == 0){katex.render('\\frac{\\pi}{4}',knobEl);}
+        		else if ((angleNum/3-3) %8 == 0){katex.render('\\frac{3\\pi}{4}',knobEl);}
+        		else if ((angleNum/3-5) %8 == 0){katex.render('\\frac{-3\\pi}{4}',knobEl);}
+        		else if ((angleNum/3-7) %8 == 0){katex.render('\\frac{-1\\pi}{4}',knobEl);}
+        	}
+
+        }
+        else if (angleNum%12==4 || angleNum%12==8 || angleNum%12==-4 || angleNum%12==-8){
+        	if (allQuadrants){
+        		katex.render('\\frac{'+(angleNum/4).toString()+'\\pi}{3}',knobEl);
+        	}
+        	else {
+        		if ((angleNum/4-1) %6 == 0){katex.render('\\frac{\\pi}{3}',knobEl);}
+        		else if ((angleNum/4-2) %6 == 0){katex.render('\\frac{2\\pi}{3}',knobEl);}
+        		else if ((angleNum/4-4) %6 == 0){katex.render('\\frac{-2\\pi}{3}',knobEl);}
+        		else if ((angleNum/4-5) %6 == 0){katex.render('\\frac{-1\\pi}{3}',knobEl);}
+        	}
+        }
+        else if (angleNum%12==6 || angleNum%12==-6){
+        	if (allQuadrants){
+        		katex.render('\\frac{'+(angleNum/6).toString()+'\\pi}{2}',knobEl);
+        	}
+        	else {
+        		if ((angleNum/6-1) %4 == 0){katex.render('\\frac{\\pi}{2}',knobEl);}
+        		else if ((angleNum/6-3) %4 == 0){katex.render('\\frac{-1\\pi}{2}',knobEl);}
+        	}
+        }
+        else if (angleNum%12==0){
+        	if (allQuadrants){
+        		katex.render((angleNum/12).toString()+'\\pi',knobEl);
+        	}
+        	else {
+        		if ((angleNum/12-0) %2 == 0){katex.render('0',knobEl);}
+        		else if ((angleNum/12-1) %2 == 0){katex.render('\\pi',knobEl);}
+        	}
+        }
+
+        
+        endValue = endValue-Math.floor(endValue/360)*360;
+        if (endValue%180<15){
+        	return 0+Math.floor(endValue/180)*180;
+        }
+        else if (endValue%180<37.5){
+        	return 30+Math.floor(endValue/180)*180;
+        }
+        else if (endValue%180<52.5){
+        	return 45+Math.floor(endValue/180)*180;
+        }
+        else if (endValue%180<75){
+        	return 60+Math.floor(endValue/180)*180;
+        }
+        else if (endValue%180<105){
+        	return 90+Math.floor(endValue/180)*180;
+        }
+        else if (endValue%180<127.5){
+        	return 120+Math.floor(endValue/180)*180;
+        }
+        else if (endValue%180<142.5){
+        	return 135+Math.floor(endValue/180)*180;
+        }
+        else if (endValue%180<165){
+        	return 150+Math.floor(endValue/180)*180;
+        }
+        else if (endValue%180<180){
+        	return 180+Math.floor(endValue/180)*180;
+        }
+        else {
+
+        	return Math.round(endValue / rotationSnap) * rotationSnap;
+    	}
+
+    }
+});
+
+function addCorrect(angleVal,quadrantVal){
+
+	var newEl = document.createElement("div");
+	var elP = document.getElementById('addAnswers');
+	newEl.style.flex = 1;
+	newEl.id = "myAnswer";
+	
+	var newSpan = document.createElement("span");
+	if (angleVal[0] == 1){
+		katex.render("\\frac{\\pi}{"+angleVal[1].toString()+"}",newSpan, {displayMode: false});
+	}
+	else if (angleVal[0] == -1){
+		katex.render("\\frac{-\\pi}{"+angleVal[1].toString()+"}",newSpan, {displayMode: false});
+	}
+	else {
+		katex.render("\\frac{"+angleVal[0].toString()+"\\pi}{"+angleVal[1].toString()+"}",newSpan, {displayMode: false});
+	}
+	newEl.appendChild(newSpan);
+	newEl.innerHTML += " is in quadrant "+quadrantVal.toString();
+
+	elP.insertBefore(newEl,document.getElementById("myAnswer"));
+
+}
+</script>
+
+
+			</span>
+		</div>
+		
+		<div class="right">
+			<span class="objective">
+				
+<div id="objective1">
+    <h2><center>Objectives</center></h2>
+
+    
+    <br />
+    <div class="anObjective" name="textObjective">
+    	<input type="checkbox"><span class="greenText"></span><span class="redText">Top or Bottom</span>
+    </div>
+    <br />
+    <div class="anObjective" name="textObjective">
+    	<input type="checkbox"><span class="greenText"></span><span class="redText">Left or Right</span>
+    </div>
+    <br />
+    <div class="anObjective" name="textObjective">
+    	<input type="checkbox"><span class="greenText"></span><span class="redText">Identify Quadrant</span>
+    </div>
+
+
+</div>
+
+<script>
+var html = katex.renderToString("\\sin(\\frac{\\pi}{6})");
+
+greenRedRatio = [[0,0],[0,0],[0,0],[0,0]];
+function sumArray(theArray) {
+	var workingSum = 0
+	for (arri=0;arri<theArray.length;arri++) {
+		workingSum += theArray[arri];
+	}
+	return workingSum
+}
+function greenRed() {
+	var allObjectives = document.querySelectorAll('.anObjective');
+	for (i=0;i<allObjectives.length;i++) {
+		if (allObjectives.item(i).getAttribute("name") == 'textObjective') {
+			var allGreen = allObjectives.item(i).querySelector(".greenText");
+    		var allRed = allObjectives.item(i).querySelector(".redText");
+			var x = sumArray(greenRedRatio[i]);
+			if (x>.975) {x = 1}
+			var fullString = allGreen.textContent+allRed.textContent;
+			allGreen.innerHTML = fullString.substring(0,fullString.length*x);
+			allRed.innerHTML = fullString.substring(fullString.length*x,fullString.length);
+			if (x > .975) {
+				if (i>=0) {
+					var index = videoPlaylist.indexOf(i+1);
+					if (index > -1) {
+						//videoPlaylist.splice(index,1);
+					}
+				}
+			}
+		}
+		else {
+			var allColored = allObjectives.item(i).querySelectorAll('[name="coloredText"]');
+			var x = sumArray(greenRedRatio[i]);
+			if (x>.975) {x = 1}
+			for (ii=0;ii<allColored.length*x;ii++) {
+				allColored.item(ii).classList.remove("redText");
+				allColored.item(ii).classList.add("greenText");
+			}
+			for (ii=allColored.length*x;ii<allColored.length;ii++) {
+				allColored.item(ii).classList.remove("greenText");
+				allColored.item(ii).classList.add("redText");
+			}
+		}
+	}
+    
+}
+greenRed();
+function quizButton1(buttonID) {
+    var vid = document.getElementById("myVideo");
+    document.getElementById("pullQuote").innerHTML = vid.currentTime;
+    if (buttonID == 0) {
+        vid.src = "/videos/video5.mp4";
+        chgQuiz(1,3);
+        chgText(1,2);
+        createSudoku("farm");
+    }
+    else {
+        chgQuiz(1,2);
+    }
+}
+</script>
+
+			</span>
+			
+
+
+
+		</div>
+	</div>
+
+
+</main>
+
+
+       
+    </body>
+
+</html>
+

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calculus College Video Solutions</title>
+
+    <link rel="shortcut icon" href="static/img/bflylogocrop78dark.png" type="image/x-icon"/>
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+
+    <!-- Normalize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="static/css/videoStyles.css" />
+    <!-- Mustard UI -->
+    <link rel="stylesheet" href="static/css/mustard/dist/css/mustard-ui.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js" integrity="sha384-483A6DwYfKeDa0Q52fJmxFXkcPCFfnXMoXblOkJ4JcA8zATN6Tm78UNL72AKk+0O" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <nav style="background-color:rgba(255, 0, 0, 0.5);">
+        <div class="nav-container" style="background-color:rgba(0, 0, 0, 0.0);">
+            <div class="nav-logo">
+                <a href="/">Calculus Videos</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Solutions</a></li>
+                <li><a href="#">Explainers</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+
+        <section class="section-secondary" style="padding-top:0px;">
+            
+            <div class="container-large">
+
+                <!--<h2 class="h4">Video Solution</h2>-->
+
+                <div class="row" style="margin-top:0px;">
+                    <div class="col col-xs-12 col-lg-12">
+                        <figure id="videoContainer" data-fullscreen="false">
+                          <video id="video" controls preload="metadata" autoplay>
+                            <source src="{{ videoURL }}" type="video/mp4">
+                            <!-- Flash fallback -->
+                            <object type="application/x-shockwave-flash" data="flash-player.swf?videoUrl=http://iandevlin.github.io/mdn/video-player/video/tears-of-steel-battle-clip-medium.mp4" width="1024" height="576">
+                              <param name="movie" value="flash-player.swf?videoUrl=http://iandevlin.github.io/mdn/video-player/video/tears-of-steel-battle-clip-medium.mp4" />
+                              <param name="allowfullscreen" value="true" />
+                              <param name="wmode" value="transparent" />
+                              <param name="flashvars" value="controlbar=over&amp;image=img/poster.jpg&amp;file=flash-player.swf?http://iandevlin.github.io/mdn/video-player/videoUrl=video/tears-of-steel-battle-clip-medium.mp4" />
+                              <img alt="Tears of Steel poster image" src="img/poster.jpg" width="1024" height="428" title="No video playback possible, please download the video from the link below" />
+                            </object>
+                            <track label="English" kind="subtitles" srclang="en" src="{{ subtitlesURL }}" default>
+                            <!-- Offer download 
+                            <a href="http://iandevlin.github.io/mdn/video-player/video/tears-of-steel-battle-clip-medium.mp4">Download MP4</a>-->
+                          </video>
+                          <div id="video-controls" class="controls" data-state="hidden">
+                            <button id="backone" type="button" data-state="backone">Back</button>
+                            <button id="playpause" type="button" data-state="play">Play/Pause</button>
+                            <button id="forwardone" type="button" data-state="forwardone">Next</button>
+                            <div class="progress">
+                              <progress id="progress" value="0" min="0">
+                                <span id="progress-bar"></span>
+                              </progress>
+                              <span id="progressOver">
+                              </span>
+                            </div>
+                            <button id="mute" type="button" data-state="mute">Mute/Unmute</button>
+                            <button id="volinc" type="button" data-state="volup">Vol+</button>
+                            <button id="voldec" type="button" data-state="voldown">Vol-</button>
+                            <button id="fs" type="button" data-state="go-fullscreen">Fullscreen</button>
+                            <button id="settings" type="button" data-state="settings">Settings</button>
+                          </div>
+                          <figcaption id="figcaption">
+                            
+                          </figcaption>
+                          <div id="videoInfo">
+                            <span>Similar Videos</span><span>Further Questions</span><span>Links</span>
+                          </div>
+
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </section>
+  </main>
+  <footer>
+        <!--<div class="container">
+            <div class="row">
+                <div class="col col-lg-5">
+                    <div class="footer-text">
+                        <p class="h3">Footer Example</p>
+                        <p>This is an example of the footer component.  You don't have to use this layout, but it's a good example of what you can do with what's provided.  If you wanted to included more columns for links and remove this text block, you can.</p>
+                    </div>
+                </div>
+                <div class="col col-sm-6 col-lg-3 col-lg-offset-1">
+                    <h4 class="footer-links-category">Links Category 1</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Link #1</a></li>
+                        <li><a href="#">Link #2</a></li>
+                        <li><a href="#">Link #3</a></li>
+                    </ul>
+                </div>
+
+                <div class="col col-sm-6 col-lg-3">
+                    <h4 class="footer-links-category">Links Category 2</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Link #1</a></li>
+                        <li><a href="#">Link #2</a></li>
+                        <li><a href="#">Link #3</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>-->
+
+        <p class="copyright align-center">Made by Triplelog, LLC.</p>
+
+    </footer>
+
+  
+  <script>
+    var steps = [{% for i in videoJS %} { 'type':'{{ i.type }}','text':'{{ i.text }}','time':{{ i.time }} }, {% endfor %}];
+
+  </script>
+  <script src="static/js/video-player.js"></script>
+  
+</body>
+</html>

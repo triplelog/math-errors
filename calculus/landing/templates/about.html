@@ -1,0 +1,104 @@
+{% extends "base_generic.html" %}
+{% block title %}Derivative Calculator - Step by step solutions from Calculus College{% endblock %}
+{% block meta_des %}Become a master at taking derivatives. Try our free derivative calculator to get an interactive, step by step differentiation of any function.{% endblock %}
+{% block content %}
+
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
+    <div class="container">
+
+      <div class="starter-template">
+        
+        <div class="row">
+                      <div class="row">
+
+                        <div class="row">
+                                      <div class="col-md-6"><div class="panel panel-primary">
+                            <div class="panel-heading">
+                                          <h1 class="panel-title">Why was Calculus College created?</h1>
+                                        </div>
+                                        <div class="panel-body text-left">
+                            I have seen too many students that struggle with relatively simple parts of Calculus and felt there must be a better way to teach some of these topics. One goal is to create a website that most efficiently helps students with the boring parts of Calculus so that Professors can focus on teaching the harder, more interesting parts. The other goal is to create something that is powerful but still easy to use so that students can focus exclusively on learning rather than being distracted or frustrated by an inadequate website.<p><br>Calculus education is just not working for everyone, and there are many more problems than any one person can fix. The internet needs to provide more than just more of the same. Videos of lectures are great at making learning accessible to everyone, but if someone didn't understand something in lecture then a video of another lecture is unlikely to help. So I want to do things differently. It may take time, but I want to take full advantage of the computing power available today to make education better for those that have struggled with other sources.
+                                    
+
+                                  </div></div></div>
+
+                                  <div class="col-md-6"><div class="panel panel-primary">
+                            <div class="panel-heading">
+                                          <h1 class="panel-title">What's next for Calculus College?</h1>
+                                        </div>
+                                        <div class="panel-body text-left">
+                            Progress will not be immediate as I want to ensure that each update is well executed to help students learn and understand. Quality is more important than quantity because there are plenty of other websites that teach Calculus. I want to cover as much of Calculus as I feel can be taught via the internet without any sort of tutor. As i add new topics and features I will also be updating older pages as I receive feedback from users and collected data.<p><br>Eventually, I plan to add essentially an AI tutor that provides personalized advice for every user. This level of personalization will not be free, but users will receive feedback based on every answer they have provided. While online education has trailed traditional education in terms of personalization, a computer can actually do analysis of an individual that is more helpful than what an instructor can provide to 20+ students. However, before these more ambitious plans take shape Calculus College needs to be able to take care of the basics.
+                                    
+
+                                  </div></div></div>
+
+
+
+                                  </div>
+                                                                        
+                    
+
+            </div>
+        </div>
+                        
+
+    </div>
+
+
+    </div><!-- /.container -->
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+
+  <script>
+
+
+//For getting CSRF token
+function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+               var cookie = jQuery.trim(cookies[i]);
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) == (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+             }
+          }
+      }
+ return cookieValue;
+}
+
+
+
+function doLatex(e){
+   if (e && e.keycode != 13){
+    var target = e.target || e.srcElement;
+    var form_id = '#t_form';
+
+    var csrftoken = getCookie('csrftoken');
+    $.ajax({
+        url : '',
+        type : "POST",
+        data : { csrfmiddlewaretoken : csrftoken, your_name : '{"yn":"'.concat($('#id_your_name').val()).concat('"}') }
+    }).done(function(returned_data){
+      var rd_obj = JSON.parse(returned_data);
+      el = $(form_id).find('span#message').get(0);
+      $(form_id).find('span#message').html(rd_obj.message);
+      katex.render(rd_obj.message,el);
+  });
+   }
+   
+}
+</script>
+
+{% endblock %}
+

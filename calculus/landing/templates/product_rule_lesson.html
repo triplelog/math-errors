@@ -1,0 +1,92 @@
+{% extends "base_generic.html" %}
+{% block title %}Product Rule Lesson - Learn the Product Rule with Calculus College{% endblock %}
+{% block content %}
+
+<section id="sub-header">
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 text-center">
+            <h1>Learn The Product Rule</h1>
+
+        </div>
+    </div><!-- End row -->
+</div><!-- End container -->
+<div class="divider_top"></div>
+</section><!-- End sub-header -->
+
+<section id="main_content">
+
+<div class="container">
+
+
+     <div class="row">
+     <aside class="col-md-4">
+        <div class=" box_style_1">
+                
+                <div class="widget">
+                    <h4>Formal Definition</h4>
+                    <p>
+                         
+                    </p>
+                </div><!-- End widget -->
+               <div class="widget">
+                    <h4>Informal Definition</h4>
+                    <p>
+                         If the function is x raised to a constant power, then the derivative is the exponent multiplied by x raised to the one less than the constant power.
+                    </p>
+                </div><!-- End widget -->
+                
+                <div class="widget">
+                    <h4>Links</h4>
+                    
+                    <ul class="recent_post">
+                        <li>
+                        <i class="icon-link"></i><a href="#">Product Rule Worksheet</a>
+                        <div>Work as many problems as you need. They're broken into many categories for your pleasure.</div>
+                        </li>
+                        <li>
+                        <i class="icon-video"></i><a href="#">PatrickJMT Product Rule</a>
+                        <div>PatrickJMT works through a product rule problem.</div>
+                        </li>
+                        <li>
+                        <i class="icon-video"></i><a href="#">Khan Academy Product Rule</a>
+                        <div>A Khan Academy video about the product rule.</div>
+                        </li>
+                    </ul>
+                </div><!-- End widget -->
+                
+
+                
+            </div><!-- End box-sidebar -->
+     </aside><!-- End aside -->
+     
+     <div class="col-md-8">
+            <div class="post">
+                    <a href="blog_post.html" title="single_post.html"><img src="static/img/pr_flow.png" alt="" class="img-responsive"></a>
+                    
+                    <h2><a href="single_post.html" title="single_post.html">When do we use the product rule? How is it used?</a></h2>
+                    <p>
+                    The product rule is used for function that can be written as the product of two functions that depend on x, such as xe^x. When adding functions the derivative is simply the sums of the two derivatives, but for multiplication it is not so simple. You must first determine what functions are being multiplied together. This is generally obvious, but important. Then find the derivative of each half of the product. So for the derivative of xe^x, you must find the derivatives of x and e^x before combining these to get the overall derivative. These derivatives are 1 and e^x, respectively. Now multiply each derivative by the other function and add the two products. So the derivative of xe^x is not just e^x but is instead 1*e^x+xe^x.
+                </p>
+                <p>
+                    Note that the product rule can be applied to any function, but that it often accomplishes nothing. For instance, 5x^3 could be treated as 5*x^3 and the product rule requires taking the derivatives of 5 and x^3. Since the derivative of 5 is 0 that half of the product rule is just adding 0. So the derivative is just 5*3x^2, which is what you get by using the constant multiple rule. So it is never wrong to use the product rule as long as it is applied correctly. But the only time it is necessary is when both factors depend on x.
+                </p>
+                <p>
+                    When a function requires multiple steps beyond just the product rule be careful and know exactly when you are using the product rule. If either factor requires significant work to differentiate then do that part separately, but remember to combine everything at the end.
+                </p>
+                <p>
+                    Similarly, if the product rule occurs for a part of a larger function then you don't rush and incorrectly apply the product rule. It applies at all times.
+                </p>
+         </div><!-- end post -->
+                
+                
+                rentiation then don't forget to 
+                
+     </div><!-- End col-md-8-->   
+  
+    
+  </div>  <!-- End row-->    
+</div><!-- End container -->
+</section><!-- End main_content-->
+
+{% endblock %}

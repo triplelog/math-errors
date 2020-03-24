@@ -1,0 +1,10 @@
+\documentclass[12pt]{article}\pagestyle{empty}\renewcommand{\baselinestretch}{1.5}\usepackage{graphicx}\newcommand*{\Scale}[2][4]{\scalebox{#1}{\ensuremath{#2}}}\setlength{\parindent}{0pt}\usepackage[paperheight=10in,paperwidth=7.9in, margin=1.2in]{geometry}
+\newcommand*{\mathcolor}{}
+\def\mathcolor#1#{\mathcoloraux{#1}}
+\newcommand*{\mathcoloraux}[3]{%
+  \protect\leavevmode
+  \begingroup
+    \color#1{#2}#3%
+  \endgroup
+}
+\begin{document}\large$\mathcolor{red}{x^2}$\end{document}

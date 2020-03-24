@@ -1,0 +1,120 @@
+{% extends "base_worksheet.html" %}
+{% block form_stuff %}
+<h3 class="chapter_course">Derivative</h3>
+<div>
+    <div class="strip_single_course">
+	<h4 class="{{ subsection.classinit }}"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ subsection.id }}">{{ subsection.title }}<i class="indicator pull-right icon-plus"></i></a></h4>
+    </div><!-- end strip single course -->
+	<div class="strip_single_course collapse in" id="collapse{{ subsection.id }}">
+        <div class="the_form">
+        <form action="" method="post" data-ajax="false">
+        {% csrf_token %}
+            <div id="{{ subsection.id }}">
+            Let $f(x)={{ subsection.function }}$. Identify all intervals where $f(x)$ is increasing or decreasing.<br>
+            <span id='question'>$\frac{d}{dx}[{{ subsection.function }}]$</span><span id="question_l" style="display: none;">{{ subsection.function }}</span>
+                <div id="Question_{{ subsection.id }}" style='display: none;'>{{ subsection.function_python }}</div>
+            ={{ subsection.form0 }}
+            <a onclick="AjaxFormSubmit('#{{ subsection.id }}')" href="#" class="nosubmit">Submit Answer: </a>
+            
+            <span id="message0"></span>
+            <br><span id="message"></span>
+            <span id="messageq0"></span><span id="messageq"></span>
+            <span id="messagea0"></span><span id="messagea"></span>
+            <span id="messagec0"></span><span id="messagec"></span>
+            <span id="messagess"></span>
+            </div>
+        </form>
+        </div>
+    </div><!-- end strip single course -->
+</div>
+
+<h3 class="chapter_course">Zeros</h3>
+<div>
+    <div class="strip_single_course">
+    <h4 class="{{ subsection.classinit }}"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ subsection.id }}">{{ subsection.title }}<i class="indicator pull-right icon-plus"></i></a></h4>
+    </div><!-- end strip single course -->
+    <div class="strip_single_course collapse in" id="collapse{{ subsection.id }}">
+        <div class="the_form">
+        <form action="" method="post" data-ajax="false">
+        {% csrf_token %}
+            <div id="{{ subsection.id }}">
+            Let $f(x)={{ subsection.function }}$. Identify all intervals where $f(x)$ is increasing or decreasing.<br>
+            <span id='question'>$\frac{d}{dx}[{{ subsection.function }}]$</span><span id="question_l" style="display: none;">{{ subsection.function }}</span>
+                <div id="Question_{{ subsection.id }}" style='display: none;'>{{ subsection.function_python }}</div>
+            = {{ subsection.answer1 }}<i class="icon-check"></i>
+
+            <br>$f'(x)$ is zero when $x$ is in &#123; {{ subsection.form1 }} &#125;.
+            <a onclick="AjaxFormSubmit('#{{ subsection.id }}')" href="#" class="nosubmit">Submit Answer: </a>
+            
+            <span id="message0"></span>
+            <br><span id="message"></span>
+            <span id="messageq0"></span><span id="messageq"></span>
+            <span id="messagea0"></span><span id="messagea"></span>
+            <span id="messagec0"></span><span id="messagec"></span>
+            <span id="messagess"></span>
+            </div>
+        </form>
+        </div>
+    </div><!-- end strip single course -->
+</div>
+
+<h3 class="chapter_course">Undefined</h3>
+<div>
+    <div class="strip_single_course">
+    <h4 class="{{ subsection.classinit }}"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ subsection.id }}">{{ subsection.title }}<i class="indicator pull-right icon-plus"></i></a></h4>
+    </div><!-- end strip single course -->
+    <div class="strip_single_course collapse in" id="collapse{{ subsection.id }}">
+        <div class="the_form">
+        <form action="" method="post" data-ajax="false">
+        {% csrf_token %}
+            <div id="{{ subsection.id }}">
+            Let $f(x)={{ subsection.function }}$. Identify all intervals where $f(x)$ is increasing or decreasing.<br>
+            <span id='question'>$\frac{d}{dx}[{{ subsection.function }}]$</span><span id="question_l" style="display: none;">{{ subsection.function }}</span>
+                <div id="Question_{{ subsection.id }}" style='display: none;'>{{ subsection.function_python }}</div>
+            = {{ subsection.answer1 }}<i class="icon-check"></i>
+
+            <br>$f'(x)$ is undefined when $x$ is in &#123; {{ subsection.form1 }} &#125;.
+            <a onclick="AjaxFormSubmit('#{{ subsection.id }}')" href="#" class="nosubmit">Submit Answer: </a>
+            
+            <span id="message0"></span>
+            <br><span id="message"></span>
+            <span id="messageq0"></span><span id="messageq"></span>
+            <span id="messagea0"></span><span id="messagea"></span>
+            <span id="messagec0"></span><span id="messagec"></span>
+            <span id="messagess"></span>
+            </div>
+        </form>
+        </div>
+    </div><!-- end strip single course -->
+</div>
+
+<h3 class="chapter_course">Intervals</h3>
+<div>
+    <div class="strip_single_course">
+    <h4 class="{{ subsection.classinit }}"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ subsection.id }}">{{ subsection.title }}<i class="indicator pull-right icon-plus"></i></a></h4>
+    </div><!-- end strip single course -->
+    <div class="strip_single_course collapse in" id="collapse{{ subsection.id }}">
+        <div class="the_form">
+        <form action="" method="post" data-ajax="false">
+        {% csrf_token %}
+            <div id="{{ subsection.id }}">
+            Let $f(x)={{ subsection.function }}$. Identify all intervals where $f(x)$ is increasing or decreasing.<br>
+            <span id='question'>$\frac{d}{dx}[{{ subsection.function }}]$</span><span id="question_l" style="display: none;">{{ subsection.function }}</span>
+                <div id="Question_{{ subsection.id }}" style='display: none;'>{{ subsection.function_python }}</div>
+            = {{ subsection.answer1 }}<i class="icon-check"></i>
+
+            <br>One interval where $f(x)$ is increasing is ({{ subsection.form2 }}, {{ subsection.form3 }}).
+            <a onclick="AjaxFormSubmit('#{{ subsection.id }}')" href="#" class="nosubmit">Submit Answer: </a>
+            
+            <span id="message0"></span>
+            <br><span id="message"></span>
+            <span id="messageq0"></span><span id="messageq"></span>
+            <span id="messagea0"></span><span id="messagea"></span>
+            <span id="messagec0"></span><span id="messagec"></span>
+            <span id="messagess"></span>
+            </div>
+        </form>
+        </div>
+    </div><!-- end strip single course -->
+</div>
+{% endblock %}

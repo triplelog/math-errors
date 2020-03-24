@@ -1,0 +1,245 @@
+{% extends "base_generic.html" %}
+{% block title %}Calculus College - Learn Calculus{% endblock %}
+{% block meta_des %}A website that allows you to focus on one thing: learning Calculus. No fees or signing up to use our well-designed lessons, worksheets, and tools.{% endblock %}
+{% block content %}
+
+<section id="sub-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="visible-lg">One Mission: Teach You Calculus</h1>
+                <h1 class="visible-md">Learn Calculus Right Now</h1>
+                <h1 class="visible-sm">Learn Calculus Now</h1>
+                <h1 class="visible-xs">Learn Calculus</h1>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 ">
+            <form action="/derivative_calculator.html" method="post" data-ajax="false">
+            {% csrf_token %}
+                <div class="row" style="margin-left:0px; margin-top: 10px;">
+                    <div class="col-md-1 col-sm-2 col-xs-2">
+                        <div class="form-group">
+                            
+                            <h2 style="font-size:180%;" class="visible-lg">$f(x)=$</h2>
+                            <h2 style="font-size:155%; margin-top:24px;" class="visible-md">$f(x)=$</h2>
+                            <h2 style="font-size:195%;" class="visible-sm">$f(x)=$</h2>
+                            <h2 style="font-size:4vw;" class="visible-xs">$f(x)=$</h2>
+                        </div>
+                    </div>
+                    
+
+                    <div class="col-md-9 col-sm-8 col-xs-10">
+                        <div class="form-group" style="padding-top:20px;">
+                        <input type="text" id='id_your_name_home' name='your_name' class="form-control style_2" id="lastname_contact_home" placeholder="Enter a function here for an interactive differentiation!" style="font-size:200%; border-radius:5px;">
+                            
+                        </div>
+                    </div>
+                
+                    <div class="col-md-2 col-sm-2 pull-right hidden-xs" style="padding-left:0px; padding-right:0px;">
+                        <div class="form-group" style="padding-top:20px;">
+                                <button type="submit" class=" button_subscribe" id="submit-contact-home">Find $f'(x)$</button>
+                        </div>
+
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-2 col-sm-2 visible-xs" style="padding-left:0px; padding-right:0px;">
+                        <div class="form-group" style="padding-top:20px;">
+                                <button type="submit" class=" button_subscribe" id="submit-contact-home">Find $f'(x)$</button>
+                        </div>
+
+                    </div>
+                    </div>
+                    </form>
+                
+            </div>
+        </div><!-- End row -->
+    </div>
+  </section><!-- End sub-header -->
+
+    
+    <section id="main-features">
+    <div class="divider_top_black"></div>
+    <div class="container">
+        
+        <div class="row">
+        <div class="col-md-6">
+                <div class="feature">
+                    <i class="icon-mail"></i>
+                    <h3>No Sign-up Required</h3>
+                    <p>
+                        Get started right now doing whatever you want. There's plenty to do without entering email, password, etc.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="feature">
+                    <i class=" icon-ok"></i>
+                    <h3>Free to Use</h3>
+                    <p>
+                     Eventually we will add advanced, personalized features to make some money, but our tools and lessons will remain free.
+                    </p>
+                </div>
+            </div>
+    </div>
+    <div class="row">
+            <div class="col-md-6">
+                <div class="feature">
+                    <a href="derivatives_lesson.html"><i class="icon-book"></i></a>
+                    <h3><a href="derivatives_lesson.html" style="color:white;">20+ lessons</a></h3>
+                    <p>
+                        We're adding lessons every week on topics most important to the learning process. Each one is thoughtfully considered to efficiently lead to understanding and retention.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="feature">
+                    <a href="derivative_worksheets.html"><i class="icon-help"></i></a>
+                    <h3><a href="derivative_worksheets.html" style="color:white;">Infinite Example Problems</a></h3>
+                    <p>
+                        Generate example problems to challenge you until you understand a topic. And each question has an <a href="derivative_calculator.hmtl">interactive step-by-step solution</a> and links to appropriate lessons and videos.
+                    </p>
+                </div>
+            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+                <div class="feature">
+                    <i class="icon-database"></i>
+                    <h3>We're Still Building</h3>
+                    <p>
+                        Calculus College will continually add new features until we've created the most effective learning enviornment possible. We're working hard on integrals right now! If we're missing something or can do better, drop us a line at contact@calculuscollege.com.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="feature">
+                    <i class="icon-search"></i>
+                    <h3>Optimized Lessons</h3>
+                    <p>
+                        Our lessons are written to be different because you can get more of the same anywhere. They are continually improved based on feedback and data analysis. The goal is to use our programming experience to teach you how to do Calculus like a machine!
+                    </p>
+        </div>
+            </div>
+        </div><!-- End row -->
+    </div><!-- End container -->
+    </section><!-- End main-features -->
+    
+    <section id="main_content_gray">
+        <div class="container">
+            <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>Latest Lessons</h2>
+                <p class="lead">What have we been up to recently?</p>
+            </div>
+        </div><!-- End row -->
+        
+        <div class="row">
+        
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="col-item">
+                                <div class="photo">
+                                    <a href="chain_rule_lesson.html"><img src="static/img/chain_rule_flowchart_small.png" alt="" /></a>
+                                    <div class="cat_row"></div>
+                                </div>
+                                <div class="info">
+                                    <div class="row">
+                                        <div class="course_info col-md-12 col-sm-12">
+                                            <h4>Chain Rule</h4>
+                                            <p >Learn how to differentiate the composition of two functions. The chain rule is often the hardest to master so let us help you improve today. </p>
+
+                                        </div>
+                                    </div>
+                                    <div class="separator clearfix">
+                                        <p class="btn-add"> <a href="chain_rule_lesson.html"><i class="icon-export-4"></i> More</a></p>
+                                        <p class="btn-details"> <a href="chain_rule_lesson.html"><i class=" icon-list"></i> Summary</a></p>
+                                    </div>
+                                </div>
+                           </div>
+                        </div>
+                        
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="col-item">
+                                <div class="photo">
+                                    <a href="product_rule_lesson.html"><img src="static/img/product_rule_flowchart_small.png" alt="" /></a>
+                                    <div class="cat_row"></div>
+                                </div>
+                                <div class="info">
+                                    <div class="row">
+                                        <div class="course_info col-md-12 col-sm-12">
+                                            <h4>Product Rule</h4>
+                                            <p > Learn how to differentiate the product of two (or more) functions. Not quite as simple as the sum rule, but if you're careful it is easy to master. </p>
+                                        </div>
+                                    </div>
+                                    <div class="separator clearfix">
+                                        <p class="btn-add"> <a href="product_rule_lesson.html"><i class="icon-export-4"></i> More</a></p>
+                                        <p class="btn-details"> <a href="product_rule_lesson.html"><i class=" icon-list"></i> Summary</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="col-item">
+                                <div class="photo">
+                                    <a href="power_rule_lesson.html"><img src="static/img/pr_flow_small.png" alt="" /></a>
+                                    <div class="cat_row"></div>
+                                </div>
+                                <div class="info">
+                                    <div class="row">
+                                        <div class="course_info col-md-12 col-sm-12">
+                                            <h4>Power Rule</h4>
+                                            <p > Learn to easily find the derivative of any function that is of the form x raised to a constant power, including square roots and negative exponents.</p>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="separator clearfix">
+                                        <p class="btn-add"> <a href="power_rule_lesson.html"><i class="icon-export-4"></i> More</a></p>
+                                        <p class="btn-details"> <a href="power_rule_lesson.html"><i class=" icon-list"></i> Summary</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="col-item">
+                                <div class="photo">
+                                    <a href="trigonometric_functions_lesson.html"><img src="static/img/trigonometric_functions_flowchart_small.png" alt="" /></a>
+                                    <div class="cat_row"></div>
+                                </div>
+                                <div class="info">
+                                    <div class="row">
+                                        <div class="course_info col-md-12 col-sm-12">
+                                            <h4>Trigonometric Functions</h4>
+                                            <p > There are six trigonometric functions and six inverse trigonometric functions that you need to konw how to take the derivative of.</p>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="separator clearfix">
+                                        <p class="btn-add"> <a href="trigonometric_functions_lesson.html"><i class="icon-export-4"></i> More</a></p>
+                                        <p class="btn-details"> <a href="trigonometric_functions_lesson.html"><i class=" icon-list"></i> Summary</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+   
+        </div><!-- End row -->
+        <div class="row">
+            <div class="col-md-12">
+                 <a href="derivatives_lesson.html" class="button_medium_outline pull-right">View all lessons</a>
+            </div>
+        </div>
+         </div>   <!-- End container -->
+        </section><!-- End section gray -->
+        
+
+    
+
+
+{% endblock %}
