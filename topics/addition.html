@@ -180,8 +180,17 @@
 		el.textContent = x;
 	}
 	function submitAnswer(){
-		var answer = "914"
-		var jsonmessage = [input_numbers[0],input_numbers[1],answer];
+		var answer = 0;
+		var el = document.getElementById('additionBlock');
+		var ell = el.querySelectorAll('.sumRow > span');
+		for (var i=0;i<ell.length;i++){
+			if (isNaN(ell[i].textContent)){
+			}
+			else {
+				answer +=10*parseInt(ell[i].textContent);
+			}
+		}
+		var jsonmessage = [input_numbers[0],input_numbers[1],''+answer];
 		ws.send(JSON.stringify(jsonmessage));
 	}
 	
