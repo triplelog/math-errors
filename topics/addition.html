@@ -103,28 +103,27 @@
 
                 <div class="additionBlock">
 					<div class="carryRow">
-						<span></span>
-						<span></span>
-						<span>1</span>
+						{% for i in carries %}
+						<span>{{ i }}</span>
+						{% endfor %}
 					</div>
+					{% for i in numbers %}
 					<div class="addRow">
-						<span>1</span>
-						<span>2</span>
-						<span>3</span>
-					</div>
-					<div class="addRow">
-						<span>4</span>
-						<span>5</span>
-						<span>6</span>
+						{% for ii in i.digits %}
+						<span>{{ ii }}</span>
+						{% endfor %}
+						{% if i.last %}
 						<span>+</span>
+						{% endif %}
 					</div>
+					{% endfor %}
 					<div class="lineRow">
 						<hr />
 					</div>
 					<div class="sumRow">
-						<span id="answer0"></span>
-						<span></span>
-						<span>9</span>
+						{% for i in range(0, answer.length) %}
+						<span id="answer{{ i }}">{{ answer[i] }}</span>
+						{% endfor %}
 					</div>
 				</div>
                 

@@ -55,7 +55,9 @@ server1.listen(12312);
 app.get('/addition',
 	function(req, res){
 		res.write(nunjucks.render('topics/addition.html',{
-		
+			carries: ['','','',''],
+			numbers: [{digits:[1,2,3]},{digits:[3,4,5],last:true}],
+			answer: ['','','',''],
 		}));
 		res.end();
 	
