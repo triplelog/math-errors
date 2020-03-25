@@ -75,12 +75,13 @@ wss.on('connection', function connection(ws) {
 
 app.get('/addition',
 	function(req, res){
-		var trophies = {'nocarry':false,'onecarry':false,'twocarries':false};
+		var types = [{name:'Addition',goals:['Error Free','Carry Error','Carry 0 of 2','Carry 1 of 2','Match Error']}];
 		//nocarry is miss 1 of 1
 		//onecarry is miss exactly 1 of 2
 		//twocarries is miss 2 of 2
 		res.write(nunjucks.render('topics/arithmetic.html',{
 			type: 'Addition',
+			types: types,
 		}));
 		res.end();
 	

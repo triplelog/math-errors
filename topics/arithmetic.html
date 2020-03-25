@@ -3,6 +3,19 @@
 <link rel="stylesheet" href="../css/arithmetic.css">
 {% endblock %}
 
+{% block goals %}
+	{% for i in types %}
+	<div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+		<div class="box-header">{{ i.name }}</div>
+		<ul class='box-list'>
+			{% for ii in i.goals %}
+			<li>{{ ii }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+	{% endfor %}
+{% endblock %}
+		
 {% block question1 %}
 <div class="asdBlock" id="asdBlock">
 
