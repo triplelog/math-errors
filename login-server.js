@@ -84,7 +84,12 @@ app2.get('/account',
 app2.post('/register',
   function(req, res){
   	console.log('registering: ',performance.now());
-  	var user = new User({username: req.body.username.toLowerCase(), progress: {}, options: {displayName: req.body.username}});
+  	var progress = {};
+  	progress.arithmetic = [{name:'Addition',goals:[{name:'Error Free',progress:0},{name:'Carry Error',progress:0},{name:'Carry 0 of 2',progress:0},{name:'Carry 1 of 2',progress:0},{name:'Match Error',progress:0}]}];
+	progress.arithmetic.push({name:'Subtraction',goals:[{name:'Error Free',progress:0},{name:'Match Error',progress:0}]});
+	progress.arithmetic.push({name:'Multiplication',goals:[{name:'Error Free',progress:0},{name:'Match Error',progress:0}]});
+	progress.arithmetic.push({name:'Division',goals:[{name:'Error Free',progress:0},{name:'Match Error',progress:0}]});
+  	var user = new User({username: req.body.username.toLowerCase(), progress: progress, options: {displayName: req.body.username}});
 	User.register(user,req.body.password, function(err) {
 		if (err) {
 		  if (err.name == 'UserExistsError'){

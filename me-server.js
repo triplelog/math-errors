@@ -72,10 +72,14 @@ wss.on('connection', function connection(ws) {
 
 app.get('/addition',
 	function(req, res){
+		
 		var types = [{name:'Addition',goals:[{name:'Error Free',progress:0},{name:'Carry Error',progress:10},{name:'Carry 0 of 2',progress:60},{name:'Carry 1 of 2',progress:0},{name:'Match Error',progress:0}]}];
 		types.push({name:'Subtraction',goals:[{name:'Error Free',progress:0},{name:'Match Error',progress:0}]});
 		types.push({name:'Multiplication',goals:[{name:'Error Free',progress:0},{name:'Match Error',progress:0}]});
 		types.push({name:'Division',goals:[{name:'Error Free',progress:0},{name:'Match Error',progress:0}]});
+		if (req.isAuthenticated()){
+			types = req.user.progress.arithmetic;
+		}
 		//nocarry is miss 1 of 1
 		//onecarry is miss exactly 1 of 2
 		//twocarries is miss 2 of 2
