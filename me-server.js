@@ -59,21 +59,28 @@ const wss = new WebSocket.Server({ server });
 wss.on('connection', function connection(ws) {
   	var x = ""+Math.floor(Math.random() * 1000);
 	var y = ""+Math.floor(Math.random() * 1000);
-	var jsonmessage = [[x,y],['','','',''],['','','','']];
+	var jsonmessage = {'question':[[x,y],['','','',''],['','','','']]};
+	var username = '';
 	ws.send(JSON.stringify(jsonmessage));
   	ws.on('message', function incoming(message) {
 		var dm = JSON.parse(message);
 		if (dm.type == 'key'){
+			username = tempKeys[dm.message].username;
 		}
 		else if (dm.type == 'arithmetic'){
 			if (dm.subtype == 'addition'){
 				var errorInfo = maincpp.addwrong(dm.message[0],dm.message[1],dm.message[2]);
 				if (errorInfo.indexOf('carry')>-1){
+					User.updateOne({username: username}, {$inc:{"progress.arithmetic[0].goals[1].progress":10}}, function (err2, result2) {
+						if (err2 || !result2 || result2.n == 0){
+							console.log("Did not update");
+						}
+					});
 					console.log('Carry Error');
 				}
 				var x = ""+Math.floor(Math.random() * 1000);
 				var y = ""+Math.floor(Math.random() * 1000);
-				var jsonmessage = [[x,y],['','','',''],['','','','']];
+				var jsonmessage = {'question':[[x,y],['','','',''],['','','','']],'update':'yes'};
 				ws.send(JSON.stringify(jsonmessage));
 			}
 		}
@@ -96,9 +103,12 @@ app.get('/arithmetic',
 		//nocarry is miss 1 of 1
 		//onecarry is miss exactly 1 of 2
 		//twocarries is miss 2 of 2
+		var tkey = crypto.randomBytes(100).toString('hex').substr(2, 18);
+		tempKeys[tkey] = {username:username};
 		res.write(nunjucks.render('topics/arithmetic.html',{
 			type: 'Arithmetic',
 			types: types,
+			key: tkey,
 		}));
 		res.end();
 	

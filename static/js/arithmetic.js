@@ -103,10 +103,13 @@ function submitAnswer(){
 
 var ws = new WebSocket('wss://matherrors.com:8080');
 ws.onopen = function(evt) {
-
+	var jsonmessage = {'operation':'key','message':key};
+	ws.send(JSON.stringify(jsonmessage));
 }
 ws.onmessage = function(evt){
 	var dm = JSON.parse(evt.data);
-	newQuestion(dm[0],dm[1],dm[2]);
+	var question = dm.question;
+	newQuestion(question[0],question[1],question[2]);
+	console.log(dm.update);
 	
 }
