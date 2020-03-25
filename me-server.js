@@ -64,7 +64,6 @@ wss.on('connection', function connection(ws) {
 	ws.send(JSON.stringify(jsonmessage));
   	ws.on('message', function incoming(message) {
 		var dm = JSON.parse(message);
-		console.log(dm);
 		if (dm.operation == 'key'){
 			if (tempKeys[dm.message]){
 				username = tempKeys[dm.message].username;
@@ -103,7 +102,7 @@ app.get('/arithmetic',
 		types.push({name:'Multiplication',goals:[{name:'Error Free',progress:0},{name:'Match Error',progress:0}]});
 		types.push({name:'Division',goals:[{name:'Error Free',progress:0},{name:'Match Error',progress:0}]});
 		if (req.isAuthenticated()){
-			//console.log(req.user);
+			console.log(req.user.progress.arithmetic);
 			types = req.user.progress.arithmetic;
 		}
 		//nocarry is miss 1 of 1
