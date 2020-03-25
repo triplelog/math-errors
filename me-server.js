@@ -67,7 +67,7 @@ wss.on('connection', function connection(ws) {
 		}
 		else if (dm.type == 'arithmetic'){
 			if (dm.subtype == 'addition'){
-				var errorInfo = maincpp.addwrong(dm.message[0],dm.message[1],dm.message[2]));
+				var errorInfo = maincpp.addwrong(dm.message[0],dm.message[1],dm.message[2]);
 				if (errorInfo.indexOf('carry')>-1){
 					console.log('Carry Error');
 				}
