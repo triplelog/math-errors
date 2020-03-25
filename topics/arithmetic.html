@@ -3,71 +3,42 @@
 <link rel="stylesheet" href="../css/arithmetic.css">
 {% endblock %}
 
-{% block goals %}
-	{% for i in types %}
-	<div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
-		<div class="box-header">{{ i.name }}</div>
-		<ul class='box-list'>
-			{% for ii in i.goals %}
-			<li class="progress-{{ ii.progress }}">{{ ii.name }}</li>
-			{% endfor %}
-		</ul>
-	</div>
-	{% endfor %}
-{% endblock %}
+{% block content %}
+	<div class="pure-g l-box">
+		<div class="pure-u-1">
+			Dashboard
+		</div>
+		{% for i in types %}
+		<div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+			<div class="box-header">{{ i.name }}</div>
+			<ul class='box-list'>
+				{% for ii in i.goals %}
+				<li class="progress-{{ ii.progress }}">{{ ii.name }}</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% endfor %}
 		
-{% block question1 %}
-<div class="asdBlock" id="asdBlock">
+		<div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+			<div class="asdBlock" id="asdBlock">
 			
-</div>
-<div>
-	<button onclick="submitAnswer()">Submit</button>
-</div>
-{% endblock %}
-
-{% block question2 %}
-<div class="asdBlock" id="asdBlock">
-
-			
-			
+			</div>
+			<div>
+				<button onclick="submitAnswer()">Submit</button>
+			</div>
 		</div>
-		<button onclick="submitAnswer()">Submit</button>
-{% endblock %}
-{% block question3 %}
-<div class="asdBlock" id="asdBlock">
-
+		<div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+			<div class="asdBlock" id="asdBlock">
 			
-			
+			</div>
+			<div>
+				<button onclick="submitAnswer()">Submit</button>
+			</div>
 		</div>
-		<button onclick="submitAnswer()">Submit</button>
-{% endblock %}
-{% block question4 %}
-<div class="asdBlock" id="asdBlock">
+	</div>
+{% endblock %}	
+		
 
-			
-			
-		</div>
-		<button onclick="submitAnswer()">Submit</button>
-{% endblock %}
-{% block question5 %}
-<div class="asdBlock" id="asdBlock">
-
-			
-			
-		</div>
-		<button onclick="submitAnswer()">Submit</button>
-{% endblock %}
-{% block question6 %}
-
-		<div class="asdBlock" id="asdBlock">
-
-			
-			
-		</div>
-		<button onclick="submitAnswer()">Submit</button>
-	
-</div>
-{% endblock %}
 {% block scripts %}
 <script src="../js/arithmetic.js"></script>
 {% endblock %}

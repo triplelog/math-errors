@@ -1,36 +1,8 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content=".">    <title>ChartDN - A Delivery Network for Charts</title>    
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
-    
+{% extends "../templates/base.html" %}
+{% block stylesheet %}
+{% endblock %}
 
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
-
-    
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-
-    <link rel="stylesheet" href="css/mainstyle.css">
-
-</head>
-<body>
-
-<div class="header">
-    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-        <a class="pure-menu-heading header-logo" href="../"><img width="172" src="../images/logo.png"></a>
-
-        <ul class="pure-menu-list header-menu">
-            <li class="pure-menu-item"><a href="../new" class="pure-menu-link">New Chart</a></li>
-            <li class="pure-menu-item"><a href="../browse" class="pure-menu-link">Browse Charts</a></li>
-            <li class="pure-menu-item"><a href="../account" class="pure-menu-link">My Account</a></li>
-        </ul>
-    </div>
-</div>
-
-<div class="content-wrapper">
-    <div class="content">
+{% block content %}
     	<div class="pure-g">
     		<div class="l-box pure-u-1 pure-u-md-1-4 pure-u-lg-1-4">
     		</div>
@@ -75,16 +47,6 @@
 			</div>
 		</div>
 
-    </div>
+{% endblock %}
 
 	
-	
-
-    <div class="footer l-box is-center">
-        View the source of this layout to learn more. Made with love by the YUI Team.
-    </div>
-
-</div>
-
-</body>
-</html>
