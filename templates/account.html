@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ChartDN account.">
+    <title>My ChartDN Account - View my charts</title>    
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
+    
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
+
+    
+    <link rel="stylesheet" href="../icons/fontawesome/css/all.css">
+
+    <link rel="stylesheet" href="../css/mainstyle.css">
+    
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+</head>
+<body>
+
+<div class="header">
+    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading header-logo" href="../"><img width="172" src="../images/logo.png"></a>
+
+        <ul class="pure-menu-list header-menu">
+            <li class="pure-menu-item"><a href="../new" class="pure-menu-link">New Chart</a></li>
+            <li class="pure-menu-item"><a href="../browse" class="pure-menu-link">Browse Charts</a></li>
+            <li class="pure-menu-item"><a href="../account" class="pure-menu-link">My Account</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="content-wrapper">
+    <div class="content">
+    	<div class="pure-g">
+    		<div class="l-box pure-u-1 pure-u-md-1-4 pure-u-lg-1-5">
+				<img class="avatar" src="../robots/{{ username }}{{ options.robot if options.robot else 1 }}.png"></img>
+				<center>{{ name }}</center>
+				<div id="profile" class="pure-g">
+					<div class="l-box pure-u-1">
+						<div class="box-header">{{ username }}<span class="box-buttons"></span></div>
+						<div class="box-form">
+							<!--Website<br />
+							Name-->
+							{% if addfriend %}
+								<button onclick="addFriend('{{ username }}')" id="addFriend">Add as Friend</button>
+							{% endif %}
+							{% if not privacy %}
+								<button onclick="logOut()">Log Out</button>
+							{% endif %}
+							
+						</div>
+					</div>
+					<div class="l-box pure-u-1">
+						<div class="box-header">Activity<span class="box-buttons"></span></div>
+						<div class="box-form">
+							<div class="activity" id="created">
+								<span name='title'>Created<span><span name="value" style="float: right;">{{ charts.created.length }}</span>
+							</div>
+							<div class="activity" id="forked">
+								<span name='title'>Forked<span><span name="value" style="float: right;">{{ charts.forked.length }}</span>
+							</div>
+							<div class="activity" id="edited">
+								<span name='title'>Edited<span><span name="value" style="float: right;">{{ charts.edited.length }}</span>
+							</div>
+							<div class="activity" id="viewed">
+								<span name='title'>Viewed<span><span name="value" style="float: right;">{{ charts.viewed.length }}</span>
+							</div>
+							<div class="calendar"></div>
+						</div>
+						
+					</div>
+					<div class="l-box pure-u-1">
+						<center></center>
+						
+					</div>
+				</div>
+				
+    		</div>
+			<div class="l-box pure-u-1 pure-u-md-3-4 pure-u-lg-4-5">
+				<div class="pure-menu pure-menu-horizontal">
+					<ul class="pure-menu-list tabbed-menu">
+						<li class="pure-menu-item" onclick="chgTab('charts')" id="tabcharts"><a href="#" class="pure-menu-link">Charts</a></li>
+						<li class="pure-menu-item" onclick="chgTab('favorites')" id="tabfavorites"><a href="#" class="pure-menu-link">Favorites</a></li>
+						{% if not privacy %}
+						<li class="pure-menu-item" onclick="chgTab('settings')" id="tabsettings"><a href="#" class="pure-menu-link">Settings</a></li>
+						<li class="pure-menu-item" onclick="chgTab('friends')" id="tabfriends"><a href="#" class="pure-menu-link">Friends</a></li>
+						{% endif %}
+					</ul>
+				</div>
+				<div id="charts" class="box-form">
+					<div class="pure-g">
+						{% for key in chartkeys %}
+							{% if charts[key].length > 0 %}
+							<div class="l-box-half pure-u-1-2" id="{{ key }}Box">
+								<div class="box-header">
+									<span class="box-buttons-left">
+										<a id="{{ key }}Search" class="hoverClick"><i class="fas fa-search"></i></a>
+									</span>
+									{{ key.toUpperCase() }}
+									<span class="box-buttons">
+										<a onclick="minimizeBox('{{ key }}')"><i class="fas fa-compress-alt"></i></a>
+										<a onclick="minimizeBox('{{ key }}',true)"><i class="fas fa-expand"></i></a>
+									</span>
+								</div>
+								<div class="box-header2">
+									<span class="box-buttons-left">
+										<a onclick="chgChart('{{ key }}',-2)" class="hoverClick"><i class="fas fa-step-backward"></i></a>
+										<a onclick="chgChart('{{ key }}',-1)" class="hoverClick"><i class="fas fa-caret-left"></i></a>
+									</span>
+									<a id="{{key}}Link" href="../charts/{{ charts[key][charts[key].length - 1] }}">View</a>
+									<span class="box-buttons">
+										<a onclick="chgChart('{{ key }}',1)" class="hoverClick"><i class="fas fa-caret-right"></i></a>
+										<a onclick="chgChart('{{ key }}',2)" class="hoverClick"><i class="fas fa-step-forward"></i></a>
+									</span>
+								</div>
+								<div class='box-form'>
+									<chartdn-chart id="{{ key }}Chart" src="{{ charts[key][charts[key].length - 1] }}" data-style="plotly"></chartdn-chart>
+								</div>
+							</div>
+							{% endif %}
+						{% else %}
+						{% endfor %}
+						
+						{% for key in chartkeys %}
+							{% if charts[key].length > 0 %}
+							<div class="l-box-half pure-u-1-4" id="{{ key }}None" style="display:none">
+								<div class="box-header">
+									{{ key.toUpperCase() }}
+									<span class="box-buttons">
+										<a onclick="minimizeBox('{{ key }}')"><i class="fas fa-expand-alt"></i></a>
+										<a onclick="minimizeBox('{{ key }}',true)"><i class="fas fa-expand"></i></a>
+									</span>
+								</div>
+							</div>
+							{% endif %}
+						{% else %}
+						{% endfor %}
+					</div>
+					<template id="search-template">
+						<div style="color: black;">
+							<input type="text" />
+							<button>Search</button>
+						</div>
+					</template>
+					
+				</div>
+				<div id="favorites" class="box-form">
+				</div>
+				{% if not privacy %}
+				<div id="settings" class="box-form">
+					<form class="pure-form pure-form-stacked" action="../settings" method="post">
+						<fieldset>
+							<label for="name">Name</label>
+							<input id="name" name="name" type="text" placeholder="Name" value="{{ name }}">
+							<label for="pagination">Table Default</label>
+							<select id="pagination" name="pagination">
+								<option value="scroll" {{ 'selected="selected"' if (options.pagination and options.pagination == 'scroll') else '' }}>Scroll</option>
+								<option value="paginate" {{ 'selected="selected"' if (options.pagination and options.pagination == 'paginate') else '' }}>Pagination</option>
+							</select>
+							<label for="stylePlotly">Chart Styles</label>
+							<input type="checkbox" id="stylePlotly" name="stylePlotly" />
+							<label for="robot">Robot</label>
+							<input id="robot" name="robot" type="number" min="1" max="4" placeholder="1" value="{{ options.robot if options.robot else 1 }}">
+							<!--<label for="password">Password</label>
+							<input id="password" name="password" type="password" placeholder="Password">-->
+
+							<button type="submit" class="pure-button pure-button-primary">Update</button>
+						</fieldset>
+					</form>
+					Change contact preferences?
+					Upgrade/downgrade premium?
+				</div>
+				<div id="friends" class="box-form">
+					<input type="text" id="newFriend">
+					<button onclick="addFriend()">Add Friend</button>
+					<div id="friendList">
+						{% for friend in friends %}
+							<div><a href="../user/{{ friend }}">{{ friend }}</a></div>
+						{% else %}
+						{% endfor %}
+					</div>
+				</div>
+				{% endif %}
+				
+			</div>
+		</div>
+
+    </div>
+
+	
+	
+
+    <div class="footer l-box is-center">
+        View the source of this layout to learn more. Made with love by the YUI Team.
+    </div>
+
+</div>
+<script>
+	var charts = {{ charts | dump | safe if charts else '{}'  }};
+	var tkey = "{{ tkey }}";
+	var startTab = "{{ startTab if startTab else 'charts' }}";
+</script>
+<script src="https://unpkg.com/popper.js@1"></script>
+<script src="https://unpkg.com/tippy.js@5"></script>
+<script src="../js/account.js"></script>
+<script src="../js/chartdnelements.js"></script>
+</body>
+</html>
