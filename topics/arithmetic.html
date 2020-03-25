@@ -12,7 +12,7 @@
 			<div class="box-header">{{ i.name }}</div>
 			<ul class='box-list'>
 				{% for ii in range(0,i.goals.length) %}
-				<li id="{{ i.name }}-goals-{{ ii }}" class="progress-{{ ii.progress }}">{{ i.goals[ii].name }}</li>
+				<li id="{{ i.name }}-goals-{{ ii }}" class="progress-{{ i.goals[ii].progress }}">{{ i.goals[ii].name }}</li>
 				{% endfor %}
 			</ul>
 		</div>
