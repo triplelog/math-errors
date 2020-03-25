@@ -74,7 +74,7 @@ wss.on('connection', function connection(ws) {
 				var errorInfo = maincpp.addwrong(dm.message[0],dm.message[1],dm.message[2]);
 				if (errorInfo.indexOf('carry')>-1){
 					if (username != ''){
-						User.updateOne({username: username}, {"progress.arithmetic.0.goals.1.progress":10}, function (err2, result2) {
+						User.updateOne({username: username}, {$inc:{"progress.arithmetic.0.goals.1.progress":10}}, function (err2, result2) {
 							if (err2 || !result2 || result2.n == 0){
 								console.log("Did not update");
 							}
