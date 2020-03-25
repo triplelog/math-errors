@@ -21,3 +21,6 @@ body {
 	padding-right: .4rem;
 	padding-left: .4rem;
 }
+.progress-10 {
+	background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(45,253,123,0.8757878151260504) 10%);
+}
