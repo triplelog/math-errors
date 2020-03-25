@@ -64,7 +64,8 @@ wss.on('connection', function connection(ws) {
 	ws.send(JSON.stringify(jsonmessage));
   	ws.on('message', function incoming(message) {
 		var dm = JSON.parse(message);
-		if (dm.type == 'key'){
+		console.log(dm);
+		if (dm.operation == 'key'){
 			if (tempKeys[dm.message]){
 				username = tempKeys[dm.message].username;
 			}
