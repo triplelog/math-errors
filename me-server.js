@@ -6,20 +6,20 @@ const binding = require.resolve(`./build/Release/binding`);
 const maincpp = require(binding);
 //const postfix = require('./postfix.js');
 
-//const mongoose = require('mongoose');
-//mongoose.connect('mongodb://localhost:27017/matherrors', {useNewUrlParser: true});
-
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/matherrors', {useNewUrlParser: true});
+var fromLogin = require('./login-server.js');
+var app = fromLogin.loginApp;
+var tempKeys = fromLogin.tempKeys;
 
 
 const https = require('https');
-//const http = require('http');
 var fs = require("fs");
-//var myParser = require("body-parser");
+var myParser = require("body-parser");
 var qs = require('querystring');
 const { exec } = require('child_process');
 var nunjucks = require('nunjucks');
 var crypto = require("crypto");
-//var datatypes = require('./datatypes.js');
 
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/matherrors.com/privkey.pem'),
@@ -29,25 +29,22 @@ const options = {
 
 
 
-//const User = require('./models/user');
-//var passport = require('passport')
-//var LocalStrategy = require('passport-local').Strategy;
+const User = require('./models/user');
+var passport = require('passport')
+var LocalStrategy = require('passport-local').Strategy;
 // use static authenticate method of model in LocalStrategy
-//passport.use(User.createStrategy());
+passport.use(User.createStrategy());
  
 // use static serialize and deserialize of model for passport session support
-//passport.serializeUser(User.serializeUser());
-//passport.deserializeUser(User.deserializeUser());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 var express = require('express');
 
-
-var app = express();
 app.use('/',express.static('static'));
 
 
 const server1 = https.createServer(options, app);
-//const server1 = http.createServer(options, app);
 
 server1.listen(12312);
 
