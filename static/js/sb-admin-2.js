@@ -54,6 +54,10 @@
 // Toggle the side navigation
 document.getElementById('sidebarToggle').addEventListener('click',sidebarToggle);
 function sidebarToggle(e){
+	document.getElementById('page-top').classList.toggle("sidebar-toggled");
+	document.querySelector('.sidebar').classList.toggle("toggled");
+	document.querySelector('.sidebar.toggled.collapse').style.display = 'none';
+	document.querySelector('.sidebar.collapse:Not(.toggled)').style.display = 'flex';
 	console.log(e.target);
 }
 /*
