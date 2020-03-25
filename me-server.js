@@ -75,9 +75,23 @@ wss.on('connection', function connection(ws) {
 
 app.get('/addition',
 	function(req, res){
-		var trophies = {'nocarry':false};
+		var trophies = {'nocarry':false,'onecarry':false,'twocarries':false};
+		//nocarry is miss 1 of 1
+		//onecarry is miss exactly 1 of 2
+		//twocarries is miss 2 of 2
 		res.write(nunjucks.render('topics/arithmetic.html',{
 			type: 'Addition',
+		}));
+		res.end();
+	
+    }
+    
+);
+app.get('/subtraction',
+	function(req, res){
+		var trophies = {'noborrow':false,'oneborrow':false,'twoborrows':false};
+		res.write(nunjucks.render('topics/arithmetic.html',{
+			type: 'Subtraction',
 		}));
 		res.end();
 	
