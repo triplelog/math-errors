@@ -79,6 +79,7 @@ wss.on('connection', function connection(ws) {
 								console.log("Did not update");
 							}
 						});
+						console.log(username);
 					}
 					console.log('Carry Error');
 				}
