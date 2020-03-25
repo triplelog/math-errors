@@ -75,8 +75,9 @@ wss.on('connection', function connection(ws) {
 
 app.get('/addition',
 	function(req, res){
-		
-		res.write(nunjucks.render('topics/addition.html',{
+		var trophies = {'nocarry':false};
+		res.write(nunjucks.render('topics/arithmetic.html',{
+			type: 'Addition',
 		}));
 		res.end();
 	
