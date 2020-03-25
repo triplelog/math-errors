@@ -1,0 +1,23 @@
+body {
+	--color-main: blue;
+}
+.box-header {
+	text-align: center;
+	background: var(--color-main);
+	color: white;
+}
+.box-list {
+	border: 1px solid black;
+	padding: .5rem;
+	position: relative;
+}
+.box-list li {
+	border: 1px solid black;
+}
+.box-buttons {
+	float: right;
+}
+.box-buttons i {
+	padding-right: .4rem;
+	padding-left: .4rem;
+}

@@ -15,6 +15,7 @@
 
 
     <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/menu.css">
     {% block stylesheet %}
     {% endblock %}
@@ -44,6 +45,15 @@
 					<a href="login.html" class="pure-button button-xxsmall">OUT &raquo;</a>
 				</p>
 				<ul class="pure-menu-list">
+					<li class="pure-menu-divided">
+						<a href="post-list.html" class="pure-menu-link">Goals</a>
+					</li>
+					<li class="pure-menu-divided">
+						<a href="post-list.html" class="pure-menu-link">Trophies</a>
+					</li>
+					<li class="pure-menu-divided">
+						<a href="post-list.html" class="pure-menu-link">Profile</a>
+					</li>
 					<li class="pure-menu-selected">
 						<a onclick=""><i class="far fa-plus-square"></i></a><a href="dashboard.html">Arithmetic</a>
 					</li>
@@ -82,6 +92,16 @@
 		<div class="pure-g l-box">
 			<div class="pure-u-1">
 				Dashboard
+			</div>
+			<div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+				<div class="box-header">Addition</div>
+				<ul class='box-list'>
+					<li>Correct</li>
+					<li>Carry Error</li>
+					<li>Carry 1 of 2</li>
+					<li>Carry 0 of 2</li>
+					<li>Match Error</li>
+				</ul>
 			</div>
 			<div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
 				{% block question1 %}
