@@ -215,7 +215,7 @@ pre {
     background: #1f8dd6;
 }
 #menu .pure-menu-selected a {
-	max-height: 100%;
+	background: rgba(0,0,0,0);
 }
 
 #menu .pure-menu-heading {
