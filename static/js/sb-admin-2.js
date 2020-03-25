@@ -2,15 +2,6 @@
 (function($) {
   "use strict"; // Start of use strict
 
-  // Toggle the side navigation
-  $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
-    $("body").toggleClass("sidebar-toggled");
-    $(".sidebar").toggleClass("toggled");
-    if ($(".sidebar").hasClass("toggled")) {
-      $('.sidebar .collapse').collapse('hide');
-    };
-  });
-
   // Close any open menu accordions when window is resized below 768px
   $(window).resize(function() {
     if ($(window).width() < 768) {
@@ -56,9 +47,8 @@ document.getElementById('sidebarToggle').addEventListener('click',sidebarToggle)
 function sidebarToggle(e){
 	document.getElementById('page-top').classList.toggle("sidebar-toggled");
 	document.querySelector('.sidebar').classList.toggle("toggled");
-	document.querySelector('.sidebar.toggled.collapse').style.display = 'none';
-	document.querySelector('.sidebar.collapse:Not(.toggled)').style.display = 'flex';
-	console.log(e.target);
+	//document.querySelector('.sidebar.toggled.collapse').style.display = 'none';
+	//document.querySelector('.sidebar.collapse:Not(.toggled)').style.display = 'flex';
 }
 /*
   $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
