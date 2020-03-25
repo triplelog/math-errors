@@ -57,16 +57,28 @@ const WebSocket = require('ws');
 //const wss = new WebSocket.Server({ port: 8080 , origin: 'http://tabdn.com'});
 const wss = new WebSocket.Server({ server });
 wss.on('connection', function connection(ws) {
-  var jsonmessage = [["323","691"],['','','',''],['','','','']];
-  ws.send(JSON.stringify(jsonmessage));
-  ws.on('message', function incoming(message) {
-    var dm = JSON.parse(message);
-	console.log(maincpp.addwrong(dm[0],dm[1],dm[2]));
-	var x = ""+Math.floor(Math.random() * 1000);
+  	var x = ""+Math.floor(Math.random() * 1000);
 	var y = ""+Math.floor(Math.random() * 1000);
 	var jsonmessage = [[x,y],['','','',''],['','','','']];
-  	ws.send(JSON.stringify(jsonmessage));
-  });
+	ws.send(JSON.stringify(jsonmessage));
+  	ws.on('message', function incoming(message) {
+		var dm = JSON.parse(message);
+		if (dm.type == 'key'){
+		}
+		else if (dm.type == 'arithmetic'){
+			if (dm.subtype == 'addition'){
+				var errorInfo = maincpp.addwrong(dm.message[0],dm.message[1],dm.message[2]));
+				if (errorInfo.indexOf('carry')>-1){
+					console.log('Carry Error');
+				}
+				var x = ""+Math.floor(Math.random() * 1000);
+				var y = ""+Math.floor(Math.random() * 1000);
+				var jsonmessage = [[x,y],['','','',''],['','','','']];
+				ws.send(JSON.stringify(jsonmessage));
+			}
+		}
+		
+  	});
 });
 
 
@@ -78,8 +90,8 @@ app.get('/arithmetic',
 		types.push({name:'Multiplication',goals:[{name:'Error Free',progress:0},{name:'Match Error',progress:0}]});
 		types.push({name:'Division',goals:[{name:'Error Free',progress:0},{name:'Match Error',progress:0}]});
 		if (req.isAuthenticated()){
-			console.log(req.user);
-			//types = req.user.progress.arithmetic;
+			//console.log(req.user);
+			types = req.user.progress.arithmetic;
 		}
 		//nocarry is miss 1 of 1
 		//onecarry is miss exactly 1 of 2

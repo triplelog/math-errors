@@ -94,7 +94,8 @@ function submitAnswer(){
 		var ell = el.querySelector('.sumRow > input');
 		answer = parseInt(ell.value);
 	}
-	var jsonmessage = [input_numbers[0],input_numbers[1],''+answer];
+	var jsonmessage = {type:'arithmetic',subtype:'addition',message:[]};
+	jsonmessage.message = [input_numbers[0],input_numbers[1],''+answer];
 	ws.send(JSON.stringify(jsonmessage));
 }
 
