@@ -214,6 +214,9 @@ pre {
     color: #fff;
     background: #1f8dd6;
 }
+#menu .pure-menu-selected a {
+	max-height: 100%;
+}
 
 #menu .pure-menu-heading {
     font-weight: 300;
