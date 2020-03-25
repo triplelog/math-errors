@@ -76,6 +76,9 @@ wss.on('connection', function connection(ws) {
 app.get('/addition',
 	function(req, res){
 		var types = [{name:'Addition',goals:['Error Free','Carry Error','Carry 0 of 2','Carry 1 of 2','Match Error']}];
+		types.push({name:'Subtraction',goals:['Error Free','Match Error']});
+		types.push({name:'Multiplication',goals:['Error Free','Match Error']});
+		types.push({name:'Division',goals:['Error Free','Match Error']});
 		//nocarry is miss 1 of 1
 		//onecarry is miss exactly 1 of 2
 		//twocarries is miss 2 of 2
