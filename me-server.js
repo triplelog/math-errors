@@ -102,7 +102,8 @@ app.get('/arithmetic',
 		types.push({name:'Multiplication',goals:[{name:'Error Free',progress:0},{name:'Match Error',progress:0}]});
 		types.push({name:'Division',goals:[{name:'Error Free',progress:0},{name:'Match Error',progress:0}]});
 		if (req.isAuthenticated()){
-			console.log(req.user.progress.arithmetic);
+			console.log(req.user.progress.arithmetic[0].goals);
+			console.log(req.user.progress.arithmetic[0].goals[1]);
 			types = req.user.progress.arithmetic;
 		}
 		//nocarry is miss 1 of 1
