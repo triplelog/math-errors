@@ -1,3 +1,4 @@
+/*
 (function($) {
   "use strict"; // Start of use strict
 
@@ -47,3 +48,19 @@
   });
 
 })(jQuery); // End of use strict
+*/
+
+
+// Toggle the side navigation
+document.getElementById('sidebarToggle').addEventListener('click',sidebarToggle);
+function sidebarToggle(e){
+	console.log(e.target);
+}
+/*
+  $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
+    $("body").toggleClass("sidebar-toggled");
+    $(".sidebar").toggleClass("toggled");
+    if ($(".sidebar").hasClass("toggled")) {
+      $('.sidebar .collapse').collapse('hide');
+    };
+  });*/
