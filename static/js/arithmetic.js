@@ -12,7 +12,6 @@ class asmElement extends HTMLElement {
 				<button class="submitButton">Submit</button>
 			</div>`;
 	this.querySelector('.submitButton').addEventListener('click',this.submitAnswer);
-	googleEl = this.querySelector('#googleChart');
   }
   
   /*
@@ -25,7 +24,7 @@ class asmElement extends HTMLElement {
   }*/
   
   newQuestion(numbers,carries,answer){
-		input_numbers = numbers;
+		this.input_numbers = numbers;
 		var el = this.querySelector('.asdBlock');
 		el.innerHTML = '';
 		var div = document.createElement('div');
