@@ -74,7 +74,7 @@ void MethodAddWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	strs.push_back(str2);
 	
 	void* handle = dlopen("./arithmetic.so", RTLD_LAZY);
-	typedef std::string (*hello_t)();
+	typedef void (*hello_t)();
 	hello_t hello = (hello_t) dlsym(handle, "addIntsWrongTest");
 	hello();
 	std::string out("temp");
