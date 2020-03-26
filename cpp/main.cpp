@@ -77,13 +77,13 @@ void MethodAddWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	void* handle = dlopen("/home/math-errors/cpp/arithmetic.so", RTLD_LAZY);
 	if (!handle) {
-        std::string out("no handle");
+        out = "no handle";
     }
     else {
     	typedef void (*hello_t)();
 		hello_t hello = (hello_t) dlsym(handle, "addIntsWrongTest");
 		hello();
-		std::string out("yes handle");
+		out = "yes handle";
     }
 	
 	
