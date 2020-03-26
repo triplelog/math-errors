@@ -89,7 +89,7 @@ class asmElement extends HTMLElement {
   submitAnswer(){
 		var answer = 0;
 		if (this.sumButtons){
-			var el = document.getElementById('asdBlock');
+			var el = this.querySelector('.asdBlock');
 			var ell = el.querySelectorAll('.sumRow > span');
 			for (var i=ell.length-1;i>=0;i--){
 				if (isNaN(parseInt(ell[i].textContent))){
@@ -102,7 +102,7 @@ class asmElement extends HTMLElement {
 			}
 		}
 		else {
-			var el = document.getElementById('asdBlock');
+			var el = this.querySelector('.asdBlock');
 			var ell = el.querySelector('.sumRow > input');
 			answer = parseInt(ell.value);
 		}
