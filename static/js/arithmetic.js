@@ -87,10 +87,11 @@ class asmElement extends HTMLElement {
   }
   
   submitAnswer(evt){
+  		var asmEl = evt.target.parentElement.parentElement;
+  		console.log(asmEl);
 		var answer = 0;
-		console.log(_this);
-		if (this.sumButtons){
-			var el = this.querySelector('.asdBlock');
+		if (asmEl.getAttribute('answer')=='digit'){
+			var el = asmEl.querySelector('.asdBlock');
 			var ell = el.querySelectorAll('.sumRow > span');
 			for (var i=ell.length-1;i>=0;i--){
 				if (isNaN(parseInt(ell[i].textContent))){
@@ -103,7 +104,7 @@ class asmElement extends HTMLElement {
 			}
 		}
 		else {
-			var el = this.parentElement.querySelector('.asdBlock');
+			var el = asmEl.querySelector('.asdBlock');
 			var ell = el.querySelector('.sumRow > input');
 			answer = parseInt(ell.value);
 		}
