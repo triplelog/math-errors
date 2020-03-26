@@ -22,8 +22,8 @@ class asmElement extends HTMLElement {
 	  }
   }*/
   
-  newQuestion(numbers,carries,answer){
-		this.input_numbers = numbers;
+  newQuestion(carries,answer){
+		var numbers = this.getAttribute('numbers').split(',');
 		var el = this.querySelector('.asdBlock');
 		el.innerHTML = '';
 		var div = document.createElement('div');
@@ -142,7 +142,9 @@ ws.onmessage = function(evt){
 	var question = dm.question;
 	var id = dm.id;
 	var el = document.getElementById('me-'+id);
-	el.newQuestion(question[0],question[1],question[2]);
+	var numberStr = question[0].join(',');
+	el.setAttribute('numbers',numberStr);
+	el.newQuestion(question[1],question[2]);
 	console.log(dm.update);
 	
 }
