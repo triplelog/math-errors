@@ -75,7 +75,7 @@ void MethodAddWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	std::string out("temp");
 	
-	void* handle = dlopen("/home/math-errors/cpp/arithmetic.so", RTLD_LAZY);
+	void* handle = dlopen("/home/rwilcox/math-errors/cpp/arithmetic.so", RTLD_LAZY);
 	if (!handle) {
         out = "no handle";
     }
