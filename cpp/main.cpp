@@ -18,6 +18,7 @@
 #include <thread>
 #include <sstream>
 #include <iostream>
+#include <dlfcn.h>
 
 #include "addition.cpp"
 #include "subtraction.cpp"
@@ -105,6 +106,8 @@ void MethodSubtractWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::vector<std::string> strs;
 	strs.push_back(str1);
 	strs.push_back(str2);
+	
+	
 	std::string out = subtractIntsWrong(strs,str3);
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(out);
 	info.GetReturnValue().Set(h.ToLocalChecked());
