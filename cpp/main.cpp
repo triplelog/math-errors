@@ -80,7 +80,7 @@ void MethodAddWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
         out = "no handle";
     }
     else {
-    	typedef std::string (*hello_t)(x);
+    	typedef std::string (*hello_t)();
 		hello_t hello = (hello_t) dlsym(handle, "addIntsWrongTest");
 		out = hello("newer");
     }
