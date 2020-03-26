@@ -88,7 +88,7 @@ class asmElement extends HTMLElement {
   
   submitAnswer(){
 		var answer = 0;
-		if (sumButtons){
+		if (this.sumButtons){
 			var el = document.getElementById('asdBlock');
 			var ell = el.querySelectorAll('.sumRow > span');
 			for (var i=ell.length-1;i>=0;i--){
