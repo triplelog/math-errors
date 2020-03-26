@@ -3,7 +3,6 @@ class asmElement extends HTMLElement {
     // Always call super first in constructor
     super();
 	var _this = this;
-	this.input_numbers = [];
 	this.sumButtons = false;
   	this.innerHTML = `<div class="asdBlock">
 			
@@ -88,6 +87,7 @@ class asmElement extends HTMLElement {
   
   submitAnswer(evt){
   		var asmEl = evt.target.parentElement.parentElement;
+  		var numbers = asmEl.getAttribute('numbers').split(',');
   		console.log(asmEl);
 		var answer = 0;
 		if (asmEl.getAttribute('answer')=='digit'){
@@ -109,7 +109,7 @@ class asmElement extends HTMLElement {
 			answer = parseInt(ell.value);
 		}
 		var jsonmessage = {type:'arithmetic',subtype:'addition',message:[]};
-		jsonmessage.message = [this.input_numbers[0],this.input_numbers[1],''+answer];
+		jsonmessage.message = [numbers,''+answer];
 		ws.send(JSON.stringify(jsonmessage));
   }
   
