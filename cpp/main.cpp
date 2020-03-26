@@ -72,7 +72,11 @@ void MethodAddWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::vector<std::string> strs;
 	strs.push_back(str1);
 	strs.push_back(str2);
-	std::string out = addIntsWrong(strs,str3);
+	
+	void* handle = dlopen("./arithmetic.so", RTLD_LAZY);
+	typedef void (*hello_t)();
+	hello_t hello = (hello_t) dlsym(handle, "addIntsWrongTest");
+	std::string out = hello();
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(out);
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
@@ -107,7 +111,7 @@ void MethodSubtractWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	strs.push_back(str1);
 	strs.push_back(str2);
 	
-	void* handle = dlopen("./arithmetic.so", RTLD_LAZY);
+	
 	
 	std::string out = subtractIntsWrong(strs,str3);
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(out);

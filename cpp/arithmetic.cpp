@@ -144,7 +144,10 @@ inline std::string addInts(std::vector<std::string> strs){
 	}
 	return digitsToString(digits0,false);
 }
-inline std::string addIntsWrong(std::vector<std::string> strs, std::string answer){
+std::string addIntsWrongTest() {
+	return "Working";
+}
+inline std::string addIntsWrongSO(std::vector<std::string> strs, std::string answer){
 	if (strs.size() == 1){
 		return "size is 1";
 	}
