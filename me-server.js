@@ -59,7 +59,7 @@ const wss = new WebSocket.Server({ server });
 wss.on('connection', function connection(ws) {
   	var x = ""+Math.floor(Math.random() * 1000);
 	var y = ""+Math.floor(Math.random() * 1000);
-	var jsonmessage = {'question':[[x,y],['','','',''],['','','','']]};
+	var jsonmessage = {'question':[[x,y],['','','',''],['','','','']],'id':0};
 	var username = '';
 	ws.send(JSON.stringify(jsonmessage));
   	ws.on('message', function incoming(message) {
@@ -85,7 +85,7 @@ wss.on('connection', function connection(ws) {
 				}
 				var x = ""+Math.floor(Math.random() * 1000);
 				var y = ""+Math.floor(Math.random() * 1000);
-				var jsonmessage = {'question':[[x,y],['','','',''],['','','','']],'update':'yes'};
+				var jsonmessage = {'question':[[x,y],['','','',''],['','','','']],'update':'yes','id':0};
 				ws.send(JSON.stringify(jsonmessage));
 			}
 		}
