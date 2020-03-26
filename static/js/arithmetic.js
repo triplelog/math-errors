@@ -86,9 +86,9 @@ class asmElement extends HTMLElement {
 		}
   }
   
-  submitAnswer(){
-  		var _this = this;
+  submitAnswer(evt){
 		var answer = 0;
+		console.log(_this);
 		if (this.sumButtons){
 			var el = this.querySelector('.asdBlock');
 			var ell = el.querySelectorAll('.sumRow > span');
@@ -103,9 +103,7 @@ class asmElement extends HTMLElement {
 			}
 		}
 		else {
-			console.log(this);
-			console.log(_this);
-			var el = this.querySelector('.asdBlock');
+			var el = this.parentElement.querySelector('.asdBlock');
 			var ell = el.querySelector('.sumRow > input');
 			answer = parseInt(ell.value);
 		}
