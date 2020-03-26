@@ -102,6 +102,7 @@ class asmElement extends HTMLElement {
 			}
 		}
 		else {
+			console.log(this);
 			var el = this.querySelector('.asdBlock');
 			var ell = el.querySelector('.sumRow > input');
 			answer = parseInt(ell.value);
