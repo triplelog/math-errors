@@ -73,11 +73,19 @@ void MethodAddWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	strs.push_back(str1);
 	strs.push_back(str2);
 	
-	void* handle = dlopen("~/math-errors/cpp/arithmetic.so", RTLD_LAZY);
-	typedef void (*hello_t)();
-	hello_t hello = (hello_t) dlsym(handle, "addIntsWrongTest");
-	hello();
 	std::string out("temp");
+	
+	void* handle = dlopen("/home/math-errors/cpp/arithmetic.so", RTLD_LAZY);
+	if (!handle) {
+        dlerror();
+    }
+    else {
+    	typedef void (*hello_t)();
+		hello_t hello = (hello_t) dlsym(handle, "addIntsWrongTest");
+		hello();
+    }
+	
+	
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(out);
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
