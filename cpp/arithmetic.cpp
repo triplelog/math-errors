@@ -144,7 +144,7 @@ inline std::string addInts(std::vector<std::string> strs){
 	}
 	return digitsToString(digits0,false);
 }
-std::string addIntsWrongTest() {
+extern "C" std::string addIntsWrongTest() {
 	return "Working";
 }
 inline std::string addIntsWrongSO(std::vector<std::string> strs, std::string answer){
