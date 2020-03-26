@@ -21,6 +21,7 @@
 #include <iostream>
 #include <dlfcn.h>
 #include <math.h>
+#include <vector>
 #include <array>
 
 inline std::string digitsToString(std::vector<short> digits, bool order){
