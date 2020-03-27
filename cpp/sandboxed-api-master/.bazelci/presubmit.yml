@@ -1,7 +1,0 @@
----
-tasks:
-  debian10:
-    shell_commands:
-    - pip3 install absl-py clang
-    build_targets:
-    - "..."
