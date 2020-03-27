@@ -78,7 +78,7 @@ void MethodAddWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	std::string out("temp");
 	
-	
+	luaWrapper();
 
 	void* handle = dlopen("/home/rwilcox/math-errors/cpp/arithmetic.so", RTLD_LAZY);
 	if (!handle) {
