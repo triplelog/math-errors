@@ -24,9 +24,6 @@
 #include <vector>
 #include <array>
 
-extern "C" {
-#include "./LuaJIT-2.0.5/src/lua.hpp"
-}
 
 inline std::string digitsToString(std::vector<short> digits, bool order){
 	int sz = digits.size();
@@ -150,9 +147,7 @@ inline std::string addInts(std::vector<std::string> strs){
 	}
 	return digitsToString(digits0,false);
 }
-void luaWrapper() {
-	
-}
+
 extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string answer){
 	if (strs.size() == 1){
 		return "size is 1";
@@ -160,9 +155,7 @@ extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string
 	else if (strs.size() == 0){
 		return "size is 0";
 	}
-	
-	luaWrapper();
-    
+
     
     
     

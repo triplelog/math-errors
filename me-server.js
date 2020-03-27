@@ -71,8 +71,9 @@ wss.on('connection', function connection(ws) {
 		}
 		else if (dm.type == 'arithmetic'){
 			if (dm.subtype == 'addition'){
+				console.log('a',performance.now());
 				var errorInfo = maincpp.addwrong(dm.message[0][0],dm.message[0][1],dm.message[1]);
-				console.log(errorInfo);
+				console.log(errorInfo, 'b', performance.now());
 				if (errorInfo.indexOf('carry')>-1){
 					if (username != ''){
 						User.updateOne({username: username}, {$inc:{"progress.arithmetic.0.goals.1.progress":10}}, function (err2, result2) {
