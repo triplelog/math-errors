@@ -24,11 +24,7 @@
 #include "subtraction.cpp"
 #include "cppdata.cpp"
 
-extern "C" {
-#include <lualib.h>
-#include <lauxlib.h>
-#include <lua.h>
-}
+
 void Latexify(const Nan::FunctionCallbackInfo<v8::Value>& info);
 
 void Latexify(const Nan::FunctionCallbackInfo<v8::Value>& info) {
@@ -79,9 +75,7 @@ void MethodAddWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	strs.push_back(str2);
 	
 	std::string out("temp");
-	lua_State *L;
-        
-    L = luaL_newstate();
+	
 
 	/* load Lua base libraries */
 	//luaL_openlibs(L);

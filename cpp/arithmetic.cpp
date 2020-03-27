@@ -24,6 +24,12 @@
 #include <vector>
 #include <array>
 
+extern "C" {
+#include <lualib.h>
+#include <lauxlib.h>
+#include <lua.h>
+}
+
 inline std::string digitsToString(std::vector<short> digits, bool order){
 	int sz = digits.size();
 	int i;
@@ -96,6 +102,10 @@ inline std::string addInts(std::vector<std::string> strs){
 		return "";
 	}
 	
+	lua_State *L;
+        
+    L = luaL_newstate();
+    
 	std::vector<std::vector<short>> digits;
 	std::vector<short> digits0;
 	auto it = strs[0].cend();
