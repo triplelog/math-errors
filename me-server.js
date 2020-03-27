@@ -172,7 +172,7 @@ function addIntsWrongJS(strs, answer){
 	var dsz = digits.length;
 	var adsz = answerDigits.length;
 	for (ii=0;ii<dsz;ii++){
-		int i;
+		var i;
 		for (i = digits[ii].length;i<sz;i++){
 			digits[ii].push(0);
 		}
