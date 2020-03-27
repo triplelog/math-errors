@@ -77,12 +77,6 @@ void MethodAddWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::string out("temp");
 	
 
-	/* load Lua base libraries */
-	//luaL_openlibs(L);
-
-	/* load the script */
-	//luaL_dofile(L, "/home/rwilcox/math-errors/cpp/arithmetic.lua");
-	/*
 	void* handle = dlopen("/home/rwilcox/math-errors/cpp/arithmetic.so", RTLD_LAZY);
 	if (!handle) {
         out = "no handle";
@@ -91,7 +85,7 @@ void MethodAddWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
     	typedef std::string (*hello_t)(std::vector<std::string>, std::string);
 		hello_t hello = (hello_t) dlsym(handle, "addIntsWrongSO");
 		out = hello(strs,str3);
-    }*/
+    }
     
     
 	

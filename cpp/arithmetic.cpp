@@ -102,9 +102,7 @@ inline std::string addInts(std::vector<std::string> strs){
 		return "";
 	}
 	
-	lua_State *L;
-        
-    L = luaL_newstate();
+	
     
 	std::vector<std::vector<short>> digits;
 	std::vector<short> digits0;
@@ -161,6 +159,12 @@ extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string
 	else if (strs.size() == 0){
 		return "size is 0";
 	}
+	
+	lua_State *L;
+        
+    L = luaL_newstate();
+    
+    
 	std::vector<short> answerDigits;
 	auto it = answer.cend();
 	for (it = answer.cend()-1;it>= answer.cbegin();it--){
