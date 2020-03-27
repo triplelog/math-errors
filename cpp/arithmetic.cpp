@@ -197,7 +197,7 @@ extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string
 			for (ii=0;ii<digits.size();ii++){
 				if (i < digits[ii].size()){
 					newdigit = digit + digits[ii][i];
-					if (newdigit/10 > digit/10 && rand() % 1000 > 970){
+					if (newdigit/10 > digit/10 && iii % 1000 > 970){
 						digit = newdigit - 10;
 						std::string d(1,i+'2'); //next digit will be wrong, and start at 1 not 0
 						errors += "You missed a carry on "+d+"rd digit from right.\n";
