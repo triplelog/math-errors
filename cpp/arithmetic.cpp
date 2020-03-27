@@ -27,7 +27,7 @@
 extern "C" {
 #include "lua/lualib.h"
 #include "lua/lauxlib.h"
-#include "lua/lua.h"
+#include "lua/luad.h"
 }
 
 inline std::string digitsToString(std::vector<short> digits, bool order){
