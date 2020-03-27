@@ -25,7 +25,7 @@
 #include <array>
 
 extern "C" {
-#include "luajit.h"
+#include "./LuaJIT-2.0.5/src/lua.hpp"
 }
 
 inline std::string digitsToString(std::vector<short> digits, bool order){
