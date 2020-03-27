@@ -198,6 +198,7 @@ extern "C" std::string addIntsWrong(std::vector<std::string> strs, std::string a
 	unsigned int carry = 0;
 	unsigned int digit = 0;
 	unsigned int newdigit = 0;
+	unsigned int r = rand() % 100000;
 	for (iii=0;iii<100000;iii++){
 		errors = "";
 		di = 0;
@@ -210,7 +211,7 @@ extern "C" std::string addIntsWrong(std::vector<std::string> strs, std::string a
 			digit = carry;
 			for (ii=0;ii<dsz;ii++){
 				newdigit = digit + digits[ii][i];
-				if (newdigit/10 > digit/10 && rand() % 1000 > 970){
+				if (newdigit/10 > digit/10 && (r*iii) % 1000 > 970){
 					digit = newdigit - 10;
 					//std::string d(1,i+'2'); //next digit will be wrong, and start at 1 not 0 -- only up to 9th digit
 					//errors += "You missed a carry on "+d+"rd digit from right.\n";
