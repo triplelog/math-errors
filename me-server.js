@@ -201,7 +201,7 @@ function addIntsWrongJS(strs, answer){
 			digit = carry;
 			for (ii=0;ii<dsz;ii++){
 				newdigit = digit + digits[ii][i];
-				if (newdigit/10 > digit/10 && iii % 1000 > 970){
+				if (parseInt(newdigit/10) > parseInt(digit/10) && iii % 1000 > 970){
 					digit = newdigit - 10;
 					//std::string d(1,i+'2'); //next digit will be wrong, and start at 1 not 0 -- only up to 9th digit
 					//errors += "You missed a carry on "+d+"rd digit from right.\n";
@@ -214,7 +214,7 @@ function addIntsWrongJS(strs, answer){
 			if (digit>9){
 				digits0[di] = digit%10;
 				di++;
-				carry = digit/10;
+				carry = parseInt(digit/10);
 			}
 			else {
 				digits0[di] = digit;
@@ -232,7 +232,7 @@ function addIntsWrongJS(strs, answer){
 			if (carry>9){
 				digits0[di] = carry%10;
 				di++;
-				carry = carry/10;
+				carry = parseInt(carry/10);
 			}
 			else {
 				digits0[di] = carry;
