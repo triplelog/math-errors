@@ -160,7 +160,7 @@ function addIntsWrongJS(strs, answer){
 	
 	var digits = [];
 	for (ii=0;ii<strs.length;ii++){
-		onestr = [];
+		var onestr = [];
 		for (var it = strs[ii].length-1;it>= 0;it--){
 			onestr.push(parseInt(strs[ii][it]));
 		}
