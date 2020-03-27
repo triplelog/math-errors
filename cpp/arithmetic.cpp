@@ -152,6 +152,7 @@ inline std::string addInts(std::vector<std::string> strs){
 	}
 	return digitsToString(digits0,false);
 }
+lua_State *L;
 extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string answer){
 	if (strs.size() == 1){
 		return "size is 1";
@@ -160,9 +161,9 @@ extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string
 		return "size is 0";
 	}
 	
-	lua_State *L;
-        
-    L = luaL_newstate();
+	
+    
+    
     
     
 	std::vector<short> answerDigits;
@@ -251,7 +252,5 @@ extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string
 	return returnString;
 }
 int main() {
-	lua_State *L;
-        
     L = luaL_newstate();
 }
