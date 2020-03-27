@@ -166,6 +166,7 @@ extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string
 	}
 	unsigned int ii;
 	unsigned int sz = 0;
+	
 	std::vector<std::vector<short>> digits;
 	for (ii=0;ii<strs.size();ii++){
 		std::vector<short> onestr;
@@ -177,7 +178,14 @@ extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string
 		}
 		digits.push_back(onestr);
 	}
-		
+	unsigned int dsz = digits.size();
+	for (ii=0;ii<dsz;ii++){
+		int i;
+		for (i = digits[ii].size();i<sz;i++){
+			digits[ii].push_back(0);
+		}
+	}
+	
 	
 	std::vector<short> digits0;
 	std::string errors;
@@ -194,17 +202,15 @@ extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string
 		unsigned int newdigit = 0;
 		for (i=0;i<sz;i++){
 			digit = carry;
-			for (ii=0;ii<digits.size();ii++){
-				if (i < digits[ii].size()){
-					newdigit = digit + digits[ii][i];
-					if (newdigit/10 > digit/10 && iii % 1000 > 970){
-						digit = newdigit - 10;
-						std::string d(1,i+'2'); //next digit will be wrong, and start at 1 not 0
-						errors += "You missed a carry on "+d+"rd digit from right.\n";
-					}
-					else {
-						digit = newdigit;
-					}
+			for (ii=0;ii<dsz;ii++){
+				newdigit = digit + digits[ii][i];
+				if (newdigit/10 > digit/10 && rand() % 1000 > 970){
+					digit = newdigit - 10;
+					std::string d(1,i+'2'); //next digit will be wrong, and start at 1 not 0 -- only up to 9th digit
+					errors += "You missed a carry on "+d+"rd digit from right.\n";
+				}
+				else {
+					digit = newdigit;
 				}
 			}
 			if (digit>9){
