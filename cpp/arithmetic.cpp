@@ -152,7 +152,10 @@ inline std::string addInts(std::vector<std::string> strs){
 	}
 	return digitsToString(digits0,false);
 }
-
+void luaWrapper() {
+	lua_State *L;
+    L = luaL_newstate();
+}
 extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string answer){
 	if (strs.size() == 1){
 		return "size is 1";
@@ -161,7 +164,7 @@ extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string
 		return "size is 0";
 	}
 	
-	
+	luaWrapper();
     
     
     
@@ -250,8 +253,4 @@ extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string
 		
 	}
 	return returnString;
-}
-void luaWrapper() {
-	lua_State *L;
-    L = luaL_newstate();
 }
