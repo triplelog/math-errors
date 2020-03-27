@@ -199,7 +199,7 @@ extern "C" std::string addIntsWrong(std::vector<std::string> strs, std::string a
 	unsigned int digit = 0;
 	unsigned int newdigit = 0;
 	for (iii=0;iii<100000;iii++){
-		//errors = "";
+		errors = "";
 		di = 0;
 		isPossible = true;
 		carry = 0;
@@ -214,7 +214,7 @@ extern "C" std::string addIntsWrong(std::vector<std::string> strs, std::string a
 					digit = newdigit - 10;
 					//std::string d(1,i+'2'); //next digit will be wrong, and start at 1 not 0 -- only up to 9th digit
 					//errors += "You missed a carry on "+d+"rd digit from right.\n";
-					//errors += "You missed a carry.\n";
+					errors += "You missed a carry.\n";
 				}
 				else {
 					digit = newdigit;
@@ -255,11 +255,11 @@ extern "C" std::string addIntsWrong(std::vector<std::string> strs, std::string a
 			i++;
 		}
 		if (isPossible && adsz == di){
-			//returnString = errors;
+			returnString = errors;
 			//returnString += "The correct answer is " + addInts(strs);
 		}
 		
 	}
-	//return returnString;
-	return "done";
+	return returnString;
+	//return "done";
 }
