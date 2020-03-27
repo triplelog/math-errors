@@ -24,11 +24,7 @@
 #include "subtraction.cpp"
 #include "cppdata.cpp"
 
-extern "C" {
-# include "lua.h"
-# include "lauxlib.h"
-# include "lualib.h"
-}
+#include <lua.hpp>
 
 void Latexify(const Nan::FunctionCallbackInfo<v8::Value>& info);
 
