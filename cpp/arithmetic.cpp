@@ -152,7 +152,7 @@ inline std::string addInts(std::vector<std::string> strs){
 	}
 	return digitsToString(digits0,false);
 }
-inline std::string addIntsWrongSO(std::vector<std::string> strs, std::string answer){
+extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string answer){
 	if (strs.size() == 1){
 		return "size is 1";
 	}
