@@ -81,7 +81,7 @@ void MethodAddWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::string out("temp");
 
         
-    auto L = luaL_newstate();
+    //auto L = luaL_newstate();
 
 	/* load Lua base libraries */
 	//luaL_openlibs(L);
