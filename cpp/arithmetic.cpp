@@ -27,7 +27,7 @@
 extern "C" {
 #include "lua/lualib.h"
 #include "lua/lauxlib.h"
-#include "lua/luad.h"
+#include "lua/lua.h"
 }
 
 inline std::string digitsToString(std::vector<short> digits, bool order){
@@ -160,9 +160,7 @@ extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string
 		return "size is 0";
 	}
 	
-	lua_State *L;
-        
-    L = luaL_newstate();
+	
     
     
 	std::vector<short> answerDigits;
@@ -249,4 +247,9 @@ extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string
 		
 	}
 	return returnString;
+}
+int main() {
+	lua_State *L;
+        
+    L = luaL_newstate();
 }
