@@ -28,6 +28,9 @@ extern "C" {
 }
 
 void Latexify(const Nan::FunctionCallbackInfo<v8::Value>& info);
+void luaWrapper() {
+	lua_State *L = lua_open();
+}
 
 void Latexify(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//v8::Isolate* isolate = info.GetIsolate();
@@ -133,9 +136,7 @@ void MethodSubtractWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(out);
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
-void luaWrapper() {
-	lua_State *L = lua_open();
-}
+
 void Init(v8::Local<v8::Object> exports) {
   v8::Local<v8::Context> context = exports->CreationContext();
   exports->Set(context,
