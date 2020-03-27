@@ -256,7 +256,7 @@ extern "C" std::string addIntsWrong(std::vector<std::string> strs, std::string a
 		}
 		if (isPossible && adsz == di){
 			returnString = errors;
-			//returnString += "The correct answer is " + addInts(strs);
+			returnString += "The correct answer is " + addInts(strs);
 		}
 		
 	}
