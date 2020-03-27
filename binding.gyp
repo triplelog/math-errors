@@ -2,8 +2,7 @@
   'targets': [
     {
       	'target_name': 'binding',
-      	"cflags": [ "-std=c++17", "-fPIC" ],
-        "cflags_cc": [ "-std=c++17", "-fPIC"],
+        "cflags_cc": [ "-std=c++17", "-fconcepts", "-fPIC"],
       	'sources': [ 'cpp/main.cpp' ],
       	"libraries": [
           "-ldl",
