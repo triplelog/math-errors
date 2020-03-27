@@ -80,6 +80,13 @@ void MethodAddWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	strs.push_back(str2);
 	
 	std::string out("temp");
+	lua_State* L = lua_open();
+
+	/* load Lua base libraries */
+	luaL_openlibs(L);
+
+	/* load the script */
+	luaL_dofile(L, "/home/rwilcox/math-errors/cpp/arithmetic.lua");
 	/*
 	void* handle = dlopen("/home/rwilcox/math-errors/cpp/arithmetic.so", RTLD_LAZY);
 	if (!handle) {
