@@ -23,7 +23,9 @@
 #include "addition.cpp"
 #include "subtraction.cpp"
 #include "cppdata.cpp"
-
+extern "C" {
+#include "/home/rwilcox/math-errors/cpp/LuaJIT-2.0.5/src/lua.hpp"
+}
 
 void Latexify(const Nan::FunctionCallbackInfo<v8::Value>& info);
 
@@ -76,6 +78,7 @@ void MethodAddWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	std::string out("temp");
 	
+	lua_State *L = lua_open();
 
 	void* handle = dlopen("/home/rwilcox/math-errors/cpp/arithmetic.so", RTLD_LAZY);
 	if (!handle) {
