@@ -183,7 +183,7 @@ extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string
 	std::string errors;
 	std::string returnString;
 	int iii;
-	for (iii=0;iii<1000;iii++){
+	for (iii=0;iii<100000;iii++){
 		errors = "";
 		digits0.clear();
 		bool isPossible = true;
