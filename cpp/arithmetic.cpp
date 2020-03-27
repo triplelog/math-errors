@@ -160,7 +160,9 @@ extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string
 		return "size is 0";
 	}
 	
-	
+	lua_State *L;
+        
+    L = luaL_newstate();
     
     
 	std::vector<short> answerDigits;
