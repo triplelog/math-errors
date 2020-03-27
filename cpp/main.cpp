@@ -24,6 +24,12 @@
 #include "subtraction.cpp"
 #include "cppdata.cpp"
 
+extern "C" {
+# include "lua.h"
+# include "lauxlib.h"
+# include "lualib.h"
+}
+
 void Latexify(const Nan::FunctionCallbackInfo<v8::Value>& info);
 
 void Latexify(const Nan::FunctionCallbackInfo<v8::Value>& info) {
@@ -74,7 +80,7 @@ void MethodAddWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	strs.push_back(str2);
 	
 	std::string out("temp");
-	
+	/*
 	void* handle = dlopen("/home/rwilcox/math-errors/cpp/arithmetic.so", RTLD_LAZY);
 	if (!handle) {
         out = "no handle";
@@ -83,7 +89,9 @@ void MethodAddWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
     	typedef std::string (*hello_t)(std::vector<std::string>, std::string);
 		hello_t hello = (hello_t) dlsym(handle, "addIntsWrongSO");
 		out = hello(strs,str3);
-    }
+    }*/
+    
+    
 	
 	
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(out);
