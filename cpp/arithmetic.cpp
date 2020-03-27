@@ -148,7 +148,7 @@ inline std::string addInts(std::vector<std::string> strs){
 	return digitsToString(digits0,false);
 }
 
-extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string answer){
+extern "C" std::string addIntsWrong(std::vector<std::string> strs, std::string answer){
 	if (strs.size() == 1){
 		return "size is 1";
 	}
@@ -179,6 +179,7 @@ extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string
 		digits.push_back(onestr);
 	}
 	unsigned int dsz = digits.size();
+	unsigned int adsz = answerDigits.size();
 	for (ii=0;ii<dsz;ii++){
 		int i;
 		for (i = digits[ii].size();i<sz;i++){
@@ -187,19 +188,24 @@ extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string
 	}
 	
 	
-	std::vector<short> digits0;
+	std::vector<short> digits0 = {0,0,0,0,0};
 	std::string errors;
 	std::string returnString;
 	int iii;
+	bool isPossible = true;
+		
+	unsigned int i; unsigned int di;
+	unsigned int carry = 0;
+	unsigned int digit = 0;
+	unsigned int newdigit = 0;
 	for (iii=0;iii<100000;iii++){
 		errors = "";
-		digits0.clear();
-		bool isPossible = true;
+		di = 0;
+		isPossible = true;
+		carry = 0;
+		digit = 0;
+		newdigit = 0;
 		
-		unsigned int i;
-		unsigned int carry = 0;
-		unsigned int digit = 0;
-		unsigned int newdigit = 0;
 		for (i=0;i<sz;i++){
 			digit = carry;
 			for (ii=0;ii<dsz;ii++){
@@ -215,14 +221,17 @@ extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string
 				}
 			}
 			if (digit>9){
-				digits0.push_back(digit%10);
+				digits0[di] = digit%10;
+				di++;
 				carry = digit/10;
 			}
 			else {
-				digits0.push_back(digit);
+				digits0[di] = digit;
+				di++;
 				carry = 0;
 			}
-			if (answerDigits.size() <= i || digits0[i] !=answerDigits[i]){
+			
+			if (adsz <= i || digits0[i] !=answerDigits[i]){
 				isPossible = false;
 				break;
 			}
@@ -230,20 +239,22 @@ extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string
 		if (!isPossible){continue;}
 		while (carry > 0){
 			if (carry>9){
-				digits0.push_back(carry%10);
+				digits0[di] = carry%10;
+				di++;
 				carry = carry/10;
 			}
 			else {
-				digits0.push_back(carry);
+				digits0[di] = carry;
+				di++;
 				carry = 0;
 			}
-			if (answerDigits.size() <= i || digits0[i] !=answerDigits[i]){
+			if (adsz <= i || digits0[i] !=answerDigits[i]){
 				isPossible = false;
 				break;
 			}
 			i++;
 		}
-		if (isPossible && answerDigits.size() == digits0.size()){
+		if (isPossible && adsz == di){
 			returnString = errors;
 			returnString += "The correct answer is " + addInts(strs);
 		}

@@ -82,7 +82,7 @@ void MethodAddWrong(const Nan::FunctionCallbackInfo<v8::Value>& info) {
     }
     else {
     	typedef std::string (*hello_t)(std::vector<std::string>, std::string);
-		hello_t hello = (hello_t) dlsym(handle, "addIntsWrongSO");
+		hello_t hello = (hello_t) dlsym(handle, "addIntsWrong");
 		out = hello(strs,str3);
     }
     
