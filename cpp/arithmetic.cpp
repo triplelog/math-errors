@@ -152,7 +152,7 @@ inline std::string addInts(std::vector<std::string> strs){
 }
 void luaWrapper() {
 	lua_State *L;
-    L = luaL_newstate();
+    L = lua_newstate();
 }
 extern "C" std::string addIntsWrongSO(std::vector<std::string> strs, std::string answer){
 	if (strs.size() == 1){
