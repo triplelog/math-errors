@@ -252,6 +252,9 @@ std::string makeTree(std::string pfstr){
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
 			std::cout << i << "---" << fullStr << '\n';
 			
+			for (ii=0;ii<fullTrees.size();ii++){
+				std::cout << i << "-:-" << fullTrees[ii] << '\n';
+			}
 			listMap[fullStr]=fullTrees;
 			
 		}
