@@ -471,8 +471,9 @@ flat_hash_map<std::string,std::vector<std::string>> makeRules(){
 	flat_hash_map<std::string,std::vector<std::string>> finalRules;
 	std::vector<std::vector<std::string>> rawRules;
 	rawRules.push_back({"A^2","A*A","Turn exponent into multiplication."});
-	rawRules.push_back({"A+B","B+A","Use commutative property of addition."});
-	rawRules.push_back({"51+4","55","Add."});
+	//rawRules.push_back({"A+B","B+A","Use commutative property of addition."});
+	rawRules.push_back({"51+4+7","55+7","Add some."});
+	rawRules.push_back({"55+7","62","Add all."});
 	
 	int i; int ii;
 	std::vector<std::string> fullPost;
