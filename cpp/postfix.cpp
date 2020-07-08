@@ -153,10 +153,7 @@ std::string makePost(char infixexpr[]) {
 		}
 
 	}
-	std::string retstr = expstr + "@";
-	for (i=0;i<intstr.length()-1;i++){
-		retstr += intstr.at(i);
-	}
+	std::string retstr = expstr + "@" + intstr;
 	return retstr;
 
 
@@ -165,8 +162,8 @@ std::string makePost(char infixexpr[]) {
 std::string makeTree(std::string pfstr){
 	std::string tree = "";
 	flat_hash_map<std::string,std::string> treeMap;
-	flat_hash_map<int,int> operandMap;
-	treeMap["#"]="";
+	flat_hash_map<int,std::string> operandMap;
+	
 	int i; int ii; int iii;
 	int idx =0;
 	for (i=0;i<pfstr.length();i++){
@@ -174,40 +171,54 @@ std::string makeTree(std::string pfstr){
 			break;
 		}
 		else if (pfstr.at(i) != '#'){
-			std::string secondStr = "";
+			std::string secondS = "";
+			std::string secondT = "";
 			int maxi = i-1;
 			for (ii=0;ii<i;ii++){
 				std::string s = "";
+				std::string t = "";
 				for (iii=ii;iii<i;iii++){
 					s += pfstr.at(iii);
+					if (pfstr.at(iii) == '#'){
+						t += operandMap[iii] + '_';
+					}
 				}
-				if (treeMap.find(s) != treeMap.end()){
-					secondStr = s;
+				if (treeMap.find(s + '@' + t) != treeMap.end()){
+					secondS = s;
+					secondT = t;
 					maxi = ii;
 					break;
 				}
 			}
-			std::string firstStr = "";
+			std::string firstS = "";
+			std::string firstT = "";
 			
 			if (pfstr.at(i) != '-' && pfstr.at(i) != '/'){
 				for (ii=0;ii<maxi;ii++){
 					std::string s = "";
+					std::string t = "";
 					for (iii=ii;iii<maxi;iii++){
 						s += pfstr.at(iii);
+						if (pfstr.at(iii) == '#'){
+							t += operandMap[iii] + '_';
+						}
 					}
-					if (treeMap.find(s) != treeMap.end()){
-						firstStr = s;
+					if (treeMap.find(s + '@' + t) != treeMap.end()){
+						firstS = s;
+						firstT = t;
+						maxi = ii;
 						break;
 					}
 				}
 			}
-			std::string fullStr = firstStr + secondStr + pfstr.at(i);
+			std::string fullStr = firstS + secondS + pfstr.at(i) + firstT + secondT;
 			std::cout << i << "---" << fullStr << '\n';
 			
 			treeMap[fullStr]="";
 			
 		}
 		else {
+			treeMap["#@"+idx+"_"]="original"+i;
 			operandMap[i]=idx;
 			idx++;
 		}
