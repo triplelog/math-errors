@@ -613,7 +613,7 @@ int main () {
 	for (ii=0;ii<postList.size();ii++){
 		std::string newPostfix = postList[ii];
 		std::string oldPostfix = "";
-		int maxSteps = 1000;
+		int maxSteps = 1001;
 		while (newPostfix != oldPostfix && maxSteps >=0){
 			oldPostfix = newPostfix;
 			newPostfix = applyRules(oldPostfix);
