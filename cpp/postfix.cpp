@@ -106,7 +106,7 @@ std::string makePost(char infixexpr[]) {
 				osidx--;
 			}
 		}
-		else if (firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '~' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
+		else if (firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '~' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
 			while ((osidx > 0) && (prec[opStack[osidx-1]] >= prec[firstChar])){
 				topToken = opStack[osidx-1];
 				osidx--;
@@ -143,7 +143,7 @@ std::string makePost(char infixexpr[]) {
 			//expstr += "-";
 			expstr += "/*";
 		}
-		else if (firstChar == '*' || firstChar == '+' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
+		else if (firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
 			expstr += ci;
 		}
 		else {
@@ -454,7 +454,7 @@ std::string makeRule(std::string input){
 
 	infixexpr[input.length()] = '\0';
 	std::string postfixed = makePost(infixexpr);
-	std::cout << postfixed;
+	//std::cout << postfixed;
 	return postfixed;
 	//return makeTree(postfixed)[0];
 }
@@ -476,7 +476,7 @@ int main () {
 
 	
 	
-    
+    prec['^'] = 5;
 	prec['*'] = 4;
 	prec['/'] = 4;
 	prec['+'] = 3;
