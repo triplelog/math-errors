@@ -619,6 +619,7 @@ int main () {
 			oldPostfix = newPostfix;
 			newPostfix = applyRules(oldPostfix);
 			maxSteps--;
+			std::cout << "Match: " << postList[ii] << " into "<< newPostfix << '\n';
 		}
 		std::cout << ii << "-:-" << postList[ii] << '\n';
 		std::cout << "Match: " << postList[ii] << " into "<< newPostfix << '\n';
