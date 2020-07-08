@@ -55,9 +55,9 @@ std::string makePost(char infixexpr[]) {
 	if (temptoken != ""){
 		tokenList[idx] = temptoken;
 	}
-	for (std::vector<int>::iterator it = tokenList.begin() ; it != tokenList.end(); ++it){
+	//for (std::vector<int>::iterator it = tokenList.begin() ; it != tokenList.end(); ++it){
 	
-	}
+	//}
 	return "tokenList";
 	/*
 	for (var i=0;i<tokenList.length;i++){
