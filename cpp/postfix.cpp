@@ -511,7 +511,7 @@ int main () {
 	std::string pfstr = makePost(infixexpr);
 	std::cout << pfstr << '\n';
 	std::vector<std::string> postList = makeTree(pfstr);
-	for (ii=0;ii<postList.size()/2;ii++){
+	for (ii=0;ii<postList.size();ii++){
 		std::cout << ii << "-:-" << postList[ii] << '\n';
 		int iii; int iiii;
 		for (iii=0;iii<rules.size();iii++){
