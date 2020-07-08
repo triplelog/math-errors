@@ -186,19 +186,23 @@ std::string makeTree(std::string pfstr){
 			}
 			std::cout << i << "---" << maxi << "---" << secondStr << '\n';
 			std::string firstStr = "";
-			for (ii=0;ii<maxi;ii++){
-				std::string s = "";
-				for (iii=ii;iii<maxi;iii++){
-					s += pfstr.at(iii);
-				}
-				if (treeMap.find(s) != treeMap.end()){
-					firstStr = s;
-					break;
+			
+			if (pfstr.at(i) != '-' && pfstr.at(i) != '/'){
+				for (ii=0;ii<maxi;ii++){
+					std::string s = "";
+					for (iii=ii;iii<maxi;iii++){
+						s += pfstr.at(iii);
+					}
+					if (treeMap.find(s) != treeMap.end()){
+						firstStr = s;
+						break;
+					}
 				}
 			}
 			std::cout << i << "---" << firstStr << '\n';
 			std::string fullStr = firstStr + secondStr + pfstr.at(i);
 			std::cout << i << "---" << fullStr << '\n';
+			
 			treeMap[fullStr]="";
 			
 		}
