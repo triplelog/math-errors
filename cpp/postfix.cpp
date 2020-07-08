@@ -159,8 +159,8 @@ std::string makePost(char infixexpr[]) {
 
 }
 
-std::string makeTree(std::string pfstr){
-
+std::vector<std::string> makeTree(std::string pfstr){
+	std::vector<std::string> treeOptions;
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,std::string> operandMap;
 	flat_hash_map<int,std::string> originalMap;
@@ -272,11 +272,13 @@ std::string makeTree(std::string pfstr){
 			
 			
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
+			/*
 			std::cout << i << "---" << fullStr << '\n';
 			
 			for (ii=0;ii<fullTrees.size();ii++){
 				std::cout << i << "-:-" << fullTrees[ii] << '\n';
 			}
+			*/
 			listMap[fullStr]=fullTrees;
 			
 		}
@@ -288,8 +290,12 @@ std::string makeTree(std::string pfstr){
 		
 	}
 	
+	for (ii=0;ii<listMap[pfstr].size()/2;ii++){
+		treeOptions.push_back(listMap[pfstr][ii*2]+'@'+listMap[pfstr][ii*2+1]);
+		std::cout << ii << "-:-" << treeOptions[ii] << '\n';
+	}
 	std::cout << '\n';
-	return "temp";
+	return treeOptions;
 }
 /*
 function replaceDecimals(istr){
