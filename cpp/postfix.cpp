@@ -170,7 +170,10 @@ std::string makeTree(std::string pfstr){
 	int i; int ii; int iii;
 	int idx =0;
 	for (i=0;i<pfstr.length();i++){
-		if (pfstr.at(i) != '#'){
+		if (pfstr.at(i) == '@'){
+			break;
+		}
+		else if (pfstr.at(i) != '#'){
 			std::string secondStr = "";
 			int maxi = i-1;
 			for (ii=0;ii<i;ii++){
@@ -184,7 +187,6 @@ std::string makeTree(std::string pfstr){
 					break;
 				}
 			}
-			std::cout << i << "---" << maxi << "---" << secondStr << '\n';
 			std::string firstStr = "";
 			
 			if (pfstr.at(i) != '-' && pfstr.at(i) != '/'){
@@ -199,7 +201,6 @@ std::string makeTree(std::string pfstr){
 					}
 				}
 			}
-			std::cout << i << "---" << firstStr << '\n';
 			std::string fullStr = firstStr + secondStr + pfstr.at(i);
 			std::cout << i << "---" << fullStr << '\n';
 			
