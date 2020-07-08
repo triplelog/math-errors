@@ -81,9 +81,10 @@ std::string makePost(char infixexpr[]) {
 	
 	
 	
-	//for (std::vector<int>::iterator it = tokenList.begin() ; it != tokenList.end(); ++it){
-	
-	//}
+	for (std::vector<int>::iterator it = tokenList.begin() ; it != tokenList.end(); it++){
+		std::cout << ' ' << *it;
+	}
+	std::cout << '\n';
 	return "tokenList";
 	/*
 	for (var i=0;i<tokenList.length;i++){
