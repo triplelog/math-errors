@@ -533,15 +533,67 @@ int main () {
 		std::cout << ii << "-:-" << postList[ii] << '\n';
 		int iii; int iiii;
 		std::string key = "";
+		int startAt =0;
 		for (iiii=0;iiii<postList[ii].length();iiii++){
 			if (postList[ii].at(iiii) == '@'){
+				startAt = iiii+1;
 				break;
 			}
 			else{
 				key += postList[ii].at(iiii);
 			}
 		}
-		std::cout << "Match: " << postList[ii] << " and " << key << " with "<< rules[key][0] << '\n';
+		if (rules.find(key) != rules.end()){
+			flat_hash_map<char,std::string> partMap;
+			std::vector<std::string> userOperands;
+			std::vector<std::string> ruleOperands;
+			std::string currentOperand = "";
+			for (iii=0;iii<rules[key][0].length();iii++){
+				if (rules[key][0].at(iii) == '_'){
+					ruleOperands.push_back(currentOperand);
+					currentOperand = "";
+				}
+				else {
+					currentOperand += rules[key][0].at(iii);
+				}
+			}
+			currentOperand = "";
+			for (iii=startAt;iii<postList[ii].length();iii++){
+				if (postList[ii].at(iii) == '_'){
+					userOperands.push_back(currentOperand);
+					currentOperand = "";
+				}
+				else {
+					currentOperand += postList[ii].at(iii);
+				}
+			}
+			
+			for (iii=0;iii<ruleOperands.size();iii++){
+				if (ruleOperands[iii].length()==1){
+					if (ruleOperands[iii].at(0) <= 'Z' && ruleOperands[iii].at(0) >= 'A'){
+						partMap[ruleOperands[iii].at(0)] = userOperands[iii];
+					}
+				}
+			}
+			
+			std::string newPostfix = key + '@';
+			for (iii=0;iii<rules[key][0].length();iii++){
+				if (rules[key][0].at(iii) == '_'){
+					if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
+						newPostfix += partMap[currentOperand.at(0)];
+					}
+					else {
+						newPostfix += currentOperand;
+					}
+					currentOperand = "";
+				}
+				else {
+					currentOperand += rules[key][0].at(iii);
+				}
+			}
+			std::cout << "Match: " << postList[ii] << " into "<< newPostfix << '\n';
+		}
+		
 		/*
 		for (iii=0;iii<rules.size();iii++){
 			for (iiii=0;iiii<postList[ii].length();iiii++){
