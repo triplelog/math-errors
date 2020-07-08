@@ -509,7 +509,7 @@ int main () {
 
 	infixexpr[s.length()] = '\0';
 	std::string pfstr = makePost(infixexpr);
-	//std::cout << pfstr << '\n';
+	std::cout << pfstr << '\n';
 	std::vector<std::string> postList = makeTree(pfstr);
 	for (ii=0;ii<postList.size()/2;ii++){
 		std::cout << ii << "-:-" << postList[ii] << '\n';
