@@ -24,6 +24,7 @@ using namespace std::chrono;
 using phmap::flat_hash_map;
 flat_hash_map<std::string,std::string> treeMap;
 flat_hash_map<char,int> prec;
+flat_hash_map<std::string,std::vector<std::string>> rules;
 
 std::string arrayToString(int n, char input[]) { 
     int i; 
@@ -490,6 +491,66 @@ flat_hash_map<std::string,std::vector<std::string>> makeRules(){
 	return finalRules;
 }
 
+std::string applyRules(std::string userString) {
+	flat_hash_map<char,std::string> partMap;
+	std::vector<std::string> userOperands;
+	std::vector<std::string> ruleOperands;
+	std::string currentOperand = "";
+	for (iii=0;iii<rules[key][0].length();iii++){
+		if (rules[key][0].at(iii) == '_'){
+			ruleOperands.push_back(currentOperand);
+			currentOperand = "";
+		}
+		else {
+			currentOperand += rules[key][0].at(iii);
+		}
+	}
+	currentOperand = "";
+	for (iii=startAt;iii<userString.length();iii++){
+		if (userString.at(iii) == '_'){
+			userOperands.push_back(currentOperand);
+			currentOperand = "";
+		}
+		else {
+			currentOperand += userString.at(iii);
+		}
+	}
+	
+	for (iii=0;iii<ruleOperands.size();iii++){
+		if (ruleOperands[iii].length()==1){
+			if (ruleOperands[iii].at(0) <= 'Z' && ruleOperands[iii].at(0) >= 'A'){
+				partMap[ruleOperands[iii].at(0)] = userOperands[iii];
+			}
+		}
+	}
+	
+	std::string newPostfix = "";
+	bool pastKey = false;
+	for (iii=0;iii<rules[key][1].length();iii++){
+		if (pastKey){
+			if (rules[key][1].at(iii) == '_'){
+				if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
+					newPostfix += partMap[currentOperand.at(0)] + '_';
+				}
+				else {
+					newPostfix += currentOperand + '_';
+				}
+				currentOperand = "";
+			}
+			else {
+				currentOperand += rules[key][1].at(iii);
+			}
+		}
+		else {
+			if (rules[key][1].at(iii) == '@'){
+				pastKey = true;
+			}
+			newPostfix += rules[key][1].at(iii);
+		}
+	}
+	
+	return newPostfix;
+}
 int main () {
 
 	
@@ -510,7 +571,7 @@ int main () {
 	prec['('] = -1;
 	prec[')'] = -1;
 	
-	flat_hash_map<std::string,std::vector<std::string>> rules = makeRules();
+	rules = makeRules();
 	int ii;
 	//for (ii=0;ii<rules.size();ii++){
 	//	std::cout << ii << "-=-" << rules[ii] << '\n';
@@ -544,62 +605,7 @@ int main () {
 			}
 		}
 		if (rules.find(key) != rules.end()){
-			flat_hash_map<char,std::string> partMap;
-			std::vector<std::string> userOperands;
-			std::vector<std::string> ruleOperands;
-			std::string currentOperand = "";
-			for (iii=0;iii<rules[key][0].length();iii++){
-				if (rules[key][0].at(iii) == '_'){
-					ruleOperands.push_back(currentOperand);
-					currentOperand = "";
-				}
-				else {
-					currentOperand += rules[key][0].at(iii);
-				}
-			}
-			currentOperand = "";
-			for (iii=startAt;iii<postList[ii].length();iii++){
-				if (postList[ii].at(iii) == '_'){
-					userOperands.push_back(currentOperand);
-					currentOperand = "";
-				}
-				else {
-					currentOperand += postList[ii].at(iii);
-				}
-			}
-			
-			for (iii=0;iii<ruleOperands.size();iii++){
-				if (ruleOperands[iii].length()==1){
-					if (ruleOperands[iii].at(0) <= 'Z' && ruleOperands[iii].at(0) >= 'A'){
-						partMap[ruleOperands[iii].at(0)] = userOperands[iii];
-					}
-				}
-			}
-			
-			std::string newPostfix = "";
-			bool pastKey = false;
-			for (iii=0;iii<rules[key][1].length();iii++){
-				if (pastKey){
-					if (rules[key][1].at(iii) == '_'){
-						if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
-							newPostfix += partMap[currentOperand.at(0)] + '_';
-						}
-						else {
-							newPostfix += currentOperand + '_';
-						}
-						currentOperand = "";
-					}
-					else {
-						currentOperand += rules[key][1].at(iii);
-					}
-				}
-				else {
-					if (rules[key][1].at(iii) == '@'){
-						pastKey = true;
-					}
-					newPostfix += rules[key][1].at(iii);
-				}
-			}
+			std::string newPostfix = applyRules(postList[ii]);
 			std::cout << "Match: " << postList[ii] << " into "<< newPostfix << '\n';
 		}
 		
