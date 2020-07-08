@@ -164,6 +164,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,std::string> operandMap;
 	flat_hash_map<int,std::string> originalMap;
+	std::vector<std::string> finalList;
 	
 	int i; int ii; int iii;
 	int idx =0;
@@ -280,18 +281,20 @@ std::vector<std::string> makeTree(std::string pfstr){
 			}
 			*/
 			listMap[fullStr]=fullTrees;
+			finalList = fullTrees;
 			
 		}
 		else {
 			listMap["#@" + std::to_string(idx) + "_"]={"#",originalMap[idx]+'_'};
+			finalList = {"#",originalMap[idx]+'_'};
 			operandMap[i]=std::to_string(idx);
 			idx++;
 		}
 		
 	}
 	
-	for (ii=0;ii<listMap[pfstr].size()/2;ii++){
-		treeOptions.push_back(listMap[pfstr][ii*2]+'@'+listMap[pfstr][ii*2+1]);
+	for (ii=0;ii<finalList.size()/2;ii++){
+		treeOptions.push_back(finalList[ii*2]+'@'+finalList[ii*2+1]);
 		std::cout << ii << "-:-" << treeOptions[ii] << '\n';
 	}
 	std::cout << '\n';
@@ -446,6 +449,8 @@ inline Cppdata solvePostfixVV(char expstr[], std::vector<Cppdata> const intArray
 */
 
 int main () {
+	auto t1 = std::chrono::high_resolution_clock::now();
+    
 	prec['*'] = 4;
 	prec['/'] = 4;
 	prec['+'] = 3;
@@ -469,4 +474,9 @@ int main () {
 	std::string pfstr = makePost(infixexpr);
 	std::cout << pfstr << '\n';
 	makeTree(pfstr);
+	auto t2 = std::chrono::high_resolution_clock::now();
+
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
+
+    std::cout << duration;
 }
