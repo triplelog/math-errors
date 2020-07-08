@@ -131,6 +131,8 @@ std::string makePost(char infixexpr[]) {
 	
 	
 	for (i=0;i<pfidx;i++){
+		std::cout << postfixList[i];
+		
 		std::string ci = postfixList[i];
 		char firstChar = ci.at(0);
 		if (firstChar == '~'){
@@ -146,7 +148,7 @@ std::string makePost(char infixexpr[]) {
 		}
 
 	}
-	std::cout << intstr << " --- " << expstr;
+	std::cout << '\n' << intstr << " --- " << expstr;
 	return "temp";
 	/*
 	intstr = intstr.substring(0,intstr.length-1)
