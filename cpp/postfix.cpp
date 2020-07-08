@@ -163,9 +163,29 @@ std::string makeTree(std::string pfstr){
 
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,std::string> operandMap;
+	flat_hash_map<int,std::string> originalMap;
 	
 	int i; int ii; int iii;
 	int idx =0;
+	
+	bool startOperands = false;
+	std::string currentOperator = "";
+	int iidx = 0;
+	for (i=0;i<pfstr.length();i++){
+		if (pfstr.at(i) == '@'){
+			startOperands = true;
+		}
+		else if (startOperands){
+			if (pfstr.at(i) == '_'){
+				originalMap[iidx] = currentOperator;
+				iidx++; 
+				currentOperator = "";
+			}
+			else {
+				currentOperator += pfstr.at(i);
+			}
+		}
+	}
 	for (i=0;i<pfstr.length();i++){
 		if (pfstr.at(i) == '@'){
 			break;
@@ -206,7 +226,6 @@ std::string makeTree(std::string pfstr){
 			std::vector<std::string> fullTrees;
 			
 			if (pfstr.at(i) != '-' && pfstr.at(i) != '/'){
-				std::cout << i << "-'-"<< '\n';
 				
 				for (ii=0;ii<maxi;ii++){
 					std::string s = "";
@@ -230,8 +249,6 @@ std::string makeTree(std::string pfstr){
 					}
 				}
 				
-				std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
-				std::cout << i << "---" << fullStr << '\n';
 				
 				for (ii=0;ii<firstS.size();ii++){
 					for (iii=0;iii<secondS.size();iii++){
@@ -264,7 +281,7 @@ std::string makeTree(std::string pfstr){
 			
 		}
 		else {
-			listMap["#@" + std::to_string(idx) + "_"]={"original",std::to_string(i)+'_'};
+			listMap["#@" + std::to_string(idx) + "_"]={"#",originalMap[idx]+'_'};
 			operandMap[i]=std::to_string(idx);
 			idx++;
 		}
