@@ -211,7 +211,7 @@ std::string makeTree(std::string pfstr){
 					}
 				}
 			}
-			std::string fullStr = firstS + secondS + pfstr.at(i) + firstT + secondT;
+			std::string fullStr = firstS + secondS + pfstr.at(i) + '@' + firstT + secondT;
 			std::cout << i << "---" << fullStr << '\n';
 			
 			treeMap[fullStr]="";
