@@ -461,7 +461,7 @@ std::vector<std::string> makeRules(){
 	std::vector<std::string> finalRules;
 	std::vector<std::string> rawRules;
 	rawRules.push_back("A^2");
-	rawRules.push_back("A+B");
+	rawRules.push_back("a+b");
 	
 	int i;
 	for (i=0;i<rawRules.size();i++){
