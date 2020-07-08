@@ -94,20 +94,20 @@ std::string makePost(char infixexpr[]) {
 			osidx++;
 		}
 		else if (firstChar == ')'){
-			topToken = opStack[osidx];
+			topToken = opStack[osidx-1];
 			osidx--;
 			
 			while (topToken != '('){
 				std::string s(1,topToken);
 				postfixList[pfidx] = s;
 				pfidx++;
-				topToken = opStack[osidx];
+				topToken = opStack[osidx-1];
 				osidx--;
 			}
 		}
 		else if (firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '~' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
 			while ((osidx > 0) && (prec[opStack[osidx-1]] >= prec[firstChar])){
-				topToken = opStack[osidx];
+				topToken = opStack[osidx-1];
 				osidx--;
 				std::string s(1,topToken);
 				postfixList[pfidx] = s;
@@ -122,14 +122,14 @@ std::string makePost(char infixexpr[]) {
 		}
 	}
 	while (osidx > 0){
-		topToken = opStack[osidx];
+		topToken = opStack[osidx-1];
 		osidx--;
 		std::string s(1,topToken);
 		postfixList[pfidx] = s;
 		pfidx++;
 	}
 	
-	
+
 	for (i=0;i<pfidx;i++){
 		std::cout << postfixList[i];
 		
