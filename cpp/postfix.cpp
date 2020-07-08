@@ -35,9 +35,9 @@ std::string arrayToString(int n, char input[]) {
 } 
 
 std::string makePost(char infixexpr[]) {
-	/*
-	intstr = ''
-	expstr = ''*/
+	
+	std::string intstr = "";
+	std::string expstr = "";
 	char topToken;
 	std::vector<std::string> postfixList;
 	int pfidx =0;
@@ -105,7 +105,7 @@ std::string makePost(char infixexpr[]) {
 				osidx--;
 			}
 		}
-		else if (firstChar != '*' || firstChar != '+' || firstChar != '/' || firstChar != '~' || firstChar != '>' || firstChar != '<' || firstChar != '=' || firstChar != '!' || firstChar != '[' || firstChar != ']' || firstChar != '&' || firstChar != '|') {
+		else if (firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '~' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
 			while ((osidx > 0) && (prec[opStack[osidx-1]] >= prec[firstChar])){
 				topToken = opStack[osidx];
 				osidx--;
@@ -129,21 +129,26 @@ std::string makePost(char infixexpr[]) {
 		pfidx++;
 	}
 	
+	
+	for (var i=0;i<pfidx;i++){
+		std::string ci = postfixList[i];
+		char firstChar = ci.at(0);
+		if (firstChar == '~'){
+			expstr += "-";
+		}
+		else if (firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
+			expstr += ci;
+		}
+		else {
+			intstr += ci;
+			intstr += "_";
+			expstr += "#";
+		}
+
+	}
+	cout << intstr << " --- " << expstr;
 	return "temp";
 	/*
-	for (var i=0;i<postfixList.length;i++){
-		var ci = postfixList[i];
-		if ("*+/~><=![]&|".indexOf(ci) == -1){
-			intstr += ci + '_'
-			expstr += '#'
-		}
-		else if (ci == '~'){
-			expstr += '-'
-		}
-		else{
-			expstr += ci
-		}
-	}
 	intstr = intstr.substring(0,intstr.length-1)
 	
 	return [intstr,expstr]
