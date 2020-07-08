@@ -576,19 +576,28 @@ int main () {
 				}
 			}
 			
-			std::string newPostfix = key + '@';
-			for (iii=0;iii<rules[key][0].length();iii++){
-				if (rules[key][0].at(iii) == '_'){
-					if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
-						newPostfix += partMap[currentOperand.at(0)];
+			std::string newPostfix = "";
+			bool pastKey = false;
+			for (iii=0;iii<rules[key][1].length();iii++){
+				if (pastKey){
+					if (rules[key][1].at(iii) == '_'){
+						if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
+							newPostfix += partMap[currentOperand.at(0)] + '_';
+						}
+						else {
+							newPostfix += currentOperand + '_';
+						}
+						currentOperand = "";
 					}
 					else {
-						newPostfix += currentOperand;
+						currentOperand += rules[key][1].at(iii);
 					}
-					currentOperand = "";
 				}
 				else {
-					currentOperand += rules[key][0].at(iii);
+					if (rules[key][1].at(iii) == '@'){
+						pastKey = true;
+					}
+					newPostfix += rules[key][1].at(iii);
 				}
 			}
 			std::cout << "Match: " << postList[ii] << " into "<< newPostfix << '\n';
