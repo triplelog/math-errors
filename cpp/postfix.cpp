@@ -16,6 +16,7 @@
 #include <sstream>
 #include <iostream>
 #include <array>
+#include <vector>
 #include "parallel_hashmap/phmap.h"
 
 
@@ -23,20 +24,7 @@ using namespace std::chrono;
 using phmap::flat_hash_map;
 flat_hash_map<std::string,std::string> treeMap;
 flat_hash_map<char,int> prec;
-prec['*'] = 4;
-prec['/'] = 4;
-prec['+'] = 3;
-prec['~'] = 3;
-prec['>'] = 2;
-prec['<'] = 2;
-prec['='] = 2;
-prec['!'] = 2;
-prec['['] = 2;
-prec[']'] = 2;
-prec['&'] = 1;
-prec['|'] = 0;
-prec['('] = -1;
-prec[')'] = -1;
+
 
 std::string makePost(char infixexpr[]) {
 	/*opStack = []
@@ -48,7 +36,7 @@ std::string makePost(char infixexpr[]) {
 	std::string temptoken = "";
 	for (i = 0; infixexpr[i]; i++) 
     {
-		var ie = infixexpr[i];
+		char ie = infixexpr[i];
 		if (prec.find(ie) == prec.end()){
 			temptoken += ie;
 		}
@@ -263,6 +251,20 @@ inline Cppdata solvePostfixVV(char expstr[], std::vector<Cppdata> const intArray
 */
 
 int main () {
+	prec['*'] = 4;
+	prec['/'] = 4;
+	prec['+'] = 3;
+	prec['~'] = 3;
+	prec['>'] = 2;
+	prec['<'] = 2;
+	prec['='] = 2;
+	prec['!'] = 2;
+	prec['['] = 2;
+	prec[']'] = 2;
+	prec['&'] = 1;
+	prec['|'] = 0;
+	prec['('] = -1;
+	prec[')'] = -1;
 	char[3] infixexpr;
 	infixexpr[0] = 'a';
 	infixexpr[1] = '+';
