@@ -206,6 +206,8 @@ std::string makeTree(std::string pfstr){
 			std::vector<std::string> fullTrees;
 			
 			if (pfstr.at(i) != '-' && pfstr.at(i) != '/'){
+				std::cout << i << "-'-"<< '\n';
+				
 				for (ii=0;ii<maxi;ii++){
 					std::string s = "";
 					std::string t = "";
@@ -227,6 +229,9 @@ std::string makeTree(std::string pfstr){
 						break;
 					}
 				}
+				
+				std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
+				std::cout << i << "---" << fullStr << '\n';
 				
 				for (ii=0;ii<firstS.size();ii++){
 					for (iii=0;iii<secondS.size();iii++){
