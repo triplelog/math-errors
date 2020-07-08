@@ -34,7 +34,23 @@ std::string arrayToString(int n, char input[]) {
     return s; 
 }
 
+std::string makeRule(std::string input){
+	std::string postfixed = makePost(input.c_str());
+	return makeTree(postfixed)[0];
+}
 
+std::vector<std::string> makeRules(){
+	std::vector<std::string> finalRules;
+	std::vector<std::string> rawRules;
+	rawRules.push_back("A^2");
+	rawRules.push_back("A+B");
+	
+	int i;
+	for (i=0;i<rawRules.size();i++){
+		finalRules.push_back(makeRule(rawRules[i]));
+	}
+	return finalRules;
+}
 std::string makePost(char infixexpr[]) {
 	
 	std::string intstr = "";
@@ -295,7 +311,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	
 	for (ii=0;ii<finalList.size()/2;ii++){
 		treeOptions.push_back(finalList[ii*2]+'@'+finalList[ii*2+1]);
-		//std::cout << ii << "-:-" << treeOptions[ii] << '\n';
+		std::cout << ii << "-:-" << treeOptions[ii] << '\n';
 	}
 	//std::cout << '\n';
 	return treeOptions;
@@ -449,6 +465,11 @@ inline Cppdata solvePostfixVV(char expstr[], std::vector<Cppdata> const intArray
 */
 
 int main () {
+
+	std::vector<std::string> rules = makeRules();
+	for (ii=0;ii<rules.size()/2;ii++){
+		std::cout << ii << "-:-" << rules[ii] << '\n';
+	}
 	auto t1 = std::chrono::high_resolution_clock::now();
     
 	prec['*'] = 4;
