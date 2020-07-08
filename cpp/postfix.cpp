@@ -295,7 +295,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	
 	for (ii=0;ii<finalList.size()/2;ii++){
 		treeOptions.push_back(finalList[ii*2]+'@'+finalList[ii*2+1]);
-		//std::cout << ii << "-:-" << treeOptions[ii] << '\n';
+		std::cout << ii << "-:==:-" << treeOptions[ii] << '\n';
 	}
 	//std::cout << '\n';
 	return treeOptions;
