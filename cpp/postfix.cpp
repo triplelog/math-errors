@@ -34,23 +34,7 @@ std::string arrayToString(int n, char input[]) {
     return s; 
 }
 
-std::string makeRule(std::string input){
-	std::string postfixed = makePost(input.c_str());
-	return makeTree(postfixed)[0];
-}
 
-std::vector<std::string> makeRules(){
-	std::vector<std::string> finalRules;
-	std::vector<std::string> rawRules;
-	rawRules.push_back("A^2");
-	rawRules.push_back("A+B");
-	
-	int i;
-	for (i=0;i<rawRules.size();i++){
-		finalRules.push_back(makeRule(rawRules[i]));
-	}
-	return finalRules;
-}
 std::string makePost(char infixexpr[]) {
 	
 	std::string intstr = "";
@@ -463,6 +447,24 @@ inline Cppdata solvePostfixVV(char expstr[], std::vector<Cppdata> const intArray
 
 }
 */
+
+std::string makeRule(std::string input){
+	std::string postfixed = makePost(input.c_str());
+	return makeTree(postfixed)[0];
+}
+
+std::vector<std::string> makeRules(){
+	std::vector<std::string> finalRules;
+	std::vector<std::string> rawRules;
+	rawRules.push_back("A^2");
+	rawRules.push_back("A+B");
+	
+	int i;
+	for (i=0;i<rawRules.size();i++){
+		finalRules.push_back(makeRule(rawRules[i]));
+	}
+	return finalRules;
+}
 
 int main () {
 
