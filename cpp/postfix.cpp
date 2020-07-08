@@ -27,7 +27,7 @@ flat_hash_map<char,int> prec;
 
 std::string arrayToString(int n, char input[]) { 
     int i; 
-    string s = ""; 
+    std::string s = ""; 
     for (i = 0; i < n; i++) { 
         s = s + input[i]; 
     } 
