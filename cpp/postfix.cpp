@@ -564,12 +564,10 @@ std::string applyRules(std::string userString) {
 		}
 	}
 	
-	if (newPostfix.length==0){
+	if (newPostfix.length()==0){
 		return userString;
 	}
-	else {
-		return newPostfix;
-	}
+	return newPostfix;
 	
 }
 int main () {
