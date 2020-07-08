@@ -492,64 +492,85 @@ flat_hash_map<std::string,std::vector<std::string>> makeRules(){
 }
 
 std::string applyRules(std::string userString) {
+	int iii; int iiii;
+	std::string key = "";
 	flat_hash_map<char,std::string> partMap;
 	std::vector<std::string> userOperands;
 	std::vector<std::string> ruleOperands;
-	std::string currentOperand = "";
-	for (iii=0;iii<rules[key][0].length();iii++){
-		if (rules[key][0].at(iii) == '_'){
-			ruleOperands.push_back(currentOperand);
-			currentOperand = "";
-		}
-		else {
-			currentOperand += rules[key][0].at(iii);
-		}
-	}
-	currentOperand = "";
-	for (iii=startAt;iii<userString.length();iii++){
-		if (userString.at(iii) == '_'){
-			userOperands.push_back(currentOperand);
-			currentOperand = "";
-		}
-		else {
-			currentOperand += userString.at(iii);
-		}
-	}
-	
-	for (iii=0;iii<ruleOperands.size();iii++){
-		if (ruleOperands[iii].length()==1){
-			if (ruleOperands[iii].at(0) <= 'Z' && ruleOperands[iii].at(0) >= 'A'){
-				partMap[ruleOperands[iii].at(0)] = userOperands[iii];
-			}
-		}
-	}
-	
 	std::string newPostfix = "";
-	bool pastKey = false;
-	for (iii=0;iii<rules[key][1].length();iii++){
-		if (pastKey){
-			if (rules[key][1].at(iii) == '_'){
-				if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
-					newPostfix += partMap[currentOperand.at(0)] + '_';
-				}
-				else {
-					newPostfix += currentOperand + '_';
-				}
+	int startAt =0;
+	for (iiii=0;iiii<userString.length();iiii++){
+		if (userString.at(iiii) == '@'){
+			startAt = iiii+1;
+			break;
+		}
+		else{
+			key += userString.at(iiii);
+		}
+	}
+	if (rules.find(key) != rules.end()){
+		std::string currentOperand = "";
+		for (iii=0;iii<rules[key][0].length();iii++){
+			if (rules[key][0].at(iii) == '_'){
+				ruleOperands.push_back(currentOperand);
 				currentOperand = "";
 			}
 			else {
-				currentOperand += rules[key][1].at(iii);
+				currentOperand += rules[key][0].at(iii);
 			}
 		}
-		else {
-			if (rules[key][1].at(iii) == '@'){
-				pastKey = true;
+		currentOperand = "";
+		for (iii=startAt;iii<userString.length();iii++){
+			if (userString.at(iii) == '_'){
+				userOperands.push_back(currentOperand);
+				currentOperand = "";
 			}
-			newPostfix += rules[key][1].at(iii);
+			else {
+				currentOperand += userString.at(iii);
+			}
+		}
+	
+		for (iii=0;iii<ruleOperands.size();iii++){
+			if (ruleOperands[iii].length()==1){
+				if (ruleOperands[iii].at(0) <= 'Z' && ruleOperands[iii].at(0) >= 'A'){
+					partMap[ruleOperands[iii].at(0)] = userOperands[iii];
+				}
+			}
+		}
+	
+		newPostfix = "";
+		bool pastKey = false;
+		for (iii=0;iii<rules[key][1].length();iii++){
+			if (pastKey){
+				if (rules[key][1].at(iii) == '_'){
+					if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
+						newPostfix += partMap[currentOperand.at(0)] + '_';
+					}
+					else {
+						newPostfix += currentOperand + '_';
+					}
+					currentOperand = "";
+				}
+				else {
+					currentOperand += rules[key][1].at(iii);
+				}
+			}
+			else {
+				if (rules[key][1].at(iii) == '@'){
+					pastKey = true;
+				}
+				newPostfix += rules[key][1].at(iii);
+			}
 		}
 	}
 	
-	return newPostfix;
+	if (newPostfix.length==0){
+		return userString;
+	}
+	else {
+		return newPostfix;
+	}
+	
 }
 int main () {
 
@@ -592,37 +613,11 @@ int main () {
 	std::vector<std::string> postList = makeTree(pfstr);
 	for (ii=0;ii<postList.size();ii++){
 		std::cout << ii << "-:-" << postList[ii] << '\n';
-		int iii; int iiii;
-		std::string key = "";
-		int startAt =0;
-		for (iiii=0;iiii<postList[ii].length();iiii++){
-			if (postList[ii].at(iiii) == '@'){
-				startAt = iiii+1;
-				break;
-			}
-			else{
-				key += postList[ii].at(iiii);
-			}
-		}
-		if (rules.find(key) != rules.end()){
-			std::string newPostfix = applyRules(postList[ii]);
-			std::cout << "Match: " << postList[ii] << " into "<< newPostfix << '\n';
-		}
+		std::string newPostfix = applyRules(postList[ii]);
+		std::cout << "Match: " << postList[ii] << " into "<< newPostfix << '\n';
 		
-		/*
-		for (iii=0;iii<rules.size();iii++){
-			for (iiii=0;iiii<postList[ii].length();iiii++){
-				if (postList[ii].at(iiii) == '@' || rules[iii].at(iiii) == '@'){
-					if (postList[ii].at(iiii) == '@' && rules[iii].at(iiii) == '@') {
-						std::cout << "Match: " << postList[ii] << " and " << rules[iii] << '\n';
-					}
-					break;
-				}
-				else if (postList[ii].at(iiii) != rules[iii].at(iiii)){
-					break;
-				}
-			}
-		}*/
+		
+
 	}
 	auto t2 = std::chrono::high_resolution_clock::now();
 
