@@ -531,15 +531,26 @@ std::string applyRules(std::string userString) {
 				currentOperand += userString.at(iii);
 			}
 		}
-	
+		if (ruleOperands.size() != userOperands.size()){
+			//TODO: move to next rule
+			return userString;
+		}
 		for (iii=0;iii<ruleOperands.size();iii++){
 			if (ruleOperands[iii].length()==1){
 				if (ruleOperands[iii].at(0) <= 'Z' && ruleOperands[iii].at(0) >= 'A'){
 					partMap[ruleOperands[iii].at(0)] = userOperands[iii];
 				}
+				else if (ruleOperands[iii] != userOperands[iii]){
+					//TODO: skip this rule
+					return userString;
+				}
+			}
+			else if (ruleOperands[iii] != userOperands[iii]){
+				//TODO: skip this rule
+				return userString;
 			}
 		}
-	
+		//TODO: add check that operand arrays are same size--check before inserting into partMap as well;
 		newPostfix = "";
 		bool pastKey = false;
 		for (iii=0;iii<rules[key][1].length();iii++){
@@ -548,8 +559,12 @@ std::string applyRules(std::string userString) {
 					if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
 						newPostfix += partMap[currentOperand.at(0)] + '_';
 					}
-					else {
+					else if (operandsMatch){
 						newPostfix += currentOperand + '_';
+					}
+					else {
+						newPostfix = "";
+						break;
 					}
 					currentOperand = "";
 				}
