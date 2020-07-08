@@ -609,9 +609,17 @@ int main () {
 	std::string pfstr = makePost(infixexpr);
 	std::cout << pfstr << '\n';
 	std::vector<std::string> postList = makeTree(pfstr);
+	
 	for (ii=0;ii<postList.size();ii++){
+		std::string newPostfix = postList[ii];
+		std::string oldPostfix = "";
+		int maxSteps = 1000;
+		while (newPostfix != oldPostfix && maxSteps >=0){
+			oldPostfix = newPostfix;
+			newPostfix = applyRules(oldPostfix);
+			maxSteps--;
+		}
 		std::cout << ii << "-:-" << postList[ii] << '\n';
-		std::string newPostfix = applyRules(postList[ii]);
 		std::cout << "Match: " << postList[ii] << " into "<< newPostfix << '\n';
 		
 		
