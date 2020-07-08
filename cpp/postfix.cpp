@@ -43,7 +43,7 @@ std::string makePost(char infixexpr[]) {
 	int iidx = 0;
 	
 	
-	/*
+	
 	
 	for (i = 0; infixexpr[i]; i++) 
     {
@@ -71,7 +71,7 @@ std::string makePost(char infixexpr[]) {
 		tokenList[idx] = s;
 	}
 	
-	*/
+	
 	
 	
 	//for (std::vector<int>::iterator it = tokenList.begin() ; it != tokenList.end(); ++it){
