@@ -51,11 +51,10 @@ std::string makePost(char infixexpr[]) {
 	tokenList.resize(len);
 	int iidx = 0;
 	
-	
-	
-	
+
 	for (i = 0; infixexpr[i]; i++) 
     {
+    	std::cout << ' ' << i << "==" << infixexpr[i];
 		char ie = infixexpr[i];
 		if (prec.find(ie) == prec.end()){
 			temptoken[iidx] = ie;
@@ -81,7 +80,7 @@ std::string makePost(char infixexpr[]) {
 	
 	tokenList.resize(idx);
 	
-	
+	std::cout << '\n';
 	for (i=0;i<idx;i++){
     	std::cout << ' ' << i << "==" << tokenList[i];
     }
