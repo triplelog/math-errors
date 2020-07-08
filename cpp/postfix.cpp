@@ -559,12 +559,8 @@ std::string applyRules(std::string userString) {
 					if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
 						newPostfix += partMap[currentOperand.at(0)] + '_';
 					}
-					else if (operandsMatch){
-						newPostfix += currentOperand + '_';
-					}
 					else {
-						newPostfix = "";
-						break;
+						newPostfix += currentOperand + '_';
 					}
 					currentOperand = "";
 				}
