@@ -322,7 +322,7 @@ int main () {
 	prec['|'] = 0;
 	prec['('] = -1;
 	prec[')'] = -1;
-	std::string s = "3*(a+b)"; 
+	std::string s = "3*(a-b)"; 
   
     char infixexpr[s.length() + 1]; 
     strcpy(infixexpr, s.c_str()); 
