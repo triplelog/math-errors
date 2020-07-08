@@ -173,31 +173,27 @@ std::string makeTree(std::string pfstr){
 		if (pfstr.at(i) != '#'){
 			std::string secondStr = "";
 			int maxi = i-1;
-			for (ii=i-1;ii>=0;ii--){
+			for (ii=0;ii<i;ii++){
 				std::string s = "";
 				for (iii=ii;iii<i;iii++){
 					s += pfstr.at(iii);
 				}
-				if (treeMap.find(s) == treeMap.end()){
-					break;
-				}
-				else {
+				if (treeMap.find(s) != treeMap.end()){
 					secondStr = s;
 					maxi = ii;
+					break;
 				}
 			}
 			std::cout << i << "---" << maxi << "---" << secondStr << '\n';
 			std::string firstStr = "";
-			for (ii=maxi-1;ii>=0;ii--){
+			for (ii=0;ii<maxi;ii--){
 				std::string s = "";
 				for (iii=ii;iii<maxi;iii++){
 					s += pfstr.at(iii);
 				}
-				if (treeMap.find(s) == treeMap.end()){
-					break;
-				}
-				else {
+				if (treeMap.find(s) != treeMap.end()){
 					firstStr = s;
+					break;
 				}
 			}
 			std::cout << i << "---" << firstStr << '\n';
