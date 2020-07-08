@@ -173,7 +173,7 @@ std::string makeTree(std::string pfstr){
 		if (pfstr.at(i) != '#'){
 			std::string secondStr = "";
 			int maxi = i-1;
-			for (ii=i-1;ii>=0;ii++){
+			for (ii=i-1;ii>=0;ii--){
 				std::string s = "";
 				for (iii=ii;iii<i;iii++){
 					s += pfstr.at(iii);
@@ -188,7 +188,7 @@ std::string makeTree(std::string pfstr){
 			}
 			std::cout << i << "---" << maxi << "---" << secondStr << '\n';
 			std::string firstStr = "";
-			for (ii=maxi-1;ii>=0;ii++){
+			for (ii=maxi-1;ii>=0;ii--){
 				std::string s = "";
 				for (iii=ii;iii<maxi;iii++){
 					s += pfstr.at(iii);
