@@ -520,7 +520,7 @@ int main () {
 	
 	
 	
-	std::string s = "x^2"; 
+	std::string s = "5^2"; 
   
     char infixexpr[s.length() + 1]; 
     strcpy(infixexpr, s.c_str()); 
