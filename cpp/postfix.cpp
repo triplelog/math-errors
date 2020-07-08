@@ -33,28 +33,41 @@ std::string makePost(char infixexpr[]) {
 	expstr = ''*/
 	std::vector<std::string> tokenList;
 	int idx = 0;
-	std::string temptoken = "";
+	char temptoken[];
+	int iidx = 0;
 	int i;
+	
+	/*
+	
 	for (i = 0; infixexpr[i]; i++) 
     {
 		char ie = infixexpr[i];
 		if (prec.find(ie) == prec.end()){
-			temptoken += ie;
+			temptoken[iidx] = ie;
+			temptoken[iidx+1] = '\0';
+			iidx++;
 		}
 		else{
-			if (temptoken != ""){
-				tokenList[idx] = temptoken;
+			if (iidx != 0){
+				std::string s(iidx,temptoken);
+				tokenList[idx] = s;
 				idx++;
 			}
 			std::string s(1,ie);
 			tokenList[idx] = s;
 			idx++;
-			temptoken = "";
+			temptoken[0] = '\0';
+			iidx=0;
 		}
 	}
-	if (temptoken != ""){
-		tokenList[idx] = temptoken;
+	if (iidx != 0){
+		std::string s(iidx,temptoken);
+		tokenList[idx] = s;
 	}
+	
+	*/
+	
+	
 	//for (std::vector<int>::iterator it = tokenList.begin() ; it != tokenList.end(); ++it){
 	
 	//}
@@ -272,5 +285,5 @@ int main () {
 	infixexpr[0] = 'a';
 	infixexpr[1] = '+';
 	infixexpr[2] = 'b';
-	//makePost(infixexpr);
+	makePost(infixexpr);
 }
