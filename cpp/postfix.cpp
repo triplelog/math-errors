@@ -180,7 +180,7 @@ std::string makeTree(std::string pfstr){
 				for (iii=ii;iii<i;iii++){
 					s += pfstr.at(iii);
 					if (pfstr.at(iii) == '#'){
-						t += std::to_string(operandMap[iii]) + '_';
+						t += operandMap[iii] + '_';
 					}
 				}
 				if (treeMap.find(s + '@' + t) != treeMap.end()){
@@ -200,7 +200,7 @@ std::string makeTree(std::string pfstr){
 					for (iii=ii;iii<maxi;iii++){
 						s += pfstr.at(iii);
 						if (pfstr.at(iii) == '#'){
-							t += std::to_string(operandMap[iii]) + '_';
+							t += operandMap[iii] + '_';
 						}
 					}
 					if (treeMap.find(s + '@' + t) != treeMap.end()){
@@ -219,7 +219,7 @@ std::string makeTree(std::string pfstr){
 		}
 		else {
 			treeMap["#@" + std::to_string(idx) + "_"]="original"+i;
-			operandMap[i]=idx;
+			operandMap[i]=std::to_string(idx);
 			idx++;
 		}
 		
