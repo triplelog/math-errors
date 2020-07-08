@@ -449,7 +449,11 @@ inline Cppdata solvePostfixVV(char expstr[], std::vector<Cppdata> const intArray
 */
 
 std::string makeRule(std::string input){
-	std::string postfixed = makePost(input.c_str());
+	char infixexpr[input.length() + 1]; 
+    strcpy(infixexpr, input.c_str()); 
+
+	infixexpr[input.length()] = '\0';
+	std::string postfixed = makePost(infixexpr);
 	return makeTree(postfixed)[0];
 }
 
