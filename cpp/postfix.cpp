@@ -268,7 +268,7 @@ int main () {
 	prec['|'] = 0;
 	prec['('] = -1;
 	prec[')'] = -1;
-	char[3] infixexpr;
+	char infixexpr[3];
 	infixexpr[0] = 'a';
 	infixexpr[1] = '+';
 	infixexpr[2] = 'b';
