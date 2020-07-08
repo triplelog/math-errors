@@ -186,7 +186,7 @@ std::string makeTree(std::string pfstr){
 			}
 			std::cout << i << "---" << maxi << "---" << secondStr << '\n';
 			std::string firstStr = "";
-			for (ii=0;ii<maxi;ii--){
+			for (ii=0;ii<maxi;ii++){
 				std::string s = "";
 				for (iii=ii;iii<maxi;iii++){
 					s += pfstr.at(iii);
