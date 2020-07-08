@@ -471,9 +471,9 @@ flat_hash_map<std::string,std::vector<std::string>> makeRules(){
 	flat_hash_map<std::string,std::vector<std::string>> finalRules;
 	std::vector<std::vector<std::string>> rawRules;
 	rawRules.push_back({"A^2","A*A","Turn exponent into multiplication."});
-	//rawRules.push_back({"A+B","B+A","Use commutative property of addition."});
-	rawRules.push_back({"51+4+7","55+7","Add some."});
-	rawRules.push_back({"55+7","62","Add all."});
+	rawRules.push_back({"A+B","B+A","Use commutative property of addition."});
+	rawRules.push_back({"2*(51+4)","55*2","Add."});
+	rawRules.push_back({"55*2","110","Multiply."});
 	
 	int i; int ii;
 	std::vector<std::string> fullPost;
@@ -602,7 +602,7 @@ int main () {
 	
 	
 	
-	std::string s = "51+4"; 
+	std::string s = "2*(51+4)"; 
   
     char infixexpr[s.length() + 1]; 
     strcpy(infixexpr, s.c_str()); 
@@ -615,7 +615,7 @@ int main () {
 	for (ii=0;ii<postList.size();ii++){
 		std::string newPostfix = postList[ii];
 		std::string oldPostfix = "";
-		int maxSteps = 1001;
+		int maxSteps = 5;
 		while (newPostfix != oldPostfix && maxSteps >=0){
 			oldPostfix = newPostfix;
 			newPostfix = applyRules(oldPostfix);
