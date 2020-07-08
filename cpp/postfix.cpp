@@ -299,5 +299,6 @@ int main () {
 	infixexpr[0] = 'a';
 	infixexpr[1] = '+';
 	infixexpr[2] = 'b';
+	infixexpr[3] = '\0';
 	makePost(infixexpr);
 }
