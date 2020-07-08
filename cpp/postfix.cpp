@@ -81,7 +81,7 @@ std::string makePost(char infixexpr[]) {
 	tokenList.resize(idx+1);
 	
 	
-	for (std::vector<int>::iterator it = tokenList.begin() ; it != tokenList.end(); it++){
+	for (std::vector<std::string>::iterator it = tokenList.begin() ; it != tokenList.end(); it++){
 		std::cout << ' ' << *it;
 	}
 	std::cout << '\n';
