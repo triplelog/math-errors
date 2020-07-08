@@ -160,8 +160,8 @@ std::string makePost(char infixexpr[]) {
 }
 
 std::string makeTree(std::string pfstr){
-	std::string tree = "";
-	flat_hash_map<std::string,std::string> treeMap;
+
+	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,std::string> operandMap;
 	
 	int i; int ii; int iii;
@@ -171,8 +171,10 @@ std::string makeTree(std::string pfstr){
 			break;
 		}
 		else if (pfstr.at(i) != '#'){
-			std::string secondS = "";
-			std::string secondT = "";
+			std::vector<std::string> secondS;
+			std::vector<std::string> secondT;
+			std::string secondStr = "";
+			std::string secondTtr = "";
 			int maxi = i-1;
 			for (ii=0;ii<i;ii++){
 				std::string s = "";
@@ -183,15 +185,25 @@ std::string makeTree(std::string pfstr){
 						t += operandMap[iii] + '_';
 					}
 				}
-				if (treeMap.find(s + '@' + t) != treeMap.end()){
-					secondS = s;
-					secondT = t;
+				if (listMap.find(s + '@' + t) != listMap.end()){
+					secondStr = s;
+					secondTtr = t;
+					secondS.resize(listMap[s+'@'+t].size()/2);
+					secondT.resize(listMap[s+'@'+t].size()/2);
+					for (iii=0;iii<listMap[s+'@'+t].size()/2;iii++){
+						secondS[iii]=listMap[s+'@'+t][iii*2];
+						secondT[iii]=listMap[s+'@'+t][iii*2+1];
+					}
 					maxi = ii;
 					break;
 				}
 			}
-			std::string firstS = "";
-			std::string firstT = "";
+			std::vector<std::string> firstS;
+			std::vector<std::string> firstT;
+			std::string firstStr = "";
+			std::string firstTtr = "";
+			
+			std::vector<std::string> fullTrees;
 			
 			if (pfstr.at(i) != '-' && pfstr.at(i) != '/'){
 				for (ii=0;ii<maxi;ii++){
@@ -203,29 +215,55 @@ std::string makeTree(std::string pfstr){
 							t += operandMap[iii] + '_';
 						}
 					}
-					if (treeMap.find(s + '@' + t) != treeMap.end()){
-						firstS = s;
-						firstT = t;
-						maxi = ii;
+					if (listMap.find(s + '@' + t) != listMap.end()){
+						firstStr = s;
+						firstTtr = t;
+						firstS.resize(listMap[s+'@'+t].size()/2);
+						firstT.resize(listMap[s+'@'+t].size()/2);
+						for (iii=0;iii<listMap[s+'@'+t].size()/2;iii++){
+							firstS[iii]=listMap[s+'@'+t][iii*2];
+							firstT[iii]=listMap[s+'@'+t][iii*2+1];
+						}
 						break;
 					}
 				}
+				
+				for (ii=0;ii<firstS.size();ii++){
+					for (iii=0;iii<secondS.size();iii++){
+						fullTrees.push_back(firstS[iii] + secondS[iii]  + pfstr.at(i));
+						fullTrees.push_back(firstT[iii] + secondT[iii]);
+						if (pfstr.at(i) == '+'){
+							fullTrees.push_back(secondS[iii] + firstS[iii]  + pfstr.at(i));
+							fullTrees.push_back(secondT[iii] + firstT[iii]);
+						}
+					}
+				}
+				
 			}
-			std::string fullStr = firstS + secondS + pfstr.at(i) + '@' + firstT + secondT;
+			else {
+				for (iii=0;iii<secondS.size();iii++){
+					fullTrees.push_back(secondS[iii] + pfstr.at(i));
+					fullTrees.push_back(secondT[iii]);
+				}
+			}
+			
+			
+			
+			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
 			std::cout << i << "---" << fullStr << '\n';
 			
-			treeMap[fullStr]="";
+			listMap[fullStr]=fullTrees;
 			
 		}
 		else {
-			treeMap["#@" + std::to_string(idx) + "_"]="original"+i;
+			listMap["#@" + std::to_string(idx) + "_"]={"original",std::to_string(i)};
 			operandMap[i]=std::to_string(idx);
 			idx++;
 		}
 		
 	}
 	
-	std::cout << tree << '\n';
+	std::cout << '\n';
 	return "temp";
 }
 /*
