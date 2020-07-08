@@ -264,7 +264,7 @@ std::string makeTree(std::string pfstr){
 			
 		}
 		else {
-			listMap["#@" + std::to_string(idx) + "_"]={"original",std::to_string(i)};
+			listMap["#@" + std::to_string(idx) + "_"]={"original",std::to_string(i)+'_'};
 			operandMap[i]=std::to_string(idx);
 			idx++;
 		}
