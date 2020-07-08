@@ -25,6 +25,14 @@ using phmap::flat_hash_map;
 flat_hash_map<std::string,std::string> treeMap;
 flat_hash_map<char,int> prec;
 
+std::string arrayToString(int n, char input[]) { 
+    int i; 
+    string s = ""; 
+    for (i = 0; i < n; i++) { 
+        s = s + input[i]; 
+    } 
+    return s; 
+} 
 
 std::string makePost(char infixexpr[]) {
 	/*opStack = []
@@ -55,8 +63,7 @@ std::string makePost(char infixexpr[]) {
 		}
 		else{
 			if (iidx != 0){
-				std::string s(iidx,temptoken);
-				tokenList[idx] = s;
+				tokenList[idx] = arrayToString(iidx,temptoken);
 				idx++;
 			}
 			std::string s(1,ie);
@@ -67,8 +74,7 @@ std::string makePost(char infixexpr[]) {
 		}
 	}
 	if (iidx != 0){
-		std::string s(iidx,temptoken);
-		tokenList[idx] = s;
+		tokenList[idx] = arrayToString(iidx,temptoken);
 	}
 	
 	
