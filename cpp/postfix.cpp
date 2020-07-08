@@ -82,7 +82,7 @@ std::string makePost(char infixexpr[]) {
 	tokenList.resize(idx);
 	
 	
-	for (i=0;i<tokenList.size();i++){
+	for (i=0;i<idx;i++){
     	std::cout << ' ' << i << "==" << tokenList[i];
     }
 	std::cout << '\n';
