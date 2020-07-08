@@ -455,7 +455,8 @@ std::string makeRule(std::string input){
 	infixexpr[input.length()] = '\0';
 	std::string postfixed = makePost(infixexpr);
 	std::cout << postfixed;
-	return makeTree(postfixed)[0];
+	return postfixed;
+	//return makeTree(postfixed)[0];
 }
 
 std::vector<std::string> makeRules(){
@@ -473,12 +474,8 @@ std::vector<std::string> makeRules(){
 
 int main () {
 
-	std::vector<std::string> rules = makeRules();
-	int ii;
-	for (ii=0;ii<rules.size();ii++){
-		std::cout << ii << "-=-" << rules[ii] << '\n';
-	}
-	auto t1 = std::chrono::high_resolution_clock::now();
+	
+	
     
 	prec['*'] = 4;
 	prec['/'] = 4;
@@ -494,6 +491,17 @@ int main () {
 	prec['|'] = 0;
 	prec['('] = -1;
 	prec[')'] = -1;
+	
+	std::vector<std::string> rules = makeRules();
+	int ii;
+	for (ii=0;ii<rules.size();ii++){
+		std::cout << ii << "-=-" << rules[ii] << '\n';
+	}
+	
+	auto t1 = std::chrono::high_resolution_clock::now();
+	
+	
+	
 	std::string s = "3*(a~b)+7"; 
   
     char infixexpr[s.length() + 1]; 
