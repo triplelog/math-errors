@@ -272,5 +272,5 @@ int main () {
 	infixexpr[0] = 'a';
 	infixexpr[1] = '+';
 	infixexpr[2] = 'b';
-	makePost(infixexpr);
+	//makePost(infixexpr);
 }
