@@ -153,17 +153,68 @@ std::string makePost(char infixexpr[]) {
 		}
 
 	}
-	std::string retstr = "";
+	std::string retstr = expstr + "@";
 	for (i=0;i<intstr.length()-1;i++){
 		retstr += intstr.at(i);
 	}
-	retstr += "@";
-	retstr += expstr;
 	return retstr;
 
 
 }
 
+std::string makeTree(std::string pfstr){
+	std::string tree = "";
+	flat_hash_map<std::string,std::string> treeMap;
+	flat_hash_map<int,int> operandMap;
+	treeMap["#"]="";
+	int i; int ii; int iii;
+	int idx =0;
+	for (i=0;i<pfstr.length();i++){
+		if (pfstr.at(i) != '#'){
+			std::string secondStr = "";
+			int maxi = i-1;
+			for (ii=i-1;ii>=0;ii++){
+				std::string s = "";
+				for (iii=ii;iii<i;iii++){
+					s += pfstr.at(iii);
+				}
+				if (treeMap.find(s) == treeMap.end()){
+					break;
+				}
+				else {
+					secondStr = s;
+					maxi = ii;
+				}
+			}
+			
+			std::string firstStr = "";
+			for (ii=maxi-1;ii>=0;ii++){
+				std::string s = "";
+				for (iii=ii;iii<maxi;iii++){
+					s += pfstr.at(iii);
+				}
+				if (treeMap.find(s) == treeMap.end()){
+					break;
+				}
+				else {
+					firstStr = s;
+				}
+			}
+			std::string fullStr = firstStr + secondStr + pfstr.at(i);
+			std::cout << i << "---" << fullStr << '\n';
+			treeMap[fullStr]="";
+			
+		}
+		else {
+			operandMap[i]=idx;
+			idx++;
+		}
+		
+	}
+	
+	std::cout << tree << '\n';
+	return "temp";
+}
 /*
 function replaceDecimals(istr){
 	dindex = istr.indexOf('.');
@@ -335,4 +386,5 @@ int main () {
 	infixexpr[s.length()] = '\0';
 	std::string pfstr = makePost(infixexpr);
 	std::cout << pfstr << '\n';
+	makeTree(pfstr);
 }
