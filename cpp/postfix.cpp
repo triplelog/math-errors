@@ -34,8 +34,7 @@ std::string arrayToString(int n, char input[]) {
     return s; 
 }
 
-
-std::string makePost(char infixexpr[]) {
+std::vector<std::string> makePostVector(char infixexpr[]) {
 	
 	std::string intstr = "";
 	std::string expstr = "";
@@ -153,7 +152,15 @@ std::string makePost(char infixexpr[]) {
 		}
 
 	}
-	std::string retstr = expstr + "@" + intstr;
+	
+	return {expstr,intstr};
+
+
+}
+std::string makePost(char infixexpr[]) {
+	std::vector<std::string> v = makePostVector(infixexpr);
+	
+	std::string retstr = v[0]+ "@" + v[1];
 	return retstr;
 
 
@@ -448,26 +455,37 @@ inline Cppdata solvePostfixVV(char expstr[], std::vector<Cppdata> const intArray
 }
 */
 
-std::string makeRule(std::string input){
+std::vector<std::string> makeRule(std::string input){
 	char infixexpr[input.length() + 1]; 
     strcpy(infixexpr, input.c_str()); 
 
 	infixexpr[input.length()] = '\0';
-	std::string postfixed = makePost(infixexpr);
+	std::vector<std::string> postfixed = makePostVector(infixexpr);
 	//std::cout << postfixed;
 	return postfixed;
 	//return makeTree(postfixed)[0];
 }
 
-std::vector<std::string> makeRules(){
-	std::vector<std::string> finalRules;
-	std::vector<std::string> rawRules;
-	rawRules.push_back("A^2");
-	rawRules.push_back("A+B");
+flat_hash_map<std::string,std::vector<std::string>> makeRules(){
+	flat_hash_map<std::string,std::vector<std::string>> finalRules;
+	std::vector<std::vector<std::string>> rawRules;
+	rawRules.push_back({"A^2","A*A","Turn exponent into multiplication."});
+	rawRules.push_back({"A+B","B+A","Use commutative property of addition."});
 	
-	int i;
+	int i; int ii;
+	std::string fullPost;
+	std::string key;
+	std::string val1;
+	std::string out;
 	for (i=0;i<rawRules.size();i++){
-		finalRules.push_back(makeRule(rawRules[i]));
+		fullPost = makeRule(rawRules[i][0]);
+		key = fullPost[0];
+		val1 = fullPost[1];
+		fullPost = makeRule(rawRules[i][1]);
+		out = fullPost[0] + '@' + fullPost[1];
+		
+		finalRules[key] = {val1,out,rawRules[i][2]};
+		// TODO: add possibility of appending to existing key, and adding all constraints
 	}
 	return finalRules;
 }
@@ -492,11 +510,11 @@ int main () {
 	prec['('] = -1;
 	prec[')'] = -1;
 	
-	std::vector<std::string> rules = makeRules();
+	flat_hash_map<std::string,std::vector<std::string>> rules = makeRules();
 	int ii;
-	for (ii=0;ii<rules.size();ii++){
-		std::cout << ii << "-=-" << rules[ii] << '\n';
-	}
+	//for (ii=0;ii<rules.size();ii++){
+	//	std::cout << ii << "-=-" << rules[ii] << '\n';
+	//}
 	
 	auto t1 = std::chrono::high_resolution_clock::now();
 	
@@ -514,6 +532,17 @@ int main () {
 	for (ii=0;ii<postList.size();ii++){
 		std::cout << ii << "-:-" << postList[ii] << '\n';
 		int iii; int iiii;
+		std::string key = "";
+		for (iiii=0;iiii<postList[ii].length();iiii++){
+			if (postList[ii].at(iiii) == '@'){
+				break;
+			}
+			else{
+				key += postList[ii].at(iiii);
+			}
+		}
+		std::cout "Match: " << postList[ii] << " and " << key << " with "<< rules[key] << '\n';
+		/*
 		for (iii=0;iii<rules.size();iii++){
 			for (iiii=0;iiii<postList[ii].length();iiii++){
 				if (postList[ii].at(iiii) == '@' || rules[iii].at(iiii) == '@'){
@@ -526,7 +555,7 @@ int main () {
 					break;
 				}
 			}
-		}
+		}*/
 	}
 	auto t2 = std::chrono::high_resolution_clock::now();
 
