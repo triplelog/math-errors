@@ -138,6 +138,7 @@ std::string makePost(char infixexpr[]) {
 		char firstChar = ci.at(0);
 		if (firstChar == '~'){
 			expstr += "-";
+			expstr += "-+";
 		}
 		else if (firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
 			expstr += ci;
