@@ -76,9 +76,10 @@ std::string makePost(char infixexpr[]) {
 	}
 	if (iidx != 0){
 		tokenList[idx] = arrayToString(iidx,temptoken);
+		idx++;
 	}
 	
-	tokenList.resize(idx+1);
+	tokenList.resize(idx);
 	
 	
 	for (std::vector<std::string>::iterator it = tokenList.begin() ; it != tokenList.end(); it++){
