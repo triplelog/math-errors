@@ -502,7 +502,7 @@ int main () {
 	
 	
 	
-	std::string s = "3*(a~b)+7"; 
+	std::string s = "x+3"; 
   
     char infixexpr[s.length() + 1]; 
     strcpy(infixexpr, s.c_str()); 
@@ -510,7 +510,24 @@ int main () {
 	infixexpr[s.length()] = '\0';
 	std::string pfstr = makePost(infixexpr);
 	//std::cout << pfstr << '\n';
-	makeTree(pfstr);
+	std::vector<std::string> postList = makeTree(pfstr);
+	for (ii=0;ii<postList.size()/2;ii++){
+		std::cout << ii << "-:-" << postList[ii] << '\n';
+		int iii; int iiii;
+		for (iii=0;iii<rules.size();iii++){
+			for (iiii=0;iiii<postList[ii].length();iiii++){
+				if (postList[ii].at(iiii) == '@' || rules[iii].at(iiii) == '@'){
+					if (postList[ii].at(iiii) == '@' && rules[iii].at(iiii) == '@') {
+						std::cout << "Match: " << postList[ii] << " and " << rules[iii] << '\n';
+					}
+					break;
+				}
+				else if (postList[ii].at(iiii) != rules[iii].at(iiii)){
+					break;
+				}
+			}
+		}
+	}
 	auto t2 = std::chrono::high_resolution_clock::now();
 
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
