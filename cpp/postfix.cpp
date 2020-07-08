@@ -35,10 +35,14 @@ std::string arrayToString(int n, char input[]) {
 } 
 
 std::string makePost(char infixexpr[]) {
-	/*opStack = []
-	postfixList = []
+	/*
 	intstr = ''
 	expstr = ''*/
+	char topToken;
+	std::vector<std::string> postfixList;
+	int pfidx =0;
+	std::vector<char> opStack;
+	int osidx = 0;
 	std::vector<std::string> tokenList;
 	int idx = 0;
 	int len=0;
@@ -49,12 +53,13 @@ std::string makePost(char infixexpr[]) {
     }
 	char temptoken[len];
 	tokenList.resize(len);
+	postfixList.resize(len);
+	opStack.resize(len);
 	int iidx = 0;
 	
 
 	for (i = 0; infixexpr[i]; i++) 
     {
-    	std::cout << ' ' << i << "==" << infixexpr[i];
 		char ie = infixexpr[i];
 		if (prec.find(ie) == prec.end()){
 			temptoken[iidx] = ie;
@@ -80,38 +85,52 @@ std::string makePost(char infixexpr[]) {
 	
 	tokenList.resize(idx);
 	
-	std::cout << '\n';
+	
 	for (i=0;i<idx;i++){
-    	std::cout << ' ' << i << "==" << tokenList[i];
-    }
-	std::cout << '\n';
-	return "tokenList";
-	/*
-	for (var i=0;i<tokenList.length;i++){
-		var token = tokenList[i];
-		if ("*+/~><=![]&|".indexOf(token) == -1){
-			postfixList.push(token)
+		std::string token = tokenList[i];
+		char firstChar = token.at(0);
+		if (firstChar == '('){
+			opStack[osidx] = firstChar;
+			osidx++;
 		}
-		else if (token == '('){
-			opStack.push(token)
-		}
-		else if (token == ')'){
-			topToken = opStack.pop()
+		else if (firstChar == ')'){
+			topToken = opStack[osidx];
+			osidx--;
+			
 			while (topToken != '('){
-				postfixList.push(topToken)
-				topToken = opStack.pop()
+				std::string s(1,topToken);
+				postfixList[pfidx] = s;
+				pfidx++;
+				topToken = opStack[osidx];
+				osidx--;
 			}
+		}
+		else if (firstChar != '*' || firstChar != '+' || firstChar != '/' || firstChar != '~' || firstChar != '>' || firstChar != '<' || firstChar != '=' || firstChar != '!' || firstChar != '[' || firstChar != ']' || firstChar != '&' || firstChar != '|') {
+			while ((osidx > 0) && (prec[opStack[osidx-1]] >= prec[firstChar])){
+				topToken = opStack[osidx];
+				osidx--;
+				std::string s(1,topToken);
+				postfixList[pfidx] = s;
+				pfidx++;
+			}
+			opStack[osidx] = firstChar;
+			osidx++;
 		}
 		else {
-			while ((opStack.length > 0) && (prec[opStack[opStack.length-1]] >= prec[token])){
-				postfixList.push(opStack.pop())
-			}
-			opStack.push(token)
+			postfixList[pfidx] = token;
+			pfidx++;
 		}
 	}
-	while (opStack.length > 0){
-		postfixList.push(opStack.pop())
+	while (osidx > 0){
+		topToken = opStack[osidx];
+		osidx--;
+		std::string s(1,topToken);
+		postfixList[pfidx] = s;
+		pfidx++;
 	}
+	
+	return "temp";
+	/*
 	for (var i=0;i<postfixList.length;i++){
 		var ci = postfixList[i];
 		if ("*+/~><=![]&|".indexOf(ci) == -1){
