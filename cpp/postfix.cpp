@@ -541,7 +541,7 @@ int main () {
 				key += postList[ii].at(iiii);
 			}
 		}
-		std::cout << "Match: " << postList[ii] << " and " << key << " with "<< rules[key] << '\n';
+		//std::cout << "Match: " << postList[ii] << " and " << key << " with "<< rules[key] << '\n';
 		/*
 		for (iii=0;iii<rules.size();iii++){
 			for (iiii=0;iiii<postList[ii].length();iiii++){
