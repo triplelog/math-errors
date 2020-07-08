@@ -235,11 +235,11 @@ std::string makeTree(std::string pfstr){
 				
 				for (ii=0;ii<firstS.size();ii++){
 					for (iii=0;iii<secondS.size();iii++){
-						fullTrees.push_back(firstS[iii] + secondS[iii]  + pfstr.at(i));
-						fullTrees.push_back(firstT[iii] + secondT[iii]);
+						fullTrees.push_back(firstS[ii] + secondS[iii]  + pfstr.at(i));
+						fullTrees.push_back(firstT[ii] + secondT[iii]);
 						if (pfstr.at(i) == '+'){
-							fullTrees.push_back(secondS[iii] + firstS[iii]  + pfstr.at(i));
-							fullTrees.push_back(secondT[iii] + firstT[iii]);
+							fullTrees.push_back(secondS[iii] + firstS[ii]  + pfstr.at(i));
+							fullTrees.push_back(secondT[iii] + firstT[ii]);
 						}
 					}
 				}
