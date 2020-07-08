@@ -469,6 +469,7 @@ std::vector<std::string> makeRules(){
 int main () {
 
 	std::vector<std::string> rules = makeRules();
+	int ii;
 	for (ii=0;ii<rules.size()/2;ii++){
 		std::cout << ii << "-:-" << rules[ii] << '\n';
 	}
