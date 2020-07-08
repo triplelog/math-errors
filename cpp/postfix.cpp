@@ -186,7 +186,7 @@ std::string makeTree(std::string pfstr){
 					maxi = ii;
 				}
 			}
-			
+			std::cout << i << "---" << maxi << "---" << secondStr << '\n';
 			std::string firstStr = "";
 			for (ii=maxi-1;ii>=0;ii++){
 				std::string s = "";
@@ -200,6 +200,7 @@ std::string makeTree(std::string pfstr){
 					firstStr = s;
 				}
 			}
+			std::cout << i << "---" << firstStr << '\n';
 			std::string fullStr = firstStr + secondStr + pfstr.at(i);
 			std::cout << i << "---" << fullStr << '\n';
 			treeMap[fullStr]="";
