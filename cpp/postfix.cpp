@@ -33,9 +33,15 @@ std::string makePost(char infixexpr[]) {
 	expstr = ''*/
 	std::vector<std::string> tokenList;
 	int idx = 0;
-	char temptoken[];
-	int iidx = 0;
+	int len=0;
 	int i;
+	for (i = 0; infixexpr[i]; i++) 
+    {
+    	len = i+1;
+    }
+	char temptoken[len];
+	int iidx = 0;
+	
 	
 	/*
 	
