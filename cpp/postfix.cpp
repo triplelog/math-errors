@@ -132,15 +132,18 @@ std::string makePost(char infixexpr[]) {
 	
 
 	for (i=0;i<pfidx;i++){
-		std::cout << postfixList[i];
 		
 		std::string ci = postfixList[i];
 		char firstChar = ci.at(0);
 		if (firstChar == '~'){
-			expstr += "-";
+			//expstr += "-";
 			expstr += "-+";
 		}
-		else if (firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
+		else if (firstChar == '/'){
+			//expstr += "-";
+			expstr += "/*";
+		}
+		else if (firstChar == '*' || firstChar == '+' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
 			expstr += ci;
 		}
 		else {
@@ -150,13 +153,14 @@ std::string makePost(char infixexpr[]) {
 		}
 
 	}
-	std::cout << '\n' << intstr << " --- " << expstr;
-	return "temp";
-	/*
-	intstr = intstr.substring(0,intstr.length-1)
-	
-	return [intstr,expstr]
-	*/
+	std::string retstr = "";
+	for (i=0;i<intstr.length()-1;i++){
+		retstr += intstr.at(i);
+	}
+	retstr += "@";
+	retstr += expstr;
+	return retstr;
+
 
 }
 
@@ -329,5 +333,6 @@ int main () {
     strcpy(infixexpr, s.c_str()); 
 
 	infixexpr[s.length()] = '\0';
-	makePost(infixexpr);
+	std::string pfstr = makePost(infixexpr);
+	std::cout << pfstr << '\n';
 }
