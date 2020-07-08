@@ -48,6 +48,7 @@ std::string makePost(char infixexpr[]) {
     	len = i+1;
     }
 	char temptoken[len];
+	tokenList.resize(len);
 	int iidx = 0;
 	
 	
