@@ -32,7 +32,8 @@ std::string arrayToString(int n, char input[]) {
         s = s + input[i]; 
     } 
     return s; 
-} 
+}
+
 
 std::string makePost(char infixexpr[]) {
 	
@@ -321,10 +322,11 @@ int main () {
 	prec['|'] = 0;
 	prec['('] = -1;
 	prec[')'] = -1;
-	char infixexpr[3];
-	infixexpr[0] = 'a';
-	infixexpr[1] = '+';
-	infixexpr[2] = 'b';
-	infixexpr[3] = '\0';
+	std::string s = "3*(a+b)"; 
+  
+    char infixexpr[s.length() + 1]; 
+    strcpy(infixexpr, s.c_str()); 
+
+	infixexpr[s.length()] = '\0';
 	makePost(infixexpr);
 }
