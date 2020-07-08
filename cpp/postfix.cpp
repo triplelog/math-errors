@@ -473,7 +473,7 @@ flat_hash_map<std::string,std::vector<std::string>> makeRules(){
 	rawRules.push_back({"A+B","B+A","Use commutative property of addition."});
 	
 	int i; int ii;
-	std::string fullPost;
+	std::vector<std::string> fullPost;
 	std::string key;
 	std::string val1;
 	std::string out;
