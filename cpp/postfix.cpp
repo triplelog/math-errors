@@ -389,7 +389,9 @@ std::string postfixify(std::string input_str) {
 	std::string threeChars = "...";
 	for (i=0;i<input_str.length();i++){
 		std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
-		threeChars = threeChars.at(1) + threeChars.at(2) + input_str.at(i);
+		threeChars.replace(0,1,"");
+		std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+		threeChars += input_str.at(i);
 		if (replacements.find(threeChars) != replacements.end()){
 			input_str.replace(i-2,3,replacements[threeChars]);
 			threeChars = "...";
