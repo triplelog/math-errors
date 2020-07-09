@@ -58,7 +58,8 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 	opStack.resize(len);
 	int iidx = 0;
 	
-
+	char ddx{-69};
+	
 	for (i = 0; infixexpr[i]; i++) 
     {
 		char ie = infixexpr[i];
@@ -106,7 +107,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 				osidx--;
 			}
 		}
-		else if (firstChar == '»' || firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '~' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
+		else if (firstChar == ddx || firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '~' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
 			while ((osidx > 0) && (prec[opStack[osidx-1]] >= prec[firstChar])){
 				topToken = opStack[osidx-1];
 				osidx--;
@@ -143,7 +144,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 			//expstr += "-";
 			expstr += "/*";
 		}
-		else if (firstChar == '»' || firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
+		else if (firstChar == ddx || firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
 			expstr += ci;
 		}
 		else {
@@ -384,7 +385,9 @@ std::string postfixify(std::string input_str) {
 	input_str = replaceNegatives(input_str);*/
 	
 	flat_hash_map<std::string,std::string> replacements;
-	replacements["ddx"]="ø»";
+	char ddx{-69};
+	replacements["ddx"]="ø";
+	replacements["ddx"]+=ddx;
 	int i;
 	std::string threeChars = "...";
 	for (i=0;i<input_str.length();i++){
