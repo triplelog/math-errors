@@ -684,6 +684,7 @@ std::string applyRules(std::string userFullString) {
 		else if (foundAt && userFullString.at(iii) == '_'){
 			operandList[std::to_string(idx)] = currentOperand;
 			idx++;
+			currentOperand = "";
 		}
 		else {
 			currentOperand += userFullString.at(iii);
@@ -708,12 +709,12 @@ std::string applyRules(std::string userFullString) {
 				}
 				foundFirst = true;
 				fullStr += operandList[currentOperand];
+				currentOperand = "";
 			}
 			else if (foundAt){
 				currentOperand += onePart.at(iii);
 			}
 			else {
-				currentOperand += onePart.at(iii);
 				fullStr += onePart.at(iii);
 			}
 			
