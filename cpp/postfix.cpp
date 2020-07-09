@@ -1017,7 +1017,6 @@ std::string applyRules(std::string userFullString) {
 		int replaceLength = 0;
 		int replaceLengthSecond = 0;
 		midBracket = false;
-		std::cout << "onePart: " << onePart << "\n";
 		for (iii=0;iii<onePart.length();iii++){
 			if (onePart.at(iii) == '@' && !midBracket){
 				foundAt = true;
@@ -1053,10 +1052,8 @@ std::string applyRules(std::string userFullString) {
 				fullStr += onePart.at(iii);
 				replaceLength++;
 			}
-			std::cout << "rsl: " << replaceLengthSecond << "\n";
 			
 		}
-		std::cout << "fullStr: " << fullStr << "\n";
 		//replace starting at firstOperandIndex for length=replaceLength
 		//replace starting at firstOperandIndexSecond for length=replaceLengthSecond
 		//std::cout << iter->first << " and "  << firstOperandIndex << " and "  << firstOperandIndexSecond << " and " << fullStr << '\n';
@@ -1176,11 +1173,12 @@ std::string applyRules(std::string userFullString) {
 					newPostfixFirst += newPostfix.at(iiii);
 				}
 			}
-			std::cout << "userFullString: "<< userFullString << " a " << firstOperandIndexSecond << " a " << replaceLengthSecond << " a " << newPostfixSecond << "\n";
+			//std::cout << "userFullString: "<< userFullString << " a " << firstOperandIndexSecond << " a " << replaceLengthSecond << " a " << newPostfixSecond << "\n";
 			userFullString.replace(firstOperandIndexSecond,replaceLengthSecond,newPostfixSecond);
-			std::cout << "userFullString: "<< userFullString << "\n";
+			//std::cout << "userFullString: "<< userFullString << "\n";
 			userFullString.replace(firstOperandIndex,replaceLength,newPostfixFirst);
 			std::cout << "userFullString: "<< userFullString << "\n";
+			
 			//std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
 			return userFullString;
 		}
@@ -1229,14 +1227,17 @@ int main () {
   
 	std::string pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
-	std::vector<std::string> postList = makeTree(pfstr);
 	
-	for (ii=0;ii<postList.size();ii++){
-		std::string newPostfix = postList[ii];
-		std::string oldPostfix = "";
-		int maxSteps = 5;
-		while (newPostfix != oldPostfix && maxSteps >=0){
-			oldPostfix = newPostfix;
+	std::string newPostfix = pfstr;
+	std::string oldPostfix = "";
+	
+	int maxSteps = 5;
+	while (newPostfix != oldPostfix && maxSteps >=0){
+		oldPostfix = newPostfix;
+		std::vector<std::string> postList = makeTree(oldPostfix);
+	
+		for (ii=0;ii<postList.size();ii++){
+		
 			newPostfix = applyRules(oldPostfix);
 			maxSteps--;
 			if (newPostfix != oldPostfix){
@@ -1245,7 +1246,7 @@ int main () {
 			
 		}
 		std::cout << ii << "-:-" << postList[ii] << '\n';
-		std::cout << "Match: " << postList[ii] << " into "<< newPostfix << '\n';
+		std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
 		
 		
 
