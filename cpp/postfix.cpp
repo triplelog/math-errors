@@ -404,8 +404,17 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 				
 				for (ii=0;ii<firstS.size();ii++){
 					for (iii=0;iii<secondS.size();iii++){
+						//as-is
 						fullTrees.push_back(firstS[ii] + secondS[iii]  + pfstr.at(i));
 						fullTrees.push_back(firstT[ii] + secondT[iii]);
+						
+						//condensed
+						fullTrees.push_back('#');
+						fullTrees.push_back(std::to_string(iidx)+'_');
+						originalMap[iidx]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
+						iidx++;
+						
+						//reversed
 						if (pfstr.at(i) == '+'){
 							fullTrees.push_back(secondS[iii] + firstS[ii]  + pfstr.at(i));
 							fullTrees.push_back(secondT[iii] + firstT[ii]);
@@ -418,6 +427,12 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 				for (iii=0;iii<secondS.size();iii++){
 					fullTrees.push_back(secondS[iii] + pfstr.at(i));
 					fullTrees.push_back(secondT[iii]);
+					
+					//condensed
+					fullTrees.push_back('#');
+					fullTrees.push_back(std::to_string(iidx)+'_');
+					originalMap[iidx]= secondS[iii] + pfstr.at(i) + '@' + secondT[iii];
+					iidx++;
 				}
 			}
 			
@@ -637,7 +652,7 @@ std::vector<std::string> makeRule(std::string input){
 flat_hash_map<std::string,std::vector<std::string>> makeRules(){
 	flat_hash_map<std::string,std::vector<std::string>> finalRules;
 	std::vector<std::vector<std::string>> rawRules;
-	rawRules.push_back({"ddx(A+B)","ddx(A)+ddx(B)","Sum Rule."});
+	rawRules.push_back({"ddx(x^3+B)","ddx(x^3)+ddx(B)","Sum Rule."});
 	rawRules.push_back({"ddx(x^3)","3*x^2","Turn exponent into multiplication."});
 	rawRules.push_back({"ddx(5)","0","Turn exponent into multiplication."});
 	int i; int ii;
