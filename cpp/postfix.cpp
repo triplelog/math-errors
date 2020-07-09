@@ -661,6 +661,7 @@ std::string applyRules(std::string userFullString) {
 	int iii; int iiii;
 	flat_hash_map<std::string,std::vector<std::string>> allParts = makeList(userFullString);
 	flat_hash_map<std::string,int> operandToIndex;
+	flat_hash_map<std::string,int> operandToIndexSecond;
 	flat_hash_map<std::string,std::string> operandList;
 	int idx = 0;
 	std::cout << "\n\n" << userFullString << '\n';
@@ -670,6 +671,17 @@ std::string applyRules(std::string userFullString) {
 		}
 		else if (userFullString.at(iii) == '#'){
 			operandToIndex[std::to_string(idx)] = iii;
+			idx++;
+		}
+	}
+	idx = 0;
+	for (iii=0;iii<userFullString.length();iii++){
+		if (userFullString.at(iii) == '_'){
+			operandToIndexSecond[std::to_string(idx)] = iii+1;
+			idx++;
+		}
+		if (userFullString.at(iii) == '@'){
+			operandToIndexSecond[std::to_string(idx)] = iii+1;
 			idx++;
 		}
 	}
@@ -695,6 +707,7 @@ std::string applyRules(std::string userFullString) {
 		foundAt = false;
 		bool foundFirst = false;
 		int firstOperandIndex = 0;
+		int firstOperandIndexSecond = 0;
 		currentOperand = "";
 		std::string fullStr = "";
 		for (iii=0;iii<onePart.length();iii++){
@@ -706,6 +719,7 @@ std::string applyRules(std::string userFullString) {
 			else if (foundAt && onePart.at(iii) == '_'){
 				if (!foundFirst){
 					firstOperandIndex = operandToIndex[currentOperand];
+					firstOperandIndexSecond = operandToIndexSecond[currentOperand];
 				}
 				foundFirst = true;
 				fullStr += operandList[currentOperand]+'_';
@@ -720,7 +734,7 @@ std::string applyRules(std::string userFullString) {
 			
 		}
 		
-		std::cout << iter->first << " and "  << firstOperandIndex << " and " << fullStr << '\n';
+		std::cout << iter->first << " and "  << firstOperandIndex << " and "  << firstOperandIndexSecond << " and " << fullStr << '\n';
 		
 		//TODO: create userString 
 	}
