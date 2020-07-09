@@ -1031,7 +1031,7 @@ std::vector<std::string> makeRule(std::string input){
 }
 
 flat_hash_map<std::string,std::vector<std::string>> makeRules(){
-	flat_hash_map<std::string,std::vector<std::string>> finalRules;
+	flat_hash_map<std::string,std::vector<std::vector<std::string>>> finalRules;
 	std::vector<std::vector<std::string>> rawRules;
 	rawRules.push_back({"ddx(A+B)","ddx(A)+ddx(B)","Sum Rule."});
 	rawRules.push_back({"ddx(x^3)","3*x^(2+1)","Turn exponent into multiplication."});
@@ -1046,7 +1046,13 @@ flat_hash_map<std::string,std::vector<std::string>> makeRules(){
 			fullPost = makeRule(rawRules[i][0]);
 			key = fullPost[0];
 			val1 = fullPost[1];
-			finalRules[key] = {val1,rawRules[i][1],rawRules[i][2]};
+			if (finalRules.find(key) != finalRules.end()){
+				finalRules[key].push_back({val1,rawRules[i][1],rawRules[i][2]});
+			}
+			else {
+				finalRules[key] = {{val1,rawRules[i][1],rawRules[i][2]}};
+			}
+			
 		}
 		else {
 			fullPost = makeRule(rawRules[i][0]);
@@ -1054,8 +1060,12 @@ flat_hash_map<std::string,std::vector<std::string>> makeRules(){
 			val1 = fullPost[1];
 			fullPost = makeRule(rawRules[i][1]);
 			out = fullPost[0] + '@' + fullPost[1];
-		
-			finalRules[key] = {val1,out,rawRules[i][2]};
+			if (finalRules.find(key) != finalRules.end()){
+				finalRules[key].push_back({val1,out,rawRules[i][2]});
+			}
+			else {
+				finalRules[key] = {{val1,out,rawRules[i][2]}};
+			}
 			// TODO: add possibility of appending to existing key, and adding all constraints
 		}
 		
@@ -1201,44 +1211,53 @@ std::string applyRules(std::string userFullString) {
 		if (rules.find(key) != rules.end()){
 			//std::cout << "Key Match: " << key << " and " << rules[key][0] << "\n";
 			//std::cout << "userFullString @ keyMatch: "<< userFullString << "\n";
-			std::string currentOperand = "";
-			for (iii=0;iii<rules[key][0].length();iii++){
-				if (rules[key][0].at(iii) == '_'){
-					ruleOperands.push_back(currentOperand);
-					currentOperand = "";
+			int ruleIdx;
+			for (ruleIdx=0;ruleIdx<rules[key].size();ruleIdx++){
+				std::vector<std::string> rule = rules[key][ruleIdx];
+				std::string currentOperand = "";
+				for (iii=0;iii<rule[0].length();iii++){
+					if (rule[0].at(iii) == '_'){
+						ruleOperands.push_back(currentOperand);
+						currentOperand = "";
+					}
+					else {
+						currentOperand += rule[0].at(iii);
+					}
 				}
-				else {
-					currentOperand += rules[key][0].at(iii);
+				currentOperand = "";
+				midBracket = false;
+				for (iii=startAt;iii<userString.length();iii++){
+					if (userString.at(iii) == '_' && !midBracket){
+						userOperands.push_back(currentOperand);
+						currentOperand = "";
+					}
+					else if (userString.at(iii) == '{') {
+						currentOperand += userString.at(iii);
+						midBracket = true;
+					}
+					else if (userString.at(iii) == '}') {
+						currentOperand += userString.at(iii);
+						midBracket = false;
+					}
+					else {
+						currentOperand += userString.at(iii);
+					}
 				}
-			}
-			currentOperand = "";
-			midBracket = false;
-			for (iii=startAt;iii<userString.length();iii++){
-				if (userString.at(iii) == '_' && !midBracket){
-					userOperands.push_back(currentOperand);
-					currentOperand = "";
+				bool ignoreThis = false;
+				if (ruleOperands.size() != userOperands.size()){
+					//TODO: move to next rule
+					ignoreThis = true;
 				}
-				else if (userString.at(iii) == '{') {
-					currentOperand += userString.at(iii);
-					midBracket = true;
-				}
-				else if (userString.at(iii) == '}') {
-					currentOperand += userString.at(iii);
-					midBracket = false;
-				}
-				else {
-					currentOperand += userString.at(iii);
-				}
-			}
-			bool ignoreThis = false;
-			if (ruleOperands.size() != userOperands.size()){
-				//TODO: move to next rule
-				ignoreThis = true;
-			}
-			for (iii=0;iii<ruleOperands.size();iii++){
-				if (ruleOperands[iii].length()==1){
-					if (ruleOperands[iii].at(0) <= 'Z' && ruleOperands[iii].at(0) >= 'A'){
-						partMap[ruleOperands[iii].at(0)] = userOperands[iii];
+				for (iii=0;iii<ruleOperands.size();iii++){
+					if (ruleOperands[iii].length()==1){
+						if (ruleOperands[iii].at(0) <= 'Z' && ruleOperands[iii].at(0) >= 'A'){
+							partMap[ruleOperands[iii].at(0)] = userOperands[iii];
+						}
+						else if (ruleOperands[iii] != userOperands[iii]){
+							//TODO: skip this rule
+							ignoreThis = true;
+							break;
+						}
 					}
 					else if (ruleOperands[iii] != userOperands[iii]){
 						//TODO: skip this rule
@@ -1246,58 +1265,53 @@ std::string applyRules(std::string userFullString) {
 						break;
 					}
 				}
-				else if (ruleOperands[iii] != userOperands[iii]){
-					//TODO: skip this rule
-					ignoreThis = true;
-					break;
+			
+			
+				newPostfix = "";
+				if (ignoreThis){
+					continue;
 				}
-			}
-			
-			
-			newPostfix = "";
-			if (ignoreThis){
-				continue;
-			}
-			bool pastKey = false;
-			if (rules[key][1].at(0)=='='){
-				if (rules[key][1].at(1)=='+'){
-					newPostfix = "#@";
-					std::string a = partMap[rules[key][1].at(2)];
-					std::string b = partMap[rules[key][1].at(3)];
-					std::string addResult = addTwoInts(a,b);
-					if (addResult == "false"){
-						newPostfix = "";
-						continue;
+				bool pastKey = false;
+				if (rule[1].at(0)=='='){
+					if (rule[1].at(1)=='+'){
+						newPostfix = "#@";
+						std::string a = partMap[rule[1].at(2)];
+						std::string b = partMap[rule[1].at(3)];
+						std::string addResult = addTwoInts(a,b);
+						if (addResult == "false"){
+							newPostfix = "";
+							continue;
+						}
+						newPostfix += addResult+'_';
 					}
-					newPostfix += addResult+'_';
 				}
-			}
-			else {
-				for (iii=0;iii<rules[key][1].length();iii++){
-					if (pastKey){
-						if (rules[key][1].at(iii) == '_'){
-							if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
-								newPostfix += partMap[currentOperand.at(0)] + '_';
+				else {
+					for (iii=0;iii<rule[1].length();iii++){
+						if (pastKey){
+							if (rule[1].at(iii) == '_'){
+								if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
+									newPostfix += partMap[currentOperand.at(0)] + '_';
+								}
+								else {
+									newPostfix += currentOperand + '_';
+								}
+								currentOperand = "";
 							}
 							else {
-								newPostfix += currentOperand + '_';
+								currentOperand += rule[1].at(iii);
 							}
-							currentOperand = "";
 						}
 						else {
-							currentOperand += rules[key][1].at(iii);
+							if (rule[1].at(iii) == '@'){
+								pastKey = true;
+							}
+							newPostfix += rule[1].at(iii);
 						}
-					}
-					else {
-						if (rules[key][1].at(iii) == '@'){
-							pastKey = true;
-						}
-						newPostfix += rules[key][1].at(iii);
 					}
 				}
-			}
 			
-			std::cout << "newpostfix @ end of keyMatch: "<< newPostfix << "\n";
+				std::cout << "newpostfix @ end of keyMatch: "<< newPostfix << "\n";
+			}
 		}
 		
 		if (newPostfix.length()>0){
