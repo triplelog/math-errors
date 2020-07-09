@@ -1138,6 +1138,7 @@ std::string applyRules(std::string userFullString) {
 		}
 		if (rules.find(key) != rules.end()){
 			std::cout << "Key Match: " << key << " and " << rules[key][0] << "\n";
+			std::cout << "userFullString @ keyMatch: "<< userFullString << "\n";
 			std::string currentOperand = "";
 			for (iii=0;iii<rules[key][0].length();iii++){
 				if (rules[key][0].at(iii) == '_'){
@@ -1212,6 +1213,7 @@ std::string applyRules(std::string userFullString) {
 					newPostfix += rules[key][1].at(iii);
 				}
 			}
+			std::cout << "newpostfix @ end of keyMatch: "<< newPostfix << "\n";
 		}
 		
 		if (newPostfix.length()>0){
