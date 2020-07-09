@@ -985,7 +985,7 @@ std::string applyRules(std::string userFullString) {
 	idx = 0;
 	midBracket = false;
 	for (iii=0;iii<userFullString.length();iii++){
-		if (userFullString.at(iii) == '@'){
+		if (userFullString.at(iii) == '@' && !midBracket){
 			foundAt = true;
 			currentOperand = "";
 		}
