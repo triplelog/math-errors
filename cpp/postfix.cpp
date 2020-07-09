@@ -746,7 +746,7 @@ std::string applyRules(std::string userFullString) {
 		std::cout << tempReplaced.replace(firstOperandIndexSecond,replaceLengthSecond,";;;").replace(firstOperandIndex,replaceLength,"...") << "\n\n";
 		//TODO: create userString 
 
-		std::string userString = fullString;
+		std::string userString = fullStr;
 		std::string key = "";
 		flat_hash_map<char,std::string> partMap;
 		std::vector<std::string> userOperands;
