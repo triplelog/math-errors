@@ -292,15 +292,29 @@ std::vector<std::string> makeTree(std::string pfstr){
 	bool startOperands = false;
 	std::string currentOperator = "";
 	int iidx = 0;
+	bool midBrackets = false;
 	for (i=0;i<pfstr.length();i++){
 		if (pfstr.at(i) == '@'){
 			startOperands = true;
 		}
-		else if (startOperands){
+		else if (startOperands && !midBrackets){
 			if (pfstr.at(i) == '_'){
 				originalMap[iidx] = currentOperator;
 				iidx++; 
 				currentOperator = "";
+			}
+			else if (pfstr.at(i) == '{'){
+				midBrackets = true;
+				currentOperator += pfstr.at(i);
+			}
+			else {
+				currentOperator += pfstr.at(i);
+			}
+		}
+		else if (startOperands && midBrackets){
+			if (pfstr.at(i) == '}'){
+				midBrackets = false;
+				currentOperator += pfstr.at(i);
 			}
 			else {
 				currentOperator += pfstr.at(i);
@@ -504,15 +518,29 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 	bool startOperands = false;
 	std::string currentOperator = "";
 	int iidx = 0;
+	bool midBrackets = false;
 	for (i=0;i<pfstr.length();i++){
 		if (pfstr.at(i) == '@'){
 			startOperands = true;
 		}
-		else if (startOperands){
+		else if (startOperands && !midBrackets){
 			if (pfstr.at(i) == '_'){
 				originalMap[iidx] = currentOperator;
 				iidx++; 
 				currentOperator = "";
+			}
+			else if (pfstr.at(i) == '{'){
+				midBrackets = true;
+				currentOperator += pfstr.at(i);
+			}
+			else {
+				currentOperator += pfstr.at(i);
+			}
+		}
+		else if (startOperands && midBrackets){
+			if (pfstr.at(i) == '}'){
+				midBrackets = false;
+				currentOperator += pfstr.at(i);
 			}
 			else {
 				currentOperator += pfstr.at(i);
