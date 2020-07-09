@@ -1287,7 +1287,7 @@ std::string applyRules(std::string userFullString) {
 			//std::cout << "userFullString @ keyMatch: "<< userFullString << "\n";
 			int ruleIdx;
 			for (ruleIdx=0;ruleIdx<rules[key].size();ruleIdx++){
-				std::cout << "Key Match: " << key << " and " << rules[key][ruleIdx][0] << "\n";
+				//std::cout << "Key Match: " << key << " and " << rules[key][ruleIdx][0] << "\n";
 				std::vector<std::string> rule = rules[key][ruleIdx];
 				std::string currentOperand = "";
 				flat_hash_map<char,std::string> partMap;
@@ -1522,7 +1522,7 @@ int main () {
 			
 		}
 		if (!changedInput){break;}
-		//std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
+		std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
 		
 		maxSteps--;
 
