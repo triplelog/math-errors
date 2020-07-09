@@ -51,9 +51,15 @@ std::string addTwoInts(std::string a, std::string b){
 	int charSum =0;
 	int carry = 0;
 	for (i=0;i<a.length();i++){
-		char aa[1];
-		
-		charSum = (a.at(len-1-i) - '0') + (b.at(len-1-i) - '0') + carry;
+		int aa = a.at(len-1-i) - '0';
+		if (aa<0 || aa>9){
+			return "false";
+		}
+		int bb = b.at(len-1-i) - '0';
+		if (bb<0 || bb>9){
+			return "false";
+		}
+		charSum = () + () + carry;
 		carry = 0;
 		while (charSum >= base){
 			charSum -= base;
@@ -1258,9 +1264,11 @@ std::string applyRules(std::string userFullString) {
 					newPostfix = "#@";
 					std::string a = partMap[rules[key][1].at(2)];
 					std::string b = partMap[rules[key][1].at(3)];
-					std::cout << " a: " << a << " b: " << b << "----########-----\n";
 					newPostfix += addTwoInts(a,b);
-					std::cout << " npf: " << newPostfix << "----########-----\n";
+					if (newPostfix == "false"){
+						newPostfix = "";
+						continue;
+					}
 				}
 			}
 			else {
@@ -1358,7 +1366,7 @@ int main () {
 	
 	
 	
-	std::string s = "ddx(x^3)"; 
+	std::string s = "ddx(x^3+5)"; 
   
 	std::string pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
