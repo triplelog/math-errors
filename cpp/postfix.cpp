@@ -385,7 +385,7 @@ std::vector<std::string> postfixifyVector(std::string input_str){
 		}
 		//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
 	}
-	std::cout << input_str << '\n';
+	
 	char infixexpr[input_str.length() + 1]; 
     strcpy(infixexpr, input_str.c_str()); 
 
@@ -428,7 +428,7 @@ std::string postfixify(std::string input_str) {
 		}
 		//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
 	}
-	std::cout << input_str << '\n';
+	
 	char infixexpr[input_str.length() + 1]; 
     strcpy(infixexpr, input_str.c_str()); 
 
@@ -499,10 +499,7 @@ std::vector<std::string> makeRule(std::string input){
 flat_hash_map<std::string,std::vector<std::string>> makeRules(){
 	flat_hash_map<std::string,std::vector<std::string>> finalRules;
 	std::vector<std::vector<std::string>> rawRules;
-	rawRules.push_back({"ddx","A*A","Turn exponent into multiplication."});
-	rawRules.push_back({"A+B","B+A","Use commutative property of addition."});
-	rawRules.push_back({"2*(51+4)","55*2","Add."});
-	rawRules.push_back({"55*2","110","Multiply."});
+	rawRules.push_back({"A+ddx(x)*B","A+B","Turn exponent into multiplication."});
 	
 	int i; int ii;
 	std::vector<std::string> fullPost;
