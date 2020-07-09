@@ -309,6 +309,147 @@ std::vector<std::string> makeTree(std::string pfstr){
 	//std::cout << '\n';
 	return treeOptions;
 }
+
+std::string makeList(std::string pfstr){
+	std::vector<std::string> treeOptions;
+	flat_hash_map<std::string,std::vector<std::string>> listMap;
+	flat_hash_map<int,std::string> operandMap;
+	flat_hash_map<int,std::string> originalMap;
+	std::vector<std::string> finalList;
+	
+	int i; int ii; int iii;
+	int idx =0;
+	char ddx{-69};
+	bool startOperands = false;
+	std::string currentOperator = "";
+	int iidx = 0;
+	for (i=0;i<pfstr.length();i++){
+		if (pfstr.at(i) == '@'){
+			startOperands = true;
+		}
+		else if (startOperands){
+			if (pfstr.at(i) == '_'){
+				originalMap[iidx] = currentOperator;
+				iidx++; 
+				currentOperator = "";
+			}
+			else {
+				currentOperator += pfstr.at(i);
+			}
+		}
+	}
+	for (i=0;i<pfstr.length();i++){
+		if (pfstr.at(i) == '@'){
+			break;
+		}
+		else if (pfstr.at(i) != '#'){
+			std::vector<std::string> secondS;
+			std::vector<std::string> secondT;
+			std::string secondStr = "";
+			std::string secondTtr = "";
+			int maxi = i-1;
+			for (ii=0;ii<i;ii++){
+				std::string s = "";
+				std::string t = "";
+				for (iii=ii;iii<i;iii++){
+					s += pfstr.at(iii);
+					if (pfstr.at(iii) == '#'){
+						t += operandMap[iii] + '_';
+					}
+				}
+				if (listMap.find(s + '@' + t) != listMap.end()){
+					secondStr = s;
+					secondTtr = t;
+					secondS.resize(listMap[s+'@'+t].size()/2);
+					secondT.resize(listMap[s+'@'+t].size()/2);
+					for (iii=0;iii<listMap[s+'@'+t].size()/2;iii++){
+						secondS[iii]=listMap[s+'@'+t][iii*2];
+						secondT[iii]=listMap[s+'@'+t][iii*2+1];
+					}
+					maxi = ii;
+					break;
+				}
+			}
+			std::vector<std::string> firstS;
+			std::vector<std::string> firstT;
+			std::string firstStr = "";
+			std::string firstTtr = "";
+			
+			std::vector<std::string> fullTrees;
+			
+			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && pfstr.at(i) != ddx){
+				
+				for (ii=0;ii<maxi;ii++){
+					std::string s = "";
+					std::string t = "";
+					for (iii=ii;iii<maxi;iii++){
+						s += pfstr.at(iii);
+						if (pfstr.at(iii) == '#'){
+							t += operandMap[iii] + '_';
+						}
+					}
+					if (listMap.find(s + '@' + t) != listMap.end()){
+						firstStr = s;
+						firstTtr = t;
+						firstS.resize(listMap[s+'@'+t].size()/2);
+						firstT.resize(listMap[s+'@'+t].size()/2);
+						for (iii=0;iii<listMap[s+'@'+t].size()/2;iii++){
+							firstS[iii]=listMap[s+'@'+t][iii*2];
+							firstT[iii]=listMap[s+'@'+t][iii*2+1];
+						}
+						break;
+					}
+				}
+				
+				
+				for (ii=0;ii<firstS.size();ii++){
+					for (iii=0;iii<secondS.size();iii++){
+						fullTrees.push_back(firstS[ii] + secondS[iii]  + pfstr.at(i));
+						fullTrees.push_back(firstT[ii] + secondT[iii]);
+						if (pfstr.at(i) == '+'){
+							fullTrees.push_back(secondS[iii] + firstS[ii]  + pfstr.at(i));
+							fullTrees.push_back(secondT[iii] + firstT[ii]);
+						}
+					}
+				}
+				
+			}
+			else {
+				for (iii=0;iii<secondS.size();iii++){
+					fullTrees.push_back(secondS[iii] + pfstr.at(i));
+					fullTrees.push_back(secondT[iii]);
+				}
+			}
+			
+			
+			
+			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
+			
+			//std::cout << i << "---" << fullStr << '\n';
+			//
+			//for (ii=0;ii<fullTrees.size();ii++){
+			//	std::cout << i << "-:::-" << fullTrees[ii] << '\n';
+			//}
+			
+			listMap[fullStr]=fullTrees;
+			finalList = fullTrees;
+			
+		}
+		else {
+			listMap["#@" + std::to_string(idx) + "_"]={"#",originalMap[idx]+'_'};
+			finalList = {"#",originalMap[idx]+'_'};
+			operandMap[i]=std::to_string(idx);
+			idx++;
+		}
+		
+	}
+	
+	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = listMap.begin(); iter != listMap.end(); ++iter){
+		std::cout << iter->first << " and " << iter->second << '\n';
+	}
+	//std::cout << '\n';
+	return "treeOptions";
+}
 /*
 function replaceDecimals(istr){
 	dindex = istr.indexOf('.');
@@ -526,6 +667,8 @@ std::string applyRules(std::string userString) {
 	std::vector<std::string> userOperands;
 	std::vector<std::string> ruleOperands;
 	std::string newPostfix = "";
+	std::cout << userString << '\n';
+	makeList(userString);
 	int startAt =0;
 	for (iiii=0;iiii<userString.length();iiii++){
 		if (userString.at(iiii) == '@'){
