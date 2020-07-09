@@ -59,7 +59,7 @@ std::string addTwoInts(std::string a, std::string b){
 		if (bb<0 || bb>9){
 			return "false";
 		}
-		charSum = () + () + carry;
+		charSum = aa + bb + carry;
 		carry = 0;
 		while (charSum >= base){
 			charSum -= base;
