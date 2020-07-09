@@ -266,10 +266,10 @@ std::vector<std::string> makeTree(std::string pfstr){
 						fullTrees.push_back(firstT[ii] + secondT[iii]);
 						
 						//condensed
-						//fullTrees.push_back(""+'#');
-						//fullTrees.push_back(std::to_string(iidx)+'_');
+						fullTrees.push_back(""+'#');
+						fullTrees.push_back(std::to_string(iidx)+'_');
 						//originalMap[iidx]= "{" + firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii] + "}";
-						//iidx++;
+						iidx++;
 						
 						if (pfstr.at(i) == '+'){
 							fullTrees.push_back(secondS[iii] + firstS[ii]  + pfstr.at(i));
@@ -315,7 +315,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		
 	}
 	
-	std::cout << "\n\n--------";
+	std::cout << "\n\n--------\n";
 	for (ii=0;ii<finalList.size()/2;ii++){
 		treeOptions.push_back(finalList[ii*2]+'@'+finalList[ii*2+1]);
 		std::cout << ii << "-:==:- " << treeOptions[ii] << '\n';
@@ -323,7 +323,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
 		std::cout << iter->first << " and " << iter->second << '\n';
 	}
-	std::cout << "\n\n________";
+	std::cout << "\n\n________\n";
 	//std::cout << '\n';
 	return treeOptions;
 }
