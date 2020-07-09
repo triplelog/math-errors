@@ -221,7 +221,9 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 				else if (input.at(iii) == '}'){
 					indexes.push_back(startIndex+1);
 					indexes.push_back(iii-(startIndex+1));
+					std::cout << currentOperand << " start222\n";
 					indexes.push_back(std::stoi(currentOperand));
+					std::cout << currentOperand << " done222\n";
 					indexes.push_back(operandToIndex[idx]);
 					currentOperand = "";
 				}
@@ -471,10 +473,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			else if (finalList[ii*2+1].at(iii) == '}'){
 				indexes.push_back(startIndex+1);
 				indexes.push_back(iii-(startIndex+1));
-				std::cout << currentOperand << " startT\n";
 				indexes.push_back(std::stoi(currentOperand));
-				std::cout << currentOperand << " doneT\n";
-				//indexes.push_back(std::stoi(currentOperand));
 				currentOperand = "";
 			}
 			else {
@@ -691,7 +690,7 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 			std::string currentOperand = "";
 			int startIndex = 0;
 		
-			std::cout << ii << "-:=1=:- " << iter->first << " *** " << oneList[ii*2]+'@'+oneList[ii*2+1] << '\n';
+			//std::cout << ii << "-:=1=:- " << iter->first << " *** " << oneList[ii*2]+'@'+oneList[ii*2+1] << '\n';
 		
 		
 			for (iii=0;iii<oneList[ii*2+1].length();iii++){
@@ -702,9 +701,7 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 				else if (oneList[ii*2+1].at(iii) == '}'){
 					indexes.push_back(startIndex+1);
 					indexes.push_back(iii-(startIndex+1));
-					std::cout << currentOperand << " start\n";
 					indexes.push_back(std::stoi(currentOperand));
-					std::cout << currentOperand << " done\n";
 					currentOperand = "";
 				}
 				else {
