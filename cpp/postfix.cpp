@@ -575,7 +575,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 						originalMap[iidx]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
 						iidx++;
 						
-						if (pfstr.at(i) == '+'){
+						if (pfstr.at(i) == '+' || pfstr.at(i) == '*'){
 							fullTrees.push_back(secondS[iii] + firstS[ii]  + pfstr.at(i));
 							fullTrees.push_back(secondT[iii] + firstT[ii]);
 						}
@@ -634,6 +634,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	//}
 	
 	//std::cout << "\n\n----End bracketless----\n";
+	
 	for (ii=0;ii<finalList.size()/2;ii++){
 		std::vector<int> indexes; //start,length,iidx
 		std::string currentOperand = "";
