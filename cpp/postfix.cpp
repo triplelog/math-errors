@@ -694,7 +694,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	return treeOptions;
 }
 
-flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
+flat_hash_map<std::string,std::vector<std::string>> makeListFull(std::string pfstr){
 	std::vector<std::string> treeOptions;
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,std::string> operandMap;
@@ -918,6 +918,136 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 		newListMap[iter->first]=oneList;
 	}
 	*/
+	
+	//std::cout << '\n';
+	return listMap;
+}
+
+flat_hash_map<std::string,std::string> makeList(std::string pfstr){
+	std::vector<std::string> treeOptions;
+	flat_hash_map<std::string,std::string> listMap;
+	flat_hash_map<int,std::string> operandMap;
+	flat_hash_map<int,std::string> originalMap;
+	
+	int i; int ii; int iii;
+	int idx =0;
+	char ddx{-69};
+	bool startOperands = false;
+	std::string currentOperator = "";
+	int iidx = 0;
+	bool midBrackets = false;
+	for (i=0;i<pfstr.length();i++){
+		if (pfstr.at(i) == '@'){
+			startOperands = true;
+		}
+		else if (startOperands && !midBrackets){
+			if (pfstr.at(i) == '_'){
+				originalMap[iidx] = currentOperator;
+				iidx++; 
+				currentOperator = "";
+			}
+			else if (pfstr.at(i) == '{'){
+				midBrackets = true;
+				currentOperator += pfstr.at(i);
+			}
+			else {
+				currentOperator += pfstr.at(i);
+			}
+		}
+		else if (startOperands && midBrackets){
+			if (pfstr.at(i) == '}'){
+				midBrackets = false;
+				currentOperator += pfstr.at(i);
+			}
+			else {
+				currentOperator += pfstr.at(i);
+			}
+		}
+	}
+	for (i=0;i<pfstr.length();i++){
+		if (pfstr.at(i) == '@'){
+			break;
+		}
+		else if (pfstr.at(i) != '#'){
+			
+			std::string secondStr = "";
+			std::string secondTtr = "";
+			int maxi = i-1;
+			for (ii=0;ii<i;ii++){
+				std::string s = "";
+				std::string t = "";
+				for (iii=ii;iii<i;iii++){
+					s += pfstr.at(iii);
+					if (pfstr.at(iii) == '#'){
+						t += operandMap[iii] + '_';
+					}
+				}
+				if (listMap.find(s + '@' + t) != listMap.end()){
+					secondStr = s;
+					secondTtr = t;
+					
+					maxi = ii;
+					break;
+				}
+			}
+			
+			std::string firstStr = "";
+			std::string firstTtr = "";
+			
+			
+			
+			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && pfstr.at(i) != ddx){
+				
+				for (ii=0;ii<maxi;ii++){
+					std::string s = "";
+					std::string t = "";
+					for (iii=ii;iii<maxi;iii++){
+						s += pfstr.at(iii);
+						if (pfstr.at(iii) == '#'){
+							t += operandMap[iii] + '_';
+						}
+					}
+					if (listMap.find(s + '@' + t) != listMap.end()){
+						firstStr = s;
+						firstTtr = t;
+						
+						break;
+					}
+				}
+				
+				
+				
+				
+			}
+			else {
+				
+			}
+			
+			
+			
+			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
+			
+			//std::cout << i << "---" << fullStr << '\n';
+			//
+			//for (ii=0;ii<fullTrees.size();ii++){
+			//	std::cout << i << "-:::-" << fullTrees[ii] << '\n';
+			//}
+			
+			listMap[fullStr]="";
+			
+		}
+		else {
+			listMap["#@" + std::to_string(idx) + "_"]="";
+			operandMap[i]=std::to_string(idx);
+			idx++;
+		}
+		
+	}
+	
+	//std::cout << "\n\n---start Original-----\n";
+	int iiii;
+	
+	
 	
 	//std::cout << '\n';
 	return listMap;
@@ -1163,7 +1293,7 @@ std::string applyRules(std::string userFullString) {
 	auto a1 = std::chrono::high_resolution_clock::now();
 	
 	int iii; int iiii;
-	flat_hash_map<std::string,std::vector<std::string>> allParts = makeList(userFullString);
+	flat_hash_map<std::string,std::string> allParts = makeList(userFullString);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	flat_hash_map<std::string,int> operandToIndex;
 	flat_hash_map<std::string,int> operandToIndexSecond;
