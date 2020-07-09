@@ -199,7 +199,6 @@ std::string removeBracketsOne(std::string input) {
 		}
 		else if (input.at(iii) == '@' && !foundBrackets) {
 			foundAt = true;
-			iidx++;
 		}
 		else if (input.at(iii) == '@' && foundBrackets) {
 			//tempString += input.at(iii);
