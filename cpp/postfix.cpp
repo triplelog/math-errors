@@ -1322,6 +1322,7 @@ int main () {
 			
 			if (newPostfix != postList[ii]){
 				std::cout << "MatchT: " << postList[ii] << " into "<< newPostfix << " from " << oldPostfix << '\n';
+				break;
 			}
 			
 		}
