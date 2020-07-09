@@ -1228,6 +1228,30 @@ int main () {
 	std::string pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
 	
+	
+	std::vector<std::string> postList = makeTree(pfstr);
+	
+	for (ii=0;ii<postList.size();ii++){
+		std::string newPostfix = postList[ii];
+		std::string oldPostfix = "";
+		int maxSteps = 5;
+		while (newPostfix != oldPostfix && maxSteps >=0){
+			oldPostfix = newPostfix;
+			newPostfix = applyRules(oldPostfix);
+			maxSteps--;
+			if (newPostfix != oldPostfix){
+				std::cout << "MatchT: " << postList[ii] << " into "<< newPostfix << " from " << oldPostfix << '\n';
+			}
+			
+		}
+		std::cout << ii << "-:-" << postList[ii] << '\n';
+		std::cout << "Match: " << postList[ii] << " into "<< newPostfix << '\n';
+		
+		
+
+	}
+	
+	/*
 	std::string newPostfix = pfstr;
 	std::string oldPostfix = "";
 	
@@ -1251,6 +1275,7 @@ int main () {
 		
 
 	}
+	*/
 	auto t2 = std::chrono::high_resolution_clock::now();
 
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
