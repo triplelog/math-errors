@@ -1355,7 +1355,7 @@ std::string applyRules(std::string userFullString) {
 		}
 	}
 	auto a3 = std::chrono::high_resolution_clock::now();
-	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = allParts.begin(); iter != allParts.end(); ++iter){
+	for (flat_hash_map<std::string,std::string>::iterator iter = allParts.begin(); iter != allParts.end(); ++iter){
 		std::string onePart = iter->first;
 		foundAt = false;
 		bool foundFirst = false;
