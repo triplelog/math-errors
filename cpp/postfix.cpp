@@ -659,7 +659,7 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 			std::string currentOperand = "";
 			int startIndex = 0;
 		
-			//std::cout << ii << "-:=1=:- " << oneList[ii*2]+'@'+oneList[ii*2+1] << '\n';
+			std::cout << ii << "-:=1=:- " << oneList[ii*2]+'@'+oneList[ii*2+1] << '\n';
 		
 		
 			for (iii=0;iii<oneList[ii*2+1].length();iii++){
