@@ -24,7 +24,7 @@ using namespace std::chrono;
 using phmap::flat_hash_map;
 flat_hash_map<std::string,std::string> treeMap;
 flat_hash_map<char,int> prec;
-flat_hash_map<std::string,std::vector<std::string>> rules;
+flat_hash_map<std::string,std::vector<std::vector<std::string>>> rules;
 
 std::string arrayToString(int n, char input[]) { 
     int i; 
@@ -1030,7 +1030,7 @@ std::vector<std::string> makeRule(std::string input){
 	//return makeTree(postfixed)[0];
 }
 
-flat_hash_map<std::string,std::vector<std::string>> makeRules(){
+flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 	flat_hash_map<std::string,std::vector<std::vector<std::string>>> finalRules;
 	std::vector<std::vector<std::string>> rawRules;
 	rawRules.push_back({"ddx(A+B)","ddx(A)+ddx(B)","Sum Rule."});
