@@ -388,12 +388,14 @@ std::string postfixify(std::string input_str) {
 	int i;
 	std::string threeChars = "...";
 	for (i=0;i<input_str.length();i++){
+		std::cout << i << " : " << input_str << '\n';
 		threeChars = threeChars.at(1) + threeChars.at(2) + input_str.at(i);
 		if (replacements.find(threeChars) != replacements.end()){
 			input_str.replace(i-2,3,replacements[threeChars]);
 			threeChars = "...";
 			i--;
 		}
+		std::cout << i << " : " << input_str << '\n';
 	}
 	std::cout << input_str << '\n';
 	//var twoparts = makePost(input_str);
