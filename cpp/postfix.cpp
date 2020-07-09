@@ -1264,11 +1264,12 @@ std::string applyRules(std::string userFullString) {
 					newPostfix = "#@";
 					std::string a = partMap[rules[key][1].at(2)];
 					std::string b = partMap[rules[key][1].at(3)];
-					newPostfix += addTwoInts(a,b);
-					if (newPostfix == "false"){
+					std::string addResult = addTwoInts(a,b);
+					if (addResult == "false"){
 						newPostfix = "";
 						continue;
 					}
+					newPostfix += addResult+'_';
 				}
 			}
 			else {
