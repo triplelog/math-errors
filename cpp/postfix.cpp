@@ -1329,7 +1329,6 @@ int main () {
 			std::cout << "--------\n" << ii << " ---- " << newPostfix << "\n--------------";
 			
 		}
-		std::cout << ii << "-:-" << postList[ii] << '\n';
 		std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
 		
 		maxSteps--;
