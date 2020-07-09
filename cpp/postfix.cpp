@@ -195,7 +195,7 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 			if (newMap.find(iter->first) != newMap.end()){
 				continue;
 			}
-			std::cout << iter->first << " and " << iter->second << '\n';
+			//std::cout << iter->first << " and " << iter->second << '\n';
 			std::string input = iter->second;
 	
 			std::vector<int> indexes; //start,length,iidx,idx of #
@@ -221,9 +221,7 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 				else if (input.at(iii) == '}'){
 					indexes.push_back(startIndex+1);
 					indexes.push_back(iii-(startIndex+1));
-					std::cout << currentOperand << " start222\n";
 					indexes.push_back(std::stoi(currentOperand));
-					std::cout << currentOperand << " done222\n";
 					indexes.push_back(operandToIndex[idx]);
 					currentOperand = "";
 				}
@@ -676,15 +674,17 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 	//}
 	
 	//std::cout << "\n\n---start Bracketless-----\n";
-	flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
+	//flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
 	
 	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
 	//	std::cout << iter->first << " and " << iter->second << '\n';
 	//}
 	
+	/*
 	flat_hash_map<std::string,std::vector<std::string>> newListMap;
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = listMap.begin(); iter != listMap.end(); ++iter){
 		std::vector<std::string> oneList = iter->second;
+		
 		for (ii=0;ii<oneList.size()/2;ii++){
 			std::vector<int> indexes; //start,length,iidx
 			std::string currentOperand = "";
@@ -725,12 +725,13 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 			
 			
 		}
+		
 		newListMap[iter->first]=oneList;
 	}
-
+	*/
 	
 	//std::cout << '\n';
-	return newListMap;
+	return listMap;
 }
 /*
 function replaceDecimals(istr){
