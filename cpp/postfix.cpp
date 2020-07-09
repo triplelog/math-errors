@@ -1033,6 +1033,7 @@ std::vector<std::string> makeRule(std::string input){
 flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 	flat_hash_map<std::string,std::vector<std::vector<std::string>>> finalRules;
 	std::vector<std::vector<std::string>> rawRules;
+	rawRules.push_back({"ddx(A+x)","ddx(A)+1","Sum Rule."});
 	rawRules.push_back({"ddx(A+B)","ddx(A)+ddx(B)","Sum Rule."});
 	rawRules.push_back({"ddx(x^3)","3*x^(2+1)","Turn exponent into multiplication."});
 	rawRules.push_back({"A+B","=+AB","Perform addition."});
