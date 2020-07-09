@@ -230,7 +230,8 @@ std::string removeBrackets(std::string input, flat_hash_map<int,std::string> ori
 			std::cout << "input: " << input << " second: " << secondText << " first: " << firstText << '\n';
 			input.replace(indexes[iii*4]-1,indexes[iii*4+1]+2,secondText);
 			std::cout << "input: " << input << '\n';
-			input.replace(indexes[iii*4+3]-1,1,firstText);
+			input.replace(indexes[iii*4+3],1,firstText);
+			std::cout << "input: " << input << '\n';
 		}
 		
 	}
