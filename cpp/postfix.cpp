@@ -444,9 +444,6 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 		
 	}
 	
-	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = listMap.begin(); iter != listMap.end(); ++iter){
-		std::cout << iter->first << " and "  << '\n';
-	}
 	//std::cout << '\n';
 	return listMap;
 }
@@ -662,13 +659,46 @@ flat_hash_map<std::string,std::vector<std::string>> makeRules(){
 
 std::string applyRules(std::string userString) {
 	int iii; int iiii;
+	flat_hash_map<std::string,std::vector<std::string>> allParts = makeList(userString);
+	flat_hash_map<std::string,int> operandToIndex;
+	int idx = 0;
+	for (iii=0;iii<userString.length();iii++){
+		if (userString.at(iii) == '@'){
+			break;
+		}
+		else if (userString.at(iii) == '#'){
+			operandToIndex[std::to_string(idx)] = iii;
+			idx++;
+		}
+	}
+	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = allParts.begin(); iter != allParts.end(); ++iter){
+		std::string onePart = iter->first;
+		bool foundAt = false;
+		int firstOperandIndex = 0;
+		std::string currentOperand = "";
+		for (iii=0;iii<onePart.length();iii++){
+			if (onePart.at(iii) == '@'){
+				foundAt = true;
+				currentOperand = "";
+			}
+			else if (foundAt && onePart.at(iii) == '_'){
+				firstOperandIndex = operandToIndex[currentOperand];
+				break;
+			}
+			else {
+				currentOperand += onePart.at(iii);
+			}
+		}
+		
+		std::cout << iter->first << " and "  << firstOperandIndex << '\n';
+	}
 	std::string key = "";
 	flat_hash_map<char,std::string> partMap;
 	std::vector<std::string> userOperands;
 	std::vector<std::string> ruleOperands;
 	std::string newPostfix = "";
 	std::cout << userString << '\n';
-	makeList(userString);
+	
 	int startAt =0;
 	for (iiii=0;iiii<userString.length();iiii++){
 		if (userString.at(iiii) == '@'){
