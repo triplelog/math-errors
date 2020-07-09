@@ -581,8 +581,8 @@ std::string applyRules(std::string userString) {
 int main () {
 
 	
-	
-	prec['»']=6;
+	char ddx{-69};
+	prec[ddx]=6;
     prec['^'] = 5;
 	prec['*'] = 4;
 	prec['/'] = 4;
