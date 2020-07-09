@@ -663,7 +663,7 @@ std::string applyRules(std::string userFullString) {
 	flat_hash_map<std::string,int> operandToIndex;
 	flat_hash_map<std::string,std::string> operandList;
 	int idx = 0;
-	std::cout << '\n\n' << userFullString << '\n';
+	std::cout << "\n\n" << userFullString << '\n';
 	for (iii=0;iii<userFullString.length();iii++){
 		if (userFullString.at(iii) == '@'){
 			break;
@@ -674,6 +674,7 @@ std::string applyRules(std::string userFullString) {
 		}
 	}
 	bool foundAt = false;
+	std::string currentOperand = "";
 	idx = 0;
 	for (iii=0;iii<userFullString.length();iii++){
 		if (userFullString.at(iii) == '@'){
@@ -692,7 +693,7 @@ std::string applyRules(std::string userFullString) {
 		std::string onePart = iter->first;
 		foundAt = false;
 		int firstOperandIndex = 0;
-		std::string currentOperand = "";
+		currentOperand = "";
 		std::string fullStr = "";
 		for (iii=0;iii<onePart.length();iii++){
 			if (onePart.at(iii) == '@'){
