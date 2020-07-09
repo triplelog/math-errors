@@ -26,6 +26,11 @@ flat_hash_map<std::string,std::string> treeMap;
 flat_hash_map<char,int> prec;
 flat_hash_map<std::string,std::vector<std::vector<std::string>>> rules;
 
+int duration1;
+int duration2;
+int duration3;
+
+		
 std::string arrayToString(int n, char input[]) { 
     int i; 
     std::string s = ""; 
@@ -1155,8 +1160,11 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 }
 
 std::string applyRules(std::string userFullString) {
+	auto a1 = std::chrono::high_resolution_clock::now();
+	
 	int iii; int iiii;
 	flat_hash_map<std::string,std::vector<std::string>> allParts = makeList(userFullString);
+	auto a2 = std::chrono::high_resolution_clock::now();
 	flat_hash_map<std::string,int> operandToIndex;
 	flat_hash_map<std::string,int> operandToIndexSecond;
 	flat_hash_map<std::string,std::string> operandList;
@@ -1216,6 +1224,7 @@ std::string applyRules(std::string userFullString) {
 			currentOperand += userFullString.at(iii);
 		}
 	}
+	auto a3 = std::chrono::high_resolution_clock::now();
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = allParts.begin(); iter != allParts.end(); ++iter){
 		std::string onePart = iter->first;
 		foundAt = false;
@@ -1434,7 +1443,10 @@ std::string applyRules(std::string userFullString) {
 			}
 		}
 	}
-	
+	auto a4 = std::chrono::high_resolution_clock::now();
+	duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+	duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a4 - a3 ).count();
 	if (newPostfix.length()==0){
 		return userFullString;
 	}
@@ -1534,7 +1546,7 @@ int main () {
 		auto d1 = std::chrono::duration_cast<std::chrono::microseconds>( t4 - t3 ).count();
 		auto d2 = std::chrono::duration_cast<std::chrono::microseconds>( t5 - t4 ).count();
 		auto d3 = std::chrono::duration_cast<std::chrono::microseconds>( t6 - t5 ).count();
-		std::cout << "TIMES: " << d1 << " and " << d2 << " and " << d3 << "\n\n";
+		std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n\n";
 		if (!changedInput){break;}
 		std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
 		
