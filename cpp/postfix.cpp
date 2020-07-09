@@ -481,11 +481,11 @@ std::vector<std::string> makeTree(std::string pfstr){
 		
 		treeOptions.push_back(finalList[ii*2]+'@'+finalList[ii*2+1]);
 		
-		//std::cout << ii << "-:=3=:- " << treeOptions[ii] << '\n';
+		std::cout << ii << "-:===:- " << treeOptions[ii] << '\n';
 	}
-	for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
-		std::cout << iter->first << " bracketless " << iter->second << '\n';
-	}
+	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
+	//	std::cout << iter->first << " bracketless " << iter->second << '\n';
+	//}
 	std::cout << "\n\n________\n";
 	//std::cout << '\n';
 	return treeOptions;
