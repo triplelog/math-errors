@@ -190,7 +190,7 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 		}
 		
 	}
-	for (count =0;count<nKeys;count++){
+	while (nKeys>0 && count < 100){
 		for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
 			if (newMap.find(iter->first) != newMap.end()){
 				continue;
@@ -274,6 +274,7 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 				nKeys--;
 			}
 		}
+		count++;
 	}
 	return newMap;
 }
