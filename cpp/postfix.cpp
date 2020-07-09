@@ -1214,6 +1214,7 @@ std::string applyRules(std::string userFullString) {
 			//std::cout << "userFullString @ keyMatch: "<< userFullString << "\n";
 			int ruleIdx;
 			for (ruleIdx=0;ruleIdx<rules[key].size();ruleIdx++){
+				std::cout << "Key Match: " << key << " and " << rules[key][ruleIdx][0] << "\n";
 				std::vector<std::string> rule = rules[key][ruleIdx];
 				std::string currentOperand = "";
 				for (iii=0;iii<rule[0].length();iii++){
