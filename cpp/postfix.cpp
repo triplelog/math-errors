@@ -831,7 +831,7 @@ std::string applyRules(std::string userFullString) {
 		}
 		
 		if (newPostfix.length()>0){
-			std::cout << userFullString << " anand " << fullString << " anand " << newPostfix << "\n\n";
+			std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
 			std::string newPostfixFirst = "";
 			std::string newPostfixSecond = "";
 			foundAt = false;
@@ -847,13 +847,13 @@ std::string applyRules(std::string userFullString) {
 				}
 			}
 			userFullString.replace(firstOperandIndexSecond,replaceLengthSecond,newPostfixSecond).replace(firstOperandIndex,replaceLength,newPostfixFirst);
-			std::cout << userFullString << " anand " << fullString << " anand " << newPostfix << "\n\n";
+			std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
 			return newPostfix;
 		}
 	}
 	
 	if (newPostfix.length()==0){
-		return userString;
+		return userFullString;
 	}
 	return newPostfix;
 	
