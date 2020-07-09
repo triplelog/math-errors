@@ -1242,9 +1242,9 @@ std::string applyRules(std::string userFullString) {
 			userFullString.replace(firstOperandIndexSecond,replaceLengthSecond,newPostfixSecond);
 			//std::cout << "userFullString: "<< userFullString << "\n";
 			userFullString.replace(firstOperandIndex,replaceLength,newPostfixFirst);
-			//std::cout << "userFullString: "<< userFullString << "\n";
+			std::cout << "userFullString: "<< userFullString << "\n";
 			userFullString = removeBracketsOne(userFullString);
-			//std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
+			std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
 			return userFullString;
 		}
 	}
