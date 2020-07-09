@@ -106,7 +106,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 				osidx--;
 			}
 		}
-		else if (firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '~' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
+		else if (firstChar == '»' || firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '~' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
 			while ((osidx > 0) && (prec[opStack[osidx-1]] >= prec[firstChar])){
 				topToken = opStack[osidx-1];
 				osidx--;
@@ -143,7 +143,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 			//expstr += "-";
 			expstr += "/*";
 		}
-		else if (firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
+		else if (firstChar == '»' || firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
 			expstr += ci;
 		}
 		else {
@@ -388,19 +388,17 @@ std::string postfixify(std::string input_str) {
 	int i;
 	std::string threeChars = "...";
 	for (i=0;i<input_str.length();i++){
-		std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
 		threeChars.replace(0,1,"");
-		std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
 		threeChars += input_str.at(i);
 		if (replacements.find(threeChars) != replacements.end()){
 			input_str.replace(i-2,3,replacements[threeChars]);
 			threeChars = "...";
 			i--;
 		}
-		std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+		//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
 	}
 	std::cout << input_str << '\n';
-	//var twoparts = makePost(input_str);
+	std::cout << makePost(input_str) << '\n';
 	
 	
 	
@@ -583,7 +581,8 @@ std::string applyRules(std::string userString) {
 int main () {
 
 	
-	postfixify("3+ddx(x)*4");
+	
+	prec['»']=6;
     prec['^'] = 5;
 	prec['*'] = 4;
 	prec['/'] = 4;
@@ -599,6 +598,8 @@ int main () {
 	prec['|'] = 0;
 	prec['('] = -1;
 	prec[')'] = -1;
+	
+	postfixify("3+ddx(x)*4");
 	
 	rules = makeRules();
 	int ii;
