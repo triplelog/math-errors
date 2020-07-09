@@ -217,8 +217,11 @@ std::string removeBracketsOne(std::string input) {
 	}
 	
 	int firstIndex = operandToIndex[iidx];
+	std::cout << input << " --a\n";
 	input.replace(secondIndex,bracketLength+1,bracketStrings[1]);
+	std::cout << input << " --b\n";
 	input.replace(firstIndex,1,bracketStrings[0]);
+	std::cout << input << " --c\n";
 	return removeBracketsOne(input);
 	
 	
@@ -789,6 +792,7 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 	//std::cout << '\n';
 	return listMap;
 }
+
 /*
 function replaceDecimals(istr){
 	dindex = istr.indexOf('.');
