@@ -367,7 +367,35 @@ function replaceNegatives(istr){
 }
 */
 
-std::string postfixify(std::string input_str,bool v) {
+
+std::vector<std::string> postfixifyVector(std::string input_str){
+	flat_hash_map<std::string,std::string> replacements;
+	char ddx{-69};
+	replacements["ddx"]="";
+	replacements["ddx"]+=ddx;
+	int i;
+	std::string threeChars = "...";
+	for (i=0;i<input_str.length();i++){
+		threeChars.replace(0,1,"");
+		threeChars += input_str.at(i);
+		if (replacements.find(threeChars) != replacements.end()){
+			input_str.replace(i-2,3,replacements[threeChars]);
+			threeChars = "...";
+			i--;
+		}
+		//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+	}
+	std::cout << input_str << '\n';
+	char infixexpr[input_str.length() + 1]; 
+    strcpy(infixexpr, input_str.c_str()); 
+
+	infixexpr[input_str.length()] = '\0';
+	std::cout << makePost(infixexpr) << '\n';
+	
+
+	return makePostVector(infixexpr);
+}
+std::string postfixify(std::string input_str) {
 	/*input_str = input_str.toUpperCase();
 	input_str = input_str.replace(/AND/g,'&');
 	input_str = input_str.replace(/OR/g,'|');
@@ -407,10 +435,7 @@ std::string postfixify(std::string input_str,bool v) {
 	infixexpr[input_str.length()] = '\0';
 	std::cout << makePost(infixexpr) << '\n';
 	
-	
-	if (v){
-		return makePostVector(infixexpr);
-	}
+
 	return makePost(infixexpr);
 }
 
@@ -465,7 +490,7 @@ std::vector<std::string> makeRule(std::string input){
     strcpy(infixexpr, input.c_str()); 
 
 	infixexpr[input.length()] = '\0';
-	std::vector<std::string> postfixed = postfixify(infixexpr,true);
+	std::vector<std::string> postfixed = postfixifyVector(infixexpr);
 	//std::cout << postfixed;
 	return postfixed;
 	//return makeTree(postfixed)[0];
@@ -622,7 +647,7 @@ int main () {
 	
 	std::string s = "3+ddx(x)*4"; 
   
-	std::string pfstr = postfixify(s,false);
+	std::string pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
 	std::vector<std::string> postList = makeTree(pfstr);
 	
