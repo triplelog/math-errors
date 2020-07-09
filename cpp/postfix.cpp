@@ -975,7 +975,7 @@ std::string applyRules(std::string userFullString) {
 		else if (userFullString.at(iii) == '}'){
 			midBracket = false;
 		}
-		else if (userFullString.at(iii) == '@'){
+		else if (userFullString.at(iii) == '@' && !midBracket){
 			operandToIndexSecond[std::to_string(idx)] = iii+1;
 			idx++;
 		}
