@@ -1314,6 +1314,7 @@ int main () {
 	
 	int maxSteps = 5;
 	while (newPostfix != oldPostfix && maxSteps >=0){
+		newPostfix = removeBracketsOne(newPostfix);
 		std::cout << "\n\n-----------&&&&&--------\n\n" << newPostfix << " ------- " << maxSteps << "\n\n";
 		oldPostfix = newPostfix;
 		std::vector<std::string> postList = makeTree(oldPostfix);
@@ -1329,6 +1330,7 @@ int main () {
 			std::cout << "--------\n" << ii << " ---- " << newPostfix << "\n--------------";
 			
 		}
+		
 		std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
 		
 		maxSteps--;
