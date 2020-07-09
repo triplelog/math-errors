@@ -206,6 +206,7 @@ std::string removeBrackets(std::string input, flat_hash_map<int,std::string> ori
 	for (iii=indexes.size()/4-1;iii>=0;iii--){
 		std::cout << indexes[iii*4] << " -- " << indexes[iii*4+1] << " -- " << indexes[iii*4+2] << " -- " << indexes[iii*4+3] << " --\n ";
 		std::string repText = originalMap[indexes[iii*4+2]];
+		std::cout << "repText: " << repText << '\n';
 		bool foundBracket = false;
 		std::string secondText = "";
 		std::string firstText = "";
@@ -226,8 +227,9 @@ std::string removeBrackets(std::string input, flat_hash_map<int,std::string> ori
 			}
 		}
 		if (!foundBracket){
-			
+			std::cout << "input: " << input << " second: " << secondText << " first: " << firstText << '\n';
 			input.replace(indexes[iii*4]-1,indexes[iii*4+1]+2,secondText);
+			std::cout << "input: " << input << '\n';
 			input.replace(indexes[iii*4+3]-1,1,firstText);
 		}
 		
