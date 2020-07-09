@@ -1017,6 +1017,7 @@ std::string applyRules(std::string userFullString) {
 		int replaceLength = 0;
 		int replaceLengthSecond = 0;
 		midBracket = false;
+		std::cout << "onePart: " << onePart << "\n";
 		for (iii=0;iii<onePart.length();iii++){
 			if (onePart.at(iii) == '@' && !midBracket){
 				foundAt = true;
@@ -1051,6 +1052,7 @@ std::string applyRules(std::string userFullString) {
 				fullStr += onePart.at(iii);
 				replaceLength++;
 			}
+			std::cout << "rsl: " << replaceLengthSecond << "\n";
 			
 		}
 		//replace starting at firstOperandIndex for length=replaceLength
