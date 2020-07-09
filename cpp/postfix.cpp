@@ -177,7 +177,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	
 	int i; int ii; int iii;
 	int idx =0;
-	
+	char ddx{-69};
 	bool startOperands = false;
 	std::string currentOperator = "";
 	int iidx = 0;
@@ -235,7 +235,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			
 			std::vector<std::string> fullTrees;
 			
-			if (pfstr.at(i) != '-' && pfstr.at(i) != '/'){
+			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && pfstr.at(i) != ddx){
 				
 				for (ii=0;ii<maxi;ii++){
 					std::string s = "";
@@ -367,7 +367,7 @@ function replaceNegatives(istr){
 }
 */
 
-std::string postfixify(std::string input_str) {
+std::string postfixify(std::string input_str,bool v) {
 	/*input_str = input_str.toUpperCase();
 	input_str = input_str.replace(/AND/g,'&');
 	input_str = input_str.replace(/OR/g,'|');
@@ -408,7 +408,9 @@ std::string postfixify(std::string input_str) {
 	std::cout << makePost(infixexpr) << '\n';
 	
 	
-	
+	if (v){
+		return makePostVector(infixexpr);
+	}
 	return makePost(infixexpr);
 }
 
@@ -463,7 +465,7 @@ std::vector<std::string> makeRule(std::string input){
     strcpy(infixexpr, input.c_str()); 
 
 	infixexpr[input.length()] = '\0';
-	std::vector<std::string> postfixed = makePostVector(infixexpr);
+	std::vector<std::string> postfixed = postfixify(infixexpr,true);
 	//std::cout << postfixed;
 	return postfixed;
 	//return makeTree(postfixed)[0];
@@ -472,7 +474,7 @@ std::vector<std::string> makeRule(std::string input){
 flat_hash_map<std::string,std::vector<std::string>> makeRules(){
 	flat_hash_map<std::string,std::vector<std::string>> finalRules;
 	std::vector<std::vector<std::string>> rawRules;
-	rawRules.push_back({"A^2","A*A","Turn exponent into multiplication."});
+	rawRules.push_back({"ddx","A*A","Turn exponent into multiplication."});
 	rawRules.push_back({"A+B","B+A","Use commutative property of addition."});
 	rawRules.push_back({"2*(51+4)","55*2","Add."});
 	rawRules.push_back({"55*2","110","Multiply."});
@@ -620,7 +622,7 @@ int main () {
 	
 	std::string s = "3+ddx(x)*4"; 
   
-	std::string pfstr = postfixify(s);
+	std::string pfstr = postfixify(s,false);
 	std::cout << pfstr << '\n';
 	std::vector<std::string> postList = makeTree(pfstr);
 	
