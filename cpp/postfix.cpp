@@ -963,12 +963,19 @@ std::string applyRules(std::string userFullString) {
 		}
 	}
 	idx = 0;
+	bool midBracket = false;
 	for (iii=0;iii<userFullString.length();iii++){
-		if (userFullString.at(iii) == '_'){
+		if (userFullString.at(iii) == '_' && !midBracket){
 			operandToIndexSecond[std::to_string(idx)] = iii+1;
 			idx++;
 		}
-		if (userFullString.at(iii) == '@'){
+		else if (userFullString.at(iii) == '{'){
+			midBracket = true;
+		}
+		else if (userFullString.at(iii) == '}'){
+			midBracket = false;
+		}
+		else if (userFullString.at(iii) == '@'){
 			operandToIndexSecond[std::to_string(idx)] = iii+1;
 			idx++;
 		}
@@ -976,12 +983,21 @@ std::string applyRules(std::string userFullString) {
 	bool foundAt = false;
 	std::string currentOperand = "";
 	idx = 0;
+	midBracket = false;
 	for (iii=0;iii<userFullString.length();iii++){
 		if (userFullString.at(iii) == '@'){
 			foundAt = true;
 			currentOperand = "";
 		}
-		else if (foundAt && userFullString.at(iii) == '_'){
+		else if (userFullString.at(iii) == '{'){
+			currentOperand += userFullString.at(iii);
+			midBracket = true;
+		}
+		else if (userFullString.at(iii) == '}'){
+			currentOperand += userFullString.at(iii);
+			midBracket = false;
+		}
+		else if (foundAt && userFullString.at(iii) == '_' && !midBracket){
 			operandList[std::to_string(idx)] = currentOperand;
 			idx++;
 			currentOperand = "";
@@ -1000,7 +1016,7 @@ std::string applyRules(std::string userFullString) {
 		std::string fullStr = "";
 		int replaceLength = 0;
 		int replaceLengthSecond = 0;
-		bool midBracket = false;
+		midBracket = false;
 		for (iii=0;iii<onePart.length();iii++){
 			if (onePart.at(iii) == '@'){
 				foundAt = true;
