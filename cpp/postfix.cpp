@@ -848,7 +848,7 @@ std::string applyRules(std::string userFullString) {
 			}
 			userFullString.replace(firstOperandIndexSecond,replaceLengthSecond,newPostfixSecond).replace(firstOperandIndex,replaceLength,newPostfixFirst);
 			std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
-			return newPostfix;
+			return userFullString;
 		}
 	}
 	
