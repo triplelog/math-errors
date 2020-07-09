@@ -426,27 +426,27 @@ std::vector<std::string> makeTree(std::string pfstr){
 		
 	}
 	
-	std::cout << "\n\n---start Original-----\n";
+	//std::cout << "\n\n---start Original-----\n";
 	int iiii;
 	
-	for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
-		std::cout << iter->first << " and " << iter->second << '\n';
-	}
+	//for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
+	//	std::cout << iter->first << " and " << iter->second << '\n';
+	//}
 	
-	std::cout << "\n\n---start Bracketless-----\n";
+	//std::cout << "\n\n---start Bracketless-----\n";
 	flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
 	
-	for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
-		std::cout << iter->first << " and " << iter->second << '\n';
-	}
+	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
+	//	std::cout << iter->first << " and " << iter->second << '\n';
+	//}
 	
-	std::cout << "\n\n----End bracketless----\n";
+	//std::cout << "\n\n----End bracketless----\n";
 	for (ii=0;ii<finalList.size()/2;ii++){
 		std::vector<int> indexes; //start,length,iidx
 		std::string currentOperand = "";
 		int startIndex = 0;
 		
-		std::cout << ii << "-:=1=:- " << finalList[ii*2]+'@'+finalList[ii*2+1] << '\n';
+		//std::cout << ii << "-:=1=:- " << finalList[ii*2]+'@'+finalList[ii*2+1] << '\n';
 		
 		
 		for (iii=0;iii<finalList[ii*2+1].length();iii++){
@@ -475,16 +475,16 @@ std::vector<std::string> makeTree(std::string pfstr){
 				}
 			}
 			finalList[ii*2+1].replace(indexes[iii*3],indexes[iii*3+1],repText);
-			std::cout << ii << "-:=2a=:- " << finalList[ii*2]+'@'+finalList[ii*2+1] << '\n';
+			//std::cout << ii << "-:=2a=:- " << finalList[ii*2]+'@'+finalList[ii*2+1] << '\n';
 			
 		}
 		
 		treeOptions.push_back(finalList[ii*2]+'@'+finalList[ii*2+1]);
 		
-		std::cout << ii << "-:=3=:- " << treeOptions[ii] << '\n';
+		//std::cout << ii << "-:=3=:- " << treeOptions[ii] << '\n';
 	}
-	for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
-		std::cout << iter->first << " and " << iter->second << '\n';
+	for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
+		std::cout << iter->first << " bracketless " << iter->second << '\n';
 	}
 	std::cout << "\n\n________\n";
 	//std::cout << '\n';
