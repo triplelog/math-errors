@@ -409,7 +409,7 @@ std::string postfixify(std::string input_str) {
 	
 	
 	
-	return "fullstr";
+	return makePost(infixexpr);
 }
 
 /*
@@ -606,7 +606,7 @@ int main () {
 	prec['('] = -1;
 	prec[')'] = -1;
 	
-	postfixify("3+ddx(x)*4");
+
 	
 	rules = makeRules();
 	int ii;
@@ -618,13 +618,9 @@ int main () {
 	
 	
 	
-	std::string s = "2*(51+4)"; 
+	std::string s = "3+ddx(x)*4"; 
   
-    char infixexpr[s.length() + 1]; 
-    strcpy(infixexpr, s.c_str()); 
-
-	infixexpr[s.length()] = '\0';
-	std::string pfstr = makePost(infixexpr);
+	std::string pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
 	std::vector<std::string> postList = makeTree(pfstr);
 	
