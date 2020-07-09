@@ -585,17 +585,15 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 				
 				for (ii=0;ii<firstS.size();ii++){
 					for (iii=0;iii<secondS.size();iii++){
-						//as-is
 						fullTrees.push_back(firstS[ii] + secondS[iii]  + pfstr.at(i));
 						fullTrees.push_back(firstT[ii] + secondT[iii]);
 						
 						//condensed
-						fullTrees.push_back(""+'#');
-						fullTrees.push_back(std::to_string(iidx)+'_');
+						fullTrees.push_back("#");
+						fullTrees.push_back("{"+std::to_string(iidx)+"}_");
 						originalMap[iidx]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
 						iidx++;
 						
-						//reversed
 						if (pfstr.at(i) == '+'){
 							fullTrees.push_back(secondS[iii] + firstS[ii]  + pfstr.at(i));
 							fullTrees.push_back(secondT[iii] + firstT[ii]);
@@ -610,8 +608,8 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 					fullTrees.push_back(secondT[iii]);
 					
 					//condensed
-					fullTrees.push_back(""+'#');
-					fullTrees.push_back(std::to_string(iidx)+'_');
+					fullTrees.push_back("#");
+					fullTrees.push_back("{"+std::to_string(iidx)+"}_");
 					originalMap[iidx]= secondS[iii] + pfstr.at(i) + '@' + secondT[iii];
 					iidx++;
 				}
@@ -639,6 +637,66 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 		}
 		
 	}
+	
+	//std::cout << "\n\n---start Original-----\n";
+	int iiii;
+	
+	//for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
+	//	std::cout << iter->first << " and " << iter->second << '\n';
+	//}
+	
+	//std::cout << "\n\n---start Bracketless-----\n";
+	flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
+	
+	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
+	//	std::cout << iter->first << " and " << iter->second << '\n';
+	//}
+
+	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = listMap.begin(); iter != listMap.end(); ++iter){
+		std::vector<std::string> oneList = iter->second;
+		for (ii=0;ii<oneList.size()/2;ii++){
+			std::vector<int> indexes; //start,length,iidx
+			std::string currentOperand = "";
+			int startIndex = 0;
+		
+			//std::cout << ii << "-:=1=:- " << oneList[ii*2]+'@'+oneList[ii*2+1] << '\n';
+		
+		
+			for (iii=0;iii<oneList[ii*2+1].length();iii++){
+				if (oneList[ii*2+1].at(iii) == '{'){
+					startIndex = iii;
+					currentOperand = "";
+				}
+				else if (oneList[ii*2+1].at(iii) == '}'){
+					indexes.push_back(startIndex+1);
+					indexes.push_back(iii-(startIndex+1));
+					indexes.push_back(std::stoi(currentOperand));
+					currentOperand = "";
+				}
+				else {
+					currentOperand += oneList[ii*2+1].at(iii);
+				}
+			}
+		
+			for (iii=indexes.size()/3-1;iii>=0;iii--){
+				std::string repText = bracketlessMap[indexes[iii*3+2]];
+				bool foundBracket = false;
+				for (iiii=0;iiii<repText.length();iiii++){
+					if (repText.at(iiii) == '{'){
+						foundBracket = true;
+						break;
+					}
+				}
+				oneList[ii*2+1].replace(indexes[iii*3],indexes[iii*3+1],repText);
+				//std::cout << ii << "-:=2a=:- " << oneList[ii*2]+'@'+oneList[ii*2+1] << '\n';
+			
+			}
+			
+			
+		}
+		listMap[iter->first]=oneList;
+	}
+
 	
 	//std::cout << '\n';
 	return listMap;
@@ -910,13 +968,24 @@ std::string applyRules(std::string userFullString) {
 		std::string fullStr = "";
 		int replaceLength = 0;
 		int replaceLengthSecond = 0;
+		bool midBracket = false;
 		for (iii=0;iii<onePart.length();iii++){
 			if (onePart.at(iii) == '@'){
 				foundAt = true;
 				currentOperand = "";
 				fullStr += onePart.at(iii);
 			}
-			else if (foundAt && onePart.at(iii) == '_'){
+			else if (foundAt && onePart.at(iii) == '{'){
+				midBracket = true;
+				currentOperand += onePart.at(iii);
+				replaceLengthSecond++;
+			}
+			else if (foundAt && onePart.at(iii) == '}'){
+				midBracket = false;
+				currentOperand += onePart.at(iii);
+				replaceLengthSecond++;
+			}
+			else if (foundAt && !midBracket && onePart.at(iii) == '_'){
 				if (!foundFirst){
 					firstOperandIndex = operandToIndex[currentOperand];
 					firstOperandIndexSecond = operandToIndexSecond[currentOperand];
