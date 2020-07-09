@@ -637,9 +637,9 @@ std::vector<std::string> makeRule(std::string input){
 flat_hash_map<std::string,std::vector<std::string>> makeRules(){
 	flat_hash_map<std::string,std::vector<std::string>> finalRules;
 	std::vector<std::vector<std::string>> rawRules;
-	rawRules.push_back({"ddx(x^3+A)","ddx(x^3)+ddx(A)","Turn exponent into multiplication."});
+	rawRules.push_back({"ddx(A+B)","ddx(A)+ddx(B)","Sum Rule."});
 	rawRules.push_back({"ddx(x^3)","3*x^2","Turn exponent into multiplication."});
-	rawRules.push_back({"ddx(A)","0","Turn exponent into multiplication."});
+	rawRules.push_back({"ddx(5)","0","Turn exponent into multiplication."});
 	int i; int ii;
 	std::vector<std::string> fullPost;
 	std::string key;
@@ -832,7 +832,7 @@ std::string applyRules(std::string userFullString) {
 		}
 		
 		if (newPostfix.length()>0){
-			std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
+			//std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
 			std::string newPostfixFirst = "";
 			std::string newPostfixSecond = "";
 			foundAt = false;
@@ -848,7 +848,7 @@ std::string applyRules(std::string userFullString) {
 				}
 			}
 			userFullString.replace(firstOperandIndexSecond,replaceLengthSecond,newPostfixSecond).replace(firstOperandIndex,replaceLength,newPostfixFirst);
-			std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
+			//std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
 			return userFullString;
 		}
 	}
