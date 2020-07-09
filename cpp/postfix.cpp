@@ -216,7 +216,7 @@ std::string removeBracketsOne(std::string input) {
 		return input;
 	}
 	
-	firstIndex = operandToIndex[iidx];
+	int firstIndex = operandToIndex[iidx];
 	input.replace(secondIndex,bracketLength,bracketStrings[1]);
 	input.replace(firstIndex,1,bracketStrings[0]);
 	return removeBracketsOne(input);
