@@ -268,7 +268,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 						//condensed
 						fullTrees.push_back("#");
 						fullTrees.push_back("{"+std::to_string(iidx)+"}_");
-						originalMap[iidx]= "{" + firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii] + "}";
+						originalMap[iidx]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
 						iidx++;
 						
 						if (pfstr.at(i) == '+'){
@@ -287,7 +287,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 					//condensed
 					fullTrees.push_back("#");
 					fullTrees.push_back("{"+std::to_string(iidx)+"}_");
-					originalMap[iidx]= "{" + secondS[iii] + pfstr.at(i) + '@' + secondT[iii] + "}";
+					originalMap[iidx]= secondS[iii] + pfstr.at(i) + '@' + secondT[iii];
 					iidx++;
 				}
 			}
@@ -317,7 +317,41 @@ std::vector<std::string> makeTree(std::string pfstr){
 	
 	std::cout << "\n\n--------\n";
 	for (ii=0;ii<finalList.size()/2;ii++){
+		std::vector<int> indexes; //start,length,iidx
+		std::string currentOperand = "";
+		int startIndex = 0;
+		for (iii=0;iii<finalList[ii*2+1].length();iii++){
+			if (finalList[ii*2+1].at(iii) == '{'){
+				startIndex = iii;
+				currentOperand = "";
+			}
+			else if (finalList[ii*2+1].at(iii) == '}'){
+				indexes.push_back(startIndex+1);
+				indexes.push_back(iii-(startIndex+1));
+				indexes.push_back(std::stoi(currentOperand));
+				currentOperand = "";
+			}
+			else {
+				currentOperand += finalList[ii*2+1].at(iii);
+			}
+		}
+		
+		for (iii=indexes.size()/3-1;iii>=0;iii--){
+			std::string repText = originalMap[iii*3+2];
+			bool foundBracket = false;
+			for (iiii=0;iiii<repText.length();iiii++){
+				if (repText.at(iiii) == '{'){
+					foundBracket = true;
+					break;
+				}
+			}
+			if (!foundBracket){
+				finalList[ii*2+1].replace(indexes[iii*3],indexes[iii*3+1],repText);
+			}
+		}
+		
 		treeOptions.push_back(finalList[ii*2]+'@'+finalList[ii*2+1]);
+		
 		std::cout << ii << "-:==:- " << treeOptions[ii] << '\n';
 	}
 	for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
