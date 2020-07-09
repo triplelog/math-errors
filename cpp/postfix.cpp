@@ -708,7 +708,7 @@ std::string applyRules(std::string userFullString) {
 					firstOperandIndex = operandToIndex[currentOperand];
 				}
 				foundFirst = true;
-				fullStr += operandList[currentOperand];
+				fullStr += operandList[currentOperand]+'_';
 				currentOperand = "";
 			}
 			else if (foundAt){
