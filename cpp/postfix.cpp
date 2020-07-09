@@ -1509,6 +1509,7 @@ int main () {
 		oldPostfix = newPostfix;
 		std::vector<std::string> postList = makeTree(oldPostfix);
 		bool changedInput = false;
+		std::cout << "postListSize: " << postList.size() << "\n\n";
 		for (ii=0;ii<postList.size();ii++){
 			//std::cout << "--------\n" << ii << " ---- " << postList[ii] << "\n--------------";
 			newPostfix = applyRules(postList[ii]);
