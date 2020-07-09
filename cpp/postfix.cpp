@@ -416,15 +416,21 @@ std::vector<std::string> makeTree(std::string pfstr){
 		
 	}
 	
-	std::cout << "\n\n--------\n";
+	std::cout << "\n\n---start Original-----\n";
 	int iiii;
 	
 	for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
 		std::cout << iter->first << " and " << iter->second << '\n';
 	}
 	
+	std::cout << "\n\n---start Bracketless-----\n";
 	flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
 	
+	for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
+		std::cout << iter->first << " and " << iter->second << '\n';
+	}
+	
+	std::cout << "\n\n----End bracketless----\n";
 	for (ii=0;ii<finalList.size()/2;ii++){
 		std::vector<int> indexes; //start,length,iidx
 		std::string currentOperand = "";
