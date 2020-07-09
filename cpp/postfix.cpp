@@ -742,7 +742,7 @@ std::string applyRules(std::string userFullString) {
 		//replace starting at firstOperandIndexSecond for length=replaceLengthSecond
 		std::cout << iter->first << " and "  << firstOperandIndex << " and "  << firstOperandIndexSecond << " and " << fullStr << '\n';
 		std::string tempReplaced = userFullString;
-		std::cout << tempReplaced.replace(firstOperandIndex,replaceLength,"...").replace(firstOperandIndexSecond,replaceLengthSecond,";;;") << "\n\n";
+		std::cout << tempReplaced.replace(firstOperandIndexSecond,replaceLengthSecond,";;;").replace(firstOperandIndex,replaceLength,"...") << "\n\n";
 		//TODO: create userString 
 	}
 	std::string userString = userFullString;
