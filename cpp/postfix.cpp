@@ -310,7 +310,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	return treeOptions;
 }
 
-std::string makeList(std::string pfstr){
+flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 	std::vector<std::string> treeOptions;
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,std::string> operandMap;
@@ -448,7 +448,7 @@ std::string makeList(std::string pfstr){
 		std::cout << iter->first << " and "  << '\n';
 	}
 	//std::cout << '\n';
-	return "treeOptions";
+	return listMap;
 }
 /*
 function replaceDecimals(istr){
