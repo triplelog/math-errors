@@ -1155,6 +1155,7 @@ std::string applyRules(std::string userFullString) {
 					}
 					newPostfix += rules[key][1].at(iii);
 				}
+				std::cout << "newPostfix: " << newPostfix << "\n";
 			}
 		}
 		
