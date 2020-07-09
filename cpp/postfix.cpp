@@ -168,6 +168,70 @@ std::string makePost(char infixexpr[]) {
 
 }
 
+std::string removeBrackets(std::string input, flat_hash_map<int,std::string> originalMap) {
+	std::vector<int> indexes; //start,length,iidx,idx of #
+	flat_hash_map<int,int> operandToIndex;
+	std::string currentOperand = "";
+	int startIndex = 0;
+	int idx = 0;
+	for (iii=0;iii<input.length();iii++){
+		if (input.at(iii) == '#'){
+			operandToIndex[idx] = iii;
+			idx++;
+		}
+		else if (input.at(iii) == '@'){
+			idx = 0;
+		}
+		else if (input.at(iii) == '_'){
+			idx++;
+		}
+		else if (input.at(iii) == '{'){
+			startIndex = iii;
+			currentOperand = "";
+		}
+		else if (input.at(iii) == '}'){
+			indexes.push_back(startIndex+1);
+			indexes.push_back(iii-(startIndex+1));
+			indexes.push_back(std::stoi(currentOperand));
+			indexes.push_back(operandToIndex[idx]);
+			currentOperand = "";
+		}
+		else {
+			currentOperand += input.at(iii);
+		}
+	}
+	
+	for (iii=indexes.size()/4-1;iii>=0;iii--){
+		std::string repText = originalMap[indexes[iii*4+2]];
+		bool foundBracket = false;
+		std::string secondText = "";
+		std::string firstText = "";
+		bool foundAt = false;
+		for (iiii=0;iiii<repText.length();iiii++){
+			if (repText.at(iiii) == '{'){
+				foundBracket = true;
+				break;
+			}
+			else if (repText.at(iiii) == '@'){
+				foundAt = true;
+			}
+			else if (foundAt){
+				secondText += repText.at(iiii);
+			}
+			else {
+				firstText += repText.at(iiii);
+			}
+		}
+		if (!foundBracket){
+			
+			input.replace(indexes[iii*4]-1,indexes[iii*4+1]+2,secondText);
+			input.replace(indexes[iii*4+3]-1,1,firstText);
+		}
+		
+	}
+	return input;
+}
+
 std::vector<std::string> makeTree(std::string pfstr){
 	std::vector<std::string> treeOptions;
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
@@ -321,6 +385,10 @@ std::vector<std::string> makeTree(std::string pfstr){
 		std::vector<int> indexes; //start,length,iidx
 		std::string currentOperand = "";
 		int startIndex = 0;
+		
+		std::cout << ii << "-:=1=:- " << finalList[ii*2]+'@'+finalList[ii*2+1] << '\n';
+		
+		
 		for (iii=0;iii<finalList[ii*2+1].length();iii++){
 			if (finalList[ii*2+1].at(iii) == '{'){
 				startIndex = iii;
@@ -348,12 +416,18 @@ std::vector<std::string> makeTree(std::string pfstr){
 			}
 			if (!foundBracket){
 				finalList[ii*2+1].replace(indexes[iii*3],indexes[iii*3+1],repText);
+				std::cout << ii << "-:=2a=:- " << finalList[ii*2]+'@'+finalList[ii*2+1] << '\n';
+			}
+			else {
+				repText = removeBrackets(repText,originalMap);
+				finalList[ii*2+1].replace(indexes[iii*3],indexes[iii*3+1],repText);
+				std::cout << ii << "-:=2b=:- " << finalList[ii*2]+'@'+finalList[ii*2+1] << '\n';
 			}
 		}
 		
 		treeOptions.push_back(finalList[ii*2]+'@'+finalList[ii*2+1]);
 		
-		std::cout << ii << "-:==:- " << treeOptions[ii] << '\n';
+		std::cout << ii << "-:=3=:- " << treeOptions[ii] << '\n';
 	}
 	for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
 		std::cout << iter->first << " and " << iter->second << '\n';
