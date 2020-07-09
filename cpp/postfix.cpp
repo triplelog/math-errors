@@ -1088,7 +1088,7 @@ int main () {
 	
 	
 	
-	std::string s = "ddx(x^3+5)"; 
+	std::string s = "ddx(x^3+5^2)"; 
   
 	std::string pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
