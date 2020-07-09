@@ -1231,13 +1231,13 @@ std::string applyRules(std::string userFullString) {
 					newPostfixFirst += newPostfix.at(iiii);
 				}
 			}
-			//std::cout << "userFullString: "<< userFullString << " a " << firstOperandIndexSecond << " a " << replaceLengthSecond << " a " << newPostfixSecond << "\n";
+			std::cout << "userFullString: "<< userFullString << " a " << firstOperandIndexSecond << " a " << replaceLengthSecond << " a " << newPostfixSecond << "\n";
 			userFullString.replace(firstOperandIndexSecond,replaceLengthSecond,newPostfixSecond);
-			//std::cout << "userFullString: "<< userFullString << "\n";
+			std::cout << "userFullString: "<< userFullString << "\n";
 			userFullString.replace(firstOperandIndex,replaceLength,newPostfixFirst);
 			std::cout << "userFullString: "<< userFullString << "\n";
 			userFullString = removeBracketsOne(userFullString);
-			//std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
+			std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
 			return userFullString;
 		}
 	}
