@@ -173,7 +173,7 @@ std::string removeBrackets(std::string input, flat_hash_map<int,std::string> ori
 	flat_hash_map<int,int> operandToIndex;
 	std::string currentOperand = "";
 	int startIndex = 0;
-	int idx = 0;
+	int idx = 0; int iii; int iiii;
 	for (iii=0;iii<input.length();iii++){
 		if (input.at(iii) == '#'){
 			operandToIndex[idx] = iii;
