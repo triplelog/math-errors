@@ -267,7 +267,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 						
 						//condensed
 						fullTrees.push_back("#");
-						fullTrees.push_back("Q_");
+						fullTrees.push_back(std::to_string(iidx)+"_");
 						//originalMap[iidx]= "{" + firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii] + "}";
 						iidx++;
 						
