@@ -1168,9 +1168,10 @@ std::string applyRules(std::string userFullString) {
 					currentOperand += userString.at(iii);
 				}
 			}
+			bool ignoreThis = false;
 			if (ruleOperands.size() != userOperands.size()){
 				//TODO: move to next rule
-				return userString;
+				ignoreThis = true;
 			}
 			for (iii=0;iii<ruleOperands.size();iii++){
 				if (ruleOperands[iii].length()==1){
@@ -1179,17 +1180,22 @@ std::string applyRules(std::string userFullString) {
 					}
 					else if (ruleOperands[iii] != userOperands[iii]){
 						//TODO: skip this rule
-						return userString;
+						ignoreThis = true;
+						break;
 					}
 				}
 				else if (ruleOperands[iii] != userOperands[iii]){
 					//TODO: skip this rule
-					return userString;
+					ignoreThis = true;
+					break;
 				}
 			}
 			
 			
 			newPostfix = "";
+			if (ignoreThis){
+				continue;
+			}
 			bool pastKey = false;
 			for (iii=0;iii<rules[key][1].length();iii++){
 				if (pastKey){
