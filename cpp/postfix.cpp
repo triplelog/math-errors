@@ -1009,7 +1009,7 @@ std::string applyRules(std::string userFullString) {
 	flat_hash_map<std::string,std::string> operandList;
 	std::string newPostfix = "";
 	int idx = 0;
-	std::cout << "\n\n" << userFullString << '\n';
+	//std::cout << "\n\n" << userFullString << '\n';
 	for (iii=0;iii<userFullString.length();iii++){
 		if (userFullString.at(iii) == '@'){
 			break;
@@ -1319,8 +1319,9 @@ int main () {
 		std::vector<std::string> postList = makeTree(oldPostfix);
 	
 		for (ii=0;ii<postList.size();ii++){
+			std::cout << "--------\n" << ii << " ---- " << postList[ii] << '\n--------------';
 			newPostfix = applyRules(postList[ii]);
-			
+			std::cout << "--------\n" << ii << " ---- " << postList[ii] << '\n--------------';
 			if (newPostfix != postList[ii]){
 				std::cout << "MatchT: " << postList[ii] << " into "<< newPostfix << " from " << oldPostfix << '\n';
 				break;
