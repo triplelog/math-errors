@@ -692,6 +692,7 @@ std::string applyRules(std::string userFullString) {
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = allParts.begin(); iter != allParts.end(); ++iter){
 		std::string onePart = iter->first;
 		foundAt = false;
+		bool foundFirst = false;
 		int firstOperandIndex = 0;
 		currentOperand = "";
 		std::string fullStr = "";
@@ -702,9 +703,11 @@ std::string applyRules(std::string userFullString) {
 				fullStr += onePart.at(iii);
 			}
 			else if (foundAt && onePart.at(iii) == '_'){
-				firstOperandIndex = operandToIndex[currentOperand];
+				if (!foundFirst){
+					firstOperandIndex = operandToIndex[currentOperand];
+				}
+				foundFirst = true;
 				fullStr += operandList[currentOperand];
-				break;
 			}
 			else if (foundAt){
 				currentOperand += onePart.at(iii);
