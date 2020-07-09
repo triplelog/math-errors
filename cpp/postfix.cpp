@@ -1219,7 +1219,7 @@ std::string applyRules(std::string userFullString) {
 					newPostfix += rules[key][1].at(iii);
 				}
 			}
-			//std::cout << "newpostfix @ end of keyMatch: "<< newPostfix << "\n";
+			std::cout << "newpostfix @ end of keyMatch: "<< newPostfix << "\n";
 		}
 		
 		if (newPostfix.length()>0){
