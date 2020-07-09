@@ -390,7 +390,7 @@ std::string postfixify(std::string input_str) {
 	for (i=0;i<input_str.length();i++){
 		threeChars = threeChars.at(1) + threeChars.at(2) + input_str.at(i);
 		if (replacements.find(threeChars) != replacements.end()){
-			input_str.replace(i-2,3,replacements.find(threeChars));
+			input_str.replace(i-2,3,replacements[threeChars]));
 			threeChars = "...";
 			i--;
 		}
