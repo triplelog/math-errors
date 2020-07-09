@@ -1504,10 +1504,13 @@ int main () {
 	
 	int maxSteps = 5;
 	while (newPostfix != oldPostfix && maxSteps >=0){
+		auto t3 = std::chrono::high_resolution_clock::now();
 		newPostfix = removeBracketsOne(newPostfix);
 		std::cout << "\n\n-----------&&&&&--------\n\n" << newPostfix << " ------- " << maxSteps << "\n\n";
 		oldPostfix = newPostfix;
+		auto t4 = std::chrono::high_resolution_clock::now();
 		std::vector<std::string> postList = makeTree(oldPostfix);
+		auto t5 = std::chrono::high_resolution_clock::now();
 		bool changedInput = false;
 		std::cout << "postListSize: " << postList.size() << "\n\n";
 		for (ii=0;ii<postList.size();ii++){
@@ -1522,6 +1525,11 @@ int main () {
 			//std::cout << "--------\n" << ii << " ---- " << newPostfix << "\n--------------";
 			
 		}
+		auto t6 = std::chrono::high_resolution_clock::now();
+		auto d1 = std::chrono::duration_cast<std::chrono::microseconds>( t4 - t3 ).count();
+		auto d2 = std::chrono::duration_cast<std::chrono::microseconds>( t5 - t4 ).count();
+		auto d3 = std::chrono::duration_cast<std::chrono::microseconds>( t6 - t5 ).count();
+		std::cout << "TIMES: " << d1 << " and " << d2 << " and " << d3 << "\n\n";
 		if (!changedInput){break;}
 		std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
 		
