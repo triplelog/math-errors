@@ -663,6 +663,7 @@ std::string applyRules(std::string userFullString) {
 	flat_hash_map<std::string,int> operandToIndex;
 	flat_hash_map<std::string,int> operandToIndexSecond;
 	flat_hash_map<std::string,std::string> operandList;
+	std::string newPostfix = "";
 	int idx = 0;
 	std::cout << "\n\n" << userFullString << '\n';
 	for (iii=0;iii<userFullString.length();iii++){
@@ -744,89 +745,110 @@ std::string applyRules(std::string userFullString) {
 		std::string tempReplaced = userFullString;
 		std::cout << tempReplaced.replace(firstOperandIndexSecond,replaceLengthSecond,";;;").replace(firstOperandIndex,replaceLength,"...") << "\n\n";
 		//TODO: create userString 
-	}
-	std::string userString = userFullString;
-	std::string key = "";
-	flat_hash_map<char,std::string> partMap;
-	std::vector<std::string> userOperands;
-	std::vector<std::string> ruleOperands;
-	std::string newPostfix = "";
-	
-	
-	int startAt =0;
-	for (iiii=0;iiii<userString.length();iiii++){
-		if (userString.at(iiii) == '@'){
-			startAt = iiii+1;
-			break;
-		}
-		else{
-			key += userString.at(iiii);
-		}
-	}
-	if (rules.find(key) != rules.end()){
-		std::string currentOperand = "";
-		for (iii=0;iii<rules[key][0].length();iii++){
-			if (rules[key][0].at(iii) == '_'){
-				ruleOperands.push_back(currentOperand);
-				currentOperand = "";
+
+		std::string userString = fullString;
+		std::string key = "";
+		flat_hash_map<char,std::string> partMap;
+		std::vector<std::string> userOperands;
+		std::vector<std::string> ruleOperands;
+		newPostfix = "";
+		
+		int startAt =0;
+		for (iiii=0;iiii<userString.length();iiii++){
+			if (userString.at(iiii) == '@'){
+				startAt = iiii+1;
+				break;
 			}
-			else {
-				currentOperand += rules[key][0].at(iii);
+			else{
+				key += userString.at(iiii);
 			}
 		}
-		currentOperand = "";
-		for (iii=startAt;iii<userString.length();iii++){
-			if (userString.at(iii) == '_'){
-				userOperands.push_back(currentOperand);
-				currentOperand = "";
+		if (rules.find(key) != rules.end()){
+			std::string currentOperand = "";
+			for (iii=0;iii<rules[key][0].length();iii++){
+				if (rules[key][0].at(iii) == '_'){
+					ruleOperands.push_back(currentOperand);
+					currentOperand = "";
+				}
+				else {
+					currentOperand += rules[key][0].at(iii);
+				}
 			}
-			else {
-				currentOperand += userString.at(iii);
+			currentOperand = "";
+			for (iii=startAt;iii<userString.length();iii++){
+				if (userString.at(iii) == '_'){
+					userOperands.push_back(currentOperand);
+					currentOperand = "";
+				}
+				else {
+					currentOperand += userString.at(iii);
+				}
 			}
-		}
-		if (ruleOperands.size() != userOperands.size()){
-			//TODO: move to next rule
-			return userString;
-		}
-		for (iii=0;iii<ruleOperands.size();iii++){
-			if (ruleOperands[iii].length()==1){
-				if (ruleOperands[iii].at(0) <= 'Z' && ruleOperands[iii].at(0) >= 'A'){
-					partMap[ruleOperands[iii].at(0)] = userOperands[iii];
+			if (ruleOperands.size() != userOperands.size()){
+				//TODO: move to next rule
+				return userString;
+			}
+			for (iii=0;iii<ruleOperands.size();iii++){
+				if (ruleOperands[iii].length()==1){
+					if (ruleOperands[iii].at(0) <= 'Z' && ruleOperands[iii].at(0) >= 'A'){
+						partMap[ruleOperands[iii].at(0)] = userOperands[iii];
+					}
+					else if (ruleOperands[iii] != userOperands[iii]){
+						//TODO: skip this rule
+						return userString;
+					}
 				}
 				else if (ruleOperands[iii] != userOperands[iii]){
 					//TODO: skip this rule
 					return userString;
 				}
 			}
-			else if (ruleOperands[iii] != userOperands[iii]){
-				//TODO: skip this rule
-				return userString;
-			}
-		}
-		//TODO: add check that operand arrays are same size--check before inserting into partMap as well;
-		newPostfix = "";
-		bool pastKey = false;
-		for (iii=0;iii<rules[key][1].length();iii++){
-			if (pastKey){
-				if (rules[key][1].at(iii) == '_'){
-					if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
-						newPostfix += partMap[currentOperand.at(0)] + '_';
+			//TODO: add check that operand arrays are same size--check before inserting into partMap as well;
+			newPostfix = "";
+			bool pastKey = false;
+			for (iii=0;iii<rules[key][1].length();iii++){
+				if (pastKey){
+					if (rules[key][1].at(iii) == '_'){
+						if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
+							newPostfix += partMap[currentOperand.at(0)] + '_';
+						}
+						else {
+							newPostfix += currentOperand + '_';
+						}
+						currentOperand = "";
 					}
 					else {
-						newPostfix += currentOperand + '_';
+						currentOperand += rules[key][1].at(iii);
 					}
-					currentOperand = "";
 				}
 				else {
-					currentOperand += rules[key][1].at(iii);
+					if (rules[key][1].at(iii) == '@'){
+						pastKey = true;
+					}
+					newPostfix += rules[key][1].at(iii);
 				}
 			}
-			else {
-				if (rules[key][1].at(iii) == '@'){
-					pastKey = true;
+		}
+		
+		if (newPostfix.length()>0){
+			std::cout << userFullString << " anand " << fullString << " anand " << newPostfix << "\n\n";
+			std::string newPostfixFirst = "";
+			std::string newPostfixSecond = "";
+			foundAt = false;
+			for (iiii=0;iiii<newPostfix.length();iiii++){
+				if (newPostfix.at(iiii) == '@'){
+					foundAt = true;
 				}
-				newPostfix += rules[key][1].at(iii);
+				else if (foundAt){
+					newPostfixSecond += newPostfix.at(iiii);
+				}
+				else {
+					newPostfixFirst += newPostfix.at(iiii);
+				}
 			}
+			userFullString.replace(firstOperandIndexSecond,replaceLengthSecond,newPostfixSecond).replace(firstOperandIndex,replaceLength,newPostfixFirst);
+			std::cout << userFullString << " anand " << fullString << " anand " << newPostfix << "\n\n";
+			return newPostfix;
 		}
 	}
 	
