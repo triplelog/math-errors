@@ -499,8 +499,8 @@ std::vector<std::string> makeRule(std::string input){
 flat_hash_map<std::string,std::vector<std::string>> makeRules(){
 	flat_hash_map<std::string,std::vector<std::string>> finalRules;
 	std::vector<std::vector<std::string>> rawRules;
-	rawRules.push_back({"A+ddx(x)*B","A+B","Turn exponent into multiplication."});
-	
+	rawRules.push_back({"ddx(x^3+A)","ddx(x^3)+ddx(A)","Turn exponent into multiplication."});
+	rawRules.push_back({"ddx(x^3)+ddx(A)","3*x^2","Turn exponent into multiplication."});
 	int i; int ii;
 	std::vector<std::string> fullPost;
 	std::string key;
@@ -642,7 +642,7 @@ int main () {
 	
 	
 	
-	std::string s = "3+ddx(x)*4"; 
+	std::string s = "ddx(x^3+5)"; 
   
 	std::string pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
