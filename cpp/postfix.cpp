@@ -83,6 +83,77 @@ std::string addTwoInts(std::string a, std::string b){
 	return sum;
 }
 
+std::string mulTwoInts(std::string a, std::string b){
+	int base = 10;
+	if (b.length() > a.length()){
+		std::string c = a;
+		a = b;
+		b = c;
+	}
+	int len = a.length();
+	while (len > b.length()){
+		b = "0"+b;
+	}
+	int i;
+	for (i=0;i<a.length();i++){
+		int aa = a.at(len-1-i) - '0';
+		if (aa<0 || aa>9){
+			return "false";
+		}
+		int bb = b.at(len-1-i) - '0';
+		if (bb<0 || bb>9){
+			return "false";
+		}
+	}
+	int prod = std::stoi(a);
+	prod *= std::stoi(b);
+	return std::to_string(prod);
+}
+std::string divTwoInts(std::string a, std::string b){
+	int base = 10;
+
+	int len = a.length();
+	if (b.length() > len){
+		len = b.length();
+	}
+	int i;
+	for (i=0;i<len;i++){
+		int aa = a.at(len-1-i) - '0';
+		if (aa<0 || aa>9){
+			return "false";
+		}
+		int bb = b.at(len-1-i) - '0';
+		if (bb<0 || bb>9){
+			return "false";
+		}
+	}
+	int div = std::stoi(a);
+	div /= std::stoi(b);
+	return std::to_string(div);
+}
+std::string subTwoInts(std::string a, std::string b){
+	int base = 10;
+
+	int len = a.length();
+	if (b.length() > len){
+		len = b.length();
+	}
+	int i;
+	for (i=0;i<len;i++){
+		int aa = a.at(len-1-i) - '0';
+		if (aa<0 || aa>9){
+			return "false";
+		}
+		int bb = b.at(len-1-i) - '0';
+		if (bb<0 || bb>9){
+			return "false";
+		}
+	}
+	int div = std::stoi(a);
+	div -= std::stoi(b);
+	return std::to_string(div);
+}
+
 std::vector<std::string> makePostVector(char infixexpr[]) {
 	
 	std::string intstr = "";
@@ -1035,8 +1106,12 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 	std::vector<std::vector<std::string>> rawRules;
 	rawRules.push_back({"ddx(A+x)","ddx(A)+1","Sum Rule."});
 	rawRules.push_back({"ddx(A+B)","ddx(A)+ddx(B)","Sum Rule."});
-	rawRules.push_back({"ddx(x^3)","3*x^(2+1)","Turn exponent into multiplication."});
+	rawRules.push_back({"ddx(A*B)","A*ddx(B)+B*ddx(A)","Sum Rule."});
+	rawRules.push_back({"ddx(x^3)","3*x^2","Turn exponent into multiplication."});
 	rawRules.push_back({"A+B","=+AB","Perform addition."});
+	rawRules.push_back({"A-B","=-AB","Perform subtraction."});
+	rawRules.push_back({"A*B","=*AB","Perform multiplication."});
+	rawRules.push_back({"A/B","=/AB","Perform division."});
 	int i; int ii;
 	std::vector<std::string> fullPost;
 	std::string key;
@@ -1277,17 +1352,28 @@ std::string applyRules(std::string userFullString) {
 				}
 				bool pastKey = false;
 				if (rule[1].at(0)=='='){
+					newPostfix = "#@";
+					std::string a = partMap[rule[1].at(2)];
+					std::string b = partMap[rule[1].at(3)];
+					std::string opResult;
 					if (rule[1].at(1)=='+'){
-						newPostfix = "#@";
-						std::string a = partMap[rule[1].at(2)];
-						std::string b = partMap[rule[1].at(3)];
-						std::string addResult = addTwoInts(a,b);
-						if (addResult == "false"){
-							newPostfix = "";
-							continue;
-						}
-						newPostfix += addResult+'_';
+						opResult = addTwoInts(a,b);
 					}
+					if (rule[1].at(1)=='*'){
+						opResult = mulTwoInts(a,b);
+					}
+					if (rule[1].at(1)=='-'){
+						opResult = subTwoInts(a,b);
+					}
+					if (rule[1].at(1)=='/'){
+						opResult = divTwoInts(a,b);
+					}
+					if (opResult == "false"){
+						newPostfix = "";
+						continue;
+					}
+					newPostfix += opResult+'_';
+					
 				}
 				else {
 					for (iii=0;iii<rule[1].length();iii++){
@@ -1384,7 +1470,7 @@ int main () {
 	
 	
 	
-	std::string s = "ddx(x^3+5)"; 
+	std::string s = "ddx(7*(x^3+5))"; 
   
 	std::string pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
