@@ -1055,6 +1055,7 @@ std::string applyRules(std::string userFullString) {
 			std::cout << "rsl: " << replaceLengthSecond << "\n";
 			
 		}
+		std::cout << "fullStr: " << fullStr << "\n";
 		//replace starting at firstOperandIndex for length=replaceLength
 		//replace starting at firstOperandIndexSecond for length=replaceLengthSecond
 		//std::cout << iter->first << " and "  << firstOperandIndex << " and "  << firstOperandIndexSecond << " and " << fullStr << '\n';
