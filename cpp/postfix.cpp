@@ -1193,9 +1193,7 @@ std::string applyRules(std::string userFullString) {
 
 		std::string userString = fullStr;
 		std::string key = "";
-		flat_hash_map<char,std::string> partMap;
-		std::vector<std::string> userOperands;
-		std::vector<std::string> ruleOperands;
+		
 		newPostfix = "";
 		
 		int startAt =0;
@@ -1217,6 +1215,10 @@ std::string applyRules(std::string userFullString) {
 				std::cout << "Key Match: " << key << " and " << rules[key][ruleIdx][0] << "\n";
 				std::vector<std::string> rule = rules[key][ruleIdx];
 				std::string currentOperand = "";
+				flat_hash_map<char,std::string> partMap;
+				std::vector<std::string> userOperands;
+				std::vector<std::string> ruleOperands;
+				newPostfix = "";
 				for (iii=0;iii<rule[0].length();iii++){
 					if (rule[0].at(iii) == '_'){
 						ruleOperands.push_back(currentOperand);
@@ -1313,33 +1315,32 @@ std::string applyRules(std::string userFullString) {
 				}
 			
 				std::cout << "newpostfix @ end of keyMatch: "<< newPostfix << "\n";
+				if (newPostfix.length()>0){
+					//std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
+					std::string newPostfixFirst = "";
+					std::string newPostfixSecond = "";
+					foundAt = false;
+					for (iiii=0;iiii<newPostfix.length();iiii++){
+						if (newPostfix.at(iiii) == '@' && !foundAt){
+							foundAt = true;
+						}
+						else if (foundAt){
+							newPostfixSecond += newPostfix.at(iiii);
+						}
+						else {
+							newPostfixFirst += newPostfix.at(iiii);
+						}
+					}
+					//std::cout << "userFullString: "<< userFullString << " a " << firstOperandIndexSecond << " a " << replaceLengthSecond << " a " << newPostfixSecond << "\n";
+					userFullString.replace(firstOperandIndexSecond,replaceLengthSecond,newPostfixSecond);
+					//std::cout << "userFullString: "<< userFullString << "\n";
+					userFullString.replace(firstOperandIndex,replaceLength,newPostfixFirst);
+					std::cout << "userFullString: "<< userFullString << "\n";
+					userFullString = removeBracketsOne(userFullString);
+					std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
+					return userFullString;
+				}
 			}
-		}
-		
-		if (newPostfix.length()>0){
-			//std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
-			std::string newPostfixFirst = "";
-			std::string newPostfixSecond = "";
-			foundAt = false;
-			for (iiii=0;iiii<newPostfix.length();iiii++){
-				if (newPostfix.at(iiii) == '@' && !foundAt){
-					foundAt = true;
-				}
-				else if (foundAt){
-					newPostfixSecond += newPostfix.at(iiii);
-				}
-				else {
-					newPostfixFirst += newPostfix.at(iiii);
-				}
-			}
-			//std::cout << "userFullString: "<< userFullString << " a " << firstOperandIndexSecond << " a " << replaceLengthSecond << " a " << newPostfixSecond << "\n";
-			userFullString.replace(firstOperandIndexSecond,replaceLengthSecond,newPostfixSecond);
-			//std::cout << "userFullString: "<< userFullString << "\n";
-			userFullString.replace(firstOperandIndex,replaceLength,newPostfixFirst);
-			std::cout << "userFullString: "<< userFullString << "\n";
-			userFullString = removeBracketsOne(userFullString);
-			std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
-			return userFullString;
 		}
 	}
 	
