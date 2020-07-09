@@ -383,30 +383,23 @@ std::string postfixify(std::string input_str) {
 	input_str = replaceDecimals(input_str);
 	input_str = replaceNegatives(input_str);*/
 	
-	
+	flat_hash_map<std::string,std::string> replacements;
+	replacements["ddx"]="ø»"
+	int i;
+	std::string threeChars = "...";
+	for (i=0;i<input_str.length();i++){
+		threeChars = threeChars.at(1) + threeChars.at(2) + input_str.at(i);
+		if (replacements.find(threeChars) != replacements.end()){
+			input_str.replace(i-2,3,replacements.find(threeChars));
+			threeChars = "...";
+			i--;
+		}
+	}
+	std::cout << input_str << '\n';
 	//var twoparts = makePost(input_str);
 	
 	
-	/*
-	//Convert column names
-	console.log(twoparts[0]);
-	console.log(twoparts[1]);
-	var firstpart = twoparts[0].split("_");
-	for (var i=0;i<firstpart.length;i++){
-		if (parseInt(firstpart[i]).toString() != firstpart[i]){
-			for (var ii in colInfo) {
-				if (colInfo[ii].toUpperCase() == firstpart[i]) {
-					firstpart[i] = 'c'+ii;
-					break;
-				}
-			}
-		}
-		else {
-			firstpart[i] = firstpart[i]+'.1.I';
-		}
-	}
-	var fullstr = firstpart.join("_")+'@'+twoparts[1];
-	*/
+	
 	return "fullstr";
 }
 
@@ -586,7 +579,7 @@ std::string applyRules(std::string userString) {
 int main () {
 
 	
-	
+	postfixify("3+ddx(x)*4");
     prec['^'] = 5;
 	prec['*'] = 4;
 	prec['/'] = 4;
