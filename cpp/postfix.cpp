@@ -186,7 +186,7 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 		}
 	}
 	for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
-		if (newMap.find(iter->first)){
+		if (newMap.find(iter->first) != newMap.end()){
 			continue;
 		}
 		std::cout << iter->first << " and " << iter->second << '\n';
