@@ -1018,7 +1018,7 @@ std::string applyRules(std::string userFullString) {
 		int replaceLengthSecond = 0;
 		midBracket = false;
 		for (iii=0;iii<onePart.length();iii++){
-			if (onePart.at(iii) == '@'){
+			if (onePart.at(iii) == '@' && !midBracket){
 				foundAt = true;
 				currentOperand = "";
 				fullStr += onePart.at(iii);
