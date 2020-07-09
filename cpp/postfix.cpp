@@ -445,7 +445,7 @@ std::string makeList(std::string pfstr){
 	}
 	
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = listMap.begin(); iter != listMap.end(); ++iter){
-		std::cout << iter->first << " and " << iter->second << '\n';
+		std::cout << iter->first << " and "  << '\n';
 	}
 	//std::cout << '\n';
 	return "treeOptions";
