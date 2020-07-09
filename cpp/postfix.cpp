@@ -1027,12 +1027,12 @@ std::string applyRules(std::string userFullString) {
 			else if (foundAt && onePart.at(iii) == '{'){
 				midBracket = true;
 				currentOperand += onePart.at(iii);
-				replaceLengthSecond++;
+				//replaceLengthSecond++;
 			}
 			else if (foundAt && onePart.at(iii) == '}'){
 				midBracket = false;
 				currentOperand += onePart.at(iii);
-				replaceLengthSecond++;
+				//replaceLengthSecond++;
 			}
 			else if (foundAt && !midBracket && onePart.at(iii) == '_'){
 				if (!foundFirst){
@@ -1042,11 +1042,11 @@ std::string applyRules(std::string userFullString) {
 				foundFirst = true;
 				fullStr += operandList[currentOperand]+'_';
 				currentOperand = "";
-				replaceLengthSecond++;
+				replaceLengthSecond+= operandList[currentOperand].length()+1;
 			}
 			else if (foundAt){
 				currentOperand += onePart.at(iii);
-				replaceLengthSecond++;
+				//replaceLengthSecond++;
 			}
 			else {
 				fullStr += onePart.at(iii);
