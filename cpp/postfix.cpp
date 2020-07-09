@@ -657,47 +657,75 @@ flat_hash_map<std::string,std::vector<std::string>> makeRules(){
 	return finalRules;
 }
 
-std::string applyRules(std::string userString) {
+std::string applyRules(std::string userFullString) {
 	int iii; int iiii;
-	flat_hash_map<std::string,std::vector<std::string>> allParts = makeList(userString);
+	flat_hash_map<std::string,std::vector<std::string>> allParts = makeList(userFullString);
 	flat_hash_map<std::string,int> operandToIndex;
+	flat_hash_map<std::string,std::string> operandList;
 	int idx = 0;
-	for (iii=0;iii<userString.length();iii++){
-		if (userString.at(iii) == '@'){
+	std::cout << '\n\n' << userFullString << '\n';
+	for (iii=0;iii<userFullString.length();iii++){
+		if (userFullString.at(iii) == '@'){
 			break;
 		}
-		else if (userString.at(iii) == '#'){
+		else if (userFullString.at(iii) == '#'){
 			operandToIndex[std::to_string(idx)] = iii;
 			idx++;
 		}
 	}
+	bool foundAt = false;
+	idx = 0;
+	for (iii=0;iii<userFullString.length();iii++){
+		if (userFullString.at(iii) == '@'){
+			foundAt = true;
+			currentOperand = "";
+		}
+		else if (foundAt && userFullString.at(iii) == '_'){
+			operandList[std::to_string(idx)] = currentOperand;
+			idx++;
+		}
+		else {
+			currentOperand += userFullString.at(iii);
+		}
+	}
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = allParts.begin(); iter != allParts.end(); ++iter){
 		std::string onePart = iter->first;
-		bool foundAt = false;
+		foundAt = false;
 		int firstOperandIndex = 0;
 		std::string currentOperand = "";
+		std::string fullStr = "";
 		for (iii=0;iii<onePart.length();iii++){
 			if (onePart.at(iii) == '@'){
 				foundAt = true;
 				currentOperand = "";
+				fullStr += onePart.at(iii);
 			}
 			else if (foundAt && onePart.at(iii) == '_'){
 				firstOperandIndex = operandToIndex[currentOperand];
+				fullStr += operandList[currentOperand];
 				break;
+			}
+			else if (foundAt){
+				currentOperand += onePart.at(iii);
 			}
 			else {
 				currentOperand += onePart.at(iii);
+				fullStr += onePart.at(iii);
 			}
+			
 		}
 		
-		std::cout << iter->first << " and "  << firstOperandIndex << '\n';
+		std::cout << iter->first << " and "  << firstOperandIndex << " and " << fullStr << '\n';
+		
+		//TODO: create userString 
 	}
+	std::string userString = userFullString;
 	std::string key = "";
 	flat_hash_map<char,std::string> partMap;
 	std::vector<std::string> userOperands;
 	std::vector<std::string> ruleOperands;
 	std::string newPostfix = "";
-	std::cout << userString << '\n';
+	
 	
 	int startAt =0;
 	for (iiii=0;iiii<userString.length();iiii++){
