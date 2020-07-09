@@ -1137,8 +1137,8 @@ std::string applyRules(std::string userFullString) {
 			}
 		}
 		if (rules.find(key) != rules.end()){
-			std::cout << "Key Match: " << key << " and " << rules[key][0] << "\n";
-			std::cout << "userFullString @ keyMatch: "<< userFullString << "\n";
+			//std::cout << "Key Match: " << key << " and " << rules[key][0] << "\n";
+			//std::cout << "userFullString @ keyMatch: "<< userFullString << "\n";
 			std::string currentOperand = "";
 			for (iii=0;iii<rules[key][0].length();iii++){
 				if (rules[key][0].at(iii) == '_'){
@@ -1219,7 +1219,7 @@ std::string applyRules(std::string userFullString) {
 					newPostfix += rules[key][1].at(iii);
 				}
 			}
-			std::cout << "newpostfix @ end of keyMatch: "<< newPostfix << "\n";
+			//std::cout << "newpostfix @ end of keyMatch: "<< newPostfix << "\n";
 		}
 		
 		if (newPostfix.length()>0){
@@ -1238,13 +1238,13 @@ std::string applyRules(std::string userFullString) {
 					newPostfixFirst += newPostfix.at(iiii);
 				}
 			}
-			std::cout << "userFullString: "<< userFullString << " a " << firstOperandIndexSecond << " a " << replaceLengthSecond << " a " << newPostfixSecond << "\n";
+			//std::cout << "userFullString: "<< userFullString << " a " << firstOperandIndexSecond << " a " << replaceLengthSecond << " a " << newPostfixSecond << "\n";
 			userFullString.replace(firstOperandIndexSecond,replaceLengthSecond,newPostfixSecond);
-			std::cout << "userFullString: "<< userFullString << "\n";
+			//std::cout << "userFullString: "<< userFullString << "\n";
 			userFullString.replace(firstOperandIndex,replaceLength,newPostfixFirst);
-			std::cout << "userFullString: "<< userFullString << "\n";
+			//std::cout << "userFullString: "<< userFullString << "\n";
 			userFullString = removeBracketsOne(userFullString);
-			std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
+			//std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
 			return userFullString;
 		}
 	}
@@ -1255,6 +1255,7 @@ std::string applyRules(std::string userFullString) {
 	return newPostfix;
 	
 }
+
 int main () {
 
 	
