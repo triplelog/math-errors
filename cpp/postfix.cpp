@@ -635,6 +635,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	
 	//std::cout << "\n\n----End bracketless----\n";
 	
+	flat_hash_map<std::string,int> uniqueMap;
 	for (ii=0;ii<finalList.size()/2;ii++){
 		std::vector<int> indexes; //start,length,iidx
 		std::string currentOperand = "";
@@ -672,8 +673,11 @@ std::vector<std::string> makeTree(std::string pfstr){
 			//std::cout << ii << "-:=2a=:- " << finalList[ii*2]+'@'+finalList[ii*2+1] << '\n';
 			
 		}
+		if (uniqueMap.find(finalList[ii*2]+'@'+finalList[ii*2+1]) == uniqueMap.end()){
+			treeOptions.push_back(finalList[ii*2]+'@'+finalList[ii*2+1]);
+			uniqueMap[finalList[ii*2]+'@'+finalList[ii*2+1]] = 1;
+		}
 		
-		treeOptions.push_back(finalList[ii*2]+'@'+finalList[ii*2+1]);
 		
 		//std::cout << ii << "-:===:- " << treeOptions[ii] << '\n';
 	}
