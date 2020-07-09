@@ -1319,9 +1319,9 @@ int main () {
 		std::vector<std::string> postList = makeTree(oldPostfix);
 	
 		for (ii=0;ii<postList.size();ii++){
-			std::cout << "--------\n" << ii << " ---- " << postList[ii] << '\n--------------';
+			std::cout << "--------\n" << ii << " ---- " << postList[ii] << "\n--------------";
 			newPostfix = applyRules(postList[ii]);
-			std::cout << "--------\n" << ii << " ---- " << postList[ii] << '\n--------------';
+			std::cout << "--------\n" << ii << " ---- " << postList[ii] << "\n--------------";
 			if (newPostfix != postList[ii]){
 				std::cout << "MatchT: " << postList[ii] << " into "<< newPostfix << " from " << oldPostfix << '\n';
 				break;
