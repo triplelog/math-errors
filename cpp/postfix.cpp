@@ -51,7 +51,9 @@ std::string addTwoInts(std::string a, std::string b){
 	int charSum =0;
 	int carry = 0;
 	for (i=0;i<a.length();i++){
-		charSum = atoi(a.at(len-1-i)) + atoi(b.at(len-1-i)) + carry;
+		char aa[1];
+		
+		charSum = (a.at(len-1-i) - '0') + (b.at(len-1-i) - '0') + carry;
 		carry = 0;
 		while (charSum >= base){
 			charSum -= base;
