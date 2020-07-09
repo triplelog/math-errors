@@ -189,7 +189,7 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 		if (newMap.find(iter->first) != newMap.end()){
 			continue;
 		}
-		std::cout << iter->first << " and " << iter->second << '\n';
+		//std::cout << iter->first << " and " << iter->second << '\n';
 		std::string input = iter->second;
 	
 		std::vector<int> indexes; //start,length,iidx,idx of #
@@ -257,7 +257,7 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 				}
 			}
 			if (!foundBracket){
-				input.replace(indexes[iii*4]-1,indexes[iii*4+1]+2,secondText);
+				input.replace(indexes[iii*4]-1,indexes[iii*4+1]+3,secondText);
 				input.replace(indexes[iii*4+3],1,firstText);
 			}
 		
