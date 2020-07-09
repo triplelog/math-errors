@@ -264,6 +264,13 @@ std::vector<std::string> makeTree(std::string pfstr){
 					for (iii=0;iii<secondS.size();iii++){
 						fullTrees.push_back(firstS[ii] + secondS[iii]  + pfstr.at(i));
 						fullTrees.push_back(firstT[ii] + secondT[iii]);
+						
+						//condensed
+						fullTrees.push_back(""+'#');
+						fullTrees.push_back(std::to_string(iidx)+'_');
+						originalMap[iidx]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
+						iidx++;
+						
 						if (pfstr.at(i) == '+'){
 							fullTrees.push_back(secondS[iii] + firstS[ii]  + pfstr.at(i));
 							fullTrees.push_back(secondT[iii] + firstT[ii]);
@@ -276,6 +283,12 @@ std::vector<std::string> makeTree(std::string pfstr){
 				for (iii=0;iii<secondS.size();iii++){
 					fullTrees.push_back(secondS[iii] + pfstr.at(i));
 					fullTrees.push_back(secondT[iii]);
+					
+					//condensed
+					fullTrees.push_back(""+'#');
+					fullTrees.push_back(std::to_string(iidx)+'_');
+					originalMap[iidx]= secondS[iii] + pfstr.at(i) + '@' + secondT[iii];
+					iidx++;
 				}
 			}
 			
