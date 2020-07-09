@@ -1095,7 +1095,6 @@ std::string applyRules(std::string userFullString) {
 			for (iii=startAt;iii<userString.length();iii++){
 				if (userString.at(iii) == '_' && !midBracket){
 					userOperands.push_back(currentOperand);
-					std::cout << "user operands: " << currentOperand << "\n";
 					currentOperand = "";
 				}
 				else if (userString.at(iii) == '{') {
@@ -1128,6 +1127,9 @@ std::string applyRules(std::string userFullString) {
 					//TODO: skip this rule
 					return userString;
 				}
+			}
+			for (flat_hash_map<char,std::string>::iterator iter2 = partMap.begin(); iter2 != partMap.end(); ++iter2){
+				std::cout << "user operands: " << iter2->first << " and " << iter2->second << "\n";
 			}
 			//TODO: add check that operand arrays are same size--check before inserting into partMap as well;
 			newPostfix = "";
