@@ -688,7 +688,7 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 						break;
 					}
 				}
-				oneList[ii*2+1].replace(indexes[iii*3],indexes[iii*3+1],repText);
+				//oneList[ii*2+1].replace(indexes[iii*3],indexes[iii*3+1],repText);
 				//std::cout << ii << "-:=2a=:- " << oneList[ii*2]+'@'+oneList[ii*2+1] << '\n';
 			
 			}
