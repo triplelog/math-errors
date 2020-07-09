@@ -651,7 +651,8 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
 	//	std::cout << iter->first << " and " << iter->second << '\n';
 	//}
-
+	
+	flat_hash_map<std::string,std::vector<std::string>> newListMap;
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = listMap.begin(); iter != listMap.end(); ++iter){
 		std::vector<std::string> oneList = iter->second;
 		for (ii=0;ii<oneList.size()/2;ii++){
@@ -694,12 +695,12 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 			
 			
 		}
-		listMap[iter->first]=oneList;
+		newListMap[iter->first]=oneList;
 	}
 
 	
 	//std::cout << '\n';
-	return listMap;
+	return newListMap;
 }
 /*
 function replaceDecimals(istr){
