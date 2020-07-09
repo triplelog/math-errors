@@ -924,8 +924,8 @@ flat_hash_map<std::string,std::vector<std::string>> makeRules(){
 	flat_hash_map<std::string,std::vector<std::string>> finalRules;
 	std::vector<std::vector<std::string>> rawRules;
 	rawRules.push_back({"ddx(A+B)","ddx(A)+ddx(B)","Sum Rule."});
-	rawRules.push_back({"ddx(x^3)","3*x^2","Turn exponent into multiplication."});
-	rawRules.push_back({"ddx(5)","0","Turn exponent into multiplication."});
+	//rawRules.push_back({"ddx(x^3)","3*x^2","Turn exponent into multiplication."});
+	//rawRules.push_back({"ddx(5)","0","Turn exponent into multiplication."});
 	int i; int ii;
 	std::vector<std::string> fullPost;
 	std::string key;
@@ -1203,7 +1203,10 @@ int main () {
 			oldPostfix = newPostfix;
 			newPostfix = applyRules(oldPostfix);
 			maxSteps--;
-			std::cout << "MatchT: " << postList[ii] << " into "<< newPostfix << " from " << oldPostfix << '\n';
+			if (newPostfix != oldPostfix){
+				std::cout << "MatchT: " << postList[ii] << " into "<< newPostfix << " from " << oldPostfix << '\n';
+			}
+			
 		}
 		std::cout << ii << "-:-" << postList[ii] << '\n';
 		std::cout << "Match: " << postList[ii] << " into "<< newPostfix << '\n';
