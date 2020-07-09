@@ -710,6 +710,8 @@ std::string applyRules(std::string userFullString) {
 		int firstOperandIndexSecond = 0;
 		currentOperand = "";
 		std::string fullStr = "";
+		int replaceLength = 0;
+		int replaceLengthSecond = 0;
 		for (iii=0;iii<onePart.length();iii++){
 			if (onePart.at(iii) == '@'){
 				foundAt = true;
@@ -724,18 +726,23 @@ std::string applyRules(std::string userFullString) {
 				foundFirst = true;
 				fullStr += operandList[currentOperand]+'_';
 				currentOperand = "";
+				replaceLengthSecond++;
 			}
 			else if (foundAt){
 				currentOperand += onePart.at(iii);
+				replaceLengthSecond++;
 			}
 			else {
 				fullStr += onePart.at(iii);
+				replaceLength++;
 			}
 			
 		}
-		
+		//replace starting at firstOperandIndex for length=replaceLength
+		//replace starting at firstOperandIndexSecond for length=replaceLengthSecond
 		std::cout << iter->first << " and "  << firstOperandIndex << " and "  << firstOperandIndexSecond << " and " << fullStr << '\n';
-		
+		std::string tempReplaced = userFullString;
+		std::cout << tempReplaced.replace(firstOperandIndex,replaceLength,"...").replace(firstOperandIndexSecond,replaceLengthSecond,";;;") << "\n\n";
 		//TODO: create userString 
 	}
 	std::string userString = userFullString;
