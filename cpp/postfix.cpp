@@ -168,6 +168,62 @@ std::string makePost(char infixexpr[]) {
 
 }
 
+std::string removeBracketsOne(std::string input) {
+	flat_hash_map<int,int> operandToIndex;
+	int iii; int iiii;
+	bool foundBrackets = false;
+	bool foundAt = false;
+	int idx = 0;
+	int iidx = 0;
+	std::vector<std::string> bracketStrings;
+	std::string tempString = "";
+	int bracketLength = 0;
+	int secondIndex;
+	for (iii=0;iii<input.length();iii++){
+		if (input.at(iii) == '{'){
+			foundBrackets = true;
+			bracketLength = 1;
+			secondIndex = iii;
+		}
+		else if (input.at(iii) == '}') {
+			bracketStrings.push_back(tempString);
+			bracketLength++;
+			break;
+		}
+		else if (input.at(iii) == '#' && !foundBrackets) {
+			operandToIndex[idx]=iii;
+			idx++;
+		}
+		else if (input.at(iii) == '_' && !foundBrackets) {
+			iidx++;
+		}
+		else if (input.at(iii) == '@' && !foundBrackets) {
+			foundAt = true;
+			iidx++;
+		}
+		else if (input.at(iii) == '@' && foundBrackets) {
+			//tempString += input.at(iii);
+			bracketStrings.push_back(tempString);
+			tempString = "";
+			bracketLength++;
+		}
+		else if (foundBrackets){
+			tempString += input.at(iii);
+			bracketLength++;
+		}
+	}
+	if (!foundBrackets){
+		return input;
+	}
+	
+	firstIndex = operandToIndex[iidx];
+	input.replace(secondIndex,bracketLength,bracketStrings[1]);
+	input.replace(firstIndex,1,bracketStrings[0]);
+	return removeBracketsOne(input);
+	
+	
+	
+}
 flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> originalMap) {
 	
 	flat_hash_map<int,std::string> newMap;
@@ -819,6 +875,7 @@ std::vector<std::string> postfixifyVector(std::string input_str){
 
 	return makePostVector(infixexpr);
 }
+
 std::string postfixify(std::string input_str) {
 	/*input_str = input_str.toUpperCase();
 	input_str = input_str.replace(/AND/g,'&');
@@ -1178,7 +1235,7 @@ std::string applyRules(std::string userFullString) {
 			//std::cout << "userFullString: "<< userFullString << "\n";
 			userFullString.replace(firstOperandIndex,replaceLength,newPostfixFirst);
 			std::cout << "userFullString: "<< userFullString << "\n";
-			
+			userFullString = removeBracketsOne(userFullString);
 			//std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
 			return userFullString;
 		}
