@@ -1172,7 +1172,11 @@ std::string applyRules(std::string userFullString) {
 					newPostfixFirst += newPostfix.at(iiii);
 				}
 			}
-			userFullString.replace(firstOperandIndexSecond,replaceLengthSecond,newPostfixSecond).replace(firstOperandIndex,replaceLength,newPostfixFirst);
+			std::cout << "userFullString: "<< userFullString << "\n";
+			userFullString.replace(firstOperandIndexSecond,replaceLengthSecond,newPostfixSecond);
+			std::cout << "userFullString: "<< userFullString << "\n";
+			userFullString.replace(firstOperandIndex,replaceLength,newPostfixFirst);
+			std::cout << "userFullString: "<< userFullString << "\n";
 			//std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
 			return userFullString;
 		}
