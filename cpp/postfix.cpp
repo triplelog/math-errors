@@ -316,6 +316,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	}
 	
 	std::cout << "\n\n--------\n";
+	int iiii;
 	for (ii=0;ii<finalList.size()/2;ii++){
 		std::vector<int> indexes; //start,length,iidx
 		std::string currentOperand = "";
