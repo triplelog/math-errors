@@ -551,7 +551,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		
 		treeOptions.push_back(finalList[ii*2]+'@'+finalList[ii*2+1]);
 		
-		std::cout << ii << "-:===:- " << treeOptions[ii] << '\n';
+		//std::cout << ii << "-:===:- " << treeOptions[ii] << '\n';
 	}
 	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
 	//	std::cout << iter->first << " bracketless " << iter->second << '\n';
@@ -1318,20 +1318,21 @@ int main () {
 		std::cout << "\n\n-----------&&&&&--------\n\n" << newPostfix << " ------- " << maxSteps << "\n\n";
 		oldPostfix = newPostfix;
 		std::vector<std::string> postList = makeTree(oldPostfix);
-	
+		bool changedInput = false;
 		for (ii=0;ii<postList.size();ii++){
 			//std::cout << "--------\n" << ii << " ---- " << postList[ii] << "\n--------------";
 			newPostfix = applyRules(postList[ii]);
 			//std::cout << "--------\n" << ii << " ---- " << newPostfix << "\n--------------";
 			if (newPostfix != postList[ii]){
-				std::cout << "MatchT: " << postList[ii] << " into "<< newPostfix << " from " << oldPostfix << '\n';
+				std::cout << "Match: " << postList[ii] << " into "<< newPostfix << " from " << oldPostfix << '\n';
+				changedInput = true;
 				break;
 			}
 			//std::cout << "--------\n" << ii << " ---- " << newPostfix << "\n--------------";
 			
 		}
-		
-		std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
+		if (!changedInput){break;}
+		//std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
 		
 		maxSteps--;
 
