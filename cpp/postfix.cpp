@@ -802,7 +802,7 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 						originalMap[iidx]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
 						iidx++;
 						
-						if (pfstr.at(i) == '+'){
+						if (pfstr.at(i) == '+' || pfstr.at(i) == '*'){
 							fullTrees.push_back(secondS[iii] + firstS[ii]  + pfstr.at(i));
 							fullTrees.push_back(secondT[iii] + firstT[ii]);
 						}
