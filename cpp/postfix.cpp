@@ -401,7 +401,11 @@ std::string postfixify(std::string input_str) {
 		//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
 	}
 	std::cout << input_str << '\n';
-	std::cout << makePost(input_str) << '\n';
+	char infixexpr[input_str.length() + 1]; 
+    strcpy(infixexpr, input_str.c_str()); 
+
+	infixexpr[input_str.length()] = '\0';
+	std::cout << makePost(infixexpr) << '\n';
 	
 	
 	
