@@ -699,9 +699,9 @@ flat_hash_map<std::string,std::vector<std::string>> makeList(std::string pfstr){
 				else if (oneList[ii*2+1].at(iii) == '}'){
 					indexes.push_back(startIndex+1);
 					indexes.push_back(iii-(startIndex+1));
-					std::cout << currentOperand << ' start\n';
+					std::cout << currentOperand << " start\n";
 					indexes.push_back(std::stoi(currentOperand));
-					std::cout << currentOperand << ' done\n';
+					std::cout << currentOperand << " done\n";
 					currentOperand = "";
 				}
 				else {
