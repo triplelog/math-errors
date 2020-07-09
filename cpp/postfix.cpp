@@ -270,6 +270,7 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 			}
 			if (!foundBracket){
 				newMap[iter->first]=input;
+				originalMap[iter->first]=input;
 				nKeys--;
 			}
 		}
