@@ -384,7 +384,7 @@ std::string postfixify(std::string input_str) {
 	input_str = replaceNegatives(input_str);*/
 	
 	flat_hash_map<std::string,std::string> replacements;
-	replacements["ddx"]="ø»"
+	replacements["ddx"]="ø»";
 	int i;
 	std::string threeChars = "...";
 	for (i=0;i<input_str.length();i++){
