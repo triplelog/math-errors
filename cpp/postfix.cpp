@@ -338,7 +338,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		}
 		
 		for (iii=indexes.size()/3-1;iii>=0;iii--){
-			std::string repText = originalMap[iii*3+2];
+			std::string repText = originalMap[indexes[iii*3+2]];
 			bool foundBracket = false;
 			for (iiii=0;iiii<repText.length();iiii++){
 				if (repText.at(iiii) == '{'){
