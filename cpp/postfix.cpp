@@ -1078,7 +1078,7 @@ std::string applyRules(std::string userFullString) {
 			}
 		}
 		if (rules.find(key) != rules.end()){
-			std::cout << "Key Match: " << key << " and " << rules[key] << "\n";
+			std::cout << "Key Match: " << key << " and " << rules[key][0] << "\n";
 			std::string currentOperand = "";
 			for (iii=0;iii<rules[key][0].length();iii++){
 				if (rules[key][0].at(iii) == '_'){
