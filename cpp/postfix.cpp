@@ -638,7 +638,7 @@ flat_hash_map<std::string,std::vector<std::string>> makeRules(){
 	flat_hash_map<std::string,std::vector<std::string>> finalRules;
 	std::vector<std::vector<std::string>> rawRules;
 	rawRules.push_back({"ddx(x^3+A)","ddx(x^3)+ddx(A)","Turn exponent into multiplication."});
-	rawRules.push_back({"ddx(x^3)+ddx(A)","3*x^2","Turn exponent into multiplication."});
+	rawRules.push_back({"ddx(x^3)","3*x^2","Turn exponent into multiplication."});
 	int i; int ii;
 	std::vector<std::string> fullPost;
 	std::string key;
@@ -741,10 +741,10 @@ std::string applyRules(std::string userFullString) {
 		}
 		//replace starting at firstOperandIndex for length=replaceLength
 		//replace starting at firstOperandIndexSecond for length=replaceLengthSecond
-		std::cout << iter->first << " and "  << firstOperandIndex << " and "  << firstOperandIndexSecond << " and " << fullStr << '\n';
-		std::string tempReplaced = userFullString;
-		std::cout << tempReplaced.replace(firstOperandIndexSecond,replaceLengthSecond,";;;").replace(firstOperandIndex,replaceLength,"...") << "\n\n";
-		//TODO: create userString 
+		//std::cout << iter->first << " and "  << firstOperandIndex << " and "  << firstOperandIndexSecond << " and " << fullStr << '\n';
+		//std::string tempReplaced = userFullString;
+		//std::cout << tempReplaced.replace(firstOperandIndexSecond,replaceLengthSecond,";;;").replace(firstOperandIndex,replaceLength,"...") << "\n\n";
+		
 
 		std::string userString = fullStr;
 		std::string key = "";
