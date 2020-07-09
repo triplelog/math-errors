@@ -1068,6 +1068,7 @@ std::string applyRules(std::string userFullString) {
 		newPostfix = "";
 		
 		int startAt =0;
+		midBracket = false;
 		for (iiii=0;iiii<userString.length();iiii++){
 			if (userString.at(iiii) == '@'){
 				startAt = iiii+1;
@@ -1091,9 +1092,17 @@ std::string applyRules(std::string userFullString) {
 			}
 			currentOperand = "";
 			for (iii=startAt;iii<userString.length();iii++){
-				if (userString.at(iii) == '_'){
+				if (userString.at(iii) == '_' && !midBracket){
 					userOperands.push_back(currentOperand);
 					currentOperand = "";
+				}
+				else if (userString.at(iii) == '{') {
+					currentOperand += userString.at(iii);
+					midBracket = true;
+				}
+				else if (userString.at(iii) == '}') {
+					currentOperand += userString.at(iii);
+					midBracket = false;
 				}
 				else {
 					currentOperand += userString.at(iii);
