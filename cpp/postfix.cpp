@@ -1041,8 +1041,9 @@ std::string applyRules(std::string userFullString) {
 				}
 				foundFirst = true;
 				fullStr += operandList[currentOperand]+'_';
-				currentOperand = "";
 				replaceLengthSecond+= operandList[currentOperand].length()+1;
+				currentOperand = "";
+				
 			}
 			else if (foundAt){
 				currentOperand += onePart.at(iii);
