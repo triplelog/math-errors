@@ -171,6 +171,7 @@ std::string makePost(char infixexpr[]) {
 flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> originalMap) {
 	
 	flat_hash_map<int,std::string> newMap;
+	int nKeys = 0; int count = 0;
 	for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
 		std::string input = iter->second;
 		int iii; int iiii;
@@ -184,86 +185,93 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 		if (!foundBrackets){
 			newMap[iter->first]=input;
 		}
-	}
-	for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
-		if (newMap.find(iter->first) != newMap.end()){
-			continue;
+		else {
+			nKeys++;
 		}
-		//std::cout << iter->first << " and " << iter->second << '\n';
-		std::string input = iter->second;
-	
-		std::vector<int> indexes; //start,length,iidx,idx of #
-		flat_hash_map<int,int> operandToIndex;
-		std::string currentOperand = "";
-		int startIndex = 0;
-		int idx = 0; int iii; int iiii;
-		for (iii=0;iii<input.length();iii++){
-			if (input.at(iii) == '#'){
-				operandToIndex[idx] = iii;
-				idx++;
-			}
-			else if (input.at(iii) == '@'){
-				idx = 0;
-			}
-			else if (input.at(iii) == '_'){
-				idx++;
-			}
-			else if (input.at(iii) == '{'){
-				startIndex = iii;
-				currentOperand = "";
-			}
-			else if (input.at(iii) == '}'){
-				indexes.push_back(startIndex+1);
-				indexes.push_back(iii-(startIndex+1));
-				indexes.push_back(std::stoi(currentOperand));
-				indexes.push_back(operandToIndex[idx]);
-				currentOperand = "";
-			}
-			else {
-				currentOperand += input.at(iii);
-			}
-		}
-		bool foundBracket = false;
-		for (iii=indexes.size()/4-1;iii>=0;iii--){
-			std::string repText = originalMap[indexes[iii*4+2]];
-			
-			bool foundAt = false;
-			for (iiii=0;iiii<repText.length();iiii++){
-				if (repText.at(iiii) == '{'){
-					foundBracket = true;
-					break;
-				}
-			}
 		
-		}
-		for (iii=indexes.size()/4-1;iii>=0;iii--){
-			std::string repText = originalMap[indexes[iii*4+2]];
-			
-			std::string secondText = "";
-			std::string firstText = "";
-			bool foundAt = false;
-			for (iiii=0;iiii<repText.length();iiii++){
-				if (repText.at(iiii) == '{'){
-					break;
+	}
+	for (count =0;count<nKeys;count++){
+		for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
+			if (newMap.find(iter->first) != newMap.end()){
+				continue;
+			}
+			//std::cout << iter->first << " and " << iter->second << '\n';
+			std::string input = iter->second;
+	
+			std::vector<int> indexes; //start,length,iidx,idx of #
+			flat_hash_map<int,int> operandToIndex;
+			std::string currentOperand = "";
+			int startIndex = 0;
+			int idx = 0; int iii; int iiii;
+			for (iii=0;iii<input.length();iii++){
+				if (input.at(iii) == '#'){
+					operandToIndex[idx] = iii;
+					idx++;
 				}
-				else if (repText.at(iiii) == '@'){
-					foundAt = true;
+				else if (input.at(iii) == '@'){
+					idx = 0;
 				}
-				else if (foundAt){
-					secondText += repText.at(iiii);
+				else if (input.at(iii) == '_'){
+					idx++;
+				}
+				else if (input.at(iii) == '{'){
+					startIndex = iii;
+					currentOperand = "";
+				}
+				else if (input.at(iii) == '}'){
+					indexes.push_back(startIndex+1);
+					indexes.push_back(iii-(startIndex+1));
+					indexes.push_back(std::stoi(currentOperand));
+					indexes.push_back(operandToIndex[idx]);
+					currentOperand = "";
 				}
 				else {
-					firstText += repText.at(iiii);
+					currentOperand += input.at(iii);
 				}
 			}
-			if (!foundBracket){
-				input.replace(indexes[iii*4]-1,indexes[iii*4+1]+3,secondText);
-				input.replace(indexes[iii*4+3],1,firstText);
-			}
+			bool foundBracket = false;
+			for (iii=indexes.size()/4-1;iii>=0;iii--){
+				std::string repText = originalMap[indexes[iii*4+2]];
+			
+				bool foundAt = false;
+				for (iiii=0;iiii<repText.length();iiii++){
+					if (repText.at(iiii) == '{'){
+						foundBracket = true;
+						break;
+					}
+				}
 		
-		}
-		if (!foundBracket){
-			newMap[iter->first]=input;
+			}
+			for (iii=indexes.size()/4-1;iii>=0;iii--){
+				std::string repText = originalMap[indexes[iii*4+2]];
+			
+				std::string secondText = "";
+				std::string firstText = "";
+				bool foundAt = false;
+				for (iiii=0;iiii<repText.length();iiii++){
+					if (repText.at(iiii) == '{'){
+						break;
+					}
+					else if (repText.at(iiii) == '@'){
+						foundAt = true;
+					}
+					else if (foundAt){
+						secondText += repText.at(iiii);
+					}
+					else {
+						firstText += repText.at(iiii);
+					}
+				}
+				if (!foundBracket){
+					input.replace(indexes[iii*4]-1,indexes[iii*4+1]+3,secondText);
+					input.replace(indexes[iii*4+3],1,firstText);
+				}
+		
+			}
+			if (!foundBracket){
+				newMap[iter->first]=input;
+				nKeys--;
+			}
 		}
 	}
 	return newMap;
