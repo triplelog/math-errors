@@ -382,7 +382,7 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 	std::cout << "\n\n\nNT: " << newTotal << " of " << originalTotal << "\n";
 	
 	
-	while (nKeys>0 && count < 100){
+	while (nKeys>0 && count < 1000){
 		for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
 			if (newMap.find(iter->first) != newMap.end()){
 				continue;
@@ -488,6 +488,8 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 		}
 		count++;
 	}
+	
+	/* Check no brackets still around
 	std::cout << "\n\n\nNT: " << newTotal << " of " << originalTotal << "\n";
 	for (flat_hash_map<int,std::string>::iterator iter = newMap.begin(); iter != newMap.end(); ++iter){
 		newTotal++;
@@ -503,6 +505,7 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 		}
 	}
 	std::cout << "\n\n!&*^*&^nkeys: " << nKeys << " and " << originalTotal << " and " << newTotal << "\n\n";
+	*/
 	return newMap;
 }
 
