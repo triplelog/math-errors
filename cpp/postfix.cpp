@@ -1245,7 +1245,7 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 	rawRules.push_back({"ddx(A*B)","A*ddx(B)+B*ddx(A)","Sum Rule."});
 	rawRules.push_back({"ddx(x^3)","3*x^2","Turn exponent into multiplication."});
 	rawRules.push_back({"A+B","=+AB","Perform addition."});
-	rawRules.push_back({"A-B","=-AB","Perform subtraction."});
+	//rawRules.push_back({"A-B","=-AB","Perform subtraction."});
 	rawRules.push_back({"A*B","=*AB","Perform multiplication."});
 	rawRules.push_back({"A/B","=/AB","Perform division."});
 	int i; int ii;
@@ -1626,7 +1626,7 @@ int main () {
 	
 	
 	
-	std::string s = "7*3+11-4"; 
+	std::string s = "7*3+11"; 
   
 	std::string pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
