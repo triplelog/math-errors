@@ -1626,7 +1626,7 @@ int main () {
 	
 	
 	
-	std::string s = "ddx(7*(x^3+5))"; 
+	std::string s = "7*3+11-4"; 
   
 	std::string pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
@@ -1674,7 +1674,7 @@ int main () {
 	auto t2 = std::chrono::high_resolution_clock::now();
 
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
-    
+    std::cout << duration;
     
     //run it again
 	/*
