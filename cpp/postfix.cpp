@@ -665,6 +665,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			nodeText = secondStr + '@' + secondTtr;
 			if (nodeList.find(nodeText) != nodeList.end()){
 				nodeList[nodeText][1] = pname;
+				orderedKeyList.push_back(nodeText);
 			}
 			else {
 				name = "node"+std::to_string(treeIdx);
@@ -678,6 +679,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 				nodeText = firstStr + '@' + firstTtr;
 				if (nodeList.find(nodeText) != nodeList.end()){
 					nodeList[nodeText][1] = pname;
+					orderedKeyList.push_back(nodeText);
 				}
 				else {
 					name = "node"+std::to_string(treeIdx);
@@ -712,8 +714,14 @@ std::vector<std::string> makeTree(std::string pfstr){
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
 		jsOutput.push_back("Node: " + iter->first + " and " + iter->second[0] + " and " + iter->second[1]);
 	}*/
+	flat_hash_map<std::string,std::string> skipList;
 	for (ii=orderedKeyList.size()-1;ii>=0;ii--){
-		
+		if (skipList.find(orderedKeyList[ii]) != skipList.end()){
+			continue;
+		}
+		else {
+			skipList[orderedKeyList[ii]] = "";
+		}
 		std::string outText = nodeList[orderedKeyList[ii]][0] + " = {\n";
 		if (nodeList[orderedKeyList[ii]][1].length() > 0){
 			outText += "parent: "+nodeList[orderedKeyList[ii]][1] + ",\n";
