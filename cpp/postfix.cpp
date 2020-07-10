@@ -671,11 +671,18 @@ std::vector<std::string> makeTree(std::string pfstr){
 						if (iter->second[1] == nodeList[nodeText][0]){
 							nodeList[iter->first][1] = pname;
 							revList.push_back(iter->first);
+							revIdx.push_back(0);
 						}
 					}
-					for (iii=revList.size()-1;iii>=0;iii--){
-						orderedKeyList.push_back(revList[iii]);
+					int okSz = orderedKeyList.size();
+					for (ii=0;ii<okSz;ii--){
+						for (iii=revList.size()-1;iii>=0;iii--){
+							if (orderedKeyList[ii] == revList[iii]){
+								orderedKeyList.push_back(revList[iii]);
+							}
+						}
 					}
+					
 				}
 				else {
 					nodeList[nodeText][1] = pname;
@@ -694,8 +701,13 @@ std::vector<std::string> makeTree(std::string pfstr){
 							revList.push_back(iter->first);
 						}
 					}
-					for (iii=revList.size()-1;iii>=0;iii--){
-						orderedKeyList.push_back(revList[iii]);
+					int okSz = orderedKeyList.size();
+					for (ii=0;ii<okSz;ii--){
+						for (iii=revList.size()-1;iii>=0;iii--){
+							if (orderedKeyList[ii] == revList[iii]){
+								orderedKeyList.push_back(revList[iii]);
+							}
+						}
 					}
 				}
 				else {
@@ -717,8 +729,13 @@ std::vector<std::string> makeTree(std::string pfstr){
 								revList.push_back(iter->first);
 							}
 						}
-						for (iii=revList.size()-1;iii>=0;iii--){
-							orderedKeyList.push_back(revList[iii]);
+						int okSz = orderedKeyList.size();
+						for (ii=0;ii<okSz;ii--){
+							for (iii=revList.size()-1;iii>=0;iii--){
+								if (orderedKeyList[ii] == revList[iii]){
+									orderedKeyList.push_back(revList[iii]);
+								}
+							}
 						}
 					}
 					else {
@@ -738,8 +755,13 @@ std::vector<std::string> makeTree(std::string pfstr){
 								revList.push_back(iter->first);
 							}
 						}
-						for (iii=revList.size()-1;iii>=0;iii--){
-							orderedKeyList.push_back(revList[iii]);
+						int okSz = orderedKeyList.size();
+						for (ii=0;ii<okSz;ii--){
+							for (iii=revList.size()-1;iii>=0;iii--){
+								if (orderedKeyList[ii] == revList[iii]){
+									orderedKeyList.push_back(revList[iii]);
+								}
+							}
 						}
 					}
 					else {
