@@ -298,7 +298,7 @@ std::string makePost(char infixexpr[]) {
 std::string removeBracketsOne(std::string input) {
 	flat_hash_map<int,int> operandToIndex;
 	int iii; int iiii;
-	bool foundBrackets = false;
+	bool foundBracket = false;
 	bool foundAt = false;
 	int idx = 0;
 	int iidx = 0;
@@ -308,7 +308,7 @@ std::string removeBracketsOne(std::string input) {
 	int secondIndex;
 	for (iii=0;iii<input.length();iii++){
 		if (input.at(iii) == '{'){
-			foundBrackets = true;
+			foundBracket = true;
 			bracketLength = 1;
 			secondIndex = iii;
 		}
@@ -317,28 +317,28 @@ std::string removeBracketsOne(std::string input) {
 			bracketLength++;
 			break;
 		}
-		else if (input.at(iii) == '#' && !foundBrackets) {
+		else if (input.at(iii) == '#' && !foundBracket) {
 			operandToIndex[idx]=iii;
 			idx++;
 		}
-		else if (input.at(iii) == '_' && !foundBrackets) {
+		else if (input.at(iii) == '_' && !foundBracket) {
 			iidx++;
 		}
-		else if (input.at(iii) == '@' && !foundBrackets) {
+		else if (input.at(iii) == '@' && !foundBracket) {
 			foundAt = true;
 		}
-		else if (input.at(iii) == '@' && foundBrackets) {
+		else if (input.at(iii) == '@' && foundBracket) {
 			//tempString += input.at(iii);
 			bracketStrings.push_back(tempString);
 			tempString = "";
 			bracketLength++;
 		}
-		else if (foundBrackets){
+		else if (foundBracket){
 			tempString += input.at(iii);
 			bracketLength++;
 		}
 	}
-	if (!foundBrackets){
+	if (!foundBracket){
 		return input;
 	}
 	
@@ -363,14 +363,14 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 		originalTotal++;
 		std::string input = iter->second;
 		int iii; int iiii;
-		bool foundBrackets = false;
+		bool foundBracket = false;
 		for (iii=0;iii<input.length();iii++){
 			if (input.at(iii) == '{'){
-				foundBrackets = true;
+				foundBracket = true;
 				break;
 			}
 		}
-		if (!foundBrackets){
+		if (!foundBracket){
 			newMap[iter->first]=input;
 			newTotal++;
 		}
@@ -472,10 +472,10 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 			}
 			if (!foundBracket){
 				tempMap[iter->first]=input;
-				bool foundBrackets = false;
+				foundBracket = false;
 				for (iii=0;iii<input.length();iii++){
 					if (input.at(iii) == '{'){
-						foundBrackets = true;
+						foundBracket = true;
 						break;
 					}
 				}
@@ -493,11 +493,11 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 		newTotal++;
 		std::string input = iter->second;
 		int iii; int iiii;
-		bool foundBrackets = false;
+		bool foundBracket = false;
 		for (iii=0;iii<input.length();iii++){
 			if (input.at(iii) == '{'){
 				std::cout << "\n:$$$: " << input << "\n\n";
-				foundBrackets = true;
+				foundBracket = true;
 				break;
 			}
 		}
