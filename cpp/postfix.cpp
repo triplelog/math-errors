@@ -522,8 +522,8 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 		}
 		else if (startOperands){
 			if (input.at(i) == '_'){
-				indexes.push_back(startIndex+1);
-				indexes.push_back(i - (startIndex+1));
+				indexes.push_back(std::to_string(startIndex+1));
+				indexes.push_back(std::to_string(i - (startIndex+1)));
 				indexes.push_back(originalMap[currentOperator]);
 				currentOperator = 0;
 				startIndex = i;
@@ -534,7 +534,7 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 		}
 	}
 	for (i=indexes.size()/3-1;i>=0;i--){
-		input.replace(indexes[i*3],indexes[i*3+1],indexes[i*3+2]);
+		input.replace(std::stoi(indexes[i*3]),std::stoi(indexes[i*3+1]),indexes[i*3+2]);
 	}
 	return input;
 }
