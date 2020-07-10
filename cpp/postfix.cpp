@@ -511,7 +511,7 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 
 std::string fromOriginal(std::string input,flat_hash_map<int,std::string> originalMap) {
 	int i;
-	bool startOperand = false;
+	bool startOperands = false;
 	std::vector<std::string> indexes;
 	int currentOperator = 0;
 	int startIndex = 0;
