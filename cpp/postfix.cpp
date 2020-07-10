@@ -669,6 +669,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 					for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
 						if (iter->second[1] == nodeList[nodeText][0]){
 							nodeList[iter->first][1] = pname;
+							orderedKeyList.push_back(iter->first);
 						}
 					}
 				}
@@ -685,6 +686,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 					for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
 						if (iter->second[1] == name){
 							nodeList[iter->first][1] = pname;
+							orderedKeyList.push_back(iter->first);
 						}
 					}
 				}
@@ -703,6 +705,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 						for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
 							if (iter->second[1] == nodeList[nodeText][0]){
 								nodeList[iter->first][1] = pname;
+								orderedKeyList.push_back(iter->first);
 							}
 						}
 					}
@@ -719,6 +722,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 						for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
 							if (iter->second[1] == name){
 								nodeList[iter->first][1] = pname;
+								orderedKeyList.push_back(iter->first);
 							}
 						}
 					}
