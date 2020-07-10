@@ -509,6 +509,36 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 	return newMap;
 }
 
+std::string fromOriginal(std::string input,flat_hash_map<int,std::string> originalMap) {
+	int i;
+	bool startOperand = false;
+	std::vector<std::string> indexes;
+	int currentOperator = 0;
+	int startIndex = 0;
+	for (i=0;i<input.length();i++){
+		if (input.at(i) == '@'){
+			startOperands = true;
+			startIndex = i;
+		}
+		else if (startOperands){
+			if (input.at(i) == '_'){
+				indexes.push_back(startIndex+1);
+				indexes.push_back(i - (startIndex+1));
+				indexes.push_back(originalMap[currentOperator]);
+				currentOperator = 0;
+				startIndex = i;
+			}
+			else {
+				currentOperator = currentOperator*10 + (input.at(i) - '0');
+			}
+		}
+	}
+	for (i=indexes.size()/3-1;i>=0;i--){
+		input.replace(indexes[i*3],indexes[i*3+1],indexes[i*3+2]);
+	}
+	return input;
+}
+
 std::vector<std::string> makeTree(std::string pfstr){
 	std::vector<std::string> treeOptions;
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
@@ -831,7 +861,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		if (nodeList[orderedKeyList[ii]][1].length() > 0){
 			outText += "parent: "+nodeList[orderedKeyList[ii]][1] + ",\n";
 		}
-		outText += "text: { name: \"" + orderedKeyList[ii] + "\" }\n};";
+		outText += "text: { name: \"" + fromOriginal(orderedKeyList[ii],originalMap) + "\" }\n};";
 		std::cout << outText << "\n";
 		nodeString += nodeList[orderedKeyList[ii]][0] + ", ";
 	}
