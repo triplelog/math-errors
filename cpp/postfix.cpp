@@ -436,6 +436,7 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 				}
 		
 			}
+			std::string oldInput = input;
 			for (iii=indexes.size()/4-1;iii>=0;iii--){
 				std::string repText = originalMap[indexes[iii*4+2]];
 				if (newMap.find(indexes[iii*4+2]) != newMap.end()) {
@@ -470,7 +471,7 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 				bool foundBrackets = false;
 				for (iii=0;iii<input.length();iii++){
 					if (input.at(iii) == '{'){
-						std::cout << "\n::: " << input << "\n\n";
+						std::cout << "\n::: " << input << " from " << oldInput << "\n\n";
 						foundBrackets = true;
 						break;
 					}
