@@ -29,6 +29,8 @@ flat_hash_map<std::string,flat_hash_map<std::string,std::string>> allListMap;
 int duration1;
 int duration2;
 int duration3;
+int yesC;
+int noC;
 
 		
 std::string arrayToString(int n, char input[]) { 
@@ -1288,16 +1290,19 @@ std::string applyRules(std::string userFullString) {
 	
 	int iii; int iiii;
 	flat_hash_map<std::string,std::string> allParts;
-	allParts = makeList(userFullString);
-	/*
+	//allParts = makeList(userFullString);
+	
+	
 	if (allListMap.find(userFullString) != allListMap.end()){
 		allParts = allListMap[userFullString];
+		yesC++;
 	}
 	else {
 		allParts = makeList(userFullString);
 		allListMap[userFullString] = allParts;
+		noC++;
 	}
-	*/
+	
 	auto a2 = std::chrono::high_resolution_clock::now();
 	flat_hash_map<std::string,int> operandToIndex;
 	flat_hash_map<std::string,int> operandToIndexSecond;
@@ -1681,6 +1686,7 @@ int main () {
 		auto d2 = std::chrono::duration_cast<std::chrono::microseconds>( t5 - t4 ).count();
 		auto d3 = std::chrono::duration_cast<std::chrono::microseconds>( t6 - t5 ).count();
 		std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n\n";
+		std::cout << "NOYES: " << noC << " and " << yesC << "\n\n";
 		if (!changedInput){break;}
 		std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
 		
