@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title></title>
+	<!-- stylesheets -->
+	<link rel="stylesheet" href="Treant.css" type="text/css"/>
+</head>
+<body>
+	<div id="tree-simple" style="width:800px; height: 400px"> </div>
+	<!-- javascript -->
+	<script src="vendor/raphael.js"></script>
+	<script src="Treant.js"></script>
+	<script>
+		    config = {
+				container: "#tree-simple"
+			};
+			node14 = {
+text: { name: "###^*##*+#?+#?+@0_1_2_3_4_5_6_" }
+};
+node3 = {
+parent: node14,
+text: { name: "###^*@0_1_2_" }
+};
+node5 = {
+parent: node14,
+text: { name: "##*@3_4_" }
+};
+node9 = {
+parent: node14,
+text: { name: "#?@5_" }
+};
+node12 = {
+parent: node14,
+text: { name: "#?@6_" }
+};
+node13 = {
+parent: node12,
+text: { name: "#@6_" }
+};
+node11 = {
+text: { name: "###^*##*+#?+@0_1_2_3_4_5_" }
+};
+node10 = {
+parent: node9,
+text: { name: "#@5_" }
+};
+node8 = {
+text: { name: "###^*##*+@0_1_2_3_4_" }
+};
+node7 = {
+parent: node5,
+text: { name: "#@3_" }
+};
+node6 = {
+parent: node5,
+text: { name: "#@4_" }
+};
+node4 = {
+parent: node3,
+text: { name: "#@0_" }
+};
+node0 = {
+parent: node3,
+text: { name: "##^@1_2_" }
+};
+node2 = {
+parent: node0,
+text: { name: "#@1_" }
+};
+node1 = {
+parent: node0,
+text: { name: "#@2_" }
+};
+			
+			
+			simple_chart_config = [
+				config, node14, node3, node5, node9, node12, node13, node11, node10, node8, node7, node6, node4, node0, node2, node1,
+			];
+			var chart = new Treant(simple_chart_config );
+	</script>
+</body>
+</html>
