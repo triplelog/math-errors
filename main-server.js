@@ -101,6 +101,7 @@ app.get('/tree',
 );
 
 var wget = "./cpp/a.out 3+2";
+console.log(performance.now());
 var child = exec(wget, function(err, stdout, stderr) {
 	if (err){
 		console.log(err);
@@ -108,9 +109,31 @@ var child = exec(wget, function(err, stdout, stderr) {
 		return;
 	}
 	else {
-		console.log(stdout.length);
+		console.log(performance.now());
+		var len = stdout.length;
+		var nodeStr = "......";
+		var inAction = false;
+		var outStr = "";
+		for (var i=0;i<len;i++){
+			nodeStr += stdout[i];
+			nodeStr = nodeStr.substring(1,7);
+			
+			if (nodeStr == "-DOJS-"){
+				inAction = true;
+			}
+			else if (nodeStr == "-ODJS-"){
+				inAction = false;
+				break;
+			}
+			else if (inAction){
+				outStr += stdout[i];
+			}
+		}
+		console.log(outStr);
+		console.log(performance.now());
 		//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
 		//ws.send(JSON.stringify(jsonmessage));
+		
 	}
 
 });
