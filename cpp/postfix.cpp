@@ -515,7 +515,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	flat_hash_map<int,std::string> operandMap;
 	flat_hash_map<int,std::string> originalMap;
 	std::vector<std::string> finalList;
-	
+	std::vector<std::string> orderedKeyList;
 	flat_hash_map<std::string,std::vector<std::string>> nodeList;
 	int i; int ii; int iii;
 	int idx =0;
@@ -658,6 +658,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			std::string parent = "";
 			std::string nodeText = fullStr;
 			std::string pname = name;
+			nodeList[fullStr]={pname,parent};
 			
 			
 			//Child 1
@@ -669,6 +670,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 				name = "node"+std::to_string(treeIdx);
 				treeIdx++;
 				nodeList[nodeText] = {name,pname};
+				orderedKeyList.push_back(nodeText);
 			}
 			
 			if (firstStr.length() > 0){
@@ -681,9 +683,10 @@ std::vector<std::string> makeTree(std::string pfstr){
 					name = "node"+std::to_string(treeIdx);
 					treeIdx++;
 					nodeList[nodeText] = {name,pname};
+					orderedKeyList.push_back(nodeText);
 				}
 			}
-			nodeList[fullStr]={pname,parent};
+			orderedKeyList.push_back(fullStr);
 			
 			
 			
@@ -705,12 +708,13 @@ std::vector<std::string> makeTree(std::string pfstr){
 		
 	}
 	
-	std::vector<std::string> jsOutput;
+	/*std::vector<std::string> jsOutput;
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
 		jsOutput.push_back("Node: " + iter->first + " and " + iter->second[0] + " and " + iter->second[1]);
-	}
-	for (ii=jsOutput.size();ii>=0;ii--){
-		std::cout << jsOutput[ii] << "\n";
+	}*/
+	for (ii=orderedKeyList.size();ii>=0;ii--){
+		std::string outText = "Node: " + orderedKeyList[ii] + " and " + nodeList[orderedKeyList[ii]][0] + " and " + nodeList[orderedKeyList[ii]][1];
+		std::cout << outText << "\n";
 	}
 	
 	//std::cout << "\n\n---start Original-----\n";
