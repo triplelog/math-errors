@@ -671,7 +671,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 						if (iter->second[1] == nodeList[nodeText][0]){
 							nodeList[iter->first][1] = pname;
 							revList.push_back(iter->first);
-							revIdx.push_back(0);
 						}
 					}
 					int okSz = orderedKeyList.size();
