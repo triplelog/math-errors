@@ -128,7 +128,7 @@ app.get('/tree',
 				//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
 				//ws.send(JSON.stringify(jsonmessage));
 				res.write(nunjucks.render('static/treant-js-master/tree.html',{
-					tree: allStrings[0],
+					tree: allStrings[1],
 				}));
 				res.end();
 		
