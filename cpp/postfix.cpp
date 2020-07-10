@@ -655,6 +655,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		bool isInt = true;
 		std::string oldFinalList = finalList[ii*2+1];
 		std::string oldRep ="";
+		std::string oldOrig ="";
 		for (iii=0;iii<finalList[ii*2+1].length();iii++){
 			if (finalList[ii*2+1].at(iii) == '{'){
 				startIndex = iii;
@@ -683,6 +684,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		for (iii=indexes.size()/3-1;iii>=0;iii--){
 			std::string repText = bracketlessMap[indexes[iii*3+2]];
 			oldRep += repText + "|||||";
+			oldOrig += originalMap[indexes[iii*3+2]] + "|||||";
 			finalList[ii*2+1].replace(indexes[iii*3],indexes[iii*3+1],repText);
 			//std::cout << ii << "-:=2a=:- " << finalList[ii*2]+'@'+finalList[ii*2+1] << '\n';
 			
@@ -698,7 +700,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			else if (finalList[ii*2+1].at(iii) == '}'){
 				rightB++;
 				if (rightB > leftB){
-					std::cout << "\n!!!!!!!!!!!Old: " << oldFinalList << " andNew: "<< finalList[ii*2+1] << " andRep: " << oldRep << " !!!!!!!!!!!\n";
+					std::cout << "\n!!!!!!!!!!!Old: " << oldFinalList << " andNew: "<< finalList[ii*2+1] << " andRep: " << oldRep << " andOrig: " << oldOrig << " !!!!!!!!!!!\n";
 				}
 			}
 		}
