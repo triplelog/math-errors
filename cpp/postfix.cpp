@@ -467,6 +467,14 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 			}
 			if (!foundBracket){
 				newMap[iter->first]=input;
+				bool foundBrackets = false;
+				for (iii=0;iii<input.length();iii++){
+					if (input.at(iii) == '{'){
+						std::cout << "\n::: " << input << "\n\n";
+						foundBrackets = true;
+						break;
+					}
+				}
 				newTotal++;
 				nKeys--;
 			}
@@ -481,7 +489,7 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 		bool foundBrackets = false;
 		for (iii=0;iii<input.length();iii++){
 			if (input.at(iii) == '{'){
-				std::cout << "\n::: " << input << "\n\n";
+				//std::cout << "\n::: " << input << "\n\n";
 				foundBrackets = true;
 				break;
 			}
