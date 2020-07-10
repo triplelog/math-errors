@@ -653,6 +653,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		int rightB = 0;
 		
 		bool isInt = true;
+		std::string oldFinalList = finalList[ii*2+1];
 		for (iii=0;iii<finalList[ii*2+1].length();iii++){
 			if (finalList[ii*2+1].at(iii) == '{'){
 				startIndex = iii;
@@ -666,7 +667,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 					indexes.push_back(iii-(startIndex+1));
 					indexes.push_back(std::stoi(currentOperand));
 				}
-				
 				
 				currentOperand = "";
 				isInt = true;
@@ -697,7 +697,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			else if (finalList[ii*2+1].at(iii) == '}'){
 				rightB++;
 				if (rightB > leftB){
-					std::cout << "\n!!!!!!!!!!! " << finalList[ii*2+1] << " !!!!!!!!!!!\n";
+					std::cout << "\n!!!!!!!!!!!Old: " << oldFinalList << " andNew: "<< finalList[ii*2+1] << " !!!!!!!!!!!\n";
 				}
 			}
 		}
