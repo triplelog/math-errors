@@ -820,7 +820,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	std::string nodeString = "config, ";
 	for (ii=orderedKeyList.size()-1;ii>=0;ii--){
 		if (skipList.find(orderedKeyList[ii]) != skipList.end()){
-			std::cout << "skip: " << nodeList[orderedKeyList[ii]][0] << "\n";
+			//std::cout << "skip: " << nodeList[orderedKeyList[ii]][0] << "\n";
 			continue;
 		}
 		else {
