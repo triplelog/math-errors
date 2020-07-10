@@ -683,7 +683,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 					nodeList[nodeText] = {name,pname};
 				}
 			}
-			nodeList[fullStr]={name,parent};
+			nodeList[fullStr]={pname,parent};
 			
 			
 			
@@ -706,7 +706,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	}
 	
 	std::vector<std::string> jsOutput;
-	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); iter++){
+	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
 		jsOutput.push_back("Node: " + iter->first + " and " + iter->second[0] + " and " + iter->second[1]);
 	}
 	for (ii=jsOutput.size();ii>=0;ii--){
