@@ -357,7 +357,7 @@ std::string removeBracketsOne(std::string input) {
 flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> originalMap) {
 	
 	flat_hash_map<int,std::string> newMap;
-	int nKeys = 0; int count = 0; int originalTotal; int newTotal;
+	int nKeys = 0; int count = 0; int originalTotal = 0; int newTotal = 0;
 	for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
 		originalTotal++;
 		std::string input = iter->second;
