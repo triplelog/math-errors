@@ -664,8 +664,19 @@ std::vector<std::string> makeTree(std::string pfstr){
 			//Child 1
 			nodeText = secondStr + '@' + secondTtr;
 			if (nodeList.find(nodeText) != nodeList.end()){
-				nodeList[nodeText][1] = pname;
-				orderedKeyList.push_back(nodeText);
+				
+				if (secondStr.at(secondStr.length()-1) == '+' && pfstr.at(i) == '+'){
+					for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
+						if (iter->second[1] == nodeList[nodeText][0]){
+							nodeList[iter->first][1] = pname;
+						}
+					}
+				}
+				else {
+					nodeList[nodeText][1] = pname;
+					orderedKeyList.push_back(nodeText);
+				}
+				
 			}
 			else {
 				name = "node"+std::to_string(treeIdx);
@@ -1764,7 +1775,7 @@ int main () {
 	
 	
 	
-	std::string s = "ddx(3+5*2)"; 
+	std::string s = "ddx(3+4+5*2)"; 
   
 	std::string pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
