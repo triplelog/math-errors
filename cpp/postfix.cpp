@@ -474,7 +474,7 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 		bool foundBrackets = false;
 		for (iii=0;iii<input.length();iii++){
 			if (input.at(iii) == '{'){
-				//std::cout << "\n\noriginal: " << newTotal << "\n\n";
+				std::cout << "\n::: " << input << "\n\n";
 				foundBrackets = true;
 				break;
 			}
@@ -1640,7 +1640,12 @@ std::string applyRules(std::string userFullString) {
 
 int main () {
 
-	
+	duration1 = 0;
+	duration2 = 0;
+	duration3 = 0;
+	yesC = 0;
+	noC = 0;
+
 	char ddx{-69};
 	prec[ddx]=6;
     prec['^'] = 5;
