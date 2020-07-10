@@ -705,7 +705,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		
 	}
 	
-	for (flat_hash_map<std::string,std::vector<std::string>>::reverse_iterator iter = nodeList.rbegin(); iter != nodeList.rend(); iter++){
+	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.end()-1; iter >= nodeList.begin(); iter--){
 		std::cout << "Node: " << iter->first << " and " << iter->second[0] << " and " << iter->second[1] << '\n';
 	}
 	
