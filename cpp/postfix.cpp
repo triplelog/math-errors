@@ -713,7 +713,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 		jsOutput.push_back("Node: " + iter->first + " and " + iter->second[0] + " and " + iter->second[1]);
 	}*/
 	for (ii=orderedKeyList.size()-1;ii>=0;ii--){
-		std::string outText = "Node: " + orderedKeyList[ii] + " and " + nodeList[orderedKeyList[ii]][0] + " and " + nodeList[orderedKeyList[ii]][1];
 		
 		std::string outText = nodeList[orderedKeyList[ii]][0] + " = {\n";
 		if (nodeList[orderedKeyList[ii]][1].length() > 0){
