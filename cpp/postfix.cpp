@@ -653,7 +653,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			
 			
 			//Parent Node
-			std::string name = "node"+std::string(treeIdx);
+			std::string name = "node"+std::to_string(treeIdx);
 			treeIdx++;
 			std::string parent = "";
 			std::string nodeText = fullStr;
@@ -665,7 +665,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 				nodeList[nodeText][1] = nodeList[fullStr][0];
 			}
 			else {
-				name = "node"+std::string(treeIdx);
+				name = "node"+std::to_string(treeIdx);
 				treeIdx++;
 				nodeList[nodeText] = {name,nodeList[fullStr][0]};
 			}
@@ -677,7 +677,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 					nodeList[nodeText][1] = nodeList[fullStr][0];
 				}
 				else {
-					name = "node"+std::string(treeIdx);
+					name = "node"+std::to_string(treeIdx);
 					treeIdx++;
 					nodeList[nodeText] = {name,nodeList[fullStr][0]};
 				}
