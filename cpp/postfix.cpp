@@ -1764,7 +1764,7 @@ int main () {
 	
 	
 	
-	std::string s = "3+5*2"; 
+	std::string s = "ddx(3+5*2)"; 
   
 	std::string pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
