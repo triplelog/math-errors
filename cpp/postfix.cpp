@@ -865,7 +865,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		std::cout << outText << "\n";
 		nodeString += nodeList[orderedKeyList[ii]][0] + ", ";
 	}
-	std::cout << "simple_chart_config = [\n" << nodeString << "\n];\n";
+	std::cout << "simple_chart_config = [\n" << nodeString << "\n];\nvar chart = new Treant(simple_chart_config );";
 	std::cout << "-ODJS-\n";
 	
 	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
