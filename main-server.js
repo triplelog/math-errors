@@ -78,7 +78,7 @@ app.get('/tree',
 		
 		var wget = "./cpp/a.out 2+2";
 		if (req.query && req.query.q){
-			wget = "./cpp/a.out "+req.query.q;
+			wget = "./cpp/a.out \""+req.query.q+"\"";
 		}
 		console.log(performance.now(), wget);
 		var outStr = "";
