@@ -1288,6 +1288,8 @@ std::string applyRules(std::string userFullString) {
 	
 	int iii; int iiii;
 	flat_hash_map<std::string,std::string> allParts;
+	allParts = makeList(userFullString);
+	/*
 	if (allListMap.find(userFullString) != allListMap.end()){
 		allParts = allListMap[userFullString];
 	}
@@ -1295,7 +1297,7 @@ std::string applyRules(std::string userFullString) {
 		allParts = makeList(userFullString);
 		allListMap[userFullString] = allParts;
 	}
-	
+	*/
 	auto a2 = std::chrono::high_resolution_clock::now();
 	flat_hash_map<std::string,int> operandToIndex;
 	flat_hash_map<std::string,int> operandToIndexSecond;
