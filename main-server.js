@@ -84,7 +84,7 @@ app.get('/tree',
 				console.log(err);
 				//send message--likely file size limit
 				res.write(nunjucks.render('js/treant-js-master/tree.html',{
-					tree: "";
+					tree: "",
 				}));
 				res.end();
 				return;
@@ -117,7 +117,7 @@ app.get('/tree',
 				//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
 				//ws.send(JSON.stringify(jsonmessage));
 				res.write(nunjucks.render('js/treant-js-master/tree.html',{
-					tree: outStr;
+					tree: outStr,
 				}));
 				res.end();
 		
