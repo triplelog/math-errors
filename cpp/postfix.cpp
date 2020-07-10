@@ -551,6 +551,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			}
 		}
 	}
+	int treeIdx = 0;
 	for (i=0;i<pfstr.length();i++){
 		if (pfstr.at(i) == '@'){
 			break;
@@ -651,11 +652,17 @@ std::vector<std::string> makeTree(std::string pfstr){
 			
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
 			
-			std::cout << i << "-parent-: " << fullStr << '\n';
+			std::cout << secondStr + '@' + secondTtr + " = {\n";
+			std::cout << "parent: "<< fullStr << ",\n";
+			std::cout << "text: { name: \"" << secondStr + '@' + secondTtr << "\" }\n};\n";
+			/*second_child = {
+				parent: parent_node,
+				text: { name: "Second child" }
+			};
 			std::cout << i << "-child1-: " << secondStr + '@' + secondTtr << '\n';
 			if (firstStr.length() > 0){
 				std::cout << i << "-child2-: " << firstStr + '@' + firstTtr << '\n';
-			}
+			}*/
 			//
 			//for (ii=0;ii<fullTrees.size();ii++){
 			//	std::cout << i << "-:::-" << fullTrees[ii] << '\n';
