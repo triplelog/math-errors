@@ -12,7 +12,9 @@
 	<script src="treant-js-master/vendor/raphael.js"></script>
 	<script src="treant-js-master/Treant.js"></script>
 	<script>
-		    config = {
+			{{ tree }}
+			var chart = new Treant(simple_chart_config );
+		    /*config = {
 				container: "#tree-simple"
 			};
 			node14 = {
@@ -77,7 +79,7 @@ text: { name: "#@2_" }
 			simple_chart_config = [
 				config, node14, node3, node5, node9, node12, node13, node11, node10, node8, node7, node6, node4, node0, node2, node1,
 			];
-			var chart = new Treant(simple_chart_config );
+			var chart = new Treant(simple_chart_config );*/
 	</script>
 </body>
 </html>
