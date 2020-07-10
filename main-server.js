@@ -109,8 +109,9 @@ var child = exec(wget, function(err, stdout, stderr) {
 		return;
 	}
 	else {
-		console.log(performance.now());
+		
 		var len = stdout.length;
+		console.log(performance.now(), len);
 		var nodeStr = "......";
 		var inAction = false;
 		var outStr = "";
