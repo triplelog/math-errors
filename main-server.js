@@ -108,7 +108,7 @@ var child = exec(wget, function(err, stdout, stderr) {
 		return;
 	}
 	else {
-		console.log(stdout.length());
+		console.log(stdout.length);
 		//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
 		//ws.send(JSON.stringify(jsonmessage));
 	}
