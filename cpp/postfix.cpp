@@ -651,7 +651,11 @@ std::vector<std::string> makeTree(std::string pfstr){
 			
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
 			
-			std::cout << i << "-@#$%^-" << fullStr << '\n';
+			std::cout << i << "-parent-: " << fullStr << '\n';
+			std::cout << i << "-child1-: " << secondStr + '@' + secondTtr << '\n';
+			if (firstStr.length() > 0){
+				std::cout << i << "-child2-: " << firstStr + '@' + firstTtr << '\n';
+			}
 			//
 			//for (ii=0;ii<fullTrees.size();ii++){
 			//	std::cout << i << "-:::-" << fullTrees[ii] << '\n';
