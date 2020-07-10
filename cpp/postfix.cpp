@@ -715,6 +715,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		jsOutput.push_back("Node: " + iter->first + " and " + iter->second[0] + " and " + iter->second[1]);
 	}*/
 	flat_hash_map<std::string,std::string> skipList;
+	std::string nodeString = "config, ";
 	for (ii=orderedKeyList.size()-1;ii>=0;ii--){
 		if (skipList.find(orderedKeyList[ii]) != skipList.end()){
 			continue;
@@ -728,7 +729,9 @@ std::vector<std::string> makeTree(std::string pfstr){
 		}
 		outText += "text: { name: \"" + orderedKeyList[ii] + "\" }\n};";
 		std::cout << outText << "\n";
+		nodeString += nodeList[orderedKeyList[ii]][0] + ", ";
 	}
+	std::cout << nodeString << "\n";
 	
 	//std::cout << "\n\n---start Original-----\n";
 	int iiii;
