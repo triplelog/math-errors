@@ -818,6 +818,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	
 	flat_hash_map<std::string,std::string> skipList;
 	std::string nodeString = "config, ";
+	std::cout << "-DOJS-\n";
 	for (ii=orderedKeyList.size()-1;ii>=0;ii--){
 		if (skipList.find(orderedKeyList[ii]) != skipList.end()){
 			//std::cout << "skip: " << nodeList[orderedKeyList[ii]][0] << "\n";
@@ -835,7 +836,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		nodeString += nodeList[orderedKeyList[ii]][0] + ", ";
 	}
 	std::cout << nodeString << "\n";
-	
+	std::cout << "-ODJS-\n";
 	
 	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
 	//	std::cout << iter->first << " and " << iter->second << '\n';
