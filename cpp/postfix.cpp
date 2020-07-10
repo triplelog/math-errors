@@ -1292,10 +1292,10 @@ std::string applyRules(std::string userFullString) {
 	flat_hash_map<std::string,std::string> allParts;
 	//allParts = makeList(userFullString);
 	
-	
+	yesC++;
 	if (allListMap.find(userFullString) != allListMap.end()){
 		allParts = allListMap[userFullString];
-		yesC++;
+		
 	}
 	else {
 		allParts = makeList(userFullString);
