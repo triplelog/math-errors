@@ -652,9 +652,14 @@ std::vector<std::string> makeTree(std::string pfstr){
 			
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
 			
-			std::cout << secondStr + '@' + secondTtr + " = {\n";
-			std::cout << "parent: "<< fullStr << ",\n";
+			std::cout << "node" + secondStr + '@' + secondTtr + " = {\n";
+			std::cout << "parent: "<< "node" + fullStr << ",\n";
 			std::cout << "text: { name: \"" << secondStr + '@' + secondTtr << "\" }\n};\n";
+			if (firstStr.length() > 0){
+				std::cout << "node" + firstStr + '@' + firstTtr + " = {\n";
+				std::cout << "parent: "<< "node" + fullStr << ",\n";
+				std::cout << "text: { name: \"" << firstStr + '@' + firstTtr << "\" }\n};\n";
+			}
 			/*second_child = {
 				parent: parent_node,
 				text: { name: "Second child" }
