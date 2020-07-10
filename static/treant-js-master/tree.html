@@ -11,13 +11,14 @@
 		<input type="text" id="equation" name="q" value="">
   		<input type="submit" value="Submit">
 	</form>
-	<div id="tree-simple" style="width:800px; height: 400px"> </div>
+	<div id="tree-simple1" style="width:800px; height: 400px"> </div>
+	<div id="tree-simple2" style="width:800px; height: 400px"> </div>
 	<!-- javascript -->
 	<script src="treant-js-master/vendor/raphael.js"></script>
 	<script src="treant-js-master/Treant.js"></script>
 	<script>
 			{{ tree | safe}}
-			var chart = new Treant(simple_chart_config );
+			
 		    /*config = {
 				container: "#tree-simple"
 			};

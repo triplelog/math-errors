@@ -99,6 +99,7 @@ app.get('/tree',
 				var nodeStr = "......";
 				var inAction = false;
 				
+				var idx = 0;
 				for (var i=0;i<len;i++){
 					nodeStr += stdout[i];
 					nodeStr = nodeStr.substring(1,7);
@@ -114,8 +115,10 @@ app.get('/tree',
 						outStr += stdout[i];
 					}
 				}
+				outStr = outStr.replace("#tree-simple","#tree-simple"+idx);
+				outStr = outStr.replace("var chart =","var chart"+idx+" =");
 				outStr = outStr.substring(0,outStr.length-5);
-				console.log(outStr);
+				//console.log(outStr);
 				console.log(performance.now());
 				//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
 				//ws.send(JSON.stringify(jsonmessage));
