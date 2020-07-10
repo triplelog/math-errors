@@ -77,64 +77,58 @@ app.get('/tree',
 	function(req, res){
 		
 		var wget = "./cpp/a.out 3+2";
+		console.log(performance.now());
+		var outStr = "";
 		var child = exec(wget, function(err, stdout, stderr) {
 			if (err){
 				console.log(err);
 				//send message--likely file size limit
+				res.write(nunjucks.render('js/treant-js-master/tree.html',{
+					tree: "";
+				}));
+				res.end();
 				return;
 			}
 			else {
-				console.log(stdout.length());
+		
+				var len = stdout.length;
+				console.log(performance.now(), len);
+				var nodeStr = "......";
+				var inAction = false;
+				
+				for (var i=0;i<len;i++){
+					nodeStr += stdout[i];
+					nodeStr = nodeStr.substring(1,7);
+			
+					if (nodeStr == "-DOJS-"){
+						inAction = true;
+					}
+					else if (nodeStr == "-ODJS-"){
+						inAction = false;
+						break;
+					}
+					else if (inAction){
+						outStr += stdout[i];
+					}
+				}
+				outStr = outStr.substring(0,outStr.length-5);
+				console.log(outStr);
+				console.log(performance.now());
 				//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
 				//ws.send(JSON.stringify(jsonmessage));
-			}
+				res.write(nunjucks.render('js/treant-js-master/tree.html',{
+					tree: outStr;
+				}));
+				res.end();
 		
+			}
+
 		});
 		
-		res.write(nunjucks.render('js/treant-js-master/tree.html',{
-			
-		}));
-		res.end();
+		
 	
     }
     
 );
 
-var wget = "./cpp/a.out 3+2";
-console.log(performance.now());
-var child = exec(wget, function(err, stdout, stderr) {
-	if (err){
-		console.log(err);
-		//send message--likely file size limit
-		return;
-	}
-	else {
-		
-		var len = stdout.length;
-		console.log(performance.now(), len);
-		var nodeStr = "......";
-		var inAction = false;
-		var outStr = "";
-		for (var i=0;i<len;i++){
-			nodeStr += stdout[i];
-			nodeStr = nodeStr.substring(1,7);
-			
-			if (nodeStr == "-DOJS-"){
-				inAction = true;
-			}
-			else if (nodeStr == "-ODJS-"){
-				inAction = false;
-				break;
-			}
-			else if (inAction){
-				outStr += stdout[i];
-			}
-		}
-		console.log(outStr);
-		console.log(performance.now());
-		//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
-		//ws.send(JSON.stringify(jsonmessage));
-		
-	}
 
-});
