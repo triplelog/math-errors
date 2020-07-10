@@ -652,36 +652,36 @@ std::vector<std::string> makeTree(std::string pfstr){
 		int leftB = 0;
 		int rightB = 0;
 		
+		bool isInt = true;
 		for (iii=0;iii<finalList[ii*2+1].length();iii++){
 			if (finalList[ii*2+1].at(iii) == '{'){
 				startIndex = iii;
 				currentOperand = "";
-				leftB++;
+				isInt = true;
 			}
 			else if (finalList[ii*2+1].at(iii) == '}'){
-				indexes.push_back(startIndex+1);
-				indexes.push_back(iii-(startIndex+1));
-				indexes.push_back(std::stoi(currentOperand));
-				currentOperand = "";
-				rightB++;
-				if (rightB > leftB){
-					std::cout << "\n!!!!!!!!!!! " << finalList[ii*2+1] << " !!!!!!!!!!!\n";
+				
+				if (isInt){
+					indexes.push_back(startIndex+1);
+					indexes.push_back(iii-(startIndex+1));
+					indexes.push_back(std::stoi(currentOperand));
 				}
+				
+				
+				currentOperand = "";
+				isInt = true;
 			}
 			else {
 				currentOperand += finalList[ii*2+1].at(iii);
+				if (finalList[ii*2+1].at(iii) - '0' < 0 || finalList[ii*2+1].at(iii) - '0' > 9) {
+					isInt = false;
+				}
 			}
 		}
 		
 		for (iii=indexes.size()/3-1;iii>=0;iii--){
 			std::string repText = bracketlessMap[indexes[iii*3+2]];
-			bool foundBracket = false;
-			for (iiii=0;iiii<repText.length();iiii++){
-				if (repText.at(iiii) == '{'){
-					foundBracket = true;
-					break;
-				}
-			}
+			
 			finalList[ii*2+1].replace(indexes[iii*3],indexes[iii*3+1],repText);
 			//std::cout << ii << "-:=2a=:- " << finalList[ii*2]+'@'+finalList[ii*2+1] << '\n';
 			
