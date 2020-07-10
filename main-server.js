@@ -124,12 +124,17 @@ app.get('/tree',
 					}
 				}
 				
-				console.log(allStrings);
+				//console.log(allStrings);
+				outStr =  "";
+				for (var i=0;i<allStrings.length;i++){
+					outStr += allStrings[i];
+				}
 				console.log(performance.now());
 				//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
 				//ws.send(JSON.stringify(jsonmessage));
 				res.write(nunjucks.render('static/treant-js-master/tree.html',{
-					tree: allStrings[0],
+					tree: outStr,
+					nTrees: allStrings.length,
 				}));
 				res.end();
 		
