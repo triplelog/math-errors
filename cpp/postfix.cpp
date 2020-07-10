@@ -681,14 +681,54 @@ std::vector<std::string> makeTree(std::string pfstr){
 			else {
 				name = "node"+std::to_string(treeIdx);
 				treeIdx++;
-				nodeList[nodeText] = {name,pname};
-				orderedKeyList.push_back(nodeText);
+				if (secondStr.at(secondStr.length()-1) == '+' && pfstr.at(i) == '+'){
+					for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
+						if (iter->second[1] == name){
+							nodeList[iter->first][1] = pname;
+						}
+					}
+				}
+				else {
+					nodeList[nodeText] = {name,pname};
+					orderedKeyList.push_back(nodeText);
+				}
+				
 			}
 			
 			if (firstStr.length() > 0){
 				//Child 2
 				nodeText = firstStr + '@' + firstTtr;
 				if (nodeList.find(nodeText) != nodeList.end()){
+					if (firstStr.at(firstStr.length()-1) == '+' && pfstr.at(i) == '+'){
+						for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
+							if (iter->second[1] == nodeList[nodeText][0]){
+								nodeList[iter->first][1] = pname;
+							}
+						}
+					}
+					else {
+						nodeList[nodeText][1] = pname;
+						orderedKeyList.push_back(nodeText);
+					}
+				
+				}
+				else {
+					name = "node"+std::to_string(treeIdx);
+					treeIdx++;
+					if (firstStr.at(firstStr.length()-1) == '+' && pfstr.at(i) == '+'){
+						for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
+							if (iter->second[1] == name){
+								nodeList[iter->first][1] = pname;
+							}
+						}
+					}
+					else {
+						nodeList[nodeText] = {name,pname};
+						orderedKeyList.push_back(nodeText);
+					}
+				
+				}
+				/*if (nodeList.find(nodeText) != nodeList.end()){
 					nodeList[nodeText][1] = pname;
 					orderedKeyList.push_back(nodeText);
 				}
@@ -697,7 +737,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 					treeIdx++;
 					nodeList[nodeText] = {name,pname};
 					orderedKeyList.push_back(nodeText);
-				}
+				}*/
 			}
 			orderedKeyList.push_back(fullStr);
 			
