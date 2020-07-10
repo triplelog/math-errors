@@ -1245,9 +1245,9 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 	rawRules.push_back({"ddx(A*B)","A*ddx(B)+B*ddx(A)","Sum Rule."});
 	rawRules.push_back({"ddx(x^3)","3*x^2","Turn exponent into multiplication."});
 	rawRules.push_back({"A+B","=+AB","Perform addition."});
-	//rawRules.push_back({"A-B","=-AB","Perform subtraction."});
-	//rawRules.push_back({"A*B","=*AB","Perform multiplication."});
-	//rawRules.push_back({"A/B","=/AB","Perform division."});
+	rawRules.push_back({"A-B","=-AB","Perform subtraction."});
+	rawRules.push_back({"A*B","=*AB","Perform multiplication."});
+	rawRules.push_back({"A/B","=/AB","Perform division."});
 	int i; int ii;
 	std::vector<std::string> fullPost;
 	std::string key;
@@ -1675,10 +1675,11 @@ int main () {
 
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
     
+    
+    //run it again
+	/*
     t1 = std::chrono::high_resolution_clock::now();
-	
-	//run it again
-	
+
 	s = "ddx(7*(x^3+5))"; 
   
 	pfstr = postfixify(s);
@@ -1729,4 +1730,5 @@ int main () {
     duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
 
     std::cout << duration;
+    */
 }
