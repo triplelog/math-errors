@@ -665,7 +665,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			nodeText = secondStr + '@' + secondTtr;
 			if (nodeList.find(nodeText) != nodeList.end()){
 				
-				if (secondStr.at(secondStr.length()-1) == '+' && pfstr.at(i) == '+'){
+				if (secondStr.at(secondStr.length()-1) == pfstr.at(i) && ( pfstr.at(i) == '+' || pfstr.at(i) == '*') ){
 					for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
 						if (iter->second[1] == nodeList[nodeText][0]){
 							nodeList[iter->first][1] = pname;
@@ -682,7 +682,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			else {
 				name = "node"+std::to_string(treeIdx);
 				treeIdx++;
-				if (secondStr.at(secondStr.length()-1) == '+' && pfstr.at(i) == '+'){
+				if (secondStr.at(secondStr.length()-1) == pfstr.at(i) && ( pfstr.at(i) == '+' || pfstr.at(i) == '*')){
 					for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
 						if (iter->second[1] == name){
 							nodeList[iter->first][1] = pname;
@@ -701,7 +701,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 				//Child 2
 				nodeText = firstStr + '@' + firstTtr;
 				if (nodeList.find(nodeText) != nodeList.end()){
-					if (firstStr.at(firstStr.length()-1) == '+' && pfstr.at(i) == '+'){
+					if (firstStr.at(firstStr.length()-1) == pfstr.at(i) && ( pfstr.at(i) == '+' || pfstr.at(i) == '*')){
 						for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
 							if (iter->second[1] == nodeList[nodeText][0]){
 								nodeList[iter->first][1] = pname;
@@ -718,7 +718,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 				else {
 					name = "node"+std::to_string(treeIdx);
 					treeIdx++;
-					if (firstStr.at(firstStr.length()-1) == '+' && pfstr.at(i) == '+'){
+					if (firstStr.at(firstStr.length()-1) == pfstr.at(i) && ( pfstr.at(i) == '+' || pfstr.at(i) == '*')){
 						for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
 							if (iter->second[1] == name){
 								nodeList[iter->first][1] = pname;
@@ -765,10 +765,20 @@ std::vector<std::string> makeTree(std::string pfstr){
 		
 	}
 	
-	/*std::vector<std::string> jsOutput;
-	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
-		jsOutput.push_back("Node: " + iter->first + " and " + iter->second[0] + " and " + iter->second[1]);
-	}*/
+
+	
+	
+	//std::cout << "\n\n---start Original-----\n";
+	int iiii;
+	
+	//for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
+	//	std::cout << iter->first << " and " << iter->second << '\n';
+	//}
+	
+	//std::cout << "\n\n---start Bracketless-----\n";
+	flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
+	
+	
 	flat_hash_map<std::string,std::string> skipList;
 	std::string nodeString = "config, ";
 	for (ii=orderedKeyList.size()-1;ii>=0;ii--){
@@ -788,15 +798,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 	}
 	std::cout << nodeString << "\n";
 	
-	//std::cout << "\n\n---start Original-----\n";
-	int iiii;
-	
-	//for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
-	//	std::cout << iter->first << " and " << iter->second << '\n';
-	//}
-	
-	//std::cout << "\n\n---start Bracketless-----\n";
-	flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
 	
 	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
 	//	std::cout << iter->first << " and " << iter->second << '\n';
@@ -1819,7 +1820,7 @@ int main () {
 	
 	
 	
-	std::string s = "ddx(3+4+5*2)"; 
+	std::string s = "ddx(x^3+x^2+7+11*2*3)"; 
   
 	std::string pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
