@@ -674,7 +674,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 						}
 					}
 					int okSz = orderedKeyList.size();
-					for (ii=0;ii<okSz;ii--){
+					for (ii=0;ii<okSz;ii++){
 						for (iii=revList.size()-1;iii>=0;iii--){
 							if (orderedKeyList[ii] == revList[iii]){
 								orderedKeyList.push_back(revList[iii]);
@@ -701,7 +701,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 						}
 					}
 					int okSz = orderedKeyList.size();
-					for (ii=0;ii<okSz;ii--){
+					for (ii=0;ii<okSz;ii++){
 						for (iii=revList.size()-1;iii>=0;iii--){
 							if (orderedKeyList[ii] == revList[iii]){
 								orderedKeyList.push_back(revList[iii]);
@@ -729,7 +729,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 							}
 						}
 						int okSz = orderedKeyList.size();
-						for (ii=0;ii<okSz;ii--){
+						for (ii=0;ii<okSz;ii++){
 							for (iii=revList.size()-1;iii>=0;iii--){
 								if (orderedKeyList[ii] == revList[iii]){
 									orderedKeyList.push_back(revList[iii]);
@@ -755,7 +755,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 							}
 						}
 						int okSz = orderedKeyList.size();
-						for (ii=0;ii<okSz;ii--){
+						for (ii=0;ii<okSz;ii++){
 							for (iii=revList.size()-1;iii>=0;iii--){
 								if (orderedKeyList[ii] == revList[iii]){
 									orderedKeyList.push_back(revList[iii]);
