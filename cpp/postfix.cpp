@@ -686,6 +686,23 @@ std::vector<std::string> makeTree(std::string pfstr){
 			//std::cout << ii << "-:=2a=:- " << finalList[ii*2]+'@'+finalList[ii*2+1] << '\n';
 			
 		}
+		
+		leftB = 0;
+		rightB = 0;
+		
+		for (iii=0;iii<finalList[ii*2+1].length();iii++){
+			if (finalList[ii*2+1].at(iii) == '{'){
+				leftB++;
+			}
+			else if (finalList[ii*2+1].at(iii) == '}'){
+				rightB++;
+				if (rightB > leftB){
+					std::cout << "\n!!!!!!!!!!! " << finalList[ii*2+1] << " !!!!!!!!!!!\n";
+				}
+			}
+		}
+		
+		
 		if (uniqueMap.find(finalList[ii*2]+'@'+finalList[ii*2+1]) == uniqueMap.end()){
 			treeOptions.push_back(finalList[ii*2]+'@'+finalList[ii*2+1]);
 			uniqueMap[finalList[ii*2]+'@'+finalList[ii*2+1]] = 1;
