@@ -516,6 +516,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	flat_hash_map<int,std::string> originalMap;
 	std::vector<std::string> finalList;
 	
+	flat_hash_map<std::string,std::vector<std::string>> nodeList;
 	int i; int ii; int iii;
 	int idx =0;
 	char ddx{-69};
@@ -648,26 +649,42 @@ std::vector<std::string> makeTree(std::string pfstr){
 				}
 			}
 			
-			
-			
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
 			
-			std::cout << "node" + secondStr + '@' + secondTtr + " = {\n";
-			std::cout << "parent: "<< "node" + fullStr << ",\n";
-			std::cout << "text: { name: \"" << secondStr + '@' + secondTtr << "\" }\n};\n";
-			if (firstStr.length() > 0){
-				std::cout << "node" + firstStr + '@' + firstTtr + " = {\n";
-				std::cout << "parent: "<< "node" + fullStr << ",\n";
-				std::cout << "text: { name: \"" << firstStr + '@' + firstTtr << "\" }\n};\n";
+			
+			//Parent Node
+			std::string name = "node"+std::string(treeIdx);
+			treeIdx++;
+			std::string parent = "";
+			std::string nodeText = fullStr;
+			nodeList[fullStr]={name,parent};
+			
+			//Child 1
+			nodeText = secondStr + '@' + secondTtr;
+			if (nodeList.find(nodeText) != nodeList.end()){
+				nodeList[nodeText][1] = nodeList[fullStr][0];
 			}
-			/*second_child = {
-				parent: parent_node,
-				text: { name: "Second child" }
-			};
-			std::cout << i << "-child1-: " << secondStr + '@' + secondTtr << '\n';
+			else {
+				name = "node"+std::string(treeIdx);
+				treeIdx++;
+				nodeList[nodeText] = {name,nodeList[fullStr][0]};
+			}
+			
 			if (firstStr.length() > 0){
-				std::cout << i << "-child2-: " << firstStr + '@' + firstTtr << '\n';
-			}*/
+				//Child 2
+				nodeText = firstStr + '@' + firstTtr;
+				if (nodeList.find(nodeText) != nodeList.end()){
+					nodeList[nodeText][1] = nodeList[fullStr][0];
+				}
+				else {
+					name = "node"+std::string(treeIdx);
+					treeIdx++;
+					nodeList[nodeText] = {name,nodeList[fullStr][0]};
+				}
+			}
+			
+			
+			
 			//
 			//for (ii=0;ii<fullTrees.size();ii++){
 			//	std::cout << i << "-:::-" << fullTrees[ii] << '\n';
@@ -684,6 +701,10 @@ std::vector<std::string> makeTree(std::string pfstr){
 			idx++;
 		}
 		
+	}
+	
+	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
+		std::cout << "Node: " << iter->first << " and " << iter->second[0] << " and " << iter->second[1] << '\n';
 	}
 	
 	//std::cout << "\n\n---start Original-----\n";
