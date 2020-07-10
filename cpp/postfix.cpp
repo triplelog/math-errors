@@ -1820,7 +1820,7 @@ std::string applyRules(std::string userFullString) {
 	
 }
 
-int main () {
+int main (int argc, char *argv[]) {
 
 	duration1 = 0;
 	duration2 = 0;
@@ -1858,8 +1858,8 @@ int main () {
 	
 	
 	
-	std::string s = "ddx(x^3+x^2+7+11*2*3)"; 
-  
+	//std::string s = "ddx(x^3+x^2+7+11*2*3)"; 
+  	std::string s = std::to_string(argv[0]);
 	std::string pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
 	
