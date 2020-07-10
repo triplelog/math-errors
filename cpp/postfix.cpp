@@ -649,18 +649,24 @@ std::vector<std::string> makeTree(std::string pfstr){
 		int startIndex = 0;
 		
 		//std::cout << ii << "-:=1=:- " << finalList[ii*2]+'@'+finalList[ii*2+1] << '\n';
-		
+		int leftB = 0;
+		int rightB = 0;
 		
 		for (iii=0;iii<finalList[ii*2+1].length();iii++){
 			if (finalList[ii*2+1].at(iii) == '{'){
 				startIndex = iii;
 				currentOperand = "";
+				leftB++;
 			}
 			else if (finalList[ii*2+1].at(iii) == '}'){
 				indexes.push_back(startIndex+1);
 				indexes.push_back(iii-(startIndex+1));
 				indexes.push_back(std::stoi(currentOperand));
 				currentOperand = "";
+				rightB++;
+				if (rightB > leftB){
+					std::cout << "\n!!!!!!!!!!! " << finalList[ii*2+1] << " !!!!!!!!!!!\n";
+				}
 			}
 			else {
 				currentOperand += finalList[ii*2+1].at(iii);
