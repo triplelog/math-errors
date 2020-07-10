@@ -76,8 +76,11 @@ wss.on('connection', function connection(ws) {
 app.get('/tree',
 	function(req, res){
 		
-		var wget = "./cpp/a.out 3+2";
-		console.log(performance.now());
+		var wget = "./cpp/a.out 2+2";
+		if (req.query && req.query.q){
+			wget = "./cpp/a.out "+req.query.q;
+		}
+		console.log(performance.now(), wget);
 		var outStr = "";
 		var child = exec(wget, function(err, stdout, stderr) {
 			if (err){
