@@ -25,7 +25,7 @@ using phmap::flat_hash_map;
 flat_hash_map<std::string,std::string> treeMap;
 flat_hash_map<char,int> prec;
 flat_hash_map<std::string,std::vector<std::vector<std::string>>> rules;
-
+flat_hash_map<std::string,flat_hash_map<std::string,std::string>> allListMap;
 int duration1;
 int duration2;
 int duration3;
@@ -1022,16 +1022,10 @@ flat_hash_map<std::string,std::string> makeList(std::string pfstr){
 			else {
 				
 			}
-			
-			
+
 			
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
 			
-			//std::cout << i << "---" << fullStr << '\n';
-			//
-			//for (ii=0;ii<fullTrees.size();ii++){
-			//	std::cout << i << "-:::-" << fullTrees[ii] << '\n';
-			//}
 			
 			listMap[fullStr]="";
 			
@@ -1293,7 +1287,15 @@ std::string applyRules(std::string userFullString) {
 	auto a1 = std::chrono::high_resolution_clock::now();
 	
 	int iii; int iiii;
-	flat_hash_map<std::string,std::string> allParts = makeList(userFullString);
+	flat_hash_map<std::string,std::string> allParts;
+	if (allListMap.find(userFullString) != allListMap.end()){
+		allParts = allListMap[userFullString];
+	}
+	else {
+		allParts = makeList(userFullString);
+		allListMap[userFullString] = allParts;
+	}
+	
 	auto a2 = std::chrono::high_resolution_clock::now();
 	flat_hash_map<std::string,int> operandToIndex;
 	flat_hash_map<std::string,int> operandToIndexSecond;
