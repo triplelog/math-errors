@@ -106,6 +106,7 @@ app.get('/tree',
 					nodeStr = nodeStr.substring(1,7);
 			
 					if (nodeStr == "-DOJS-"){
+						console.log("Hi");
 						inAction = true;
 					}
 					else if (nodeStr == "-ODJS-"){
