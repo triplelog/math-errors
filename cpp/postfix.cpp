@@ -357,6 +357,7 @@ std::string removeBracketsOne(std::string input) {
 flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> originalMap) {
 	
 	flat_hash_map<int,std::string> newMap;
+	flat_hash_map<int,std::string> tempMap;
 	int nKeys = 0; int count = 0; int originalTotal = 0; int newTotal = 0;
 	for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
 		originalTotal++;
@@ -388,7 +389,9 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 			}
 			//std::cout << iter->first << " and " << iter->second << '\n';
 			std::string input = iter->second;
-	
+			if (tempMap.find(iter->first) != tempMap.end()){
+				input = tempMap[iter->first];
+			}
 			std::vector<int> indexes; //start,length,iidx,idx of #
 			flat_hash_map<int,int> operandToIndex;
 			std::string currentOperand = "";
@@ -463,21 +466,24 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 				if (!foundBracket){
 					input.replace(indexes[iii*4]-1,indexes[iii*4+1]+3,secondText);
 					input.replace(indexes[iii*4+3],1,firstText);
+					break;
 				}
 		
 			}
 			if (!foundBracket){
-				newMap[iter->first]=input;
+				tempMap[iter->first]=input;
 				bool foundBrackets = false;
 				for (iii=0;iii<input.length();iii++){
 					if (input.at(iii) == '{'){
-						std::cout << "\n::: " << input << " from " << oldInput << "\n\n";
 						foundBrackets = true;
 						break;
 					}
 				}
-				newTotal++;
-				nKeys--;
+				if (!foundBracket){
+					newMap[iter->first]=input;
+					newTotal++;
+					nKeys--;
+				}
 			}
 		}
 		count++;
@@ -490,7 +496,7 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 		bool foundBrackets = false;
 		for (iii=0;iii<input.length();iii++){
 			if (input.at(iii) == '{'){
-				//std::cout << "\n::: " << input << "\n\n";
+				std::cout << "\n::: " << input << "\n\n";
 				foundBrackets = true;
 				break;
 			}
