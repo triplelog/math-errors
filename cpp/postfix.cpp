@@ -657,31 +657,33 @@ std::vector<std::string> makeTree(std::string pfstr){
 			treeIdx++;
 			std::string parent = "";
 			std::string nodeText = fullStr;
-			nodeList[fullStr]={name,parent};
+			std::string pname = name;
+			
 			
 			//Child 1
 			nodeText = secondStr + '@' + secondTtr;
 			if (nodeList.find(nodeText) != nodeList.end()){
-				nodeList[nodeText][1] = nodeList[fullStr][0];
+				nodeList[nodeText][1] = pname;
 			}
 			else {
 				name = "node"+std::to_string(treeIdx);
 				treeIdx++;
-				nodeList[nodeText] = {name,nodeList[fullStr][0]};
+				nodeList[nodeText] = {name,pname};
 			}
 			
 			if (firstStr.length() > 0){
 				//Child 2
 				nodeText = firstStr + '@' + firstTtr;
 				if (nodeList.find(nodeText) != nodeList.end()){
-					nodeList[nodeText][1] = nodeList[fullStr][0];
+					nodeList[nodeText][1] = pname;
 				}
 				else {
 					name = "node"+std::to_string(treeIdx);
 					treeIdx++;
-					nodeList[nodeText] = {name,nodeList[fullStr][0]};
+					nodeList[nodeText] = {name,pname};
 				}
 			}
+			nodeList[fullStr]={name,parent};
 			
 			
 			
@@ -703,7 +705,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		
 	}
 	
-	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
+	for (flat_hash_map<std::string,std::vector<std::string>>::reverse_iterator iter = nodeList.rbegin(); iter != nodeList.rend(); iter++){
 		std::cout << "Node: " << iter->first << " and " << iter->second[0] << " and " << iter->second[1] << '\n';
 	}
 	
