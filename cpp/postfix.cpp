@@ -1679,16 +1679,16 @@ int main () {
 	
 	//run it again
 	
-	std::string s = "ddx(7*(x^3+5))"; 
+	s = "ddx(7*(x^3+5))"; 
   
-	std::string pfstr = postfixify(s);
+	pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
 	
 	
-	std::string newPostfix = pfstr;
-	std::string oldPostfix = "";
+	newPostfix = pfstr;
+	oldPostfix = "";
 	
-	int maxSteps = 5;
+	maxSteps = 5;
 	while (newPostfix != oldPostfix && maxSteps >=0){
 		auto t3 = std::chrono::high_resolution_clock::now();
 		newPostfix = removeBracketsOne(newPostfix);
