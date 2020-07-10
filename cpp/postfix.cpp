@@ -651,7 +651,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
 			
-			//std::cout << i << "---" << fullStr << '\n';
+			std::cout << i << "-@#$%^-" << fullStr << '\n';
 			//
 			//for (ii=0;ii<fullTrees.size();ii++){
 			//	std::cout << i << "-:::-" << fullTrees[ii] << '\n';
@@ -1701,7 +1701,7 @@ int main () {
 	
 	
 	
-	std::string s = "ddx(x^3*x^2)"; 
+	std::string s = "3+5*2"; 
   
 	std::string pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
