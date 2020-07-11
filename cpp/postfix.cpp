@@ -1008,7 +1008,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		
 		
 	}
-	nodeString += "];\n"
+	nodeString += "];\n";
 	std::cout << "simple_chart_config = [\n" << nodeString << "\n];\nvar chart = new Treant(simple_chart_config );";
 	std::cout << "-ODJS-\n";
 	
