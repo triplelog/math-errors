@@ -1002,7 +1002,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 				outText += "parent: "+ parent + ",\n";
 			}
 		
-			outText += "innerHTML: \"<span class=\"katex\">" + latexMap[name] + "</span>\"\n};";
+			outText += "innerHTML: \"<span class='katex'>" + latexMap[name] + "</span>\"\n};";
 			std::cout << outText << "\n";
 			nodeString += nodeList[orderedKeyList[ii]][0] + ", ";
 		}
