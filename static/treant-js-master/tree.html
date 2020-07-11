@@ -4,7 +4,6 @@
 	<meta charset="utf-8"/>
 	<title></title>
 	<!-- stylesheets -->
-	<link rel="stylesheet" href="treant-js-master/Treant.css" type="text/css"/>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
 	<link rel="stylesheet" href="https://unpkg.com/treeflex/dist/css/treeflex.css">
 </head>
@@ -29,8 +28,6 @@
 	{% endfor %}
 	<!-- javascript -->
 	<script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-	<script src="treant-js-master/vendor/raphael.js"></script>
-	<script src="treant-js-master/Treant.js"></script>
 	<script>
 			{{ tree | safe}}
 			/*nodes = {};
@@ -65,29 +62,15 @@
 					}
 					
 				}
-				else{
+				else if (i==0){
 					document.getElementById('tree-here').appendChild(node);
 				}
 				
 			}
-		    /*config = {
-				container: "#tree-simple"
-			};
-			node14 = {
-			text: { name: "###^*##*+#?+#?+@0_1_2_3_4_5_6_" }
-			};
-			node3 = {
-			parent: node14,
-			text: { name: "###^*@0_1_2_" }
-			};
-
-			simple_chart_config = [
-				config, node14, node3,
-			];
-			var chart = new Treant(simple_chart_config );*/
+		    
 	</script>
 	<script>
-		var katexElements = document.querySelectorAll('div.node');
+		var katexElements = document.querySelectorAll('#tree-here span.tf-nc');
 		for (var i=0;i<katexElements.length;i++){
 			var el = katexElements[i];
 			katex.render(el.textContent, el, {
