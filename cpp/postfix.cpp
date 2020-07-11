@@ -165,8 +165,9 @@ std::string subTwoInts(std::string a, std::string b){
 
 std::string toLatex(std::vector<std::string> input){
 	int i; int ii;
-	flat_hash_map<std::string,std::vector<std::string>> latexMap;
-	latexMap[""]={};
+	flat_hash_map<std::string,std::string> latexMap;
+	flat_hash_map<std::string,std::vector<int>> childMap;
+	childMap[""]={};
 	for (i=0;i<input.size()/3;i++){
 		//std::cout << input[i*3] << "\n";
 		//std::cout << input[i*3+1] << "\n";
@@ -188,31 +189,31 @@ std::string toLatex(std::vector<std::string> input){
 				firstOperand += input[i*3+2].at(ii);
 			}
 		}
-		latexMap[input[i*3]]={};
+		latexMap[input[i*3]]="";
+		childMap[input[i*3]]={};
+		childMap[input[i*3+1]].push_back(i*3);
 		if (lastOp == '#'){
-			latexMap[input[i*3+1]].push_back(firstOperand);
+			latexMap[input[i*3]]=firstOperand;
 			//std::cout << firstOperand << " is first s\n";
 		}
 	}
 	for (i=0;i<input.size()/3;i++){
-		char lastOp = '#';
-		for (ii=0;ii<input[i*3+2].size();ii++){
-			if (input[i*3+2].at(ii) == '@'){
+		bool allChildren = true;
+		std::string s = "";
+		for (ii=0;ii<childMap[input[i*3]].size();ii++){
+			if (latexMap[input[childMap[input[i*3]][ii]]] = ""){
+				allChildren = false;
 				break;
 			}
 			else {
-				lastOp = input[i*3+2].at(ii);
-			}
-		}
-		if (lastOp != '#'){
-			std::string s = "";
-			for (ii=0;ii<latexMap[input[i*3]].size();ii++){
 				if (ii > 0){
 					s += lastOp;
 				}
-				s += latexMap[input[i*3]][ii];
+				s += latexMap[input[childMap[input[i*3]][ii]]];
 			}
-			latexMap[input[i*3+1]].push_back(s);
+		}
+		if (allChildren){
+			latexMap[input[i*3]]=s;
 			std::cout << s << " is s\n";
 		}
 	}
