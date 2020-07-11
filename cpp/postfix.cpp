@@ -163,7 +163,7 @@ std::string subTwoInts(std::string a, std::string b){
 	return std::to_string(div);
 }
 
-std::string toLatex(std::vector<std::string> input){
+flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 	int i; int ii;
 	flat_hash_map<std::string,std::string> latexMap;
 	flat_hash_map<std::string,char> lastOpMap;
@@ -201,51 +201,35 @@ std::string toLatex(std::vector<std::string> input){
 			lastOpMap[input[i*3]]=lastOp;
 		}
 	}
-	for (i=0;i<input.size()/3;i++){
-		bool allChildren = true;
-		std::string s = "";
-		for (ii=0;ii<childMap[input[i*3]].size();ii++){
-			std::string child = childMap[input[i*3]][ii]; //is name of child
-			if (latexMap[child] == ""){
-				allChildren = false;
-				break;
-			}
-			else {
-				if (ii > 0){
-					s += lastOpMap[input[i*3]];
+	int newLatex = 1;
+	while (newLatex>0){
+		newLatex = 0;
+		for (i=0;i<input.size()/3;i++){
+			bool allChildren = true;
+			std::string s = "";
+			for (ii=0;ii<childMap[input[i*3]].size();ii++){
+				std::string child = childMap[input[i*3]][ii]; //is name of child
+				if (latexMap[child] == ""){
+					allChildren = false;
+					break;
 				}
-				s += latexMap[child];
+				else {
+					if (ii > 0){
+						s += lastOpMap[input[i*3]];
+					}
+					s += latexMap[child];
+				}
 			}
-		}
-		if (allChildren && latexMap[input[i*3]]==""){
-			latexMap[input[i*3]]=s;
-			std::cout << "\ns: "<< s << " is s for " << input[i*3] << "\n";
+			if (allChildren && latexMap[input[i*3]]==""){
+				newLatex++;
+				latexMap[input[i*3]]=s;
+				//std::cout << "\ns: "<< s << " is s for " << input[i*3] << "\n";
+			}
 		}
 	}
+
 	
-	for (i=0;i<input.size()/3;i++){
-		bool allChildren = true;
-		std::string s = "";
-		for (ii=0;ii<childMap[input[i*3]].size();ii++){
-			std::string child = childMap[input[i*3]][ii]; //is name of child
-			if (latexMap[child] == ""){
-				allChildren = false;
-				break;
-			}
-			else {
-				if (ii > 0){
-					s += lastOpMap[input[i*3]];
-				}
-				s += latexMap[child];
-			}
-		}
-		if (allChildren && latexMap[input[i*3]]==""){
-			latexMap[input[i*3]]=s;
-			std::cout << "\ns: "<< s << " is s for " << input[i*3] << "\n";
-		}
-	}
-	
-	return "tmep";
+	return latexMap;
 }
 
 std::vector<std::string> makePostVector(char infixexpr[]) {
@@ -951,19 +935,42 @@ std::vector<std::string> makeTree(std::string pfstr){
 		std::string name = nodeList[orderedKeyList[ii]][0];
 		std::string parent = nodeList[orderedKeyList[ii]][1];
 		std::string postfix = fromOriginal(orderedKeyList[ii],originalMap);
-		
-		std::string outText = name + " = {\n";
-		if (parent.length() > 0){
-			outText += "parent: "+ parent + ",\n";
-		}
-		outText += "text: { name: \"" + postfix + "\" }\n};";
-		std::cout << outText << "\n";
-		nodeString += nodeList[orderedKeyList[ii]][0] + ", ";
 		forLatex.push_back(name);
 		forLatex.push_back(parent);
 		forLatex.push_back(postfix);
+		
+		
 	}
-	toLatex(forLatex);
+	flat_hash_map<std::string,std::string> latexMap =toLatex(forLatex);
+	
+	skipList.resize(0);
+	for (ii=orderedKeyList.size()-1;ii>=0;ii--){
+		if (skipList.find(orderedKeyList[ii]) != skipList.end()){
+			//std::cout << "skip: " << nodeList[orderedKeyList[ii]][0] << "\n";
+			continue;
+		}
+		else {
+			skipList[orderedKeyList[ii]] = "";
+		}
+		
+		std::string name = nodeList[orderedKeyList[ii]][0];
+		std::string parent = nodeList[orderedKeyList[ii]][1];
+		std::string postfix = fromOriginal(orderedKeyList[ii],originalMap);
+
+		if (latexMap.find(name) != latexMap.end()){
+			std::string outText = name + " = {\n";
+			if (parent.length() > 0){
+				outText += "parent: "+ parent + ",\n";
+			}
+		
+			outText += "text: { name: \"" + latexMap[name] + "\" }\n};";
+			std::cout << outText << "\n";
+			nodeString += nodeList[orderedKeyList[ii]][0] + ", ";
+		}
+		
+		
+	}
+	
 	std::cout << "simple_chart_config = [\n" << nodeString << "\n];\nvar chart = new Treant(simple_chart_config );";
 	std::cout << "-ODJS-\n";
 	
