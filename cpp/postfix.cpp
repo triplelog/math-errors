@@ -217,7 +217,7 @@ std::string toLatex(std::vector<std::string> input){
 				s += latexMap[child];
 			}
 		}
-		if (allChildren){
+		if (allChildren && latexMap[input[i*3]]==""){
 			latexMap[input[i*3]]=s;
 			std::cout << "\ns: "<< s << " is s for " << input[i*3] << "\n";
 		}
@@ -239,7 +239,7 @@ std::string toLatex(std::vector<std::string> input){
 				s += latexMap[child];
 			}
 		}
-		if (allChildren){
+		if (allChildren && latexMap[input[i*3]]==""){
 			latexMap[input[i*3]]=s;
 			std::cout << "\ns: "<< s << " is s for " << input[i*3] << "\n";
 		}
