@@ -164,12 +164,45 @@ std::string subTwoInts(std::string a, std::string b){
 }
 
 std::string toLatex(std::vector<std::string> input){
-	int i;
-	for (i=input.size()/3-1;i>=0;i--){
+	int i; int ii;
+	flat_hash_map<std::string,std::vector<std::string>> latexMap;
+	latexMap[""]={};
+	for (i=0;i<input.size()/3;i++){
 		std::cout << input[i*3] << "\n";
 		std::cout << input[i*3+1] << "\n";
 		std::cout << input[i*3+2] << "\n";
+		char lastOp = '#';
+		for (ii=0;ii<input[i*3+2].size();ii++){
+			if (input[i*3+2].at(ii) == '@'){
+				break;
+			}
+			else {
+				lastOp = input[i*3+2].at(ii);
+			}
+		}
+		latexMap[input[i*3]]={};
+		if (lastOp == '#'){
+			latexMap[input[i*3+1]].push_back(input[i*3+2].at(2));
+		}
 	}
+	for (i=0;i<input.size()/3;i++){
+		std::cout << latexMap[input[i*3]] << " is Lateexed\n";
+		char lastOp = '#';
+		for (ii=0;ii<input[i*3+2].size();ii++){
+			if (input[i*3+2].at(ii) == '@'){
+				break;
+			}
+			else {
+				lastOp = input[i*3+2].at(ii);
+			}
+		}
+		if (lastOp != '#'){
+			std::string s = latexMap[input[i*3]][0];
+			latexMap[input[i*3+1]].push_back(s);
+			std::cout << s << " is s\n";
+		}
+	}
+	
 	return "tmep";
 }
 
