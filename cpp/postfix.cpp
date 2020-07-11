@@ -191,7 +191,7 @@ std::string toLatex(std::vector<std::string> input){
 		}
 		latexMap[input[i*3]]="";
 		childMap[input[i*3]]={};
-		childMap[input[i*3+1]].push_back(i*3);
+		childMap[input[i*3+1]].push_back(input[i*3]);
 		if (lastOp == '#'){
 			latexMap[input[i*3]]=firstOperand;
 			//std::cout << firstOperand << " is first s\n";
@@ -201,7 +201,8 @@ std::string toLatex(std::vector<std::string> input){
 		bool allChildren = true;
 		std::string s = "";
 		for (ii=0;ii<childMap[input[i*3]].size();ii++){
-			if (latexMap[input[childMap[input[i*3]][ii]]] = ""){
+			std::string child = childMap[input[i*3]][ii]; //is name of child
+			if (latexMap[child] = ""){
 				allChildren = false;
 				break;
 			}
