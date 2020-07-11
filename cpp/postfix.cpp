@@ -1009,7 +1009,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		
 	}
 	nodeString += "];\n";
-	std::cout << "simple_chart_config = [\n" << nodeString << "\n];\nvar chart = new Treant(simple_chart_config );";
+	std::cout <<  nodeString << "\n";
 	std::cout << "-ODJS-\n";
 	
 	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
