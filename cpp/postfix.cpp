@@ -195,6 +195,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 		childMap[input[i*3+1]].push_back(input[i*3]);
 		if (lastOp == '#'){
 			latexMap[input[i*3]]=firstOperand;
+			lastOpMap[input[i*3]]=1000;
 			//std::cout << firstOperand << " is first s\n";
 		}
 		else {
@@ -218,7 +219,12 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 					if (ii > 0){
 						s += lastOpMap[input[i*3]];
 					}
-					s += latexMap[child];
+					if (prec[lastOpMap[input[i*3]]] > prec[lastOpMap[child]]){
+						s += "("+latexMap[child]+")";
+					}
+					else {
+						s += latexMap[child];
+					}
 				}
 			}
 			if (allChildren && latexMap[input[i*3]]=="" && s != ""){
