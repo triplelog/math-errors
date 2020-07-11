@@ -89,5 +89,14 @@ text: { name: "#@2_" }
 			];
 			var chart = new Treant(simple_chart_config );*/
 	</script>
+	<script>
+		var katexElements = document.querySelectorAll('span.katex');
+		for (var i=0;i<katexElements.length;i++){
+			var el = katexElements[i];
+			katex.render(el.textContent, el, {
+				throwOnError: false
+			});
+		}
+	</script>
 </body>
 </html>
