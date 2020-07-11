@@ -182,11 +182,12 @@ std::string toLatex(std::vector<std::string> input){
 		}
 		latexMap[input[i*3]]={};
 		if (lastOp == '#'){
-			latexMap[input[i*3+1]].push_back(""+input[i*3+2].at(2));
+			std::string s = ""+input[i*3+2].at(2);
+			latexMap[input[i*3+1]].push_back(s);
+			std::cout << s << " is first s\n";
 		}
 	}
 	for (i=0;i<input.size()/3;i++){
-		std::cout << latexMap[input[i*3]][0] << " is Lateexed\n";
 		char lastOp = '#';
 		for (ii=0;ii<input[i*3+2].size();ii++){
 			if (input[i*3+2].at(ii) == '@'){
