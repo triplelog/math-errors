@@ -168,9 +168,9 @@ std::string toLatex(std::vector<std::string> input){
 	flat_hash_map<std::string,std::vector<std::string>> latexMap;
 	latexMap[""]={};
 	for (i=0;i<input.size()/3;i++){
-		std::cout << input[i*3] << "\n";
-		std::cout << input[i*3+1] << "\n";
-		std::cout << input[i*3+2] << "\n";
+		//std::cout << input[i*3] << "\n";
+		//std::cout << input[i*3+1] << "\n";
+		//std::cout << input[i*3+2] << "\n";
 		char lastOp = '#';
 		bool foundAt = false;
 		std::string firstOperand = "";
@@ -191,7 +191,7 @@ std::string toLatex(std::vector<std::string> input){
 		latexMap[input[i*3]]={};
 		if (lastOp == '#'){
 			latexMap[input[i*3+1]].push_back(firstOperand);
-			std::cout << firstOperand << " is first s\n";
+			//std::cout << firstOperand << " is first s\n";
 		}
 	}
 	for (i=0;i<input.size()/3;i++){
@@ -208,7 +208,7 @@ std::string toLatex(std::vector<std::string> input){
 			std::string s = "";
 			for (ii=0;ii<latexMap[input[i*3]].size();ii++){
 				if (ii > 0){
-					s += " + ";
+					s += lastOp;
 				}
 				s += latexMap[input[i*3]][ii];
 			}
