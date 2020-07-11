@@ -6,12 +6,28 @@
 	<!-- stylesheets -->
 	<link rel="stylesheet" href="treant-js-master/Treant.css" type="text/css"/>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/treeflex/dist/css/treeflex.css">
 </head>
 <body>
 	 <form action="/tree" method="get"> 
 		<input type="text" id="equation" name="q" value="">
   		<input type="submit" value="Submit">
 	</form>
+	
+
+	<div class="tf-tree">
+	  <ul>
+		<li>
+		  <span class="tf-nc">1</span>
+		  <ul>
+			<li><span class="tf-nc">2</span></li>
+			<li><span class="tf-nc">3</span></li>
+		  </ul>
+		</li>
+	  </ul>
+	</div>
+
+
 	{% for i in range(0,nTrees) %}
 		<div id="tree-simple{{ i }}" style="width:800px; height: 400px"> </div>
 	{% endfor %}
