@@ -223,7 +223,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 						}
 						else {
 							if (prec[lastOpMap[input[i*3]]] > prec[lastOpMap[child]]){
-								s += "\\left("+latexMap[child]+"\\right)";
+								s += "\\\\left("+latexMap[child]+"\\\\right)";
 							}
 							else {
 								s += latexMap[child];
@@ -232,7 +232,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 						
 					}
 					else if (lastOpMap[input[i*3]] == -69){
-						s += "\\frac{d}{dx}\\left["+latexMap[child]+"\\right]";
+						s += "\\\\frac{d}{dx}\\\\left["+latexMap[child]+"\\\\right]";
 					}
 					else if (lastOpMap[input[i*3]] == '/'){
 						
@@ -241,7 +241,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 						if (ii > 0){
 						
 							if (lastOpMap[input[i*3]] == '*'){
-								s += "\\cdot ";
+								s += "\\\\cdot ";
 							}
 							else {
 								s += lastOpMap[input[i*3]];
@@ -1002,7 +1002,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 				outText += "parent: "+ parent + ",\n";
 			}
 		
-			outText += "innerHTML: \"" + latexMap[name] + "\"\n};";
+			outText += "innerHTML: \"<span class=\"katex\">" + latexMap[name] + "</span>\"\n};";
 			std::cout << outText << "\n";
 			nodeString += nodeList[orderedKeyList[ii]][0] + ", ";
 		}
