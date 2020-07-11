@@ -202,7 +202,7 @@ std::string toLatex(std::vector<std::string> input){
 		std::string s = "";
 		for (ii=0;ii<childMap[input[i*3]].size();ii++){
 			std::string child = childMap[input[i*3]][ii]; //is name of child
-			if (latexMap[child] = ""){
+			if (latexMap[child] == ""){
 				allChildren = false;
 				break;
 			}
