@@ -167,6 +167,7 @@ std::string toLatex(flat_hash_map<std::string,std::vector<std::string>> input){
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = input.begin(); iter != input.end(); ++iter){
 		std::cout << iter->first << "\n";
 	}
+	return "tmep";
 }
 
 std::vector<std::string> makePostVector(char infixexpr[]) {
