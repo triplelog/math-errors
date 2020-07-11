@@ -172,19 +172,26 @@ std::string toLatex(std::vector<std::string> input){
 		std::cout << input[i*3+1] << "\n";
 		std::cout << input[i*3+2] << "\n";
 		char lastOp = '#';
+		bool foundAt = false;
+		std::string firstOperand = "";
 		for (ii=0;ii<input[i*3+2].size();ii++){
 			if (input[i*3+2].at(ii) == '@'){
+				foundAt = true;
+			}
+			else if (!foundAt){
+				lastOp = input[i*3+2].at(ii);
+			}
+			else if (input[i*3+2].at(ii) == '_'){
 				break;
 			}
 			else {
-				lastOp = input[i*3+2].at(ii);
+				firstOperand += input[i*3+2].at(ii);
 			}
 		}
 		latexMap[input[i*3]]={};
 		if (lastOp == '#'){
-			std::string s = ""+input[i*3+2].at(2);
-			latexMap[input[i*3+1]].push_back(s);
-			std::cout << s << " is first s\n";
+			latexMap[input[i*3+1]].push_back(firstOperand);
+			std::cout << firstOperand << " is first s\n";
 		}
 	}
 	for (i=0;i<input.size()/3;i++){
