@@ -186,7 +186,7 @@ std::string toLatex(std::vector<std::string> input){
 		}
 	}
 	for (i=0;i<input.size()/3;i++){
-		std::cout << latexMap[input[i*3]] << " is Lateexed\n";
+		std::cout << latexMap[input[i*3]][0] << " is Lateexed\n";
 		char lastOp = '#';
 		for (ii=0;ii<input[i*3+2].size();ii++){
 			if (input[i*3+2].at(ii) == '@'){
