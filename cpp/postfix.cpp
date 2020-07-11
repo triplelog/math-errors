@@ -205,7 +205,13 @@ std::string toLatex(std::vector<std::string> input){
 			}
 		}
 		if (lastOp != '#'){
-			std::string s = latexMap[input[i*3]][0];
+			std::string s = "";
+			for (ii=0;ii<latexMap[input[i*3]].size();ii++){
+				if (ii > 0){
+					s += " + ";
+				}
+				s += latexMap[input[i*3]][ii];
+			}
 			latexMap[input[i*3+1]].push_back(s);
 			std::cout << s << " is s\n";
 		}
