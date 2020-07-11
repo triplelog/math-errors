@@ -232,7 +232,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 						
 					}
 					else if (lastOpMap[input[i*3]] == -69){
-						s += "\\frac{d}{dx}\\left("+latexMap[child]+"\\right)";
+						s += "\\frac{d}{dx}\\left["+latexMap[child]+"\\right]";
 					}
 					else if (lastOpMap[input[i*3]] == '/'){
 						
@@ -1002,7 +1002,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 				outText += "parent: "+ parent + ",\n";
 			}
 		
-			outText += "text: { name: \"" + latexMap[name] + "\" }\n};";
+			outText += "innerHTML: \"" + latexMap[name] + "\"\n};";
 			std::cout << outText << "\n";
 			nodeString += nodeList[orderedKeyList[ii]][0] + ", ";
 		}
