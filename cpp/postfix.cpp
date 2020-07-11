@@ -216,14 +216,45 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 					break;
 				}
 				else {
-					if (ii > 0){
-						s += lastOpMap[input[i*3]];
+					if (lastOpMap[input[i*3]] == '^'){
+						if (ii > 0){
+							s += "^{";
+							s += latexMap[child]+"}";
+						}
+						else {
+							if (prec[lastOpMap[input[i*3]]] > prec[lastOpMap[child]]){
+								s += "\left("+latexMap[child]+"\right)";
+							}
+							else {
+								s += latexMap[child];
+							}
+						}
+						
 					}
-					if (prec[lastOpMap[input[i*3]]] > prec[lastOpMap[child]]){
-						s += "("+latexMap[child]+")";
+					else if (lastOpMap[input[i*3]] == -69){
+						s += "\frac{d}{dx}\left("+latexMap[child]+"\right)";
+					}
+					else if (lastOpMap[input[i*3]] == '/'){
+						
 					}
 					else {
-						s += latexMap[child];
+						if (ii > 0){
+						
+							if (lastOpMap[input[i*3]] == '*'){
+								s += "\cdot ";
+							}
+							else {
+								s += lastOpMap[input[i*3]];
+							}
+						
+						}
+					
+						if (prec[lastOpMap[input[i*3]]] > prec[lastOpMap[child]]){
+							s += "("+latexMap[child]+")";
+						}
+						else {
+							s += latexMap[child];
+						}
 					}
 				}
 			}
