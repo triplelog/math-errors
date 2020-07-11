@@ -166,6 +166,7 @@ std::string subTwoInts(std::string a, std::string b){
 std::string toLatex(std::vector<std::string> input){
 	int i; int ii;
 	flat_hash_map<std::string,std::string> latexMap;
+	flat_hash_map<std::string,char> lastOpMap;
 	flat_hash_map<std::string,std::vector<std::string>> childMap;
 	childMap[""]={};
 	for (i=0;i<input.size()/3;i++){
@@ -196,6 +197,9 @@ std::string toLatex(std::vector<std::string> input){
 			latexMap[input[i*3]]=firstOperand;
 			//std::cout << firstOperand << " is first s\n";
 		}
+		else {
+			lastOpMap[input[i*3]]=lastOp;
+		}
 	}
 	for (i=0;i<input.size()/3;i++){
 		bool allChildren = true;
@@ -208,14 +212,36 @@ std::string toLatex(std::vector<std::string> input){
 			}
 			else {
 				if (ii > 0){
-					s += "+";
+					s += lastOpMap[input[i*3]];
 				}
 				s += latexMap[child];
 			}
 		}
 		if (allChildren){
 			latexMap[input[i*3]]=s;
-			std::cout << "\ns: "<< s << " is s\n";
+			std::cout << "\ns: "<< s << " is s for " << input[i*3] << "\n";
+		}
+	}
+	
+	for (i=0;i<input.size()/3;i++){
+		bool allChildren = true;
+		std::string s = "";
+		for (ii=0;ii<childMap[input[i*3]].size();ii++){
+			std::string child = childMap[input[i*3]][ii]; //is name of child
+			if (latexMap[child] == ""){
+				allChildren = false;
+				break;
+			}
+			else {
+				if (ii > 0){
+					s += lastOpMap[input[i*3]];
+				}
+				s += latexMap[child];
+			}
+		}
+		if (allChildren){
+			latexMap[input[i*3]]=s;
+			std::cout << "\ns: "<< s << " is s for " << input[i*3] << "\n";
 		}
 	}
 	
