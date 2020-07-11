@@ -207,7 +207,7 @@ std::string toLatex(std::vector<std::string> input){
 			}
 			else {
 				if (ii > 0){
-					s += lastOp;
+					s += "+";
 				}
 				s += latexMap[input[childMap[input[i*3]][ii]]];
 			}
