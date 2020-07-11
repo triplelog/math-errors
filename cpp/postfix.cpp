@@ -232,7 +232,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 						
 					}
 					else if (lastOpMap[input[i*3]] == -69){
-						s += "\\frac{d}{dx}\left("+latexMap[child]+"\\right)";
+						s += "\\frac{d}{dx}\\left("+latexMap[child]+"\\right)";
 					}
 					else if (lastOpMap[input[i*3]] == '/'){
 						
