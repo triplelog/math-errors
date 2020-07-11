@@ -202,7 +202,8 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 		}
 	}
 	int newLatex = 1;
-	while (newLatex>0){
+	int count =0;
+	while (newLatex>0 && count < 1000){
 		newLatex = 0;
 		for (i=0;i<input.size()/3;i++){
 			bool allChildren = true;
@@ -220,12 +221,13 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 					s += latexMap[child];
 				}
 			}
-			if (allChildren && latexMap[input[i*3]]==""){
+			if (allChildren && latexMap[input[i*3]]=="" && s != ""){
 				newLatex++;
 				latexMap[input[i*3]]=s;
 				//std::cout << "\ns: "<< s << " is s for " << input[i*3] << "\n";
 			}
 		}
+		count++;
 	}
 
 	
