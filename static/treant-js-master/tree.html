@@ -40,7 +40,6 @@
 			allNodes = ["node0","node1","node2"];
 			var jsonTree = {};
 			for (var i=0;i<allNodes.length;i++){
-				console.log(allNodes,i,allNodes[i],nodes[allNodes[i]]);
 				var name = allNodes[i];
 				var text = nodes[name].text;
 				var children = [];
@@ -50,13 +49,21 @@
 				span.classList.add("tf-nc");
 				span.textContent = text;
 				node.appendChild(span);
-				var ul = document.createElement('ul');
-				node.appendChild(ul);
-				jsonTree[name]={text:text,children:children,nodeList:node.querySelector('ul')};
-				console.log(parent,name,text,children,jsonTree);
+				
+				
+				jsonTree[name]={text:text,children:children,node:node};
 				if (parent != ""){
 					jsonTree[parent].children.push(name);
-					jsonTree[parent].nodeList.appendChild(node);
+					var pnode = jsonTree[parent].node;
+					if (pnode.querySelector('ul')){
+						pnode.querySelector('ul').appendChild(node);
+					}
+					else {
+						var ul = document.createElement('ul');
+						pnode.appendChild(ul);
+						pnode.querySelector('ul').appendChild(node);
+					}
+					
 				}
 				else{
 					document.getElementById('tree-here').appendChild(node);
