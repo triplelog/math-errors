@@ -166,7 +166,7 @@ std::string subTwoInts(std::string a, std::string b){
 std::string toLatex(std::vector<std::string> input){
 	int i; int ii;
 	flat_hash_map<std::string,std::string> latexMap;
-	flat_hash_map<std::string,std::vector<int>> childMap;
+	flat_hash_map<std::string,std::vector<std::string>> childMap;
 	childMap[""]={};
 	for (i=0;i<input.size()/3;i++){
 		//std::cout << input[i*3] << "\n";
