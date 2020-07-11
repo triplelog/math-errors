@@ -957,8 +957,8 @@ std::vector<std::string> makeTree(std::string pfstr){
 	
 	
 	flat_hash_map<std::string,std::string> skipList;
-	std::string nodeString = "config, ";
-	std::cout << "-DOJS-\nconfig = {\ncontainer: \"#tree-simple\"\n};\n";
+	std::string nodeString = "allNodes = [";
+	std::cout << "-DOJS-\nnodes = {};\n";
 	
 	std::vector<std::string> forLatex;
 	
@@ -997,19 +997,18 @@ std::vector<std::string> makeTree(std::string pfstr){
 		std::string postfix = fromOriginal(orderedKeyList[ii],originalMap);
 
 		if (latexMap.find(name) != latexMap.end()){
-			std::string outText = name + " = {\n";
-			if (parent.length() > 0){
-				outText += "parent: "+ parent + ",\n";
-			}
+			std::string outText = "nodes[\""+name + "\"] = {text:";
+			outText += "\"" + latexMap[name] + "\",";
+			outText += "parent: \""+ parent + "\"};\n";
 		
-			outText += "innerHTML: \"" + latexMap[name] + "\"\n};";
+			
 			std::cout << outText << "\n";
-			nodeString += nodeList[orderedKeyList[ii]][0] + ", ";
+			nodeString += "\""+nodeList[orderedKeyList[ii]][0] + "\", ";
 		}
 		
 		
 	}
-	
+	nodeString += "];\n"
 	std::cout << "simple_chart_config = [\n" << nodeString << "\n];\nvar chart = new Treant(simple_chart_config );";
 	std::cout << "-ODJS-\n";
 	
