@@ -52,7 +52,7 @@
 				var ul = document.createElement('ul');
 				node.appendChild(ul);
 				jsonTree[name]={text:text,children:children,nodeList:node.querySelector('ul')};
-				console.log(parent,jsonTree);
+				console.log(parent,name,text,children,jsonTree);
 				if (parent != ""){
 					jsonTree[parent].children.push(name);
 					jsonTree[parent].nodeList.appendChild(node);
