@@ -943,7 +943,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	}
 	flat_hash_map<std::string,std::string> latexMap =toLatex(forLatex);
 	
-	skipList.resize(0);
+	skipList.clear();
 	for (ii=orderedKeyList.size()-1;ii>=0;ii--){
 		if (skipList.find(orderedKeyList[ii]) != skipList.end()){
 			//std::cout << "skip: " << nodeList[orderedKeyList[ii]][0] << "\n";
