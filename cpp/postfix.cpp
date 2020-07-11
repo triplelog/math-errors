@@ -163,9 +163,12 @@ std::string subTwoInts(std::string a, std::string b){
 	return std::to_string(div);
 }
 
-std::string toLatex(flat_hash_map<std::string,std::vector<std::string>> input){
-	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = input.begin(); iter != input.end(); ++iter){
-		std::cout << iter->first << "\n";
+std::string toLatex(std::vector<std::string> input){
+	int i;
+	for (i=input.size()/3-1;i>=0;i--){
+		std::cout << input[i*3] << "\n";
+		std::cout << input[i*3+1] << "\n";
+		std::cout << input[i*3+2] << "\n";
 	}
 	return "tmep";
 }
@@ -859,7 +862,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	std::string nodeString = "config, ";
 	std::cout << "-DOJS-\nconfig = {\ncontainer: \"#tree-simple\"\n};\n";
 	
-	flat_hash_map<std::string,std::vector<std::string>> forLatex;
+	std::vector<std::string> forLatex;
 	
 	for (ii=orderedKeyList.size()-1;ii>=0;ii--){
 		if (skipList.find(orderedKeyList[ii]) != skipList.end()){
@@ -881,7 +884,9 @@ std::vector<std::string> makeTree(std::string pfstr){
 		outText += "text: { name: \"" + postfix + "\" }\n};";
 		std::cout << outText << "\n";
 		nodeString += nodeList[orderedKeyList[ii]][0] + ", ";
-		forLatex[name] = {parent,postfix};
+		forLatex.push_back(name);
+		forLatex.push_back(parent);
+		forLatex.push_back(postfix);
 	}
 	toLatex(forLatex);
 	std::cout << "simple_chart_config = [\n" << nodeString << "\n];\nvar chart = new Treant(simple_chart_config );";
