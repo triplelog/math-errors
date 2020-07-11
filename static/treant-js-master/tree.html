@@ -17,12 +17,8 @@
 
 	<div class="tf-tree">
 	  <ul>
-		<li>
-		  <span class="tf-nc">1</span>
-		  <ul>
-			<li><span class="tf-nc">2</span></li>
-			<li><span class="tf-nc">3</span></li>
-		  </ul>
+		<li id="tree-here">
+		  
 		</li>
 	  </ul>
 	</div>
@@ -37,71 +33,47 @@
 	<script src="treant-js-master/Treant.js"></script>
 	<script>
 			{{ tree | safe}}
-			
+			nodes = {};
+			nodes[node0] = {text:"Node 0",parent:""};
+			nodes[node1] = {text:"Node 1",parent:"node0"};
+			nodes[node2] = {text:"Node 2",parent:"node0"};
+			allNodes = [node0,node1,node2];
+			var jsonTree = {};
+			for (var i=0;i<allNodes.length;i++){
+				var name = allNodes[i];
+				var text = nodes[name].text;
+				var children = [];
+				var parent = nodes[name].parent;
+				var node = document.createElement('li');
+				var span = document.createElement('span');
+				span.classList.add("tf-nc");
+				span.textContent = text;
+				node.appendChild(span);
+				var ul = document.createElement('ul');
+				node.appendChild(ul);
+				jsonTree[name]={text:text,children:children,nodeList:node.querySelector('ul')};
+				if (parent != ""){
+					jsonTree[parent].children.push(name);
+					jsonTree[parent].nodeList.appendChild(node);
+				}
+				else{
+					document.getElementById('tree-here').appendChild(node);
+				}
+				
+			}
 		    /*config = {
 				container: "#tree-simple"
 			};
 			node14 = {
-text: { name: "###^*##*+#?+#?+@0_1_2_3_4_5_6_" }
-};
-node3 = {
-parent: node14,
-text: { name: "###^*@0_1_2_" }
-};
-node5 = {
-parent: node14,
-text: { name: "##*@3_4_" }
-};
-node9 = {
-parent: node14,
-text: { name: "#?@5_" }
-};
-node12 = {
-parent: node14,
-text: { name: "#?@6_" }
-};
-node13 = {
-parent: node12,
-text: { name: "#@6_" }
-};
-node11 = {
-text: { name: "###^*##*+#?+@0_1_2_3_4_5_" }
-};
-node10 = {
-parent: node9,
-text: { name: "#@5_" }
-};
-node8 = {
-text: { name: "###^*##*+@0_1_2_3_4_" }
-};
-node7 = {
-parent: node5,
-text: { name: "#@3_" }
-};
-node6 = {
-parent: node5,
-text: { name: "#@4_" }
-};
-node4 = {
-parent: node3,
-text: { name: "#@0_" }
-};
-node0 = {
-parent: node3,
-text: { name: "##^@1_2_" }
-};
-node2 = {
-parent: node0,
-text: { name: "#@1_" }
-};
-node1 = {
-parent: node0,
-text: { name: "#@2_" }
-};
-			
-			
+			text: { name: "###^*##*+#?+#?+@0_1_2_3_4_5_6_" }
+			};
+			node3 = {
+			parent: node14,
+			text: { name: "###^*@0_1_2_" }
+			};
+
 			simple_chart_config = [
-				config, node14, node3, node5, node9, node12, node13, node11, node10, node8, node7, node6, node4, node0, node2, node1,
+				config, node14, node3,
 			];
 			var chart = new Treant(simple_chart_config );*/
 	</script>
