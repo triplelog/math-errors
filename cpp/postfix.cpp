@@ -215,7 +215,7 @@ std::string toLatex(std::vector<std::string> input){
 		}
 		if (allChildren){
 			latexMap[input[i*3]]=s;
-			std::cout << s << " is s\n";
+			std::cout << "\ns: "<< s << " is s\n";
 		}
 	}
 	
