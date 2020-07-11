@@ -182,7 +182,7 @@ std::string toLatex(std::vector<std::string> input){
 		}
 		latexMap[input[i*3]]={};
 		if (lastOp == '#'){
-			latexMap[input[i*3+1]].push_back(input[i*3+2].at(2));
+			latexMap[input[i*3+1]].push_back(""+input[i*3+2].at(2));
 		}
 	}
 	for (i=0;i<input.size()/3;i++){
