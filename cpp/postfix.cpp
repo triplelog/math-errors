@@ -116,6 +116,7 @@ std::string mulTwoInts(std::string a, std::string b){
 	prod *= std::stoi(b);
 	return std::to_string(prod);
 }
+
 std::string divTwoInts(std::string a, std::string b){
 	int base = 10;
 
@@ -138,6 +139,7 @@ std::string divTwoInts(std::string a, std::string b){
 	div /= std::stoi(b);
 	return std::to_string(div);
 }
+
 std::string subTwoInts(std::string a, std::string b){
 	int base = 10;
 
@@ -159,6 +161,12 @@ std::string subTwoInts(std::string a, std::string b){
 	int div = std::stoi(a);
 	div -= std::stoi(b);
 	return std::to_string(div);
+}
+
+std::string toLatex(flat_hash_map<std::string,std::vector<std::string>> input){
+	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = input.begin(); iter != input.end(); ++iter){
+		std::cout << iter->first << "\n";
+	}
 }
 
 std::vector<std::string> makePostVector(char infixexpr[]) {
@@ -849,6 +857,9 @@ std::vector<std::string> makeTree(std::string pfstr){
 	flat_hash_map<std::string,std::string> skipList;
 	std::string nodeString = "config, ";
 	std::cout << "-DOJS-\nconfig = {\ncontainer: \"#tree-simple\"\n};\n";
+	
+	flat_hash_map<std::string,std::vector<std::string>> forLatex;
+	
 	for (ii=orderedKeyList.size()-1;ii>=0;ii--){
 		if (skipList.find(orderedKeyList[ii]) != skipList.end()){
 			//std::cout << "skip: " << nodeList[orderedKeyList[ii]][0] << "\n";
@@ -857,14 +868,21 @@ std::vector<std::string> makeTree(std::string pfstr){
 		else {
 			skipList[orderedKeyList[ii]] = "";
 		}
-		std::string outText = nodeList[orderedKeyList[ii]][0] + " = {\n";
-		if (nodeList[orderedKeyList[ii]][1].length() > 0){
-			outText += "parent: "+nodeList[orderedKeyList[ii]][1] + ",\n";
+		
+		std::string name = nodeList[orderedKeyList[ii]][0];
+		std::string parent = nodeList[orderedKeyList[ii]][1];
+		std::string postfix = fromOriginal(orderedKeyList[ii],originalMap);
+		
+		std::string outText = name + " = {\n";
+		if (parent.length() > 0){
+			outText += "parent: "+ parent + ",\n";
 		}
-		outText += "text: { name: \"" + fromOriginal(orderedKeyList[ii],originalMap) + "\" }\n};";
+		outText += "text: { name: \"" + postfix + "\" }\n};";
 		std::cout << outText << "\n";
 		nodeString += nodeList[orderedKeyList[ii]][0] + ", ";
+		forLatex[name] = {parent,postfix};
 	}
+	toLatex(forLatex);
 	std::cout << "simple_chart_config = [\n" << nodeString << "\n];\nvar chart = new Treant(simple_chart_config );";
 	std::cout << "-ODJS-\n";
 	
