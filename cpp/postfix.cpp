@@ -236,9 +236,6 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 						s += "\\\\frac{d}{dx}\\\\left["+latexMap[child]+"\\\\right]";
 					}
 					else if (lastOpMap[input[i*3]] == '-'){
-						if (s.length()>0 && s.at(s.length()-1) == '+'){
-							s.replace(s.length()-1,1,"");
-						}
 						if (prec[lastOpMap[input[i*3]]] >= prec[lastOpMap[child]]){
 							s += "-("+latexMap[child]+")";
 						}
@@ -248,9 +245,6 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 						
 					}
 					else if (lastOpMap[input[i*3]] == '/'){
-						if (s.length()>0 && s.at(s.length()-1) == '+'){
-							s.replace(s.length()-1,1,"");
-						}
 						if (prec[lastOpMap[input[i*3]]] >= prec[lastOpMap[child]]){
 							s += "/("+latexMap[child]+")";
 						}
@@ -259,22 +253,57 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 						}
 					}
 					else {
-						if (ii > 0){
 						
-							if (lastOpMap[input[i*3]] == '*'){
-								s += "\\\\cdot ";
+					
+						if (prec[lastOpMap[input[i*3]]] > prec[lastOpMap[child]]){
+							if (ii > 0){
+								if (lastOpMap[input[i*3]] == '*'){
+									s += "\\\\cdot ("+latexMap[child]+")";
+								}
+								else {
+									s += lastOpMap[input[i*3]]+"("+latexMap[child]+")";
+								}
 							}
 							else {
-								s += lastOpMap[input[i*3]];
+								s += "("+latexMap[child]+")";
 							}
-						
 						}
-					
-						if (prec[lastOpMap[input[i*3]]] >= prec[lastOpMap[child]]){
-							s += "("+latexMap[child]+")";
+						else if (prec[lastOpMap[input[i*3]]] == prec[lastOpMap[child]] && lastOpMap[input[i*3]] != lastOpMap[child]){
+							if (ii > 0){
+								if (lastOpMap[input[i*3]] == '*'){
+									s += latexMap[child];
+								}
+								else if (lastOpMap[input[i*3]] == '+'){
+									s += latexMap[child];
+								}
+								else {
+									s += lastOpMap[input[i*3]]+"("+latexMap[child]+")";
+								}
+							}
+							else {
+								if (lastOpMap[input[i*3]] == '*'){
+									s += latexMap[child];
+								}
+								else if (lastOpMap[input[i*3]] == '+'){
+									s += latexMap[child];
+								}
+								else {
+									s += "("+latexMap[child]+")";
+								}
+							}
 						}
 						else {
-							s += latexMap[child];
+							if (ii > 0){
+								if (lastOpMap[input[i*3]] == '*'){
+									s += "\\\\cdot "+latexMap[child];
+								}
+								else {
+									s += lastOpMap[input[i*3]]+latexMap[child];
+								}
+							}
+							else {
+								s += latexMap[child];
+							}
 						}
 					}
 				}
