@@ -1602,7 +1602,15 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 	
 	rapidcsv::Document doc("rules/main.csv", rapidcsv::LabelParams(-1, -1));
 	
-	std::cout << "Rows: " << doc.GetRowCount();
+	int nRows = doc.GetRowCount();
+	int i; int ii;
+	
+	std::cout << "Rows: " << nRows << "\n";
+	
+	for (i=0;i<nRows;i++){
+		std::vector<std::string> rawRule = doc.GetRow<std::string>(i);
+		std::cout << rawRule[2] << "\n";
+	}
 	//std::vector<std::string> close = doc.GetRow<std::string>(5);
     //std::cout << "Read " << close.size() << " values." << std::endl;
       
@@ -1616,7 +1624,7 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 	rawRules.push_back({"A*B","=*AB","Perform multiplication."});
 	rawRules.push_back({"A/B","=/AB","Perform division."});
 	
-	int i; int ii;
+	
 	std::vector<std::string> fullPost;
 	std::string key;
 	std::string val1;
