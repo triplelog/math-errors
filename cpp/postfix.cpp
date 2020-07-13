@@ -1582,51 +1582,7 @@ std::string postfixify(std::string input_str) {
 	return makePost(infixexpr);
 }
 
-/*
-inline Cppdata solvePostfixVV(char expstr[], std::vector<Cppdata> const intArray, std::vector<Cppdata> stack)
-{
 
-	int i;
-  	int currentIndex = 0;
-  	int arrayIndex = 0;
-
-    for (i = 0; expstr[i]; i++) 
-    { 
-        if (expstr[i] == '#') {
-        	stack[currentIndex] = intArray[arrayIndex];
-        	currentIndex++;
-        	arrayIndex++;
-  
-        } else 
-        { 
-            switch (expstr[i]) 
-            { 
-	            case '>': stack[currentIndex - 2].w = (stack[currentIndex - 2] > stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break; 
-	            case '<': stack[currentIndex - 2].w = (stack[currentIndex - 2] < stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break;
-	            case ']': stack[currentIndex - 2].w = (stack[currentIndex - 2] >= stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break; 
-	            case '[': stack[currentIndex - 2].w = (stack[currentIndex - 2] <= stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break;
-	            case '+': stack[currentIndex - 2] = stack[currentIndex - 2] + stack[currentIndex - 1]; break; 
-	            case '-': stack[currentIndex - 2] = stack[currentIndex - 2] - stack[currentIndex - 1]; break; 
-	            case '*': stack[currentIndex - 2] = stack[currentIndex - 2] * stack[currentIndex - 1]; break; 
-	            case '/': stack[currentIndex - 2] = stack[currentIndex - 2] / stack[currentIndex - 1]; break;
-	            case '=': stack[currentIndex - 2] = stack[currentIndex - 2] == stack[currentIndex - 1]; break;
-	            case '!': stack[currentIndex - 2] = stack[currentIndex - 2] != stack[currentIndex - 1]; break;
-	            //case '%': stack[currentIndex - 2] = stack[currentIndex - 2] % stack[currentIndex - 1]; break; 
-	            case '&': stack[currentIndex - 2].w = (stack[currentIndex - 2].w + stack[currentIndex - 1].w > 1) ? 1 : 0; stack[currentIndex - 2].t = (stack[currentIndex - 2].t == 'B' && stack[currentIndex - 1].t == 'B') ? 'B' : 'N'; break; 
-	            case '|': stack[currentIndex - 2].w = (stack[currentIndex - 2].w + stack[currentIndex - 1].w == 0) ? 0 : 1; stack[currentIndex - 2].t = (stack[currentIndex - 2].t == 'B' && stack[currentIndex - 1].t == 'B') ? 'B' : 'N'; break; 
-	            //multiandcase '&': if (stack[currentIndex - 5] > 0 && stack[currentIndex - 4] > 0 && stack[currentIndex - 3] > 0 && stack[currentIndex - 2] > 0 && stack[currentIndex - 1] > 0) {stack[currentIndex - 5] = 1;} else {stack[currentIndex - 5] = -1;}; currentIndex--; currentIndex--; currentIndex--; currentIndex--; break; 
-            
-            } 
-            currentIndex--;
-        } 
-    } 
-
-
-
-	return stack[0];
-
-}
-*/
 
 std::vector<std::string> makeRule(std::string input){
 	char infixexpr[input.length() + 1]; 
@@ -1644,8 +1600,8 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 	std::vector<std::vector<std::string>> rawRules;
 	rawRules.push_back({"ddx(A+B)","ddx(A)+ddx(B)","Sum Rule."});
 	rawRules.push_back({"ddx(A*B)","A*ddx(B)+B*ddx(A)","Sum Rule."});
-	rawRules.push_back({"ddx(x^3)","3*x^2","Turn exponent into multiplication."});
-	rawRules.push_back({"ddx(x^2)","2*x","Turn exponent into multiplication."});
+	rawRules.push_back({"ddx(x^A)","A*x^(A+1)","Turn exponent into multiplication."});
+	rawRules.push_back({"ddx(x)","1","Turn exponent into multiplication."});
 	rawRules.push_back({"A+B","=+AB","Perform addition."});
 	//rawRules.push_back({"A-B","=-AB","Perform subtraction."});
 	rawRules.push_back({"A*B","=*AB","Perform multiplication."});
@@ -2023,14 +1979,16 @@ int main (int argc, char *argv[]) {
 	prec[')'] = -1;
 	
 
-	
+	auto t1 = std::chrono::high_resolution_clock::now();
 	rules = makeRules();
+	auto t2 = std::chrono::high_resolution_clock::now();
+	
 	int ii;
 	//for (ii=0;ii<rules.size();ii++){
 	//	std::cout << ii << "-=-" << rules[ii] << '\n';
 	//}
 	
-	auto t1 = std::chrono::high_resolution_clock::now();
+	//auto t1 = std::chrono::high_resolution_clock::now();
 	
 	
 	
@@ -2080,7 +2038,7 @@ int main (int argc, char *argv[]) {
 
 	}
 	
-	auto t2 = std::chrono::high_resolution_clock::now();
+	//auto t2 = std::chrono::high_resolution_clock::now();
 
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
     std::cout << duration;
