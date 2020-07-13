@@ -344,7 +344,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 				osidx--;
 			}
 		}
-		else if (firstChar == ddx || firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '~' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
+		else if (firstChar == ddx || firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '-' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
 			while ((osidx > 0) && (prec[opStack[osidx-1]] >= prec[firstChar])){
 				topToken = opStack[osidx-1];
 				osidx--;
@@ -373,7 +373,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 		
 		std::string ci = postfixList[i];
 		char firstChar = ci.at(0);
-		if (firstChar == '~'){
+		if (firstChar == '-'){
 			//expstr += "-";
 			expstr += "-+";
 		}
@@ -1452,64 +1452,6 @@ flat_hash_map<std::string,std::string> makeList(std::string pfstr){
 	return listMap;
 }
 
-/*
-function replaceDecimals(istr){
-	dindex = istr.indexOf('.');
-	while (dindex >-1){
-		intpart = 0;
-		decpart = 0;
-		denom = 1;
-		strparts = [dindex,dindex+1];
-		for (var i=1;i<dindex+1;i++){
-			if ("0123456789".indexOf(istr[dindex-i]) > -1){
-				intpart += parseInt(istr[dindex-i])*Math.pow(10,i-1);
-				strparts[0] = dindex-i;
-			}
-			else{break;}
-		}
-		for (var i=dindex+1;i<istr.length;i++){
-			if ("0123456789".indexOf(istr[i]) > -1){
-				decpart *=10;
-				denom *=10;
-				decpart += parseInt(istr[i]);
-				strparts[1] = i+1;
-			}
-			else{break;}
-		}
-		istr = istr.substring(0,strparts[0])+'('+ (intpart*denom+decpart) +'/'+ denom +')'+istr.substring(strparts[1],);
-		dindex = istr.indexOf('.');
-	}
-
-	return istr
-}
-
-function replaceNegatives(istr){
-	dindex = istr.indexOf('-')
-	while (dindex >-1){
-		if (dindex == 0){
-			if ("0123456789".indexOf(istr[1]) == -1) {
-				istr = '-1*'+istr.substring(1,);
-			}
-			dindex = istr.indexOf('-',1);
-		}
-		else{
-			if ("><=![]&|(".indexOf(istr[dindex-1])> -1) {
-				if ("0123456789".indexOf(istr[dindex-1])== -1){
-					istr = istr.substring(0,dindex)+'-1*'+istr.substring(dindex+1,);
-				}
-				dindex = istr.indexOf('-',dindex+1);
-			}
-			else{
-				istr = istr.substring(0,dindex)+'~'+istr.substring(dindex+1,);
-				dindex = istr.indexOf('-',dindex+1);
-			}
-		}
-	}
-				
-	return istr
-}
-*/
-
 
 std::vector<std::string> postfixifyVector(std::string input_str){
 	flat_hash_map<std::string,std::string> replacements;
@@ -1552,9 +1494,7 @@ std::string postfixify(std::string input_str) {
 	input_str = input_str.replace(/==/g,'=');
 	input_str = input_str.replace(/!=/g,'!');
 	input_str = input_str.replace(/\+-/g,'-');
-	input_str = input_str.replace(/--/g,'+');
-	input_str = replaceDecimals(input_str);
-	input_str = replaceNegatives(input_str);*/
+	input_str = input_str.replace(/--/g,'+');*/
 	
 	flat_hash_map<std::string,std::string> replacements;
 	char ddx{-69};
@@ -1611,18 +1551,6 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 		std::vector<std::string> rawRule = doc.GetRow<std::string>(i);
 		rawRules.push_back(rawRule);
 	}
-	//std::vector<std::string> close = doc.GetRow<std::string>(5);
-    //std::cout << "Read " << close.size() << " values." << std::endl;
-      
-	/*
-	rawRules.push_back({"ddx(A+B)","ddx(A)+ddx(B)","Sum Rule."});
-	rawRules.push_back({"ddx(A*B)","A*ddx(B)+B*ddx(A)","Sum Rule."});
-	rawRules.push_back({"ddx(x^A)","A*x^(A+1)","Turn exponent into multiplication."});
-	rawRules.push_back({"ddx(x)","1","Turn exponent into multiplication."});
-	rawRules.push_back({"A+B","=+AB","Perform addition."});
-	//rawRules.push_back({"A-B","=-AB","Perform subtraction."});
-	rawRules.push_back({"A*B","=*AB","Perform multiplication."});
-	rawRules.push_back({"A/B","=/AB","Perform division."});*/
 	
 	
 	std::vector<std::string> fullPost;
@@ -1984,7 +1912,7 @@ int main (int argc, char *argv[]) {
 	prec['*'] = 4;
 	prec['/'] = 4;
 	prec['+'] = 3;
-	prec['~'] = 3;
+	prec['-'] = 3;
 	prec['>'] = 2;
 	prec['<'] = 2;
 	prec['='] = 2;
