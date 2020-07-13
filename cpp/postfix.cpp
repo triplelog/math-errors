@@ -1609,12 +1609,12 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 	
 	for (i=0;i<nRows;i++){
 		std::vector<std::string> rawRule = doc.GetRow<std::string>(i);
-		std::cout << rawRule[2] << "\n";
+		rawRules.push_back(rawRule);
 	}
 	//std::vector<std::string> close = doc.GetRow<std::string>(5);
     //std::cout << "Read " << close.size() << " values." << std::endl;
       
-	
+	/*
 	rawRules.push_back({"ddx(A+B)","ddx(A)+ddx(B)","Sum Rule."});
 	rawRules.push_back({"ddx(A*B)","A*ddx(B)+B*ddx(A)","Sum Rule."});
 	rawRules.push_back({"ddx(x^A)","A*x^(A+1)","Turn exponent into multiplication."});
@@ -1622,7 +1622,7 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 	rawRules.push_back({"A+B","=+AB","Perform addition."});
 	//rawRules.push_back({"A-B","=-AB","Perform subtraction."});
 	rawRules.push_back({"A*B","=*AB","Perform multiplication."});
-	rawRules.push_back({"A/B","=/AB","Perform division."});
+	rawRules.push_back({"A/B","=/AB","Perform division."});*/
 	
 	
 	std::vector<std::string> fullPost;
