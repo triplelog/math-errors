@@ -17,6 +17,7 @@
 #include <iostream>
 #include <array>
 #include <vector>
+#include "rapidcsv.h"
 #include "parallel_hashmap/phmap.h"
 
 
@@ -1598,6 +1599,14 @@ std::vector<std::string> makeRule(std::string input){
 flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 	flat_hash_map<std::string,std::vector<std::vector<std::string>>> finalRules;
 	std::vector<std::vector<std::string>> rawRules;
+	
+	rapidcsv::Document doc("rules/main.csv", rapidcsv::LabelParams(-1, -1));
+	
+	std::cout << "Rows: " << doc.GetRowCount();
+	//std::vector<std::string> close = doc.GetRow<std::string>(5);
+    //std::cout << "Read " << close.size() << " values." << std::endl;
+      
+	
 	rawRules.push_back({"ddx(A+B)","ddx(A)+ddx(B)","Sum Rule."});
 	rawRules.push_back({"ddx(A*B)","A*ddx(B)+B*ddx(A)","Sum Rule."});
 	rawRules.push_back({"ddx(x^A)","A*x^(A+1)","Turn exponent into multiplication."});
@@ -1606,6 +1615,7 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 	//rawRules.push_back({"A-B","=-AB","Perform subtraction."});
 	rawRules.push_back({"A*B","=*AB","Perform multiplication."});
 	rawRules.push_back({"A/B","=/AB","Perform division."});
+	
 	int i; int ii;
 	std::vector<std::string> fullPost;
 	std::string key;
