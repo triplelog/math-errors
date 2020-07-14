@@ -2243,7 +2243,7 @@ int main (int argc, char *argv[]) {
 	
 	prec['#'] = 100;
 	int i;
-	for (i=-69;i<0;i++){
+	for (i=-128;i<0;i++){
 		prec[i]=6;
 	}
     prec['^'] = 5;
