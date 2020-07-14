@@ -1533,9 +1533,9 @@ flat_hash_map<std::string,std::string> makeList(std::string pfstr){
 	return listMap;
 }
 
-
-std::vector<std::string> postfixifyVector(std::string input_str){
+std::string replaceFunctions(std::string input_str){
 	flat_hash_map<std::string,std::string> replacements;
+	
 	char ddx{-69};
 	char sin{-64};
 	char cos{-63};
@@ -1543,7 +1543,7 @@ std::vector<std::string> postfixifyVector(std::string input_str){
 	char csc{-61};
 	char sec{-60};
 	char cot{-59};
-	int i;
+	int i; int ii;
 	replacements["ddx"]="x";
 	replacements["ddx"]+=ddx;
 	replacements["sin"]="";
@@ -1568,8 +1568,47 @@ std::vector<std::string> postfixifyVector(std::string input_str){
 			threeChars = "...";
 			i--;
 		}
+		else if (threeChars == "dd?"){
+			std::string inside = "";
+			std::string var = "";
+			int openPar = 0;
+			bool isVar = false;
+			int repLen = 3;
+			for (ii=i+1;ii<input_str.length();ii++){
+				repLen++;
+				if (input_str.at(ii) == '('){
+					openPar++;
+				}
+				else if (input_str.at(ii) == ')'){
+					openPar--;
+				}
+				else if (input_str.at(ii) == ','){
+					openPar--;
+				}
+				else if (isVar){
+					var += input_str.at(ii);
+				}
+				else {
+					inside += input_str.at(ii);
+				}
+				
+				if (openPar == 0){
+					break;
+				}
+			}
+			input_str.replace(i-2,repLen,"("+var+")"+ddx+"("+inside+")");
+			threeChars = "...";
+			i += var.length() + 3 - 3;
+			
+		}
 		//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
 	}
+	return input_str;
+}
+
+std::vector<std::string> postfixifyVector(std::string input_str){
+
+	input_str = replaceFunctions(input_str);
 	
 	char infixexpr[input_str.length() + 1]; 
     strcpy(infixexpr, input_str.c_str()); 
@@ -1596,42 +1635,7 @@ std::string postfixify(std::string input_str) {
 	input_str = input_str.replace(/\+-/g,'-');
 	input_str = input_str.replace(/--/g,'+');*/
 	
-	flat_hash_map<std::string,std::string> replacements;
-	
-	char ddx{-69};
-	char sin{-64};
-	char cos{-63};
-	char tan{-62};
-	char csc{-61};
-	char sec{-60};
-	char cot{-59};
-	int i;
-	replacements["ddx"]="x";
-	replacements["ddx"]+=ddx;
-	replacements["sin"]="";
-	replacements["sin"]+=sin;
-	replacements["cos"]="";
-	replacements["cos"]+=cos;
-	replacements["tan"]="";
-	replacements["tan"]+=tan;
-	replacements["csc"]="";
-	replacements["csc"]+=csc;
-	replacements["sec"]="";
-	replacements["sec"]+=sec;
-	replacements["cot"]="";
-	replacements["cot"]+=cot;
-	
-	std::string threeChars = "...";
-	for (i=0;i<input_str.length();i++){
-		threeChars.replace(0,1,"");
-		threeChars += input_str.at(i);
-		if (replacements.find(threeChars) != replacements.end()){
-			input_str.replace(i-2,3,replacements[threeChars]);
-			threeChars = "...";
-			i--;
-		}
-		//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
-	}
+	input_str = replaceFunctions(input_str);
 	
 	char infixexpr[input_str.length() + 1]; 
     strcpy(infixexpr, input_str.c_str()); 
