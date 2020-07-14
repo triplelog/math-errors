@@ -990,6 +990,10 @@ std::vector<std::string> makeTree(std::string pfstr){
 			finalList = {"#",originalMap[idx]+'_'};
 			operandMap[i]=std::to_string(idx);
 			idx++;
+			std::string name = "node"+std::to_string(treeIdx);
+			treeIdx++;
+			nodeList["#@" + std::to_string(idx) + "_"] = {name,""};
+			orderedKeyList.push_back(nodeText);
 		}
 		
 	}
