@@ -1555,7 +1555,7 @@ std::string replaceFunctions(std::string input_str){
 	trigFunctions.push_back("sec");
 	trigFunctions.push_back("cot");
 	for (i=0;i<6;i++){
-		int cc = -64+i;
+		short cc = -64+i;
 		int cci = -32+i;
 		int cch = -16+i;
 		char c{cc};
