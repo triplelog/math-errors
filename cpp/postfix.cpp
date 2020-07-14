@@ -233,14 +233,33 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							}
 							break;
 						}
-						case -69:
-							s += "\\\\frac{d}{dx}\\\\left["+latexMap[child]+"\\\\right]";
+						case -69: {
+							if (ii > 0){
+								s += latexMap[child]+"\\\\right]";
+							}
+							else {
+								s += "\\\\frac{d}{d"+latexMap[child]+"}\\\\left[";
+							}
 							break;
+						
+						}
 						case -64:
 							s += "\\\\sin\\\\left("+latexMap[child]+"\\\\right)";
 							break;
 						case -63:
 							s += "\\\\cos\\\\left("+latexMap[child]+"\\\\right)";
+							break;
+						case -62:
+							s += "\\\\tan\\\\left("+latexMap[child]+"\\\\right)";
+							break;
+						case -61:
+							s += "\\\\csc\\\\left("+latexMap[child]+"\\\\right)";
+							break;
+						case -60:
+							s += "\\\\sec\\\\left("+latexMap[child]+"\\\\right)";
+							break;
+						case -59:
+							s += "\\\\cot\\\\left("+latexMap[child]+"\\\\right)";
 							break;
 						case '-': {
 							if (prec[lastOpMap[input[i*3]]] >= prec[lastOpMap[child]]){
@@ -791,7 +810,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			
 			std::vector<std::string> fullTrees;
 			
-			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && pfstr.at(i) >= 0){
+			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && (pfstr.at(i) >= 0 || pfstr.at(i) <= -69 )){ // Is at least binary function
 				
 				for (ii=0;ii<maxi;ii++){
 					std::string s = "";
@@ -1243,7 +1262,7 @@ flat_hash_map<std::string,std::vector<std::string>> makeListFull(std::string pfs
 			
 			std::vector<std::string> fullTrees;
 			
-			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && pfstr.at(i) >= 0){
+			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && (pfstr.at(i) >= 0 || pfstr.at(i) <= -69 )){ // Is at least binary function
 				
 				for (ii=0;ii<maxi;ii++){
 					std::string s = "";
@@ -1463,7 +1482,7 @@ flat_hash_map<std::string,std::string> makeList(std::string pfstr){
 			
 			
 			
-			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && pfstr.at(i) >= 0){
+			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && (pfstr.at(i) >= 0 || pfstr.at(i) <= -69 )){ // Is at least binary function
 				
 				for (ii=0;ii<maxi;ii++){
 					std::string s = "";
@@ -1520,13 +1539,26 @@ std::vector<std::string> postfixifyVector(std::string input_str){
 	char ddx{-69};
 	char sin{-64};
 	char cos{-63};
-	replacements["ddx"]="";
+	char tan{-62};
+	char csc{-61};
+	char sec{-60};
+	char cot{-59};
+	int i;
+	replacements["ddx"]="x";
 	replacements["ddx"]+=ddx;
 	replacements["sin"]="";
 	replacements["sin"]+=sin;
 	replacements["cos"]="";
 	replacements["cos"]+=cos;
-	int i;
+	replacements["tan"]="";
+	replacements["tan"]+=tan;
+	replacements["csc"]="";
+	replacements["csc"]+=csc;
+	replacements["sec"]="";
+	replacements["sec"]+=sec;
+	replacements["cot"]="";
+	replacements["cot"]+=cot;
+	
 	std::string threeChars = "...";
 	for (i=0;i<input_str.length();i++){
 		threeChars.replace(0,1,"");
@@ -1569,13 +1601,26 @@ std::string postfixify(std::string input_str) {
 	char ddx{-69};
 	char sin{-64};
 	char cos{-63};
-	replacements["ddx"]="";
+	char tan{-62};
+	char csc{-61};
+	char sec{-60};
+	char cot{-59};
+	int i;
+	replacements["ddx"]="x";
 	replacements["ddx"]+=ddx;
 	replacements["sin"]="";
 	replacements["sin"]+=sin;
 	replacements["cos"]="";
 	replacements["cos"]+=cos;
-	int i;
+	replacements["tan"]="";
+	replacements["tan"]+=tan;
+	replacements["csc"]="";
+	replacements["csc"]+=csc;
+	replacements["sec"]="";
+	replacements["sec"]+=sec;
+	replacements["cot"]="";
+	replacements["cot"]+=cot;
+	
 	std::string threeChars = "...";
 	for (i=0;i<input_str.length();i++){
 		threeChars.replace(0,1,"");
@@ -1983,9 +2028,10 @@ int main (int argc, char *argv[]) {
 
 	
 	prec['#'] = 100;
-	prec[-69]=6;
-	prec[-64]=6;
-	prec[-63]=6;
+	int i;
+	for (i=-69;i<0;i++){
+		prec[i]=6;
+	}
     prec['^'] = 5;
 	prec['*'] = 4;
 	prec['/'] = 4;
