@@ -1874,7 +1874,7 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 	flat_hash_map<std::string,std::vector<std::vector<std::string>>> finalRules;
 	std::vector<std::vector<std::string>> rawRules;
 	
-	rapidcsv::Document doc("rules/main.csv", rapidcsv::LabelParams(-1, -1));
+	rapidcsv::Document doc("~/math-errors/cpp/rules/main.csv", rapidcsv::LabelParams(-1, -1));
 	
 	int nRows = doc.GetRowCount();
 	int i; int ii;
