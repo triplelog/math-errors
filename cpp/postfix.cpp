@@ -1534,40 +1534,97 @@ flat_hash_map<std::string,std::string> makeList(std::string pfstr){
 }
 
 std::string replaceFunctions(std::string input_str){
-	flat_hash_map<std::string,std::string> replacements;
+	flat_hash_map<std::string,std::string> replacements2;
+	flat_hash_map<std::string,std::string> replacements3;
+	flat_hash_map<std::string,std::string> replacements4;
+	flat_hash_map<std::string,std::string> replacements5;
+	flat_hash_map<std::string,std::string> replacements6;
+	flat_hash_map<std::string,std::string> replacements7;
+	flat_hash_map<std::string,std::string> replacements8;
 	
 	char ddx{-69};
-	char sin{-64};
-	char cos{-63};
-	char tan{-62};
-	char csc{-61};
-	char sec{-60};
-	char cot{-59};
 	int i; int ii;
-	replacements["ddx"]="x";
-	replacements["ddx"]+=ddx;
-	replacements["sin"]="";
-	replacements["sin"]+=sin;
-	replacements["cos"]="";
-	replacements["cos"]+=cos;
-	replacements["tan"]="";
-	replacements["tan"]+=tan;
-	replacements["csc"]="";
-	replacements["csc"]+=csc;
-	replacements["sec"]="";
-	replacements["sec"]+=sec;
-	replacements["cot"]="";
-	replacements["cot"]+=cot;
+	replacements3["ddx"]="x";
+	replacements3["ddx"]+=ddx;
 	
+	std::vector<std::string> trigFunctions;
+	trigFunctions.push_back("sin");
+	trigFunctions.push_back("cos");
+	trigFunctions.push_back("tan");
+	trigFunctions.push_back("csc");
+	trigFunctions.push_back("sec");
+	trigFunctions.push_back("cot");
+	for (i=0;i<6;i++){
+		char c{-64+i};
+		char ci{-32+i};
+		char ch{-16+i};
+		replacements3[trigFunctions[i]]="";
+		replacements3[trigFunctions[i]]+=c;
+		replacements4[trigFunctions[i]+"h"]="";
+		replacements4[trigFunctions[i]+"h"]+=ch;
+		replacements6["arc"+trigFunctions[i]]="";
+		replacements6["arc"+trigFunctions[i]]+=ci;
+	}
+	
+	std::string twoChars = "..";
 	std::string threeChars = "...";
+	std::string fourChars = "....";
+	std::string fiveChars = ".....";
+	std::string sixChars = "......";
+	std::string sevenChars = ".......";
+	std::string eightChars = "........";
+	
 	for (i=0;i<input_str.length();i++){
+		twoChars.replace(0,1,"");
+		twoChars += input_str.at(i);
 		threeChars.replace(0,1,"");
 		threeChars += input_str.at(i);
-		std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
-		if (replacements.find(threeChars) != replacements.end()){
-			input_str.replace(i-2,3,replacements[threeChars]);
+		fourChars.replace(0,1,"");
+		fourChars += input_str.at(i);
+		fiveChars.replace(0,1,"");
+		fiveChars += input_str.at(i);
+		sixChars.replace(0,1,"");
+		sixChars += input_str.at(i);
+		sevenChars.replace(0,1,"");
+		sevenChars += input_str.at(i);
+		eightChars.replace(0,1,"");
+		eightChars += input_str.at(i);
+		
+		//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+		if (replacements2.find(twoChars) != replacements2.end()){
+			input_str.replace(i-1,2,replacements2[twoChars]);
+			twoChars = "..";
+			i+= replacements2[twoChars].length() - 2;
+		}
+		else if (replacements3.find(threeChars) != replacements3.end()){
+			input_str.replace(i-2,3,replacements3[threeChars]);
 			threeChars = "...";
-			i--;
+			i+= replacements3[threeChars].length() - 3;
+		}
+		else if (replacements4.find(fourChars) != replacements4.end()){
+			input_str.replace(i-3,4,replacements4[fourChars]);
+			fourChars = "...";
+			i+= replacements4[fourChars].length() - 4;
+		}
+		else if (replacements5.find(fiveChars) != replacements5.end()){
+			input_str.replace(i-4,5,replacements5[fiveChars]);
+			fiveChars = "...";
+			i+= replacements5[fiveChars].length() - 5;
+		}
+		else if (replacements6.find(sixChars) != replacements6.end()){
+			input_str.replace(i-5,6,replacements6[sixChars]);
+			sixChars = "...";
+			i+= replacements6[sixChars].length() - 6;
+		}
+		else if (replacements7.find(sevenChars) != replacements7.end()){
+			input_str.replace(i-6,7,replacements7[sevenChars]);
+			sevenChars = "...";
+			i+= replacements7[sevenChars].length() - 7;
+		}
+		else if (replacements8.find(eightChars) != replacements8.end()){
+			input_str.replace(i-7,8,replacements8[eightChars]);
+			eightChars = "...";
+			i+= replacements8[eightChars].length() - 8;
 		}
 		else if (threeChars == "dd?"){
 			std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
