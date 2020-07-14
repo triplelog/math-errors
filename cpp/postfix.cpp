@@ -1542,10 +1542,14 @@ std::string replaceFunctions(std::string input_str){
 	flat_hash_map<std::string,std::string> replacements7;
 	flat_hash_map<std::string,std::string> replacements8;
 	
+	flat_hash_map<std::string,std::string> query4;
+	flat_hash_map<std::string,std::string> query3;
+	
 	char ddx{-69};
 	int i; int ii;
 	replacements3["ddx"]="x";
 	replacements3["ddx"]+=ddx;
+	query3["dd?"]=""+ddx;
 	
 	std::vector<std::string> trigFunctions;
 	trigFunctions.push_back("sin");
@@ -1567,6 +1571,15 @@ std::string replaceFunctions(std::string input_str){
 		replacements4[trigFunctions[i]+"h"]+=ch;
 		replacements6["arc"+trigFunctions[i]]="";
 		replacements6["arc"+trigFunctions[i]]+=ci;
+		replacements6[trigFunctions[i]+"^-1"]="";
+		replacements6[trigFunctions[i]+"^-1"]+=ci;
+		replacements8[trigFunctions[i]+"^(-1)"]="";
+		replacements8[trigFunctions[i]+"^(-1)"]+=ci;
+		replacements8[trigFunctions[i]+"^{-1}"]="";
+		replacements8[trigFunctions[i]+"^{-1}"]+=ci;
+		replacements5[trigFunctions[i]+"-1"]="";
+		replacements5[trigFunctions[i]+"-1"]+=ci;
+		query4[trigFunctions[i]+"^"]=""+c;
 	}
 	
 	std::string twoChars = "..";
@@ -1594,58 +1607,63 @@ std::string replaceFunctions(std::string input_str){
 		eightChars += input_str.at(i);
 		
 		//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
-		if (replacements2.find(twoChars) != replacements2.end()){
-			input_str.replace(i-1,2,replacements2[twoChars]);
-			twoChars = "..";
-			i+= replacements2[twoChars].length() - 2;
-		}
-		else if (replacements3.find(threeChars) != replacements3.end()){
-			input_str.replace(i-2,3,replacements3[threeChars]);
-			threeChars = "...";
-			i+= replacements3[threeChars].length() - 3;
-		}
-		else if (replacements4.find(fourChars) != replacements4.end()){
-			input_str.replace(i-3,4,replacements4[fourChars]);
-			fourChars = "...";
-			i+= replacements4[fourChars].length() - 4;
-		}
-		else if (replacements5.find(fiveChars) != replacements5.end()){
-			input_str.replace(i-4,5,replacements5[fiveChars]);
-			fiveChars = "...";
-			i+= replacements5[fiveChars].length() - 5;
-		}
-		else if (replacements6.find(sixChars) != replacements6.end()){
-			input_str.replace(i-5,6,replacements6[sixChars]);
-			sixChars = "...";
-			i+= replacements6[sixChars].length() - 6;
+		if (replacements8.find(eightChars) != replacements8.end()){
+			input_str.replace(i-7,8,replacements8[eightChars]);
+			eightChars = "...";
+			i+= replacements8[eightChars].length() - 8;
 		}
 		else if (replacements7.find(sevenChars) != replacements7.end()){
 			input_str.replace(i-6,7,replacements7[sevenChars]);
 			sevenChars = "...";
 			i+= replacements7[sevenChars].length() - 7;
 		}
-		else if (replacements8.find(eightChars) != replacements8.end()){
-			input_str.replace(i-7,8,replacements8[eightChars]);
-			eightChars = "...";
-			i+= replacements8[eightChars].length() - 8;
+		else if (replacements6.find(sixChars) != replacements6.end()){
+			input_str.replace(i-5,6,replacements6[sixChars]);
+			sixChars = "...";
+			i+= replacements6[sixChars].length() - 6;
 		}
-		else if (threeChars == "dd?"){
-			std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+		else if (replacements5.find(fiveChars) != replacements5.end()){
+			input_str.replace(i-4,5,replacements5[fiveChars]);
+			fiveChars = "...";
+			i+= replacements5[fiveChars].length() - 5;
+		}
+		else if (replacements4.find(fourChars) != replacements4.end()){
+			input_str.replace(i-3,4,replacements4[fourChars]);
+			fourChars = "...";
+			i+= replacements4[fourChars].length() - 4;
+		}
+		else if (replacements3.find(threeChars) != replacements3.end()){
+			input_str.replace(i-2,3,replacements3[threeChars]);
+			threeChars = "...";
+			i+= replacements3[threeChars].length() - 3;
+		}
+		else if (replacements2.find(twoChars) != replacements2.end()){
+			input_str.replace(i-1,2,replacements2[twoChars]);
+			twoChars = "..";
+			i+= replacements2[twoChars].length() - 2;
+		}
+		
+		
+		
+		
+		
+		else if (query4.find(fourChars) != query4.end()){
+			//is trig function to a power
+			
+			//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
 			std::string inside = "";
 			std::string var = "";
 			int openPar = 0;
-			bool isVar = false;
-			int repLen = 3;
+			bool isVar = true;
+			int repLen = 4;
 			for (ii=i+1;ii<input_str.length();ii++){
 				repLen++;
 				if (input_str.at(ii) == '('){
 					openPar++;
+					isVar = false;
 				}
 				else if (input_str.at(ii) == ')'){
 					openPar--;
-				}
-				else if (input_str.at(ii) == ';'){
-					isVar = true;
 				}
 				else if (isVar){
 					var += input_str.at(ii);
@@ -1654,14 +1672,51 @@ std::string replaceFunctions(std::string input_str){
 					inside += input_str.at(ii);
 				}
 				
-				if (openPar == 0){
+				if (openPar == 0 && !isVar){
 					break;
 				}
 			}
-			input_str.replace(i-2,repLen,"("+var+")"+ddx+"("+inside+")");
-			threeChars = "...";
-			i += var.length() + 3 - 3;
-			std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+			input_str.replace(i-3,repLen,"("+query4[fourChars]+"("+inside+"))^("+var+")");
+			fourChars = "....";
+			i += -4;
+			std::cout << i << " : " << input_str << " 4chars: " << threeChars << '\n';
+			
+		}
+		else if (query3.find(threeChars) != query3.end()){
+			if (query3[threeChars] == ""+ddx){ //is a derivative with respect to something
+				//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+				std::string inside = "";
+				std::string var = "";
+				int openPar = 0;
+				bool isVar = false;
+				int repLen = 3;
+				for (ii=i+1;ii<input_str.length();ii++){
+					repLen++;
+					if (input_str.at(ii) == '('){
+						openPar++;
+					}
+					else if (input_str.at(ii) == ')'){
+						openPar--;
+					}
+					else if (input_str.at(ii) == ';'){
+						isVar = true;
+					}
+					else if (isVar){
+						var += input_str.at(ii);
+					}
+					else {
+						inside += input_str.at(ii);
+					}
+				
+					if (openPar == 0){
+						break;
+					}
+				}
+				input_str.replace(i-2,repLen,"("+var+")"+ddx+"("+inside+")");
+				threeChars = "...";
+				i += -3;
+				//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+			}
 			
 		}
 		//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
