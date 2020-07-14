@@ -1585,7 +1585,7 @@ std::string replaceFunctions(std::string input_str){
 					openPar--;
 				}
 				else if (input_str.at(ii) == ','){
-					openPar--;
+					isVar  true;
 				}
 				else if (isVar){
 					var += input_str.at(ii);
