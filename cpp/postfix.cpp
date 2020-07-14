@@ -1555,12 +1555,12 @@ std::string replaceFunctions(std::string input_str){
 	trigFunctions.push_back("sec");
 	trigFunctions.push_back("cot");
 	for (i=0;i<6;i++){
-		int cci = -32+i;
-		int cch = -16+i;
 		char c{-64};
 		c += i;
-		char ci{cci};
-		char ch{cch};
+		char ci{-32};
+		ci += i;
+		char ch{-16};
+		ch += i;
 		replacements3[trigFunctions[i]]="";
 		replacements3[trigFunctions[i]]+=c;
 		replacements4[trigFunctions[i]+"h"]="";
