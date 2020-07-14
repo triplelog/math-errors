@@ -1563,14 +1563,14 @@ std::string replaceFunctions(std::string input_str){
 	for (i=0;i<input_str.length();i++){
 		threeChars.replace(0,1,"");
 		threeChars += input_str.at(i);
-		std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+		//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
 		if (replacements.find(threeChars) != replacements.end()){
 			input_str.replace(i-2,3,replacements[threeChars]);
 			threeChars = "...";
 			i--;
 		}
 		else if (threeChars == "dd?"){
-			std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+			//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
 			std::string inside = "";
 			std::string var = "";
 			int openPar = 0;
@@ -1601,7 +1601,7 @@ std::string replaceFunctions(std::string input_str){
 			input_str.replace(i-2,repLen,"("+var+")"+ddx+"("+inside+")");
 			threeChars = "...";
 			i += var.length() + 3 - 3;
-			std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+			//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
 			
 		}
 		//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
