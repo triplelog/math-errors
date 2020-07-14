@@ -261,6 +261,76 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 						case -59:
 							s += "\\\\cot\\\\left("+latexMap[child]+"\\\\right)";
 							break;
+						case -32:
+							s += "\\\\sin^{-1}\\\\left("+latexMap[child]+"\\\\right)";
+							break;
+						case -31:
+							s += "\\\\cos^{-1}\\\\left("+latexMap[child]+"\\\\right)";
+							break;
+						case -30:
+							s += "\\\\tan^{-1}\\\\left("+latexMap[child]+"\\\\right)";
+							break;
+						case -29:
+							s += "\\\\csc^{-1}\\\\left("+latexMap[child]+"\\\\right)";
+							break;
+						case -28:
+							s += "\\\\sec^{-1}\\\\left("+latexMap[child]+"\\\\right)";
+							break;
+						case -27:
+							s += "\\\\cot^{-1}\\\\left("+latexMap[child]+"\\\\right)";
+							break;
+						case -16:
+							s += "\\\\text{sinh}\\\\left("+latexMap[child]+"\\\\right)";
+							break;
+						case -15:
+							s += "\\\\text{cosh}\\\\left("+latexMap[child]+"\\\\right)";
+							break;
+						case -14:
+							s += "\\\\text{tanh}\\\\left("+latexMap[child]+"\\\\right)";
+							break;
+						case -13:
+							s += "\\\\text{csch}\\\\left("+latexMap[child]+"\\\\right)";
+							break;
+						case -12:
+							s += "\\\\text{sech}\\\\left("+latexMap[child]+"\\\\right)";
+							break;
+						case -11:
+							s += "\\\\text{coth}\\\\left("+latexMap[child]+"\\\\right)";
+							break;
+						case -67:
+							s += "\\\\sqrt{"+latexMap[child]+"}";
+							break;
+						case -84: {
+							if (ii > 0){
+								s += latexMap[child]+"}";
+							}
+							else {
+								s += "\\\\sqrt["+latexMap[child]+"]{";
+							}
+							break;
+						
+						}
+						case -93: {
+							if (ii > 0){
+								if (prec[lastOpMap[child]] < 100){
+									s += "\\\\left("+latexMap[child]+"\\\\right)";
+								}
+								else {
+									s += latexMap[child];
+								}
+								
+							}
+							else {
+								if (latexMap[child] == "e"){
+									s += "\\\\ln"
+								}
+								else {
+									s += "\\\\log_{"+latexMap[child]+"}";
+								}
+							}
+							break;
+						
+						}
 						case '-': {
 							if (prec[lastOpMap[input[i*3]]] >= prec[lastOpMap[child]]){
 								s += "-("+latexMap[child]+")";
@@ -1550,7 +1620,8 @@ std::string replaceFunctions(std::string input_str){
 	replacements3["ddx"]="x";
 	replacements3["ddx"]+=ddx;
 
-	query3["dd?"]=""+ddx;
+	query3["dd?"]="";
+	query3["dd?"]+=ddx;
 	
 	std::vector<std::string> trigFunctions;
 	trigFunctions.push_back("sin");
@@ -1584,7 +1655,25 @@ std::string replaceFunctions(std::string input_str){
 		query4[trigFunctions[i]+"^"]="";
 		query4[trigFunctions[i]+"^"]+=c;
 	}
-
+	
+	
+	char sqrt{-67};
+	char root{-84};
+	replacements4["sqrt"]="";
+	replacements4["sqrt"]+=sqrt;
+	replacements4["root"]="";
+	replacements4["root"]+=sqrt;
+	//TODO: add nth roots
+	
+	
+	
+	char log{-93};
+	replacements3["log"]="e";
+	replacements2["log"]+=log;
+	replacements3["ln"]="e";
+	replacements2["ln"]+=log;
+	//TODO: add other bases
+	
 	std::string twoChars = "..";
 	std::string threeChars = "...";
 	std::string fourChars = "....";
@@ -1647,10 +1736,9 @@ std::string replaceFunctions(std::string input_str){
 				i+= replacements2[twoChars].length() - 2;
 			}
 		
-		
-			
+
 			else if (query3.find(threeChars) != query3.end()){
-				if (query3[threeChars] == ""+ddx){ //is a derivative with respect to something
+				if (query3[threeChars].at(0) == ddx){ //is a derivative with respect to something
 					//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
 					std::string inside = "";
 					std::string var = "";
@@ -1688,9 +1776,9 @@ std::string replaceFunctions(std::string input_str){
 			}
 			//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
 		}
-		else if (query4.find(fourChars) != query4.end()){
+		else if (query4.find(fourChars) != query4.end() && input_str.length() > i+2 && input_str.at(i+1)!='-' && input_str.at(i+2)!='-'){
 			//is trig function to a power
-		
+
 			std::cout << i << " : " << input_str << " 4chars: " << fourChars << '\n';
 			std::string inside = "";
 			std::string var = "";
