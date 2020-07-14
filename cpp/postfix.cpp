@@ -1549,7 +1549,7 @@ std::string replaceFunctions(std::string input_str){
 	int i; int ii;
 	replacements3["ddx"]="x";
 	replacements3["ddx"]+=ddx;
-	std::cout << "here\n";
+
 	query3["dd?"]=""+ddx;
 	
 	std::vector<std::string> trigFunctions;
@@ -1559,7 +1559,7 @@ std::string replaceFunctions(std::string input_str){
 	trigFunctions.push_back("csc");
 	trigFunctions.push_back("sec");
 	trigFunctions.push_back("cot");
-	std::cout << "here\n";
+
 	for (i=0;i<6;i++){
 		char c{-64};
 		c += i;
@@ -1581,9 +1581,10 @@ std::string replaceFunctions(std::string input_str){
 		replacements8[trigFunctions[i]+"^{-1}"]+=ci;
 		replacements5[trigFunctions[i]+"-1"]="";
 		replacements5[trigFunctions[i]+"-1"]+=ci;
-		query4[trigFunctions[i]+"^"]=""+c;
+		query4[trigFunctions[i]+"^"]="";
+		query4[trigFunctions[i]+"^"]+=c;
 	}
-	std::cout << "here\n";
+
 	std::string twoChars = "..";
 	std::string threeChars = "...";
 	std::string fourChars = "....";
@@ -1688,40 +1689,40 @@ std::string replaceFunctions(std::string input_str){
 			//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
 		}
 		else if (query4.find(fourChars) != query4.end()){
-				//is trig function to a power
-			
-				std::cout << i << " : " << input_str << " 4chars: " << threeChars << '\n';
-				std::string inside = "";
-				std::string var = "";
-				int openPar = 0;
-				bool isVar = true;
-				int repLen = 4;
-				for (ii=i+1;ii<input_str.length();ii++){
-					repLen++;
-					if (input_str.at(ii) == '('){
-						openPar++;
-						isVar = false;
-					}
-					else if (input_str.at(ii) == ')'){
-						openPar--;
-					}
-					else if (isVar){
-						var += input_str.at(ii);
-					}
-					else {
-						inside += input_str.at(ii);
-					}
-				
-					if (openPar == 0 && !isVar){
-						break;
-					}
+			//is trig function to a power
+		
+			std::cout << i << " : " << input_str << " 4chars: " << fourChars << '\n';
+			std::string inside = "";
+			std::string var = "";
+			int openPar = 0;
+			bool isVar = true;
+			int repLen = 4;
+			for (ii=i+1;ii<input_str.length();ii++){
+				repLen++;
+				if (input_str.at(ii) == '('){
+					openPar++;
+					isVar = false;
 				}
-				input_str.replace(i-3,repLen,"("+query4[fourChars]+"("+inside+"))^("+var+")");
-				fourChars = "....";
-				i += -4;
-				std::cout << i << " : " << input_str << " 4chars: " << threeChars << '\n';
+				else if (input_str.at(ii) == ')'){
+					openPar--;
+				}
+				else if (isVar){
+					var += input_str.at(ii);
+				}
+				else {
+					inside += input_str.at(ii);
+				}
 			
+				if (openPar == 0 && !isVar){
+					break;
+				}
 			}
+			input_str.replace(i-3,repLen,"("+query4[fourChars]+"("+inside+"))^("+var+")");
+			fourChars = "....";
+			i += -4;
+			std::cout << i << " : " << input_str << " char: " << query4[fourChars] << '\n';
+		
+		}
 		
 	}
 	return input_str;
