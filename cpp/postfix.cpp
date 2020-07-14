@@ -1644,13 +1644,10 @@ std::string replaceFunctions(std::string input_str){
 		}
 		
 		
-		
-		
-		
 		else if (query4.find(fourChars) != query4.end()){
 			//is trig function to a power
 			
-			//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+			std::cout << i << " : " << input_str << " 4chars: " << threeChars << '\n';
 			std::string inside = "";
 			std::string var = "";
 			int openPar = 0;
