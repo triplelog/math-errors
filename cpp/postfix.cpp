@@ -236,6 +236,12 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 						case -69:
 							s += "\\\\frac{d}{dx}\\\\left["+latexMap[child]+"\\\\right]";
 							break;
+						case -64:
+							s += "\\\\sin\\\\left("+latexMap[child]+"\\\\right)";
+							break;
+						case -63:
+							s += "\\\\cos\\\\left("+latexMap[child]+"\\\\right)";
+							break;
 						case '-': {
 							if (prec[lastOpMap[input[i*3]]] >= prec[lastOpMap[child]]){
 								s += "-("+latexMap[child]+")";
@@ -246,12 +252,14 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							break;
 						}
 						case '/': {
+							s += "\\\\frac{1}{"+latexMap[child]+"}";
+							/*
 							if (prec[lastOpMap[input[i*3]]] >= prec[lastOpMap[child]]){
 								s += "/("+latexMap[child]+")";
 							}
 							else {
 								s += "/"+latexMap[child];
-							}
+							}*/
 							break;
 						}
 						default: {
@@ -271,7 +279,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							else if (prec[lastOpMap[input[i*3]]] == prec[lastOpMap[child]] && lastOpMap[input[i*3]] != lastOpMap[child]){
 								if (ii > 0){
 									if (lastOpMap[input[i*3]] == '*'){
-										s += latexMap[child];
+										s += "\\\\cdot "+latexMap[child];//want to move this into numerator somehow
 									}
 									else if (lastOpMap[input[i*3]] == '+'){
 										s += latexMap[child];
@@ -346,7 +354,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 	opStack.resize(len);
 	int iidx = 0;
 	
-	char ddx{-69};
+	
 	
 	for (i = 0; infixexpr[i]; i++) 
     {
@@ -395,7 +403,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 				osidx--;
 			}
 		}
-		else if (firstChar == ddx || firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '-' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
+		else if (firstChar < 0 || firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '-' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
 			while ((osidx > 0) && (prec[opStack[osidx-1]] >= prec[firstChar])){
 				topToken = opStack[osidx-1];
 				osidx--;
@@ -432,7 +440,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 			//expstr += "-";
 			expstr += "/*";
 		}
-		else if (firstChar == ddx || firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
+		else if (firstChar < 0 || firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
 			expstr += ci;
 		}
 		else {
@@ -711,7 +719,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 	flat_hash_map<std::string,std::vector<std::string>> nodeList;
 	int i; int ii; int iii;
 	int idx =0;
-	char ddx{-69};
 	bool startOperands = false;
 	std::string currentOperator = "";
 	int iidx = 0;
@@ -784,7 +791,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			
 			std::vector<std::string> fullTrees;
 			
-			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && pfstr.at(i) != ddx){
+			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && pfstr.at(i) >= 0){
 				
 				for (ii=0;ii<maxi;ii++){
 					std::string s = "";
@@ -1020,7 +1027,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	std::vector<std::string> forLatex;
 	
 	for (ii=orderedKeyList.size()-1;ii>=0;ii--){
-		std::cout << "anything: " << orderedKeyList[ii] << " and node: " << nodeList[orderedKeyList[ii]][0] << "\n";
+		//std::cout << "anything: " << orderedKeyList[ii] << " and node: " << nodeList[orderedKeyList[ii]][0] << "\n";
 		if (skipList.find(orderedKeyList[ii]) != skipList.end()){
 			//std::cout << "skip: " << nodeList[orderedKeyList[ii]][0] << "\n";
 			continue;
@@ -1165,7 +1172,6 @@ flat_hash_map<std::string,std::vector<std::string>> makeListFull(std::string pfs
 	
 	int i; int ii; int iii;
 	int idx =0;
-	char ddx{-69};
 	bool startOperands = false;
 	std::string currentOperator = "";
 	int iidx = 0;
@@ -1237,7 +1243,7 @@ flat_hash_map<std::string,std::vector<std::string>> makeListFull(std::string pfs
 			
 			std::vector<std::string> fullTrees;
 			
-			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && pfstr.at(i) != ddx){
+			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && pfstr.at(i) >= 0){
 				
 				for (ii=0;ii<maxi;ii++){
 					std::string s = "";
@@ -1393,7 +1399,6 @@ flat_hash_map<std::string,std::string> makeList(std::string pfstr){
 	
 	int i; int ii; int iii;
 	int idx =0;
-	char ddx{-69};
 	bool startOperands = false;
 	std::string currentOperator = "";
 	int iidx = 0;
@@ -1458,7 +1463,7 @@ flat_hash_map<std::string,std::string> makeList(std::string pfstr){
 			
 			
 			
-			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && pfstr.at(i) != ddx){
+			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && pfstr.at(i) >= 0){
 				
 				for (ii=0;ii<maxi;ii++){
 					std::string s = "";
@@ -1513,8 +1518,14 @@ flat_hash_map<std::string,std::string> makeList(std::string pfstr){
 std::vector<std::string> postfixifyVector(std::string input_str){
 	flat_hash_map<std::string,std::string> replacements;
 	char ddx{-69};
+	char sin{-64};
+	char cos{-63};
 	replacements["ddx"]="";
 	replacements["ddx"]+=ddx;
+	replacements["sin"]="";
+	replacements["sin"]+=sin;
+	replacements["cos"]="";
+	replacements["cos"]+=cos;
 	int i;
 	std::string threeChars = "...";
 	for (i=0;i<input_str.length();i++){
@@ -1554,9 +1565,16 @@ std::string postfixify(std::string input_str) {
 	input_str = input_str.replace(/--/g,'+');*/
 	
 	flat_hash_map<std::string,std::string> replacements;
+	
 	char ddx{-69};
+	char sin{-64};
+	char cos{-63};
 	replacements["ddx"]="";
 	replacements["ddx"]+=ddx;
+	replacements["sin"]="";
+	replacements["sin"]+=sin;
+	replacements["cos"]="";
+	replacements["cos"]+=cos;
 	int i;
 	std::string threeChars = "...";
 	for (i=0;i<input_str.length();i++){
@@ -1962,9 +1980,12 @@ int main (int argc, char *argv[]) {
 	yesC = 0;
 	noC = 0;
 
-	char ddx{-69};
-	prec[ddx]=6;
+
+	
 	prec['#'] = 100;
+	prec[-69]=6;
+	prec[-64]=6;
+	prec[-63]=6;
     prec['^'] = 5;
 	prec['*'] = 4;
 	prec['/'] = 4;
