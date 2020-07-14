@@ -1549,6 +1549,7 @@ std::string replaceFunctions(std::string input_str){
 	int i; int ii;
 	replacements3["ddx"]="x";
 	replacements3["ddx"]+=ddx;
+	std::cout << "here\n";
 	query3["dd?"]=""+ddx;
 	
 	std::vector<std::string> trigFunctions;
@@ -1558,6 +1559,7 @@ std::string replaceFunctions(std::string input_str){
 	trigFunctions.push_back("csc");
 	trigFunctions.push_back("sec");
 	trigFunctions.push_back("cot");
+	std::cout << "here\n";
 	for (i=0;i<6;i++){
 		char c{-64};
 		c += i;
@@ -1581,7 +1583,7 @@ std::string replaceFunctions(std::string input_str){
 		replacements5[trigFunctions[i]+"-1"]+=ci;
 		query4[trigFunctions[i]+"^"]=""+c;
 	}
-	
+	std::cout << "here\n";
 	std::string twoChars = "..";
 	std::string threeChars = "...";
 	std::string fourChars = "....";
@@ -1606,7 +1608,7 @@ std::string replaceFunctions(std::string input_str){
 		eightChars.replace(0,1,"");
 		eightChars += input_str.at(i);
 		
-		//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+		std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
 		if (replacements8.find(eightChars) != replacements8.end()){
 			input_str.replace(i-7,8,replacements8[eightChars]);
 			eightChars = "...";
