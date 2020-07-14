@@ -1669,8 +1669,8 @@ std::string replaceFunctions(std::string input_str){
 	
 	char log{-93};
 	replacements3["log"]="e";
-	replacements2["log"]+=log;
-	replacements3["ln"]="e";
+	replacements3["log"]+=log;
+	replacements2["ln"]="e";
 	replacements2["ln"]+=log;
 	//TODO: add other bases
 	
