@@ -1019,6 +1019,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	std::vector<std::string> forLatex;
 	
 	for (ii=orderedKeyList.size()-1;ii>=0;ii--){
+		std::cout << "anything: " << orderedKeyList[ii] << " and node: " << nodeList[orderedKeyList[ii]][0] << "\n";
 		if (skipList.find(orderedKeyList[ii]) != skipList.end()){
 			//std::cout << "skip: " << nodeList[orderedKeyList[ii]][0] << "\n";
 			continue;
