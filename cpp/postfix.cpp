@@ -993,7 +993,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			std::string name = "node"+std::to_string(treeIdx);
 			treeIdx++;
 			nodeList["#@" + std::to_string(idx) + "_"] = {name,""};
-			orderedKeyList.push_back(nodeText);
+			orderedKeyList.push_back("#@" + std::to_string(idx) + "_");
 		}
 		
 	}
