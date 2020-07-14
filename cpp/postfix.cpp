@@ -322,7 +322,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							}
 							else {
 								if (latexMap[child] == "e"){
-									s += "\\\\ln"
+									s += "\\\\ln";
 								}
 								else {
 									s += "\\\\log_{"+latexMap[child]+"}";
