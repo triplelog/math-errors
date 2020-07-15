@@ -1933,6 +1933,37 @@ std::string replaceFunctions(std::string input_str){
 					i += -3;
 					std::cout << i << " : " << input_str << " char: " << query3[threeChars] << '\n';
 				}
+				else if (input_str.at(i+1)=='_'){
+					std::string inside = "";
+					std::string var = "";
+					int openPar = 0;
+					bool isVar = true;
+					int repLen = 4;
+					for (ii=i+2;ii<input_str.length();ii++){
+						repLen++;
+						if (input_str.at(ii) == '('){
+							openPar++;
+							isVar = false;
+						}
+						else if (input_str.at(ii) == ')'){
+							openPar--;
+						}
+						else if (isVar){
+							var += input_str.at(ii);
+						}
+						else {
+							inside += input_str.at(ii);
+						}
+			
+						if (openPar == 0 && !isVar){
+							break;
+						}
+					}
+					input_str.replace(i-2,repLen,var+query3[threeChars]+"("+inside+")");
+					threeChars = "...";
+					i += -3;
+					std::cout << i << " : " << input_str << " char: " << query3[threeChars] << '\n';
+				}
 				 
 			}
 		}
@@ -1969,8 +2000,40 @@ std::string replaceFunctions(std::string input_str){
 					i += -2;
 					std::cout << i << " : " << input_str << " char: " << query2[twoChars] << '\n';
 				}
+				else if (input_str.at(i+1)=='_'){
+					std::string inside = "";
+					std::string var = "";
+					int openPar = 0;
+					bool isVar = true;
+					int repLen = 3;
+					for (ii=i+2;ii<input_str.length();ii++){
+						repLen++;
+						if (input_str.at(ii) == '('){
+							openPar++;
+							isVar = false;
+						}
+						else if (input_str.at(ii) == ')'){
+							openPar--;
+						}
+						else if (isVar){
+							var += input_str.at(ii);
+						}
+						else {
+							inside += input_str.at(ii);
+						}
+			
+						if (openPar == 0 && !isVar){
+							break;
+						}
+					}
+					input_str.replace(i-1,repLen,var+query2[twoChars]+"("+inside+")");
+					twoChars = "..";
+					i += -2;
+					std::cout << i << " : " << input_str << " char: " << query2[twoChars] << '\n';
+				}
 				 
 			}
+			
 		}
 	}
 	return input_str;
