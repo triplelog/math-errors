@@ -2121,6 +2121,12 @@ std::string applyRules(std::string userFullString) {
 				for (iii=0;iii<ruleOperands.size();iii++){
 					if (ruleOperands[iii].length()==1){
 						if (ruleOperands[iii].at(0) <= 'Z' && ruleOperands[iii].at(0) >= 'A'){
+							if (partMap.find(ruleOperands[iii].at(0)) != partMap.end()){
+								if (partMap[ruleOperands[iii].at(0)] != userOperands[iii]){
+									ignoreThis = true;
+									break;
+								}
+							}
 							partMap[ruleOperands[iii].at(0)] = userOperands[iii];
 						}
 						else if (ruleOperands[iii] != userOperands[iii]){
