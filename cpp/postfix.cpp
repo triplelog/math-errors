@@ -2291,9 +2291,7 @@ int main (int argc, char *argv[]) {
 	
 	//std::string s = "ddx(x^3+x^2+7+11*2*3)"; 
 	
-	for (ii=0;ii<argv[1].length();ii++){
-  		std::cout << s.at(ii) << "\n";
-  	}
+	
   	char* p = &argv[1][0];
 	while(*p != '\0') {
 		//process the current char
