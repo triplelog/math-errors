@@ -253,7 +253,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 								s.replace(5,0,latexMap[child]+"\\\\text{d");
 							}
 							else {
-								s += "\\\\int"+latexMap[child]+"}";
+								s += "\\\\int"+latexMap[child]+"} ";
 							}
 							break;
 						
@@ -340,10 +340,10 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							}
 							else {
 								if (latexMap[child] == "e"){
-									s += "\\\\ln";
+									s += "\\\\ln ";
 								}
 								else {
-									s += "\\\\log_{"+latexMap[child]+"}";
+									s += "\\\\log_{"+latexMap[child]+"} ";
 								}
 							}
 							break;
@@ -2100,8 +2100,6 @@ std::string replaceFunctions(std::string input_str){
 					i += -2;
 					std::cout << i << " : " << input_str << " char: " << query2[twoChars] << '\n';
 				}
-				
-				 
 			}
 			
 		}
@@ -2167,7 +2165,7 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 	flat_hash_map<std::string,std::vector<std::vector<std::string>>> finalRules;
 	std::vector<std::vector<std::string>> rawRules;
 	
-	rapidcsv::Document doc("rules/main.csv", rapidcsv::LabelParams(-1, -1));
+	rapidcsv::Document doc("cpp/rules/main.csv", rapidcsv::LabelParams(-1, -1));
 	
 	int nRows = doc.GetRowCount();
 	int i; int ii;
