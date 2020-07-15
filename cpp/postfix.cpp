@@ -250,7 +250,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 						}
 						case -85: {
 							if (ii > 0){
-								s.replace(6,0,latexMap[child]+"\\\\text{d");
+								s.replace(6,0,latexMap[child]+" \\\\text{d");
 							}
 							else {
 								s += "\\\\int "+latexMap[child]+"}";

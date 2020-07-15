@@ -6,23 +6,65 @@
 	<!-- stylesheets -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
 	<link rel="stylesheet" href="https://unpkg.com/treeflex/dist/css/treeflex.css">
+	<style>
+		.grid-container {
+		  display: grid;
+		  grid-template-columns: 240px 1fr;
+		  grid-template-rows: 50px 1fr 50px;
+		  grid-template-areas:
+			"sidenav header"
+			"sidenav main"
+			"sidenav footer";
+		  height: 100vh;
+		}
+
+		/* Give every child element its grid name */
+		.header {
+		  grid-area: header;
+		  background-color: #648ca6;
+		}
+
+		.sidenav {
+		  grid-area: sidenav;
+		  background-color: #394263;
+		}
+
+		.main {
+		  grid-area: main;
+		  background-color: #8fd4d9;
+		}
+
+		.footer {
+		  grid-area: footer;
+		  background-color: #648ca6;
+		}
+	</style>
 </head>
 <body>
-	 <form action="/tree" method="get"> 
-		<input type="text" id="equation" name="q" value="">
-  		<input type="submit" value="Submit">
-	</form>
+	<div class="grid-container">
+	  <header class="header"></header>
+	  <aside class="sidenav"></aside>
+	  <main class="main">
+	  	<form action="/tree" method="get"> 
+			<input type="text" id="equation" name="q" value="">
+			<input type="submit" value="Submit">
+		</form>
 	
 
-	<div class="tf-tree" id="tree-here">
-	  <ul>
-	  	{% for i in range(0,nTrees) %}
-		<li id="tree-simple{{ i }}">
-		{% endfor %}
+		<div class="tf-tree" id="tree-here">
+		  <ul>
+			{% for i in range(0,nTrees) %}
+			<li id="tree-simple{{ i }}">
+			{% endfor %}
 		  
-		</li>
-	  </ul>
+			</li>
+		  </ul>
+		</div>
+	  
+	  </main>
+	  <footer class="footer"></footer>
 	</div>
+	 
 
 
 	<!-- javascript -->
