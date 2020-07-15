@@ -520,7 +520,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 	for (i=0;i<pfidx;i++){
 		
 		std::string ci = postfixList[i];
-		std::cout << ci << " and 1st: " << ci.at(0) << " and size: " << ci.length() << "\n";
+		std::cout << ci << " and 1st: " << ci.at(0) - '0' << " and size: " << ci.length() << "\n";
 		char firstChar = ci.at(0);
 		if (firstChar == '-'){
 			//expstr += "-";
