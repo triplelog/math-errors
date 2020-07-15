@@ -243,6 +243,16 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							break;
 						
 						}
+						case -85: {
+							if (ii > 0){
+								s.replace(5,0,latexMap[child]+"\\\\text{d";
+							}
+							else {
+								s += "\\\\int"+latexMap[child]+"}";
+							}
+							break;
+						
+						}
 						case -64:
 							s += "\\\\sin\\\\left("+latexMap[child]+"\\\\right)";
 							break;
