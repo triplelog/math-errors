@@ -137,13 +137,13 @@ std::string divTwoInts(std::string a, std::string b){
 		}
 	}
 	int div = std::stoi(a);
-	/*int divb = std::stoi(b);
+	int divb = std::stoi(b);
 	if (div % divb == 0){
 		div /= divb;
 	}
 	else {
 		return "false";
-	}*/
+	}
 	return std::to_string(div);
 }
 
@@ -1996,7 +1996,7 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 	flat_hash_map<std::string,std::vector<std::vector<std::string>>> finalRules;
 	std::vector<std::vector<std::string>> rawRules;
 	
-	rapidcsv::Document doc("cpp/rules/main.csv", rapidcsv::LabelParams(-1, -1));
+	rapidcsv::Document doc("rules/main.csv", rapidcsv::LabelParams(-1, -1));
 	
 	int nRows = doc.GetRowCount();
 	int i; int ii;
