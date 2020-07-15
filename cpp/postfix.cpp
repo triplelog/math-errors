@@ -2295,7 +2295,7 @@ int main (int argc, char *argv[]) {
   	char* p = &argv[1][0];
 	while(*p != '\0') {
 		//process the current char
-		std::cout << p << "\n";
+		std::cout << *p << "\n";
 		++p;  //you can increment pointers without assigning an address to them
 	}
   	
