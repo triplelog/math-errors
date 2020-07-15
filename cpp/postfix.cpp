@@ -1974,6 +1974,7 @@ std::string replaceFunctions(std::string input_str){
 					std::cout << i << " : " << input_str << " char: " << query3[threeChars] << '\n';
 					for (ii=i+1;ii<input_str.length();ii++){
 						repLen++;
+						inside += input_str.at(ii);
 						if (input_str.at(ii) == '('){
 							openPar++;
 							isInside = true;
@@ -1987,9 +1988,6 @@ std::string replaceFunctions(std::string input_str){
 						}
 						else if (isVar){
 							var += input_str.at(ii);
-						}
-						else if (isInside){
-							inside += input_str.at(ii);
 						}
 						
 			
