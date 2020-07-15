@@ -137,7 +137,13 @@ std::string divTwoInts(std::string a, std::string b){
 		}
 	}
 	int div = std::stoi(a);
-	div /= std::stoi(b);
+	int divb = std::stoi(b);
+	if (div%divb == 0){
+		div /= std::stoi(b);
+	}
+	else {
+		return "false";
+	}
 	return std::to_string(div);
 }
 
@@ -1710,6 +1716,8 @@ std::string replaceFunctions(std::string input_str){
 	replacements3["log"]+=log;
 	replacements2["ln"]="e";
 	replacements2["ln"]+=log;
+	query3["log"]="";
+	query3["log"]+=log;
 	//TODO: add other bases
 	
 	char abs{-34};
@@ -1854,41 +1862,78 @@ std::string replaceFunctions(std::string input_str){
 			//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
 		}
 		else if (query4.find(fourChars) != query4.end() && input_str.length() > i+2 && input_str.at(i+1)!='-' && input_str.at(i+2)!='-'){
-			//is trig function to a power
-
-			std::cout << i << " : " << input_str << " 4chars: " << fourChars << '\n';
-			std::string inside = "";
-			std::string var = "";
-			int openPar = 0;
-			bool isVar = true;
-			int repLen = 4;
-			for (ii=i+1;ii<input_str.length();ii++){
-				repLen++;
-				if (input_str.at(ii) == '('){
-					openPar++;
-					isVar = false;
-				}
-				else if (input_str.at(ii) == ')'){
-					openPar--;
-				}
-				else if (isVar){
-					var += input_str.at(ii);
-				}
-				else {
-					inside += input_str.at(ii);
-				}
 			
-				if (openPar == 0 && !isVar){
-					break;
+			if (input_str.at(i)=='^'){ //is trig function to a power--unless add more
+				std::cout << i << " : " << input_str << " 4chars: " << fourChars << '\n';
+				std::string inside = "";
+				std::string var = "";
+				int openPar = 0;
+				bool isVar = true;
+				int repLen = 4;
+				for (ii=i+1;ii<input_str.length();ii++){
+					repLen++;
+					if (input_str.at(ii) == '('){
+						openPar++;
+						isVar = false;
+					}
+					else if (input_str.at(ii) == ')'){
+						openPar--;
+					}
+					else if (isVar){
+						var += input_str.at(ii);
+					}
+					else {
+						inside += input_str.at(ii);
+					}
+			
+					if (openPar == 0 && !isVar){
+						break;
+					}
 				}
+				input_str.replace(i-3,repLen,"("+query4[fourChars]+"("+inside+"))^("+var+")");
+				fourChars = "....";
+				i += -4;
+				std::cout << i << " : " << input_str << " char: " << query4[fourChars] << '\n';
 			}
-			input_str.replace(i-3,repLen,"("+query4[fourChars]+"("+inside+"))^("+var+")");
-			fourChars = "....";
-			i += -4;
-			std::cout << i << " : " << input_str << " char: " << query4[fourChars] << '\n';
+			
 		
 		}
-		
+		else if (query3.find(threeChars) != query3.end()){
+			if (query3[threeChars].at(0) == log){
+				if (input_str.at(i+1)=='^'){
+					std::string inside = "";
+					std::string var = "";
+					int openPar = 0;
+					bool isVar = true;
+					int repLen = 4;
+					for (ii=i+2;ii<input_str.length();ii++){
+						repLen++;
+						if (input_str.at(ii) == '('){
+							openPar++;
+							isVar = false;
+						}
+						else if (input_str.at(ii) == ')'){
+							openPar--;
+						}
+						else if (isVar){
+							var += input_str.at(ii);
+						}
+						else {
+							inside += input_str.at(ii);
+						}
+			
+						if (openPar == 0 && !isVar){
+							break;
+						}
+					}
+					input_str.replace(i-2,repLen,"("+query3[threeChars]+"("+inside+"))^("+var+")");
+					fourChars = "....";
+					i += -3;
+					std::cout << i << " : " << input_str << " char: " << query3[threeChars] << '\n';
+				}
+				 
+			}
+		}
 	}
 	return input_str;
 }
