@@ -1647,6 +1647,7 @@ std::string replaceFunctions(std::string input_str){
 	
 	flat_hash_map<std::string,std::string> query4;
 	flat_hash_map<std::string,std::string> query3;
+	flat_hash_map<std::string,std::string> query2;
 	
 	char ddx{-69};
 	char idx{-85};
