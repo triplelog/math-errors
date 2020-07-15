@@ -1164,7 +1164,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	}
 	nodeString += "];\n";
 	std::cout <<  nodeString << "\n";
-	std::cout << "-ODJS-\n";
+	std::cout << "trees.push({nodes:nodes,allNodes:allNodes});\n-ODJS-\n";
 	
 	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
 	//	std::cout << iter->first << " and " << iter->second << '\n';

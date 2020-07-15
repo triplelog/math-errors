@@ -16,57 +16,63 @@
 
 	<div class="tf-tree">
 	  <ul>
-		<li id="tree-here">
+	  	{% for i in range(0,nTrees) %}
+		<li id="tree-simple{{ i }}">
+		{% endfor %}
 		  
 		</li>
 	  </ul>
 	</div>
 
 
-	{% for i in range(0,nTrees) %}
-		<div id="tree-simple{{ i }}" style="width:800px; height: 400px"> </div>
-	{% endfor %}
 	<!-- javascript -->
 	<script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
 	<script>
+			var trees = [];
 			{{ tree | safe}}
 			/*nodes = {};
 			nodes["node0"] = {text:"Node 0",parent:""};
 			nodes["node1"] = {text:"Node 1",parent:"node0"};
 			nodes["node2"] = {text:"Node 2",parent:"node0"};
 			allNodes = ["node0","node1","node2"];*/
-			var jsonTree = {};
-			for (var i=0;i<allNodes.length;i++){
-				var name = allNodes[i];
-				var text = nodes[name].text;
-				var children = [];
-				var parent = nodes[name].parent;
-				var node = document.createElement('li');
-				var span = document.createElement('span');
-				span.classList.add("tf-nc");
-				span.textContent = text;
-				node.appendChild(span);
+			
+			for (var ii=0;ii<allTrees.length;ii++){
+				var allNodes = trees[ii].allNodes;
+				var nodes = trees[ii].nodes;
+				var jsonTree = {};
+				for (var i=0;i<allNodes.length;i++){
+					var name = allNodes[i];
+					var text = nodes[name].text;
+					var children = [];
+					var parent = nodes[name].parent;
+					var node = document.createElement('li');
+					var span = document.createElement('span');
+					span.classList.add("tf-nc");
+					span.textContent = text;
+					node.appendChild(span);
 				
 				
-				jsonTree[name]={text:text,children:children,node:node};
-				if (parent != ""){
-					jsonTree[parent].children.push(name);
-					var pnode = jsonTree[parent].node;
-					if (pnode.querySelector('ul')){
-						pnode.querySelector('ul').appendChild(node);
-					}
-					else {
-						var ul = document.createElement('ul');
-						pnode.appendChild(ul);
-						pnode.querySelector('ul').appendChild(node);
-					}
+					jsonTree[name]={text:text,children:children,node:node};
+					if (parent != ""){
+						jsonTree[parent].children.push(name);
+						var pnode = jsonTree[parent].node;
+						if (pnode.querySelector('ul')){
+							pnode.querySelector('ul').appendChild(node);
+						}
+						else {
+							var ul = document.createElement('ul');
+							pnode.appendChild(ul);
+							pnode.querySelector('ul').appendChild(node);
+						}
 					
-				}
-				else if (i==0){
-					document.getElementById('tree-here').appendChild(node);
-				}
+					}
+					else if (i==0){
+						document.getElementById('tree-simple'+ii).appendChild(node);
+					}
 				
+				}
 			}
+			
 		    
 	</script>
 	<script>
