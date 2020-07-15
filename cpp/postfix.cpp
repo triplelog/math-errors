@@ -2068,6 +2068,39 @@ std::string replaceFunctions(std::string input_str){
 					i += -2;
 					std::cout << i << " : " << input_str << " char: " << query2[twoChars] << '\n';
 				}
+				else if (input_str.length()>i+2 && input_str.at(i+1) == 'l' && input_str.at(i+2) == 'n'){
+					std::string inside = "";
+					std::string var = "";
+					int openPar = 0;
+					bool isVar = false;
+					bool isInside = false;
+					int repLen = 2;
+					for (ii=i+1;ii<input_str.length();ii++){
+						repLen++;
+						inside += input_str.at(ii);
+						if (input_str.at(ii) == '('){
+							openPar++;
+							isInside = true;
+							isVar = false;
+						}
+						else if (input_str.at(ii) == ')'){
+							openPar--;
+						}
+						else if (input_str.at(ii) == '_'){
+							isVar = true;
+						}
+						
+			
+						if (openPar == 0 && isInside){
+							break;
+						}
+					}
+					input_str.replace(i-1,repLen,"e"+log+"("+inside+")");
+					twoChars = "..";
+					i += -2;
+					std::cout << i << " : " << input_str << " char: " << query2[twoChars] << '\n';
+				}
+				
 				 
 			}
 			
