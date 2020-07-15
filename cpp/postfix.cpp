@@ -1925,7 +1925,7 @@ std::string replaceFunctions(std::string input_str){
 							break;
 						}
 					}
-					input_str.replace(i-2,repLen,"("+query3[threeChars]+"("+inside+"))^("+var+")");
+					input_str.replace(i-2,repLen,"(e"+query3[threeChars]+"("+inside+"))^("+var+")");
 					fourChars = "....";
 					i += -3;
 					std::cout << i << " : " << input_str << " char: " << query3[threeChars] << '\n';
