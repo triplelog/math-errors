@@ -1964,7 +1964,7 @@ std::string replaceFunctions(std::string input_str){
 					i += -3;
 					std::cout << i << " : " << input_str << " char: " << query3[threeChars] << '\n';
 				}
-				else if (input_str.length()>i+3 && input_str.at(i+1) == 'l' && input_str.at(i+1) == 'o' && input_str.at(i+1) == 'g'){
+				else if (input_str.length()>i+3 && input_str.at(i+1) == 'l' && input_str.at(i+2) == 'o' && input_str.at(i+3) == 'g'){
 					std::string inside = "";
 					std::string var = "";
 					int openPar = 0;
