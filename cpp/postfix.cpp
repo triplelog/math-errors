@@ -537,6 +537,15 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 			if (ci == "pi" || ci == "Pi" || ci == "PI"){
 				intstr += "\\\\pi";
 			}
+			else if (ci == "alpha"){
+				intstr += "\\\\alpha";
+			}
+			else if (ci == "beta"){
+				intstr += "\\\\beta";
+			}
+			else if (ci == "theta"){
+				intstr += "\\\\theta";
+			}
 			else {
 				intstr += ci;
 			}
@@ -2291,16 +2300,9 @@ int main (int argc, char *argv[]) {
 	
 	//std::string s = "ddx(x^3+x^2+7+11*2*3)"; 
 	
-	
-  	char* p = &argv[1][0];
-	while(*p != '\0') {
-		//process the current char
-		std::cout << *p << "\n";
-		++p;  //you can increment pointers without assigning an address to them
-	}
+
   	
   	std::string s(argv[1]);
-  	std::cout << s << '\n';
   	
 	std::string pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
@@ -2309,7 +2311,7 @@ int main (int argc, char *argv[]) {
 	std::string newPostfix = pfstr;
 	std::string oldPostfix = "";
 	
-	int maxSteps = -1;
+	int maxSteps = 10;
 	while (newPostfix != oldPostfix && maxSteps >=0){
 		auto t3 = std::chrono::high_resolution_clock::now();
 		newPostfix = removeBracketsOne(newPostfix);
