@@ -253,6 +253,9 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							break;
 						
 						}
+						case -34:
+							s += "|"+latexMap[child]+"|";
+							break;
 						case -64:
 							s += "\\\\sin\\\\left("+latexMap[child]+"\\\\right)";
 							break;
@@ -1708,6 +1711,10 @@ std::string replaceFunctions(std::string input_str){
 	replacements2["ln"]="e";
 	replacements2["ln"]+=log;
 	//TODO: add other bases
+	
+	char abs{-34};
+	replacements3["abs"]="";
+	replacements3["abs"]+=abs;
 	
 	
 	std::string twoChars = "..";
