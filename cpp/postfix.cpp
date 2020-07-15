@@ -533,7 +533,13 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 			expstr += ci;
 		}
 		else {
-			intstr += ci;
+			
+			if (ci == "pi" || ci == "Pi" || ci == "PI"){
+				intstr += "\\\\pi";
+			}
+			else {
+				intstr += ci;
+			}
 			intstr += "_";
 			expstr += "#";
 		}
@@ -1673,6 +1679,7 @@ std::string replaceFunctions(std::string input_str){
 	replacements2["ln"]="e";
 	replacements2["ln"]+=log;
 	//TODO: add other bases
+	
 	
 	std::string twoChars = "..";
 	std::string threeChars = "...";
