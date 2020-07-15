@@ -2290,11 +2290,20 @@ int main (int argc, char *argv[]) {
 	
 	
 	//std::string s = "ddx(x^3+x^2+7+11*2*3)"; 
-  	std::string s(argv[1]);
-  	std::cout << s << '\n';
-  	for (ii=0;ii<s.length();ii++){
+	
+	for (ii=0;ii<argv[1].length();ii++){
   		std::cout << s.at(ii) << "\n";
   	}
+  	char* p = &argv[1][0];
+	while(*p != '\0') {
+		//process the current char
+		std::cout << p << "\n";
+		++p;  //you can increment pointers without assigning an address to them
+	}
+  	
+  	std::string s(argv[1]);
+  	std::cout << s << '\n';
+  	
 	std::string pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
 	
