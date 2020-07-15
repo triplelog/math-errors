@@ -520,7 +520,6 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 	for (i=0;i<pfidx;i++){
 		
 		std::string ci = postfixList[i];
-		std::cout << ci << " and 1st: " << ci.at(0) - '0' << " and size: " << ci.length() << "\n";
 		char firstChar = ci.at(0);
 		if (firstChar == '-'){
 			//expstr += "-";
@@ -2292,7 +2291,10 @@ int main (int argc, char *argv[]) {
 	
 	//std::string s = "ddx(x^3+x^2+7+11*2*3)"; 
   	std::string s(argv[1]);
-  	
+  	std::cout << s << '\n';
+  	for (ii=0;ii<s.length();ii++){
+  		std::cout << s.at(ii) << "\n";
+  	}
 	std::string pfstr = postfixify(s);
 	std::cout << pfstr << '\n';
 	
@@ -2300,7 +2302,7 @@ int main (int argc, char *argv[]) {
 	std::string newPostfix = pfstr;
 	std::string oldPostfix = "";
 	
-	int maxSteps = 10;
+	int maxSteps = -1;
 	while (newPostfix != oldPostfix && maxSteps >=0){
 		auto t3 = std::chrono::high_resolution_clock::now();
 		newPostfix = removeBracketsOne(newPostfix);
