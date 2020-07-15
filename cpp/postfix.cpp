@@ -1977,6 +1977,7 @@ std::string replaceFunctions(std::string input_str){
 						if (input_str.at(ii) == '('){
 							openPar++;
 							isInside = true;
+							isVar = false;
 						}
 						else if (input_str.at(ii) == ')'){
 							openPar--;
