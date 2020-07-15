@@ -138,7 +138,7 @@ std::string divTwoInts(std::string a, std::string b){
 	}
 	int div = std::stoi(a);
 	int divb = std::stoi(b);
-	if (div%divb == 0){
+	if (div % divb == 0){
 		div /= divb;
 	}
 	else {
