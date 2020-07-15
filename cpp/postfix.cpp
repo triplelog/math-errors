@@ -1717,6 +1717,8 @@ std::string replaceFunctions(std::string input_str){
 	replacements2["ln"]+=log;
 	query3["log"]="";
 	query3["log"]+=log;
+	query2["ln"]="";
+	query2["ln"]+=log;
 	//TODO: add other bases
 	
 	char abs{-34};
@@ -1929,6 +1931,42 @@ std::string replaceFunctions(std::string input_str){
 					fourChars = "....";
 					i += -3;
 					std::cout << i << " : " << input_str << " char: " << query3[threeChars] << '\n';
+				}
+				 
+			}
+		}
+		else if (query2.find(twoChars) != query2.end()){
+			if (query2[twoChars].at(0) == log){
+				if (input_str.at(i+1)=='^'){
+					std::string inside = "";
+					std::string var = "";
+					int openPar = 0;
+					bool isVar = true;
+					int repLen = 3;
+					for (ii=i+2;ii<input_str.length();ii++){
+						repLen++;
+						if (input_str.at(ii) == '('){
+							openPar++;
+							isVar = false;
+						}
+						else if (input_str.at(ii) == ')'){
+							openPar--;
+						}
+						else if (isVar){
+							var += input_str.at(ii);
+						}
+						else {
+							inside += input_str.at(ii);
+						}
+			
+						if (openPar == 0 && !isVar){
+							break;
+						}
+					}
+					input_str.replace(i-1,repLen,"(e"+query2[twoChars]+"("+inside+"))^("+var+")");
+					twoChars = "..";
+					i += -2;
+					std::cout << i << " : " << input_str << " char: " << query2[twoChars] << '\n';
 				}
 				 
 			}
