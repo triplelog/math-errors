@@ -2095,7 +2095,7 @@ std::string replaceFunctions(std::string input_str){
 							break;
 						}
 					}
-					input_str.replace(i-1,repLen,"e"+log+"("+inside+")");
+					input_str.replace(i-1,repLen,"e" + query2[twoChars] +"("+inside+")");
 					twoChars = "..";
 					i += -2;
 					std::cout << i << " : " << input_str << " char: " << query2[twoChars] << '\n';
