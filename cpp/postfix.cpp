@@ -229,7 +229,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 								s += latexMap[child]+"}";
 							}
 							else {
-								if (prec[lastOpMap[input[i*3]]] >= prec[lastOpMap[child]]){
+								if (prec[lastOpMap[child]] < 100){
 									s += "\\\\left("+latexMap[child]+"\\\\right)";
 								}
 								else {
