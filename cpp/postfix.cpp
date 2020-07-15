@@ -120,17 +120,16 @@ std::string mulTwoInts(std::string a, std::string b){
 
 std::string divTwoInts(std::string a, std::string b){
 	int base = 10;
-
-	int len = a.length();
-	if (b.length() > len){
-		len = b.length();
-	}
 	int i;
+	int len = a.length();
 	for (i=0;i<len;i++){
 		int aa = a.at(len-1-i) - '0';
 		if (aa<0 || aa>9){
 			return "false";
 		}
+	}
+	len = b.length();
+	for (i=0;i<len;i++){
 		int bb = b.at(len-1-i) - '0';
 		if (bb<0 || bb>9){
 			return "false";
