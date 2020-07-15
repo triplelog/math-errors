@@ -1971,6 +1971,7 @@ std::string replaceFunctions(std::string input_str){
 					bool isVar = false;
 					bool isInside = false;
 					int repLen = 3;
+					std::cout << i << " : " << input_str << " char: " << query3[threeChars] << '\n';
 					for (ii=i+1;ii<input_str.length();ii++){
 						repLen++;
 						if (input_str.at(ii) == '('){
@@ -1995,6 +1996,7 @@ std::string replaceFunctions(std::string input_str){
 							break;
 						}
 					}
+					std::cout << var << " : " << inside << " char: " << query3[threeChars] << '\n';
 					if (var == ""){var = "e";}
 					input_str.replace(i-2,repLen,var+log+"("+inside+")");
 					threeChars = "...";
