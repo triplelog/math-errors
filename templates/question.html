@@ -185,12 +185,15 @@
 			for (var i=0;i<5;i++){
 				var template = document.querySelector('#treeTemplate');
 				var clone = template.content.cloneNode(true);
-				clone.querySelector('#heading').id = 'heading'+i;
-				clone.querySelector('#collapse').id = 'collapse'+i;
 				var button = clone.querySelector('#heading button');
 				button.setAttribute('data-target','#collapse'+i);
 				button.setAttribute('aria-controls','collapse'+i);
 				clone.querySelector('#collapse').setAttribute('aria-labelledby','heading'+i);
+				
+				clone.querySelector('#heading').id = 'heading'+i;
+				clone.querySelector('#collapse').id = 'collapse'+i;
+				
+				
 				document.getElementById("accordionExample").appendChild(clone);
 				
 			}
