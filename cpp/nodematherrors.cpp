@@ -220,6 +220,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 			std::string s = "";
 			for (ii=0;ii<childMap[input[i*3]].size();ii++){
 				std::string child = childMap[input[i*3]][ii]; //is name of child
+				std::cout << "child: " << child << " latex of child: " << latexMap[child] << " and s: " << s << "\n";
 				if (latexMap[child] == ""){
 					allChildren = false;
 					break;
