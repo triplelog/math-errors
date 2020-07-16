@@ -133,15 +133,15 @@
 			</div>
         </div>
 
-        <form action="/tree" method="get"> 
+        <div> 
 	  		<div>What is your question?</div>
 			<div>
 				<input type="text" id="equation" name="q" value="">
 			</div>
 			<div>
-				<input type="submit" value="Submit">
+				<input type="submit" onclick="submitQuestion()">
 			</div>
-		</form>
+		</div>
 	
 		<div class="accordion" id="accordionExample">
 		  
@@ -273,6 +273,10 @@
 			console.log(dm);
 			createTrees(dm.answer);
 			
+		}
+		function submitQuestion() {
+			var jsonmessage = {type:"solve",question:"ddx(x^2+3+4+5)"};
+			ws.send(JSON.stringify(jsonmessage));
 		}
 		
 	</script>

@@ -108,7 +108,7 @@ wss.on('connection', function connection(ws) {
 				outStr += allStrings[i];
 			}
 			console.log(performance.now());
-			var jsonmessage = "{type:'answer',answer:\""+outStr+"\"}";
+			var jsonmessage = "{'type':'answer','answer':\""+outStr+"\"}";
 			ws.send(jsonmessage);
 		}
 		
