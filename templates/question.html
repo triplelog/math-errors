@@ -235,7 +235,7 @@
 				}
 			}
 			for (var ii=0;ii<trees.length-1;ii++){
-				if (document.getElementById('tree-simple'+ii)){
+				if (document.getElementById('tree-simple'+ii) && document.getElementById('tree-simple'+(ii+1))){
 					var nextNode = document.getElementById('tree-simple'+(ii+1)).querySelector('li');
 					var node = nextNode.cloneNode();
 					document.getElementById('tree-simple'+ii).appendChild(node);
