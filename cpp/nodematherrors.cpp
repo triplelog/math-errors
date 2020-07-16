@@ -1959,6 +1959,7 @@ std::string applyRules(std::string userFullString) {
 	
 }
 
+/*
 int main (int argc, char *argv[]) {
 
 	duration1 = 0;
@@ -2059,62 +2060,58 @@ int main (int argc, char *argv[]) {
     std::cout << duration;
     
     //run it again
-	/*
-    t1 = std::chrono::high_resolution_clock::now();
+	if (2==3){
 
-	s = "ddx(7*(x^3+5))"; 
+		t1 = std::chrono::high_resolution_clock::now();
+
+		s = "ddx(7*(x^3+5))"; 
   
-	pfstr = postfixify(s);
-	std::cout << pfstr << '\n';
+		pfstr = postfixify(s);
+		std::cout << pfstr << '\n';
 	
 	
-	newPostfix = pfstr;
-	oldPostfix = "";
+		newPostfix = pfstr;
+		oldPostfix = "";
 	
-	maxSteps = 5;
-	while (newPostfix != oldPostfix && maxSteps >=0){
-		auto t3 = std::chrono::high_resolution_clock::now();
-		newPostfix = removeBracketsOne(newPostfix);
-		std::cout << "\n\n-----------&&&&&--------\n\n" << newPostfix << " ------- " << maxSteps << "\n\n";
-		oldPostfix = newPostfix;
-		auto t4 = std::chrono::high_resolution_clock::now();
-		std::vector<std::string> postList = makeTree(oldPostfix);
-		auto t5 = std::chrono::high_resolution_clock::now();
-		bool changedInput = false;
-		std::cout << "postListSize: " << postList.size() << "\n\n";
-		for (ii=0;ii<postList.size();ii++){
-			//std::cout << "--------\n" << ii << " ---- " << postList[ii] << "\n--------------";
-			newPostfix = applyRules(postList[ii]);
-			//std::cout << "--------\n" << ii << " ---- " << newPostfix << "\n--------------";
-			if (newPostfix != postList[ii]){
-				std::cout << "Match: " << postList[ii] << " into "<< newPostfix << " from " << oldPostfix << '\n';
-				changedInput = true;
-				break;
-			}
-			//std::cout << "--------\n" << ii << " ---- " << newPostfix << "\n--------------";
+		maxSteps = 5;
+		while (newPostfix != oldPostfix && maxSteps >=0){
+			auto t3 = std::chrono::high_resolution_clock::now();
+			newPostfix = removeBracketsOne(newPostfix);
+			std::cout << "\n\n-----------&&&&&--------\n\n" << newPostfix << " ------- " << maxSteps << "\n\n";
+			oldPostfix = newPostfix;
+			auto t4 = std::chrono::high_resolution_clock::now();
+			std::vector<std::string> postList = makeTree(oldPostfix);
+			auto t5 = std::chrono::high_resolution_clock::now();
+			bool changedInput = false;
+			std::cout << "postListSize: " << postList.size() << "\n\n";
+			for (ii=0;ii<postList.size();ii++){
+				//std::cout << "--------\n" << ii << " ---- " << postList[ii] << "\n--------------";
+				newPostfix = applyRules(postList[ii]);
+				//std::cout << "--------\n" << ii << " ---- " << newPostfix << "\n--------------";
+				if (newPostfix != postList[ii]){
+					std::cout << "Match: " << postList[ii] << " into "<< newPostfix << " from " << oldPostfix << '\n';
+					changedInput = true;
+					break;
+				}
+				//std::cout << "--------\n" << ii << " ---- " << newPostfix << "\n--------------";
 			
-		}
-		auto t6 = std::chrono::high_resolution_clock::now();
-		auto d1 = std::chrono::duration_cast<std::chrono::microseconds>( t4 - t3 ).count();
-		auto d2 = std::chrono::duration_cast<std::chrono::microseconds>( t5 - t4 ).count();
-		auto d3 = std::chrono::duration_cast<std::chrono::microseconds>( t6 - t5 ).count();
-		std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n\n";
-		std::cout << "NOYES: " << noC << " and " << yesC << "\n\n";
-		if (!changedInput){break;}
-		std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
+			}
+			auto t6 = std::chrono::high_resolution_clock::now();
+			auto d1 = std::chrono::duration_cast<std::chrono::microseconds>( t4 - t3 ).count();
+			auto d2 = std::chrono::duration_cast<std::chrono::microseconds>( t5 - t4 ).count();
+			auto d3 = std::chrono::duration_cast<std::chrono::microseconds>( t6 - t5 ).count();
+			std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n\n";
+			std::cout << "NOYES: " << noC << " and " << yesC << "\n\n";
+			if (!changedInput){break;}
+			std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
 		
-		maxSteps--;
+			maxSteps--;
 
+		}
 	}
-	
-	t2 = std::chrono::high_resolution_clock::now();
-
-    duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
-
-    std::cout << duration;
-    */
+    
 }
-
+*/
 
 void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//v8::Isolate* isolate = info.GetIsolate();
