@@ -2133,7 +2133,7 @@ void initialRun(){
 	
 
 	auto t1 = std::chrono::high_resolution_clock::now();
-	makeRules("main.csv");
+	makeRules("derivatives.csv");
 	auto t2 = std::chrono::high_resolution_clock::now();
 }
 

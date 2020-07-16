@@ -1,23 +1,10 @@
-"Rule Name","HTML Explanation"
-input,output,correct/incorrect/example,explanation,constraint(s)
-ddx(A+B),ddx(A)+ddx(B),"Sum Rule."
-ddx(A+B),A+B
-ddx(A+B),ddx(A)+B
-ddx(A+B),A+ddx(B)
-
-ddx(A*B),A*ddx(B)+B*ddx(A),"Sum Rule."
-ddx(sin(A)),cos(A)*ddx(A),"Sum Rule."
-ddx(cos(A)),-sin(A)*ddx(A),"Sum Rule."
-ddx(x^A),A*x^(A-1),"Turn exponent into multiplication."
-dd?(B^A;B),A*B^(A-1),"Turn exponent into multiplication."
-ddx(x),1,"Turn exponent into multiplication."
-dd?(B;B),1,"Turn exponent into multiplication."
-dd?(A+B;C),dd?(A;C)+dd?(B;C),"Sum Rule."
-idx(x),x^2/2,""
-id?(A;A),A^2/2,""
-A+B,=+AB,"Perform addition."
-A-B,=-AB,"Perform subtraction."
-A*B,=*AB,"Perform multiplication."
-A/B,=/AB,"Perform division."
--B,=-0B,"Negate."
-/B,=/1B,"Invert."
+Rule,"Sum Rule","HTML Explanation"
+ddx(A+B),ddx(A)+ddx(B),c,"Sum Rule."
+ddx(A+B),A+B,i,"No Differentiation"
+ddx(A+B),ddx(A)+B,i,"Missed some differentiation."
+ddx(A+B),A+ddx(B),i,"Missed some differentiation."
+ddx(x+1),1+0,e,"Simple example."
+Rule,"Product Rule","HTML Explanation"
+ddx(A*B),B*ddx(A)+A*ddx(B),c,"Product Rule."
+ddx(A*B),ddx(A)*ddx(B),i,"Not product of derivatives."
+ddx(2*x),2,e,"Simple example."

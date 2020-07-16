@@ -21,7 +21,14 @@ void makeRules(std::string fileName){
 	
 	for (i=0;i<nRows;i++){
 		std::vector<std::string> rawRule = doc.GetRow<std::string>(i);
-		rawRules.push_back(rawRule);
+		if (rawRule[0] != "Rule"){
+			rawRules.push_back(rawRule);
+			std::cout << rawRule[0] << "\n";
+		}
+		else {
+			std::cout << "skipped: " << rawRule[0] << "\n";
+		}
+		
 	}
 	
 	
