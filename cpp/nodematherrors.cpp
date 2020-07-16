@@ -29,6 +29,7 @@ flat_hash_map<std::string,std::string> treeMap;
 flat_hash_map<char,int> prec;
 flat_hash_map<std::string,std::vector<std::vector<std::string>>> rules;
 flat_hash_map<std::string,flat_hash_map<std::string,std::string>> allListMap;
+std::string jsonmessage;
 int duration1;
 int duration2;
 int duration3;
@@ -1145,8 +1146,9 @@ std::vector<std::string> makeTree(std::string pfstr){
 	
 	
 	flat_hash_map<std::string,std::string> skipList;
+	jsonmessage += "\nnodes = {};\n";
 	std::string nodeString = "allNodes = [";
-	std::cout << "-DOJS-\nnodes = {};\n";
+	//std::cout << "-DOJS-\nnodes = {};\n";
 	
 	std::vector<std::string> forLatex;
 	
@@ -1191,16 +1193,18 @@ std::vector<std::string> makeTree(std::string pfstr){
 			outText += "op: \"" + nodeList[orderedKeyList[ii]][2] + "\",";
 			outText += "parent: \""+ parent + "\"};\n";
 		
-			
-			std::cout << outText << "\n";
+			jsonmessage += outText + "\n";
+			//std::cout << outText << "\n";
 			nodeString += "\""+nodeList[orderedKeyList[ii]][0] + "\", ";
 		}
 		
 		
 	}
 	nodeString += "];\n";
-	std::cout <<  nodeString << "\n";
-	std::cout << "trees.push({nodes:nodes,allNodes:allNodes});\n-ODJS-\n";
+	jsonmessage += nodeString + "\n";
+	//std::cout <<  nodeString << "\n";
+	jsonmessage += "trees.push({nodes:nodes,allNodes:allNodes});\n";
+	//std::cout << "trees.push({nodes:nodes,allNodes:allNodes});\n-ODJS-\n";
 	
 	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
 	//	std::cout << iter->first << " and " << iter->second << '\n';
@@ -2140,6 +2144,7 @@ void initialRun(){
 	makeRules("main.csv");
 	auto t2 = std::chrono::high_resolution_clock::now();
 }
+
 std::string getAnswer(std::string s){
 	duration1 = 0;
 	duration2 = 0;
@@ -2210,16 +2215,16 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
 void GetAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-	//v8::Isolate* isolate = info.GetIsolate();
+	v8::Isolate* isolate = info.GetIsolate();
 	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
 	//int row = info[0]->Int32Value(context).FromJust();
-	//v8::String::Utf8Value s(isolate, info[0]);
-	//std::string str(*s);
-	std::string out = rules["##+"][0][0];
+	v8::String::Utf8Value s(isolate, info[0]);
+	std::string str(*s);
+	//std::string out = rules["##+"][0][0];
+	jsonmessage = "";
+	getAnswer(str);
 	
-	getAnswer("ddx(x)");
-	
-	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(out);
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
 void Init(v8::Local<v8::Object> exports) {

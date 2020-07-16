@@ -77,7 +77,7 @@ var startTime = performance.now();
 var retHello = maincpp.hello();
 console.log("hello?: ",retHello);
 console.log(startTime, performance.now());
-retHello = maincpp.answer();
+retHello = maincpp.answer("ddx(x)");
 console.log("ret?: ",retHello);
 console.log(performance.now());
 app.get('/question',
