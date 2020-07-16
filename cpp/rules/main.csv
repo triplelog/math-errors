@@ -1,4 +1,7 @@
 ddx(A+B),ddx(A)+ddx(B),"Sum Rule."
+ddx(A+B),A+B,"Wrong Sum Rule."
+ddx(A+B),ddx(A)+B,"Wrong Sum Rule."
+ddx(A+B),A+ddx(B),"Wrong Sum Rule."
 ddx(A*B),A*ddx(B)+B*ddx(A),"Sum Rule."
 ddx(sin(A)),cos(A)*ddx(A),"Sum Rule."
 ddx(cos(A)),-sin(A)*ddx(A),"Sum Rule."
