@@ -1,0 +1,22 @@
+"Sum Rule"
+ddx(A+B),ddx(A)+ddx(B),"Sum Rule."
+ddx(A+B),A+B
+ddx(A+B),ddx(A)+B
+ddx(A+B),A+ddx(B)
+
+ddx(A*B),A*ddx(B)+B*ddx(A),"Sum Rule."
+ddx(sin(A)),cos(A)*ddx(A),"Sum Rule."
+ddx(cos(A)),-sin(A)*ddx(A),"Sum Rule."
+ddx(x^A),A*x^(A-1),"Turn exponent into multiplication."
+dd?(B^A;B),A*B^(A-1),"Turn exponent into multiplication."
+ddx(x),1,"Turn exponent into multiplication."
+dd?(B;B),1,"Turn exponent into multiplication."
+dd?(A+B;C),dd?(A;C)+dd?(B;C),"Sum Rule."
+idx(x),x^2/2,""
+id?(A;A),A^2/2,""
+A+B,=+AB,"Perform addition."
+A-B,=-AB,"Perform subtraction."
+A*B,=*AB,"Perform multiplication."
+A/B,=/AB,"Perform division."
+-B,=-0B,"Negate."
+/B,=/1B,"Invert."
