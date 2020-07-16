@@ -2112,15 +2112,8 @@ int main (int argc, char *argv[]) {
     
 }
 */
-std::string runMain(std::string s){
-	duration1 = 0;
-	duration2 = 0;
-	duration3 = 0;
-	yesC = 0;
-	noC = 0;
 
-
-	
+void initialRun(){
 	prec['#'] = 100;
 	int i;
 	for (i=-128;i<0;i++){
@@ -2146,7 +2139,16 @@ std::string runMain(std::string s){
 	auto t1 = std::chrono::high_resolution_clock::now();
 	rules = makeRules();
 	auto t2 = std::chrono::high_resolution_clock::now();
-	
+}
+std::string getAnswer(std::string s){
+	duration1 = 0;
+	duration2 = 0;
+	duration3 = 0;
+	yesC = 0;
+	noC = 0;
+
+
+	int i;
 	int ii;
 
 
@@ -2201,17 +2203,21 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//int row = info[0]->Int32Value(context).FromJust();
 	//v8::String::Utf8Value s(isolate, info[0]);
 	//std::string str(*s);
-	std::string out = runMain("ddx(x)");
+	initialRun();
+	std::string out = "done";
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(out);
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
-void RetHello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+void GetAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//v8::Isolate* isolate = info.GetIsolate();
 	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
 	//int row = info[0]->Int32Value(context).FromJust();
 	//v8::String::Utf8Value s(isolate, info[0]);
 	//std::string str(*s);
 	std::string out = rules["##+"][0][0];
+	
+	getAnswer("ddx(x)");
+	
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(out);
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
@@ -2223,8 +2229,8 @@ void Init(v8::Local<v8::Object> exports) {
                    ->GetFunction(context)
                    .ToLocalChecked());
   exports->Set(context,
-               Nan::New("rethello").ToLocalChecked(),
-               Nan::New<v8::FunctionTemplate>(RetHello)
+               Nan::New("answer").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(GetAnswer)
                    ->GetFunction(context)
                    .ToLocalChecked());
 }
