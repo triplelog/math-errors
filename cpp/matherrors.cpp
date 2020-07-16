@@ -1639,7 +1639,7 @@ flat_hash_map<std::string,std::string> makeList(std::string pfstr){
 
 
 
-
+#include "postfixify.cpp"
 
 #include "makerules.cpp"
 
