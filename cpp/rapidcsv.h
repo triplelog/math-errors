@@ -612,7 +612,7 @@ namespace rapidcsv
       ssize_t columnIdx = GetColumnIdx(pColumnName);
       if (columnIdx < 0)
       {
-        throw std::out_of_range("column not found: " + pColumnName);
+        //throw std::out_of_range("column not found: " + pColumnName);
       }
 
       RemoveColumn(columnIdx);
