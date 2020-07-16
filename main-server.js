@@ -72,7 +72,7 @@ wss.on('connection', function connection(ws) {
   	});
 });
 
-
+maincpp.test();
 app.get('/question',
 	function(req, res){
 		
@@ -107,7 +107,6 @@ app.get('/question',
 					nodeStr = nodeStr.substring(1,7);
 			
 					if (nodeStr == "-DOJS-"){
-						console.log("Hi");
 						inAction = true;
 					}
 					else if (nodeStr == "-ODJS-"){

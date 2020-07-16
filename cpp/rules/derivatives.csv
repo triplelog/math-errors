@@ -1,4 +1,5 @@
-"Sum Rule"
+"Rule Name","HTML Explanation"
+input,output,correct/incorrect/example,explanation,constraint(s)
 ddx(A+B),ddx(A)+ddx(B),"Sum Rule."
 ddx(A+B),A+B
 ddx(A+B),ddx(A)+B
