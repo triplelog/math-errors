@@ -59,6 +59,7 @@ const wss = new WebSocket.Server({ server });
 wss.on('connection', function connection(ws) {
 	var username = '';
   	ws.on('message', function incoming(message) {
+  		console.log(performance.now());
 		var dm = JSON.parse(message);
 		if (dm.operation == 'key'){
 			if (tempKeys[dm.message]){
@@ -66,7 +67,49 @@ wss.on('connection', function connection(ws) {
 			}
 		}
 		else if (dm.type == 'solve'){
-			
+			var question = dm.question;
+			var stdout = maincpp.answer(question);
+			console.log(performance.now(), question);
+			var outStr = "";
+		
+			var len = stdout.length;
+			var nodeStr = "......";
+			var inAction = false;
+		
+			var idx = 0;
+			var allStrings = [];
+			var allSteps = [];
+			for (var i=0;i<len;i++){
+				nodeStr += stdout[i];
+				nodeStr = nodeStr.substring(1,7);
+	
+				if (nodeStr == "-DOJS-"){
+					inAction = true;
+				}
+				else if (nodeStr == "-ODJS-"){
+					inAction = false;
+				
+					outStr = outStr.replace("#tree-simple","#tree-simple"+idx);
+					outStr = outStr.replace("var chart =","var chart"+idx+" =");
+					outStr = outStr.substring(0,outStr.length-5);
+					allStrings.push(outStr);
+					allSteps.push("node"+i);
+					idx++;
+					outStr = "";
+				}
+				else if (inAction){
+					outStr += stdout[i];
+				}
+			}
+		
+			//console.log(allStrings);
+			outStr =  "";
+			for (var i=0;i<allStrings.length;i++){
+				outStr += allStrings[i];
+			}
+			console.log(performance.now());
+			var jsonmessage = "{type:'answer',answer:\""+outStr+"\"}";
+			ws.send(jsonmessage);
 		}
 		
   	});
@@ -81,57 +124,12 @@ console.log(startTime, performance.now());
 app.get('/question',
 	function(req, res){
 		
-		var wget = "2+2";
-		if (req.query && req.query.q){
-			wget = req.query.q;
-		}
-		var stdout = maincpp.answer(wget);
-		console.log(performance.now(), wget);
-		var outStr = "";
 		
-		var len = stdout.length;
-		console.log(performance.now(), len);
-		var nodeStr = "......";
-		var inAction = false;
-		
-		var idx = 0;
-		var allStrings = [];
-		var allSteps = [];
-		for (var i=0;i<len;i++){
-			nodeStr += stdout[i];
-			nodeStr = nodeStr.substring(1,7);
-	
-			if (nodeStr == "-DOJS-"){
-				inAction = true;
-			}
-			else if (nodeStr == "-ODJS-"){
-				inAction = false;
-				
-				outStr = outStr.replace("#tree-simple","#tree-simple"+idx);
-				outStr = outStr.replace("var chart =","var chart"+idx+" =");
-				outStr = outStr.substring(0,outStr.length-5);
-				allStrings.push(outStr);
-				allSteps.push("node"+i);
-				idx++;
-				outStr = "";
-			}
-			else if (inAction){
-				outStr += stdout[i];
-			}
-		}
-		
-		//console.log(allStrings);
-		outStr =  "";
-		for (var i=0;i<allStrings.length;i++){
-			outStr += allStrings[i];
-		}
 		console.log(performance.now());
 		//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
 		//ws.send(JSON.stringify(jsonmessage));
 		res.write(nunjucks.render('templates/question.html',{
-			tree: outStr,
-			nTrees: allStrings.length,
-			allSteps: allSteps,
+
 		}));
 		res.end();
 

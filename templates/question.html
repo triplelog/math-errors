@@ -144,31 +144,28 @@
 		</form>
 	
 		<div class="accordion" id="accordionExample">
-		  {% for i in range(0,nTrees-1) %}
-		  <div class="card">
-			<div class="card-header" id="heading{{ i }}">
-			  <h2 class="mb-0">
-				<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{ i }}" aria-expanded="true" aria-controls="collapse{{ i }}">
-				  {{ allSteps[i] }}
-				</button>
-			  </h2>
-			</div>
+		  
+		</div>
+		  <template id="treeTemplate">
+			  <div class="card">
+				<div class="card-header" id="heading">
+				  <h2 class="mb-0">
+					<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
+					  Node
+					</button>
+				  </h2>
+				</div>
 
-			<div id="collapse{{ i }}" class="collapse" aria-labelledby="heading{{ i }}" data-parent="#accordionExample">
-			  <div class="card-body">
-				<div class="tf-tree">
-				  <ul id="tree-simple{{ i }}">
-				  </ul>
+				<div id="collapse" class="collapse" aria-labelledby="heading" data-parent="#accordionExample">
+				  <div class="card-body">
+					<div class="tf-tree">
+					  <ul id="tree-simple">
+					  </ul>
+					</div>
+				  </div>
 				</div>
 			  </div>
-			</div>
-		  </div>
-		  {% endfor %}
-		</div>
-		
-
-
-      
+		  </template>
 
     </main>
   </div>
@@ -183,13 +180,23 @@
   
   <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
 	<script>
+		function createTrees(input_str){
+			document.getElementById("accordianExample").innerHTML = "";
+			for (var i=0;i<5;i++){
+				var template = document.querySelector('#treeTemplate');
+				var clone = template.content.cloneNode(true);
+				clone.querySelector('#heading').id = 'heading'+i;
+				clone.querySelector('#collapse').id = 'collapse'+i;
+				var button = clone.querySelector('#heading button');
+				button.setAttribute('data-target','#collapse'+i);
+				button.setAttribute('aria-controls','collapse'+i);
+				clone.querySelector('#collapse').setAttribute('aria-labelledby','heading'+i);
+				document.getElementById("accordianExample").appendChild(clone);
+				
+			}
+			
 			var trees = [];
-			{{ tree | safe}}
-			/*nodes = {};
-			nodes["node0"] = {text:"Node 0",parent:""};
-			nodes["node1"] = {text:"Node 1",parent:"node0"};
-			nodes["node2"] = {text:"Node 2",parent:"node0"};
-			allNodes = ["node0","node1","node2"];*/
+			eval(input_str);
 			
 			for (var ii=0;ii<trees.length;ii++){
 				var allNodes = trees[ii].allNodes;
@@ -242,17 +249,32 @@
 				}
 				
 			}
+			var katexElements = document.querySelectorAll('span.tf-nc');
+			for (var i=0;i<katexElements.length;i++){
+				var el = katexElements[i];
+				katex.render(el.textContent, el, {
+					throwOnError: false
+				});
+			}
+		}
 			
 		    
 	</script>
 	<script>
-		var katexElements = document.querySelectorAll('span.tf-nc');
-		for (var i=0;i<katexElements.length;i++){
-			var el = katexElements[i];
-			katex.render(el.textContent, el, {
-				throwOnError: false
-			});
+		ws = new WebSocket('wss://matherrors.com:8080');
+		ws.onopen = function(evt) {
+			//var jsonmessage = {'type':'soloKey'};
+			//jsonmessage.message = tkey;
+			//ws.send(JSON.stringify(jsonmessage));
+			
 		}
+		ws.onmessage = function(evt){
+			var dm = JSON.parse(evt.data);
+			console.log(dm);
+			createTrees(dm.answer);
+			
+		}
+		
 	</script>
   </body>
 </html>
