@@ -830,11 +830,8 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 		}
 	}
 	for (i=indexes.size()/3-1;i>=0;i--){
-		std::cout << "old: " << input << "\n";
 		input.replace(std::stoi(indexes[i*3]),std::stoi(indexes[i*3+1]),indexes[i*3+2]);
-		std::cout << "new: " << input << "\n";
 	}
-	std::cout << "return: " << input << "\n";
 	return input;
 }
 
@@ -1169,7 +1166,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 		std::string name = nodeList[orderedKeyList[ii]][0];
 		std::string parent = nodeList[orderedKeyList[ii]][1];
 		std::string postfix = fromOriginal(orderedKeyList[ii],originalMap);
-		std::cout << "postfix: "<< postfix << " from " << orderedKeyList[ii] << "\n";
 		forLatex.push_back(name);
 		forLatex.push_back(parent);
 		forLatex.push_back(postfix);
@@ -2225,7 +2221,7 @@ void GetAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//int row = info[0]->Int32Value(context).FromJust();
 	v8::String::Utf8Value s(isolate, info[0]);
 	std::string str(*s);
-	//std::string out = rules["##+"][0][0];
+	std::cout << "input: "<< str << "\n";
 	jsonmessage = "";
 	getAnswer(str);
 	
