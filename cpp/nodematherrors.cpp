@@ -830,9 +830,11 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 		}
 	}
 	for (i=indexes.size()/3-1;i>=0;i--){
+		std::cout << "old: " << input << "\n";
 		input.replace(std::stoi(indexes[i*3]),std::stoi(indexes[i*3+1]),indexes[i*3+2]);
+		std::cout << "new: " << input << "\n";
 	}
-	std::cout << input << "\n";
+	std::cout << "return: " << input << "\n";
 	return input;
 }
 
