@@ -2205,11 +2205,26 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(out);
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
+void RetHello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+	//v8::Isolate* isolate = info.GetIsolate();
+	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
+	//int row = info[0]->Int32Value(context).FromJust();
+	//v8::String::Utf8Value s(isolate, info[0]);
+	//std::string str(*s);
+	std::string out = rules["##+"][0][0];
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(out);
+	info.GetReturnValue().Set(h.ToLocalChecked());
+}
 void Init(v8::Local<v8::Object> exports) {
   v8::Local<v8::Context> context = exports->CreationContext();
   exports->Set(context,
                Nan::New("hello").ToLocalChecked(),
                Nan::New<v8::FunctionTemplate>(Hello)
+                   ->GetFunction(context)
+                   .ToLocalChecked());
+  exports->Set(context,
+               Nan::New("rethello").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(RetHello)
                    ->GetFunction(context)
                    .ToLocalChecked());
 }
