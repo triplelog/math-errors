@@ -86,7 +86,7 @@ app.get('/tree',
 			if (err){
 				console.log(err);
 				//send message--likely file size limit
-				res.write(nunjucks.render('static/treant-js-master/tree.html',{
+				res.write(nunjucks.render('templates/bootstrap.html',{
 					tree: "",
 				}));
 				res.end();
@@ -132,7 +132,7 @@ app.get('/tree',
 				console.log(performance.now());
 				//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
 				//ws.send(JSON.stringify(jsonmessage));
-				res.write(nunjucks.render('static/treant-js-master/tree.html',{
+				res.write(nunjucks.render('templates/bootstrap.html',{
 					tree: outStr,
 					nTrees: allStrings.length,
 				}));
