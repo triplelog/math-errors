@@ -72,7 +72,7 @@ wss.on('connection', function connection(ws) {
   	});
 });
 
-maincpp.test();
+maincpp.hello();
 app.get('/question',
 	function(req, res){
 		
