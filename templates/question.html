@@ -182,7 +182,11 @@
 	<script>
 		function createTrees(input_str){
 			document.getElementById("accordionExample").innerHTML = "";
-			for (var i=0;i<5;i++){
+			
+			
+			var trees = [];
+			eval(input_str);
+			for (var i=0;i<trees.length-1;i++){
 				var template = document.querySelector('#treeTemplate');
 				var clone = template.content.cloneNode(true);
 				var button = clone.querySelector('#heading button');
@@ -198,10 +202,6 @@
 				document.getElementById("accordionExample").appendChild(clone);
 				
 			}
-			
-			var trees = [];
-			eval(input_str);
-			console.log(trees);
 			for (var ii=0;ii<trees.length;ii++){
 				var allNodes = trees[ii].allNodes;
 				var nodes = trees[ii].nodes;

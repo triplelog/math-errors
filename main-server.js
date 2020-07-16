@@ -61,13 +61,16 @@ wss.on('connection', function connection(ws) {
   	ws.on('message', function incoming(message) {
   		console.log(performance.now());
 		var dm = JSON.parse(message);
+		console.log(performance.now());
 		if (dm.operation == 'key'){
 			if (tempKeys[dm.message]){
 				username = tempKeys[dm.message].username;
 			}
 		}
 		else if (dm.type == 'solve'){
+			console.log(performance.now());
 			var question = dm.question;
+			console.log(performance.now());
 			var stdout = maincpp.answer(question);
 			console.log(performance.now(), question);
 			var outStr = "";
