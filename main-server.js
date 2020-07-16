@@ -81,9 +81,9 @@ console.log(startTime, performance.now());
 app.get('/question',
 	function(req, res){
 		
-		var wget = "\"2+2\"";
+		var wget = "2+2";
 		if (req.query && req.query.q){
-			wget = "\""+req.query.q+"\"";
+			wget = req.query.q;
 		}
 		var stdout = maincpp.answer(wget);
 		console.log(performance.now(), wget);
