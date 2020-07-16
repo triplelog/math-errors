@@ -832,6 +832,7 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 	for (i=indexes.size()/3-1;i>=0;i--){
 		input.replace(std::stoi(indexes[i*3]),std::stoi(indexes[i*3+1]),indexes[i*3+2]);
 	}
+	std::cout << input << "\n";
 	return input;
 }
 
