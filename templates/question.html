@@ -157,11 +157,7 @@
 			<div id="collapse{{ i }}" class="collapse" aria-labelledby="heading{{ i }}" data-parent="#accordionExample">
 			  <div class="card-body">
 				<div class="tf-tree">
-				  <ul>
-				  	<li id="tree-simple{{ i }}a">
-				  	<li id="tree-simple{{ i+1 }}b">
-		  
-					</li>
+				  <ul id="tree-simple{{ i }}">
 				  </ul>
 				</div>
 			  </div>
@@ -226,11 +222,11 @@
 					
 					}
 					else if (i==0){
-						if (document.getElementById('tree-simple'+ii+"a")){
-							document.getElementById('tree-simple'+ii+"a").appendChild(node);
+						if (document.getElementById('tree-simple'+ii)){
+							document.getElementById('tree-simple'+ii).appendChild(node);
 						}
-						if (document.getElementById('tree-simple'+ii+"b")){
-							document.getElementById('tree-simple'+ii+"b").appendChild(node);
+						else if (document.getElementById('tree-simple'+(ii-1))){
+							document.getElementById('tree-simple'+(ii-1)).appendChild(node);
 						}
 						
 						
@@ -238,11 +234,19 @@
 				
 				}
 			}
+			for (var ii=0;ii<trees.length-1;ii++){
+				if (document.getElementById('tree-simple'+ii)){
+					var nextNode = document.getElementById('tree-simple'+(ii+1)).querySelector('li');
+					var node = nextNode.cloneNode();
+					document.getElementById('tree-simple'+ii).appendChild(node);
+				}
+				
+			}
 			
 		    
 	</script>
 	<script>
-		var katexElements = document.querySelectorAll('span.tf-nc');
+		var katexElements = document.querySelectorAll('#tree-here span.tf-nc');
 		for (var i=0;i<katexElements.length;i++){
 			var el = katexElements[i];
 			katex.render(el.textContent, el, {
