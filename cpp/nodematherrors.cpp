@@ -205,7 +205,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 		if (lastOp == '#'){
 			latexMap[input[i*3]]=firstOperand;
 			lastOpMap[input[i*3]]='#';
-			std::cout << firstOperand << " is first s of: " << input[i*3] <<"\n";
+			//std::cout << firstOperand << " is first s of: " << input[i*3] <<"\n";
 		}
 		else {
 			lastOpMap[input[i*3]]=lastOp;
@@ -220,7 +220,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 			std::string s = "";
 			for (ii=0;ii<childMap[input[i*3]].size();ii++){
 				std::string child = childMap[input[i*3]][ii]; //is name of child
-				std::cout << "child: " << child << " latex of child: " << latexMap[child] << " and s: " << s << "\n";
+				//std::cout << "child: " << child << " latex of child: " << latexMap[child] << " and s: " << s << "\n";
 				if (latexMap[child] == ""){
 					allChildren = false;
 					break;
@@ -830,7 +830,9 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 		}
 	}
 	for (i=indexes.size()/3-1;i>=0;i--){
+		std::cout << "old input: " << input << "\n";
 		input.replace(std::stoi(indexes[i*3]),std::stoi(indexes[i*3+1]),indexes[i*3+2]);
+		std::cout << "new input: " << input << "\n";
 	}
 	return input;
 }
