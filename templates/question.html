@@ -237,7 +237,7 @@
 			for (var ii=0;ii<trees.length-1;ii++){
 				if (document.getElementById('tree-simple'+ii) && document.getElementById('tree-simple'+(ii+1))){
 					var nextNode = document.getElementById('tree-simple'+(ii+1)).querySelector('li');
-					var node = nextNode.cloneNode();
+					var node = nextNode.cloneNode(true);
 					document.getElementById('tree-simple'+ii).appendChild(node);
 				}
 				
@@ -246,7 +246,7 @@
 		    
 	</script>
 	<script>
-		var katexElements = document.querySelectorAll('#tree-here span.tf-nc');
+		var katexElements = document.querySelectorAll('span.tf-nc');
 		for (var i=0;i<katexElements.length;i++){
 			var el = katexElements[i];
 			katex.render(el.textContent, el, {
