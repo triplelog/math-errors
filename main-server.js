@@ -72,7 +72,8 @@ wss.on('connection', function connection(ws) {
   	});
 });
 
-maincpp.hello();
+var retHello = maincpp.hello();
+console.log("hello?: ",retHello);
 app.get('/question',
 	function(req, res){
 		
