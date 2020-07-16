@@ -974,12 +974,14 @@ std::vector<std::string> makeTree(std::string pfstr){
 			
 			
 			//Parent Node
+			std::string opStr = "";
+			opStr += pfstr.at(i);
 			std::string name = "node"+std::to_string(treeIdx);
 			treeIdx++;
 			std::string parent = "";
 			std::string nodeText = fullStr;
 			std::string pname = name;
-			nodeList[fullStr]={pname,parent};
+			nodeList[fullStr]={pname,parent,opStr};
 			
 			
 			//Child 1
@@ -1031,7 +1033,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 					}
 				}
 				else {
-					nodeList[nodeText] = {name,pname};
+					nodeList[nodeText] = {name,pname,opStr};
 					orderedKeyList.push_back(nodeText);
 				}
 				
@@ -1085,7 +1087,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 						}
 					}
 					else {
-						nodeList[nodeText] = {name,pname};
+						nodeList[nodeText] = {name,pname,opStr};
 						orderedKeyList.push_back(nodeText);
 					}
 				
@@ -1103,8 +1105,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 			}
 			orderedKeyList.push_back(fullStr);
 			
-			
-			
 			//
 			//for (ii=0;ii<fullTrees.size();ii++){
 			//	std::cout << i << "-:::-" << fullTrees[ii] << '\n';
@@ -1121,7 +1121,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			
 			std::string name = "node"+std::to_string(treeIdx);
 			treeIdx++;
-			nodeList["#@" + std::to_string(idx) + "_"] = {name,""};
+			nodeList["#@" + std::to_string(idx) + "_"] = {name,"","#"};
 			orderedKeyList.push_back("#@" + std::to_string(idx) + "_");
 			idx++;
 		}
@@ -1186,6 +1186,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		if (latexMap.find(name) != latexMap.end()){
 			std::string outText = "nodes[\""+name + "\"] = {text:";
 			outText += "\"" + latexMap[name] + "\",";
+			outText += "op: \"" + nodeList[orderedKeyList[ii]][2] + "\",";
 			outText += "parent: \""+ parent + "\"};\n";
 		
 			
