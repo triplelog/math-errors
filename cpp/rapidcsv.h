@@ -123,6 +123,8 @@ namespace rapidcsv
      */
     void ToStr(const T& pVal, std::string& pStr) const
     {
+      throw no_converter();
+      /*
       if (typeid(T) == typeid(int) ||
           typeid(T) == typeid(long) ||
           typeid(T) == typeid(long long) ||
@@ -142,6 +144,7 @@ namespace rapidcsv
       {
         throw no_converter();
       }
+      */
     }
 
     /**
@@ -151,6 +154,8 @@ namespace rapidcsv
      */
     void ToVal(const std::string& pStr, T& pVal) const
     {
+      throw no_converter();
+      /*
       try
       {
         if (typeid(T) == typeid(int))
@@ -227,7 +232,7 @@ namespace rapidcsv
           return;
         }
       }
-
+	  
       if (typeid(T) == typeid(char))
       {
         pVal = static_cast<T>(pStr[0]);
@@ -237,6 +242,7 @@ namespace rapidcsv
       {
         throw no_converter();
       }
+      */
     }
 
   private:
