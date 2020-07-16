@@ -2137,7 +2137,7 @@ void initialRun(){
 	
 
 	auto t1 = std::chrono::high_resolution_clock::now();
-	rules = makeRules();
+	makeRules("main.csv");
 	auto t2 = std::chrono::high_resolution_clock::now();
 }
 std::string getAnswer(std::string s){
@@ -2197,6 +2197,7 @@ std::string getAnswer(std::string s){
 	}
 	return "Hi World!!!!!";
 }
+
 void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//v8::Isolate* isolate = info.GetIsolate();
 	//v8::Local<v8::Context> context = isolate->GetCurrentContext();

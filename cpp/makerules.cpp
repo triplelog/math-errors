@@ -9,11 +9,10 @@ std::vector<std::string> makeRule(std::string input){
 	//return makeTree(postfixed)[0];
 }
 
-flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
-	flat_hash_map<std::string,std::vector<std::vector<std::string>>> finalRules;
+void makeRules(std::string fileName){
 	std::vector<std::vector<std::string>> rawRules;
 	
-	rapidcsv::Document doc("cpp/rules/main.csv", rapidcsv::LabelParams(-1, -1));
+	rapidcsv::Document doc("cpp/rules/"+fileName, rapidcsv::LabelParams(-1, -1));
 	
 	int nRows = doc.GetRowCount();
 	int i; int ii;
@@ -35,11 +34,11 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 			fullPost = makeRule(rawRules[i][0]);
 			key = fullPost[0];
 			val1 = fullPost[1];
-			if (finalRules.find(key) != finalRules.end()){
-				finalRules[key].push_back({val1,rawRules[i][1],rawRules[i][2]});
+			if (rules.find(key) != rules.end()){
+				rules[key].push_back({val1,rawRules[i][1],rawRules[i][2]});
 			}
 			else {
-				finalRules[key] = {{val1,rawRules[i][1],rawRules[i][2]}};
+				rules[key] = {{val1,rawRules[i][1],rawRules[i][2]}};
 			}
 			
 		}
@@ -49,15 +48,14 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> makeRules(){
 			val1 = fullPost[1];
 			fullPost = makeRule(rawRules[i][1]);
 			out = fullPost[0] + '@' + fullPost[1];
-			if (finalRules.find(key) != finalRules.end()){
-				finalRules[key].push_back({val1,out,rawRules[i][2]});
+			if (rules.find(key) != rules.end()){
+				rules[key].push_back({val1,out,rawRules[i][2]});
 			}
 			else {
-				finalRules[key] = {{val1,out,rawRules[i][2]}};
+				rules[key] = {{val1,out,rawRules[i][2]}};
 			}
 			// TODO: add possibility of appending to existing key, and adding all constraints
 		}
 		
 	}
-	return finalRules;
 }
