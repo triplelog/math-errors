@@ -1195,7 +1195,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			outText += "parent: \""+ parent + "\"};\n";
 		
 			jsonmessage += outText + "\n";
-			std::cout << outText << "\n";
+			//std::cout << outText << "\n";
 			nodeString += "\""+nodeList[orderedKeyList[ii]][0] + "\", ";
 		}
 		

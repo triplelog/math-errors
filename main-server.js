@@ -108,8 +108,8 @@ wss.on('connection', function connection(ws) {
 				outStr += allStrings[i];
 			}
 			console.log(performance.now());
-			var jsonmessage = "{'type':'answer','answer':\""+outStr+"\"}";
-			ws.send(jsonmessage);
+			var jsonmessage = {'type':'answer','answer':outStr};
+			ws.send(JSON.stringify(jsonmessage));
 		}
 		
   	});
