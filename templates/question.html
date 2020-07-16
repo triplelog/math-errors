@@ -181,7 +181,7 @@
   <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
 	<script>
 		function createTrees(input_str){
-			document.getElementById("accordianExample").innerHTML = "";
+			document.getElementById("accordionExample").innerHTML = "";
 			for (var i=0;i<5;i++){
 				var template = document.querySelector('#treeTemplate');
 				var clone = template.content.cloneNode(true);
@@ -191,7 +191,7 @@
 				button.setAttribute('data-target','#collapse'+i);
 				button.setAttribute('aria-controls','collapse'+i);
 				clone.querySelector('#collapse').setAttribute('aria-labelledby','heading'+i);
-				document.getElementById("accordianExample").appendChild(clone);
+				document.getElementById("accordionExample").appendChild(clone);
 				
 			}
 			
