@@ -279,7 +279,8 @@
 			
 		}
 		function submitQuestion() {
-			var jsonmessage = {type:"solve",question:"ddx(x^2+3+4+5)"};
+			var question = document.getElementById("equation").value;
+			var jsonmessage = {type:"solve",question:question};
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		

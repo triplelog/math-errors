@@ -675,8 +675,6 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 		}
 		
 	}
-	std::cout << "\n\n\nNT: " << newTotal << " of " << originalTotal << "\n";
-	
 	
 	while (nKeys>0 && count < 1000){
 		for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
@@ -786,7 +784,6 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 	}
 	
 	/* Check no brackets still around
-	std::cout << "\n\n\nNT: " << newTotal << " of " << originalTotal << "\n";
 	for (flat_hash_map<int,std::string>::iterator iter = newMap.begin(); iter != newMap.end(); ++iter){
 		newTotal++;
 		std::string input = iter->second;
@@ -794,13 +791,11 @@ flat_hash_map<int,std::string> removeBrackets(flat_hash_map<int,std::string> ori
 		bool foundBracket = false;
 		for (iii=0;iii<input.length();iii++){
 			if (input.at(iii) == '{'){
-				std::cout << "\n:$$$: " << input << "\n\n";
 				foundBracket = true;
 				break;
 			}
 		}
 	}
-	std::cout << "\n\n!&*^*&^nkeys: " << nKeys << " and " << originalTotal << " and " << newTotal << "\n\n";
 	*/
 	return newMap;
 }
@@ -1288,7 +1283,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
 	//	std::cout << iter->first << " bracketless " << iter->second << '\n';
 	//}
-	std::cout << "\n\n________\n";
 	//std::cout << '\n';
 	return treeOptions;
 }
@@ -1924,7 +1918,6 @@ std::string applyRules(std::string userFullString) {
 					}
 				}
 			
-				std::cout << "newpostfix @ end of keyMatch: "<< newPostfix << "\n";
 				if (newPostfix.length()>0){
 					//std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
 					std::string newPostfixFirst = "";
@@ -1945,9 +1938,7 @@ std::string applyRules(std::string userFullString) {
 					userFullString.replace(firstOperandIndexSecond,replaceLengthSecond,newPostfixSecond);
 					//std::cout << "userFullString: "<< userFullString << "\n";
 					userFullString.replace(firstOperandIndex,replaceLength,newPostfixFirst);
-					std::cout << "userFullString: "<< userFullString << "\n";
 					userFullString = removeBracketsOne(userFullString);
-					std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
 					return userFullString;
 				}
 			}
@@ -2170,13 +2161,13 @@ std::string getAnswer(std::string s){
 	while (newPostfix != oldPostfix && maxSteps >=0){
 		auto t3 = std::chrono::high_resolution_clock::now();
 		newPostfix = removeBracketsOne(newPostfix);
-		std::cout << "\n\n-----------&&&&&--------\n\n" << newPostfix << " ------- " << maxSteps << "\n\n";
+		//std::cout << "\n\n-----------&&&&&--------\n\n" << newPostfix << " ------- " << maxSteps << "\n\n";
 		oldPostfix = newPostfix;
 		auto t4 = std::chrono::high_resolution_clock::now();
 		std::vector<std::string> postList = makeTree(oldPostfix);
 		auto t5 = std::chrono::high_resolution_clock::now();
 		bool changedInput = false;
-		std::cout << "postListSize: " << postList.size() << "\n\n";
+		//std::cout << "postListSize: " << postList.size() << "\n\n";
 		for (ii=0;ii<postList.size();ii++){
 			//std::cout << "--------\n" << ii << " ---- " << postList[ii] << "\n--------------";
 			newPostfix = applyRules(postList[ii]);
@@ -2193,8 +2184,8 @@ std::string getAnswer(std::string s){
 		auto d1 = std::chrono::duration_cast<std::chrono::microseconds>( t4 - t3 ).count();
 		auto d2 = std::chrono::duration_cast<std::chrono::microseconds>( t5 - t4 ).count();
 		auto d3 = std::chrono::duration_cast<std::chrono::microseconds>( t6 - t5 ).count();
-		std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n\n";
-		std::cout << "NOYES: " << noC << " and " << yesC << "\n\n";
+		std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
+		std::cout << "NOYES: " << noC << " and " << yesC << "\n";
 		if (!changedInput){break;}
 		std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
 		
