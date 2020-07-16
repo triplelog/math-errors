@@ -1,4 +1,4 @@
-.tf-tree{--pad1: .03125em; --pad2: 1em;}
+.tf-tree{--pad1: .025em; --pad2: .5em;}
 .tf-tree{font-size:16px;overflow:auto}
 .tf-tree *{box-sizing:border-box;margin:0;padding:0}
 .tf-tree ul{display:inline-flex}

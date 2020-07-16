@@ -101,6 +101,7 @@ app.get('/question',
 				
 				var idx = 0;
 				var allStrings = [];
+				var allSteps = [];
 				for (var i=0;i<len;i++){
 					nodeStr += stdout[i];
 					nodeStr = nodeStr.substring(1,7);
@@ -116,6 +117,7 @@ app.get('/question',
 						outStr = outStr.replace("var chart =","var chart"+idx+" =");
 						outStr = outStr.substring(0,outStr.length-5);
 						allStrings.push(outStr);
+						allSteps.push("node"+i);
 						idx++;
 						outStr = "";
 					}
@@ -135,6 +137,7 @@ app.get('/question',
 				res.write(nunjucks.render('templates/question.html',{
 					tree: outStr,
 					nTrees: allStrings.length,
+					allSteps: allSteps,
 				}));
 				res.end();
 		
