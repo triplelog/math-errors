@@ -1,3 +1,4 @@
+#include <nan.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <algorithm>
@@ -17,6 +18,7 @@
 #include <iostream>
 #include <array>
 #include <vector>
+
 #include "rapidcsv.h"
 #include "parallel_hashmap/phmap.h"
 
@@ -1956,7 +1958,7 @@ std::string applyRules(std::string userFullString) {
 	return newPostfix;
 	
 }
-/*
+
 int main (int argc, char *argv[]) {
 
 	duration1 = 0;
@@ -2112,7 +2114,7 @@ int main (int argc, char *argv[]) {
     std::cout << duration;
     */
 }
-*/
+
 
 void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//v8::Isolate* isolate = info.GetIsolate();
