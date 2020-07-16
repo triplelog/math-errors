@@ -2112,14 +2112,96 @@ int main (int argc, char *argv[]) {
     
 }
 */
+std::string runMain(std::string s){
+	duration1 = 0;
+	duration2 = 0;
+	duration3 = 0;
+	yesC = 0;
+	noC = 0;
 
+
+	
+	prec['#'] = 100;
+	int i;
+	for (i=-128;i<0;i++){
+		prec[i]=6;
+	}
+    prec['^'] = 5;
+	prec['*'] = 4;
+	prec['/'] = 4;
+	prec['+'] = 3;
+	prec['-'] = 3;
+	prec['>'] = 2;
+	prec['<'] = 2;
+	prec['='] = 2;
+	prec['!'] = 2;
+	prec['['] = 2;
+	prec[']'] = 2;
+	prec['&'] = 1;
+	prec['|'] = 0;
+	prec['('] = -1;
+	prec[')'] = -1;
+	
+
+	auto t1 = std::chrono::high_resolution_clock::now();
+	rules = makeRules();
+	auto t2 = std::chrono::high_resolution_clock::now();
+	
+	int ii;
+
+
+  	
+	std::string pfstr = postfixify(s);
+	std::cout << pfstr << '\n';
+	
+	
+	std::string newPostfix = pfstr;
+	std::string oldPostfix = "";
+	
+	int maxSteps = 10;
+	while (newPostfix != oldPostfix && maxSteps >=0){
+		auto t3 = std::chrono::high_resolution_clock::now();
+		newPostfix = removeBracketsOne(newPostfix);
+		std::cout << "\n\n-----------&&&&&--------\n\n" << newPostfix << " ------- " << maxSteps << "\n\n";
+		oldPostfix = newPostfix;
+		auto t4 = std::chrono::high_resolution_clock::now();
+		std::vector<std::string> postList = makeTree(oldPostfix);
+		auto t5 = std::chrono::high_resolution_clock::now();
+		bool changedInput = false;
+		std::cout << "postListSize: " << postList.size() << "\n\n";
+		for (ii=0;ii<postList.size();ii++){
+			//std::cout << "--------\n" << ii << " ---- " << postList[ii] << "\n--------------";
+			newPostfix = applyRules(postList[ii]);
+			//std::cout << "--------\n" << ii << " ---- " << newPostfix << "\n--------------";
+			if (newPostfix != postList[ii]){
+				std::cout << "Match: " << postList[ii] << " into "<< newPostfix << " from " << oldPostfix << '\n';
+				changedInput = true;
+				break;
+			}
+			//std::cout << "--------\n" << ii << " ---- " << newPostfix << "\n--------------";
+			
+		}
+		auto t6 = std::chrono::high_resolution_clock::now();
+		auto d1 = std::chrono::duration_cast<std::chrono::microseconds>( t4 - t3 ).count();
+		auto d2 = std::chrono::duration_cast<std::chrono::microseconds>( t5 - t4 ).count();
+		auto d3 = std::chrono::duration_cast<std::chrono::microseconds>( t6 - t5 ).count();
+		std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n\n";
+		std::cout << "NOYES: " << noC << " and " << yesC << "\n\n";
+		if (!changedInput){break;}
+		std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
+		
+		maxSteps--;
+
+	}
+	return "Hi World!!!!!";
+}
 void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//v8::Isolate* isolate = info.GetIsolate();
 	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
 	//int row = info[0]->Int32Value(context).FromJust();
 	//v8::String::Utf8Value s(isolate, info[0]);
 	//std::string str(*s);
-	std::string out("hello world");
+	std::string out = runMain("ddx(x)");
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(out);
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
