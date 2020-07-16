@@ -77,80 +77,64 @@ var startTime = performance.now();
 var retHello = maincpp.hello();
 console.log("hello?: ",retHello);
 console.log(startTime, performance.now());
-retHello = maincpp.answer("ddx(x)");
-console.log("ret?: ",retHello);
-console.log(performance.now());
+
 app.get('/question',
 	function(req, res){
 		
-		var wget = "./cpp/a.out 2+2";
+		var wget = "\"2+2\"";
 		if (req.query && req.query.q){
-			wget = "./cpp/a.out \""+req.query.q+"\"";
+			wget = "\""+req.query.q+"\"";
 		}
+		var stdout = maincpp.answer(wget);
 		console.log(performance.now(), wget);
 		var outStr = "";
-		var child = exec(wget, function(err, stdout, stderr) {
-			if (err){
-				console.log(err);
-				//send message--likely file size limit
-				res.write(nunjucks.render('templates/question.html',{
-					tree: "",
-				}));
-				res.end();
-				return;
-			}
-			else {
 		
-				var len = stdout.length;
-				console.log(performance.now(), len);
-				var nodeStr = "......";
-				var inAction = false;
-				
-				var idx = 0;
-				var allStrings = [];
-				var allSteps = [];
-				for (var i=0;i<len;i++){
-					nodeStr += stdout[i];
-					nodeStr = nodeStr.substring(1,7);
-			
-					if (nodeStr == "-DOJS-"){
-						inAction = true;
-					}
-					else if (nodeStr == "-ODJS-"){
-						inAction = false;
-						
-						outStr = outStr.replace("#tree-simple","#tree-simple"+idx);
-						outStr = outStr.replace("var chart =","var chart"+idx+" =");
-						outStr = outStr.substring(0,outStr.length-5);
-						allStrings.push(outStr);
-						allSteps.push("node"+i);
-						idx++;
-						outStr = "";
-					}
-					else if (inAction){
-						outStr += stdout[i];
-					}
-				}
-				
-				//console.log(allStrings);
-				outStr =  "";
-				for (var i=0;i<allStrings.length;i++){
-					outStr += allStrings[i];
-				}
-				console.log(performance.now());
-				//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
-				//ws.send(JSON.stringify(jsonmessage));
-				res.write(nunjucks.render('templates/question.html',{
-					tree: outStr,
-					nTrees: allStrings.length,
-					allSteps: allSteps,
-				}));
-				res.end();
+		var len = stdout.length;
+		console.log(performance.now(), len);
+		var nodeStr = "......";
+		var inAction = false;
 		
+		var idx = 0;
+		var allStrings = [];
+		var allSteps = [];
+		for (var i=0;i<len;i++){
+			nodeStr += stdout[i];
+			nodeStr = nodeStr.substring(1,7);
+	
+			if (nodeStr == "-DOJS-"){
+				inAction = true;
 			}
+			else if (nodeStr == "-ODJS-"){
+				inAction = false;
+				
+				outStr = outStr.replace("#tree-simple","#tree-simple"+idx);
+				outStr = outStr.replace("var chart =","var chart"+idx+" =");
+				outStr = outStr.substring(0,outStr.length-5);
+				allStrings.push(outStr);
+				allSteps.push("node"+i);
+				idx++;
+				outStr = "";
+			}
+			else if (inAction){
+				outStr += stdout[i];
+			}
+		}
+		
+		//console.log(allStrings);
+		outStr =  "";
+		for (var i=0;i<allStrings.length;i++){
+			outStr += allStrings[i];
+		}
+		console.log(performance.now());
+		//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
+		//ws.send(JSON.stringify(jsonmessage));
+		res.write(nunjucks.render('templates/question.html',{
+			tree: outStr,
+			nTrees: allStrings.length,
+			allSteps: allSteps,
+		}));
+		res.end();
 
-		});
-		
 		
 	
     }

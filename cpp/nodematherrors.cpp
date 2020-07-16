@@ -1146,7 +1146,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	
 	
 	flat_hash_map<std::string,std::string> skipList;
-	jsonmessage += "\nnodes = {};\n";
+	jsonmessage += "-DOJS-\nnodes = {};\n";
 	std::string nodeString = "allNodes = [";
 	//std::cout << "-DOJS-\nnodes = {};\n";
 	
@@ -1203,7 +1203,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	nodeString += "];\n";
 	jsonmessage += nodeString + "\n";
 	//std::cout <<  nodeString << "\n";
-	jsonmessage += "trees.push({nodes:nodes,allNodes:allNodes});\n";
+	jsonmessage += "trees.push({nodes:nodes,allNodes:allNodes});\n-ODJS-\n";
 	//std::cout << "trees.push({nodes:nodes,allNodes:allNodes});\n-ODJS-\n";
 	
 	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
