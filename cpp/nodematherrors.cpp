@@ -830,9 +830,7 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 		}
 	}
 	for (i=indexes.size()/3-1;i>=0;i--){
-		std::cout << "old input: " << input << "\n";
 		input.replace(std::stoi(indexes[i*3]),std::stoi(indexes[i*3+1]),indexes[i*3+2]);
-		std::cout << "new input: " << input << "\n";
 	}
 	return input;
 }
@@ -1168,6 +1166,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		std::string name = nodeList[orderedKeyList[ii]][0];
 		std::string parent = nodeList[orderedKeyList[ii]][1];
 		std::string postfix = fromOriginal(orderedKeyList[ii],originalMap);
+		std::cout << "postfix: "<< postfix << " from " << orderedKeyList[ii] << "\n";
 		forLatex.push_back(name);
 		forLatex.push_back(parent);
 		forLatex.push_back(postfix);
