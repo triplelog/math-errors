@@ -3,7 +3,7 @@
     {
       	'target_name': 'binding',
         "cflags_cc": [ ],
-      	'sources': [ 'cpp/matherrors.cpp' ],
+      	'sources': [ 'cpp/nodehello.cpp' ],
       	"include_dirs" : [
 			"<!(node -e \"require('nan')\")"
 		]
