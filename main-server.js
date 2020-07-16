@@ -73,7 +73,7 @@ wss.on('connection', function connection(ws) {
 });
 
 
-app.get('/tree',
+app.get('/question',
 	function(req, res){
 		
 		var wget = "./cpp/a.out 2+2";
@@ -86,7 +86,7 @@ app.get('/tree',
 			if (err){
 				console.log(err);
 				//send message--likely file size limit
-				res.write(nunjucks.render('templates/bootstrap.html',{
+				res.write(nunjucks.render('templates/question.html',{
 					tree: "",
 				}));
 				res.end();
@@ -132,7 +132,7 @@ app.get('/tree',
 				console.log(performance.now());
 				//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
 				//ws.send(JSON.stringify(jsonmessage));
-				res.write(nunjucks.render('templates/bootstrap.html',{
+				res.write(nunjucks.render('templates/question.html',{
 					tree: outStr,
 					nTrees: allStrings.length,
 				}));
@@ -147,5 +147,17 @@ app.get('/tree',
     }
     
 );
+app.get('/topic',
+	function(req, res){
+		
+
+		res.write(nunjucks.render('templates/topic.html',{
+			tree: "",
+		}));
+		res.end();
+	}
+);
+
+
 
 

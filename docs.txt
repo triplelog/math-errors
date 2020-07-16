@@ -1,0 +1,14 @@
+## Functions
+
+# Absolute Value
+abs(x)
+
+# Logarithms
+log(x) or ln(x) are both ln(x)
+log_b(x) or logb(x) have base b.
+loglog(x) or lnln(x) is ln(ln(x)).
+logloglog(x) is ln(ln(ln(x))).
+lnln(x) is ln(ln(x)).
+loglog_b(x) is log_b(log_b(x)).
+logloglog_b(x) is log_b(log_b(log_b(x))).
+log^3(x) is (ln(x))^3
