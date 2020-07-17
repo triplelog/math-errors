@@ -148,12 +148,12 @@
       
 
 	  <div class="row">
-  		
 	  {% for rule in rules %}
 	  	<div class="col-sm-6">
 		  <div class="card">
 		  	  <div class="card-header">
 				{{ rule.name }}
+				<span class="float-right"><a href="#" class="card-link">Edit Rule</a></span>
 			  </div>
 			  <div class="card-body">
 				<h5 class="card-title"></h5>
@@ -169,10 +169,9 @@
 				<button type="button" class="btn btn-warning text-dark">
 				  Error <span class="badge bg-secondary">4</span>
 				</button>
-				<button type="button" class="btn btn-danger text-dark">
+				<button type="button" class="btn btn-danger">
 				  Error <span class="badge bg-secondary">7</span>
 				</button>
-				<a href="#" class="card-link">Edit Rule</a>
 			  </div>
 			  <div class="card-footer text-muted">
 				<div class="progress">
@@ -182,7 +181,6 @@
 		  </div>
 		</div>
 	  {% endfor %}
-	  	
 	  </div>
     </main>
   </div>
