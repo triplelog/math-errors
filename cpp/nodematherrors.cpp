@@ -18,6 +18,7 @@
 #include <iostream>
 #include <array>
 #include <vector>
+#include <unistd.h>
 
 #include "rapidcsv.h"
 #include "parallel_hashmap/phmap.h"
@@ -837,6 +838,11 @@ std::vector<std::string> makeTree(std::string pfstr){
 	std::vector<std::string> finalList;
 	std::vector<std::string> orderedKeyList;
 	flat_hash_map<std::string,std::vector<std::string>> nodeList;
+	
+	long pages = sysconf(_SC_PHYS_PAGES);
+    long page_size = sysconf(_SC_PAGE_SIZE);
+    std::cout << "initial: " <<  pages * page_size << "\n";
+    
 	int i; int ii; int iii;
 	int idx =0;
 	bool startOperands = false;
@@ -871,6 +877,11 @@ std::vector<std::string> makeTree(std::string pfstr){
 			}
 		}
 	}
+	
+	pages = sysconf(_SC_PHYS_PAGES);
+    page_size = sysconf(_SC_PAGE_SIZE);
+    std::cout << "second: " <<  pages * page_size << "\n";
+    
 	int treeIdx = 0;
 	for (i=0;i<pfstr.length();i++){
 		if (pfstr.at(i) == '@'){
@@ -1126,7 +1137,9 @@ std::vector<std::string> makeTree(std::string pfstr){
 		
 	}
 	
-	std::cout << "first part\n";
+	pages = sysconf(_SC_PHYS_PAGES);
+    page_size = sysconf(_SC_PAGE_SIZE);
+    std::cout << "third: " <<  pages * page_size << "\n";
 	
 	
 	//std::cout << "\n\n---start Original-----\n";
@@ -1139,7 +1152,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 	//std::cout << "\n\n---start Bracketless-----\n";
 	flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
 	
-	std::cout << "second part\n";
 	
 	flat_hash_map<std::string,std::string> skipList;
 	//jsonmessage += "-DOJS-\nnodes = {};\n";
@@ -1169,7 +1181,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 	}
 	flat_hash_map<std::string,std::string> latexMap =toLatex(forLatex);
 	
-	std::cout << "third part\n";
 	
 	skipList.clear();
 	for (ii=orderedKeyList.size()-1;ii>=0;ii--){
@@ -1199,7 +1210,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 		
 	}
 	
-	std::cout << "fourth part\n";
 	nodeString += "];\n";
 	//jsonmessage += nodeString + "\n";
 	//std::cout <<  nodeString << "\n";
@@ -1288,7 +1298,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 	//	std::cout << iter->first << " bracketless " << iter->second << '\n';
 	//}
 	//std::cout << '\n';
-	std::cout << "fifth part\n";
 	return treeOptions;
 }
 
