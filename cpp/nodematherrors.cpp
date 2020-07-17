@@ -987,7 +987,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 				fullTrees.push_back("#");
 				fullTrees.push_back("{"+std::to_string(iidx)+"}_");
 				fullTrees.push_back("0");
-				originalMap[iidx]= firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
+				originalMap[iidx]= firstS[0] + secondS[0] + pfstr.at(i) + '@' + firstT[0] + secondT[0];
 				iidx++;
 				
 				
@@ -1041,7 +1041,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 				fullTrees.push_back("#");
 				fullTrees.push_back("{"+std::to_string(iidx)+"}_");
 				fullTrees.push_back("0");
-				originalMap[iidx]= secondStr + pfstr.at(i) + '@' + secondTtr;
+				originalMap[iidx]= secondS[0] + pfstr.at(i) + '@' + secondT[0];
 				iidx++;
 				for (iii=0;iii<secondS.size();iii++){
 					
@@ -1219,22 +1219,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		}
 		
 	}
-	
-	std::cout << "third: " << "\n";
-    tSize = 0, resident = 0, share = 0;
-    std::ifstream buffer3("/proc/self/statm");
-    buffer3 >> tSize >> resident >> share;
-    buffer3.close();
-
-
-    rss = resident * page_size_kb;
-    std::cout << "RSS - " << rss << " kB\n";
-
-    shared_mem = share * page_size_kb;
-    std::cout << "Shared Memory - " << shared_mem << " kB\n";
-
-    std::cout << "Private Memory - " << rss - shared_mem << "kB\n";
-	
+		
 	
 	//std::cout << "\n\n---start Original-----\n";
 	int iiii;
