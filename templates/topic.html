@@ -147,7 +147,8 @@
 
       
 
-
+	  <div class="row">
+  		<div class="col-sm-6">
 	  {% for rule in rules %}
 		  <div class="card">
 		  	  <div class="card-header">
@@ -158,14 +159,18 @@
 				<h6 class="card-subtitle mb-2 text-muted">The derivative of a sum is the sum of the derivatives</h6>
 				<p class="card-text">Correct Rule</p>
 			  </div>
-			  <h5 class="card-title">Examples:</h5>
 			  <ul class="list-group list-group-flush">
 					<li class="list-group-item">Cras justo odio</li>
 					<li class="list-group-item">Dapibus ac facilisis in</li>
 					<li class="list-group-item">Vestibulum at eros</li>
 			  </ul>
 			  <div class="card-body">
-				<p class="card-text">Incorrect</p>
+				<button type="button" class="btn btn-warning text-dark">
+				  Error <span class="badge bg-secondary">4</span>
+				</button>
+				<button type="button" class="btn btn-danger text-dark">
+				  Error <span class="badge bg-secondary">7</span>
+				</button>
 				<a href="#" class="card-link">Edit Rule</a>
 			  </div>
 			  <div class="card-footer text-muted">
@@ -175,6 +180,8 @@
 			  </div>
 		  </div>
 	  {% endfor %}
+	  	</div>
+	  </div>
     </main>
   </div>
 </div>
