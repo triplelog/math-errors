@@ -1043,7 +1043,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 						for (iiiii=0;iiiii<tempFull.length();iiiii++){
 							if (tempFull.at(iiiii) == '_'){
 								operandIdx++;
-								if (operandIdx <endRightOperand){
+								if (operandIdx <=endRightOperand){
 									rightLength++;
 								}
 								else {
@@ -1062,7 +1062,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 							}
 						}
 						tempFull.replace(startRightIndex,rightLength,"{"+std::to_string(iidx)+"}");
-						tempFull.replace(startLeftIndex,i-startLeftIndex,"#");
+						tempFull.replace(startLeftIndex,i+1-startLeftIndex,"#");
 						originalMap[iidx]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
 						iidx++;
 						std::cout << "new full: " <<  tempFull  << "\n";
