@@ -25,7 +25,7 @@ void makeRules(std::string fileName){
 			if (i>0){
 				jsonmessage += "rules.push(rule);";
 			}
-			jsonmessage += "rule = {name:\""+rawRule[1]+"\",explanation:\""+rawRule[2]+"\",correct:[],incorrect:[],examples:[]};\n";
+			jsonmessage += "rule = {name:\""+rawRule[1]+"\",explanation:\""+rawRule[2]+"\",correct:[],incorrect:[],examples:[]}; rule['id'] = rules.length; \n";
 			
 		}
 		else if (rawRule[2] == "e"){

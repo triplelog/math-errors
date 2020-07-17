@@ -147,7 +147,7 @@ app.get('/question',
 app.get('/topic',
 	function(req, res){
 		
-
+		
 		res.write(nunjucks.render('templates/topic.html',{
 			rules: rules,
 		}));
