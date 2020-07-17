@@ -192,9 +192,10 @@
 					  </h2>
 					</div>
 					<div id="collapseThree{{ rule.id }}" class="collapse" aria-labelledby="headingThree{{ rule.id }}" data-parent="#accordionRule{{ rule.id }}">
+					  
 					  <ul class="list-group list-group-flush">
 						{% for error in rule.incorrect %}
-							<li class="list-group-item">{{ error }}</li>
+							<li class="list-group-item"><span class="badge bg-warning text-dark">7</span> {{ error }}</li>
 						{% endfor %}
 					  </ul>
 					</div>
