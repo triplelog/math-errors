@@ -934,15 +934,17 @@ std::vector<std::string> makeTree(std::string pfstr){
 			for (ii=0;ii<i;ii++){
 				std::string s = "";
 				std::string t = "";
+				int tempStartRightOperand = 10000;
+				int tempEndRightOperand = -1;
 				for (iii=ii;iii<i;iii++){
 					s += pfstr.at(iii);
 					if (pfstr.at(iii) == '#'){
 						t += operandMap[iii] + '_';
-						if (std::stoi(operandMap[iii])<startRightOperand){
-							startRightOperand = std::stoi(operandMap[iii]);
+						if (std::stoi(operandMap[iii])<tempStartRightOperand){
+							tempStartRightOperand = std::stoi(operandMap[iii]);
 						}
-						else if (std::stoi(operandMap[iii])>endRightOperand){
-							endRightOperand = std::stoi(operandMap[iii]);
+						else if (std::stoi(operandMap[iii])>tempEndRightOperand){
+							tempEndRightOperand = std::stoi(operandMap[iii]);
 						}
 					}
 				}
@@ -957,7 +959,9 @@ std::vector<std::string> makeTree(std::string pfstr){
 						secondT[iii]=listMap[s+'@'+t][iii*3+1];
 					}
 					maxi = ii;
-					startLeftIndex = maxi;
+					startLeftIndex = ii;
+					startRightOperand = tempStartRightOperand;
+					endRightOperand = tempEndRightOperand;
 					break;
 				}
 			}
@@ -974,15 +978,13 @@ std::vector<std::string> makeTree(std::string pfstr){
 				for (ii=0;ii<maxi;ii++){
 					std::string s = "";
 					std::string t = "";
+					int tempStartRightOperand = 10000;
 					for (iii=ii;iii<maxi;iii++){
 						s += pfstr.at(iii);
 						if (pfstr.at(iii) == '#'){
 							t += operandMap[iii] + '_';
-							if (std::stoi(operandMap[iii])<startRightOperand){
-								startRightOperand = std::stoi(operandMap[iii]);
-							}
-							else if (std::stoi(operandMap[iii])>endRightOperand){
-								endRightOperand = std::stoi(operandMap[iii]);
+							if (std::stoi(operandMap[iii])<tempStartRightOperand){
+								tempStartRightOperand = std::stoi(operandMap[iii]);
 							}
 						}
 					}
@@ -997,6 +999,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 							firstT[iii]=listMap[s+'@'+t][iii*3+1];
 						}
 						startLeftIndex = ii;
+						startRightOperand = tempStartRightOperand;
 						break;
 					}
 				}
