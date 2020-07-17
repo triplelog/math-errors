@@ -2551,10 +2551,14 @@ void fullAnswer(std::string s){
 	getAnswerList(newPostfix);
 	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << answerListMap[newPostfix].size() << "\n\n\n";
 	int i; int ii;
+	std::string mpf = postfixify("ddx(x)+ddx(3)");
 	for (i=0;i<answerListMap[newPostfix].size();i++){
-		for (ii=0;ii<answerListMap[newPostfix][i].size();ii++){
-			std::cout << i << " and " << answerListMap[newPostfix][i][ii] << "\n";
+		if (answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] == mpf){
+			for (ii=0;ii<answerListMap[newPostfix][i].size();ii++){
+				std::cout << i << " and " << answerListMap[newPostfix][i][ii] << "\n";
+			}
 		}
+		
 	}
 	
 }
