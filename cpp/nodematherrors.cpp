@@ -913,7 +913,25 @@ std::vector<std::string> makeTree(std::string pfstr){
     
     
 	int treeIdx = 0;
+	std::cout << "before third: @" << pfstr.length() << "\n";
 	for (i=0;i<pfstr.length();i++){
+		std::cout << "inside third: @" << i << "\n";
+		tSize = 0, resident = 0, share = 0;
+		std::ifstream buffer3("/proc/self/statm");
+		buffer3 >> tSize >> resident >> share;
+		buffer3.close();
+
+
+		rss = resident * page_size_kb;
+		std::cout << "RSS - " << rss << " kB\n";
+
+		shared_mem = share * page_size_kb;
+		std::cout << "Shared Memory - " << shared_mem << " kB\n";
+
+		std::cout << "Private Memory - " << rss - shared_mem << "kB\n";
+		
+		
+		
 		if (pfstr.at(i) == '@'){
 			break;
 		}
