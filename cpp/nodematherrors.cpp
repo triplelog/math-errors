@@ -1026,7 +1026,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 					iidx++;
 				}
 			}
-			
+			std::cout << "fullTrees size: " << fullTrees.size() << "\n";
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
 			
 			
