@@ -1971,7 +1971,7 @@ std::string applyRules(std::string userFullString) {
 	
 }
 
-std::vector<std::string> applyRulesVector(std::string userFullString) {
+std::vector<std::string> applyRulesVector(std::string userFullString, bool isCorrect) {
 	auto a1 = std::chrono::high_resolution_clock::now();
 	
 	int iii; int iiii;
@@ -2132,6 +2132,7 @@ std::vector<std::string> applyRulesVector(std::string userFullString) {
 				//std::cout << "Key Match: " << key << " and " << rules[key][ruleIdx][0] << "\n";
 				
 				std::vector<std::string> rule = rules[key][ruleIdx];
+				if (rule[2] != "c"){continue;}
 				std::string currentOperand = "";
 				flat_hash_map<char,std::string> partMap;
 				std::vector<std::string> userOperands;
@@ -2474,7 +2475,7 @@ void initialRun(){
 	auto t2 = std::chrono::high_resolution_clock::now();
 }
 flat_hash_map<std::string,std::vector<std::vector<std::string>>> answerListMap;
-void getAnswerList(std::string s) {
+void getAnswerList(std::string s,bool isCorrect) {
 	std::vector<std::vector<std::string>> answerList;
 
 
@@ -2503,7 +2504,7 @@ void getAnswerList(std::string s) {
 	for (ii=0;ii<postList.size();ii++){
 		//std::cout << "--------\n" << ii << " ---- " << postList[ii] << "\n--------------";
 		std::vector<std::string> someStrings;
-		someStrings = applyRulesVector(postList[ii]);
+		someStrings = applyRulesVector(postList[ii],isCorrect);
 		for (iii=0;iii<someStrings.size();iii++){
 			someStrings[iii] = removeBracketsOne(someStrings[iii]);
 			allStrings.push_back(someStrings[iii]);
@@ -2536,9 +2537,6 @@ void getAnswerList(std::string s) {
 	auto d1 = std::chrono::duration_cast<std::chrono::microseconds>( t4 - t3 ).count();
 	auto d2 = std::chrono::duration_cast<std::chrono::microseconds>( t5 - t4 ).count();
 	auto d3 = std::chrono::duration_cast<std::chrono::microseconds>( t6 - t5 ).count();
-	//std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
-	//std::cout << "NOYES: " << noC << " and " << yesC << "\n";
-	//std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
 		
 	
 
@@ -2548,7 +2546,7 @@ void getAnswerList(std::string s) {
 void fullAnswer(std::string s, std::string a){
 	std::string newPostfix = removeBracketsOne(postfixify(s));
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
-	getAnswerList(newPostfix);
+	getAnswerList(newPostfix,true);
 	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << answerListMap[newPostfix].size() << "\n\n\n";
 	int i; int ii;
 	std::string mpf = postfixify(a);
@@ -2613,10 +2611,7 @@ std::string getAnswer(std::string s){
 			auto d1 = std::chrono::duration_cast<std::chrono::microseconds>( t4 - t3 ).count();
 			auto d2 = std::chrono::duration_cast<std::chrono::microseconds>( t5 - t4 ).count();
 			auto d3 = std::chrono::duration_cast<std::chrono::microseconds>( t6 - t5 ).count();
-			std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
-			std::cout << "NOYES: " << noC << " and " << yesC << "\n";
 			if (!changedInput){newPostfix = oldPostfix; break;}
-			std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
 			
 			maxSteps--;
 
@@ -2656,9 +2651,10 @@ void GetAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::cout << "input: "<< str << "\n";
 	
 	getAnswer(str);
-	
+	std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	fullAnswer(str,astr);
+	std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
 void Init(v8::Local<v8::Object> exports) {
