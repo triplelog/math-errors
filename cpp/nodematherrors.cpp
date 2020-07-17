@@ -1041,7 +1041,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 						std::string tempFull = pfstr;
 						int iiiii; int operandIdx = -1; int startRightIndex = -1; int rightLength= 0;
 						for (iiiii=0;iiiii<tempFull.length();iiiii++){
-							if (tempFull.at(iiiii) == "_"){
+							if (tempFull.at(iiiii) == '_'){
 								operandIdx++;
 								if (operandIdx <endRightOperand){
 									rightLength++;
@@ -1050,7 +1050,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 									break;
 								}
 							}
-							else if (tempFull.at(iiiii) == "@"){
+							else if (tempFull.at(iiiii) == '@'){
 								operandIdx++;
 							}
 							else if (operandIdx==startRightOperand && startRightIndex<0){
