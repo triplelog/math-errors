@@ -2653,7 +2653,7 @@ void GetAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::string astr(*sa);
 	std::cout << "input: "<< str << "\n";
 	
-	getAnswer(str);
+	//getAnswer(str);
 	std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	fullAnswer(str,astr);
