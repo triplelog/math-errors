@@ -2165,7 +2165,7 @@ std::string getAnswer(std::string s){
 	int ii;
 
 	int iterations;
-  	for (iterations=0;iterations<5;iterations++){
+  	for (iterations=0;iterations<10;iterations++){
   		jsonmessage = "";
 		std::string pfstr = postfixify(s);
 		std::cout << pfstr << '\n';
@@ -2210,6 +2210,7 @@ std::string getAnswer(std::string s){
 
 		}
 		if (newPostfix == postfixify("ddx(x)+ddx(3)")){
+			std::cout << "found correct: " << newPostfix << "\n";
 			break;
 		}
 	}
