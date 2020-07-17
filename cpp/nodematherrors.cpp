@@ -1723,6 +1723,7 @@ std::string applyRules(std::string userFullString) {
 		}
 	}
 	auto a3 = std::chrono::high_resolution_clock::now();
+	std::vector<std::vector<std::string>> allOptions;
 	for (flat_hash_map<std::string,std::string>::iterator iter = allParts.begin(); iter != allParts.end(); ++iter){
 		std::string onePart = iter->first;
 		foundAt = false;
@@ -1794,6 +1795,7 @@ std::string applyRules(std::string userFullString) {
 				key += userString.at(iiii);
 			}
 		}
+		std::vector<std::string> newStrings;
 		if (rules.find(key) != rules.end()){
 			//std::cout << "Key Match: " << key << " and " << rules[key][0] << "\n";
 			//std::cout << "userFullString @ keyMatch: "<< userFullString << "\n";
@@ -1939,16 +1941,29 @@ std::string applyRules(std::string userFullString) {
 					//std::cout << "userFullString: "<< userFullString << "\n";
 					userFullString.replace(firstOperandIndex,replaceLength,newPostfixFirst);
 					userFullString = removeBracketsOne(userFullString);
-					return userFullString;
+					newStrings.push_back(userFullString);
+					//return userFullString;
 				}
 			}
+			
+		}
+		if (newStrings.size()>0){
+			allOptions.push_back(newStrings);
 		}
 	}
+	
 	auto a4 = std::chrono::high_resolution_clock::now();
 	duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 	duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a4 - a3 ).count();
-	if (newPostfix.length()==0){
+	if (allOptions.size() > 0){
+		int aoSz = allOptions.size();
+		int aoX = rand() % aoSz;
+		int nsSz = allOptions[aoX].size();
+		int nsX = rand() % nsSz;
+		return allOptions[aoX][nsX];
+	}
+	else{
 		return userFullString;
 	}
 	return newPostfix;
@@ -2148,49 +2163,51 @@ std::string getAnswer(std::string s){
 	int i;
 	int ii;
 
-
+	int iterations;
+  	for (iterations=0;iterations<5;iterations++){
   	
-	std::string pfstr = postfixify(s);
-	std::cout << pfstr << '\n';
+		std::string pfstr = postfixify(s);
+		std::cout << pfstr << '\n';
 	
 	
-	std::string newPostfix = pfstr;
-	std::string oldPostfix = "";
+		std::string newPostfix = pfstr;
+		std::string oldPostfix = "";
 	
-	int maxSteps = 10;
-	while (newPostfix != oldPostfix && maxSteps >=0){
-		auto t3 = std::chrono::high_resolution_clock::now();
-		newPostfix = removeBracketsOne(newPostfix);
-		//std::cout << "\n\n-----------&&&&&--------\n\n" << newPostfix << " ------- " << maxSteps << "\n\n";
-		oldPostfix = newPostfix;
-		auto t4 = std::chrono::high_resolution_clock::now();
-		std::vector<std::string> postList = makeTree(oldPostfix);
-		auto t5 = std::chrono::high_resolution_clock::now();
-		bool changedInput = false;
-		//std::cout << "postListSize: " << postList.size() << "\n\n";
-		for (ii=0;ii<postList.size();ii++){
-			//std::cout << "--------\n" << ii << " ---- " << postList[ii] << "\n--------------";
-			newPostfix = applyRules(postList[ii]);
-			//std::cout << "--------\n" << ii << " ---- " << newPostfix << "\n--------------";
-			if (newPostfix != postList[ii]){
-				std::cout << "Match: " << postList[ii] << " into "<< newPostfix << " from " << oldPostfix << '\n';
-				changedInput = true;
-				break;
-			}
-			//std::cout << "--------\n" << ii << " ---- " << newPostfix << "\n--------------";
+		int maxSteps = 10;
+		while (newPostfix != oldPostfix && maxSteps >=0){
+			auto t3 = std::chrono::high_resolution_clock::now();
+			newPostfix = removeBracketsOne(newPostfix);
+			//std::cout << "\n\n-----------&&&&&--------\n\n" << newPostfix << " ------- " << maxSteps << "\n\n";
+			oldPostfix = newPostfix;
+			auto t4 = std::chrono::high_resolution_clock::now();
+			std::vector<std::string> postList = makeTree(oldPostfix);
+			auto t5 = std::chrono::high_resolution_clock::now();
+			bool changedInput = false;
+			//std::cout << "postListSize: " << postList.size() << "\n\n";
+			for (ii=0;ii<postList.size();ii++){
+				//std::cout << "--------\n" << ii << " ---- " << postList[ii] << "\n--------------";
+				newPostfix = applyRules(postList[ii]);
+				//std::cout << "--------\n" << ii << " ---- " << newPostfix << "\n--------------";
+				if (newPostfix != postList[ii]){
+					std::cout << "Match: " << postList[ii] << " into "<< newPostfix << " from " << oldPostfix << '\n';
+					changedInput = true;
+					break;
+				}
+				//std::cout << "--------\n" << ii << " ---- " << newPostfix << "\n--------------";
 			
-		}
-		auto t6 = std::chrono::high_resolution_clock::now();
-		auto d1 = std::chrono::duration_cast<std::chrono::microseconds>( t4 - t3 ).count();
-		auto d2 = std::chrono::duration_cast<std::chrono::microseconds>( t5 - t4 ).count();
-		auto d3 = std::chrono::duration_cast<std::chrono::microseconds>( t6 - t5 ).count();
-		std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
-		std::cout << "NOYES: " << noC << " and " << yesC << "\n";
-		if (!changedInput){break;}
-		std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
+			}
+			auto t6 = std::chrono::high_resolution_clock::now();
+			auto d1 = std::chrono::duration_cast<std::chrono::microseconds>( t4 - t3 ).count();
+			auto d2 = std::chrono::duration_cast<std::chrono::microseconds>( t5 - t4 ).count();
+			auto d3 = std::chrono::duration_cast<std::chrono::microseconds>( t6 - t5 ).count();
+			std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
+			std::cout << "NOYES: " << noC << " and " << yesC << "\n";
+			if (!changedInput){break;}
+			std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
 		
-		maxSteps--;
+			maxSteps--;
 
+		}
 	}
 	return "Hi World!!!!!";
 }
