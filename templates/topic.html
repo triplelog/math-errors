@@ -157,21 +157,23 @@
 			  </div>
 			  <div class="card-body">
 				<h6 class="card-subtitle mb-2 text-muted">The derivative of a sum is the sum of the derivatives</h6>
-				<h5 class="card-title">Rules:</h5>
+				<h6 class="card-subtitle mb-2">Rules:</h6>
 			  </div>
 			  <ul class="list-group list-group-flush">
 					<li class="list-group-item">Cras justo odio</li>
 					<li class="list-group-item">Dapibus ac facilisis in</li>
 					<li class="list-group-item">Vestibulum at eros</li>
 			  </ul>
+			  {% if rule.examples.length > 0 %}
 			  <div class="card-body">
 				<h5 class="card-title">Examples:</h5>
 			  </div>
 			  <ul class="list-group list-group-flush">
-					<li class="list-group-item">Cras justo odio</li>
-					<li class="list-group-item">Dapibus ac facilisis in</li>
-					<li class="list-group-item">Vestibulum at eros</li>
+			  	{% for example in rule.examples %}
+					<li class="list-group-item">{{ example }}</li>
+				{% endfor %}
 			  </ul>
+			  {% endif %}
 			  <div class="card-body">
 				<button type="button" class="btn btn-warning text-dark">
 				  Error <span class="badge bg-secondary">4</span>
