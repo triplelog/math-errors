@@ -2552,6 +2552,9 @@ void fullAnswer(std::string s, std::string a){
 	std::string mpf = postfixify(a);
 	for (i=0;i<answerListMap[newPostfix].size();i++){
 		if (answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] == mpf){
+			//TODO: grab the error
+			//TODO: create the solution steps
+			//TODO: send that info to node to display/add to database
 			for (ii=0;ii<answerListMap[newPostfix][i].size();ii++){
 				std::cout << i << " and " << answerListMap[newPostfix][i][ii] << "\n";
 			}
