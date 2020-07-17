@@ -154,7 +154,22 @@ app.get('/topic',
 		res.end();
 	}
 );
-
+app.get('/history',
+	function(req, res){
+		
+		var questions = [];
+		var question = {};
+		question.id = 0;
+		question.question = "Why?";
+		question.answer = "42";
+		question.errors = ["yes","no"];
+		questions.push(question);
+		res.write(nunjucks.render('templates/history.html',{
+			questions: questions,
+		}));
+		res.end();
+	}
+);
 
 
 
