@@ -914,6 +914,7 @@ std::vector<std::string> makeTree(std::string pfstr){
     
 	int treeIdx = 0;
 	std::cout << "before third: @" << pfstr.length() << "\n";
+	std::vector<std::string> bottomTrees;
 	for (i=0;i<pfstr.length();i++){
 		
 		if (pfstr.at(i) == '@'){
@@ -927,6 +928,9 @@ std::vector<std::string> makeTree(std::string pfstr){
 			std::string secondListMapKey = "";
 			
 			int maxi = i-1;
+			int startLeftIndex = maxi;
+			int startRightOperand = 10000;
+			int endRightOperand = -1;
 			for (ii=0;ii<i;ii++){
 				std::string s = "";
 				std::string t = "";
@@ -934,6 +938,12 @@ std::vector<std::string> makeTree(std::string pfstr){
 					s += pfstr.at(iii);
 					if (pfstr.at(iii) == '#'){
 						t += operandMap[iii] + '_';
+						if (std::stoi(operandMap[iii])<startRightOperand){
+							startRightOperand = std::stoi(operandMap[iii]);
+						}
+						else if (std::stoi(operandMap[iii])>endRightOperand){
+							endRightOperand = std::stoi(operandMap[iii]);
+						}
 					}
 				}
 				if (listMap.find(s + '@' + t) != listMap.end()){
@@ -947,6 +957,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 						secondT[iii]=listMap[s+'@'+t][iii*3+1];
 					}
 					maxi = ii;
+					startLeftIndex = maxi;
 					break;
 				}
 			}
@@ -967,6 +978,12 @@ std::vector<std::string> makeTree(std::string pfstr){
 						s += pfstr.at(iii);
 						if (pfstr.at(iii) == '#'){
 							t += operandMap[iii] + '_';
+							if (std::stoi(operandMap[iii])<startRightOperand){
+								startRightOperand = std::stoi(operandMap[iii]);
+							}
+							else if (std::stoi(operandMap[iii])>endRightOperand){
+								endRightOperand = std::stoi(operandMap[iii]);
+							}
 						}
 					}
 					if (listMap.find(s + '@' + t) != listMap.end()){
@@ -979,6 +996,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 							firstS[iii]=listMap[s+'@'+t][iii*3];
 							firstT[iii]=listMap[s+'@'+t][iii*3+1];
 						}
+						startLeftIndex = ii;
 						break;
 					}
 				}
@@ -989,22 +1007,53 @@ std::vector<std::string> makeTree(std::string pfstr){
 				fullTrees.push_back("0");
 				originalMap[iidx]= firstS[0] + secondS[0] + pfstr.at(i) + '@' + firstT[0] + secondT[0];
 				iidx++;
+				bottomTrees.push_back();
 				
 				
 				for (ii=0;ii<firstS.size();ii++){
-					if (listMap[firstListMapKey][ii*3+2]=="4"){
+					if (listMap[firstListMapKey][ii*3+2]=="3"){
 						continue;
 					}
 					for (iii=0;iii<secondS.size();iii++){
-						if (listMap[secondListMapKey][iii*3+2]=="4"){
+						
+						
+						if (listMap[secondListMapKey][iii*3+2]=="3"){
 							continue;
 						}
+						
+						//condensed
+						fullTrees.push_back("#");
+						fullTrees.push_back("{"+std::to_string(iidx)+"}_");
+						if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
+							fullTrees.push_back("2");
+						}
+						else if (listMap[secondListMapKey][iii*3+2]=="1" || listMap[firstListMapKey][ii*3+2]=="1"){
+							fullTrees.push_back("1");
+						}
+						else {
+							fullTrees.push_back("0");
+						}
+						
+						std::cout << "possible part: " << firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
+						/*
+						bottomTrees.push_back("#");
+						bottomTrees.push_back("{"+std::to_string(iidx)+"}_");
+						if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
+							bottomTrees.push_back("2");
+						}
+						else if (listMap[secondListMapKey][iii*3+2]=="1" || listMap[firstListMapKey][ii*3+2]=="1"){
+							bottomTrees.push_back("1");
+						}
+						else {
+							bottomTrees.push_back("0");
+						}*/
+						originalMap[iidx]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
+						iidx++;
+						
+						
 						fullTrees.push_back(firstS[ii] + secondS[iii]  + pfstr.at(i));
 						fullTrees.push_back(firstT[ii] + secondT[iii]);
-						if (listMap[secondListMapKey][iii*3+2]=="3" || listMap[firstListMapKey][ii*3+2]=="3"){
-							fullTrees.push_back("4");
-						}
-						else if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
+						if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
 							fullTrees.push_back("3");
 						}
 						else if (listMap[secondListMapKey][iii*3+2]=="1" || listMap[firstListMapKey][ii*3+2]=="1"){
@@ -1015,19 +1064,12 @@ std::vector<std::string> makeTree(std::string pfstr){
 						}
 						
 						
-						//condensed
-						//fullTrees.push_back("#");
-						//fullTrees.push_back("{"+std::to_string(iidx)+"}_");
-						//originalMap[iidx]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
-						//iidx++;
+						
 						
 						if (pfstr.at(i) == '+' || pfstr.at(i) == '*'){
 							fullTrees.push_back(secondS[iii] + firstS[ii]  + pfstr.at(i));
 							fullTrees.push_back(secondT[iii] + firstT[ii]);
-							if (listMap[secondListMapKey][iii*3+2]=="3" || listMap[firstListMapKey][ii*3+2]=="3"){
-								fullTrees.push_back("4");
-							}
-							else if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
+							if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
 								fullTrees.push_back("3");
 							}
 							else if (listMap[secondListMapKey][iii*3+2]=="1" || listMap[firstListMapKey][ii*3+2]=="1"){
@@ -1051,15 +1093,12 @@ std::vector<std::string> makeTree(std::string pfstr){
 				iidx++;
 				for (iii=0;iii<secondS.size();iii++){
 					
-					if (listMap[secondListMapKey][iii*3+2]=="4"){
+					if (listMap[secondListMapKey][iii*3+2]=="3"){
 						continue;
 					}
 					fullTrees.push_back(secondS[iii] + pfstr.at(i));
 					fullTrees.push_back(secondT[iii]);
-					if (listMap[secondListMapKey][iii*3+2]=="3"){
-						fullTrees.push_back("4");
-					}
-					else if (listMap[secondListMapKey][iii*3+2]=="2"){
+					if (listMap[secondListMapKey][iii*3+2]=="2"){
 						fullTrees.push_back("3");
 					}
 					else if (listMap[secondListMapKey][iii*3+2]=="1"){
