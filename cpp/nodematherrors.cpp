@@ -2165,6 +2165,7 @@ std::string getAnswer(std::string s){
 	int ii;
 
 	int iterations;
+	std::string mpf = postfixify("ddx(x)+ddx(3)");
   	for (iterations=0;iterations<10;iterations++){
   		jsonmessage = "";
 		std::string pfstr = postfixify(s);
@@ -2209,12 +2210,14 @@ std::string getAnswer(std::string s){
 			maxSteps--;
 
 		}
-		if (newPostfix == postfixify("ddx(x)+ddx(3)")){
+		newPostfix = removeBracketsOne(newPostfix);
+		if (newPostfix == mpf){
 			std::cout << "found correct: " << newPostfix << "\n";
 			break;
 		}
 		else {
-			std::cout << "not correct: " << newPostfix  << " with " << postfixify("ddx(x)+ddx(3)") << "\n";
+			
+			std::cout << "not correct: " << newPostfix  << " with " << mpf << "\n";
 		}
 	}
 	return "Hi World!!!!!";
