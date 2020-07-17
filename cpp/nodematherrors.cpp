@@ -1209,8 +1209,8 @@ std::vector<std::string> makeTree(std::string pfstr){
 			
 		}
 		else {
-			listMap["#@" + std::to_string(idx) + "_"]={"#",originalMap[idx]+'_'};
-			finalList = {"#",originalMap[idx]+'_'};
+			listMap["#@" + std::to_string(idx) + "_"]={"#",originalMap[idx]+'_',"0"};
+			finalList = {"#",originalMap[idx]+'_',"0"};
 			operandMap[i]=std::to_string(idx);
 			
 			std::string name = "node"+std::to_string(treeIdx);
