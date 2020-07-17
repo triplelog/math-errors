@@ -165,7 +165,7 @@
               <td>
               	{% for error in question.errors %}
               		<button type="button" class="btn btn-outline-danger">
-					  {{ question.error }} <span class="badge bg-secondary">4</span>
+					  {{ error }} <span class="badge bg-secondary">4</span>
 					</button>
               	{{ question.error }}
               	{% endfor %}
