@@ -943,7 +943,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 						if (std::stoi(operandMap[iii])<tempStartRightOperand){
 							tempStartRightOperand = std::stoi(operandMap[iii]);
 						}
-						else if (std::stoi(operandMap[iii])>tempEndRightOperand){
+						if (std::stoi(operandMap[iii])>tempEndRightOperand){
 							tempEndRightOperand = std::stoi(operandMap[iii]);
 						}
 					}
@@ -1005,21 +1005,21 @@ std::vector<std::string> makeTree(std::string pfstr){
 				}
 				
 				//condensed
-				fullTrees.push_back("#");
-				fullTrees.push_back("{"+std::to_string(iidx)+"}_");
-				fullTrees.push_back("0");
-				originalMap[iidx]= firstS[0] + secondS[0] + pfstr.at(i) + '@' + firstT[0] + secondT[0];
-				iidx++;
+				//fullTrees.push_back("#");
+				//fullTrees.push_back("{"+std::to_string(iidx)+"}_");
+				//fullTrees.push_back("0");
+				//originalMap[iidx]= firstS[0] + secondS[0] + pfstr.at(i) + '@' + firstT[0] + secondT[0];
+				//iidx++;
 				
 				
 				for (ii=0;ii<firstS.size();ii++){
-					if (listMap[firstListMapKey][ii*3+2]=="3"){
+					if (listMap[firstListMapKey][ii*3+2]=="4"){
 						continue;
 					}
 					for (iii=0;iii<secondS.size();iii++){
 						
 						
-						if (listMap[secondListMapKey][iii*3+2]=="3"){
+						if (listMap[secondListMapKey][iii*3+2]=="4"){
 							continue;
 						}
 						
@@ -1036,7 +1036,36 @@ std::vector<std::string> makeTree(std::string pfstr){
 							fullTrees.push_back("0");
 						}
 						
+						
 						std::cout << "possible part: " << firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
+						std::string tempFull = pfstr;
+						int iiiii; int operandIdx = -1; int startRightIndex = -1; int rightLength= 0;
+						for (iiiii=0;iiiii<tempFull.length();iiiii++){
+							if (tempFull.at(iiiii) == "_"){
+								operandIdx++;
+								if (operandIdx <endRightOperand){
+									rightLength++;
+								}
+								else {
+									break;
+								}
+							}
+							else if (tempFull.at(iiiii) == "@"){
+								operandIdx++;
+							}
+							else if (operandIdx==startRightOperand && startRightIndex<0){
+								startRightIndex = iiiii;
+								rightLength = 1;
+							}
+							else{
+								rightLength++;
+							}
+						}
+						tempFull.replace(startRightIndex,rightLength,"{"+std::to_string(iidx)+"}");
+						tempFull.replace(startLeftIndex,i-startLeftIndex,"#");
+						originalMap[iidx]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
+						iidx++;
+						std::cout << "new full: " <<  << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
 						/*
 						bottomTrees.push_back("#");
 						bottomTrees.push_back("{"+std::to_string(iidx)+"}_");
@@ -1049,9 +1078,12 @@ std::vector<std::string> makeTree(std::string pfstr){
 						else {
 							bottomTrees.push_back("0");
 						}*/
-						originalMap[iidx]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
-						iidx++;
 						
+						
+						
+						if (listMap[secondListMapKey][iii*3+2]=="3" || listMap[firstListMapKey][ii*3+2]=="3"){
+							continue;
+						}
 						
 						fullTrees.push_back(firstS[ii] + secondS[iii]  + pfstr.at(i));
 						fullTrees.push_back(firstT[ii] + secondT[iii]);
