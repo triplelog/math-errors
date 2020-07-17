@@ -1022,7 +1022,16 @@ std::vector<std::string> makeTree(std::string pfstr){
 						}
 						fullTrees.push_back(firstS[ii] + secondS[iii]  + pfstr.at(i));
 						fullTrees.push_back(firstT[ii] + secondT[iii]);
-						fullTrees.push_back("1");
+						if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
+							fullTrees.push_back("3");
+						}
+						else if (listMap[secondListMapKey][iii*3+2]=="1" || listMap[firstListMapKey][ii*3+2]=="1"){
+							fullTrees.push_back("2");
+						}
+						else {
+							fullTrees.push_back("1");
+						}
+						
 						
 						//condensed
 						//fullTrees.push_back("#");
@@ -1033,7 +1042,15 @@ std::vector<std::string> makeTree(std::string pfstr){
 						if (pfstr.at(i) == '+' || pfstr.at(i) == '*'){
 							fullTrees.push_back(secondS[iii] + firstS[ii]  + pfstr.at(i));
 							fullTrees.push_back(secondT[iii] + firstT[ii]);
-							fullTrees.push_back("1");
+							if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
+								fullTrees.push_back("3");
+							}
+							else if (listMap[secondListMapKey][iii*3+2]=="1" || listMap[firstListMapKey][ii*3+2]=="1"){
+								fullTrees.push_back("2");
+							}
+							else {
+								fullTrees.push_back("1");
+							}
 						}
 					}
 				}
@@ -1063,7 +1080,15 @@ std::vector<std::string> makeTree(std::string pfstr){
 					}
 					fullTrees.push_back(secondS[iii] + pfstr.at(i));
 					fullTrees.push_back(secondT[iii]);
-					fullTrees.push_back("1");
+					if (listMap[secondListMapKey][iii*3+2]=="2"){
+						fullTrees.push_back("3");
+					}
+					else if (listMap[secondListMapKey][iii*3+2]=="1"){
+						fullTrees.push_back("2");
+					}
+					else {
+						fullTrees.push_back("1");
+					}
 					
 					//condensed
 					//fullTrees.push_back("#");
