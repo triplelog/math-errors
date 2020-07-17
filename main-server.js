@@ -71,7 +71,7 @@ wss.on('connection', function connection(ws) {
 			console.log(performance.now());
 			var question = dm.question;
 			console.log(performance.now());
-			var stdout = maincpp.answer(question);
+			var stdout = maincpp.answer(question,dm.answer);
 			console.log(performance.now(), question);
 			var outStr = "";
 		

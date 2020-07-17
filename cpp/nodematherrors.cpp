@@ -2545,13 +2545,13 @@ void getAnswerList(std::string s) {
 	answerListMap[newPostfix] = answerList;
 }
 
-void fullAnswer(std::string s){
+void fullAnswer(std::string s, std::string a){
 	std::string newPostfix = removeBracketsOne(postfixify(s));
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
 	getAnswerList(newPostfix);
 	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << answerListMap[newPostfix].size() << "\n\n\n";
 	int i; int ii;
-	std::string mpf = postfixify("ddx(x)+ddx(3)");
+	std::string mpf = postfixify(a);
 	for (i=0;i<answerListMap[newPostfix].size();i++){
 		if (answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] == mpf){
 			for (ii=0;ii<answerListMap[newPostfix][i].size();ii++){
@@ -2651,12 +2651,14 @@ void GetAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//int row = info[0]->Int32Value(context).FromJust();
 	v8::String::Utf8Value s(isolate, info[0]);
 	std::string str(*s);
+	v8::String::Utf8Value sa(isolate, info[1]);
+	std::string astr(*sa);
 	std::cout << "input: "<< str << "\n";
 	
 	getAnswer(str);
 	
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
-	fullAnswer(str);
+	fullAnswer(str,astr);
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
 void Init(v8::Local<v8::Object> exports) {

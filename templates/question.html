@@ -266,7 +266,8 @@
 		}
 		function submitQuestion() {
 			var question = document.getElementById("equation").value;
-			var jsonmessage = {type:"solve",question:question};
+			var answer = document.getElementById("answer").value;
+			var jsonmessage = {type:"solve",question:question,answer:answer};
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		
