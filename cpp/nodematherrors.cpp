@@ -1007,7 +1007,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 				fullTrees.push_back("0");
 				originalMap[iidx]= firstS[0] + secondS[0] + pfstr.at(i) + '@' + firstT[0] + secondT[0];
 				iidx++;
-				bottomTrees.push_back();
 				
 				
 				for (ii=0;ii<firstS.size();ii++){
