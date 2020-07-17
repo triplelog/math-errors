@@ -164,14 +164,14 @@ app.get('/history',
 		question.answer = "42";
 		question.errors = ["yes","no"];
 		questions.push(question);
-		question.grade = 40;
+		question.grade = "☹️";
 		
 		question = {};
 		question.id = 1;
 		question.question = "When?";
 		question.answer = "42";
 		question.errors = ["one","two"];
-		question.grade = 90;
+		question.grade = "🤔";
 		questions.push(question);
 		res.write(nunjucks.render('templates/history.html',{
 			questions: questions,
