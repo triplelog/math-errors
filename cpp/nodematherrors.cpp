@@ -2549,7 +2549,14 @@ void fullAnswer(std::string s){
 	std::string newPostfix = removeBracketsOne(postfixify(s));
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
 	getAnswerList(newPostfix);
-	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
+	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << answerListMap[newPostfix].size() << "\n\n\n";
+	int i; int ii;
+	for (i=0;i<answerListMap[newPostfix].size();i++){
+		for (ii=0;ii<answerListMap[newPostfix][i].size();ii++){
+			std::cout << i << " and " << answerListMap[newPostfix][i][ii][0] << " and " << answerListMap[newPostfix][i][ii][0] << "\n";
+		}
+	}
+	
 }
 
 
