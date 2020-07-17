@@ -1075,7 +1075,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			std::cout << "fullTrees size: " << fullTrees.size() << " @ " << i << "\n";
 			for (ii=0;ii<fullTrees.size();ii++){
 				std::cout << fullTrees[ii] << "\n";
-				if (ii == 5){
+				if (ii == 20){
 					break;
 				}
 			}
