@@ -2518,7 +2518,7 @@ void getAnswerList(std::string s,bool isCorrect) {
 			tailAnswerList = answerListMap[allStrings[ii]];
 		}
 		else {
-			getAnswerList(allStrings[ii]);
+			getAnswerList(allStrings[ii],isCorrect);
 			tailAnswerList = answerListMap[allStrings[ii]];
 		}
 		for (iii=0;iii<tailAnswerList.size();iii++){
