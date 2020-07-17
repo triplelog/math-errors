@@ -924,6 +924,8 @@ std::vector<std::string> makeTree(std::string pfstr){
 			std::vector<std::string> secondT;
 			std::string secondStr = "";
 			std::string secondTtr = "";
+			std::string secondListMapKey = "";
+			
 			int maxi = i-1;
 			for (ii=0;ii<i;ii++){
 				std::string s = "";
@@ -937,6 +939,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 				if (listMap.find(s + '@' + t) != listMap.end()){
 					secondStr = s;
 					secondTtr = t;
+					secondListMapKey = s + "@" + t;
 					secondS.resize(listMap[s+'@'+t].size()/3);
 					secondT.resize(listMap[s+'@'+t].size()/3);
 					for (iii=0;iii<listMap[s+'@'+t].size()/3;iii++){
@@ -951,8 +954,9 @@ std::vector<std::string> makeTree(std::string pfstr){
 			std::vector<std::string> firstT;
 			std::string firstStr = "";
 			std::string firstTtr = "";
-			
+			std::string firstListMapKey = "";
 			std::vector<std::string> fullTrees;
+			
 			
 			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && (pfstr.at(i) >= 0 || pfstr.at(i) <= -69 )){ // Is at least binary function
 				
@@ -966,6 +970,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 						}
 					}
 					if (listMap.find(s + '@' + t) != listMap.end()){
+						firstListMapKey = s + "@" + t;
 						firstStr = s;
 						firstTtr = t;
 						firstS.resize(listMap[s+'@'+t].size()/3);
@@ -985,23 +990,34 @@ std::vector<std::string> makeTree(std::string pfstr){
 				originalMap[iidx]= firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
 				iidx++;
 				for (ii=0;ii<secondS.size();ii++){
-					if (listMap[s+'@'+t][ii*3+2] == "0"){
-						listMap[s+'@'+t][ii*3+2] = "1";
+					if (listMap[secondListMapKey][ii*3+2] == "0"){
+						listMap[secondListMapKey][ii*3+2] = "1";
 					}
-					else if (listMap[s+'@'+t][ii*3+2] == "1"){
-						listMap[s+'@'+t][ii*3+2] = "2";
+					else if (listMap[secondListMapKey][ii*3+2] == "1"){
+						listMap[secondListMapKey][ii*3+2] = "2";
 					}
-					else if (listMap[s+'@'+t][ii*3+2] == "2"){
-						listMap[s+'@'+t][ii*3+2] = "3";
+					else if (listMap[secondListMapKey][ii*3+2] == "2"){
+						listMap[secondListMapKey][ii*3+2] = "3";
+					}
+				}
+				for (ii=0;ii<firstS.size();ii++){
+					if (listMap[firstListMapKey][ii*3+2] == "0"){
+						listMap[firstListMapKey][ii*3+2] = "1";
+					}
+					else if (listMap[firstListMapKey][ii*3+2] == "1"){
+						listMap[firstListMapKey][ii*3+2] = "2";
+					}
+					else if (listMap[firstListMapKey][ii*3+2] == "2"){
+						listMap[firstListMapKey][ii*3+2] = "3";
 					}
 				}
 				
 				for (ii=0;ii<firstS.size();ii++){
-					if (listMap[s+'@'+t][ii*3+2]=="3"){
+					if (listMap[firstListMapKey][ii*3+2]=="3"){
 						continue;
 					}
 					for (iii=0;iii<secondS.size();iii++){
-						if (listMap[s+'@'+t][iii*3+2]=="3"){
+						if (listMap[secondListMapKey][iii*3+2]=="3"){
 							continue;
 						}
 						fullTrees.push_back(firstS[ii] + secondS[iii]  + pfstr.at(i));
@@ -1032,17 +1048,17 @@ std::vector<std::string> makeTree(std::string pfstr){
 				originalMap[iidx]= secondStr + pfstr.at(i) + '@' + secondTtr;
 				iidx++;
 				for (iii=0;iii<secondS.size();iii++){
-					if (listMap[s+'@'+t][iii*3+2] == "0"){
-						listMap[s+'@'+t][iii*3+2] = "1";
+					if (listMap[secondListMapKey][iii*3+2] == "0"){
+						listMap[secondListMapKey][iii*3+2] = "1";
 					}
-					else if (listMap[s+'@'+t][iii*3+2] == "1"){
-						listMap[s+'@'+t][iii*3+2] = "2";
+					else if (listMap[secondListMapKey][iii*3+2] == "1"){
+						listMap[secondListMapKey][iii*3+2] = "2";
 					}
-					else if (listMap[s+'@'+t][iii*3+2] == "2"){
-						listMap[s+'@'+t][iii*3+2] = "3";
+					else if (listMap[secondListMapKey][iii*3+2] == "2"){
+						listMap[secondListMapKey][iii*3+2] = "3";
 					}
 					
-					if (listMap[s+'@'+t][iii*3+2]=="3"){
+					if (listMap[secondListMapKey][iii*3+2]=="3"){
 						continue;
 					}
 					fullTrees.push_back(secondS[iii] + pfstr.at(i));
