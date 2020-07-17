@@ -3,7 +3,7 @@ const { PerformanceObserver, performance } = require('perf_hooks');
 var fs = require("fs");
 const assert = require('assert');
 const binding = require.resolve(`./build/Release/binding`);
-const maincpp = require(binding);
+
 //const postfix = require('./postfix.js');
 
 const mongoose = require('mongoose');
@@ -120,7 +120,7 @@ wss.on('connection', function connection(ws) {
 
 var startTime = performance.now();
 
-
+const maincpp = require(binding);
 var retHello = maincpp.hello();
 var rules = [];
 eval(retHello);
@@ -149,7 +149,7 @@ app.get('/topic',
 		
 
 		res.write(nunjucks.render('templates/topic.html',{
-			tree: "",
+			rules: rules,
 		}));
 		res.end();
 	}

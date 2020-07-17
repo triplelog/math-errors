@@ -147,28 +147,20 @@
 
       
 
-      <div class="card" style="width: 18rem;">
-		  <div class="card-body">
-			<h5 class="card-title">Sum Rule</h5>
-			<h6 class="card-subtitle mb-2 text-muted">The derivative of a sum is the sum of the derivatives</h6>
-			<p class="card-text">Correct Rule</p>
-			<p class="card-text">Example(s)</p>
-			<p class="card-text">Incorrect</p>
-			<a href="#" class="card-link">Card link</a>
-			<a href="#" class="card-link">Another link</a>
+
+	  {% for rule in rules %}
+		  <div class="card" style="width: 18rem;">
+			  <div class="card-body">
+				<h5 class="card-title">{{ rule.name }}</h5>
+				<h6 class="card-subtitle mb-2 text-muted">The derivative of a sum is the sum of the derivatives</h6>
+				<p class="card-text">Correct Rule</p>
+				<p class="card-text">Example(s)</p>
+				<p class="card-text">Incorrect</p>
+				<a href="#" class="card-link">Card link</a>
+				<a href="#" class="card-link">Another link</a>
+			  </div>
 		  </div>
-	  </div>
-	  <div class="card" style="width: 18rem;">
-		  <div class="card-body">
-			<h5 class="card-title">Product Rule</h5>
-			<h6 class="card-subtitle mb-2 text-muted">The derivative of a sum is the sum of the derivatives</h6>
-			<p class="card-text">Correct Rule</p>
-			<p class="card-text">Example(s)</p>
-			<p class="card-text">Incorrect</p>
-			<a href="#" class="card-link">Card link</a>
-			<a href="#" class="card-link">Another link</a>
-		  </div>
-	  </div>
+	  {% endfor %}
     </main>
   </div>
 </div>
