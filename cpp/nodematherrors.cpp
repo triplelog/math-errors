@@ -639,11 +639,11 @@ std::string removeBracketsOne(std::string input) {
 	}
 	
 	int firstIndex = operandToIndex[iidx];
-	std::cout << input << " --a\n";
+	//std::cout << input << " --a\n";
 	input.replace(secondIndex,bracketLength+1,bracketStrings[1]);
-	std::cout << input << " --b\n";
+	//std::cout << input << " --b\n";
 	input.replace(firstIndex,1,bracketStrings[0]);
-	std::cout << input << " --c\n";
+	//std::cout << input << " --c\n";
 	return removeBracketsOne(input);
 	
 	
@@ -2485,7 +2485,7 @@ void getAnswerList(std::string s) {
 
 	jsonmessage = "";
 	std::string pfstr = s;
-	std::cout << pfstr << '\n';
+	//std::cout << pfstr << '\n';
 
 
 	std::string newPostfix = pfstr;
@@ -2536,9 +2536,9 @@ void getAnswerList(std::string s) {
 	auto d1 = std::chrono::duration_cast<std::chrono::microseconds>( t4 - t3 ).count();
 	auto d2 = std::chrono::duration_cast<std::chrono::microseconds>( t5 - t4 ).count();
 	auto d3 = std::chrono::duration_cast<std::chrono::microseconds>( t6 - t5 ).count();
-	std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
-	std::cout << "NOYES: " << noC << " and " << yesC << "\n";
-	std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
+	//std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
+	//std::cout << "NOYES: " << noC << " and " << yesC << "\n";
+	//std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
 		
 	
 
