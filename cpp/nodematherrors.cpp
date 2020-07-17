@@ -1013,13 +1013,13 @@ std::vector<std::string> makeTree(std::string pfstr){
 				}
 				
 				for (ii=0;ii<firstS.size();ii++){
-					//if (listMap[firstListMapKey][ii*3+2]=="3"){
-					//	continue;
-					//}
+					if (listMap[firstListMapKey][ii*3+2]=="3"){
+						continue;
+					}
 					for (iii=0;iii<secondS.size();iii++){
-						//if (listMap[secondListMapKey][iii*3+2]=="3"){
-						//	continue;
-						//}
+						if (listMap[secondListMapKey][iii*3+2]=="3"){
+							continue;
+						}
 						fullTrees.push_back(firstS[ii] + secondS[iii]  + pfstr.at(i));
 						fullTrees.push_back(firstT[ii] + secondT[iii]);
 						fullTrees.push_back("1");
@@ -1058,9 +1058,9 @@ std::vector<std::string> makeTree(std::string pfstr){
 						listMap[secondListMapKey][iii*3+2] = "3";
 					}
 					
-					//if (listMap[secondListMapKey][iii*3+2]=="3"){
-					//	continue;
-					//}
+					if (listMap[secondListMapKey][iii*3+2]=="3"){
+						continue;
+					}
 					fullTrees.push_back(secondS[iii] + pfstr.at(i));
 					fullTrees.push_back(secondT[iii]);
 					fullTrees.push_back("1");
