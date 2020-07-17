@@ -2511,6 +2511,7 @@ void getAnswerList(std::string s,bool isCorrect) {
 		}
 	
 	}
+	postList.clear();
 	answerList.push_back({newPostfix});
 	for (ii=0;ii<allStrings.size();ii++){
 		std::vector<std::vector<std::string>> tailAnswerList;
