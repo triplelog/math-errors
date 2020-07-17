@@ -1971,7 +1971,7 @@ std::string applyRules(std::string userFullString) {
 	
 }
 
-std::vector<std::vector<std::string>> applyRulesVector(std::string userFullString) {
+std::vector<std::string> applyRulesVector(std::string userFullString) {
 	auto a1 = std::chrono::high_resolution_clock::now();
 	
 	int iii; int iiii;
@@ -2051,7 +2051,7 @@ std::vector<std::vector<std::string>> applyRulesVector(std::string userFullStrin
 	}
 	auto a3 = std::chrono::high_resolution_clock::now();
 	std::vector<std::vector<std::string>> allOptions;
-	std::vector<std::vector<std::string>> allStrings;
+	std::vector<std::string> allStrings;
 	for (flat_hash_map<std::string,std::string>::iterator iter = allParts.begin(); iter != allParts.end(); ++iter){
 		std::string onePart = iter->first;
 		foundAt = false;
@@ -2130,7 +2130,7 @@ std::vector<std::vector<std::string>> applyRulesVector(std::string userFullStrin
 			int ruleIdx;
 			for (ruleIdx=0;ruleIdx<rules[key].size();ruleIdx++){
 				//std::cout << "Key Match: " << key << " and " << rules[key][ruleIdx][0] << "\n";
-				jsonmessage = "";
+				
 				std::vector<std::string> rule = rules[key][ruleIdx];
 				std::string currentOperand = "";
 				flat_hash_map<char,std::string> partMap;
@@ -2272,7 +2272,7 @@ std::vector<std::vector<std::string>> applyRulesVector(std::string userFullStrin
 					tempTemp.replace(firstOperandIndex,replaceLength,newPostfixFirst);
 					tempTemp = removeBracketsOne(tempTemp);
 					newStrings.push_back(tempTemp);
-					allStrings.push_back({tempTemp,jsonmessage});
+					allStrings.push_back(tempTemp);
 					//return userFullString;
 				}
 			}
@@ -2473,9 +2473,9 @@ void initialRun(){
 	makeRules("derivatives.csv");
 	auto t2 = std::chrono::high_resolution_clock::now();
 }
-flat_hash_map<std::string,std::vector<std::vector<std::vector<std::string>>>> answerListMap;
+flat_hash_map<std::string,std::vector<std::vector<std::string>>> answerListMap;
 void getAnswerList(std::string s) {
-	std::vector<std::vector<std::vector<std::string>>> answerList;
+	std::vector<std::vector<std::string>> answerList;
 
 
 	int i;
@@ -2499,31 +2499,31 @@ void getAnswerList(std::string s) {
 	std::vector<std::string> postList = makeTree(newPostfix);
 	auto t5 = std::chrono::high_resolution_clock::now();
 
-	std::vector<std::vector<std::string>> allStrings; //vector of the next step
+	std::vector<std::string> allStrings; //vector of the next step
 	for (ii=0;ii<postList.size();ii++){
 		//std::cout << "--------\n" << ii << " ---- " << postList[ii] << "\n--------------";
-		std::vector<std::vector<std::string>> someStrings;
+		std::vector<std::string> someStrings;
 		someStrings = applyRulesVector(postList[ii]);
 		for (iii=0;iii<someStrings.size();iii++){
-			someStrings[iii][0] = removeBracketsOne(someStrings[iii][0]);
+			someStrings[iii] = removeBracketsOne(someStrings[iii]);
 			allStrings.push_back(someStrings[iii]);
 		}
 	
 	}
-	answerList.push_back({{newPostfix,""}});
+	answerList.push_back({newPostfix});
 	for (ii=0;ii<allStrings.size();ii++){
-		std::vector<std::vector<std::vector<std::string>>> tailAnswerList;
-		if (answerListMap.find(allStrings[ii][0]) != answerListMap.end()){
-			tailAnswerList = answerListMap[allStrings[ii][0]];
+		std::vector<std::vector<std::string>> tailAnswerList;
+		if (answerListMap.find(allStrings[ii]) != answerListMap.end()){
+			tailAnswerList = answerListMap[allStrings[ii]];
 		}
 		else {
-			getAnswerList(allStrings[ii][0]);
-			tailAnswerList = answerListMap[allStrings[ii][0]];
+			getAnswerList(allStrings[ii]);
+			tailAnswerList = answerListMap[allStrings[ii]];
 		}
 		for (iii=0;iii<tailAnswerList.size();iii++){
 			if (tailAnswerList[iii].size()<maxSteps){
 				std::vector<std::vector<std::string>> oneAnswer;
-				oneAnswer = {{newPostfix,allStrings[ii][1]}};
+				oneAnswer = {newPostfix};
 				for (iiii=0;iiii<tailAnswerList[iii].size();iiii++){
 					oneAnswer.push_back(tailAnswerList[iii][iiii]);
 				}
@@ -2553,7 +2553,7 @@ void fullAnswer(std::string s){
 	int i; int ii;
 	for (i=0;i<answerListMap[newPostfix].size();i++){
 		for (ii=0;ii<answerListMap[newPostfix][i].size();ii++){
-			std::cout << i << " and " << answerListMap[newPostfix][i][ii][0] << " and " << answerListMap[newPostfix][i][ii][1] << "\n";
+			std::cout << i << " and " << answerListMap[newPostfix][i][ii] << "\n";
 		}
 	}
 	
