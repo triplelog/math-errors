@@ -164,6 +164,13 @@ app.get('/history',
 		question.answer = "42";
 		question.errors = ["yes","no"];
 		questions.push(question);
+		
+		question = {};
+		question.id = 1;
+		question.question = "When?";
+		question.answer = "42";
+		question.errors = ["one","two"];
+		questions.push(question);
 		res.write(nunjucks.render('templates/history.html',{
 			questions: questions,
 		}));
