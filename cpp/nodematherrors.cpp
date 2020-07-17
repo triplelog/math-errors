@@ -902,7 +902,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 
 
     rss = resident * page_size_kb;
-    std::cout << "initial: " << "\n";
     std::cout << "RSS - " << rss << " kB\n";
 
     shared_mem = share * page_size_kb;
@@ -1021,7 +1020,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			std::string parent = "";
 			std::string nodeText = fullStr;
 			std::string pname = name;
-			nodeList[fullStr]={pname,parent,opStr};
+			//nodeList[fullStr]={pname,parent,opStr};
 			
 			
 			//Child 1
@@ -1032,23 +1031,23 @@ std::vector<std::string> makeTree(std::string pfstr){
 					std::vector<std::string> revList;
 					for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
 						if (iter->second[1] == nodeList[nodeText][0]){
-							nodeList[iter->first][1] = pname;
-							revList.push_back(iter->first);
+							//nodeList[iter->first][1] = pname;
+							//revList.push_back(iter->first);
 						}
 					}
 					int okSz = orderedKeyList.size();
 					for (ii=0;ii<okSz;ii++){
 						for (iii=revList.size()-1;iii>=0;iii--){
 							if (orderedKeyList[ii] == revList[iii]){
-								orderedKeyList.push_back(revList[iii]);
+								//orderedKeyList.push_back(revList[iii]);
 							}
 						}
 					}
 					
 				}
 				else {
-					nodeList[nodeText][1] = pname;
-					orderedKeyList.push_back(nodeText);
+					//nodeList[nodeText][1] = pname;
+					//orderedKeyList.push_back(nodeText);
 				}
 				
 			}
@@ -1059,22 +1058,22 @@ std::vector<std::string> makeTree(std::string pfstr){
 					std::vector<std::string> revList;
 					for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
 						if (iter->second[1] == name){
-							nodeList[iter->first][1] = pname;
-							revList.push_back(iter->first);
+							//nodeList[iter->first][1] = pname;
+							//revList.push_back(iter->first);
 						}
 					}
 					int okSz = orderedKeyList.size();
 					for (ii=0;ii<okSz;ii++){
 						for (iii=revList.size()-1;iii>=0;iii--){
 							if (orderedKeyList[ii] == revList[iii]){
-								orderedKeyList.push_back(revList[iii]);
+								//orderedKeyList.push_back(revList[iii]);
 							}
 						}
 					}
 				}
 				else {
-					nodeList[nodeText] = {name,pname,opStr};
-					orderedKeyList.push_back(nodeText);
+					//nodeList[nodeText] = {name,pname,opStr};
+					//orderedKeyList.push_back(nodeText);
 				}
 				
 			}
@@ -1087,22 +1086,22 @@ std::vector<std::string> makeTree(std::string pfstr){
 						std::vector<std::string> revList;
 						for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
 							if (iter->second[1] == nodeList[nodeText][0]){
-								nodeList[iter->first][1] = pname;
-								revList.push_back(iter->first);
+								//nodeList[iter->first][1] = pname;
+								//revList.push_back(iter->first);
 							}
 						}
 						int okSz = orderedKeyList.size();
 						for (ii=0;ii<okSz;ii++){
 							for (iii=revList.size()-1;iii>=0;iii--){
 								if (orderedKeyList[ii] == revList[iii]){
-									orderedKeyList.push_back(revList[iii]);
+									//orderedKeyList.push_back(revList[iii]);
 								}
 							}
 						}
 					}
 					else {
-						nodeList[nodeText][1] = pname;
-						orderedKeyList.push_back(nodeText);
+						//nodeList[nodeText][1] = pname;
+						//orderedKeyList.push_back(nodeText);
 					}
 				
 				}
@@ -1113,42 +1112,30 @@ std::vector<std::string> makeTree(std::string pfstr){
 						std::vector<std::string> revList;
 						for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
 							if (iter->second[1] == name){
-								nodeList[iter->first][1] = pname;
-								revList.push_back(iter->first);
+								//nodeList[iter->first][1] = pname;
+								//revList.push_back(iter->first);
 							}
 						}
 						int okSz = orderedKeyList.size();
 						for (ii=0;ii<okSz;ii++){
 							for (iii=revList.size()-1;iii>=0;iii--){
 								if (orderedKeyList[ii] == revList[iii]){
-									orderedKeyList.push_back(revList[iii]);
+									//orderedKeyList.push_back(revList[iii]);
 								}
 							}
 						}
 					}
 					else {
-						nodeList[nodeText] = {name,pname,opStr};
-						orderedKeyList.push_back(nodeText);
+						//nodeList[nodeText] = {name,pname,opStr};
+						//orderedKeyList.push_back(nodeText);
 					}
 				
 				}
-				/*if (nodeList.find(nodeText) != nodeList.end()){
-					nodeList[nodeText][1] = pname;
-					orderedKeyList.push_back(nodeText);
-				}
-				else {
-					name = "node"+std::to_string(treeIdx);
-					treeIdx++;
-					nodeList[nodeText] = {name,pname};
-					orderedKeyList.push_back(nodeText);
-				}*/
+				
 			}
-			orderedKeyList.push_back(fullStr);
+			//orderedKeyList.push_back(fullStr);
 			
-			//
-			//for (ii=0;ii<fullTrees.size();ii++){
-			//	std::cout << i << "-:::-" << fullTrees[ii] << '\n';
-			//}
+
 			
 			listMap[fullStr]=fullTrees;
 			finalList = fullTrees;
@@ -1161,8 +1148,8 @@ std::vector<std::string> makeTree(std::string pfstr){
 			
 			std::string name = "node"+std::to_string(treeIdx);
 			treeIdx++;
-			nodeList["#@" + std::to_string(idx) + "_"] = {name,"","#"};
-			orderedKeyList.push_back("#@" + std::to_string(idx) + "_");
+			//nodeList["#@" + std::to_string(idx) + "_"] = {name,"","#"};
+			//orderedKeyList.push_back("#@" + std::to_string(idx) + "_");
 			idx++;
 		}
 		
@@ -1176,7 +1163,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 
 
     rss = resident * page_size_kb;
-    std::cout << "initial: " << "\n";
     std::cout << "RSS - " << rss << " kB\n";
 
     shared_mem = share * page_size_kb;
