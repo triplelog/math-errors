@@ -1971,6 +1971,327 @@ std::string applyRules(std::string userFullString) {
 	
 }
 
+std::vector<std::vector<std::string>> applyRulesVector(std::string userFullString) {
+	auto a1 = std::chrono::high_resolution_clock::now();
+	
+	int iii; int iiii;
+	flat_hash_map<std::string,std::string> allParts;
+	//allParts = makeList(userFullString);
+	
+	
+	if (allListMap.find(userFullString) != allListMap.end()){
+		allParts = allListMap[userFullString];
+		yesC++;
+	}
+	else {
+		allParts = makeList(userFullString);
+		allListMap[userFullString] = allParts;
+		noC++;
+	}
+	
+	auto a2 = std::chrono::high_resolution_clock::now();
+	flat_hash_map<std::string,int> operandToIndex;
+	flat_hash_map<std::string,int> operandToIndexSecond;
+	flat_hash_map<std::string,std::string> operandList;
+	std::string newPostfix = "";
+	int idx = 0;
+	//std::cout << "\n\n" << userFullString << '\n';
+	for (iii=0;iii<userFullString.length();iii++){
+		if (userFullString.at(iii) == '@'){
+			break;
+		}
+		else if (userFullString.at(iii) == '#'){
+			operandToIndex[std::to_string(idx)] = iii;
+			idx++;
+		}
+	}
+	idx = 0;
+	bool midBracket = false;
+	for (iii=0;iii<userFullString.length();iii++){
+		if (userFullString.at(iii) == '_' && !midBracket){
+			operandToIndexSecond[std::to_string(idx)] = iii+1;
+			idx++;
+		}
+		else if (userFullString.at(iii) == '{'){
+			midBracket = true;
+		}
+		else if (userFullString.at(iii) == '}'){
+			midBracket = false;
+		}
+		else if (userFullString.at(iii) == '@' && !midBracket){
+			operandToIndexSecond[std::to_string(idx)] = iii+1;
+			idx++;
+		}
+	}
+	bool foundAt = false;
+	std::string currentOperand = "";
+	idx = 0;
+	midBracket = false;
+	for (iii=0;iii<userFullString.length();iii++){
+		if (userFullString.at(iii) == '@' && !midBracket){
+			foundAt = true;
+			currentOperand = "";
+		}
+		else if (userFullString.at(iii) == '{'){
+			currentOperand += userFullString.at(iii);
+			midBracket = true;
+		}
+		else if (userFullString.at(iii) == '}'){
+			currentOperand += userFullString.at(iii);
+			midBracket = false;
+		}
+		else if (foundAt && userFullString.at(iii) == '_' && !midBracket){
+			operandList[std::to_string(idx)] = currentOperand;
+			idx++;
+			currentOperand = "";
+		}
+		else {
+			currentOperand += userFullString.at(iii);
+		}
+	}
+	auto a3 = std::chrono::high_resolution_clock::now();
+	std::vector<std::vector<std::string>> allOptions;
+	std::vector<std::vector<std::string>> allStrings;
+	for (flat_hash_map<std::string,std::string>::iterator iter = allParts.begin(); iter != allParts.end(); ++iter){
+		std::string onePart = iter->first;
+		foundAt = false;
+		bool foundFirst = false;
+		int firstOperandIndex = 0;
+		int firstOperandIndexSecond = 0;
+		currentOperand = "";
+		std::string fullStr = "";
+		int replaceLength = 0;
+		int replaceLengthSecond = 0;
+		midBracket = false;
+		for (iii=0;iii<onePart.length();iii++){
+			if (onePart.at(iii) == '@' && !midBracket){
+				foundAt = true;
+				currentOperand = "";
+				fullStr += onePart.at(iii);
+			}
+			else if (foundAt && onePart.at(iii) == '{'){
+				midBracket = true;
+				currentOperand += onePart.at(iii);
+				//replaceLengthSecond++;
+			}
+			else if (foundAt && onePart.at(iii) == '}'){
+				midBracket = false;
+				currentOperand += onePart.at(iii);
+				//replaceLengthSecond++;
+			}
+			else if (foundAt && !midBracket && onePart.at(iii) == '_'){
+				if (!foundFirst){
+					firstOperandIndex = operandToIndex[currentOperand];
+					firstOperandIndexSecond = operandToIndexSecond[currentOperand];
+				}
+				foundFirst = true;
+				fullStr += operandList[currentOperand]+'_';
+				replaceLengthSecond+= operandList[currentOperand].length()+1;
+				currentOperand = "";
+				
+			}
+			else if (foundAt){
+				currentOperand += onePart.at(iii);
+				//replaceLengthSecond++;
+			}
+			else {
+				fullStr += onePart.at(iii);
+				replaceLength++;
+			}
+			
+		}
+		//replace starting at firstOperandIndex for length=replaceLength
+		//replace starting at firstOperandIndexSecond for length=replaceLengthSecond
+		//std::cout << iter->first << " and "  << firstOperandIndex << " and "  << firstOperandIndexSecond << " and " << fullStr << '\n';
+		//std::string tempReplaced = userFullString;
+		//std::cout << tempReplaced.replace(firstOperandIndexSecond,replaceLengthSecond,";;;").replace(firstOperandIndex,replaceLength,"...") << "\n\n";
+		
+
+		std::string userString = fullStr;
+		std::string key = "";
+		
+		newPostfix = "";
+		
+		int startAt =0;
+		
+		for (iiii=0;iiii<userString.length();iiii++){
+			if (userString.at(iiii) == '@'){
+				startAt = iiii+1;
+				break;
+			}
+			else{
+				key += userString.at(iiii);
+			}
+		}
+		std::vector<std::string> newStrings;
+		if (rules.find(key) != rules.end()){
+			//std::cout << "Key Match: " << key << " and " << rules[key][0] << "\n";
+			//std::cout << "userFullString @ keyMatch: "<< userFullString << "\n";
+			int ruleIdx;
+			for (ruleIdx=0;ruleIdx<rules[key].size();ruleIdx++){
+				//std::cout << "Key Match: " << key << " and " << rules[key][ruleIdx][0] << "\n";
+				jsonmessage = "";
+				std::vector<std::string> rule = rules[key][ruleIdx];
+				std::string currentOperand = "";
+				flat_hash_map<char,std::string> partMap;
+				std::vector<std::string> userOperands;
+				std::vector<std::string> ruleOperands;
+				newPostfix = "";
+				for (iii=0;iii<rule[0].length();iii++){
+					if (rule[0].at(iii) == '_'){
+						ruleOperands.push_back(currentOperand);
+						currentOperand = "";
+					}
+					else {
+						currentOperand += rule[0].at(iii);
+					}
+				}
+				currentOperand = "";
+				midBracket = false;
+				for (iii=startAt;iii<userString.length();iii++){
+					if (userString.at(iii) == '_' && !midBracket){
+						userOperands.push_back(currentOperand);
+						currentOperand = "";
+					}
+					else if (userString.at(iii) == '{') {
+						currentOperand += userString.at(iii);
+						midBracket = true;
+					}
+					else if (userString.at(iii) == '}') {
+						currentOperand += userString.at(iii);
+						midBracket = false;
+					}
+					else {
+						currentOperand += userString.at(iii);
+					}
+				}
+				bool ignoreThis = false;
+				if (ruleOperands.size() != userOperands.size()){
+					//TODO: move to next rule
+					ignoreThis = true;
+				}
+				for (iii=0;iii<ruleOperands.size();iii++){
+					if (ruleOperands[iii].length()==1){
+						if (ruleOperands[iii].at(0) <= 'Z' && ruleOperands[iii].at(0) >= 'A'){
+							if (partMap.find(ruleOperands[iii].at(0)) != partMap.end()){
+								if (partMap[ruleOperands[iii].at(0)] != userOperands[iii]){
+									ignoreThis = true;
+									break;
+								}
+							}
+							partMap[ruleOperands[iii].at(0)] = userOperands[iii];
+						}
+						else if (ruleOperands[iii] != userOperands[iii]){
+							//TODO: skip this rule
+							ignoreThis = true;
+							break;
+						}
+					}
+					else if (ruleOperands[iii] != userOperands[iii]){
+						//TODO: skip this rule
+						ignoreThis = true;
+						break;
+					}
+				}
+			
+			
+				newPostfix = "";
+				if (ignoreThis){
+					continue;
+				}
+				bool pastKey = false;
+				if (rule[1].at(0)=='='){
+					newPostfix = "#@";
+					std::string a = partMap[rule[1].at(2)];
+					std::string b = partMap[rule[1].at(3)];
+					std::string opResult;
+					if (rule[1].at(1)=='+'){
+						opResult = addTwoInts(a,b);
+					}
+					if (rule[1].at(1)=='*'){
+						opResult = mulTwoInts(a,b);
+					}
+					if (rule[1].at(1)=='-'){
+						opResult = subTwoInts(a,b);
+					}
+					if (rule[1].at(1)=='/'){
+						opResult = divTwoInts(a,b);
+					}
+					if (opResult == "false"){
+						newPostfix = "";
+						continue;
+					}
+					newPostfix += opResult+'_';
+					
+				}
+				else {
+					for (iii=0;iii<rule[1].length();iii++){
+						if (pastKey){
+							if (rule[1].at(iii) == '_'){
+								if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
+									newPostfix += partMap[currentOperand.at(0)] + '_';
+								}
+								else {
+									newPostfix += currentOperand + '_';
+								}
+								currentOperand = "";
+							}
+							else {
+								currentOperand += rule[1].at(iii);
+							}
+						}
+						else {
+							if (rule[1].at(iii) == '@'){
+								pastKey = true;
+							}
+							newPostfix += rule[1].at(iii);
+						}
+					}
+				}
+			
+				if (newPostfix.length()>0){
+					//std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
+					std::string newPostfixFirst = "";
+					std::string newPostfixSecond = "";
+					foundAt = false;
+					for (iiii=0;iiii<newPostfix.length();iiii++){
+						if (newPostfix.at(iiii) == '@' && !foundAt){
+							foundAt = true;
+						}
+						else if (foundAt){
+							newPostfixSecond += newPostfix.at(iiii);
+						}
+						else {
+							newPostfixFirst += newPostfix.at(iiii);
+						}
+					}
+					//std::cout << "userFullString: "<< userFullString << " a " << firstOperandIndexSecond << " a " << replaceLengthSecond << " a " << newPostfixSecond << "\n";
+					std::string tempTemp = userFullString;
+					tempTemp.replace(firstOperandIndexSecond,replaceLengthSecond,newPostfixSecond);
+					//std::cout << "userFullString: "<< userFullString << "\n";
+					tempTemp.replace(firstOperandIndex,replaceLength,newPostfixFirst);
+					tempTemp = removeBracketsOne(tempTemp);
+					newStrings.push_back(tempTemp);
+					allStrings.push_back({tempTemp,jsonmessage});
+					//return userFullString;
+				}
+			}
+			
+		}
+		if (newStrings.size()>0){
+			allOptions.push_back(newStrings);
+			
+		}
+	}
+	
+	auto a4 = std::chrono::high_resolution_clock::now();
+	duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+	duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a4 - a3 ).count();
+
+	return allStrings;
+	
+}
 /*
 int main (int argc, char *argv[]) {
 
@@ -2152,7 +2473,76 @@ void initialRun(){
 	makeRules("derivatives.csv");
 	auto t2 = std::chrono::high_resolution_clock::now();
 }
+flat_hash_map<std::string,std::vector<std::vector<std::vector<std::string>>>> answerListMap;
+void getAnswerList(std::string s) {
+	std::vector<std::vector<std::vector<std::string>>> answerList;
 
+
+	int i;
+	int ii;
+	int iii;
+	int iiii;
+
+	jsonmessage = "";
+	std::string pfstr = s;
+	std::cout << pfstr << '\n';
+
+
+	std::string newPostfix = pfstr;
+
+	int maxSteps = 10;
+
+	auto t3 = std::chrono::high_resolution_clock::now();
+	newPostfix = removeBracketsOne(newPostfix);
+
+	auto t4 = std::chrono::high_resolution_clock::now();
+	std::vector<std::string> postList = makeTree(newPostfix);
+	auto t5 = std::chrono::high_resolution_clock::now();
+
+	std::vector<std::vector<std::string>> allStrings; //vector of the next step
+	for (ii=0;ii<postList.size();ii++){
+		//std::cout << "--------\n" << ii << " ---- " << postList[ii] << "\n--------------";
+		std::vector<std::vector<std::string>> someStrings;
+		someStrings = applyRulesVector(postList[ii]);
+		for (iii=0;iii<someStrings.size();iii++){
+			someStrings[iii][0] = removeBracketsOne(someStrings[iii][0]);
+			allStrings.push_back(someStrings[iii]);
+		}
+	
+	}
+	answerList.push_back({{newPostfix,""}});
+	for (ii=0;ii<allStrings.size();ii++){
+		std::vector<std::vector<std::vector<std::string>>> tailAnswerList;
+		if (answerListMap.find(allStrings[ii][0]) != answerListMap.end()){
+			tailAnswerList = answerListMap[allStrings[ii][0]];
+		}
+		else {
+			getAnswerList(allStrings[ii][0]);
+			tailAnswerList = answerListMap[allStrings[ii][0]];
+		}
+		for (iii=0;iii<tailAnswerList.size();iii++){
+			std::vector<std::vector<std::string>> oneAnswer;
+			oneAnswer = {{newPostfix,""}};
+			for (iiii=0;iiii<tailAnswerList[iii].size();iiii++){
+				oneAnswer.push_back(tailAnswerList[iii][iiii]);
+			}
+			answerList.push_back(oneAnswer);
+			
+		}
+	
+	}
+	auto t6 = std::chrono::high_resolution_clock::now();
+	auto d1 = std::chrono::duration_cast<std::chrono::microseconds>( t4 - t3 ).count();
+	auto d2 = std::chrono::duration_cast<std::chrono::microseconds>( t5 - t4 ).count();
+	auto d3 = std::chrono::duration_cast<std::chrono::microseconds>( t6 - t5 ).count();
+	std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
+	std::cout << "NOYES: " << noC << " and " << yesC << "\n";
+	std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
+		
+	
+
+	answerListMap[newPostfix] = answerList;
+}
 std::string getAnswer(std::string s){
 	duration1 = 0;
 	duration2 = 0;
