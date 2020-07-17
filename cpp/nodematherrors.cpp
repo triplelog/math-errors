@@ -1937,11 +1937,12 @@ std::string applyRules(std::string userFullString) {
 						}
 					}
 					//std::cout << "userFullString: "<< userFullString << " a " << firstOperandIndexSecond << " a " << replaceLengthSecond << " a " << newPostfixSecond << "\n";
-					userFullString.replace(firstOperandIndexSecond,replaceLengthSecond,newPostfixSecond);
+					std::string tempTemp = userFullString;
+					tempTemp.replace(firstOperandIndexSecond,replaceLengthSecond,newPostfixSecond);
 					//std::cout << "userFullString: "<< userFullString << "\n";
-					userFullString.replace(firstOperandIndex,replaceLength,newPostfixFirst);
-					userFullString = removeBracketsOne(userFullString);
-					newStrings.push_back(userFullString);
+					tempTemp.replace(firstOperandIndex,replaceLength,newPostfixFirst);
+					tempTemp = removeBracketsOne(tempTemp);
+					newStrings.push_back(tempTemp);
 					//return userFullString;
 				}
 			}
