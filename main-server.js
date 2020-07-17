@@ -120,9 +120,11 @@ wss.on('connection', function connection(ws) {
 
 var startTime = performance.now();
 
+
 var retHello = maincpp.hello();
+eval(retHello);
 console.log("hello?: ",retHello);
-console.log(startTime, performance.now());
+console.log(startTime, performance.now(), rules.length);
 
 app.get('/question',
 	function(req, res){
