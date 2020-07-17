@@ -2201,7 +2201,7 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//int row = info[0]->Int32Value(context).FromJust();
 	//v8::String::Utf8Value s(isolate, info[0]);
 	//std::string str(*s);
-	jsonmessage = "var rules = []; var rule = {};";
+	jsonmessage = "var rule = {};";
 	initialRun();
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	info.GetReturnValue().Set(h.ToLocalChecked());

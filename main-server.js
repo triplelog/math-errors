@@ -122,6 +122,7 @@ var startTime = performance.now();
 
 
 var retHello = maincpp.hello();
+var rules = [];
 eval(retHello);
 console.log("hello?: ",retHello);
 console.log(startTime, performance.now(), rules.length);
