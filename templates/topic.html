@@ -165,11 +165,10 @@
 					<li class="list-group-item">Vestibulum at eros</li>
 			  </ul>
 			  {% if rule.examples.length > 0 %}
-			  <div class="card-body">
-				<p class="card-text"><center><b>Examples:</b></center></p>
-			  </div>
+			  
 			  <ul class="list-group list-group-flush">
 			  	{% for example in rule.examples %}
+			  		<li class="list-group-item"><center><b>Examples:</b></center></li>
 					<li class="list-group-item">{{ example }}</li>
 				{% endfor %}
 			  </ul>
