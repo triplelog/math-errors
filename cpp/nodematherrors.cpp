@@ -2521,13 +2521,14 @@ void getAnswerList(std::string s) {
 			tailAnswerList = answerListMap[allStrings[ii][0]];
 		}
 		for (iii=0;iii<tailAnswerList.size();iii++){
-			std::vector<std::vector<std::string>> oneAnswer;
-			oneAnswer = {{newPostfix,""}};
-			for (iiii=0;iiii<tailAnswerList[iii].size();iiii++){
-				oneAnswer.push_back(tailAnswerList[iii][iiii]);
+			if (tailAnswerList[iii].size()<maxSteps){
+				std::vector<std::vector<std::string>> oneAnswer;
+				oneAnswer = {{newPostfix,""}};
+				for (iiii=0;iiii<tailAnswerList[iii].size();iiii++){
+					oneAnswer.push_back(tailAnswerList[iii][iiii]);
+				}
+				answerList.push_back(oneAnswer);
 			}
-			answerList.push_back(oneAnswer);
-			
 		}
 	
 	}
@@ -2543,6 +2544,15 @@ void getAnswerList(std::string s) {
 
 	answerListMap[newPostfix] = answerList;
 }
+
+void fullAnswer(std::string s){
+	std::string newPostfix = removeBracketsOne(postfixify(s));
+	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
+	getAnswerList(newPostfix);
+	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
+}
+
+
 std::string getAnswer(std::string s){
 	duration1 = 0;
 	duration2 = 0;
@@ -2635,6 +2645,7 @@ void GetAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	getAnswer(str);
 	
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
+	fullAnswer(str);
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
 void Init(v8::Local<v8::Object> exports) {
