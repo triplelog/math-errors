@@ -2213,6 +2213,9 @@ std::string getAnswer(std::string s){
 			std::cout << "found correct: " << newPostfix << "\n";
 			break;
 		}
+		else {
+			std::cout << "not correct: " << newPostfix  << " with " << postfixify("ddx(x)+ddx(3)") << "\n";
+		}
 	}
 	return "Hi World!!!!!";
 }
