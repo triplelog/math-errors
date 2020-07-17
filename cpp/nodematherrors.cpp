@@ -2233,8 +2233,8 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 		}
 		std::vector<std::string> newStrings;
 		if (rules.find(key) != rules.end()){
-			//std::cout << "Key Match: " << key << " and " << rules[key][0] << "\n";
-			//std::cout << "userFullString @ keyMatch: "<< userFullString << "\n";
+			std::cout << "Key Match: " << key << " and " << rules[key][0] << "\n";
+			std::cout << "userFullString @ keyMatch: "<< userFullString << "\n";
 			int ruleIdx;
 			for (ruleIdx=0;ruleIdx<rules[key].size();ruleIdx++){
 				//std::cout << "Key Match: " << key << " and " << rules[key][ruleIdx][0] << "\n";
