@@ -996,9 +996,9 @@ std::vector<std::string> makeTree(std::string pfstr){
 					else if (listMap[secondListMapKey][ii*3+2] == "1"){
 						listMap[secondListMapKey][ii*3+2] = "2";
 					}
-					//else if (listMap[secondListMapKey][ii*3+2] == "2"){
-					//	listMap[secondListMapKey][ii*3+2] = "3";
-					//}
+					else if (listMap[secondListMapKey][ii*3+2] == "2"){
+						listMap[secondListMapKey][ii*3+2] = "3";
+					}
 				}
 				for (ii=0;ii<firstS.size();ii++){
 					if (listMap[firstListMapKey][ii*3+2] == "0"){
