@@ -25,7 +25,6 @@
 
 using namespace std::chrono;
 using phmap::flat_hash_map;
-flat_hash_map<std::string,std::string> treeMap;
 flat_hash_map<char,int> prec;
 flat_hash_map<std::string,std::vector<std::vector<std::string>>> rules;
 flat_hash_map<std::string,flat_hash_map<std::string,std::string>> allListMap;
@@ -1142,7 +1141,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	
 	
 	flat_hash_map<std::string,std::string> skipList;
-	jsonmessage += "-DOJS-\nnodes = {};\n";
+	//jsonmessage += "-DOJS-\nnodes = {};\n";
 	std::string nodeString = "allNodes = [";
 	//std::cout << "-DOJS-\nnodes = {};\n";
 	
@@ -1189,7 +1188,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			outText += "op: \"" + nodeList[orderedKeyList[ii]][2] + "\",";
 			outText += "parent: \""+ parent + "\"};\n";
 		
-			jsonmessage += outText + "\n";
+			//jsonmessage += outText + "\n";
 			//std::cout << outText << "\n";
 			nodeString += "\""+nodeList[orderedKeyList[ii]][0] + "\", ";
 		}
@@ -1197,9 +1196,9 @@ std::vector<std::string> makeTree(std::string pfstr){
 		
 	}
 	nodeString += "];\n";
-	jsonmessage += nodeString + "\n";
+	//jsonmessage += nodeString + "\n";
 	//std::cout <<  nodeString << "\n";
-	jsonmessage += "trees.push({nodes:nodes,allNodes:allNodes});\n-ODJS-\n";
+	//jsonmessage += "trees.push({nodes:nodes,allNodes:allNodes});\n-ODJS-\n";
 	//std::cout << "trees.push({nodes:nodes,allNodes:allNodes});\n-ODJS-\n";
 	
 	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
@@ -2498,6 +2497,7 @@ void getAnswerList(std::string s,bool isCorrect) {
 
 	auto t4 = std::chrono::high_resolution_clock::now();
 	std::vector<std::string> postList = makeTree(newPostfix);
+
 	auto t5 = std::chrono::high_resolution_clock::now();
 
 	std::vector<std::string> allStrings; //vector of the next step
