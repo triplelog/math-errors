@@ -992,16 +992,19 @@ std::vector<std::string> makeTree(std::string pfstr){
 				
 				
 				for (ii=0;ii<firstS.size();ii++){
-					if (listMap[firstListMapKey][ii*3+2]=="3"){
+					if (listMap[firstListMapKey][ii*3+2]=="4"){
 						continue;
 					}
 					for (iii=0;iii<secondS.size();iii++){
-						if (listMap[secondListMapKey][iii*3+2]=="3"){
+						if (listMap[secondListMapKey][iii*3+2]=="4"){
 							continue;
 						}
 						fullTrees.push_back(firstS[ii] + secondS[iii]  + pfstr.at(i));
 						fullTrees.push_back(firstT[ii] + secondT[iii]);
-						if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
+						if (listMap[secondListMapKey][iii*3+2]=="3" || listMap[firstListMapKey][ii*3+2]=="3"){
+							fullTrees.push_back("4");
+						}
+						else if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
 							fullTrees.push_back("3");
 						}
 						else if (listMap[secondListMapKey][iii*3+2]=="1" || listMap[firstListMapKey][ii*3+2]=="1"){
@@ -1021,7 +1024,10 @@ std::vector<std::string> makeTree(std::string pfstr){
 						if (pfstr.at(i) == '+' || pfstr.at(i) == '*'){
 							fullTrees.push_back(secondS[iii] + firstS[ii]  + pfstr.at(i));
 							fullTrees.push_back(secondT[iii] + firstT[ii]);
-							if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
+							if (listMap[secondListMapKey][iii*3+2]=="3" || listMap[firstListMapKey][ii*3+2]=="3"){
+								fullTrees.push_back("4");
+							}
+							else if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
 								fullTrees.push_back("3");
 							}
 							else if (listMap[secondListMapKey][iii*3+2]=="1" || listMap[firstListMapKey][ii*3+2]=="1"){
@@ -1045,12 +1051,15 @@ std::vector<std::string> makeTree(std::string pfstr){
 				iidx++;
 				for (iii=0;iii<secondS.size();iii++){
 					
-					if (listMap[secondListMapKey][iii*3+2]=="3"){
+					if (listMap[secondListMapKey][iii*3+2]=="4"){
 						continue;
 					}
 					fullTrees.push_back(secondS[iii] + pfstr.at(i));
 					fullTrees.push_back(secondT[iii]);
-					if (listMap[secondListMapKey][iii*3+2]=="2"){
+					if (listMap[secondListMapKey][iii*3+2]=="3"){
+						fullTrees.push_back("4");
+					}
+					else if (listMap[secondListMapKey][iii*3+2]=="2"){
 						fullTrees.push_back("3");
 					}
 					else if (listMap[secondListMapKey][iii*3+2]=="1"){
