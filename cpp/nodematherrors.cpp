@@ -1073,9 +1073,9 @@ std::vector<std::string> makeTree(std::string pfstr){
 				}
 			}
 			std::cout << "fullTrees size: " << fullTrees.size() << " @ " << i << "\n";
-			for (ii=0;ii<fullTrees.size();ii++){
-				std::cout << fullTrees[ii] << "\n";
-			}
+			//for (ii=0;ii<fullTrees.size();ii++){
+			//	std::cout << fullTrees[ii] << "\n";
+			//}
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
 			
 			
