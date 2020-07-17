@@ -2166,7 +2166,7 @@ std::string getAnswer(std::string s){
 
 	int iterations;
 	std::string mpf = postfixify("ddx(x)+ddx(3)");
-  	for (iterations=0;iterations<10;iterations++){
+  	for (iterations=0;iterations<20;iterations++){
   		jsonmessage = "";
 		std::string pfstr = postfixify(s);
 		std::cout << pfstr << '\n';
@@ -2204,7 +2204,7 @@ std::string getAnswer(std::string s){
 			auto d3 = std::chrono::duration_cast<std::chrono::microseconds>( t6 - t5 ).count();
 			std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 			std::cout << "NOYES: " << noC << " and " << yesC << "\n";
-			if (!changedInput){break;}
+			if (!changedInput){newPostfix = oldPostfix; break;}
 			std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
 			
 			maxSteps--;
