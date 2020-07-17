@@ -2523,7 +2523,7 @@ void getAnswerList(std::string s) {
 		for (iii=0;iii<tailAnswerList.size();iii++){
 			if (tailAnswerList[iii].size()<maxSteps){
 				std::vector<std::vector<std::string>> oneAnswer;
-				oneAnswer = {{newPostfix,""}};
+				oneAnswer = {{newPostfix,allStrings[ii][1]}};
 				for (iiii=0;iiii<tailAnswerList[iii].size();iiii++){
 					oneAnswer.push_back(tailAnswerList[iii][iiii]);
 				}
