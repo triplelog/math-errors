@@ -21,15 +21,27 @@ void makeRules(std::string fileName){
 	
 	for (i=0;i<nRows;i++){
 		std::vector<std::string> rawRule = doc.GetRow<std::string>(i);
-		if (rawRule[0] != "Rule"){
-			rawRules.push_back(rawRule);
-			std::cout << rawRule[0] << "\n";
+		if (rawRule[0] == "Rule"){
+			if (i>0){
+				jsonmessage += "rules.push(rule);";
+			}
+			jsonmessage += "rule = {name:\""+rawRule[1]+"\",explanation:\""+rawRule[2]+"\",correct:[],incorrect:[],examples:[]};";
+			
 		}
-		else {
-			std::cout << "skipped: " << rawRule[0] << "\n";
+		else if (rawRule[2] == "e"){
+			jsonmessage += "rule.examples.push(\""+rawRule[0]+"\");";
+		}
+		else if (rawRule[2] == "c"){
+			rawRules.push_back(rawRule);
+			jsonmessage += "rule.correct.push(\""+rawRule[0]+"\");";
+		}
+		else if (rawRule[2] == "i"){
+			rawRules.push_back(rawRule);
+			jsonmessage += "rule.incorrect.push(\""+rawRule[0]+"\");";
 		}
 		
 	}
+	jsonmessage += "rules.push(rule);";
 	
 	
 	std::vector<std::string> fullPost;
