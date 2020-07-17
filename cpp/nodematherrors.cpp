@@ -1065,7 +1065,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 						tempFull.replace(startLeftIndex,i-startLeftIndex,"#");
 						originalMap[iidx]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
 						iidx++;
-						std::cout << "new full: " <<  << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
+						std::cout << "new full: " <<  tempFull  << "\n";
 						/*
 						bottomTrees.push_back("#");
 						bottomTrees.push_back("{"+std::to_string(iidx)+"}_");
