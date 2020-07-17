@@ -1126,7 +1126,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		
 	}
 	
-
+	std::cout << "first part\n";
 	
 	
 	//std::cout << "\n\n---start Original-----\n";
@@ -1139,6 +1139,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	//std::cout << "\n\n---start Bracketless-----\n";
 	flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
 	
+	std::cout << "second part\n";
 	
 	flat_hash_map<std::string,std::string> skipList;
 	//jsonmessage += "-DOJS-\nnodes = {};\n";
@@ -1168,6 +1169,8 @@ std::vector<std::string> makeTree(std::string pfstr){
 	}
 	flat_hash_map<std::string,std::string> latexMap =toLatex(forLatex);
 	
+	std::cout << "third part\n";
+	
 	skipList.clear();
 	for (ii=orderedKeyList.size()-1;ii>=0;ii--){
 		if (skipList.find(orderedKeyList[ii]) != skipList.end()){
@@ -1195,6 +1198,8 @@ std::vector<std::string> makeTree(std::string pfstr){
 		
 		
 	}
+	
+	std::cout << "fourth part\n";
 	nodeString += "];\n";
 	//jsonmessage += nodeString + "\n";
 	//std::cout <<  nodeString << "\n";
@@ -1283,6 +1288,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	//	std::cout << iter->first << " bracketless " << iter->second << '\n';
 	//}
 	//std::cout << '\n';
+	std::cout << "fifth part\n";
 	return treeOptions;
 }
 
