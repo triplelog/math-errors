@@ -2478,7 +2478,7 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> answerListMap;
 void getAnswerList(std::string s,bool isCorrect) {
 	std::vector<std::vector<std::string>> answerList;
 
-
+	std::cout << s << "\n";
 	int i;
 	int ii;
 	int iii;
