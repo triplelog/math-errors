@@ -2166,7 +2166,7 @@ std::string getAnswer(std::string s){
 
 	int iterations;
   	for (iterations=0;iterations<5;iterations++){
-  	
+  		jsonmessage = "";
 		std::string pfstr = postfixify(s);
 		std::cout << pfstr << '\n';
 	
@@ -2205,9 +2205,12 @@ std::string getAnswer(std::string s){
 			std::cout << "NOYES: " << noC << " and " << yesC << "\n";
 			if (!changedInput){break;}
 			std::cout << "Match: " << pfstr << " into "<< newPostfix << '\n';
-		
+			
 			maxSteps--;
 
+		}
+		if (newPostfix == postfixify("ddx(x)+ddx(3)")){
+			break;
 		}
 	}
 	return "Hi World!!!!!";
@@ -2231,7 +2234,7 @@ void GetAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::String::Utf8Value s(isolate, info[0]);
 	std::string str(*s);
 	std::cout << "input: "<< str << "\n";
-	jsonmessage = "";
+	
 	getAnswer(str);
 	
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
