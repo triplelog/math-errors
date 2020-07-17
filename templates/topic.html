@@ -160,7 +160,7 @@
 				  <div class="card">
 					<div class="card-header" id="headingOne{{ rule.id }}">
 					  <h2 class="mb-0">
-						<button class="btn btn-link btn-block btn-sm text-left" type="button" data-toggle="collapse" data-target="#collapseOne{{ rule.id }}" aria-expanded="true" aria-controls="collapseOne{{ rule.id }}">
+						<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne{{ rule.id }}" aria-expanded="true" aria-controls="collapseOne{{ rule.id }}">
 						  Explanation
 						</button>
 					  </h2>
@@ -189,7 +189,7 @@
 				  <div class="card">
 					<div class="card-header" id="headingThree{{ rule.id }}">
 					  <h2 class="mb-0">
-						<button class="btn btn-link btn-block text-left text-danger collapsed" type="button" data-toggle="collapse" data-target="#collapseThree{{ rule.id }}" aria-expanded="false" aria-controls="collapseThree{{ rule.id }}">
+						<button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree{{ rule.id }}" aria-expanded="false" aria-controls="collapseThree{{ rule.id }}">
 						  Errors
 						</button>
 					  </h2>
@@ -209,9 +209,18 @@
 					  </h2>
 					</div>
 					<div id="collapseFour{{ rule.id }}" class="collapse" aria-labelledby="headingFour{{ rule.id }}" data-parent="#accordionRule{{ rule.id }}">
+					  {% if rule.examples.length > 0 %}
+			  
+					  <ul class="list-group list-group-flush">
+						{% for example in rule.examples %}
+							<li class="list-group-item">{{ example }}</li>
+						{% endfor %}
+					  </ul>
+					  {% endif %}
 					  <div class="card-body">
-						An example
+						<a href="#" class="card-link">Edit</a>
 					  </div>
+					  
 					</div>
 				  </div>
 				</div>
