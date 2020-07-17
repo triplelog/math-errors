@@ -840,7 +840,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	flat_hash_map<std::string,std::vector<std::string>> nodeList;
 	
 	int tSize = 0, resident = 0, share = 0;
-    fstream buffer("/proc/self/statm");
+    std::ifstream buffer("/proc/self/statm");
     buffer >> tSize >> resident >> share;
     buffer.close();
 
@@ -896,7 +896,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	
     std::cout << "second: " << "\n";
     tSize = 0, resident = 0, share = 0;
-    fstream buffer2("/proc/self/statm");
+    std::ifstream buffer2("/proc/self/statm");
     buffer2 >> tSize >> resident >> share;
     buffer2.close();
 
@@ -1170,16 +1170,16 @@ std::vector<std::string> makeTree(std::string pfstr){
 	
 	std::cout << "third: " << "\n";
     tSize = 0, resident = 0, share = 0;
-    fstream buffer2("/proc/self/statm");
-    buffer2 >> tSize >> resident >> share;
-    buffer2.close();
+    std::ifstream buffer3("/proc/self/statm");
+    buffer3 >> tSize >> resident >> share;
+    buffer3.close();
 
 
     rss = resident * page_size_kb;
     std::cout << "initial: " << "\n";
     std::cout << "RSS - " << rss << " kB\n";
 
-   shared_mem = share * page_size_kb;
+    shared_mem = share * page_size_kb;
     std::cout << "Shared Memory - " << shared_mem << " kB\n";
 
     std::cout << "Private Memory - " << rss - shared_mem << "kB\n";
