@@ -3131,7 +3131,7 @@ void fullAnswer(std::string s, std::string a){
 	int i; int ii;
 	std::string mpf = postfixify(a);
 	for (i=0;i<answerListMap[newPostfix].size();i++){
-		if (answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] != mpf){
+		if (answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] == mpf){
 			//TODO: grab the error
 			//TODO: create the solution steps
 			//TODO: send that info to node to display/add to database
