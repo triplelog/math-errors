@@ -2640,6 +2640,9 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 	auto a3 = std::chrono::high_resolution_clock::now();
 	std::vector<std::vector<std::string>> allOptions;
 	std::vector<std::string> allStrings;
+	std::string newPostfix = "";
+	bool midBracket = false;
+	bool foundAt = false;
 	int ii;
 	for (ii=0;ii<bottomTrees.size();ii++){
 		std::string onePart = bottomTrees[ii][0];
@@ -2872,9 +2875,9 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 					*/
 					
 					std::string tempTemp = userFullString;
-					tempTemp.replace(std::to_string(bottomTrees[ii][3]),std::to_string(bottomTrees[ii][4]),newPostfixSecond);
+					tempTemp.replace(std::stoi(bottomTrees[ii][3]),std::stoi(bottomTrees[ii][4]),newPostfixSecond);
 					//std::cout << "userFullString: "<< userFullString << "\n";
-					tempTemp.replace(std::to_string(bottomTrees[ii][1]),std::to_string(bottomTrees[ii][2]),newPostfixFirst);
+					tempTemp.replace(std::stoi(bottomTrees[ii][1]),std::stoi(bottomTrees[ii][2]),newPostfixFirst);
 					tempTemp = removeBracketsOne(tempTemp);
 					newStrings.push_back(tempTemp);
 					allStrings.push_back(tempTemp);
@@ -2890,9 +2893,9 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 	}
 	
 	auto a4 = std::chrono::high_resolution_clock::now();
-	duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
-	duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
-	duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a4 - a3 ).count();
+	//duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	//duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+	//duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a4 - a3 ).count();
 
 	return allStrings;
 	
@@ -3171,7 +3174,7 @@ void fullAnswer(std::string s, std::string a){
 	
 }
 
-
+/*
 std::string getAnswer(std::string s){
 	duration1 = 0;
 	duration2 = 0;
@@ -3238,7 +3241,7 @@ std::string getAnswer(std::string s){
 	}
 	return "Hi World!!!!!";
 }
-
+*/
 void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//v8::Isolate* isolate = info.GetIsolate();
 	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
