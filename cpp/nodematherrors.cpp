@@ -3110,7 +3110,9 @@ void getAnswerList(std::string s,bool isCorrect) {
 	std::vector<std::string> allStrings; //vector of the next step
 	
 	std::vector<std::string> someStrings = applyRulesVector(newPostfix,isCorrect);
+	std::cout << s << " andand " << someStrings[iii].length() << "\n";
 	for (iii=0;iii<someStrings.size();iii++){
+		std::cout << someStrings[iii] << "\n";
 		someStrings[iii] = removeBracketsOne(someStrings[iii]);
 		allStrings.push_back(someStrings[iii]);
 	}
