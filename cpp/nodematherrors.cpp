@@ -3104,7 +3104,7 @@ void getAnswerList(std::string s,bool isCorrect) {
 	newPostfix = removeBracketsOne(newPostfix);
 	
 	std::cout << s << " before pl\n";
-	//std::vector<std::string> postList = makeTree(newPostfix);
+	std::vector<std::string> postList = makeTree(newPostfix);
 	std::cout << s << " after pl\n";
 
 	std::vector<std::string> allStrings; //vector of the next step
