@@ -913,7 +913,7 @@ std::vector<std::string> makeTree(std::string pfstr){
     
     
 	int treeIdx = 0;
-	std::cout << "before third: @" << pfstr.length() << "\n";
+	std::cout << "before third: @" << pfstr << "\n";
 	std::vector<std::string> bottomTrees;
 	for (i=0;i<pfstr.length();i++){
 		
@@ -1066,18 +1066,9 @@ std::vector<std::string> makeTree(std::string pfstr){
 						originalMap[iidx]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
 						iidx++;
 						std::cout << "new full: " <<  tempFull  << "\n";
-						/*
-						bottomTrees.push_back("#");
-						bottomTrees.push_back("{"+std::to_string(iidx)+"}_");
-						if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
-							bottomTrees.push_back("2");
-						}
-						else if (listMap[secondListMapKey][iii*3+2]=="1" || listMap[firstListMapKey][ii*3+2]=="1"){
-							bottomTrees.push_back("1");
-						}
-						else {
-							bottomTrees.push_back("0");
-						}*/
+						
+						bottomTrees.push_back(tempFull);
+						
 						
 						
 						
@@ -1120,16 +1111,72 @@ std::vector<std::string> makeTree(std::string pfstr){
 			}
 			else {
 				//condensed
-				fullTrees.push_back("#");
-				fullTrees.push_back("{"+std::to_string(iidx)+"}_");
-				fullTrees.push_back("0");
-				originalMap[iidx]= secondS[0] + pfstr.at(i) + '@' + secondT[0];
-				iidx++;
+				//fullTrees.push_back("#");
+				//fullTrees.push_back("{"+std::to_string(iidx)+"}_");
+				//fullTrees.push_back("0");
+				//originalMap[iidx]= secondS[0] + pfstr.at(i) + '@' + secondT[0];
+				//iidx++;
 				for (iii=0;iii<secondS.size();iii++){
+					
+					if (listMap[secondListMapKey][iii*3+2]=="4"){
+						continue;
+					}
+					
+					fullTrees.push_back("#");
+					fullTrees.push_back("{"+std::to_string(iidx)+"}_");
+					if (listMap[secondListMapKey][iii*3+2]=="2"){
+						fullTrees.push_back("2");
+					}
+					else if (listMap[secondListMapKey][iii*3+2]=="1"){
+						fullTrees.push_back("1");
+					}
+					else {
+						fullTrees.push_back("0");
+					}
+					
+					
+					std::cout << "possible part: " << secondS[iii] + pfstr.at(i) + '@' + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
+					std::string tempFull = pfstr;
+					int iiiii; int operandIdx = -1; int startRightIndex = -1; int rightLength= 0;
+					for (iiiii=0;iiiii<tempFull.length();iiiii++){
+						if (tempFull.at(iiiii) == '_'){
+							operandIdx++;
+							if (operandIdx <=endRightOperand){
+								rightLength++;
+							}
+							else {
+								break;
+							}
+						}
+						else if (tempFull.at(iiiii) == '@'){
+							operandIdx++;
+						}
+						else if (operandIdx==startRightOperand && startRightIndex<0){
+							startRightIndex = iiiii;
+							rightLength = 1;
+						}
+						else{
+							rightLength++;
+						}
+					}
+					tempFull.replace(startRightIndex,rightLength,"{"+std::to_string(iidx)+"}");
+					tempFull.replace(startLeftIndex,i+1-startLeftIndex,"#");
+					std::cout << "new full: " <<  tempFull  << "\n";
+					
+					bottomTrees.push_back(tempFull);
+					
+					
+					
+					
+					originalMap[iidx]= secondS[iii] + pfstr.at(i) + '@' + secondT[iii];
+					iidx++;
+					
+					
 					
 					if (listMap[secondListMapKey][iii*3+2]=="3"){
 						continue;
 					}
+					
 					fullTrees.push_back(secondS[iii] + pfstr.at(i));
 					fullTrees.push_back(secondT[iii]);
 					if (listMap[secondListMapKey][iii*3+2]=="2"){
@@ -1150,12 +1197,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 				}
 			}
 			std::cout << "fullTrees size: " << fullTrees.size() << " @ " << i << "\n";
-			for (ii=0;ii<fullTrees.size();ii++){
-				std::cout << fullTrees[ii] << "\n";
-				if (ii == 20){
-					break;
-				}
-			}
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
 			
 			
@@ -1313,6 +1354,10 @@ std::vector<std::string> makeTree(std::string pfstr){
 	//std::cout << "\n\n---start Bracketless-----\n";
 	flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
 	
+	std::cout << "after third: @" << pfstr << "\n";
+	for (ii=0;ii<bottomTrees.length();ii++){
+		std::cout << ii << ": @" << bottomTrees[ii] << "\n";
+	}
 	
 	flat_hash_map<std::string,std::string> skipList;
 	//jsonmessage += "-DOJS-\nnodes = {};\n";
