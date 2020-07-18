@@ -881,7 +881,7 @@ std::vector<std::string> makeTree(std::string pfstr){
     
     
 	int treeIdx = 0;
-	std::cout << "before third: " << pfstr << "\n";
+	//std::cout << "before third: " << pfstr << "\n";
 	bottomTrees.resize(0);
 	for (i=0;i<pfstr.length();i++){
 		
@@ -1322,7 +1322,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	//std::cout << "\n\n---start Bracketless-----\n";
 	flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
 	
-	std::cout << "after third: " << pfstr << "\n";
+	//std::cout << "after third: " << pfstr << "\n";
 	for (ii=0;ii<bottomTrees.size();ii++){
 		std::string tempStr = bottomTrees[ii][0];
 		//std::cout << ii << ": " << tempStr << "\n";
@@ -3071,16 +3071,16 @@ void getAnswerList(std::string s,bool isCorrect) {
 
 	newPostfix = removeBracketsOne(newPostfix);
 	
-	std::cout << s << " before pl\n";
+	//std::cout << s << " before pl\n";
 	std::vector<std::string> postList = makeTree(newPostfix);
-	std::cout << s << " after pl\n";
+	//std::cout << s << " after pl\n";
 
 	std::vector<std::string> allStrings; //vector of the next step
 	
 	std::vector<std::string> someStrings = applyRulesVector(newPostfix,isCorrect);
-	std::cout << s << " andand " << someStrings.size() << "\n";
+	//std::cout << s << " andand " << someStrings.size() << "\n";
 	for (iii=0;iii<someStrings.size();iii++){
-		std::cout << someStrings[iii] << "\n";
+		//std::cout << someStrings[iii] << "\n";
 		someStrings[iii] = removeBracketsOne(someStrings[iii]);
 		allStrings.push_back(someStrings[iii]);
 	}
@@ -3136,7 +3136,7 @@ void fullAnswer(std::string s, std::string a){
 			//TODO: create the solution steps
 			//TODO: send that info to node to display/add to database
 			for (ii=0;ii<answerListMap[newPostfix][i].size();ii++){
-				//std::cout << i << " and " << answerListMap[newPostfix][i][ii] << "\n";
+				std::cout << i << " and " << answerListMap[newPostfix][i][ii] << "\n";
 			}
 		}
 		
