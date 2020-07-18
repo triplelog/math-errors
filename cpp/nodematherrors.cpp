@@ -1358,7 +1358,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	for (ii=0;ii<bottomTrees.size();ii++){
 		std::cout << ii << ": " << bottomTrees[ii] << "\n";
 	}
-	std::cout << << "\n";
+	std::cout << "\n";
 	for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
 		std::cout << iter->first << " and " << iter->second << '\n';
 	}
