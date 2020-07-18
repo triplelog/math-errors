@@ -1355,7 +1355,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
 	
 	std::cout << "after third: @" << pfstr << "\n";
-	for (ii=0;ii<bottomTrees.length();ii++){
+	for (ii=0;ii<bottomTrees.size();ii++){
 		std::cout << ii << ": @" << bottomTrees[ii] << "\n";
 	}
 	
