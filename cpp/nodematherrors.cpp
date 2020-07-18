@@ -913,7 +913,7 @@ std::vector<std::string> makeTree(std::string pfstr){
     
     
 	int treeIdx = 0;
-	std::cout << "before third: @" << pfstr << "\n";
+	std::cout << "before third: " << pfstr << "\n";
 	std::vector<std::string> bottomTrees;
 	for (i=0;i<pfstr.length();i++){
 		
@@ -1354,9 +1354,13 @@ std::vector<std::string> makeTree(std::string pfstr){
 	//std::cout << "\n\n---start Bracketless-----\n";
 	flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
 	
-	std::cout << "after third: @" << pfstr << "\n";
+	std::cout << "after third: " << pfstr << "\n";
 	for (ii=0;ii<bottomTrees.size();ii++){
-		std::cout << ii << ": @" << bottomTrees[ii] << "\n";
+		std::cout << ii << ": " << bottomTrees[ii] << "\n";
+	}
+	std::cout << << "\n";
+	for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
+		std::cout << iter->first << " and " << iter->second << '\n';
 	}
 	
 	flat_hash_map<std::string,std::string> skipList;
