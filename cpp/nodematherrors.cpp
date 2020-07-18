@@ -839,20 +839,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 	std::vector<std::string> orderedKeyList;
 	flat_hash_map<std::string,std::vector<std::string>> nodeList;
 	
-	int tSize = 0, resident = 0, share = 0;
-    std::ifstream buffer("/proc/self/statm");
-    buffer >> tSize >> resident >> share;
-    buffer.close();
-
-    long page_size_kb = sysconf(_SC_PAGE_SIZE) / 1024; // in case x86-64 is configured to use 2MB pages
-    double rss = resident * page_size_kb;
-    std::cout << "initial: " << "\n";
-    std::cout << "RSS - " << rss << " kB\n";
-
-    double shared_mem = share * page_size_kb;
-    std::cout << "Shared Memory - " << shared_mem << " kB\n";
-
-    std::cout << "Private Memory - " << rss - shared_mem << "kB\n";
     
     
 	int i; int ii; int iii;
@@ -890,25 +876,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		}
 	}
 	
-	
-	
-	
-	
-    std::cout << "second: " << "\n";
-    tSize = 0, resident = 0, share = 0;
-    std::ifstream buffer2("/proc/self/statm");
-    buffer2 >> tSize >> resident >> share;
-    buffer2.close();
 
-
-    rss = resident * page_size_kb;
-    std::cout << "RSS - " << rss << " kB\n";
-
-    shared_mem = share * page_size_kb;
-    std::cout << "Shared Memory - " << shared_mem << " kB\n";
-
-    std::cout << "Private Memory - " << rss - shared_mem << "kB\n";
-    
     
     
     
@@ -1385,21 +1353,21 @@ std::vector<std::string> makeTree(std::string pfstr){
 			}
 		}
 		bottomTrees[ii][0] = tempStr;
-		std::cout << ii << ": " << bottomTrees[ii][0] << "\n";
+		//std::cout << ii << ": " << bottomTrees[ii][0] << "\n";
 		for (iii=5;iii<bottomTrees[ii].size();iii++){
 			
-			std::cout << ii << ": " << bottomTrees[ii][iii] << "\n";
+			//std::cout << ii << ": " << bottomTrees[ii][iii] << "\n";
 		}
-		std::cout << "\n";
+		//std::cout << "\n";
 		//std::string tempFull = pfstr;
 		
 		//tempFull.replace(startRightIndex,rightLength,"{"+std::to_string(iidx)+"}");
 		//tempFull.replace(startLeftIndex,i+1-startLeftIndex,"#");
 	}
-	std::cout << "\n";
-	for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
-		std::cout << iter->first << " and " << iter->second << '\n';
-	}
+	//std::cout << "\n";
+	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
+	//	std::cout << iter->first << " and " << iter->second << '\n';
+	//}
 	
 	flat_hash_map<std::string,std::string> skipList;
 	//jsonmessage += "-DOJS-\nnodes = {};\n";
@@ -2646,7 +2614,7 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 	int ii;
 	for (ii=0;ii<bottomTrees.size();ii++){
 		std::string onePart = bottomTrees[ii][0];
-		std::cout << ii << " anda" << onePart << "\n";
+		//std::cout << ii << " anda" << onePart << "\n";
 		/*
 		foundAt = false;
 		bool foundFirst = false;
@@ -2720,7 +2688,7 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 		}
 		std::vector<std::string> newStrings;
 		if (rules.find(key) != rules.end()){
-			std::cout << "Key Match: " << key << " and " << rules[key][0][0] << "\n";
+			//std::cout << "Key Match: " << key << " and " << rules[key][0][0] << "\n";
 			//std::cout << "userFullString @ keyMatch: "<< userFullString << "\n";
 			int ruleIdx;
 			for (ruleIdx=0;ruleIdx<rules[key].size();ruleIdx++){
@@ -3168,7 +3136,7 @@ void fullAnswer(std::string s, std::string a){
 			//TODO: create the solution steps
 			//TODO: send that info to node to display/add to database
 			for (ii=0;ii<answerListMap[newPostfix][i].size();ii++){
-				std::cout << i << " and " << answerListMap[newPostfix][i][ii] << "\n";
+				//std::cout << i << " and " << answerListMap[newPostfix][i][ii] << "\n";
 			}
 		}
 		
