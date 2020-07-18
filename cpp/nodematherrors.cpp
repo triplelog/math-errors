@@ -1175,121 +1175,9 @@ std::vector<std::string> makeTree(std::string pfstr){
 			treeIdx++;
 			std::string parent = "";
 			std::string nodeText = fullStr;
-			std::string pname = name;
-			//nodeList[fullStr]={pname,parent,opStr};
 			
 			
-			//Child 1
-			nodeText = secondStr + '@' + secondTtr;
-			if (nodeList.find(nodeText) != nodeList.end()){
-				
-				if (secondStr.at(secondStr.length()-1) == pfstr.at(i) && ( pfstr.at(i) == '+' || pfstr.at(i) == '*') ){
-					std::vector<std::string> revList;
-					for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
-						if (iter->second[1] == nodeList[nodeText][0]){
-							//nodeList[iter->first][1] = pname;
-							//revList.push_back(iter->first);
-						}
-					}
-					int okSz = orderedKeyList.size();
-					for (ii=0;ii<okSz;ii++){
-						for (iii=revList.size()-1;iii>=0;iii--){
-							if (orderedKeyList[ii] == revList[iii]){
-								//orderedKeyList.push_back(revList[iii]);
-							}
-						}
-					}
-					
-				}
-				else {
-					//nodeList[nodeText][1] = pname;
-					//orderedKeyList.push_back(nodeText);
-				}
-				
-			}
-			else {
-				name = "node"+std::to_string(treeIdx);
-				treeIdx++;
-				if (secondStr.at(secondStr.length()-1) == pfstr.at(i) && ( pfstr.at(i) == '+' || pfstr.at(i) == '*')){
-					std::vector<std::string> revList;
-					for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
-						if (iter->second[1] == name){
-							//nodeList[iter->first][1] = pname;
-							//revList.push_back(iter->first);
-						}
-					}
-					int okSz = orderedKeyList.size();
-					for (ii=0;ii<okSz;ii++){
-						for (iii=revList.size()-1;iii>=0;iii--){
-							if (orderedKeyList[ii] == revList[iii]){
-								//orderedKeyList.push_back(revList[iii]);
-							}
-						}
-					}
-				}
-				else {
-					//nodeList[nodeText] = {name,pname,opStr};
-					//orderedKeyList.push_back(nodeText);
-				}
-				
-			}
 			
-			if (firstStr.length() > 0){
-				//Child 2
-				nodeText = firstStr + '@' + firstTtr;
-				if (nodeList.find(nodeText) != nodeList.end()){
-					if (firstStr.at(firstStr.length()-1) == pfstr.at(i) && ( pfstr.at(i) == '+' || pfstr.at(i) == '*')){
-						std::vector<std::string> revList;
-						for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
-							if (iter->second[1] == nodeList[nodeText][0]){
-								//nodeList[iter->first][1] = pname;
-								//revList.push_back(iter->first);
-							}
-						}
-						int okSz = orderedKeyList.size();
-						for (ii=0;ii<okSz;ii++){
-							for (iii=revList.size()-1;iii>=0;iii--){
-								if (orderedKeyList[ii] == revList[iii]){
-									//orderedKeyList.push_back(revList[iii]);
-								}
-							}
-						}
-					}
-					else {
-						//nodeList[nodeText][1] = pname;
-						//orderedKeyList.push_back(nodeText);
-					}
-				
-				}
-				else {
-					name = "node"+std::to_string(treeIdx);
-					treeIdx++;
-					if (firstStr.at(firstStr.length()-1) == pfstr.at(i) && ( pfstr.at(i) == '+' || pfstr.at(i) == '*')){
-						std::vector<std::string> revList;
-						for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
-							if (iter->second[1] == name){
-								//nodeList[iter->first][1] = pname;
-								//revList.push_back(iter->first);
-							}
-						}
-						int okSz = orderedKeyList.size();
-						for (ii=0;ii<okSz;ii++){
-							for (iii=revList.size()-1;iii>=0;iii--){
-								if (orderedKeyList[ii] == revList[iii]){
-									//orderedKeyList.push_back(revList[iii]);
-								}
-							}
-						}
-					}
-					else {
-						//nodeList[nodeText] = {name,pname,opStr};
-						//orderedKeyList.push_back(nodeText);
-					}
-				
-				}
-				
-			}
-			//orderedKeyList.push_back(fullStr);
 			
 
 			
@@ -1304,8 +1192,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 			
 			std::string name = "node"+std::to_string(treeIdx);
 			treeIdx++;
-			//nodeList["#@" + std::to_string(idx) + "_"] = {name,"","#"};
-			//orderedKeyList.push_back("#@" + std::to_string(idx) + "_");
 			idx++;
 		}
 		
@@ -1369,151 +1255,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	//	std::cout << iter->first << " and " << iter->second << '\n';
 	//}
 	
-	flat_hash_map<std::string,std::string> skipList;
-	//jsonmessage += "-DOJS-\nnodes = {};\n";
-	std::string nodeString = "allNodes = [";
-	//std::cout << "-DOJS-\nnodes = {};\n";
 	
-	std::vector<std::string> forLatex;
-	
-	for (ii=orderedKeyList.size()-1;ii>=0;ii--){
-		//std::cout << "anything: " << orderedKeyList[ii] << " and node: " << nodeList[orderedKeyList[ii]][0] << "\n";
-		if (skipList.find(orderedKeyList[ii]) != skipList.end()){
-			//std::cout << "skip: " << nodeList[orderedKeyList[ii]][0] << "\n";
-			continue;
-		}
-		else {
-			skipList[orderedKeyList[ii]] = "";
-		}
-		
-		std::string name = nodeList[orderedKeyList[ii]][0];
-		std::string parent = nodeList[orderedKeyList[ii]][1];
-		std::string postfix = fromOriginal(orderedKeyList[ii],originalMap);
-		forLatex.push_back(name);
-		forLatex.push_back(parent);
-		forLatex.push_back(postfix);
-		
-		
-	}
-	flat_hash_map<std::string,std::string> latexMap =toLatex(forLatex);
-	
-	
-	skipList.clear();
-	for (ii=orderedKeyList.size()-1;ii>=0;ii--){
-		if (skipList.find(orderedKeyList[ii]) != skipList.end()){
-			//std::cout << "skip: " << nodeList[orderedKeyList[ii]][0] << "\n";
-			continue;
-		}
-		else {
-			skipList[orderedKeyList[ii]] = "";
-		}
-		
-		std::string name = nodeList[orderedKeyList[ii]][0];
-		std::string parent = nodeList[orderedKeyList[ii]][1];
-		std::string postfix = fromOriginal(orderedKeyList[ii],originalMap);
-
-		if (latexMap.find(name) != latexMap.end()){
-			std::string outText = "nodes[\""+name + "\"] = {text:";
-			outText += "\"" + latexMap[name] + "\",";
-			outText += "op: \"" + nodeList[orderedKeyList[ii]][2] + "\",";
-			outText += "parent: \""+ parent + "\"};\n";
-		
-			//jsonmessage += outText + "\n";
-			//std::cout << outText << "\n";
-			nodeString += "\""+nodeList[orderedKeyList[ii]][0] + "\", ";
-		}
-		
-		
-	}
-	
-	nodeString += "];\n";
-	//jsonmessage += nodeString + "\n";
-	//std::cout <<  nodeString << "\n";
-	//jsonmessage += "trees.push({nodes:nodes,allNodes:allNodes});\n-ODJS-\n";
-	//std::cout << "trees.push({nodes:nodes,allNodes:allNodes});\n-ODJS-\n";
-	
-	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
-	//	std::cout << iter->first << " and " << iter->second << '\n';
-	//}
-	
-	//std::cout << "\n\n----End bracketless----\n";
-	
-	flat_hash_map<std::string,int> uniqueMap;
-	for (ii=0;ii<finalList.size()/2;ii++){
-		std::vector<int> indexes; //start,length,iidx
-		std::string currentOperand = "";
-		int startIndex = 0;
-		
-		//std::cout << ii << "-:=1=:- " << finalList[ii*2]+'@'+finalList[ii*2+1] << '\n';
-		int leftB = 0;
-		int rightB = 0;
-		
-		bool isInt = true;
-		std::string oldFinalList = finalList[ii*2+1];
-		std::string oldRep ="";
-		std::string oldOrig ="";
-		for (iii=0;iii<finalList[ii*2+1].length();iii++){
-			if (finalList[ii*2+1].at(iii) == '{'){
-				startIndex = iii;
-				currentOperand = "";
-				isInt = true;
-			}
-			else if (finalList[ii*2+1].at(iii) == '}'){
-				
-				if (isInt){
-					indexes.push_back(startIndex+1);
-					indexes.push_back(iii-(startIndex+1));
-					indexes.push_back(std::stoi(currentOperand));
-				}
-				
-				currentOperand = "";
-				isInt = true;
-			}
-			else {
-				currentOperand += finalList[ii*2+1].at(iii);
-				if (finalList[ii*2+1].at(iii) - '0' < 0 || finalList[ii*2+1].at(iii) - '0' > 9) {
-					isInt = false;
-				}
-			}
-		}
-		
-		for (iii=indexes.size()/3-1;iii>=0;iii--){
-			std::string repText = bracketlessMap[indexes[iii*3+2]];
-			oldRep += repText + "|||||";
-			oldOrig += originalMap[indexes[iii*3+2]] + "|||||";
-			finalList[ii*2+1].replace(indexes[iii*3],indexes[iii*3+1],repText);
-			//std::cout << ii << "-:=2a=:- " << finalList[ii*2]+'@'+finalList[ii*2+1] << '\n';
-			
-		}
-		
-		leftB = 0;
-		rightB = 0;
-		
-		for (iii=0;iii<finalList[ii*2+1].length();iii++){
-			if (finalList[ii*2+1].at(iii) == '{'){
-				leftB++;
-			}
-			else if (finalList[ii*2+1].at(iii) == '}'){
-				rightB++;
-				if (rightB > leftB){
-					//std::cout << "\n!!!!!!!!!!!Old: " << oldFinalList << " andNew: "<< finalList[ii*2+1] << " andRep: " << oldRep << " andOrig: " << oldOrig << " !!!!!!!!!!!\n";
-				}
-			}
-		}
-		
-		
-		if (uniqueMap.find(finalList[ii*2]+'@'+finalList[ii*2+1]) == uniqueMap.end()){
-			treeOptions.push_back(finalList[ii*2]+'@'+finalList[ii*2+1]);
-			uniqueMap[finalList[ii*2]+'@'+finalList[ii*2+1]] = 1;
-		}
-		
-		
-		//std::cout << ii << "-:===:- " << treeOptions[ii] << '\n';
-	}
-	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
-	//	std::cout << iter->first << " bracketless " << iter->second << '\n';
-	//}
-	//std::cout << '\n';
 	return treeOptions;
 }
 
@@ -3478,11 +3220,11 @@ void fullAnswer(std::string s, std::string a){
 			//TODO: grab the error
 			//TODO: create the solution steps
 			//TODO: send that info to node to display/add to database
+			jsonmessage = "";
 			for (ii=0;ii<answerListMap[newPostfix][i].size();ii++){
 				std::cout << i << " with " << answerListMap[newPostfix][i][ii] << "\n";
-				jsonmessage = "";
+				
 				outputTree(answerListMap[newPostfix][i][ii]);
-				std::cout << jsonmessage << "\n";
 			}
 		}
 		
@@ -3511,10 +3253,11 @@ void GetAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::String::Utf8Value sa(isolate, info[1]);
 	std::string astr(*sa);
 	std::cout << "input: "<< str << "\n";
-
+	jsonmessage = "";
+	fullAnswer(str,astr);
 	std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
-	fullAnswer(str,astr);
+	
 	std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
