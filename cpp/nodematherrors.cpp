@@ -914,7 +914,7 @@ std::vector<std::string> makeTree(std::string pfstr){
     
 	int treeIdx = 0;
 	std::cout << "before third: " << pfstr << "\n";
-	std::vector<std::string> bottomTrees;
+	std::vector<std::vector<std::string>> bottomTrees;
 	for (i=0;i<pfstr.length();i++){
 		
 		if (pfstr.at(i) == '@'){
@@ -1038,6 +1038,11 @@ std::vector<std::string> makeTree(std::string pfstr){
 						
 						
 						std::cout << "possible part: " << firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
+						
+						
+						originalMap[iidx]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
+						iidx++;
+						
 						std::string tempFull = pfstr;
 						int iiiii; int operandIdx = -1; int startRightIndex = -1; int rightLength= 0;
 						for (iiiii=0;iiiii<tempFull.length();iiiii++){
@@ -1061,13 +1066,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 								rightLength++;
 							}
 						}
-						tempFull.replace(startRightIndex,rightLength,"{"+std::to_string(iidx)+"}");
-						tempFull.replace(startLeftIndex,i+1-startLeftIndex,"#");
-						originalMap[iidx]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
-						iidx++;
-						std::cout << "new full: " <<  tempFull  << "\n";
-						
-						bottomTrees.push_back(tempFull);
+						bottomTrees.push_back({firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)});
 						
 						
 						
@@ -1136,6 +1135,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 					
 					
 					std::cout << "possible part: " << secondS[iii] + pfstr.at(i) + '@' + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
+					
 					std::string tempFull = pfstr;
 					int iiiii; int operandIdx = -1; int startRightIndex = -1; int rightLength= 0;
 					for (iiiii=0;iiiii<tempFull.length();iiiii++){
@@ -1159,11 +1159,8 @@ std::vector<std::string> makeTree(std::string pfstr){
 							rightLength++;
 						}
 					}
-					tempFull.replace(startRightIndex,rightLength,"{"+std::to_string(iidx)+"}");
-					tempFull.replace(startLeftIndex,i+1-startLeftIndex,"#");
-					std::cout << "new full: " <<  tempFull  << "\n";
+					bottomTrees.push_back({firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)});
 					
-					bottomTrees.push_back(tempFull);
 					
 					
 					
@@ -1356,7 +1353,11 @@ std::vector<std::string> makeTree(std::string pfstr){
 	
 	std::cout << "after third: " << pfstr << "\n";
 	for (ii=0;ii<bottomTrees.size();ii++){
-		std::cout << ii << ": " << bottomTrees[ii] << "\n";
+		std::cout << ii << ": " << bottomTrees[ii][0] << "\n";
+		//std::string tempFull = pfstr;
+		
+		//tempFull.replace(startRightIndex,rightLength,"{"+std::to_string(iidx)+"}");
+		//tempFull.replace(startLeftIndex,i+1-startLeftIndex,"#");
 	}
 	std::cout << "\n";
 	for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
