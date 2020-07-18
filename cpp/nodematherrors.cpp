@@ -1354,7 +1354,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	std::cout << "after third: " << pfstr << "\n";
 	for (ii=0;ii<bottomTrees.size();ii++){
 		std::string tempStr = bottomTrees[ii][0];
-		std::cout << ii << ": " << tempStr << "\n";
+		//std::cout << ii << ": " << tempStr << "\n";
 		int tempOperand = 0;
 		int nOperand = 0;
 		bool isInside = false;
@@ -1378,10 +1378,13 @@ std::vector<std::string> makeTree(std::string pfstr){
 				iii--;
 			}
 		}
-		std::cout << ii << ": " << tempStr << "\n";
-		for (iii=0;iii<bottomTrees[ii].size();iii++){
+		bottomTrees[ii][0] = tempStr;
+		std::cout << ii << ": " << bottomTrees[ii][0] << "\n";
+		for (iii=5;iii<bottomTrees[ii].size();iii++){
+			
 			std::cout << ii << ": " << bottomTrees[ii][iii] << "\n";
 		}
+		std::cout << "\n";
 		//std::string tempFull = pfstr;
 		
 		//tempFull.replace(startRightIndex,rightLength,"{"+std::to_string(iidx)+"}");
