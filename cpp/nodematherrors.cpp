@@ -1353,7 +1353,32 @@ std::vector<std::string> makeTree(std::string pfstr){
 	
 	std::cout << "after third: " << pfstr << "\n";
 	for (ii=0;ii<bottomTrees.size();ii++){
-		std::cout << ii << ": " << bottomTrees[ii][0] << "\n";
+		std::string tempStr = bottomTrees[ii][0];
+		std::cout << ii << ": " << tempStr << "\n";
+		int tempOperand = 0;
+		int nOperand = 0;
+		for (iii=0;iii<tempStr.length();iii++){
+			if (tempStr.at(iii) == '{'){
+				tempOperand = 0;
+			}
+			else if (tempStr.at(iii) == '}'){
+				bottomTrees[ii].push_back(bracketlessMap[tempOperand]);
+				tempStr.replace(iii,0,std::to_string(nOperand));
+				iii+= nOperand/10 + 1;
+				nOperand++;
+				
+			}
+			else {
+				tempOperand *= 10;
+				tempOperand += (tempStr.at(iii) - '0');
+				tempStr.replace(iii,1,"");
+				iii--;
+			}
+		}
+		std::cout << ii << ": " << tempStr << "\n";
+		for (iii=0;iii<bottomTrees[ii].size();iii++){
+			std::cout << ii << ": " << bottomTrees[ii][iii] << "\n";
+		}
 		//std::string tempFull = pfstr;
 		
 		//tempFull.replace(startRightIndex,rightLength,"{"+std::to_string(iidx)+"}");
