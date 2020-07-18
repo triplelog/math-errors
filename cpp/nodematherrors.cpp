@@ -1357,18 +1357,21 @@ std::vector<std::string> makeTree(std::string pfstr){
 		std::cout << ii << ": " << tempStr << "\n";
 		int tempOperand = 0;
 		int nOperand = 0;
+		bool isInside = false;
 		for (iii=0;iii<tempStr.length();iii++){
 			if (tempStr.at(iii) == '{'){
 				tempOperand = 0;
+				isInside = true;
 			}
 			else if (tempStr.at(iii) == '}'){
 				bottomTrees[ii].push_back(bracketlessMap[tempOperand]);
 				tempStr.replace(iii,0,std::to_string(nOperand));
 				iii+= nOperand/10 + 1;
 				nOperand++;
+				isInside = false;
 				
 			}
-			else {
+			else if (isInside){
 				tempOperand *= 10;
 				tempOperand += (tempStr.at(iii) - '0');
 				tempStr.replace(iii,1,"");
