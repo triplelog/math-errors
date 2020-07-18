@@ -2646,7 +2646,7 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 	int ii;
 	for (ii=0;ii<bottomTrees.size();ii++){
 		std::string onePart = bottomTrees[ii][0];
-		
+		std::cout << ii << " anda" << onePart << "\n";
 		/*
 		foundAt = false;
 		bool foundFirst = false;
@@ -2720,7 +2720,7 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 		}
 		std::vector<std::string> newStrings;
 		if (rules.find(key) != rules.end()){
-			//std::cout << "Key Match: " << key << " and " << rules[key][0][0] << "\n";
+			std::cout << "Key Match: " << key << " and " << rules[key][0][0] << "\n";
 			//std::cout << "userFullString @ keyMatch: "<< userFullString << "\n";
 			int ruleIdx;
 			for (ruleIdx=0;ruleIdx<rules[key].size();ruleIdx++){
