@@ -1784,7 +1784,7 @@ std::vector<std::string> outputTree(std::string pfstr){
 	//}
 	
 	flat_hash_map<std::string,std::string> skipList;
-	//jsonmessage += "-DOJS-\nnodes = {};\n";
+	jsonmessage += "-DOJS-\nnodes = {};\n";
 	std::string nodeString = "allNodes = [";
 	//std::cout << "-DOJS-\nnodes = {};\n";
 	
@@ -1832,7 +1832,7 @@ std::vector<std::string> outputTree(std::string pfstr){
 			outText += "op: \"" + nodeList[orderedKeyList[ii]][2] + "\",";
 			outText += "parent: \""+ parent + "\"};\n";
 		
-			//jsonmessage += outText + "\n";
+			jsonmessage += outText + "\n";
 			//std::cout << outText << "\n";
 			nodeString += "\""+nodeList[orderedKeyList[ii]][0] + "\", ";
 		}
@@ -1841,9 +1841,9 @@ std::vector<std::string> outputTree(std::string pfstr){
 	}
 	
 	nodeString += "];\n";
-	//jsonmessage += nodeString + "\n";
+	jsonmessage += nodeString + "\n";
 	//std::cout <<  nodeString << "\n";
-	//jsonmessage += "trees.push({nodes:nodes,allNodes:allNodes});\n-ODJS-\n";
+	jsonmessage += "trees.push({nodes:nodes,allNodes:allNodes});\n-ODJS-\n";
 	//std::cout << "trees.push({nodes:nodes,allNodes:allNodes});\n-ODJS-\n";
 	
 	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
@@ -3480,7 +3480,9 @@ void fullAnswer(std::string s, std::string a){
 			//TODO: send that info to node to display/add to database
 			for (ii=0;ii<answerListMap[newPostfix][i].size();ii++){
 				std::cout << i << " with " << answerListMap[newPostfix][i][ii] << "\n";
+				jsonmessage = "";
 				outputTree(answerListMap[newPostfix][i][ii]);
+				std::cout << jsonmessage << "\n";
 			}
 		}
 		
