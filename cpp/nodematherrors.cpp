@@ -1164,7 +1164,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 					//iidx++;
 				}
 			}
-			std::cout << "fullTrees size: " << fullTrees.size() << " @ " << i << "\n";
+			//std::cout << "fullTrees size: " << fullTrees.size() << " @ " << i << "\n";
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
 			
 			
@@ -2843,7 +2843,7 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 					*/
 					
 					std::string tempTemp = userFullString;
-					tempTemp.replace(std::stoi(bottomTrees[ii][3]),std::stoi(bottomTrees[ii][4]),newPostfixSecond);
+					tempTemp.replace(std::stoi(bottomTrees[ii][3]),std::stoi(bottomTrees[ii][4])+1,newPostfixSecond);
 					//std::cout << "userFullString: "<< userFullString << "\n";
 					tempTemp.replace(std::stoi(bottomTrees[ii][1]),std::stoi(bottomTrees[ii][2]),newPostfixFirst);
 					tempTemp = removeBracketsOne(tempTemp);
