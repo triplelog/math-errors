@@ -3208,30 +3208,54 @@ void getAnswerList(std::string s,bool isCorrect) {
 	answerListMap[newPostfix] = answerList;
 }
 
-void fullAnswer(std::string s, std::string a){
+std::string fullAnswer(std::string s, std::string a){
+	std::string newPostfix = removeBracketsOne(postfixify(s));
+	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
+	getAnswerList(newPostfix,false);
+	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << answerListMap[newPostfix].size() << "\n\n\n";
+	int i; int ii;
+	std::string mpf = postfixify(a);
+	std::string error = "Don't know."
+	for (i=0;i<answerListMap[newPostfix].size();i++){
+		if (answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] == mpf){
+			//TODO: grab the error
+			//TODO: create the solution steps
+			//TODO: send that info to node to display/add to database
+			error = "Found";
+		}
+		
+	}
+	return error;
+}
+
+bool correctAnswer(std::string s, std::string a){
 	std::string newPostfix = removeBracketsOne(postfixify(s));
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
 	getAnswerList(newPostfix,true);
 	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << answerListMap[newPostfix].size() << "\n\n\n";
 	int i; int ii;
 	std::string mpf = postfixify(a);
+	int minLen = 10000;
+	int minIdx = 0;
+	bool isCorrect = false;
 	for (i=0;i<answerListMap[newPostfix].size();i++){
-		if (answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] == mpf){
-			//TODO: grab the error
-			//TODO: create the solution steps
-			//TODO: send that info to node to display/add to database
-			jsonmessage = "";
-			for (ii=0;ii<answerListMap[newPostfix][i].size();ii++){
-				std::cout << i << " with " << answerListMap[newPostfix][i][ii] << "\n";
-				
-				outputTree(answerListMap[newPostfix][i][ii]);
-			}
+		if (answerListMap[newPostfix][i].size()<minLen){
+			minLen = answerListMap[newPostfix][i].size();
+			minIdx = i;
 		}
-		
+		if (answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] == mpf){
+			isCorrect = true;
+		}
 	}
-	
-}
 
+	jsonmessage = "";
+	for (ii=0;ii<answerListMap[newPostfix][minIdx].size();ii++){
+		std::cout << minIdx << " with " << answerListMap[newPostfix][minIdx][ii] << "\n";
+		
+		outputTree(answerListMap[newPostfix][minIdx][ii]);
+	}
+	return isCorrect;
+}
 
 void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//v8::Isolate* isolate = info.GetIsolate();
@@ -3254,11 +3278,16 @@ void GetAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::string astr(*sa);
 	std::cout << "input: "<< str << "\n";
 	jsonmessage = "";
-	fullAnswer(str,astr);
-	std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
+	bool isCorrect = correctAnswer(str,astr);
+	std::string error = "None!";
+	if (!isCorrect){
+		error = fullAnswer(str,astr);
+	}
+	//std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
+	std::cout << "Error: " << error << "\n";
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	
-	std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
+	//std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
 void Init(v8::Local<v8::Object> exports) {
