@@ -2254,7 +2254,7 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 					}
 					if (newPostfix.length()>0){
 						//Constraints go here
-						for (iiii=4;iiii<rule.size();iiii++){
+						for (iiii=3;iiii<rule.size();iiii++){
 							pastKey = false;
 							std::string constraintFix = "";
 							currentOperand = "";
