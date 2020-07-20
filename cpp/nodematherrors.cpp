@@ -2259,7 +2259,7 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 							std::string constraintFix = "";
 							currentOperand = "";
 							
-							for (iii=0;iii<rule[1].length();iii++){
+							for (iii=0;iii<rule[iiii].length();iii++){
 								if (pastKey){
 									if (rule[iiii].at(iii) == '_'){
 										if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
