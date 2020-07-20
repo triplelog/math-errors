@@ -2252,7 +2252,7 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 							newPostfix += rule[1].at(iii);
 						}
 					}
-					if (newPostfix.length()>0){
+					/*if (newPostfix.length()>0){
 						//Constraints go here
 						for (iiii=3;iiii<rule.size();iiii++){
 							pastKey = false;
@@ -2287,7 +2287,7 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 								break;
 							}
 						}
-					}
+					}*/
 				}
 			
 				if (newPostfix.length()>0){
