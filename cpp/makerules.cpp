@@ -1,5 +1,51 @@
 bool solveConstraintFix(std::string input){
-	std::cout << "constraint: "<< input << "\n";
+	int i;
+	bool postKey = false;\
+	
+	std::string firstPart = "";
+	std::string secondPart = "";
+	bool inBrackets = false;
+	bool isSecond = false;
+	for (i=1;i<input.length();i++){
+		if (postKey){
+			if (input.at(i) == '{'){
+				inBrackets = true;
+			}
+			else if (input.at(i) == '}'){
+				inBrackets = false;
+			}
+			else if (isSecond){
+				secondPart += input.at(i);
+			}
+			else if (inBrackets){
+				firstPart += input.at(i);
+			}
+			else if (input.at(i) == '_'){
+				isSecond = true;
+			}
+			else if (firstPart == ""){
+				firstPart = "#@";
+				firstPart += input.at(i);
+			}
+			else {
+				firstPart += input.at(i);
+			}
+		}
+		else if (input.at(i) == '@'){
+			postKey = true;
+			secondPart.replace(secondPart.length()-1,1,"");
+		}
+		else {
+			secondPart += input.at(i);
+		}
+	}
+	if (firstPart.at(firstPart.length()-1) == '_'){
+	
+	}
+	else {
+		firstPart += '_';
+	}
+	std::cout << "constraint: "<< input << " and " << firstPart << " and " << secondPart << "\n";
 	return true;
 }
 std::string constraintify(std::string input){
