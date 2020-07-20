@@ -33,7 +33,7 @@ bool solveConstraintFix(std::string input){
 		}
 		else if (input.at(i) == '@'){
 			postKey = true;
-			secondPart.replace(secondPart.length()-1,1,"");
+			secondPart.replace(secondPart.length()-1,1,"@");
 		}
 		else {
 			secondPart += input.at(i);
