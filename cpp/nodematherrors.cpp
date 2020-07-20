@@ -2271,14 +2271,14 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 										currentOperand = "";
 									}
 									else {
-										currentOperand += rule[1].at(iii);
+										currentOperand += rule[iiii].at(iii);
 									}
 								}
 								else {
 									if (rule[iiii].at(iii) == '@'){
 										pastKey = true;
 									}
-									constraintFix += rule[1].at(iii);
+									constraintFix += rule[iiii].at(iii);
 								}
 							}
 							bool isAllowed = solveConstraintFix(constraintFix);
