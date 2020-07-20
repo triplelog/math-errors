@@ -1,4 +1,5 @@
 bool solveConstraintFix(std::string input){
+	std::cout << "constraint: "<< input << "\n";
 	return true;
 }
 std::string constraintify(std::string input){

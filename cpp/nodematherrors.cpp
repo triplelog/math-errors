@@ -2364,6 +2364,7 @@ void initialRun(){
 	prec['!'] = 2;
 	prec['['] = 2;
 	prec[']'] = 2;
+	prec[-94] = 2;
 	prec['&'] = 1;
 	prec['|'] = 0;
 	prec['('] = -1;
