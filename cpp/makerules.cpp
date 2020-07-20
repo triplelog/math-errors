@@ -9,7 +9,7 @@ std::string constraintify(std::string input){
 		tempStr += input.at(i);
 		tempStr.replace(0,1,"");
 		if (tempStr == "does not contain"){
-			input.replace(i-15,16,dncc);
+			input.replace(i-15,16,dnc);
 			i -= 15;
 			tempStr = "................";
 		}
