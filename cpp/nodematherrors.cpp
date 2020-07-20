@@ -3217,6 +3217,7 @@ std::string fullAnswer(std::string s, std::string a){
 	std::string mpf = postfixify(a);
 	std::string error = "Don't know.";
 	for (i=0;i<answerListMap[newPostfix].size();i++){
+		std::cout << "answer: " << answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] << "\n";
 		if (answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] == mpf){
 			//TODO: grab the error
 			//TODO: create the solution steps
@@ -3279,13 +3280,13 @@ void GetAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::cout << "input: "<< str << "\n";
 	jsonmessage = "";
 	bool isCorrect = correctAnswer(str,astr);
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	std::string error = "None!";
 	if (!isCorrect){
 		error = fullAnswer(str,astr);
 	}
 	//std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	std::cout << "Error: " << error << "\n";
-	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	
 	//std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	info.GetReturnValue().Set(h.ToLocalChecked());
