@@ -1,3 +1,23 @@
+std::string constraintify(std::string input){
+	int i;
+	std::string tempStr = "................";
+	char dncc{-94};
+	std::string dnc = "";
+	dnc += dncc;
+	std::cout << input << "\n";
+	for (i=0;i<input.length();i++){
+		tempStr += input.at(i);
+		tempStr.replace(0,1,"");
+		if (tempStr == "does not contain"){
+			input.replace(i-15,16,dncc);
+			i -= 15;
+			tempStr = "................";
+		}
+	}
+	std::cout << input << "\n";
+	return input;
+}
+
 std::vector<std::string> makeRule(std::string input){
 	char infixexpr[input.length() + 1]; 
     strcpy(infixexpr, input.c_str()); 
@@ -49,16 +69,12 @@ void makeRules(std::string fileName){
 	std::string val1;
 	std::string out;
 	for (i=0;i<rawRules.size();i++){
+		std::vector<std::string> rule;
 		if (rawRules[i][1].at(0)=='='){
 			fullPost = makeRule(rawRules[i][0]);
 			key = fullPost[0];
 			val1 = fullPost[1];
-			if (rules.find(key) != rules.end()){
-				rules[key].push_back({val1,rawRules[i][1],rawRules[i][2]});
-			}
-			else {
-				rules[key] = {{val1,rawRules[i][1],rawRules[i][2]}};
-			}
+			rule = {val1,rawRules[i][1],rawRules[i][2]};
 			
 		}
 		else {
@@ -67,14 +83,27 @@ void makeRules(std::string fileName){
 			val1 = fullPost[1];
 			fullPost = makeRule(rawRules[i][1]);
 			out = fullPost[0] + '@' + fullPost[1];
-			if (rules.find(key) != rules.end()){
-				rules[key].push_back({val1,out,rawRules[i][2]});
-			}
-			else {
-				rules[key] = {{val1,out,rawRules[i][2]}};
-			}
-			// TODO: add possibility of appending to existing key, and adding all constraints
+			rule = {val1,out,rawRules[i][2]};
+			
 		}
+		//TODO: add more constraint options
+		
+		if (rawRules[i].size()>4){
+			std::string constraint = constraintify(rawRules[i][4]);
+			std::string postfixed = postfixify(constraint);
+			std::cout <<" postfixed " << postfixed << "\n";
+			rule.push_back(postfixed);
+		}
+		
+		
+		if (rules.find(key) != rules.end()){
+			rules[key].push_back(rule);
+		}
+		else {
+			rules[key] = {rule};
+		}
+		
+		
 		
 	}
 }

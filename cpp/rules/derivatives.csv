@@ -12,3 +12,4 @@ Rule,"Power Rule","HTML Explanation"
 ddx(A^B),B*A^(B-1)*ddx(A),c,"Power Rule."
 ddx(x^B),B*x^(B-1),c,"Power Rule."
 ddx(x),1,c,"Not product of derivatives."
+ddx(A),0,c,"Not product of derivatives.",Adoes not containx
