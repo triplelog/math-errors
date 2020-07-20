@@ -1,5 +1,5 @@
 bool solveConstraintFix(std::string input){
-	return false;
+	return true;
 }
 std::string constraintify(std::string input){
 	int i;
