@@ -1,3 +1,6 @@
+bool solveConstraintFix(std::string input){
+	return false;
+}
 std::string constraintify(std::string input){
 	int i;
 	std::string tempStr = "................";

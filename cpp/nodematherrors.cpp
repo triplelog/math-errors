@@ -2130,9 +2130,9 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 				
 				std::vector<std::string> rule = rules[key][ruleIdx];
 				
-				//Constraints go here
+				
 				if (rule[2] != "c" && isCorrect){continue;}
-				//if (rule.size()>4)
+				
 				
 				
 				std::string currentOperand = "";
@@ -2196,7 +2196,9 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 						break;
 					}
 				}
-			
+				
+				
+				
 			
 				newPostfix = "";
 				if (ignoreThis){
@@ -2248,6 +2250,42 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 								pastKey = true;
 							}
 							newPostfix += rule[1].at(iii);
+						}
+					}
+					if (newPostfix.length()>0){
+						//Constraints go here
+						for (iiii=4;iiii<rule.size();iiii++){
+							pastKey = false;
+							std::string constraintFix = "";
+							currentOperand = "";
+							
+							for (iii=0;iii<rule[1].length();iii++){
+								if (pastKey){
+									if (rule[iiii].at(iii) == '_'){
+										if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
+											constraintFix += partMap[currentOperand.at(0)] + '_';
+										}
+										else {
+											constraintFix += currentOperand + '_';
+										}
+										currentOperand = "";
+									}
+									else {
+										currentOperand += rule[1].at(iii);
+									}
+								}
+								else {
+									if (rule[iiii].at(iii) == '@'){
+										pastKey = true;
+									}
+									constraintFix += rule[1].at(iii);
+								}
+							}
+							bool isAllowed = solveConstraintFix(constraintFix);
+							if (!isAllowed){
+								newPostfix = "";
+								break;
+							}
 						}
 					}
 				}
