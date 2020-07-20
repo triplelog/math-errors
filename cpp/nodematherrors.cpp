@@ -3215,7 +3215,7 @@ std::string fullAnswer(std::string s, std::string a){
 	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << answerListMap[newPostfix].size() << "\n\n\n";
 	int i; int ii;
 	std::string mpf = postfixify(a);
-	std::string error = "Don't know."
+	std::string error = "Don't know.";
 	for (i=0;i<answerListMap[newPostfix].size();i++){
 		if (answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] == mpf){
 			//TODO: grab the error
