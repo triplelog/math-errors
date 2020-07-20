@@ -2780,7 +2780,7 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 				//std::cout << "Key sub-Match: " << key << " and " << rules[key][ruleIdx][0] << "\n";
 				
 				std::vector<std::string> rule = rules[key][ruleIdx];
-				if (rule[2] != "c"){continue;}
+				if (rule[2] != "c" && isCorrect){continue;}
 				std::string currentOperand = "";
 				flat_hash_map<char,std::string> partMap;
 				std::vector<std::string> userOperands;
@@ -3240,7 +3240,7 @@ bool correctAnswer(std::string s, std::string a){
 	int minIdx = 0;
 	bool isCorrect = false;
 	for (i=0;i<answerListMap[newPostfix].size();i++){
-		if (answerListMap[newPostfix][i].size()<minLen){
+		if (answerListMap[newPostfix][i].size() > 1 && answerListMap[newPostfix][i].size()<minLen){
 			minLen = answerListMap[newPostfix][i].size();
 			minIdx = i;
 		}
