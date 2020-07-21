@@ -2675,12 +2675,13 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 					if (rule[1].at(1)=='/'){
 						opResult = divTwoInts(a,b);
 					}
+					std::cout << "arithend\n";
 					if (opResult == "false"){
 						newPostfix = "";
 						continue;
 					}
 					newPostfix += opResult+'_';
-					std::cout << "arithend\n";
+					
 					
 				}
 				else {
