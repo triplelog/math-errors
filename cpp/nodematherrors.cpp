@@ -607,35 +607,38 @@ std::string removeBracketsOne(std::string input) {
 	std::string tempString = "";
 	int bracketLength = 0;
 	int secondIndex;
-	for (iii=0;iii<input.length();iii++){
-		if (input.at(iii) == '{'){
+	char mychar;
+	int len = input.length();
+	for (iii=0;iii<len;iii++){
+		mychar = input.at(iii);
+		if (mychar == '{'){
 			foundBracket = true;
 			bracketLength = 1;
 			secondIndex = iii;
 		}
-		else if (input.at(iii) == '}') {
+		else if (mychar == '}') {
 			bracketStrings.push_back(tempString);
 			bracketLength++;
 			break;
 		}
-		else if (input.at(iii) == '#' && !foundBracket) {
+		else if (mychar == '#' && !foundBracket) {
 			operandToIndex[idx]=iii;
 			idx++;
 		}
-		else if (input.at(iii) == '_' && !foundBracket) {
+		else if (mychar == '_' && !foundBracket) {
 			iidx++;
 		}
-		else if (input.at(iii) == '@' && !foundBracket) {
+		else if (mychar == '@' && !foundBracket) {
 			foundAt = true;
 		}
-		else if (input.at(iii) == '@' && foundBracket) {
+		else if (mychar == '@' && foundBracket) {
 			//tempString += input.at(iii);
 			bracketStrings.push_back(tempString);
 			tempString = "";
 			bracketLength++;
 		}
 		else if (foundBracket){
-			tempString += input.at(iii);
+			tempString += mychar;
 			bracketLength++;
 		}
 	}
