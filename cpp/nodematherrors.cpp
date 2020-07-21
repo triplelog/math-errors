@@ -1766,8 +1766,8 @@ void makeTree(std::string pfstr){
 					}
 				}
 				if (allListMapBottom.find(s + '@' + t) != allListMapBottom.end()){
-					fullTrees = allListMapFull[s + '@' + t];
-					someBottomTrees = allListMapBottom[s + '@' + t];
+					//fullTrees = allListMapFull[s + '@' + t];
+					//someBottomTrees = allListMapBottom[s + '@' + t];
 					foundFullTrees = true;
 					inStr = s + "@" + t;
 					break;
@@ -1775,11 +1775,12 @@ void makeTree(std::string pfstr){
 			}
 			
 			if (foundFullTrees){
-				listMap[inStr]=fullTrees;
-				someBottomTrees = allListMapBottom[inStr];
-				sbtSz = someBottomTrees.size();
+				//listMap[inStr]=fullTrees;
+				//someBottomTrees = allListMapBottom[inStr];
+				//sbtSz = someBottomTrees.size();
+				std::cout "inStr: " << inStr << "\n";
 			}
-			else {
+			if (2==2) {
 				
 				int maxi = i-1;
 				int startLeftIndex = maxi;
@@ -2082,7 +2083,7 @@ void makeTree(std::string pfstr){
 	
 				//std::cout << "fullTrees size: " << fullTrees.size() << " @ " << i << "\n";
 				std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
-			
+				std::cout << "fullStr: " << fullStr << "\n";
 			
 				//Parent Node
 				std::string opStr = "";
@@ -2663,24 +2664,24 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 					std::string b = partMap[rule[1].at(3)];
 					std::string opResult;
 					if (rule[1].at(1)=='+'){
-						std::cout << a << " and " << b << " arithadd\n";
+						//std::cout << a << " and " << b << " arithadd\n";
 						opResult = addTwoInts(a,b);
-						std::cout << "arithend\n";
+						//std::cout << "arithend\n";
 					}
 					if (rule[1].at(1)=='*'){
-						std::cout << a << " and " << b << " arithmul\n";
+						//std::cout << a << " and " << b << " arithmul\n";
 						opResult = mulTwoInts(a,b);
-						std::cout << "arithend\n";
+						//std::cout << "arithend\n";
 					}
 					if (rule[1].at(1)=='-'){
-						std::cout << a << " and " << b << " arithesub\n";
+						//std::cout << a << " and " << b << " arithesub\n";
 						opResult = subTwoInts(a,b);
-						std::cout << "arithend\n";
+						//std::cout << "arithend\n";
 					}
 					if (rule[1].at(1)=='/'){
-						std::cout << a << " and " << b << " arithdiv\n";
+						//std::cout << a << " and " << b << " arithdiv\n";
 						opResult = divTwoInts(a,b);
-						std::cout << "arithend\n";
+						//std::cout << "arithend\n";
 					}
 					
 					if (opResult == "false"){
