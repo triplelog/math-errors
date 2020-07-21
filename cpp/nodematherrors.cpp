@@ -848,7 +848,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,int> operandMap;
 	flat_hash_map<int,std::string> originalMap;
-	flat_hash_map<int,int> subExpressions;
     std::vector<std::string> returnStrings;
     bool isCorrect = true;
 	int i; int ii; int iii;
@@ -894,6 +893,11 @@ std::vector<std::string> makeTree(std::string pfstr){
 	bottomTreesIndex.resize(0);
 	btSz = 0;
 	for (i=0;i<pfstr.length();i++){
+		int lmSz = 0;
+		for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
+			lmSz++;
+		}
+		std::cout << lmSz << "\n";
 		char mychar = pfstr.at(i);
 		if (mychar == '@'){
 			break;
@@ -1318,7 +1322,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 			
 
 			
-			subExpressions[i]=startLeftIndex;
 			
 			//bottomTreesString.resize(btSz);
 			//bottomTreesIndex.resize(btSz);
