@@ -1658,8 +1658,8 @@ void makeTree(std::string pfstr){
 			
 		}
 		else {
-			listMap["#@" + std::to_string(idx) + "_"]={"#",originalMap[idx]+'_',"0"};
-			operandMap[i]=std::to_string(idx);
+			listMap["#@" + originalMap[idx] + "_"]={"#",originalMap[idx]+'_',"0"};
+			operandMap[i]=originalMap[idx];
 			idx++;
 		}
 		
