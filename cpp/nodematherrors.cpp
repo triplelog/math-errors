@@ -1023,7 +1023,8 @@ void makeTree(std::string pfstr){
 							continue;
 						}
 				
-					
+						auto a2 = std::chrono::high_resolution_clock::now();
+						
 						//condensed
 						fullTrees[ftSz] = "#";
 						ftSz++;
@@ -1050,7 +1051,8 @@ void makeTree(std::string pfstr){
 						fullTrees[ftSz] = firstTBL[ii] + secondTBL[iii];
 						ftSz++;
 				
-					
+						auto a3 = std::chrono::high_resolution_clock::now();
+						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 				
 						//std::cout << "possible part: " << firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
 						
@@ -1083,18 +1085,17 @@ void makeTree(std::string pfstr){
 						
 						
 				
-						auto a2 = std::chrono::high_resolution_clock::now();
+						
 						std::vector<int> tempV;
 						tempV = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
 						
 						
 						
-						bottomTreesString[btSz]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii]; //11 ms
+						bottomTreesString[btSz]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
 						bottomTreesIndex[btSz]= tempV;
 						btSz++;
 						
-						auto a3 = std::chrono::high_resolution_clock::now();
-						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+						
 				
 				
 				
