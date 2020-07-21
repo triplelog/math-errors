@@ -2113,7 +2113,7 @@ void makeTree(std::string pfstr){
 				bottomTrees[btSz] = someBottomTrees[ii];
 				if (foundFullTrees){
 					std::string tempFull = pfstr;
-					int operandIdx = -1; int startRightIndex = -1;
+					int iiiii; int operandIdx = -1; int startRightIndex = -1;
 					for (iiiii=0;iiiii<tempFull.length();iiiii++){
 						if (tempFull.at(iiiii) == '_'){
 							operandIdx++;
