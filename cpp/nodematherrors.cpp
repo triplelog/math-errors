@@ -1864,7 +1864,7 @@ void makeTree(std::string pfstr){
 				
 				bottomTrees.resize(btSz+secondS.size()*firstS.size()*2);
 				fullTrees.resize(ftSz+secondS.size()*firstS.size()*3*5);
-				auto a2 = std::chrono::high_resolution_clock::now();
+				
 				for (ii=0;ii<firstS.size();ii++){
 					if (listMap[firstListMapKey][ii*5+2]=="4"){
 						continue;
@@ -1906,10 +1906,12 @@ void makeTree(std::string pfstr){
 					
 				
 						//std::cout << "possible part: " << firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
-				
+						
+						auto a2 = std::chrono::high_resolution_clock::now();
+						
 						std::string tempFull = pfstr;
 						int iiiii; int operandIdx = -1; int startRightIndex = -1; int rightLength= 0;
-
+				
 						for (iiiii=0;iiiii<tempFull.length();iiiii++){
 							if (tempFull.at(iiiii) == '_'){
 								operandIdx++;
@@ -1931,6 +1933,11 @@ void makeTree(std::string pfstr){
 								rightLength++;
 							}
 						}
+						
+						auto a3 = std::chrono::high_resolution_clock::now();
+						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+				
+				
 						std::vector<std::string> tempV;
 						tempV = {firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
 				
@@ -1997,8 +2004,7 @@ void makeTree(std::string pfstr){
 						}
 					}
 				}
-				auto a3 = std::chrono::high_resolution_clock::now();
-				duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+				
 			
 			
 			}
@@ -2111,18 +2117,24 @@ void makeTree(std::string pfstr){
 			std::string opStr = "";
 			opStr += pfstr.at(i);
 			fullTrees.resize(ftSz);
+			
+			auto a3 = std::chrono::high_resolution_clock::now();
+			
 			listMap[fullStr]=fullTrees;
+			
+			auto a4 = std::chrono::high_resolution_clock::now();
+			duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a4 - a3 ).count();
+			
 			//allListMapFull[fullStr]=fullTrees;
 			//someBottomTrees.resize(sbtSz);
 			//std::cout << "fullStr: " << fullStr << " and " << someBottomTrees[0].size() << "\n";
 			//allListMapBottom[fullStr]=someBottomTrees;
 			
 			subExpressions[i]=startLeftIndex;
-			auto a3 = std::chrono::high_resolution_clock::now();
+			
 			bottomTrees.resize(btSz);
 			
-			auto a4 = std::chrono::high_resolution_clock::now();
-			duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a4 - a3 ).count();
+			
 
 			
 		}
