@@ -1023,7 +1023,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 				int sss = secondS.size();	
 				std::string nFirst = "0";
 				std::string nSecond = "0";	
-				std::cout << "new size: " << fss << " * " << sss << "\n";
+				std::cout << "new size: " << fss << " * " << sss << " by " << firstStr + secondStr + pfstr.at(i) + "@" + firstTtr + secondTtr << "\n";
 				fullTrees.resize(ftSz+sss*fss*3*5);
 				for (ii=0;ii<fss;ii++){
 					nFirst = listMap[firstListMapKey][ii*5+2];
