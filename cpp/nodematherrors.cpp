@@ -834,7 +834,7 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 }
 
 
-void makeTree(std::string pfstr){
+void makeTreeOld(std::string pfstr){
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,std::string> operandMap;
 	flat_hash_map<int,std::string> originalMap;
@@ -1257,6 +1257,446 @@ void makeTree(std::string pfstr){
 			}
 		}
 		bottomTrees[ii][0] = tempStr;
+		//std::cout << ii << ": " << bottomTrees[ii][0] << "\n";
+		for (iii=5;iii<bottomTrees[ii].size();iii++){
+			
+			//std::cout << ii << ": " << bottomTrees[ii][iii] << "\n";
+		}
+		//std::cout << "\n";
+		//std::string tempFull = pfstr;
+		
+		//tempFull.replace(startRightIndex,rightLength,"{"+std::to_string(iidx)+"}");
+		//tempFull.replace(startLeftIndex,i+1-startLeftIndex,"#");
+	}
+	bottomTrees.resize(btSz);
+	//std::cout << "\n";
+	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
+	//	std::cout << iter->first << " and " << iter->second << '\n';
+	//}
+	
+
+}
+
+void makeTree(std::string pfstr){
+	flat_hash_map<std::string,std::vector<std::string>> listMap;
+	flat_hash_map<int,std::string> operandMap;
+	flat_hash_map<int,std::string> originalMap;
+	flat_hash_map<int,int> subExpressions;
+    
+    
+	int i; int ii; int iii;
+	int idx =0;
+	bool startOperands = false;
+	std::string currentOperator = "";
+	int iidx = 0;
+	bool midBrackets = false;
+	
+	
+	for (i=0;i<pfstr.length();i++){
+		if (pfstr.at(i) == '@'){
+			startOperands = true;
+		}
+		else if (startOperands && !midBrackets){
+			if (pfstr.at(i) == '_'){
+				originalMap[iidx] = currentOperator;
+				iidx++; 
+				currentOperator = "";
+			}
+			else if (pfstr.at(i) == '{'){
+				midBrackets = true;
+				currentOperator += pfstr.at(i);
+			}
+			else {
+				currentOperator += pfstr.at(i);
+			}
+		}
+		else if (startOperands && midBrackets){
+			if (pfstr.at(i) == '}'){
+				midBrackets = false;
+				currentOperator += pfstr.at(i);
+			}
+			else {
+				currentOperator += pfstr.at(i);
+			}
+		}
+	}
+	
+	
+	//std::cout << "before third: " << pfstr << "\n";
+	bottomTrees.resize(0);
+	btSz = 0;
+	for (i=0;i<pfstr.length();i++){
+		char mychar = pfstr.at(i);
+		if (mychar == '@'){
+			break;
+		}
+		else if (mychar != '#'){
+			std::vector<std::string> secondS;
+			std::vector<std::string> secondT;
+			std::string secondStr = "";
+			std::string secondTtr = "";
+			std::string secondListMapKey = "";
+			
+			
+			
+			int maxi = i-1;
+			int startLeftIndex = maxi;
+			int startRightOperand = 10000;
+			int endRightOperand = -1;
+			for (ii=0;ii<i;ii++){
+				std::string s = "";
+				std::string t = "";
+				int tempStartRightOperand = 10000;
+				int tempEndRightOperand = -1;
+				for (iii=ii;iii<i;iii++){
+					s += pfstr.at(iii);
+					if (pfstr.at(iii) == '#'){
+						t += operandMap[iii] + '_';
+						if (std::stoi(operandMap[iii])<tempStartRightOperand){
+							tempStartRightOperand = std::stoi(operandMap[iii]);
+						}
+						if (std::stoi(operandMap[iii])>tempEndRightOperand){
+							tempEndRightOperand = std::stoi(operandMap[iii]);
+						}
+					}
+				}
+				if (listMap.find(s + '@' + t) != listMap.end()){
+					secondStr = s;
+					secondTtr = t;
+					secondListMapKey = s + "@" + t;
+					secondS.resize(listMap[s+'@'+t].size()/3);
+					secondT.resize(listMap[s+'@'+t].size()/3);
+					for (iii=0;iii<listMap[s+'@'+t].size()/3;iii++){
+						secondS[iii]=listMap[s+'@'+t][iii*3];
+						secondT[iii]=listMap[s+'@'+t][iii*3+1];
+					}
+					maxi = ii;
+					startLeftIndex = ii;
+					startRightOperand = tempStartRightOperand;
+					endRightOperand = tempEndRightOperand;
+					break;
+				}
+			}
+			
+			
+	
+			std::vector<std::string> firstS;
+			std::vector<std::string> firstT;
+			std::string firstStr = "";
+			std::string firstTtr = "";
+			std::string firstListMapKey = "";
+			std::vector<std::string> fullTrees;
+			
+			
+			if (mychar != '-' && mychar != '/' && (mychar >= 0 || mychar <= -69 )){ // Is at least binary function
+				
+				/*int startSub = subExpressions[maxi-1];
+				std::string s = "";
+				std::string t = "";
+				for (iii=startSub;iii<maxi;iii++){
+					s += pfstr.at(iii);
+					if (pfstr.at(iii) == '#'){
+						t += operandMap[iii] + '_';
+					}
+				}
+				firstListMapKey = s + "@" + t;
+				firstStr = s;
+				firstTtr = t;
+				firstS.resize(listMap[s+'@'+t].size()/3);
+				firstT.resize(listMap[s+'@'+t].size()/3);
+				for (iii=0;iii<listMap[s+'@'+t].size()/3;iii++){
+					firstS[iii]=listMap[s+'@'+t][iii*3];
+					firstT[iii]=listMap[s+'@'+t][iii*3+1];
+				}
+				startLeftIndex = ii;
+				startRightOperand = std::stoi(operandMap[startSub]);
+				*/
+
+				for (ii=0;ii<maxi;ii++){
+					std::string s = "";
+					std::string t = "";
+					int tempStartRightOperand = 10000;
+					for (iii=ii;iii<maxi;iii++){
+						s += pfstr.at(iii);
+						if (pfstr.at(iii) == '#'){
+							t += operandMap[iii] + '_';
+							if (std::stoi(operandMap[iii])<tempStartRightOperand){
+								tempStartRightOperand = std::stoi(operandMap[iii]);
+							}
+						}
+					}
+					if (listMap.find(s + '@' + t) != listMap.end()){
+						firstListMapKey = s + "@" + t;
+						firstStr = s;
+						firstTtr = t;
+						firstS.resize(listMap[s+'@'+t].size()/3);
+						firstT.resize(listMap[s+'@'+t].size()/3);
+						for (iii=0;iii<listMap[s+'@'+t].size()/3;iii++){
+							firstS[iii]=listMap[s+'@'+t][iii*3];
+							firstT[iii]=listMap[s+'@'+t][iii*3+1];
+						}
+						startLeftIndex = ii;
+						startRightOperand = tempStartRightOperand;
+						break;
+					}
+				}
+				bottomTrees.resize(btSz+secondS.size()*firstS.size()*2);
+				for (ii=0;ii<firstS.size();ii++){
+					if (listMap[firstListMapKey][ii*3+2]=="4"){
+						continue;
+					}
+					for (iii=0;iii<secondS.size();iii++){
+						
+						
+						if (listMap[secondListMapKey][iii*3+2]=="4"){
+							continue;
+						}
+						
+						//condensed
+						fullTrees.push_back("#");
+						
+						std::string bless = removeBracketsOne(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii]);
+						fullTrees.push_back("{"+bless+"}_");
+						if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
+							fullTrees.push_back("2");
+						}
+						else if (listMap[secondListMapKey][iii*3+2]=="1" || listMap[firstListMapKey][ii*3+2]=="1"){
+							fullTrees.push_back("1");
+						}
+						else {
+							fullTrees.push_back("0");
+						}
+						
+						
+						//std::cout << "possible part: " << firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
+						
+						std::string tempFull = pfstr;
+						int iiiii; int operandIdx = -1; int startRightIndex = -1; int rightLength= 0;
+
+						for (iiiii=0;iiiii<tempFull.length();iiiii++){
+							if (tempFull.at(iiiii) == '_'){
+								operandIdx++;
+								if (operandIdx <=endRightOperand){
+									rightLength++;
+								}
+								else {
+									break;
+								}
+							}
+							else if (tempFull.at(iiiii) == '@'){
+								operandIdx++;
+							}
+							else if (operandIdx==startRightOperand && startRightIndex<0){
+								startRightIndex = iiiii;
+								rightLength = 1;
+							}
+							else{
+								rightLength++;
+							}
+						}
+						std::vector<std::string> tempV;
+						tempV = {firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
+						auto a2 = std::chrono::high_resolution_clock::now();
+						bottomTrees[btSz]= tempV;
+						btSz++;
+						
+						auto a3 = std::chrono::high_resolution_clock::now();
+						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+						
+						
+						if (listMap[secondListMapKey][iii*3+2]=="3" || listMap[firstListMapKey][ii*3+2]=="3"){
+							continue;
+						}
+						
+						fullTrees.push_back(firstS[ii] + secondS[iii]  + pfstr.at(i));
+						fullTrees.push_back(firstT[ii] + secondT[iii]);
+						if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
+							fullTrees.push_back("3");
+						}
+						else if (listMap[secondListMapKey][iii*3+2]=="1" || listMap[firstListMapKey][ii*3+2]=="1"){
+							fullTrees.push_back("2");
+						}
+						else {
+							fullTrees.push_back("1");
+						}
+						
+						
+						
+						
+						if (pfstr.at(i) == '+' || pfstr.at(i) == '*'){
+							fullTrees.push_back(secondS[iii] + firstS[ii]  + pfstr.at(i));
+							fullTrees.push_back(secondT[iii] + firstT[ii]);
+							if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
+								fullTrees.push_back("3");
+							}
+							else if (listMap[secondListMapKey][iii*3+2]=="1" || listMap[firstListMapKey][ii*3+2]=="1"){
+								fullTrees.push_back("2");
+							}
+							else {
+								fullTrees.push_back("1");
+							}
+							
+							bottomTrees[btSz]={secondS[iii] + firstS[ii]  + pfstr.at(i) + '@' + secondT[iii] + firstT[ii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
+							btSz++;
+						}
+					}
+				}
+				
+				
+			}
+			else {
+				bottomTrees.resize(btSz+secondS.size());
+				for (iii=0;iii<secondS.size();iii++){
+					
+					if (listMap[secondListMapKey][iii*3+2]=="4"){
+						continue;
+					}
+					
+					fullTrees.push_back("#");
+					std::string bless = removeBracketsOne(secondS[iii] + pfstr.at(i) + '@' + secondT[iii]);
+					fullTrees.push_back("{"+bless+"}_");
+					if (listMap[secondListMapKey][iii*3+2]=="2"){
+						fullTrees.push_back("2");
+					}
+					else if (listMap[secondListMapKey][iii*3+2]=="1"){
+						fullTrees.push_back("1");
+					}
+					else {
+						fullTrees.push_back("0");
+					}
+					
+					
+					//std::cout << "possible part: " << secondS[iii] + pfstr.at(i) + '@' + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
+					
+					std::string tempFull = pfstr;
+					int iiiii; int operandIdx = -1; int startRightIndex = -1; int rightLength= 0;
+					for (iiiii=0;iiiii<tempFull.length();iiiii++){
+						if (tempFull.at(iiiii) == '_'){
+							operandIdx++;
+							if (operandIdx <=endRightOperand){
+								rightLength++;
+							}
+							else {
+								break;
+							}
+						}
+						else if (tempFull.at(iiiii) == '@'){
+							operandIdx++;
+						}
+						else if (operandIdx==startRightOperand && startRightIndex<0){
+							startRightIndex = iiiii;
+							rightLength = 1;
+						}
+						else{
+							rightLength++;
+						}
+					}
+					bottomTrees[btSz]={secondS[iii] + pfstr.at(i) + '@' + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
+					btSz++;
+					
+					
+					
+					
+					
+					
+					
+					
+					if (listMap[secondListMapKey][iii*3+2]=="3"){
+						continue;
+					}
+					
+					fullTrees.push_back(secondS[iii] + pfstr.at(i));
+					fullTrees.push_back(secondT[iii]);
+					if (listMap[secondListMapKey][iii*3+2]=="2"){
+						fullTrees.push_back("3");
+					}
+					else if (listMap[secondListMapKey][iii*3+2]=="1"){
+						fullTrees.push_back("2");
+					}
+					else {
+						fullTrees.push_back("1");
+					}
+					
+					//condensed
+					//fullTrees.push_back("#");
+					//fullTrees.push_back("{"+std::to_string(iidx)+"}_");
+					//originalMap[iidx]= secondS[iii] + pfstr.at(i) + '@' + secondT[iii];
+					//iidx++;
+				}
+			}
+			
+
+			
+	
+			//std::cout << "fullTrees size: " << fullTrees.size() << " @ " << i << "\n";
+			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
+			
+			
+			//Parent Node
+			std::string opStr = "";
+			opStr += pfstr.at(i);
+			
+			
+			
+			listMap[fullStr]=fullTrees;
+			subExpressions[i]=startLeftIndex;
+			
+		}
+		else {
+			listMap["#@" + std::to_string(idx) + "_"]={"#",originalMap[idx]+'_',"0"};
+			operandMap[i]=std::to_string(idx);
+			idx++;
+		}
+		
+	}
+		
+	
+	//std::cout << "\n\n---start Original-----\n";
+	int iiii;
+	
+	//for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
+	//	std::cout << iter->first << " and " << iter->second << '\n';
+	//}
+	
+	//std::cout << "\n\n---start Bracketless-----\n";
+	auto a3 = std::chrono::high_resolution_clock::now();
+	//flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
+	
+	auto a4 = std::chrono::high_resolution_clock::now();
+	duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a4 - a3 ).count();
+	
+	//std::cout << "after third: " << pfstr << "\n";
+	for (ii=0;ii<btSz;ii++){
+		std::string tempStr = bottomTrees[ii][0];
+		//std::cout << ii << ": " << tempStr << "\n";
+		int tempOperand = 0;
+		int nOperand = 0;
+		bool isInside = false;
+		
+		/*for (iii=0;iii<tempStr.length();iii++){
+			if (tempStr.at(iii) == '{'){
+				tempOperand = 0;
+				isInside = true;
+			}
+			else if (tempStr.at(iii) == '}'){
+				bottomTrees[ii].push_back(bracketlessMap[tempOperand]);
+				tempStr.replace(iii,0,bracketlessMap[tempOperand]);
+				iii += bracketlessMap[tempOperand].length();
+				
+				nOperand++;
+				isInside = false;
+				
+			}
+			else if (isInside){
+				tempOperand *= 10;
+				tempOperand += (tempStr.at(iii) - '0');
+				tempStr.replace(iii,1,"");
+				iii--;
+			}
+		}
+		bottomTrees[ii][0] = tempStr;*/
+		
+		
 		//std::cout << ii << ": " << bottomTrees[ii][0] << "\n";
 		for (iii=5;iii<bottomTrees[ii].size();iii++){
 			
@@ -1973,7 +2413,9 @@ void initialRun(){
 	makeRules("derivatives.csv");
 	auto t2 = std::chrono::high_resolution_clock::now();
 }
+
 flat_hash_map<std::string,std::vector<std::vector<std::string>>> answerListMap;
+
 void getAnswerList(std::string s,bool isCorrect) {
 	std::vector<std::vector<std::string>> answerList;
 
