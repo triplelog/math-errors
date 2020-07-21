@@ -972,7 +972,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 				startLeftIndex = ii;
 				startRightOperand = std::stoi(operandMap[startSub]);
 				*/
-				auto a2 = std::chrono::high_resolution_clock::now();
+
 				for (ii=0;ii<maxi;ii++){
 					std::string s = "";
 					std::string t = "";
@@ -1001,8 +1001,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 						break;
 					}
 				}
-				auto a3 = std::chrono::high_resolution_clock::now();
-				duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+				
 				for (ii=0;ii<firstS.size();ii++){
 					if (listMap[firstListMapKey][ii*3+2]=="4"){
 						continue;
@@ -1036,6 +1035,9 @@ std::vector<std::string> makeTree(std::string pfstr){
 						
 						std::string tempFull = pfstr;
 						int iiiii; int operandIdx = -1; int startRightIndex = -1; int rightLength= 0;
+						
+						auto a2 = std::chrono::high_resolution_clock::now();
+						
 						for (iiiii=0;iiiii<tempFull.length();iiiii++){
 							if (tempFull.at(iiiii) == '_'){
 								operandIdx++;
@@ -1059,7 +1061,8 @@ std::vector<std::string> makeTree(std::string pfstr){
 						}
 						bottomTrees.push_back({firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)});
 						
-						
+						auto a3 = std::chrono::high_resolution_clock::now();
+						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 						
 						
 						if (listMap[secondListMapKey][iii*3+2]=="3" || listMap[firstListMapKey][ii*3+2]=="3"){
