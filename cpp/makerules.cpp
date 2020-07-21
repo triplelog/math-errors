@@ -4,6 +4,8 @@ bool solveConstraintFix(std::string input){
 	
 	std::string firstPart = "";
 	std::string secondPart = "";
+	std::string firstExp = "";
+	std::string secondExp = "";
 	char lastOp = '=';
 	bool inBrackets = false;
 	flat_hash_map<std::string,bool> expressionMap;
@@ -75,9 +77,25 @@ bool solveConstraintFix(std::string input){
 			
 		}
 	}
+	firstExp = firstPart + "@";
+	int idx = 0;
+	for (i=0;i<firstPart.length();i++){
+		if (firstPart.at(i) =='#'){
+			firstExp += operandList[idx]+"_";
+			idx++;
+		}
+	}
+	secondExp = secondPart + "@";
+	for (i=0;i<secondPart.length();i++){
+		if (secondPart.at(i) =='#'){
+			secondExp += operandList[idx]+"_";
+			idx++;
+		}
+	}
+	firstExp = removeBracketsOne(firstExp);
+	secondExp = removeBracketsOne(secondExp);
 	
-	
-	std::cout << "constraint: "<< input << " and " << firstPart << " and " << secondPart << " and " << lastOp << "\n";
+	std::cout << "constraint: "<< input << " and " << firstExp << " and " << secondExp << " and " << lastOp << "\n";
 	return true;
 }
 std::string constraintify(std::string input){
