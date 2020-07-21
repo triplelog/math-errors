@@ -93,7 +93,7 @@ bool solveConstraintFix(std::string input){
 	firstExp = removeBracketsOne(firstExp);
 	secondExp = removeBracketsOne(secondExp);
 	
-	//std::cout << "constraint: "<< input << " and " << firstExp << " and " << secondExp << " and " << lastOp << "\n";
+	std::cout << "constraint: "<< input << " and " << firstExp << " and " << secondExp << " and " << lastOp << "\n";
 	
 	if (lastOp == -94){ //does not contain--secondExp must be single operand
 		for (i=0;i<firstIdx;i++){
@@ -101,6 +101,7 @@ bool solveConstraintFix(std::string input){
 				return false;
 			}
 		}
+		std::cout << "was true" << "\n";
 		return true;
 	}
 	if (lastOp == -87){ //contains--secondExp must be single operand

@@ -2007,7 +2007,7 @@ std::string fullAnswer(std::string s, std::string a){
 	std::string mpf = postfixify(a);
 	std::string error = "Don't know.";
 	for (i=0;i<answerListMap[newPostfix].size();i++){
-		std::cout << "answer: " << answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] << "\n";
+		//std::cout << "answer: " << answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] << "\n";
 		if (answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] == mpf){
 			//TODO: grab the error
 			//TODO: send that info to node to display/add to database
