@@ -1754,6 +1754,7 @@ void makeTree(std::string pfstr){
 			std::string secondListMapKey = "";
 			
 			std::vector<std::string> fullTrees;
+			int ftSz = 0;
 			std::vector<std::vector<std::string>> someBottomTrees;
 			std::vector<std::vector<std::string>> prevBottomTrees;
 			int sbtSz = 0;
@@ -1784,7 +1785,7 @@ void makeTree(std::string pfstr){
 				}
 			}
 			
-			if (foundFullTrees && 2 == 3){
+			if (foundFullTrees){
 				listMap[inStr]=allListMapFull[inStr];
 				someBottomTrees = allListMapBottom[inStr];
 				sbtSz = someBottomTrees.size();
@@ -1896,6 +1897,7 @@ void makeTree(std::string pfstr){
 						}
 					}
 					someBottomTrees.resize(sbtSz+secondS.size()*firstS.size()*2);
+					fullTrees.resize(ftSz+secondS.size()*firstS.size()*3*3);
 					for (ii=0;ii<firstS.size();ii++){
 						if (listMap[firstListMapKey][ii*3+2]=="4"){
 							continue;
@@ -1909,18 +1911,23 @@ void makeTree(std::string pfstr){
 						
 							auto a2 = std::chrono::high_resolution_clock::now();
 							//condensed
-							fullTrees.push_back("#");
+							fullTrees[ftSz] = "#";
+							ftSz++;
 						
 							std::string bless = removeBracketsOne(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii]);
-							fullTrees.push_back("{"+bless+"}_");
+							fullTrees[ftSz] = "{"+bless+"}_";
+							ftSz++;
 							if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
-								fullTrees.push_back("2");
+								fullTrees[ftSz] = "2";
+								ftSz++;
 							}
 							else if (listMap[secondListMapKey][iii*3+2]=="1" || listMap[firstListMapKey][ii*3+2]=="1"){
-								fullTrees.push_back("1");
+								fullTrees[ftSz] = "1";
+								ftSz++;
 							}
 							else {
-								fullTrees.push_back("0");
+								fullTrees[ftSz] = "0";
+								ftSz++;
 							}
 						
 							auto a3 = std::chrono::high_resolution_clock::now();
@@ -1967,32 +1974,43 @@ void makeTree(std::string pfstr){
 						
 							a2 = std::chrono::high_resolution_clock::now();
 						
-							fullTrees.push_back(firstS[ii] + secondS[iii]  + pfstr.at(i));
-							fullTrees.push_back(firstT[ii] + secondT[iii]);
+							
+							fullTrees[ftSz] = firstS[ii] + secondS[iii]  + pfstr.at(i);
+							ftSz++;
+							fullTrees[ftSz] = firstT[ii] + secondT[iii];
+							ftSz++;
 							if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
-								fullTrees.push_back("3");
+								fullTrees[ftSz] = "3";
+								ftSz++;
 							}
 							else if (listMap[secondListMapKey][iii*3+2]=="1" || listMap[firstListMapKey][ii*3+2]=="1"){
-								fullTrees.push_back("2");
+								fullTrees[ftSz] = "2";
+								ftSz++;
 							}
 							else {
-								fullTrees.push_back("1");
+								fullTrees[ftSz] = "1";
+								ftSz++;
 							}
 						
 						
 						
 						
 							if (pfstr.at(i) == '+' || pfstr.at(i) == '*'){
-								fullTrees.push_back(secondS[iii] + firstS[ii]  + pfstr.at(i));
-								fullTrees.push_back(secondT[iii] + firstT[ii]);
+								fullTrees[ftSz] = secondS[iii] + firstS[ii]  + pfstr.at(i);
+								ftSz++;
+								fullTrees[ftSz] = secondT[iii] + firstT[ii];
+								ftSz++;
 								if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
-									fullTrees.push_back("3");
+									fullTrees[ftSz] = "3";
+									ftSz++;
 								}
 								else if (listMap[secondListMapKey][iii*3+2]=="1" || listMap[firstListMapKey][ii*3+2]=="1"){
-									fullTrees.push_back("2");
+									fullTrees[ftSz] = "2";
+									ftSz++;
 								}
 								else {
-									fullTrees.push_back("1");
+									fullTrees[ftSz] = "1";
+									ftSz++;
 								}
 							
 							
@@ -2008,6 +2026,7 @@ void makeTree(std::string pfstr){
 				}
 				else {
 					someBottomTrees.resize(sbtSz+secondS.size());
+					fullTrees.resize(ftSz+secondS.size()*2*3);
 					for (iii=0;iii<secondS.size();iii++){
 					
 						if (listMap[secondListMapKey][iii*3+2]=="4"){
@@ -2016,17 +2035,22 @@ void makeTree(std::string pfstr){
 					
 						auto a2 = std::chrono::high_resolution_clock::now();
 					
-						fullTrees.push_back("#");
+						fullTrees[ftSz] = "#";
+						ftSz++;
 						std::string bless = removeBracketsOne(secondS[iii] + pfstr.at(i) + '@' + secondT[iii]);
-						fullTrees.push_back("{"+bless+"}_");
+						fullTrees[ftSz] = "{"+bless+"}_";
+						ftSz++;
 						if (listMap[secondListMapKey][iii*3+2]=="2"){
-							fullTrees.push_back("2");
+							fullTrees[ftSz] = "2";
+							ftSz++;
 						}
 						else if (listMap[secondListMapKey][iii*3+2]=="1"){
-							fullTrees.push_back("1");
+							fullTrees[ftSz] = "1";
+							ftSz++;
 						}
 						else {
-							fullTrees.push_back("0");
+							fullTrees[ftSz] = "0";
+							ftSz++;
 						}
 					
 						auto a3 = std::chrono::high_resolution_clock::now();
@@ -2067,16 +2091,21 @@ void makeTree(std::string pfstr){
 						}
 					
 						a2 = std::chrono::high_resolution_clock::now();
-						fullTrees.push_back(secondS[iii] + pfstr.at(i));
-						fullTrees.push_back(secondT[iii]);
+						fullTrees[ftSz] = secondS[iii] + pfstr.at(i);
+						ftSz++;
+						fullTrees[ftSz] = secondT[iii];
+						ftSz++;
 						if (listMap[secondListMapKey][iii*3+2]=="2"){
-							fullTrees.push_back("3");
+							fullTrees[ftSz] = "3";
+							ftSz++;
 						}
 						else if (listMap[secondListMapKey][iii*3+2]=="1"){
-							fullTrees.push_back("2");
+							fullTrees[ftSz] = "2";
+							ftSz++;
 						}
 						else {
-							fullTrees.push_back("1");
+							fullTrees[ftSz] = "1";
+							ftSz++;
 						}
 					
 						a3 = std::chrono::high_resolution_clock::now();
@@ -2100,7 +2129,7 @@ void makeTree(std::string pfstr){
 				//Parent Node
 				std::string opStr = "";
 				opStr += pfstr.at(i);
-			
+				fullTrees.resize(ftSz);
 				listMap[fullStr]=fullTrees;
 				allListMapFull[fullStr]=fullTrees;
 				someBottomTrees.resize(sbtSz);
@@ -2114,7 +2143,7 @@ void makeTree(std::string pfstr){
 			bottomTrees.resize(btSz+sbtSz);
 			for (ii=0;ii<sbtSz;ii++){
 				bottomTrees[btSz] = someBottomTrees[ii];
-				if (foundFullTrees && 2 == 3){
+				if (foundFullTrees){
 					std::string tempFull = pfstr;
 					int iiiii; int operandIdx = -1; int startRightIndex = -1;
 					for (iiiii=0;iiiii<tempFull.length();iiiii++){
