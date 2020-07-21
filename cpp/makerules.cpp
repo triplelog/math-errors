@@ -82,6 +82,7 @@ bool solveConstraintFix(std::string input){
 			idx++;
 		}
 	}
+	int firstIdx = idx;
 	secondExp = secondPart + "@";
 	for (i=0;i<secondPart.length();i++){
 		if (secondPart.at(i) =='#'){
@@ -93,7 +94,26 @@ bool solveConstraintFix(std::string input){
 	secondExp = removeBracketsOne(secondExp);
 	
 	std::cout << "constraint: "<< input << " and " << firstExp << " and " << secondExp << " and " << lastOp << "\n";
-	return true;
+	
+	if (lastOp == -94){ //does not contain--secondExp must be single operand
+		for (i=0;i<firstIdx;i++){
+			if (operandList[i]==operandList[firstIdx]){
+				return false;
+			}
+		}
+		return true;
+	}
+	if (lastOp == -87){ //contains--secondExp must be single operand
+		for (i=0;i<firstIdx;i++){
+			if (operandList[i]==operandList[firstIdx]){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	return false;
 }
 std::string constraintify(std::string input){
 	int i;
