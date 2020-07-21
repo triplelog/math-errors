@@ -2106,7 +2106,7 @@ void makeTree(std::string pfstr){
 			
 		}
 		else {
-			allListMap["#@" + originalMap[idx] + "_"]={"#",originalMap[idx]+'_',"0"};
+			listMap["#@" + originalMap[idx] + "_"]={"#",originalMap[idx]+'_',"0"};
 			operandMap[i]=idx;
 			idx++;
 		}
