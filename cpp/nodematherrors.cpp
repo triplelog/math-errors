@@ -2033,6 +2033,7 @@ void getAnswerList(std::string s,bool isCorrect) {
 	answerList.push_back({newPostfix});
 	for (ii=0;ii<allStrings.size();ii++){
 		std::vector<std::vector<std::string>> tailAnswerList;
+		auto a1 = std::chrono::high_resolution_clock::now();
 		if (answerListMap.find(allStrings[ii]) != answerListMap.end()){
 			tailAnswerList = answerListMap[allStrings[ii]];
 		}
@@ -2040,7 +2041,7 @@ void getAnswerList(std::string s,bool isCorrect) {
 			getAnswerList(allStrings[ii],isCorrect);
 			tailAnswerList = answerListMap[allStrings[ii]];
 		}
-		auto a1 = std::chrono::high_resolution_clock::now();
+		
 		for (iii=0;iii<tailAnswerList.size();iii++){
 			if (tailAnswerList[iii].size()<maxSteps){
 				std::vector<std::string> oneAnswer;
