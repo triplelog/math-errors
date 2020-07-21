@@ -2009,7 +2009,11 @@ void getAnswerList(std::string s,bool isCorrect) {
 std::string fullAnswer(std::string s, std::string a){
 	std::string newPostfix = removeBracketsOne(postfixify(s));
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
+	auto a1 = std::chrono::high_resolution_clock::now();
+	
 	getAnswerList(newPostfix,false);
+	auto a2 = std::chrono::high_resolution_clock::now();
+	duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << answerListMap[newPostfix].size() << "\n\n\n";
 	int i; int ii;
 	std::string mpf = postfixify(a);
@@ -2077,12 +2081,18 @@ void GetAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::string astr(*sa);
 	std::cout << "input: "<< str << "\n";
 	jsonmessage = "";
+	auto a1 = std::chrono::high_resolution_clock::now();
 	bool isCorrect = correctAnswer(str,astr);
+	auto a2 = std::chrono::high_resolution_clock::now();
+	duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	std::cout << "Time to correct: " << duration2 << "\n";
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	std::string error = "None!";
 	if (!isCorrect){
 		error = fullAnswer(str,astr);
+		
 	}
+	std::cout << "Time to error: " << duration1 << "\n";
 	//std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	std::cout << "Error: " << error << "\n";
 	
