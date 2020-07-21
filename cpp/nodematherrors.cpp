@@ -1036,7 +1036,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 						std::string tempFull = pfstr;
 						int iiiii; int operandIdx = -1; int startRightIndex = -1; int rightLength= 0;
 						
-						auto a2 = std::chrono::high_resolution_clock::now();
+						
 						
 						for (iiiii=0;iiiii<tempFull.length();iiiii++){
 							if (tempFull.at(iiiii) == '_'){
@@ -1059,6 +1059,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 								rightLength++;
 							}
 						}
+						auto a2 = std::chrono::high_resolution_clock::now();
 						bottomTrees.push_back({firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)});
 						
 						auto a3 = std::chrono::high_resolution_clock::now();
