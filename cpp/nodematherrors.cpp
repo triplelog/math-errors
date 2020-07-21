@@ -2895,8 +2895,12 @@ void getAnswerList(std::string s,bool isCorrect) {
 	newPostfix = removeBracketsOne(newPostfix);
 	
 	//std::cout << s << " before pl\n";
-	makeTree(newPostfix);
 	auto a1 = std::chrono::high_resolution_clock::now();
+	makeTree(newPostfix);
+	auto a2 = std::chrono::high_resolution_clock::now();
+	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	duration1 += dd1;
+	std::cout << dd1 << "  ";
 	//std::cout << s << " after pl\n";
 
 	std::vector<std::string> allStrings; //vector of the next step
@@ -2911,8 +2915,7 @@ void getAnswerList(std::string s,bool isCorrect) {
 
 	answerList.push_back({newPostfix});
 	
-	auto a2 = std::chrono::high_resolution_clock::now();
-	duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	
 	
 	
 	for (ii=0;ii<allStrings.size();ii++){
