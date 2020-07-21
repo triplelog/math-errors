@@ -1024,7 +1024,30 @@ std::vector<std::string> makeTree(std::string pfstr){
 				std::string nFirst = "0";
 				std::string nSecond = "0";	
 				std::cout << "new size: " << fss << " * " << sss << " by " << firstStr + secondStr + pfstr.at(i) + "@" + firstTtr + secondTtr << "\n";
-				fullTrees.resize(ftSz+sss*fss*3*5);
+				fullTrees.resize(ftSz+5+sss*fss*2*5);
+				//condensed
+				fullTrees[ftSz] = "#";
+				ftSz++;
+
+				std::string bless = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
+
+			
+				fullTrees[ftSz] = "{"+bless+"}_";
+				ftSz++;
+				fullTrees[ftSz] = "0";
+				ftSz++;
+				
+				fullTrees[ftSz] = firstStr + secondStr + pfstr.at(i);
+				ftSz++;
+				fullTrees[ftSz] = firstTtr + secondTtr;
+				ftSz++;
+				
+				
+				
+				//50 ms to here from recent continue
+
+				
+				
 				for (ii=0;ii<fss;ii++){
 					nFirst = listMap[firstListMapKey][ii*5+2];
 					if (nFirst=="4"){
@@ -1042,41 +1065,14 @@ std::vector<std::string> makeTree(std::string pfstr){
 						//2 ms
 						
 						
-						//condensed
-						fullTrees[ftSz] = "#";
-						ftSz++;
-
-						std::string bless = firstSBL[ii] + secondSBL[iii] + pfstr.at(i) + '@' + firstTBL[ii] + secondTBL[iii];
-
-					
-						fullTrees[ftSz] = "{"+bless+"}_";
-						ftSz++;
-						if (nSecond=="2" || nFirst=="2"){
-							fullTrees[ftSz] = "2";
-							ftSz++;
+						if (nSecond=="3" || nFirst=="3"){
+							
+							continue;
 						}
-						else if (nSecond=="1" || nFirst=="1"){
-							fullTrees[ftSz] = "1";
-							ftSz++;
-						}
-						else {
-							fullTrees[ftSz] = "0";
-							ftSz++;
-						}
-						fullTrees[ftSz] = firstSBL[ii] + secondSBL[iii] + pfstr.at(i);
-						ftSz++;
-						fullTrees[ftSz] = firstTBL[ii] + secondTBL[iii];
-						ftSz++;
-						
-						//50 ms to here from recent continue
-						
-				
-						//std::cout << "possible part: " << firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
-						
 						
 						std::string tempFull = pfstr;
 						int iiiii; int operandIdx = -1; int startRightIndex = -1; int rightLength= 0;
-				
+		
 						for (iiiii=0;iiiii<tempFull.length();iiiii++){
 							if (tempFull.at(iiiii) == '_'){
 								operandIdx++;
@@ -1098,31 +1094,14 @@ std::vector<std::string> makeTree(std::string pfstr){
 								rightLength++;
 							}
 						}
-						
-						
-				
-						
+
 						std::vector<int> tempV;
 						tempV = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
-						
-						
-						
-						//bottomTreesString[btSz]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
-						//bottomTreesIndex[btSz]= tempV;
-						//btSz++;
+
 						std::vector<std::string> someStrings = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						int iiiiii;
 						for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
 							returnStrings.push_back(someStrings[iiiiii]);
-						}
-						//50 ms to here from recent continue
-						
-				
-						
-						
-						if (nSecond=="3" || nFirst=="3"){
-							
-							continue;
 						}
 
 						
@@ -1143,7 +1122,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 								numOperations++;
 							}
 						}
-						if (numOperations > 3){
+						if (numOperations > 10){
 							continue;
 						}
 						
@@ -1222,7 +1201,24 @@ std::vector<std::string> makeTree(std::string pfstr){
 			else {
 				//bottomTreesString.resize(btSz+secondS.size());
 				//bottomTreesIndex.resize(btSz+secondS.size());
-				fullTrees.resize(ftSz+secondS.size()*2*5);
+				fullTrees.resize(ftSz+5+secondS.size()*1*5);
+				
+				fullTrees[ftSz] = "#";
+				ftSz++;
+
+				std::string bless = secondStr + pfstr.at(i) + '@' + secondTtr;
+
+			
+				fullTrees[ftSz] = "{"+bless+"}_";
+				ftSz++;
+				fullTrees[ftSz] = "0";
+				ftSz++;
+				
+				fullTrees[ftSz] = secondStr + pfstr.at(i);
+				ftSz++;
+				fullTrees[ftSz] = secondTtr;
+				ftSz++;
+				
 				for (iii=0;iii<secondS.size();iii++){
 				
 					if (listMap[secondListMapKey][iii*5+2]=="4"){
@@ -1230,29 +1226,15 @@ std::vector<std::string> makeTree(std::string pfstr){
 					}
 				
 					
-				
-					fullTrees[ftSz] = "#";
-					ftSz++;
-					std::string bless = secondSBL[iii] + pfstr.at(i) + '@' + secondTBL[iii];
-					fullTrees[ftSz] = "{"+bless+"}_";
-					ftSz++;
-					if (listMap[secondListMapKey][iii*5+2]=="2"){
-						fullTrees[ftSz] = "2";
-						ftSz++;
-					}
-					else if (listMap[secondListMapKey][iii*5+2]=="1"){
-						fullTrees[ftSz] = "1";
-						ftSz++;
-					}
-					else {
-						fullTrees[ftSz] = "0";
-						ftSz++;
-					}
-					fullTrees[ftSz] = secondSBL[iii] + pfstr.at(i);
-					ftSz++;
-					fullTrees[ftSz] = secondTBL[iii];
-					ftSz++;
 					
+					
+					
+				
+				
+				
+					if (listMap[secondListMapKey][iii*5+2]=="3"){
+						continue;
+					}
 					
 					//std::cout << "possible part: " << secondS[iii] + pfstr.at(i) + '@' + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
 				
@@ -1287,12 +1269,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 					for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
 						returnStrings.push_back(someStrings[iiiiii]);
 					}
-				
-				
-				
-					if (listMap[secondListMapKey][iii*5+2]=="3"){
-						continue;
-					}
+					
 					
 					int numOperations = 0; int ni;
 					for (ni=0;ni<secondS[iii].size();ni++){
@@ -1303,7 +1280,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 							numOperations++;
 						}
 					}
-					if (numOperations > 3){
+					if (numOperations > 10){
 						continue;
 					}
 					
