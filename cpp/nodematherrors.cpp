@@ -1103,7 +1103,7 @@ void makeTree(std::string pfstr){
 							continue;
 						}
 
-						auto a2 = std::chrono::high_resolution_clock::now();
+						
 						
 						fullTrees[ftSz] = firstS[ii] + secondS[iii]  + pfstr.at(i);
 						ftSz++;
@@ -1125,9 +1125,10 @@ void makeTree(std::string pfstr){
 						ftSz++;
 						fullTrees[ftSz] = firstTBL[ii] + secondTBL[iii];
 						ftSz++;
-				
-						auto a3 = std::chrono::high_resolution_clock::now();
-						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+						
+						//18 ms to here from recent continue
+						auto a2 = std::chrono::high_resolution_clock::now();
+						
 				
 				
 						if (pfstr.at(i) == '+' || pfstr.at(i) == '*'){
@@ -1157,6 +1158,8 @@ void makeTree(std::string pfstr){
 							bottomTreesIndex[btSz] = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
 							btSz++;
 						}
+						auto a3 = std::chrono::high_resolution_clock::now();
+						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 					}
 				}
 				
