@@ -2040,6 +2040,7 @@ void getAnswerList(std::string s,bool isCorrect) {
 			getAnswerList(allStrings[ii],isCorrect);
 			tailAnswerList = answerListMap[allStrings[ii]];
 		}
+		auto a1 = std::chrono::high_resolution_clock::now();
 		for (iii=0;iii<tailAnswerList.size();iii++){
 			if (tailAnswerList[iii].size()<maxSteps){
 				std::vector<std::string> oneAnswer;
@@ -2058,6 +2059,8 @@ void getAnswerList(std::string s,bool isCorrect) {
 				
 			}
 		}
+		auto a2 = std::chrono::high_resolution_clock::now();
+		duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	
 	}
 
