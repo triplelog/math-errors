@@ -951,28 +951,27 @@ std::vector<std::string> makeTree(std::string pfstr){
 			
 			if (mychar != '-' && mychar != '/' && (mychar >= 0 || mychar <= -69 )){ // Is at least binary function
 				
-				int startSub = subExpressions[i-1];
-				for (ii=startSub;ii<maxi;ii++){
-					std::string s = "";
-					std::string t = "";
-					for (iii=ii;iii<maxi;iii++){
-						s += pfstr.at(iii);
-						if (pfstr.at(iii) == '#'){
-							t += operandMap[iii] + '_';
-						}
+				int startSub = subExpressions[maxi];
+				std::string s = "";
+				std::string t = "";
+				for (iii=startSub;iii<maxi;iii++){
+					s += pfstr.at(iii);
+					if (pfstr.at(iii) == '#'){
+						t += operandMap[iii] + '_';
 					}
-					firstListMapKey = s + "@" + t;
-					firstStr = s;
-					firstTtr = t;
-					firstS.resize(listMap[s+'@'+t].size()/3);
-					firstT.resize(listMap[s+'@'+t].size()/3);
-					for (iii=0;iii<listMap[s+'@'+t].size()/3;iii++){
-						firstS[iii]=listMap[s+'@'+t][iii*3];
-						firstT[iii]=listMap[s+'@'+t][iii*3+1];
-					}
-					startLeftIndex = ii;
-					startRightOperand = std::stoi(operandMap[startSub]);
 				}
+				firstListMapKey = s + "@" + t;
+				firstStr = s;
+				firstTtr = t;
+				firstS.resize(listMap[s+'@'+t].size()/3);
+				firstT.resize(listMap[s+'@'+t].size()/3);
+				for (iii=0;iii<listMap[s+'@'+t].size()/3;iii++){
+					firstS[iii]=listMap[s+'@'+t][iii*3];
+					firstT[iii]=listMap[s+'@'+t][iii*3+1];
+				}
+				startLeftIndex = ii;
+				startRightOperand = std::stoi(operandMap[startSub]);
+				
 				/*
 				for (ii=0;ii<maxi;ii++){
 					std::string s = "";
