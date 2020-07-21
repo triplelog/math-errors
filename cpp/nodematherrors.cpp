@@ -2783,6 +2783,7 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 					tempTemp.replace(std::stoi(bottomTrees[ii][3]),std::stoi(bottomTrees[ii][4])+1,newPostfixSecond);
 					//std::cout << "userFullString: "<< userFullString << "\n";
 					tempTemp.replace(std::stoi(bottomTrees[ii][1]),std::stoi(bottomTrees[ii][2]),newPostfixFirst);
+					std::cout << bottomTrees[ii][1] << " bb " << bottomTrees[ii][2] << " c " << bottomTrees[ii][3] << " d " << bottomTrees[ii][4] << "\n";
 					tempTemp = removeBracketsOne(tempTemp);
 					newStrings.push_back(tempTemp);
 					allStrings.push_back(tempTemp);
