@@ -848,7 +848,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	std::string currentOperator = "";
 	int iidx = 0;
 	bool midBrackets = false;
-	auto a1 = std::chrono::high_resolution_clock::now();
+	
 	
 	for (i=0;i<pfstr.length();i++){
 		if (pfstr.at(i) == '@'){
@@ -879,8 +879,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		}
 	}
 	
-	auto a2 = std::chrono::high_resolution_clock::now();
-	duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	
     
     
     
@@ -898,6 +897,8 @@ std::vector<std::string> makeTree(std::string pfstr){
 			std::string secondStr = "";
 			std::string secondTtr = "";
 			std::string secondListMapKey = "";
+			
+			auto a1 = std::chrono::high_resolution_clock::now();
 			
 			int maxi = i-1;
 			int startLeftIndex = maxi;
@@ -937,6 +938,10 @@ std::vector<std::string> makeTree(std::string pfstr){
 					break;
 				}
 			}
+			
+			auto a2 = std::chrono::high_resolution_clock::now();
+			duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	
 			std::vector<std::string> firstS;
 			std::vector<std::string> firstT;
 			std::string firstStr = "";
@@ -1156,6 +1161,10 @@ std::vector<std::string> makeTree(std::string pfstr){
 					//iidx++;
 				}
 			}
+			
+			auto a3 = std::chrono::high_resolution_clock::now();
+			duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+	
 			//std::cout << "fullTrees size: " << fullTrees.size() << " @ " << i << "\n";
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
 			
@@ -1189,8 +1198,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		
 	}
 		
-	auto a3 = std::chrono::high_resolution_clock::now();
-	duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+	
 	//std::cout << "\n\n---start Original-----\n";
 	int iiii;
 	
@@ -1199,6 +1207,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	//}
 	
 	//std::cout << "\n\n---start Bracketless-----\n";
+	auto a3 = std::chrono::high_resolution_clock::now();
 	flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
 	
 	auto a4 = std::chrono::high_resolution_clock::now();
