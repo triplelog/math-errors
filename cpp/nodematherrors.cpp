@@ -2013,11 +2013,11 @@ void getAnswerList(std::string s,bool isCorrect) {
 
 	int maxSteps = 10;
 	newPostfix = removeBracketsOne(newPostfix);
-	//auto a1 = std::chrono::high_resolution_clock::now();
+	auto a1 = std::chrono::high_resolution_clock::now();
 	//std::cout << s << " before pl\n";
 	std::vector<std::string> postList = makeTree(newPostfix);
-	//auto a2 = std::chrono::high_resolution_clock::now();
-	//duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	auto a2 = std::chrono::high_resolution_clock::now();
+	duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	//std::cout << s << " after pl\n";
 
 	std::vector<std::string> allStrings; //vector of the next step
@@ -2031,7 +2031,7 @@ void getAnswerList(std::string s,bool isCorrect) {
 	}
 
 	answerList.push_back({newPostfix});
-	auto a1 = std::chrono::high_resolution_clock::now();
+
 	for (ii=0;ii<allStrings.size();ii++){
 		std::vector<std::vector<std::string>> tailAnswerList;
 		
@@ -2064,8 +2064,7 @@ void getAnswerList(std::string s,bool isCorrect) {
 		
 	
 	}
-	auto a2 = std::chrono::high_resolution_clock::now();
-	duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+
 
 		
 	answerListMap[newPostfix] = answerList;
