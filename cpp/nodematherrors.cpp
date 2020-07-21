@@ -1757,13 +1757,19 @@ void makeTree(std::string pfstr){
 			int sbtSz = 0;
 			bool foundFullTrees = false;
 			std::string inStr = "";
+			int prevLeftIndex = 0;
+			int prevRightOperand = 0;
 			for (ii=0;ii<i+1;ii++){
 				std::string s = "";
 				std::string t = "";
+				prevRightOperand = 10000;
 				for (iii=ii;iii<i+1;iii++){
 					s += pfstr.at(iii);
 					if (pfstr.at(iii) == '#'){
 						t += originalMap[operandMap[iii]] + '_';
+						if (operandMap[iii]<prevRightIndex){
+							prevRightOperand = operandMap[iii];
+						}
 					}
 				}
 				if (allListMapBottom.find(s + '@' + t) != allListMapBottom.end()){
@@ -1771,6 +1777,7 @@ void makeTree(std::string pfstr){
 					//someBottomTrees = allListMapBottom[s + '@' + t];
 					foundFullTrees = true;
 					inStr = s + "@" + t;
+					prevLeftIndex = ii;
 					break;
 				}
 			}
@@ -2105,16 +2112,30 @@ void makeTree(std::string pfstr){
 			for (ii=0;ii<sbtSz;ii++){
 				bottomTrees[btSz] = someBottomTrees[ii];
 				if (foundFullTrees){
+					std::string tempFull = pfstr;
+					int operandIdx = -1; int startRightIndex = -1;
+					for (iiiii=0;iiiii<tempFull.length();iiiii++){
+						if (tempFull.at(iiiii) == '_'){
+							operandIdx++;
+						}
+						else if (tempFull.at(iiiii) == '@'){
+							operandIdx++;
+						}
+						else if (operandIdx==prevRightOperand){
+							startRightIndex = iiiii;
+							break;
+						}
+					}
 					if (someBottomTrees[ii][0] != prevBottomTrees[ii][0]){
 						std::cout << "0";
 					}
-					if (someBottomTrees[ii][1] != prevBottomTrees[ii][1]){
+					if (someBottomTrees[ii][1] != prevLeftIndex){
 						std::cout << "1";
 					}
 					if (someBottomTrees[ii][2] != prevBottomTrees[ii][2]){
 						std::cout << "2";
 					}
-					if (someBottomTrees[ii][3] != prevBottomTrees[ii][3]){
+					if (someBottomTrees[ii][3] != startRightIndex){
 						std::cout << "3";
 					}
 					if (someBottomTrees[ii][4] != prevBottomTrees[ii][4]){
