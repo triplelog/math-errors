@@ -2519,23 +2519,12 @@ std::string fullAnswer(std::string s, std::string a){
 	std::string mpf = postfixify(a);
 	std::string error = "Don't know.";
 	int ui = 0;
-	flat_hash_map<std::string,int> uniqueAnswers;
 	for (i=0;i<answerListMap[newPostfix].size();i++){
 		std::cout << "answers: " << answerListMap[newPostfix][i] << "\n";
-		if (uniqueAnswers.find(answerListMap[newPostfix][i]) != uniqueAnswers.end()){
-			uniqueAnswers[answerListMap[newPostfix][i]]++;
-		}
-		else {
-			uniqueAnswers[answerListMap[newPostfix][i]]=1;
-			ui++;
-		}
-		
-		if (answerListMap[newPostfix][i] == mpf){
-			//TODO: grab the error
-			//TODO: send that info to node to display/add to database
-			error = "Found";
-		}
-		
+
+	}
+	if (answerListMap.find(mpf) != answerListMap.end()){
+		error = "Found";
 	}
 	std::cout << "n maybe wrong answers: " << i  << " and unique: " << ui << "\n";
 	return error;
@@ -2558,21 +2547,12 @@ bool correctAnswer(std::string s, std::string a){
 	int minIdx = 0;
 	bool isCorrect = false;
 	int ui = 0;
-	flat_hash_map<std::string,int> uniqueAnswers;
 	for (i=0;i<answerListMap[newPostfix].size();i++){
 		std::cout << "corrects: " << answerListMap[newPostfix][i] << "\n";
-		if (uniqueAnswers.find(answerListMap[newPostfix][i]) != uniqueAnswers.end()){
-			uniqueAnswers[answerListMap[newPostfix][i]]++;
-		}
-		else {
-			uniqueAnswers[answerListMap[newPostfix][i]]=1;
-			ui++;
-			std::cout << answerListMap[newPostfix][i] << "\n";
-		}
-		
-		if (answerListMap[newPostfix][i] == mpf){
-			isCorrect = true;
-		}
+
+	}
+	if (answerListMap.find(mpf) != answerListMap.end()){
+		isCorrect = true;
 	}
 	std::cout << "your answer: " << mpf << "\n";
 	std::cout << "n answers: " << i  << " and unique: " << ui << "\n";
