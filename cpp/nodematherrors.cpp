@@ -2051,9 +2051,9 @@ void initialRun(){
 	auto t2 = std::chrono::high_resolution_clock::now();
 }
 
-flat_hash_map<std::string,std::vector<std::vector<std::string>>> answerListMap;
+flat_hash_map<std::string,std::vector<std::string>> answerListMap;
 
-void getAnswerList(std::string s,bool isCorrect) {
+void getAnswerListOld(std::string s,bool isCorrect, int nSteps) {
 
 	
 	
@@ -2138,11 +2138,80 @@ void getAnswerList(std::string s,bool isCorrect) {
 	answerListMap[newPostfix] = answerList;
 }
 
+void getAnswerList(std::string s,bool isCorrect, int nSteps) {
+
+	
+	
+	//std::cout << s << "\n";
+	int i;
+	int ii;
+	int iii;
+	int iiii;
+
+	jsonmessage = "";
+	std::string pfstr = s;
+	//std::cout << pfstr << '\n';
+
+
+	std::string newPostfix = pfstr;
+
+	int maxSteps = 10;
+	newPostfix = removeBracketsOne(newPostfix);
+	
+	//std::cout << s << " before pl\n";
+	auto a1 = std::chrono::high_resolution_clock::now();
+	makeTree(newPostfix);
+	auto a2 = std::chrono::high_resolution_clock::now();
+	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	duration1 += dd1;
+	//std::cout << dd1 << "  ";
+	//std::cout << s << " after pl\n";
+
+	std::vector<std::string> allStrings; //vector of the next step
+	
+	std::vector<std::string> someStrings = applyRulesVector(newPostfix,isCorrect);
+	//std::cout << s << " andand " << someStrings.size() << "\n";
+	flat_hash_map<std::string,bool> uniqueStrings;
+	for (iii=0;iii<someStrings.size();iii++){
+		//std::cout << someStrings[iii] << "\n";
+		someStrings[iii] = removeBracketsOne(someStrings[iii]);
+		if (uniqueStrings.find(someStrings[iii]) != uniqueStrings.end()){
+		
+		}
+		else {
+			allStrings.push_back(someStrings[iii]);
+			uniqueStrings[someStrings[iii]]=true;
+		}
+		
+	}
+
+	
+	
+	
+	answerListMap[newPostfix] = allStrings;
+	
+	for (ii=0;ii<allStrings.size();ii++){
+		
+		if (answerListMap.find(allStrings[ii]) != answerListMap.end()){
+		
+		}
+		else {
+			getAnswerList(allStrings[ii],isCorrect,nSteps+1);
+		}
+		
+	
+	}
+
+
+		
+	
+}
+
 std::string fullAnswer(std::string s, std::string a){
 	std::string newPostfix = removeBracketsOne(postfixify(s));
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
 	auto a1 = std::chrono::high_resolution_clock::now();
-	getAnswerList(newPostfix,false);
+	getAnswerList(newPostfix,false,0);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	//duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << answerListMap[newPostfix].size() << "\n\n\n";
@@ -2153,15 +2222,15 @@ std::string fullAnswer(std::string s, std::string a){
 	flat_hash_map<std::string,int> uniqueAnswers;
 	for (i=0;i<answerListMap[newPostfix].size();i++){
 		//std::cout << "answer: " << answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] << "\n";
-		if (uniqueAnswers.find(answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1]) != uniqueAnswers.end()){
-			uniqueAnswers[answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1]]++;
+		if (uniqueAnswers.find(answerListMap[newPostfix][i]) != uniqueAnswers.end()){
+			uniqueAnswers[answerListMap[newPostfix][i]]++;
 		}
 		else {
-			uniqueAnswers[answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1]]=1;
+			uniqueAnswers[answerListMap[newPostfix][i]]=1;
 			ui++;
 		}
 		
-		if (answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] == mpf){
+		if (answerListMap[newPostfix][i] == mpf){
 			//TODO: grab the error
 			//TODO: send that info to node to display/add to database
 			error = "Found";
@@ -2177,7 +2246,7 @@ bool correctAnswer(std::string s, std::string a){
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
 	mapSave = 0; mapMake = 0;
 	auto a1 = std::chrono::high_resolution_clock::now();
-	getAnswerList(newPostfix,true);
+	getAnswerList(newPostfix,true,0);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	//duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << answerListMap[newPostfix].size() << "\n\n\n";
@@ -2191,19 +2260,15 @@ bool correctAnswer(std::string s, std::string a){
 	flat_hash_map<std::string,int> uniqueAnswers;
 	for (i=0;i<answerListMap[newPostfix].size();i++){
 		//std::cout << "correct: " << answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] << "\n";
-		if (uniqueAnswers.find(answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1]) != uniqueAnswers.end()){
-			uniqueAnswers[answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1]]++;
+		if (uniqueAnswers.find(answerListMap[newPostfix][i]) != uniqueAnswers.end()){
+			uniqueAnswers[answerListMap[newPostfix][i]]++;
 		}
 		else {
-			uniqueAnswers[answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1]]=1;
+			uniqueAnswers[answerListMap[newPostfix][i]]=1;
 			ui++;
-			std::cout << answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] << "\n";
+			std::cout << answerListMap[newPostfix][i] << "\n";
 		}
 		
-		if (answerListMap[newPostfix][i].size() > 1 && answerListMap[newPostfix][i].size()<minLen){
-			minLen = answerListMap[newPostfix][i].size();
-			minIdx = i;
-		}
 		if (answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] == mpf){
 			isCorrect = true;
 		}
@@ -2212,10 +2277,10 @@ bool correctAnswer(std::string s, std::string a){
 	std::cout << "n answers: " << i  << " and unique: " << ui << "\n";
 
 	jsonmessage = "";
-	for (ii=0;ii<answerListMap[newPostfix][minIdx].size();ii++){
-		std::cout << minIdx << " with " << answerListMap[newPostfix][minIdx][ii] << "\n";
+	for (ii=0;ii<answerListMap[newPostfix].size();ii++){
+		//std::cout << minIdx << " with " << answerListMap[newPostfix][minIdx][ii] << "\n";
 		
-		outputTree(answerListMap[newPostfix][minIdx][ii]);
+		outputTree(answerListMap[newPostfix][ii]);
 	}
 	return isCorrect;
 }
