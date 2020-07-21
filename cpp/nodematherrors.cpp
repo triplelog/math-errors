@@ -1279,7 +1279,7 @@ void makeTreeOld(std::string pfstr){
 
 void makeTree(std::string pfstr){
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
-	flat_hash_map<int,std::string> operandMap;
+	flat_hash_map<int,int> operandMap;
 	flat_hash_map<int,std::string> originalMap;
 	flat_hash_map<int,int> subExpressions;
     
@@ -1351,12 +1351,12 @@ void makeTree(std::string pfstr){
 				for (iii=ii;iii<i;iii++){
 					s += pfstr.at(iii);
 					if (pfstr.at(iii) == '#'){
-						t += operandMap[iii] + '_';
-						if (std::stoi(operandMap[iii])<tempStartRightOperand){
-							tempStartRightOperand = std::stoi(operandMap[iii]);
+						t += originalMap[operandMap[iii]] + '_';
+						if (operandMap[iii]<tempStartRightOperand){
+							tempStartRightOperand = operandMap[iii];
 						}
-						if (std::stoi(operandMap[iii])>tempEndRightOperand){
-							tempEndRightOperand = std::stoi(operandMap[iii]);
+						if (operandMap[iii]>tempEndRightOperand){
+							tempEndRightOperand = operandMap[iii];
 						}
 					}
 				}
@@ -1419,9 +1419,9 @@ void makeTree(std::string pfstr){
 					for (iii=ii;iii<maxi;iii++){
 						s += pfstr.at(iii);
 						if (pfstr.at(iii) == '#'){
-							t += operandMap[iii] + '_';
-							if (std::stoi(operandMap[iii])<tempStartRightOperand){
-								tempStartRightOperand = std::stoi(operandMap[iii]);
+							t += originalMap[operandMap[iii]] + '_';
+							if (operandMap[iii]<tempStartRightOperand){
+								tempStartRightOperand = operandMap[iii];
 							}
 						}
 					}
@@ -1659,7 +1659,7 @@ void makeTree(std::string pfstr){
 		}
 		else {
 			listMap["#@" + originalMap[idx] + "_"]={"#",originalMap[idx]+'_',"0"};
-			operandMap[i]=originalMap[idx];
+			operandMap[i]=idx;
 			idx++;
 		}
 		
