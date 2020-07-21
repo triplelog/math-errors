@@ -2037,7 +2037,7 @@ bool correctAnswer(std::string s, std::string a){
 	int minIdx = 0;
 	bool isCorrect = false;
 	for (i=0;i<answerListMap[newPostfix].size();i++){
-		std::cout << "correct: " << answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] << "\n";
+		//std::cout << "correct: " << answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] << "\n";
 		if (answerListMap[newPostfix][i].size() > 1 && answerListMap[newPostfix][i].size()<minLen){
 			minLen = answerListMap[newPostfix][i].size();
 			minIdx = i;
