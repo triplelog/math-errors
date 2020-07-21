@@ -1750,7 +1750,7 @@ void makeTree(std::string pfstr){
 			break;
 		}
 		else if (mychar != '#'){
-			auto a1 = std::chrono::high_resolution_clock::now();
+			
 			
 			std::vector<std::string> secondS;
 			std::vector<std::string> secondT;
@@ -1811,8 +1811,8 @@ void makeTree(std::string pfstr){
 					break;
 				}
 			}
-			auto a2 = std::chrono::high_resolution_clock::now();
-			duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+			
+			
 	
 
 			std::vector<std::string> firstS;
@@ -1861,6 +1861,7 @@ void makeTree(std::string pfstr){
 						break;
 					}
 				}
+				auto a2 = std::chrono::high_resolution_clock::now();
 				bottomTrees.resize(btSz+secondS.size()*firstS.size()*2);
 				fullTrees.resize(ftSz+secondS.size()*firstS.size()*3*5);
 				for (ii=0;ii<firstS.size();ii++){
@@ -1995,6 +1996,8 @@ void makeTree(std::string pfstr){
 						}
 					}
 				}
+				auto a3 = std::chrono::high_resolution_clock::now();
+				duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 			
 			
 			}
@@ -2098,7 +2101,6 @@ void makeTree(std::string pfstr){
 		
 
 			auto a3 = std::chrono::high_resolution_clock::now();
-			duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 
 			//std::cout << "fullTrees size: " << fullTrees.size() << " @ " << i << "\n";
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
@@ -2117,6 +2119,9 @@ void makeTree(std::string pfstr){
 			subExpressions[i]=startLeftIndex;
 
 			bottomTrees.resize(btSz);
+			
+			auto a4 = std::chrono::high_resolution_clock::now();
+			duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a4 - a3 ).count();
 
 			
 		}
