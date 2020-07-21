@@ -2171,7 +2171,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	//std::cout << s << " after pl\n";
 
 	std::vector<std::string> allStrings; //vector of the next step
-	
+	std::cout << bottomTreesString.size() << "\n";
 	std::vector<std::string> someStrings = applyRulesVector(newPostfix,isCorrect);
 	//std::cout << s << " andand " << someStrings.size() << "\n";
 	flat_hash_map<std::string,bool> uniqueStrings;
