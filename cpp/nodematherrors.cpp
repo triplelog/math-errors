@@ -1936,13 +1936,13 @@ void makeTree(std::string pfstr){
 						
 						
 				
-				
+						auto a2 = std::chrono::high_resolution_clock::now();
 						std::vector<std::string> tempV;
 						tempV = {firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
 						
 						
-						auto a2 = std::chrono::high_resolution_clock::now();
-						bottomTrees[btSz]= tempV;
+						
+						bottomTrees[btSz]= tempV; //11 ms
 						btSz++;
 						
 						auto a3 = std::chrono::high_resolution_clock::now();
