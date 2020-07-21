@@ -26,6 +26,9 @@
 
 using namespace std::chrono;
 using phmap::flat_hash_map;
+
+std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect);
+
 flat_hash_map<char,int> prec;
 flat_hash_map<std::string,std::vector<std::vector<std::string>>> rules;
 //flat_hash_map<std::string,std::vector<std::string>> allListMapFull;
@@ -841,13 +844,13 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 
 
 
-void makeTree(std::string pfstr){
+std::vector<std::string> makeTree(std::string pfstr){
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,int> operandMap;
 	flat_hash_map<int,std::string> originalMap;
 	flat_hash_map<int,int> subExpressions;
-    
-    
+    std::vector<std::string> returnStrings;
+    bool isCorrect = true;
 	int i; int ii; int iii;
 	int idx =0;
 	bool startOperands = false;
@@ -1008,8 +1011,8 @@ void makeTree(std::string pfstr){
 					}
 				}
 				
-				bottomTreesString.resize(btSz+secondS.size()*firstS.size()*2);
-				bottomTreesIndex.resize(btSz+secondS.size()*firstS.size()*2);
+				//bottomTreesString.resize(btSz+secondS.size()*firstS.size()*2);
+				//bottomTreesIndex.resize(btSz+secondS.size()*firstS.size()*2);
 				fullTrees.resize(ftSz+secondS.size()*firstS.size()*3*5);
 				
 				int fss = firstS.size();
@@ -1098,10 +1101,14 @@ void makeTree(std::string pfstr){
 						
 						
 						
-						bottomTreesString[btSz]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
-						bottomTreesIndex[btSz]= tempV;
-						btSz++;
-						
+						//bottomTreesString[btSz]= firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii];
+						//bottomTreesIndex[btSz]= tempV;
+						//btSz++;
+						std::vector<std::string> someStrings = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
+						int iiiiii;
+						for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
+							returnStrings.push_back(someStrings[iiiiii]);
+						}
 						//50 ms to here from recent continue
 						
 				
@@ -1162,9 +1169,14 @@ void makeTree(std::string pfstr){
 							ftSz++;
 					
 					
-							bottomTreesString[btSz] = secondS[iii] + firstS[ii]  + pfstr.at(i) + '@' + secondT[iii] + firstT[ii];
-							bottomTreesIndex[btSz] = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
-							btSz++;
+							//bottomTreesString[btSz] = secondS[iii] + firstS[ii]  + pfstr.at(i) + '@' + secondT[iii] + firstT[ii];
+							//bottomTreesIndex[btSz] = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
+							//btSz++;
+							std::vector<std::string> someStrings = applyRulesVectorOnePart(secondS[iii] + firstS[ii]  + pfstr.at(i) + '@' + secondT[iii] + firstT[ii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
+							int iiiiii;
+							for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
+								returnStrings.push_back(someStrings[iiiiii]);
+							}
 						}
 						//62 ms to here from the 18 ms marker
 						
@@ -1181,8 +1193,8 @@ void makeTree(std::string pfstr){
 			
 			}
 			else {
-				bottomTreesString.resize(btSz+secondS.size());
-				bottomTreesIndex.resize(btSz+secondS.size());
+				//bottomTreesString.resize(btSz+secondS.size());
+				//bottomTreesIndex.resize(btSz+secondS.size());
 				fullTrees.resize(ftSz+secondS.size()*2*5);
 				for (iii=0;iii<secondS.size();iii++){
 				
@@ -1240,9 +1252,14 @@ void makeTree(std::string pfstr){
 							rightLength++;
 						}
 					}
-					bottomTreesString[btSz]=secondS[iii] + pfstr.at(i) + '@' + secondT[iii];
-					bottomTreesIndex[btSz]={startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
-					btSz++;
+					//bottomTreesString[btSz]=secondS[iii] + pfstr.at(i) + '@' + secondT[iii];
+					//bottomTreesIndex[btSz]={startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
+					//btSz++;
+					std::vector<std::string> someStrings = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
+					int iiiiii;
+					for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
+						returnStrings.push_back(someStrings[iiiiii]);
+					}
 				
 				
 				
@@ -1303,8 +1320,8 @@ void makeTree(std::string pfstr){
 			
 			subExpressions[i]=startLeftIndex;
 			
-			bottomTreesString.resize(btSz);
-			bottomTreesIndex.resize(btSz);
+			//bottomTreesString.resize(btSz);
+			//bottomTreesIndex.resize(btSz);
 			
 			
 
@@ -1336,7 +1353,7 @@ void makeTree(std::string pfstr){
 	
 	//std::cout << "\n\n---start Original-----\n";
 	int iiii;
-	
+	return returnStrings;
 	
 
 }
@@ -2435,7 +2452,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	
 	std::cout << s << " before pl\n";
 	auto a1 = std::chrono::high_resolution_clock::now();
-	makeTree(newPostfix);
+	std::vector<std::string> someStrings = makeTree(newPostfix);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	duration1 += dd1;
@@ -2446,24 +2463,19 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	flat_hash_map<std::string,bool> uniqueStrings;
 	
 	std::cout << bottomTreesString.size() << "\n";
-	for (ii=0;ii<bottomTreesString.size();ii++){
 
-		std::vector<std::string> someStrings = applyRulesVectorOnePart(bottomTreesString[ii],bottomTreesIndex[ii],newPostfix,isCorrect);
-
-		//std::cout << s << " andand " << someStrings.size() << "\n";
 	
-		for (iii=0;iii<someStrings.size();iii++){
-			//std::cout << someStrings[iii] << "\n";
-			someStrings[iii] = removeBracketsOne(someStrings[iii]);
-			if (uniqueStrings.find(someStrings[iii]) != uniqueStrings.end()){
-		
-			}
-			else {
-				allStrings.push_back(someStrings[iii]);
-				uniqueStrings[someStrings[iii]]=true;
-			}
-		
+	for (iii=0;iii<someStrings.size();iii++){
+		//std::cout << someStrings[iii] << "\n";
+		someStrings[iii] = removeBracketsOne(someStrings[iii]);
+		if (uniqueStrings.find(someStrings[iii]) != uniqueStrings.end()){
+	
 		}
+		else {
+			allStrings.push_back(someStrings[iii]);
+			uniqueStrings[someStrings[iii]]=true;
+		}
+	
 	}
 
 	answerListMap[newPostfix] = allStrings;
