@@ -895,7 +895,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	for (i=0;i<pfstr.length();i++){
 		int lmSz = 0;
 		for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = listMap.begin(); iter != listMap.end(); ++iter){
-			lmSz++;
+			lmSz+= iter->second.size();
 		}
 		std::cout << lmSz << "\n";
 		char mychar = pfstr.at(i);
