@@ -2052,7 +2052,7 @@ void initialRun(){
 }
 
 flat_hash_map<std::string,std::vector<std::string>> answerListMap;
-
+/*
 void getAnswerListOld(std::string s,bool isCorrect, int nSteps) {
 
 	
@@ -2137,7 +2137,7 @@ void getAnswerListOld(std::string s,bool isCorrect, int nSteps) {
 		
 	answerListMap[newPostfix] = answerList;
 }
-
+*/
 bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 
 	
