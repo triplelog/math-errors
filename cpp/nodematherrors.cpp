@@ -1013,22 +1013,25 @@ void makeTree(std::string pfstr){
 				fullTrees.resize(ftSz+secondS.size()*firstS.size()*3*5);
 				
 				int fss = firstS.size();
-				int sss = secondS.size();		
+				int sss = secondS.size();	
+				std::string nFirst = "0";
+				std::string nSecond = "0";	
 				for (ii=0;ii<fss;ii++){
-					if (listMap[firstListMapKey][ii*5+2]=="4"){
+					nFirst = listMap[firstListMapKey][ii*5+2];
+					if (nFirst=="4"){
 						continue;
 					}
 					
-					
+					auto a2 = std::chrono::high_resolution_clock::now();
 					for (iii=0;iii<sss;iii++){
 				
-						
-						if (listMap[secondListMapKey][iii*5+2]=="4"){
+						nSecond = listMap[secondListMapKey][iii*5+2];
+						if (nSecond=="4"){
 							continue;
 						}
 						
 						//2 ms
-						auto a2 = std::chrono::high_resolution_clock::now();
+						
 						
 						//condensed
 						fullTrees[ftSz] = "#";
@@ -1039,11 +1042,11 @@ void makeTree(std::string pfstr){
 					
 						fullTrees[ftSz] = "{"+bless+"}_";
 						ftSz++;
-						if (listMap[secondListMapKey][iii*5+2]=="2" || listMap[firstListMapKey][ii*5+2]=="2"){
+						if (nSecond=="2" || nFirst=="2"){
 							fullTrees[ftSz] = "2";
 							ftSz++;
 						}
-						else if (listMap[secondListMapKey][iii*5+2]=="1" || listMap[firstListMapKey][ii*5+2]=="1"){
+						else if (nSecond=="1" || nFirst=="1"){
 							fullTrees[ftSz] = "1";
 							ftSz++;
 						}
@@ -1103,9 +1106,8 @@ void makeTree(std::string pfstr){
 						
 				
 						
-						auto a3 = std::chrono::high_resolution_clock::now();
-						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
-						if (listMap[secondListMapKey][iii*5+2]=="3" || listMap[firstListMapKey][ii*5+2]=="3"){
+						
+						if (nSecond=="3" || nFirst=="3"){
 							
 							continue;
 						}
@@ -1116,11 +1118,11 @@ void makeTree(std::string pfstr){
 						ftSz++;
 						fullTrees[ftSz] = firstT[ii] + secondT[iii];
 						ftSz++;
-						if (listMap[secondListMapKey][iii*5+2]=="2" || listMap[firstListMapKey][ii*5+2]=="2"){
+						if (nSecond=="2" || nFirst=="2"){
 							fullTrees[ftSz] = "3";
 							ftSz++;
 						}
-						else if (listMap[secondListMapKey][iii*5+2]=="1" || listMap[firstListMapKey][ii*5+2]=="1"){
+						else if (nSecond=="1" || nFirst=="1"){
 							fullTrees[ftSz] = "2";
 							ftSz++;
 						}
@@ -1142,11 +1144,11 @@ void makeTree(std::string pfstr){
 							ftSz++;
 							fullTrees[ftSz] = secondT[iii] + firstT[ii];
 							ftSz++;
-							if (listMap[secondListMapKey][iii*5+2]=="2" || listMap[firstListMapKey][ii*5+2]=="2"){
+							if (nSecond=="2" || nFirst=="2"){
 								fullTrees[ftSz] = "3";
 								ftSz++;
 							}
-							else if (listMap[secondListMapKey][iii*5+2]=="1" || listMap[firstListMapKey][ii*5+2]=="1"){
+							else if (nSecond=="1" || nFirst=="1"){
 								fullTrees[ftSz] = "2";
 								ftSz++;
 							}
@@ -1167,7 +1169,8 @@ void makeTree(std::string pfstr){
 						//62 ms to here from the 18 ms marker
 						
 					}
-					
+					auto a3 = std::chrono::high_resolution_clock::now();
+					duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 					
 					
 				}
