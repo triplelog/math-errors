@@ -1760,9 +1760,9 @@ void makeTree(std::string pfstr){
 			
 			std::vector<std::string> fullTrees;
 			int ftSz = 0;
-			std::vector<std::vector<std::string>> someBottomTrees;
+			//std::vector<std::vector<std::string>> someBottomTrees;
 			//std::vector<std::vector<std::string>> prevBottomTrees;
-			int sbtSz = 0;
+			//int sbtSz = 0;
 			bool foundFullTrees = false;
 			std::string inStr = "";
 			int prevLeftIndex = 0;
@@ -1912,7 +1912,7 @@ void makeTree(std::string pfstr){
 							break;
 						}
 					}
-					someBottomTrees.resize(sbtSz+secondS.size()*firstS.size()*2);
+					bottomTrees.resize(btSz+secondS.size()*firstS.size()*2);
 					fullTrees.resize(ftSz+secondS.size()*firstS.size()*3*5);
 					for (ii=0;ii<firstS.size();ii++){
 						if (listMap[firstListMapKey][ii*5+2]=="4"){
@@ -1985,8 +1985,8 @@ void makeTree(std::string pfstr){
 							std::vector<std::string> tempV;
 							tempV = {firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
 						
-							someBottomTrees[sbtSz]= tempV;
-							sbtSz++;
+							bottomTrees[btSz]= tempV;
+							btSz++;
 						
 						
 						
@@ -2045,8 +2045,8 @@ void makeTree(std::string pfstr){
 								ftSz++;
 							
 							
-								someBottomTrees[sbtSz]={secondS[iii] + firstS[ii]  + pfstr.at(i) + '@' + secondT[iii] + firstT[ii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
-								sbtSz++;
+								bottomTrees[btSz]={secondS[iii] + firstS[ii]  + pfstr.at(i) + '@' + secondT[iii] + firstT[ii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
+								btSz++;
 							}
 							a3 = std::chrono::high_resolution_clock::now();
 							//duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
@@ -2056,7 +2056,7 @@ void makeTree(std::string pfstr){
 				
 				}
 				else {
-					someBottomTrees.resize(sbtSz+secondS.size());
+					bottomTrees.resize(btSz+secondS.size());
 					fullTrees.resize(ftSz+secondS.size()*2*5);
 					for (iii=0;iii<secondS.size();iii++){
 					
@@ -2117,8 +2117,8 @@ void makeTree(std::string pfstr){
 								rightLength++;
 							}
 						}
-						someBottomTrees[sbtSz]={secondS[iii] + pfstr.at(i) + '@' + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
-						sbtSz++;
+						bottomTrees[btSz]={secondS[iii] + pfstr.at(i) + '@' + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
+						btSz++;
 					
 					
 					
@@ -2172,7 +2172,7 @@ void makeTree(std::string pfstr){
 				fullTrees.resize(ftSz);
 				listMap[fullStr]=fullTrees;
 				allListMapFull[fullStr]=fullTrees;
-				someBottomTrees.resize(sbtSz);
+				//someBottomTrees.resize(sbtSz);
 				//std::cout << "fullStr: " << fullStr << " and " << someBottomTrees[0].size() << "\n";
 				//allListMapBottom[fullStr]=someBottomTrees;
 				
@@ -2180,30 +2180,8 @@ void makeTree(std::string pfstr){
 				
 				
 			}
-			bottomTrees.resize(btSz+sbtSz);
-			for (ii=0;ii<sbtSz;ii++){
-				bottomTrees[btSz] = someBottomTrees[ii];
-				/*
-				if (foundFullTrees){
-					std::string tempFull = pfstr;
-					int iiiii; int operandIdx = -1; int startRightIndex = -1;
-					for (iiiii=0;iiiii<tempFull.length();iiiii++){
-						if (tempFull.at(iiiii) == '_'){
-							operandIdx++;
-						}
-						else if (tempFull.at(iiiii) == '@'){
-							operandIdx++;
-						}
-						else if (operandIdx==prevRightOperand){
-							startRightIndex = iiiii;
-							break;
-						}
-					}
-					bottomTrees[btSz][1] = std::to_string(prevLeftIndex);
-					bottomTrees[btSz][3] = std::to_string(startRightIndex);
-				}*/
-				btSz++;
-			}
+			bottomTrees.resize(btSz);
+
 			
 		}
 		else {
