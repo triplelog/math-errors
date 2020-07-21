@@ -2129,13 +2129,13 @@ void makeTree(std::string pfstr){
 					if (someBottomTrees[ii][0] != prevBottomTrees[ii][0]){
 						std::cout << "0";
 					}
-					if (someBottomTrees[ii][1] != prevLeftIndex){
+					if (someBottomTrees[ii][1] != std::to_string(prevLeftIndex)){
 						std::cout << "1";
 					}
 					if (someBottomTrees[ii][2] != prevBottomTrees[ii][2]){
 						std::cout << "2";
 					}
-					if (someBottomTrees[ii][3] != startRightIndex){
+					if (someBottomTrees[ii][3] != std::to_string(startRightIndex)){
 						std::cout << "3";
 					}
 					if (someBottomTrees[ii][4] != prevBottomTrees[ii][4]){
