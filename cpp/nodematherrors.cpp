@@ -2395,11 +2395,11 @@ std::vector<std::string> outputTree(std::string pfstr){
 	//	std::cout << iter->first << " and " << iter->second << '\n';
 	//}
 	
-	//std::cout << "\n\n---start Bracketless-----\n";
+	std::cout << "\n\n---start Bracketless-----\n";
 	flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
 	
 
-	//std::cout << "\n";
+	std::cout << " ENd bracketless\n";
 	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
 	//	std::cout << iter->first << " and " << iter->second << '\n';
 	//}
@@ -2779,11 +2779,11 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 					*/
 					
 					std::string tempTemp = userFullString;
-					std::cout << bottomTrees[ii][1] << " b " << bottomTrees[ii][2] << " c " << bottomTrees[ii][3] << " d " << bottomTrees[ii][4] << "\n";
+					//std::cout << bottomTrees[ii][1] << " b " << bottomTrees[ii][2] << " c " << bottomTrees[ii][3] << " d " << bottomTrees[ii][4] << "\n";
 					tempTemp.replace(std::stoi(bottomTrees[ii][3]),std::stoi(bottomTrees[ii][4])+1,newPostfixSecond);
 					//std::cout << "userFullString: "<< userFullString << "\n";
 					tempTemp.replace(std::stoi(bottomTrees[ii][1]),std::stoi(bottomTrees[ii][2]),newPostfixFirst);
-					std::cout << bottomTrees[ii][1] << " bb " << bottomTrees[ii][2] << " c " << bottomTrees[ii][3] << " d " << bottomTrees[ii][4] << "\n";
+					//std::cout << bottomTrees[ii][1] << " bb " << bottomTrees[ii][2] << " c " << bottomTrees[ii][3] << " d " << bottomTrees[ii][4] << "\n";
 					tempTemp = removeBracketsOne(tempTemp);
 					newStrings.push_back(tempTemp);
 					allStrings.push_back(tempTemp);
