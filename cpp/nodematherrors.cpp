@@ -1760,325 +1760,130 @@ void makeTree(std::string pfstr){
 			
 			std::vector<std::string> fullTrees;
 			int ftSz = 0;
-			//std::vector<std::vector<std::string>> someBottomTrees;
-			//std::vector<std::vector<std::string>> prevBottomTrees;
-			//int sbtSz = 0;
 			bool foundFullTrees = false;
 			std::string inStr = "";
 			int prevLeftIndex = 0;
 			int prevRightOperand = 0;
-			/*for (ii=0;ii<i+1;ii++){
+
+			
+			int maxi = i-1;
+			int startLeftIndex = maxi;
+			int startRightOperand = 10000;
+			int endRightOperand = -1;
+			for (ii=0;ii<i;ii++){
 				std::string s = "";
 				std::string t = "";
-				prevRightOperand = 10000;
-				for (iii=ii;iii<i+1;iii++){
+				int tempStartRightOperand = 10000;
+				int tempEndRightOperand = -1;
+				for (iii=ii;iii<i;iii++){
 					s += pfstr.at(iii);
 					if (pfstr.at(iii) == '#'){
 						t += originalMap[operandMap[iii]] + '_';
-						if (operandMap[iii]<prevRightOperand){
-							prevRightOperand = operandMap[iii];
+						if (operandMap[iii]<tempStartRightOperand){
+							tempStartRightOperand = operandMap[iii];
+						}
+						if (operandMap[iii]>tempEndRightOperand){
+							tempEndRightOperand = operandMap[iii];
 						}
 					}
 				}
-				
-				if (allListMapBottom.find(s + '@' + t) != allListMapBottom.end()){
-					//fullTrees = allListMapFull[s + '@' + t];
-					//someBottomTrees = allListMapBottom[s + '@' + t];
-					foundFullTrees = true;
-					inStr = s + "@" + t;
-					prevLeftIndex = ii;
+				if (listMap.find(s + '@' + t) != listMap.end()){
+					secondStr = s;
+					secondTtr = t;
+					secondListMapKey = s + "@" + t;
+					secondS.resize(listMap[s+'@'+t].size()/5);
+					secondT.resize(listMap[s+'@'+t].size()/5);
+					secondSBL.resize(listMap[s+'@'+t].size()/5);
+					secondTBL.resize(listMap[s+'@'+t].size()/5);
+					for (iii=0;iii<listMap[s+'@'+t].size()/5;iii++){
+						secondS[iii]=listMap[s+'@'+t][iii*5];
+						secondT[iii]=listMap[s+'@'+t][iii*5+1];
+						secondSBL[iii]=listMap[s+'@'+t][iii*5+3];
+						secondTBL[iii]=listMap[s+'@'+t][iii*5+4];
+					}
+					maxi = ii;
+					startLeftIndex = ii;
+					startRightOperand = tempStartRightOperand;
+					endRightOperand = tempEndRightOperand;
 					break;
 				}
-			}*/
-			
-			if (foundFullTrees && 2 == 3){
-				//listMap[inStr]=allListMapFull[inStr];
-				//someBottomTrees = allListMapBottom[inStr];
-				//sbtSz = someBottomTrees.size();
-				//std::cout << "inStr: " << inStr << " and " << allListMapBottom[inStr][0].size() << "\n";
-				//prevBottomTrees = allListMapBottom[inStr];
-				mapSave++;
 			}
-			else {
-				mapMake++;
-				int maxi = i-1;
-				int startLeftIndex = maxi;
-				int startRightOperand = 10000;
-				int endRightOperand = -1;
-				for (ii=0;ii<i;ii++){
+	
+	
+
+			std::vector<std::string> firstS;
+			std::vector<std::string> firstT;
+			std::vector<std::string> firstSBL;
+			std::vector<std::string> firstTBL;
+			std::string firstStr = "";
+			std::string firstTtr = "";
+			std::string firstListMapKey = "";
+	
+	
+	
+			if (mychar != '-' && mychar != '/' && (mychar >= 0 || mychar <= -69 )){ // Is at least binary function
+		
+
+				for (ii=0;ii<maxi;ii++){
 					std::string s = "";
 					std::string t = "";
 					int tempStartRightOperand = 10000;
-					int tempEndRightOperand = -1;
-					for (iii=ii;iii<i;iii++){
+					for (iii=ii;iii<maxi;iii++){
 						s += pfstr.at(iii);
 						if (pfstr.at(iii) == '#'){
 							t += originalMap[operandMap[iii]] + '_';
 							if (operandMap[iii]<tempStartRightOperand){
 								tempStartRightOperand = operandMap[iii];
 							}
-							if (operandMap[iii]>tempEndRightOperand){
-								tempEndRightOperand = operandMap[iii];
-							}
 						}
 					}
 					if (listMap.find(s + '@' + t) != listMap.end()){
-						secondStr = s;
-						secondTtr = t;
-						secondListMapKey = s + "@" + t;
-						secondS.resize(listMap[s+'@'+t].size()/5);
-						secondT.resize(listMap[s+'@'+t].size()/5);
-						secondSBL.resize(listMap[s+'@'+t].size()/5);
-						secondTBL.resize(listMap[s+'@'+t].size()/5);
+						firstListMapKey = s + "@" + t;
+						firstStr = s;
+						firstTtr = t;
+						firstS.resize(listMap[s+'@'+t].size()/5);
+						firstT.resize(listMap[s+'@'+t].size()/5);
+						firstSBL.resize(listMap[s+'@'+t].size()/5);
+						firstTBL.resize(listMap[s+'@'+t].size()/5);
 						for (iii=0;iii<listMap[s+'@'+t].size()/5;iii++){
-							secondS[iii]=listMap[s+'@'+t][iii*5];
-							secondT[iii]=listMap[s+'@'+t][iii*5+1];
-							secondSBL[iii]=listMap[s+'@'+t][iii*5+3];
-							secondTBL[iii]=listMap[s+'@'+t][iii*5+4];
+							firstS[iii]=listMap[s+'@'+t][iii*5];
+							firstT[iii]=listMap[s+'@'+t][iii*5+1];
+							firstSBL[iii]=listMap[s+'@'+t][iii*5+3];
+							firstTBL[iii]=listMap[s+'@'+t][iii*5+4];
 						}
-						maxi = ii;
 						startLeftIndex = ii;
 						startRightOperand = tempStartRightOperand;
-						endRightOperand = tempEndRightOperand;
 						break;
 					}
 				}
-			
-			
-	
-				std::vector<std::string> firstS;
-				std::vector<std::string> firstT;
-				std::vector<std::string> firstSBL;
-				std::vector<std::string> firstTBL;
-				std::string firstStr = "";
-				std::string firstTtr = "";
-				std::string firstListMapKey = "";
-			
-			
-			
-				if (mychar != '-' && mychar != '/' && (mychar >= 0 || mychar <= -69 )){ // Is at least binary function
-				
-					/*int startSub = subExpressions[maxi-1];
-					std::string s = "";
-					std::string t = "";
-					for (iii=startSub;iii<maxi;iii++){
-						s += pfstr.at(iii);
-						if (pfstr.at(iii) == '#'){
-							t += operandMap[iii] + '_';
-						}
+				bottomTrees.resize(btSz+secondS.size()*firstS.size()*2);
+				fullTrees.resize(ftSz+secondS.size()*firstS.size()*3*5);
+				for (ii=0;ii<firstS.size();ii++){
+					if (listMap[firstListMapKey][ii*5+2]=="4"){
+						continue;
 					}
-					firstListMapKey = s + "@" + t;
-					firstStr = s;
-					firstTtr = t;
-					firstS.resize(listMap[s+'@'+t].size()/3);
-					firstT.resize(listMap[s+'@'+t].size()/3);
-					for (iii=0;iii<listMap[s+'@'+t].size()/3;iii++){
-						firstS[iii]=listMap[s+'@'+t][iii*3];
-						firstT[iii]=listMap[s+'@'+t][iii*3+1];
-					}
-					startLeftIndex = ii;
-					startRightOperand = std::stoi(operandMap[startSub]);
-					*/
-
-					for (ii=0;ii<maxi;ii++){
-						std::string s = "";
-						std::string t = "";
-						int tempStartRightOperand = 10000;
-						for (iii=ii;iii<maxi;iii++){
-							s += pfstr.at(iii);
-							if (pfstr.at(iii) == '#'){
-								t += originalMap[operandMap[iii]] + '_';
-								if (operandMap[iii]<tempStartRightOperand){
-									tempStartRightOperand = operandMap[iii];
-								}
-							}
-						}
-						if (listMap.find(s + '@' + t) != listMap.end()){
-							firstListMapKey = s + "@" + t;
-							firstStr = s;
-							firstTtr = t;
-							firstS.resize(listMap[s+'@'+t].size()/5);
-							firstT.resize(listMap[s+'@'+t].size()/5);
-							firstSBL.resize(listMap[s+'@'+t].size()/5);
-							firstTBL.resize(listMap[s+'@'+t].size()/5);
-							for (iii=0;iii<listMap[s+'@'+t].size()/5;iii++){
-								firstS[iii]=listMap[s+'@'+t][iii*5];
-								firstT[iii]=listMap[s+'@'+t][iii*5+1];
-								firstSBL[iii]=listMap[s+'@'+t][iii*5+3];
-								firstTBL[iii]=listMap[s+'@'+t][iii*5+4];
-							}
-							startLeftIndex = ii;
-							startRightOperand = tempStartRightOperand;
-							break;
-						}
-					}
-					bottomTrees.resize(btSz+secondS.size()*firstS.size()*2);
-					fullTrees.resize(ftSz+secondS.size()*firstS.size()*3*5);
-					for (ii=0;ii<firstS.size();ii++){
-						if (listMap[firstListMapKey][ii*5+2]=="4"){
-							continue;
-						}
-						for (iii=0;iii<secondS.size();iii++){
-						
-						
-							if (listMap[secondListMapKey][iii*5+2]=="4"){
-								continue;
-							}
-						
-							
-							//condensed
-							fullTrees[ftSz] = "#";
-							ftSz++;
-							
-							auto a2 = std::chrono::high_resolution_clock::now();
-							std::string bless = firstSBL[ii] + secondSBL[iii] + pfstr.at(i) + '@' + firstTBL[ii] + secondTBL[iii];
-							auto a3 = std::chrono::high_resolution_clock::now();
-							duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
-							
-							fullTrees[ftSz] = "{"+bless+"}_";
-							ftSz++;
-							if (listMap[secondListMapKey][iii*5+2]=="2" || listMap[firstListMapKey][ii*5+2]=="2"){
-								fullTrees[ftSz] = "2";
-								ftSz++;
-							}
-							else if (listMap[secondListMapKey][iii*5+2]=="1" || listMap[firstListMapKey][ii*5+2]=="1"){
-								fullTrees[ftSz] = "1";
-								ftSz++;
-							}
-							else {
-								fullTrees[ftSz] = "0";
-								ftSz++;
-							}
-							fullTrees[ftSz] = firstSBL[ii] + secondSBL[iii] + pfstr.at(i);
-							ftSz++;
-							fullTrees[ftSz] = firstTBL[ii] + secondTBL[iii];
-							ftSz++;
-						
-							
-						
-							//std::cout << "possible part: " << firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
-						
-							std::string tempFull = pfstr;
-							int iiiii; int operandIdx = -1; int startRightIndex = -1; int rightLength= 0;
-
-							for (iiiii=0;iiiii<tempFull.length();iiiii++){
-								if (tempFull.at(iiiii) == '_'){
-									operandIdx++;
-									if (operandIdx <=endRightOperand){
-										rightLength++;
-									}
-									else {
-										break;
-									}
-								}
-								else if (tempFull.at(iiiii) == '@'){
-									operandIdx++;
-								}
-								else if (operandIdx==startRightOperand && startRightIndex<0){
-									startRightIndex = iiiii;
-									rightLength = 1;
-								}
-								else{
-									rightLength++;
-								}
-							}
-							std::vector<std::string> tempV;
-							tempV = {firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
-						
-							bottomTrees[btSz]= tempV;
-							btSz++;
-						
-						
-						
-						
-							if (listMap[secondListMapKey][iii*5+2]=="3" || listMap[firstListMapKey][ii*5+2]=="3"){
-								continue;
-							}
-						
-							a2 = std::chrono::high_resolution_clock::now();
-						
-							
-							fullTrees[ftSz] = firstS[ii] + secondS[iii]  + pfstr.at(i);
-							ftSz++;
-							fullTrees[ftSz] = firstT[ii] + secondT[iii];
-							ftSz++;
-							if (listMap[secondListMapKey][iii*5+2]=="2" || listMap[firstListMapKey][ii*5+2]=="2"){
-								fullTrees[ftSz] = "3";
-								ftSz++;
-							}
-							else if (listMap[secondListMapKey][iii*5+2]=="1" || listMap[firstListMapKey][ii*5+2]=="1"){
-								fullTrees[ftSz] = "2";
-								ftSz++;
-							}
-							else {
-								fullTrees[ftSz] = "1";
-								ftSz++;
-							}
-							fullTrees[ftSz] = firstSBL[ii] + secondSBL[iii]  + pfstr.at(i);
-							ftSz++;
-							fullTrees[ftSz] = firstTBL[ii] + secondTBL[iii];
-							ftSz++;
-						
-						
-						
-						
-							if (pfstr.at(i) == '+' || pfstr.at(i) == '*'){
-								fullTrees[ftSz] = secondS[iii] + firstS[ii]  + pfstr.at(i);
-								ftSz++;
-								fullTrees[ftSz] = secondT[iii] + firstT[ii];
-								ftSz++;
-								if (listMap[secondListMapKey][iii*5+2]=="2" || listMap[firstListMapKey][ii*5+2]=="2"){
-									fullTrees[ftSz] = "3";
-									ftSz++;
-								}
-								else if (listMap[secondListMapKey][iii*5+2]=="1" || listMap[firstListMapKey][ii*5+2]=="1"){
-									fullTrees[ftSz] = "2";
-									ftSz++;
-								}
-								else {
-									fullTrees[ftSz] = "1";
-									ftSz++;
-								}
-								fullTrees[ftSz] = secondSBL[iii] + firstSBL[ii]  + pfstr.at(i);
-								ftSz++;
-								fullTrees[ftSz] = secondTBL[iii] + firstTBL[ii];
-								ftSz++;
-							
-							
-								bottomTrees[btSz]={secondS[iii] + firstS[ii]  + pfstr.at(i) + '@' + secondT[iii] + firstT[ii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
-								btSz++;
-							}
-							a3 = std::chrono::high_resolution_clock::now();
-							//duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
-						}
-					}
-				
-				
-				}
-				else {
-					bottomTrees.resize(btSz+secondS.size());
-					fullTrees.resize(ftSz+secondS.size()*2*5);
 					for (iii=0;iii<secondS.size();iii++){
-					
+				
+				
 						if (listMap[secondListMapKey][iii*5+2]=="4"){
 							continue;
 						}
+				
 					
-						
-					
+						//condensed
 						fullTrees[ftSz] = "#";
 						ftSz++;
-						auto a2 = std::chrono::high_resolution_clock::now();
-						std::string bless = secondSBL[iii] + pfstr.at(i) + '@' + secondTBL[iii];
-						auto a3 = std::chrono::high_resolution_clock::now();
-						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+
+						std::string bless = firstSBL[ii] + secondSBL[iii] + pfstr.at(i) + '@' + firstTBL[ii] + secondTBL[iii];
+
+					
 						fullTrees[ftSz] = "{"+bless+"}_";
 						ftSz++;
-						if (listMap[secondListMapKey][iii*5+2]=="2"){
+						if (listMap[secondListMapKey][iii*5+2]=="2" || listMap[firstListMapKey][ii*5+2]=="2"){
 							fullTrees[ftSz] = "2";
 							ftSz++;
 						}
-						else if (listMap[secondListMapKey][iii*5+2]=="1"){
+						else if (listMap[secondListMapKey][iii*5+2]=="1" || listMap[firstListMapKey][ii*5+2]=="1"){
 							fullTrees[ftSz] = "1";
 							ftSz++;
 						}
@@ -2086,16 +1891,18 @@ void makeTree(std::string pfstr){
 							fullTrees[ftSz] = "0";
 							ftSz++;
 						}
-						fullTrees[ftSz] = secondSBL[iii] + pfstr.at(i);
+						fullTrees[ftSz] = firstSBL[ii] + secondSBL[iii] + pfstr.at(i);
 						ftSz++;
-						fullTrees[ftSz] = secondTBL[iii];
+						fullTrees[ftSz] = firstTBL[ii] + secondTBL[iii];
 						ftSz++;
-						
+				
 					
-						//std::cout << "possible part: " << secondS[iii] + pfstr.at(i) + '@' + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
-					
+				
+						//std::cout << "possible part: " << firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
+				
 						std::string tempFull = pfstr;
 						int iiiii; int operandIdx = -1; int startRightIndex = -1; int rightLength= 0;
+
 						for (iiiii=0;iiiii<tempFull.length();iiiii++){
 							if (tempFull.at(iiiii) == '_'){
 								operandIdx++;
@@ -2117,25 +1924,29 @@ void makeTree(std::string pfstr){
 								rightLength++;
 							}
 						}
-						bottomTrees[btSz]={secondS[iii] + pfstr.at(i) + '@' + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
+						std::vector<std::string> tempV;
+						tempV = {firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
+				
+						bottomTrees[btSz]= tempV;
 						btSz++;
-					
-					
-					
-						if (listMap[secondListMapKey][iii*5+2]=="3"){
+				
+				
+				
+				
+						if (listMap[secondListMapKey][iii*5+2]=="3" || listMap[firstListMapKey][ii*5+2]=="3"){
 							continue;
 						}
+
 					
-						a2 = std::chrono::high_resolution_clock::now();
-						fullTrees[ftSz] = secondS[iii] + pfstr.at(i);
+						fullTrees[ftSz] = firstS[ii] + secondS[iii]  + pfstr.at(i);
 						ftSz++;
-						fullTrees[ftSz] = secondT[iii];
+						fullTrees[ftSz] = firstT[ii] + secondT[iii];
 						ftSz++;
-						if (listMap[secondListMapKey][iii*5+2]=="2"){
+						if (listMap[secondListMapKey][iii*5+2]=="2" || listMap[firstListMapKey][ii*5+2]=="2"){
 							fullTrees[ftSz] = "3";
 							ftSz++;
 						}
-						else if (listMap[secondListMapKey][iii*5+2]=="1"){
+						else if (listMap[secondListMapKey][iii*5+2]=="1" || listMap[firstListMapKey][ii*5+2]=="1"){
 							fullTrees[ftSz] = "2";
 							ftSz++;
 						}
@@ -2143,43 +1954,162 @@ void makeTree(std::string pfstr){
 							fullTrees[ftSz] = "1";
 							ftSz++;
 						}
-						fullTrees[ftSz] = secondSBL[iii] + pfstr.at(i);
+						fullTrees[ftSz] = firstSBL[ii] + secondSBL[iii]  + pfstr.at(i);
 						ftSz++;
-						fullTrees[ftSz] = secondTBL[iii];
+						fullTrees[ftSz] = firstTBL[ii] + secondTBL[iii];
 						ftSz++;
-						
-						a3 = std::chrono::high_resolution_clock::now();
-						//duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+				
+				
+				
+				
+						if (pfstr.at(i) == '+' || pfstr.at(i) == '*'){
+							fullTrees[ftSz] = secondS[iii] + firstS[ii]  + pfstr.at(i);
+							ftSz++;
+							fullTrees[ftSz] = secondT[iii] + firstT[ii];
+							ftSz++;
+							if (listMap[secondListMapKey][iii*5+2]=="2" || listMap[firstListMapKey][ii*5+2]=="2"){
+								fullTrees[ftSz] = "3";
+								ftSz++;
+							}
+							else if (listMap[secondListMapKey][iii*5+2]=="1" || listMap[firstListMapKey][ii*5+2]=="1"){
+								fullTrees[ftSz] = "2";
+								ftSz++;
+							}
+							else {
+								fullTrees[ftSz] = "1";
+								ftSz++;
+							}
+							fullTrees[ftSz] = secondSBL[iii] + firstSBL[ii]  + pfstr.at(i);
+							ftSz++;
+							fullTrees[ftSz] = secondTBL[iii] + firstTBL[ii];
+							ftSz++;
 					
-						//condensed
-						//fullTrees.push_back("#");
-						//fullTrees.push_back("{"+std::to_string(iidx)+"}_");
-						//originalMap[iidx]= secondS[iii] + pfstr.at(i) + '@' + secondT[iii];
-						//iidx++;
+					
+							bottomTrees[btSz]={secondS[iii] + firstS[ii]  + pfstr.at(i) + '@' + secondT[iii] + firstT[ii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
+							btSz++;
+						}
 					}
 				}
 			
-
 			
-	
-				//std::cout << "fullTrees size: " << fullTrees.size() << " @ " << i << "\n";
-				std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
-				
-			
-				//Parent Node
-				std::string opStr = "";
-				opStr += pfstr.at(i);
-				fullTrees.resize(ftSz);
-				listMap[fullStr]=fullTrees;
-				//allListMapFull[fullStr]=fullTrees;
-				//someBottomTrees.resize(sbtSz);
-				//std::cout << "fullStr: " << fullStr << " and " << someBottomTrees[0].size() << "\n";
-				//allListMapBottom[fullStr]=someBottomTrees;
-				
-				subExpressions[i]=startLeftIndex;
-				
-				
 			}
+			else {
+				bottomTrees.resize(btSz+secondS.size());
+				fullTrees.resize(ftSz+secondS.size()*2*5);
+				for (iii=0;iii<secondS.size();iii++){
+				
+					if (listMap[secondListMapKey][iii*5+2]=="4"){
+						continue;
+					}
+				
+					
+				
+					fullTrees[ftSz] = "#";
+					ftSz++;
+					std::string bless = secondSBL[iii] + pfstr.at(i) + '@' + secondTBL[iii];
+					fullTrees[ftSz] = "{"+bless+"}_";
+					ftSz++;
+					if (listMap[secondListMapKey][iii*5+2]=="2"){
+						fullTrees[ftSz] = "2";
+						ftSz++;
+					}
+					else if (listMap[secondListMapKey][iii*5+2]=="1"){
+						fullTrees[ftSz] = "1";
+						ftSz++;
+					}
+					else {
+						fullTrees[ftSz] = "0";
+						ftSz++;
+					}
+					fullTrees[ftSz] = secondSBL[iii] + pfstr.at(i);
+					ftSz++;
+					fullTrees[ftSz] = secondTBL[iii];
+					ftSz++;
+					
+				
+					//std::cout << "possible part: " << secondS[iii] + pfstr.at(i) + '@' + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
+				
+					std::string tempFull = pfstr;
+					int iiiii; int operandIdx = -1; int startRightIndex = -1; int rightLength= 0;
+					for (iiiii=0;iiiii<tempFull.length();iiiii++){
+						if (tempFull.at(iiiii) == '_'){
+							operandIdx++;
+							if (operandIdx <=endRightOperand){
+								rightLength++;
+							}
+							else {
+								break;
+							}
+						}
+						else if (tempFull.at(iiiii) == '@'){
+							operandIdx++;
+						}
+						else if (operandIdx==startRightOperand && startRightIndex<0){
+							startRightIndex = iiiii;
+							rightLength = 1;
+						}
+						else{
+							rightLength++;
+						}
+					}
+					bottomTrees[btSz]={secondS[iii] + pfstr.at(i) + '@' + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
+					btSz++;
+				
+				
+				
+					if (listMap[secondListMapKey][iii*5+2]=="3"){
+						continue;
+					}
+				
+					fullTrees[ftSz] = secondS[iii] + pfstr.at(i);
+					ftSz++;
+					fullTrees[ftSz] = secondT[iii];
+					ftSz++;
+					if (listMap[secondListMapKey][iii*5+2]=="2"){
+						fullTrees[ftSz] = "3";
+						ftSz++;
+					}
+					else if (listMap[secondListMapKey][iii*5+2]=="1"){
+						fullTrees[ftSz] = "2";
+						ftSz++;
+					}
+					else {
+						fullTrees[ftSz] = "1";
+						ftSz++;
+					}
+					fullTrees[ftSz] = secondSBL[iii] + pfstr.at(i);
+					ftSz++;
+					fullTrees[ftSz] = secondTBL[iii];
+					ftSz++;
+					
+				
+					//condensed
+					//fullTrees.push_back("#");
+					//fullTrees.push_back("{"+std::to_string(iidx)+"}_");
+					//originalMap[iidx]= secondS[iii] + pfstr.at(i) + '@' + secondT[iii];
+					//iidx++;
+				}
+			}
+		
+
+		
+
+			//std::cout << "fullTrees size: " << fullTrees.size() << " @ " << i << "\n";
+			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
+			
+		
+			//Parent Node
+			std::string opStr = "";
+			opStr += pfstr.at(i);
+			fullTrees.resize(ftSz);
+			listMap[fullStr]=fullTrees;
+			//allListMapFull[fullStr]=fullTrees;
+			//someBottomTrees.resize(sbtSz);
+			//std::cout << "fullStr: " << fullStr << " and " << someBottomTrees[0].size() << "\n";
+			//allListMapBottom[fullStr]=someBottomTrees;
+			
+			subExpressions[i]=startLeftIndex;
+
 			bottomTrees.resize(btSz);
 
 			
@@ -2216,11 +2146,8 @@ void makeTree(std::string pfstr){
 	//}
 	
 	//std::cout << "\n\n---start Bracketless-----\n";
-	auto a3 = std::chrono::high_resolution_clock::now();
 	//flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
 	
-	auto a4 = std::chrono::high_resolution_clock::now();
-	duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a4 - a3 ).count();
 	
 	//std::cout << "after third: " << pfstr << "\n";
 
@@ -2962,11 +2889,10 @@ void getAnswerList(std::string s,bool isCorrect) {
 
 	int maxSteps = 10;
 	newPostfix = removeBracketsOne(newPostfix);
-	auto a1 = std::chrono::high_resolution_clock::now();
+	
 	//std::cout << s << " before pl\n";
 	makeTree(newPostfix);
-	auto a2 = std::chrono::high_resolution_clock::now();
-	duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	
 	//std::cout << s << " after pl\n";
 
 	std::vector<std::string> allStrings; //vector of the next step
@@ -3023,8 +2949,10 @@ std::string fullAnswer(std::string s, std::string a){
 	std::string newPostfix = removeBracketsOne(postfixify(s));
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
 	//auto a1 = std::chrono::high_resolution_clock::now();
-	
+	auto a1 = std::chrono::high_resolution_clock::now();
 	getAnswerList(newPostfix,false);
+	auto a2 = std::chrono::high_resolution_clock::now();
+	duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	//auto a2 = std::chrono::high_resolution_clock::now();
 	//duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << answerListMap[newPostfix].size() << "\n\n\n";
@@ -3058,9 +2986,11 @@ bool correctAnswer(std::string s, std::string a){
 	std::string newPostfix = removeBracketsOne(postfixify(s));
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
 	mapSave = 0; mapMake = 0;
+	auto a1 = std::chrono::high_resolution_clock::now();
 	getAnswerList(newPostfix,true);
+	auto a2 = std::chrono::high_resolution_clock::now();
+	duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << answerListMap[newPostfix].size() << "\n\n\n";
-	std::cout << "Completed the Loop: " << mapSave << " and " << mapMake << "\n\n\n";
 	int i; int ii;
 	std::string mpf = postfixify(a);
 	int minLen = 10000;
