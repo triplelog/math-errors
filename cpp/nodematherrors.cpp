@@ -39,6 +39,8 @@ int duration2;
 int duration3;
 int yesC;
 int noC;
+int mapSave;
+int mapMake;
 
 		
 std::string arrayToString(int n, char input[]) { 
@@ -1788,9 +1790,10 @@ void makeTree(std::string pfstr){
 				sbtSz = someBottomTrees.size();
 				//std::cout << "inStr: " << inStr << " and " << allListMapBottom[inStr][0].size() << "\n";
 				//prevBottomTrees = allListMapBottom[inStr];
+				mapSave++;
 			}
 			else {
-				
+				mapMake++;
 				int maxi = i-1;
 				int startLeftIndex = maxi;
 				int startRightOperand = 10000;
@@ -2991,8 +2994,10 @@ std::string fullAnswer(std::string s, std::string a){
 bool correctAnswer(std::string s, std::string a){
 	std::string newPostfix = removeBracketsOne(postfixify(s));
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
+	mapSave = 0; mapMake = 0;
 	getAnswerList(newPostfix,true);
 	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << answerListMap[newPostfix].size() << "\n\n\n";
+	std::cout << "Completed the Loop: " << mapSave << " and " << mapMake << "\n\n\n";
 	int i; int ii;
 	std::string mpf = postfixify(a);
 	int minLen = 10000;
