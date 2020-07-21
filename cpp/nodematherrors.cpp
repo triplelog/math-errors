@@ -2001,7 +2001,7 @@ void makeTree(std::string pfstr){
 							ftSz++;
 							fullTrees[ftSz] = firstT[ii] + secondT[iii];
 							ftSz++;
-							if (listMap[secondListMapKey][iii*35+2]=="2" || listMap[firstListMapKey][ii*5+2]=="2"){
+							if (listMap[secondListMapKey][iii*5+2]=="2" || listMap[firstListMapKey][ii*5+2]=="2"){
 								fullTrees[ftSz] = "3";
 								ftSz++;
 							}
