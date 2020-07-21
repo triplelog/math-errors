@@ -1011,7 +1011,8 @@ void makeTree(std::string pfstr){
 				bottomTreesString.resize(btSz+secondS.size()*firstS.size()*2);
 				bottomTreesIndex.resize(btSz+secondS.size()*firstS.size()*2);
 				fullTrees.resize(ftSz+secondS.size()*firstS.size()*3*5);
-				
+				auto a2 = std::chrono::high_resolution_clock::now();
+						
 				for (ii=0;ii<firstS.size();ii++){
 					if (listMap[firstListMapKey][ii*5+2]=="4"){
 						continue;
@@ -1127,7 +1128,6 @@ void makeTree(std::string pfstr){
 						ftSz++;
 						
 						//18 ms to here from recent continue
-						auto a2 = std::chrono::high_resolution_clock::now();
 						
 				
 				
@@ -1158,10 +1158,13 @@ void makeTree(std::string pfstr){
 							bottomTreesIndex[btSz] = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
 							btSz++;
 						}
-						auto a3 = std::chrono::high_resolution_clock::now();
-						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+						//62 ms to here from the 18 ms marker
+						
 					}
 				}
+				
+				auto a3 = std::chrono::high_resolution_clock::now();
+				duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 				
 			
 			
