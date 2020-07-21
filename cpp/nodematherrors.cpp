@@ -2105,6 +2105,21 @@ void makeTree(std::string pfstr){
 			for (ii=0;ii<sbtSz;ii++){
 				bottomTrees[btSz] = someBottomTrees[ii];
 				if (foundFullTrees){
+					if (someBottomTrees[ii][0] != prevBottomTrees[ii][0]){
+						std::cout << "0";
+					}
+					if (someBottomTrees[ii][1] != prevBottomTrees[ii][1]){
+						std::cout << "1";
+					}
+					if (someBottomTrees[ii][2] != prevBottomTrees[ii][2]){
+						std::cout << "2";
+					}
+					if (someBottomTrees[ii][3] != prevBottomTrees[ii][3]){
+						std::cout << "3";
+					}
+					if (someBottomTrees[ii][4] != prevBottomTrees[ii][4]){
+						std::cout << "4";
+					}/*
 					std::cout << "new: "<< someBottomTrees[ii][0] << "\n";
 					std::cout << "mapped: "<< prevBottomTrees[ii][0] << "\n";
 					std::cout << "new1: "<< someBottomTrees[ii][1] << "\n";
@@ -2114,7 +2129,7 @@ void makeTree(std::string pfstr){
 					std::cout << "new3: "<< someBottomTrees[ii][3] << "\n";
 					std::cout << "mapped3: "<< prevBottomTrees[ii][3] << "\n";
 					std::cout << "new4: "<< someBottomTrees[ii][4] << "\n";
-					std::cout << "mapped4: "<< prevBottomTrees[ii][4] << "\n";
+					std::cout << "mapped4: "<< prevBottomTrees[ii][4] << "\n";*/
 				}
 				btSz++;
 			}
