@@ -1784,7 +1784,7 @@ void makeTree(std::string pfstr){
 				}
 			}
 			
-			if (foundFullTrees && 2 == 2){
+			if (foundFullTrees && 2 == 3){
 				listMap[inStr]=allListMapFull[inStr];
 				someBottomTrees = allListMapBottom[inStr];
 				sbtSz = someBottomTrees.size();
@@ -2114,7 +2114,7 @@ void makeTree(std::string pfstr){
 			bottomTrees.resize(btSz+sbtSz);
 			for (ii=0;ii<sbtSz;ii++){
 				bottomTrees[btSz] = someBottomTrees[ii];
-				if (foundFullTrees && 2 == 2){
+				if (foundFullTrees && 2 == 3){
 					std::string tempFull = pfstr;
 					int iiiii; int operandIdx = -1; int startRightIndex = -1;
 					for (iiiii=0;iiiii<tempFull.length();iiiii++){
