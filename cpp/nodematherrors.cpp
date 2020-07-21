@@ -844,12 +844,11 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 
 
 
-std::vector<std::string> makeTree(std::string pfstr){
+std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,int> operandMap;
 	flat_hash_map<int,std::string> originalMap;
     std::vector<std::string> returnStrings;
-    bool isCorrect = true;
 	int i; int ii; int iii;
 	int idx =0;
 	bool startOperands = false;
@@ -2463,7 +2462,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	
 	//std::cout << s << " before pl\n";
 	auto a1 = std::chrono::high_resolution_clock::now();
-	std::vector<std::string> someStrings = makeTree(newPostfix);
+	std::vector<std::string> someStrings = makeTree(newPostfix,isCorrect);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	duration1 += dd1;
