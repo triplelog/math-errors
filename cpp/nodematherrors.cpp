@@ -1783,7 +1783,7 @@ void makeTree(std::string pfstr){
 			}
 			
 			if (foundFullTrees){
-				listMap[inStr]=fullTrees;
+				listMap[inStr]=allListMapFull[inStr];
 				someBottomTrees = allListMapBottom[inStr];
 				sbtSz = someBottomTrees.size();
 				//std::cout << "inStr: " << inStr << " and " << allListMapBottom[inStr][0].size() << "\n";
