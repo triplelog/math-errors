@@ -1909,12 +1909,16 @@ void makeTree(std::string pfstr){
 								continue;
 							}
 						
-							auto a2 = std::chrono::high_resolution_clock::now();
+							
 							//condensed
 							fullTrees[ftSz] = "#";
 							ftSz++;
-						
+							
+							auto a2 = std::chrono::high_resolution_clock::now();
 							std::string bless = removeBracketsOne(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii]);
+							auto a3 = std::chrono::high_resolution_clock::now();
+							duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+							
 							fullTrees[ftSz] = "{"+bless+"}_";
 							ftSz++;
 							if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
@@ -1930,8 +1934,7 @@ void makeTree(std::string pfstr){
 								ftSz++;
 							}
 						
-							auto a3 = std::chrono::high_resolution_clock::now();
-							duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+							
 						
 							//std::cout << "possible part: " << firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
 						
@@ -2018,7 +2021,7 @@ void makeTree(std::string pfstr){
 								sbtSz++;
 							}
 							a3 = std::chrono::high_resolution_clock::now();
-							duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+							//duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 						}
 					}
 				
@@ -2033,11 +2036,14 @@ void makeTree(std::string pfstr){
 							continue;
 						}
 					
-						auto a2 = std::chrono::high_resolution_clock::now();
+						
 					
 						fullTrees[ftSz] = "#";
 						ftSz++;
+						auto a2 = std::chrono::high_resolution_clock::now();
 						std::string bless = removeBracketsOne(secondS[iii] + pfstr.at(i) + '@' + secondT[iii]);
+						auto a3 = std::chrono::high_resolution_clock::now();
+						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 						fullTrees[ftSz] = "{"+bless+"}_";
 						ftSz++;
 						if (listMap[secondListMapKey][iii*3+2]=="2"){
@@ -2053,8 +2059,7 @@ void makeTree(std::string pfstr){
 							ftSz++;
 						}
 					
-						auto a3 = std::chrono::high_resolution_clock::now();
-						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+						
 					
 						//std::cout << "possible part: " << secondS[iii] + pfstr.at(i) + '@' + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
 					
@@ -2109,7 +2114,7 @@ void makeTree(std::string pfstr){
 						}
 					
 						a3 = std::chrono::high_resolution_clock::now();
-						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+						//duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 					
 						//condensed
 						//fullTrees.push_back("#");
