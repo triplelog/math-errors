@@ -894,7 +894,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	btSz = 0;
 	for (i=0;i<pfstr.length();i++){
 		int lmSz = 0;
-		for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
+		for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = listMap.begin(); iter != listMap.end(); ++iter){
 			lmSz++;
 		}
 		std::cout << lmSz << "\n";
