@@ -1028,6 +1028,8 @@ void makeTree(std::string pfstr){
 							duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 							continue;
 						}
+						auto a3 = std::chrono::high_resolution_clock::now();
+						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 				
 						
 						
