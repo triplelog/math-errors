@@ -972,13 +972,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 					}
 				}
 				
-				//condensed
-				//fullTrees.push_back("#");
-				//fullTrees.push_back("{"+std::to_string(iidx)+"}_");
-				//fullTrees.push_back("0");
-				//originalMap[iidx]= firstS[0] + secondS[0] + pfstr.at(i) + '@' + firstT[0] + secondT[0];
-				//iidx++;
-				
 				
 				for (ii=0;ii<firstS.size();ii++){
 					if (listMap[firstListMapKey][ii*3+2]=="4"){
@@ -1080,12 +1073,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 				
 			}
 			else {
-				//condensed
-				//fullTrees.push_back("#");
-				//fullTrees.push_back("{"+std::to_string(iidx)+"}_");
-				//fullTrees.push_back("0");
-				//originalMap[iidx]= secondS[0] + pfstr.at(i) + '@' + secondT[0];
-				//iidx++;
+
 				for (iii=0;iii<secondS.size();iii++){
 					
 					if (listMap[secondListMapKey][iii*3+2]=="4"){
@@ -1130,7 +1118,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 							rightLength++;
 						}
 					}
-					bottomTrees.push_back({firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)});
+					bottomTrees.push_back({secondS[iii] + pfstr.at(i) + '@' + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)});
 					
 					
 					
