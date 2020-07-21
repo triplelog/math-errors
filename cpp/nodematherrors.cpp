@@ -2077,8 +2077,18 @@ std::string fullAnswer(std::string s, std::string a){
 	int i; int ii;
 	std::string mpf = postfixify(a);
 	std::string error = "Don't know.";
+	int ui = 0;
+	flat_hash_map<std::string,int> uniqueAnswers;
 	for (i=0;i<answerListMap[newPostfix].size();i++){
 		//std::cout << "answer: " << answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] << "\n";
+		if (uniqueAnswers.find(answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1]) != uniqueAnswers.end()){
+			uniqueAnswers[answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1]]++;
+		}
+		else {
+			uniqueAnswers[answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1]]=1;
+			ui++;
+		}
+		
 		if (answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] == mpf){
 			//TODO: grab the error
 			//TODO: send that info to node to display/add to database
@@ -2086,6 +2096,7 @@ std::string fullAnswer(std::string s, std::string a){
 		}
 		
 	}
+	std::cout << "n maybe wrong answers: " << i  << " and unique: " << ui << "\n";
 	return error;
 }
 
