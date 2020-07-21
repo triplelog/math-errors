@@ -34,8 +34,11 @@ bool solveConstraintFix(std::string input){
 				currentOperand += input.at(i);
 			}
 		}
-		else if (input.at(i) != '#'){
+		else if (input.at(i) == '@'){
 			postKey = true;
+			
+		}
+		else if (input.at(i) != '#'){
 			std::string tempExp = "";
 			int maxi = 0;
 			for (ii=0;ii<i;ii++){
@@ -69,13 +72,7 @@ bool solveConstraintFix(std::string input){
 			expressionMap[tempExp]=true;
 			lastOp= input.at(i);
 		}
-		else if (input.at(i) == '@'){
-			postKey = true;
-			
-		}
-		else {
-			
-		}
+
 	}
 	firstExp = firstPart + "@";
 	int idx = 0;
