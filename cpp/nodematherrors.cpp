@@ -30,6 +30,8 @@ flat_hash_map<char,int> prec;
 flat_hash_map<std::string,std::vector<std::vector<std::string>>> rules;
 flat_hash_map<std::string,flat_hash_map<std::string,std::string>> allListMap;
 flat_hash_map<std::string,bool> constraintMap;
+std::vector<std::vector<std::string>> bottomTrees;
+int btSz;
 std::string jsonmessage;
 int duration1;
 int duration2;
@@ -830,7 +832,8 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 	}
 	return input;
 }
-std::vector<std::vector<std::string>> bottomTrees;
+
+
 std::vector<std::string> makeTree(std::string pfstr){
 	std::vector<std::string> treeOptions;
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
@@ -886,6 +889,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	int treeIdx = 0;
 	//std::cout << "before third: " << pfstr << "\n";
 	bottomTrees.resize(0);
+	btSz = 0;
 	for (i=0;i<pfstr.length();i++){
 		char mychar = pfstr.at(i);
 		if (mychar == '@'){
@@ -1001,7 +1005,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 						break;
 					}
 				}
-				
+				bottomTrees.resize(btSz+secondS.size()*firstS.size()*2);
 				for (ii=0;ii<firstS.size();ii++){
 					if (listMap[firstListMapKey][ii*3+2]=="4"){
 						continue;
@@ -1060,7 +1064,8 @@ std::vector<std::string> makeTree(std::string pfstr){
 							}
 						}
 						auto a2 = std::chrono::high_resolution_clock::now();
-						bottomTrees.push_back({firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)});
+						bottomTrees[btSz]={firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
+						btSz++;
 						
 						auto a3 = std::chrono::high_resolution_clock::now();
 						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
@@ -1098,8 +1103,8 @@ std::vector<std::string> makeTree(std::string pfstr){
 								fullTrees.push_back("1");
 							}
 							
-							bottomTrees.push_back({secondS[iii] + firstS[ii]  + pfstr.at(i) + '@' + secondT[iii] + firstT[ii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)});
-						
+							bottomTrees[btSz]={secondS[iii] + firstS[ii]  + pfstr.at(i) + '@' + secondT[iii] + firstT[ii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
+							btSz++;
 						}
 					}
 				}
@@ -1107,7 +1112,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 				
 			}
 			else {
-
+				bottomTrees.resize(btSz+secondS.size());
 				for (iii=0;iii<secondS.size();iii++){
 					
 					if (listMap[secondListMapKey][iii*3+2]=="4"){
@@ -1152,8 +1157,8 @@ std::vector<std::string> makeTree(std::string pfstr){
 							rightLength++;
 						}
 					}
-					bottomTrees.push_back({secondS[iii] + pfstr.at(i) + '@' + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)});
-					
+					bottomTrees[btSz]={secondS[iii] + pfstr.at(i) + '@' + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
+					btSz++;
 					
 					
 					
@@ -1240,7 +1245,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a4 - a3 ).count();
 	
 	//std::cout << "after third: " << pfstr << "\n";
-	for (ii=0;ii<bottomTrees.size();ii++){
+	for (ii=0;ii<btSz;ii++){
 		std::string tempStr = bottomTrees[ii][0];
 		//std::cout << ii << ": " << tempStr << "\n";
 		int tempOperand = 0;
