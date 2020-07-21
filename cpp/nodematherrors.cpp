@@ -2193,7 +2193,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	totalAnswers += allStrings.size();
 	std::cout << totalAnswers << "\n";
 	for (ii=0;ii<allStrings.size();ii++){
-		
+		std::cout << allStrings[ii] << "\n";
 		if (answerListMap.find(allStrings[ii]) != answerListMap.end()){
 		
 		}
