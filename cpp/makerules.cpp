@@ -96,18 +96,48 @@ bool solveConstraintFix(std::string input){
 	std::cout << "constraint: "<< input << " and " << firstExp << " and " << secondExp << " and " << lastOp << "\n";
 	
 	if (lastOp == -94){ //does not contain--secondExp must be single operand
-		for (i=0;i<firstIdx;i++){
-			if (operandList[i]==operandList[firstIdx]){
-				return false;
+		currentOperand = "":
+		postKey = false;
+		for (i=0;i<firstPart.length();i++){
+	
+			if (postKey){
+				if (firstPart.at(i) == '_'){
+					if (currentOperand==operandList[firstIdx]){
+						return false;
+					}
+					currentOperand ="";
+				}
+				else {
+					currentOperand += firstPart.at(i);
+				}
+			}
+			else if (firstPart.at(i) == '@'){
+				postKey = true;
+			
 			}
 		}
 		std::cout << "was true" << "\n";
 		return true;
 	}
 	if (lastOp == -87){ //contains--secondExp must be single operand
-		for (i=0;i<firstIdx;i++){
-			if (operandList[i]==operandList[firstIdx]){
-				return true;
+		currentOperand = "":
+		postKey = false;
+		for (i=0;i<firstPart.length();i++){
+	
+			if (postKey){
+				if (firstPart.at(i) == '_'){
+					if (currentOperand==operandList[firstIdx]){
+						return true;
+					}
+					currentOperand ="";
+				}
+				else {
+					currentOperand += firstPart.at(i);
+				}
+			}
+			else if (firstPart.at(i) == '@'){
+				postKey = true;
+			
 			}
 		}
 		return false;

@@ -29,6 +29,7 @@ using phmap::flat_hash_map;
 flat_hash_map<char,int> prec;
 flat_hash_map<std::string,std::vector<std::vector<std::string>>> rules;
 flat_hash_map<std::string,flat_hash_map<std::string,std::string>> allListMap;
+flat_hash_map<std::string,bool> constraintMap;
 std::string jsonmessage;
 int duration1;
 int duration2;
@@ -1842,7 +1843,14 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 									constraintFix += rule[iiii].at(iii);
 								}
 							}
-							bool isAllowed = solveConstraintFix(constraintFix);
+							bool isAllowed = true;
+							if (constraintMap.find(constraintFix) != constraintMap.end()){
+								isAllowed = constraintMap[constraintFix];
+							}
+							else {
+								isAllowed = solveConstraintFix(constraintFix);
+								constraintMap[constraintFix]=isAllowed;
+							}
 							if (!isAllowed){
 								newPostfix = "";
 								break;
