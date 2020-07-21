@@ -2044,10 +2044,18 @@ void getAnswerList(std::string s,bool isCorrect) {
 			if (tailAnswerList[iii].size()<maxSteps){
 				std::vector<std::string> oneAnswer;
 				oneAnswer = {newPostfix};
+				bool hasLoop = false;
 				for (iiii=0;iiii<tailAnswerList[iii].size();iiii++){
+					if (tailAnswerList[iii][iiii] == newPostfix){
+						hasLoop = true;
+						break;
+					}
 					oneAnswer.push_back(tailAnswerList[iii][iiii]);
 				}
-				answerList.push_back(oneAnswer);
+				if (!hasLoop){
+					answerList.push_back(oneAnswer);
+				}
+				
 			}
 		}
 	
