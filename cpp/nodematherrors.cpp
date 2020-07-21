@@ -2091,8 +2091,18 @@ bool correctAnswer(std::string s, std::string a){
 	int minLen = 10000;
 	int minIdx = 0;
 	bool isCorrect = false;
+	int ui = 0;
+	flat_hash_map<std::string,int> uniqueAnswers;
 	for (i=0;i<answerListMap[newPostfix].size();i++){
 		//std::cout << "correct: " << answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] << "\n";
+		if (uniqueAnswers.find(answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1]) != uniqueAnswers.end()){
+			uniqueAnswers[answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1]]++;
+		}
+		else {
+			uniqueAnswers[answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1]]=1;
+			ui++;
+		}
+		
 		if (answerListMap[newPostfix][i].size() > 1 && answerListMap[newPostfix][i].size()<minLen){
 			minLen = answerListMap[newPostfix][i].size();
 			minIdx = i;
@@ -2101,6 +2111,7 @@ bool correctAnswer(std::string s, std::string a){
 			isCorrect = true;
 		}
 	}
+	std::cout << "n answers: " << i  << " and unique: " << ui << "\n";
 
 	jsonmessage = "";
 	for (ii=0;ii<answerListMap[newPostfix][minIdx].size();ii++){
