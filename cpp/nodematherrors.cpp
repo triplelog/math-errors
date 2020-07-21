@@ -2173,6 +2173,11 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	std::vector<std::string> allStrings; //vector of the next step
 	std::cout << bottomTreesString.size() << "\n";
 	std::vector<std::string> someStrings = applyRulesVector(newPostfix,isCorrect);
+	int nConstraints = 0;
+	for (flat_hash_map<int,std::string>::iterator iter = constraintMap.begin(); iter != constraintMap.end(); ++iter){
+		nConstraints++;
+	}
+	std::cout << nConstraints << "\n";
 	//std::cout << s << " andand " << someStrings.size() << "\n";
 	flat_hash_map<std::string,bool> uniqueStrings;
 	for (iii=0;iii<someStrings.size();iii++){
