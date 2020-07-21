@@ -2858,16 +2858,16 @@ void getAnswerList(std::string s,bool isCorrect) {
 	int maxSteps = 10;
 	newPostfix = removeBracketsOne(newPostfix);
 	auto a1 = std::chrono::high_resolution_clock::now();
-	//std::cout << s << " before pl\n";
+	std::cout << s << " before pl\n";
 	makeTree(newPostfix);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
-	//std::cout << s << " after pl\n";
+	std::cout << s << " after pl\n";
 
 	std::vector<std::string> allStrings; //vector of the next step
 	
 	std::vector<std::string> someStrings = applyRulesVector(newPostfix,isCorrect);
-	//std::cout << s << " andand " << someStrings.size() << "\n";
+	std::cout << s << " andand " << someStrings.size() << "\n";
 	for (iii=0;iii<someStrings.size();iii++){
 		//std::cout << someStrings[iii] << "\n";
 		someStrings[iii] = removeBracketsOne(someStrings[iii]);
