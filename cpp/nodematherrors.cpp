@@ -2912,7 +2912,7 @@ void getAnswerList(std::string s,bool isCorrect) {
 	answerList.push_back({newPostfix});
 	
 	auto a2 = std::chrono::high_resolution_clock::now();
-	duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	//duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	
 	
 	for (ii=0;ii<allStrings.size();ii++){
@@ -2956,13 +2956,10 @@ void getAnswerList(std::string s,bool isCorrect) {
 std::string fullAnswer(std::string s, std::string a){
 	std::string newPostfix = removeBracketsOne(postfixify(s));
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
-	//auto a1 = std::chrono::high_resolution_clock::now();
-	//auto a1 = std::chrono::high_resolution_clock::now();
+	auto a1 = std::chrono::high_resolution_clock::now();
 	getAnswerList(newPostfix,false);
-	//auto a2 = std::chrono::high_resolution_clock::now();
-	//duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
-	//auto a2 = std::chrono::high_resolution_clock::now();
-	//duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	auto a2 = std::chrono::high_resolution_clock::now();
+	duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << answerListMap[newPostfix].size() << "\n\n\n";
 	int i; int ii;
 	std::string mpf = postfixify(a);
