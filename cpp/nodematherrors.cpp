@@ -2082,7 +2082,7 @@ void getAnswerList(std::string s,bool isCorrect) {
 	auto a2 = std::chrono::high_resolution_clock::now();
 	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	duration1 += dd1;
-	std::cout << dd1 << "  ";
+	//std::cout << dd1 << "  ";
 	//std::cout << s << " after pl\n";
 
 	std::vector<std::string> allStrings; //vector of the next step
