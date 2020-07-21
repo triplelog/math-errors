@@ -47,7 +47,7 @@ bool solveConstraintFix(std::string input){
 					break;
 				}
 			}
-			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && (pfstr.at(i) >= 0 || pfstr.at(i) <= -69){
+			if (input.at(i) != '-' && input.at(i) != '/' && (input.at(i) >= 0 || input.at(i) <= -69)){
 				for (ii=0;ii<maxi;ii++){
 					tempExp = "";
 					for (iii=ii;iii<maxi;iii++){
