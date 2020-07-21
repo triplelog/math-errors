@@ -1452,6 +1452,7 @@ void makeTree(std::string pfstr){
 							continue;
 						}
 						
+						auto a2 = std::chrono::high_resolution_clock::now();
 						//condensed
 						fullTrees.push_back("#");
 						
@@ -1467,6 +1468,8 @@ void makeTree(std::string pfstr){
 							fullTrees.push_back("0");
 						}
 						
+						auto a3 = std::chrono::high_resolution_clock::now();
+						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 						
 						//std::cout << "possible part: " << firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
 						
@@ -1496,17 +1499,18 @@ void makeTree(std::string pfstr){
 						}
 						std::vector<std::string> tempV;
 						tempV = {firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
-						auto a2 = std::chrono::high_resolution_clock::now();
+						
 						bottomTrees[btSz]= tempV;
 						btSz++;
 						
-						auto a3 = std::chrono::high_resolution_clock::now();
-						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+						
 						
 						
 						if (listMap[secondListMapKey][iii*3+2]=="3" || listMap[firstListMapKey][ii*3+2]=="3"){
 							continue;
 						}
+						
+						a2 = std::chrono::high_resolution_clock::now();
 						
 						fullTrees.push_back(firstS[ii] + secondS[iii]  + pfstr.at(i));
 						fullTrees.push_back(firstT[ii] + secondT[iii]);
@@ -1536,9 +1540,12 @@ void makeTree(std::string pfstr){
 								fullTrees.push_back("1");
 							}
 							
+							
 							bottomTrees[btSz]={secondS[iii] + firstS[ii]  + pfstr.at(i) + '@' + secondT[iii] + firstT[ii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
 							btSz++;
 						}
+						a3 = std::chrono::high_resolution_clock::now();
+						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 					}
 				}
 				
@@ -1551,6 +1558,8 @@ void makeTree(std::string pfstr){
 					if (listMap[secondListMapKey][iii*3+2]=="4"){
 						continue;
 					}
+					
+					auto a2 = std::chrono::high_resolution_clock::now();
 					
 					fullTrees.push_back("#");
 					std::string bless = removeBracketsOne(secondS[iii] + pfstr.at(i) + '@' + secondT[iii]);
@@ -1565,6 +1574,8 @@ void makeTree(std::string pfstr){
 						fullTrees.push_back("0");
 					}
 					
+					auto a3 = std::chrono::high_resolution_clock::now();
+					duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 					
 					//std::cout << "possible part: " << secondS[iii] + pfstr.at(i) + '@' + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
 					
@@ -1605,6 +1616,7 @@ void makeTree(std::string pfstr){
 						continue;
 					}
 					
+					a2 = std::chrono::high_resolution_clock::now();
 					fullTrees.push_back(secondS[iii] + pfstr.at(i));
 					fullTrees.push_back(secondT[iii]);
 					if (listMap[secondListMapKey][iii*3+2]=="2"){
@@ -1616,6 +1628,9 @@ void makeTree(std::string pfstr){
 					else {
 						fullTrees.push_back("1");
 					}
+					
+					a3 = std::chrono::high_resolution_clock::now();
+					duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 					
 					//condensed
 					//fullTrees.push_back("#");
@@ -1666,48 +1681,7 @@ void makeTree(std::string pfstr){
 	duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a4 - a3 ).count();
 	
 	//std::cout << "after third: " << pfstr << "\n";
-	for (ii=0;ii<btSz;ii++){
-		std::string tempStr = bottomTrees[ii][0];
-		//std::cout << ii << ": " << tempStr << "\n";
-		int tempOperand = 0;
-		int nOperand = 0;
-		bool isInside = false;
-		
-		/*for (iii=0;iii<tempStr.length();iii++){
-			if (tempStr.at(iii) == '{'){
-				tempOperand = 0;
-				isInside = true;
-			}
-			else if (tempStr.at(iii) == '}'){
-				bottomTrees[ii].push_back(bracketlessMap[tempOperand]);
-				tempStr.replace(iii,0,bracketlessMap[tempOperand]);
-				iii += bracketlessMap[tempOperand].length();
-				
-				nOperand++;
-				isInside = false;
-				
-			}
-			else if (isInside){
-				tempOperand *= 10;
-				tempOperand += (tempStr.at(iii) - '0');
-				tempStr.replace(iii,1,"");
-				iii--;
-			}
-		}
-		bottomTrees[ii][0] = tempStr;*/
-		
-		
-		//std::cout << ii << ": " << bottomTrees[ii][0] << "\n";
-		for (iii=5;iii<bottomTrees[ii].size();iii++){
-			
-			//std::cout << ii << ": " << bottomTrees[ii][iii] << "\n";
-		}
-		//std::cout << "\n";
-		//std::string tempFull = pfstr;
-		
-		//tempFull.replace(startRightIndex,rightLength,"{"+std::to_string(iidx)+"}");
-		//tempFull.replace(startLeftIndex,i+1-startLeftIndex,"#");
-	}
+
 	bottomTrees.resize(btSz);
 	//std::cout << "\n";
 	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
