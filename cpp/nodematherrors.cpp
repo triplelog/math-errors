@@ -1861,9 +1861,10 @@ void makeTree(std::string pfstr){
 						break;
 					}
 				}
-				auto a2 = std::chrono::high_resolution_clock::now();
+				
 				bottomTrees.resize(btSz+secondS.size()*firstS.size()*2);
 				fullTrees.resize(ftSz+secondS.size()*firstS.size()*3*5);
+				auto a2 = std::chrono::high_resolution_clock::now();
 				for (ii=0;ii<firstS.size();ii++){
 					if (listMap[firstListMapKey][ii*5+2]=="4"){
 						continue;
@@ -2100,7 +2101,7 @@ void makeTree(std::string pfstr){
 			}
 		
 
-			auto a3 = std::chrono::high_resolution_clock::now();
+			
 
 			//std::cout << "fullTrees size: " << fullTrees.size() << " @ " << i << "\n";
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
@@ -2117,7 +2118,7 @@ void makeTree(std::string pfstr){
 			//allListMapBottom[fullStr]=someBottomTrees;
 			
 			subExpressions[i]=startLeftIndex;
-
+			auto a3 = std::chrono::high_resolution_clock::now();
 			bottomTrees.resize(btSz);
 			
 			auto a4 = std::chrono::high_resolution_clock::now();
