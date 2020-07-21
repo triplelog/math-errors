@@ -1142,9 +1142,11 @@ std::vector<std::string> makeTree(std::string pfstr){
 								numOperations++;
 							}
 						}
-						if (numOperations > 10){
+						if (numOperations > 5){
 							continue;
 						}
+						
+						
 						fullTrees[ftSz] = firstS[ii] + secondS[iii]  + pfstr.at(i);
 						ftSz++;
 						fullTrees[ftSz] = firstT[ii] + secondT[iii];
@@ -1250,7 +1252,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 					fullTrees[ftSz] = secondTBL[iii];
 					ftSz++;
 					
-				
+					
 					//std::cout << "possible part: " << secondS[iii] + pfstr.at(i) + '@' + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
 				
 					std::string tempFull = pfstr;
@@ -1290,7 +1292,20 @@ std::vector<std::string> makeTree(std::string pfstr){
 					if (listMap[secondListMapKey][iii*5+2]=="3"){
 						continue;
 					}
-				
+					
+					int numOperations = 0; int ni;
+					for (ni=0;ni<secondS[iii].size();ni++){
+						if (secondS[iii].at(ni)=='@'){
+							break;
+						}
+						else if (secondS[iii].at(ni)!='#'){
+							numOperations++;
+						}
+					}
+					if (numOperations > 5){
+						continue;
+					}
+					
 					fullTrees[ftSz] = secondS[iii] + pfstr.at(i);
 					ftSz++;
 					fullTrees[ftSz] = secondT[iii];
