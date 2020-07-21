@@ -2489,9 +2489,9 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 
 	answerListMap[newPostfix] = allStrings;
 	totalAnswers += allStrings.size();
-	std::cout << "total answers: "<< totalAnswers << "\n";
+	//std::cout << "total answers: "<< totalAnswers << "\n";
 	for (ii=0;ii<allStrings.size();ii++){
-		std::cout << allStrings[ii] << "\n";
+		//std::cout << allStrings[ii] << "\n";
 		if (answerListMap.find(allStrings[ii]) != answerListMap.end()){
 		
 		}
@@ -2510,6 +2510,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 std::string fullAnswer(std::string s, std::string a){
 	std::string newPostfix = removeBracketsOne(postfixify(s));
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
+	answerListMap.clear();
 	auto a1 = std::chrono::high_resolution_clock::now();
 	getAnswerList(newPostfix,false,0);
 	auto a2 = std::chrono::high_resolution_clock::now();
@@ -2521,7 +2522,7 @@ std::string fullAnswer(std::string s, std::string a){
 	int ui = 0;
 	flat_hash_map<std::string,int> uniqueAnswers;
 	for (i=0;i<answerListMap[newPostfix].size();i++){
-		//std::cout << "answer: " << answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] << "\n";
+		std::cout << "answers: " << answerListMap[newPostfix][i] << "\n";
 		if (uniqueAnswers.find(answerListMap[newPostfix][i]) != uniqueAnswers.end()){
 			uniqueAnswers[answerListMap[newPostfix][i]]++;
 		}
@@ -2560,7 +2561,7 @@ bool correctAnswer(std::string s, std::string a){
 	int ui = 0;
 	flat_hash_map<std::string,int> uniqueAnswers;
 	for (i=0;i<answerListMap[newPostfix].size();i++){
-		//std::cout << "correct: " << answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] << "\n";
+		std::cout << "corrects: " << answerListMap[newPostfix][i] << "\n";
 		if (uniqueAnswers.find(answerListMap[newPostfix][i]) != uniqueAnswers.end()){
 			uniqueAnswers[answerListMap[newPostfix][i]]++;
 		}
