@@ -848,6 +848,8 @@ std::vector<std::string> makeTree(std::string pfstr){
 	std::string currentOperator = "";
 	int iidx = 0;
 	bool midBrackets = false;
+	auto a1 = std::chrono::high_resolution_clock::now();
+	
 	for (i=0;i<pfstr.length();i++){
 		if (pfstr.at(i) == '@'){
 			startOperands = true;
@@ -877,7 +879,8 @@ std::vector<std::string> makeTree(std::string pfstr){
 		}
 	}
 	
-
+	auto a2 = std::chrono::high_resolution_clock::now();
+	duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
     
     
     
@@ -1186,7 +1189,8 @@ std::vector<std::string> makeTree(std::string pfstr){
 		
 	}
 		
-	
+	auto a3 = std::chrono::high_resolution_clock::now();
+	duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 	//std::cout << "\n\n---start Original-----\n";
 	int iiii;
 	
@@ -1196,6 +1200,9 @@ std::vector<std::string> makeTree(std::string pfstr){
 	
 	//std::cout << "\n\n---start Bracketless-----\n";
 	flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
+	
+	auto a4 = std::chrono::high_resolution_clock::now();
+	duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a4 - a3 ).count();
 	
 	//std::cout << "after third: " << pfstr << "\n";
 	for (ii=0;ii<bottomTrees.size();ii++){
@@ -1962,14 +1969,12 @@ void getAnswerList(std::string s,bool isCorrect) {
 	std::string newPostfix = pfstr;
 
 	int maxSteps = 10;
-	auto a1 = std::chrono::high_resolution_clock::now();
 	newPostfix = removeBracketsOne(newPostfix);
-	auto a2 = std::chrono::high_resolution_clock::now();
-	duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	//auto a1 = std::chrono::high_resolution_clock::now();
 	//std::cout << s << " before pl\n";
 	std::vector<std::string> postList = makeTree(newPostfix);
-	auto a3 = std::chrono::high_resolution_clock::now();
-	duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+	//auto a2 = std::chrono::high_resolution_clock::now();
+	//duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	//std::cout << s << " after pl\n";
 
 	std::vector<std::string> allStrings; //vector of the next step
@@ -2087,7 +2092,7 @@ void GetAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	bool isCorrect = correctAnswer(str,astr);
 	
-	std::cout << "Time to correct: " << duration2 << " and " << duration3 << "\n";
+	std::cout << "Time to correct: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	std::string error = "None!";
 	if (!isCorrect){
