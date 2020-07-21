@@ -839,7 +839,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	std::vector<std::string> finalList;
 	std::vector<std::string> orderedKeyList;
 	flat_hash_map<std::string,std::vector<std::string>> nodeList;
-	
+	flat_hash_map<int,int> subExpressions;
     
     
 	int i; int ii; int iii;
@@ -887,18 +887,18 @@ std::vector<std::string> makeTree(std::string pfstr){
 	//std::cout << "before third: " << pfstr << "\n";
 	bottomTrees.resize(0);
 	for (i=0;i<pfstr.length();i++){
-		
-		if (pfstr.at(i) == '@'){
+		char mychar = pfstr.at(i);
+		if (mychar == '@'){
 			break;
 		}
-		else if (pfstr.at(i) != '#'){
+		else if (mychar != '#'){
 			std::vector<std::string> secondS;
 			std::vector<std::string> secondT;
 			std::string secondStr = "";
 			std::string secondTtr = "";
 			std::string secondListMapKey = "";
 			
-			auto a1 = std::chrono::high_resolution_clock::now();
+			
 			
 			int maxi = i-1;
 			int startLeftIndex = maxi;
@@ -940,7 +940,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 			}
 			
 			auto a2 = std::chrono::high_resolution_clock::now();
-			duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	
 			std::vector<std::string> firstS;
 			std::vector<std::string> firstT;
@@ -950,8 +949,31 @@ std::vector<std::string> makeTree(std::string pfstr){
 			std::vector<std::string> fullTrees;
 			
 			
-			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && (pfstr.at(i) >= 0 || pfstr.at(i) <= -69 )){ // Is at least binary function
+			if (mychar != '-' && mychar != '/' && (mychar >= 0 || mychar <= -69 )){ // Is at least binary function
 				
+				int startSub = subExpressions[i-1];
+				for (ii=startSub;ii<maxi;ii++){
+					std::string s = "";
+					std::string t = "";
+					for (iii=ii;iii<maxi;iii++){
+						s += pfstr.at(iii);
+						if (pfstr.at(iii) == '#'){
+							t += operandMap[iii] + '_';
+						}
+					}
+					firstListMapKey = s + "@" + t;
+					firstStr = s;
+					firstTtr = t;
+					firstS.resize(listMap[s+'@'+t].size()/3);
+					firstT.resize(listMap[s+'@'+t].size()/3);
+					for (iii=0;iii<listMap[s+'@'+t].size()/3;iii++){
+						firstS[iii]=listMap[s+'@'+t][iii*3];
+						firstT[iii]=listMap[s+'@'+t][iii*3+1];
+					}
+					startLeftIndex = ii;
+					startRightOperand = std::stoi(operandMap[startSub]);
+				}
+				/*
 				for (ii=0;ii<maxi;ii++){
 					std::string s = "";
 					std::string t = "";
@@ -979,7 +1001,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 						startRightOperand = tempStartRightOperand;
 						break;
 					}
-				}
+				}*/
 				
 				
 				for (ii=0;ii<firstS.size();ii++){
@@ -1183,6 +1205,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 
 			
 			listMap[fullStr]=fullTrees;
+			subExpressions[i]=startLeftIndex;
 			finalList = fullTrees;
 			
 		}
