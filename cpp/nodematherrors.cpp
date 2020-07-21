@@ -1948,7 +1948,7 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> answerListMap;
 void getAnswerList(std::string s,bool isCorrect) {
 	std::vector<std::vector<std::string>> answerList;
 
-	std::cout << s << "\n";
+	//std::cout << s << "\n";
 	int i;
 	int ii;
 	int iii;
@@ -2037,6 +2037,7 @@ bool correctAnswer(std::string s, std::string a){
 	int minIdx = 0;
 	bool isCorrect = false;
 	for (i=0;i<answerListMap[newPostfix].size();i++){
+		std::cout << "correct: " << answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] << "\n";
 		if (answerListMap[newPostfix][i].size() > 1 && answerListMap[newPostfix][i].size()<minLen){
 			minLen = answerListMap[newPostfix][i].size();
 			minIdx = i;
