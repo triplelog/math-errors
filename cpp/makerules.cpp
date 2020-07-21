@@ -96,7 +96,7 @@ bool solveConstraintFix(std::string input){
 	std::cout << "constraint: "<< input << " and " << firstExp << " and " << secondExp << " and " << lastOp << "\n";
 	
 	if (lastOp == -94){ //does not contain--secondExp must be single operand
-		currentOperand = "":
+		currentOperand = "";
 		postKey = false;
 		for (i=0;i<firstPart.length();i++){
 	
@@ -120,7 +120,7 @@ bool solveConstraintFix(std::string input){
 		return true;
 	}
 	if (lastOp == -87){ //contains--secondExp must be single operand
-		currentOperand = "":
+		currentOperand = "";
 		postKey = false;
 		for (i=0;i<firstPart.length();i++){
 	
