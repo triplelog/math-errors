@@ -951,7 +951,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 			
 			if (mychar != '-' && mychar != '/' && (mychar >= 0 || mychar <= -69 )){ // Is at least binary function
 				
-				int startSub = subExpressions[maxi];
+				int startSub = subExpressions[maxi-1];
 				std::string s = "";
 				std::string t = "";
 				for (iii=startSub;iii<maxi;iii++){
