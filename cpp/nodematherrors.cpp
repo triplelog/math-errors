@@ -1778,7 +1778,7 @@ void makeTree(std::string pfstr){
 				//listMap[inStr]=fullTrees;
 				//someBottomTrees = allListMapBottom[inStr];
 				//sbtSz = someBottomTrees.size();
-				std::cout << "inStr: " << inStr << "\n";
+				std::cout << "inStr: " << inStr << " and " << allListMapBottom[inStr].size() << "\n";
 			}
 			if (2==2) {
 				
@@ -2083,7 +2083,7 @@ void makeTree(std::string pfstr){
 	
 				//std::cout << "fullTrees size: " << fullTrees.size() << " @ " << i << "\n";
 				std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
-				std::cout << "fullStr: " << fullStr << "\n";
+				
 			
 				//Parent Node
 				std::string opStr = "";
@@ -2092,6 +2092,7 @@ void makeTree(std::string pfstr){
 				listMap[fullStr]=fullTrees;
 				allListMapFull[fullStr]=fullTrees;
 				someBottomTrees.resize(sbtSz);
+				std::cout << "fullStr: " << fullStr << " and " << someBottomTrees.size() << "\n";
 				allListMapBottom[fullStr]=someBottomTrees;
 				
 				subExpressions[i]=startLeftIndex;
