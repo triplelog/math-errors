@@ -1022,16 +1022,13 @@ void makeTree(std::string pfstr){
 					
 					for (iii=0;iii<sss;iii++){
 				
-						auto a2 = std::chrono::high_resolution_clock::now();
+						
 						if (listMap[secondListMapKey][iii*5+2]=="4"){
-							auto a3 = std::chrono::high_resolution_clock::now();
-							duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 							continue;
 						}
-						auto a3 = std::chrono::high_resolution_clock::now();
-						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
-				
 						
+						//2 ms
+						auto a2 = std::chrono::high_resolution_clock::now();
 						
 						//condensed
 						fullTrees[ftSz] = "#";
@@ -1107,8 +1104,12 @@ void makeTree(std::string pfstr){
 				
 				
 						if (listMap[secondListMapKey][iii*5+2]=="3" || listMap[firstListMapKey][ii*5+2]=="3"){
+							auto a3 = std::chrono::high_resolution_clock::now();
+							duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 							continue;
 						}
+						auto a3 = std::chrono::high_resolution_clock::now();
+						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 
 						
 						
