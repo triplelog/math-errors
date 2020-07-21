@@ -2107,6 +2107,12 @@ void makeTree(std::string pfstr){
 					std::cout << "mapped: "<< allListMapBottom[inStr][ii][0] << "\n";
 					std::cout << "new1: "<< someBottomTrees[ii][1] << "\n";
 					std::cout << "mapped1: "<< allListMapBottom[inStr][ii][1] << "\n";
+					std::cout << "new2: "<< someBottomTrees[ii][2] << "\n";
+					std::cout << "mapped2: "<< allListMapBottom[inStr][ii][2] << "\n";
+					std::cout << "new3: "<< someBottomTrees[ii][3] << "\n";
+					std::cout << "mapped3: "<< allListMapBottom[inStr][ii][3] << "\n";
+					std::cout << "new4: "<< someBottomTrees[ii][4] << "\n";
+					std::cout << "mapped4: "<< allListMapBottom[inStr][ii][4] << "\n";
 				}
 				btSz++;
 			}
