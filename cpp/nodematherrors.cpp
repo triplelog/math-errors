@@ -1142,7 +1142,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 								numOperations++;
 							}
 						}
-						if (numOperations > 5){
+						if (numOperations > 3){
 							continue;
 						}
 						
@@ -1302,7 +1302,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 							numOperations++;
 						}
 					}
-					if (numOperations > 5){
+					if (numOperations > 3){
 						continue;
 					}
 					
