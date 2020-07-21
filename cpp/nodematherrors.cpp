@@ -1957,16 +1957,16 @@ void getAnswerList(std::string s,bool isCorrect) {
 
 	newPostfix = removeBracketsOne(newPostfix);
 	
-	std::cout << s << " before pl\n";
+	//std::cout << s << " before pl\n";
 	std::vector<std::string> postList = makeTree(newPostfix);
-	std::cout << s << " after pl\n";
+	//std::cout << s << " after pl\n";
 
 	std::vector<std::string> allStrings; //vector of the next step
 	
 	std::vector<std::string> someStrings = applyRulesVector(newPostfix,isCorrect);
 	//std::cout << s << " andand " << someStrings.size() << "\n";
 	for (iii=0;iii<someStrings.size();iii++){
-		std::cout << someStrings[iii] << "\n";
+		//std::cout << someStrings[iii] << "\n";
 		someStrings[iii] = removeBracketsOne(someStrings[iii]);
 		allStrings.push_back(someStrings[iii]);
 	}

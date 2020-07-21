@@ -1,51 +1,83 @@
 bool solveConstraintFix(std::string input){
-	int i;
+	int i; int ii; int iii;
 	bool postKey = false;\
 	
 	std::string firstPart = "";
 	std::string secondPart = "";
+	char lastOp = '=';
 	bool inBrackets = false;
-	bool isSecond = false;
-	for (i=1;i<input.length();i++){
+	flat_hash_map<std::string,bool> expressionMap;
+	std::vector<std::string> operandList;
+	std::string currentOperand ="";
+	expressionMap["#"]=true;
+	for (i=0;i<input.length();i++){
+	
 		if (postKey){
 			if (input.at(i) == '{'){
 				inBrackets = true;
+				currentOperand = "{";
 			}
 			else if (input.at(i) == '}'){
 				inBrackets = false;
-			}
-			else if (isSecond){
-				secondPart += input.at(i);
+				currentOperand += "}";
 			}
 			else if (inBrackets){
-				firstPart += input.at(i);
+				currentOperand += input.at(i);
 			}
 			else if (input.at(i) == '_'){
-				isSecond = true;
-			}
-			else if (firstPart == ""){
-				firstPart = "#@";
-				firstPart += input.at(i);
+				operandList.push_back(currentOperand);
+				currentOperand ="";
 			}
 			else {
-				firstPart += input.at(i);
+				currentOperand += input.at(i);
 			}
+		}
+		else if (input.at(i) != '#'){
+			postKey = true;
+			std::string tempExp = "";
+			int maxi = 0;
+			for (ii=0;ii<i;ii++){
+				tempExp = "";
+				for (iii=ii;iii<i;iii++){
+					tempExp += input.at(iii);
+				}
+				if (expressionMap.find(tempExp) != expressionMap.end()){
+					maxi = ii;
+					secondPart = tempExp;
+					break;
+				}
+			}
+			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && (pfstr.at(i) >= 0 || pfstr.at(i) <= -69){
+				for (ii=0;ii<maxi;ii++){
+					tempExp = "";
+					for (iii=ii;iii<maxi;iii++){
+						tempExp += input.at(iii);
+					}
+					if (expressionMap.find(tempExp) != expressionMap.end()){
+						maxi = ii;
+						firstPart = tempExp;
+						break;
+					}
+				}
+			}
+			tempExp = "";
+			for (ii=maxi;ii<i+1;ii++){
+				tempExp += input.at(iii);
+			}
+			expressionMap[tempExp]=true;
+			lastOp= input.at(i);
 		}
 		else if (input.at(i) == '@'){
 			postKey = true;
-			secondPart.replace(secondPart.length()-1,1,"@");
+			
 		}
 		else {
-			secondPart += input.at(i);
+			
 		}
 	}
-	if (firstPart.at(firstPart.length()-1) == '_'){
 	
-	}
-	else {
-		firstPart += '_';
-	}
-	std::cout << "constraint: "<< input << " and " << firstPart << " and " << secondPart << "\n";
+	
+	std::cout << "constraint: "<< input << " and " << firstPart << " and " << secondPart << " and " << lastOp << "\n";
 	return true;
 }
 std::string constraintify(std::string input){
