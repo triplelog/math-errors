@@ -2031,9 +2031,10 @@ void getAnswerList(std::string s,bool isCorrect) {
 	}
 
 	answerList.push_back({newPostfix});
+	auto a1 = std::chrono::high_resolution_clock::now();
 	for (ii=0;ii<allStrings.size();ii++){
 		std::vector<std::vector<std::string>> tailAnswerList;
-		auto a1 = std::chrono::high_resolution_clock::now();
+		
 		if (answerListMap.find(allStrings[ii]) != answerListMap.end()){
 			tailAnswerList = answerListMap[allStrings[ii]];
 		}
@@ -2060,10 +2061,11 @@ void getAnswerList(std::string s,bool isCorrect) {
 				
 			}
 		}
-		auto a2 = std::chrono::high_resolution_clock::now();
-		duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+		
 	
 	}
+	auto a2 = std::chrono::high_resolution_clock::now();
+	duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 
 		
 	answerListMap[newPostfix] = answerList;
