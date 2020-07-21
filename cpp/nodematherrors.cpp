@@ -1778,7 +1778,7 @@ void makeTree(std::string pfstr){
 				//listMap[inStr]=fullTrees;
 				//someBottomTrees = allListMapBottom[inStr];
 				//sbtSz = someBottomTrees.size();
-				std::cout << "inStr: " << inStr << " and " << allListMapBottom[inStr][0].size() << "\n";
+				//std::cout << "inStr: " << inStr << " and " << allListMapBottom[inStr][0].size() << "\n";
 			}
 			if (2==2) {
 				
@@ -2092,7 +2092,7 @@ void makeTree(std::string pfstr){
 				listMap[fullStr]=fullTrees;
 				allListMapFull[fullStr]=fullTrees;
 				someBottomTrees.resize(sbtSz);
-				std::cout << "fullStr: " << fullStr << " and " << someBottomTrees[0].size() << "\n";
+				//std::cout << "fullStr: " << fullStr << " and " << someBottomTrees[0].size() << "\n";
 				allListMapBottom[fullStr]=someBottomTrees;
 				
 				subExpressions[i]=startLeftIndex;
@@ -2102,6 +2102,12 @@ void makeTree(std::string pfstr){
 			bottomTrees.resize(btSz+sbtSz);
 			for (ii=0;ii<sbtSz;ii++){
 				bottomTrees[btSz] = someBottomTrees[ii];
+				if (foundFullTrees){
+					std::cout << "new: "<< someBottomTrees[ii][0] << "\n";
+					std::cout << "mapped: "<< allListMapBottom[inStr][ii][0] << "\n";
+					std::cout << "new1: "<< someBottomTrees[ii][1] << "\n";
+					std::cout << "mapped1: "<< allListMapBottom[inStr][ii][1] << "\n";
+				}
 				btSz++;
 			}
 			
