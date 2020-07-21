@@ -2174,7 +2174,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	std::cout << bottomTreesString.size() << "\n";
 	std::vector<std::string> someStrings = applyRulesVector(newPostfix,isCorrect);
 	int nConstraints = 0;
-	for (flat_hash_map<int,std::string>::iterator iter = constraintMap.begin(); iter != constraintMap.end(); ++iter){
+	for (flat_hash_map<std::string,bool>::iterator iter = constraintMap.begin(); iter != constraintMap.end(); ++iter){
 		nConstraints++;
 	}
 	std::cout << nConstraints << "\n";
