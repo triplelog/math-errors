@@ -2873,7 +2873,7 @@ flat_hash_map<std::string,std::vector<std::vector<std::string>>> answerListMap;
 
 void getAnswerList(std::string s,bool isCorrect) {
 
-	auto a1 = std::chrono::high_resolution_clock::now();
+	
 	
 	
 	std::vector<std::vector<std::string>> answerList;
@@ -2896,7 +2896,7 @@ void getAnswerList(std::string s,bool isCorrect) {
 	
 	//std::cout << s << " before pl\n";
 	makeTree(newPostfix);
-	
+	auto a1 = std::chrono::high_resolution_clock::now();
 	//std::cout << s << " after pl\n";
 
 	std::vector<std::string> allStrings; //vector of the next step
