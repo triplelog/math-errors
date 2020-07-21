@@ -835,13 +835,9 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 
 
 void makeTree(std::string pfstr){
-	std::vector<std::string> treeOptions;
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,std::string> operandMap;
 	flat_hash_map<int,std::string> originalMap;
-	std::vector<std::string> finalList;
-	std::vector<std::string> orderedKeyList;
-	flat_hash_map<std::string,std::vector<std::string>> nodeList;
 	flat_hash_map<int,int> subExpressions;
     
     
@@ -883,10 +879,6 @@ void makeTree(std::string pfstr){
 	}
 	
 	
-    
-    
-    
-	int treeIdx = 0;
 	//std::cout << "before third: " << pfstr << "\n";
 	bottomTrees.resize(0);
 	btSz = 0;
@@ -1204,28 +1196,16 @@ void makeTree(std::string pfstr){
 			//Parent Node
 			std::string opStr = "";
 			opStr += pfstr.at(i);
-			std::string name = "node"+std::to_string(treeIdx);
-			treeIdx++;
-			std::string parent = "";
-			std::string nodeText = fullStr;
 			
 			
-			
-			
-
 			
 			listMap[fullStr]=fullTrees;
 			subExpressions[i]=startLeftIndex;
-			finalList = fullTrees;
 			
 		}
 		else {
 			listMap["#@" + std::to_string(idx) + "_"]={"#",originalMap[idx]+'_',"0"};
-			finalList = {"#",originalMap[idx]+'_',"0"};
 			operandMap[i]=std::to_string(idx);
-			
-			std::string name = "node"+std::to_string(treeIdx);
-			treeIdx++;
 			idx++;
 		}
 		
