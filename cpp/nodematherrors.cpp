@@ -2100,7 +2100,7 @@ void makeTree(std::string pfstr){
 			}
 			bottomTrees.resize(btSz+sbtSz);
 			for (ii=0;ii<sbtSz;ii++){
-				bottomTrees[btSz] = someBottomTrees[sbtSz];
+				bottomTrees[btSz] = someBottomTrees[ii];
 				btSz++;
 			}
 			
