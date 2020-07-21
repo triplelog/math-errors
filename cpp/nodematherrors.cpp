@@ -2191,6 +2191,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 
 	answerListMap[newPostfix] = allStrings;
 	totalAnswers += allStrings.size();
+	std::cout << totalAnswers << "\n";
 	for (ii=0;ii<allStrings.size();ii++){
 		
 		if (answerListMap.find(allStrings[ii]) != answerListMap.end()){
