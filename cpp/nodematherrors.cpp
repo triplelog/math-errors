@@ -2161,23 +2161,19 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	int maxSteps = 10;
 	newPostfix = removeBracketsOne(newPostfix);
 	
-	//std::cout << s << " before pl\n";
+	std::cout << s << " before pl\n";
 	auto a1 = std::chrono::high_resolution_clock::now();
 	makeTree(newPostfix);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	duration1 += dd1;
 	//std::cout << dd1 << "  ";
-	//std::cout << s << " after pl\n";
+	std::cout << s << " after pl\n";
 
 	std::vector<std::string> allStrings; //vector of the next step
 	std::cout << bottomTreesString.size() << "\n";
 	std::vector<std::string> someStrings = applyRulesVector(newPostfix,isCorrect);
-	int nConstraints = 0;
-	for (flat_hash_map<std::string,bool>::iterator iter = constraintMap.begin(); iter != constraintMap.end(); ++iter){
-		nConstraints++;
-	}
-	std::cout << nConstraints << "\n";
+
 	//std::cout << s << " andand " << someStrings.size() << "\n";
 	flat_hash_map<std::string,bool> uniqueStrings;
 	for (iii=0;iii<someStrings.size();iii++){
