@@ -1778,7 +1778,7 @@ void makeTree(std::string pfstr){
 				//listMap[inStr]=fullTrees;
 				//someBottomTrees = allListMapBottom[inStr];
 				//sbtSz = someBottomTrees.size();
-				std::cout "inStr: " << inStr << "\n";
+				std::cout << "inStr: " << inStr << "\n";
 			}
 			if (2==2) {
 				
