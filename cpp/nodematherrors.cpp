@@ -1017,13 +1017,14 @@ std::vector<std::string> makeTree(std::string pfstr){
 				
 				//bottomTreesString.resize(btSz+secondS.size()*firstS.size()*2);
 				//bottomTreesIndex.resize(btSz+secondS.size()*firstS.size()*2);
-				fullTrees.resize(ftSz+secondS.size()*firstS.size()*3*5);
+				
 				
 				int fss = firstS.size();
 				int sss = secondS.size();	
 				std::string nFirst = "0";
 				std::string nSecond = "0";	
 				std::cout << "new size: " << fss << " * " << sss << "\n";
+				fullTrees.resize(ftSz+sss*fss*3*5);
 				for (ii=0;ii<fss;ii++){
 					nFirst = listMap[firstListMapKey][ii*5+2];
 					if (nFirst=="4"){
