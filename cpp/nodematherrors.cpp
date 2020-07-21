@@ -29,7 +29,7 @@ using phmap::flat_hash_map;
 flat_hash_map<char,int> prec;
 flat_hash_map<std::string,std::vector<std::vector<std::string>>> rules;
 flat_hash_map<std::string,std::vector<std::string>> allListMapFull;
-flat_hash_map<std::string,std::vector<std::vector<std::string>>> allListMapBottom;
+//flat_hash_map<std::string,std::vector<std::vector<std::string>>> allListMapBottom;
 flat_hash_map<std::string,bool> constraintMap;
 std::vector<std::vector<std::string>> bottomTrees;
 int btSz;
@@ -1761,13 +1761,13 @@ void makeTree(std::string pfstr){
 			std::vector<std::string> fullTrees;
 			int ftSz = 0;
 			std::vector<std::vector<std::string>> someBottomTrees;
-			std::vector<std::vector<std::string>> prevBottomTrees;
+			//std::vector<std::vector<std::string>> prevBottomTrees;
 			int sbtSz = 0;
 			bool foundFullTrees = false;
 			std::string inStr = "";
 			int prevLeftIndex = 0;
 			int prevRightOperand = 0;
-			for (ii=0;ii<i+1;ii++){
+			/*for (ii=0;ii<i+1;ii++){
 				std::string s = "";
 				std::string t = "";
 				prevRightOperand = 10000;
@@ -1780,6 +1780,7 @@ void makeTree(std::string pfstr){
 						}
 					}
 				}
+				
 				if (allListMapBottom.find(s + '@' + t) != allListMapBottom.end()){
 					//fullTrees = allListMapFull[s + '@' + t];
 					//someBottomTrees = allListMapBottom[s + '@' + t];
@@ -1788,12 +1789,12 @@ void makeTree(std::string pfstr){
 					prevLeftIndex = ii;
 					break;
 				}
-			}
+			}*/
 			
-			if (foundFullTrees){
-				listMap[inStr]=allListMapFull[inStr];
-				someBottomTrees = allListMapBottom[inStr];
-				sbtSz = someBottomTrees.size();
+			if (foundFullTrees && 2 == 3){
+				//listMap[inStr]=allListMapFull[inStr];
+				//someBottomTrees = allListMapBottom[inStr];
+				//sbtSz = someBottomTrees.size();
 				//std::cout << "inStr: " << inStr << " and " << allListMapBottom[inStr][0].size() << "\n";
 				//prevBottomTrees = allListMapBottom[inStr];
 				mapSave++;
@@ -2173,7 +2174,7 @@ void makeTree(std::string pfstr){
 				allListMapFull[fullStr]=fullTrees;
 				someBottomTrees.resize(sbtSz);
 				//std::cout << "fullStr: " << fullStr << " and " << someBottomTrees[0].size() << "\n";
-				allListMapBottom[fullStr]=someBottomTrees;
+				//allListMapBottom[fullStr]=someBottomTrees;
 				
 				subExpressions[i]=startLeftIndex;
 				
@@ -2182,6 +2183,7 @@ void makeTree(std::string pfstr){
 			bottomTrees.resize(btSz+sbtSz);
 			for (ii=0;ii<sbtSz;ii++){
 				bottomTrees[btSz] = someBottomTrees[ii];
+				/*
 				if (foundFullTrees){
 					std::string tempFull = pfstr;
 					int iiiii; int operandIdx = -1; int startRightIndex = -1;
@@ -2199,7 +2201,7 @@ void makeTree(std::string pfstr){
 					}
 					bottomTrees[btSz][1] = std::to_string(prevLeftIndex);
 					bottomTrees[btSz][3] = std::to_string(startRightIndex);
-				}
+				}*/
 				btSz++;
 			}
 			
