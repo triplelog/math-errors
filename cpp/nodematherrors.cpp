@@ -2657,24 +2657,32 @@ std::vector<std::string> applyRulesVector(std::string userFullString, bool isCor
 				}
 				bool pastKey = false;
 				if (rule[1].at(0)=='='){
-					std::cout << "arithstart\n";
+					
 					newPostfix = "#@";
 					std::string a = partMap[rule[1].at(2)];
 					std::string b = partMap[rule[1].at(3)];
 					std::string opResult;
 					if (rule[1].at(1)=='+'){
+						std::cout << a << " and " << b << " arithadd\n";
 						opResult = addTwoInts(a,b);
+						std::cout << "arithend\n";
 					}
 					if (rule[1].at(1)=='*'){
+						std::cout << a << " and " << b << " arithmul\n";
 						opResult = mulTwoInts(a,b);
+						std::cout << "arithend\n";
 					}
 					if (rule[1].at(1)=='-'){
+						std::cout << a << " and " << b << " arithesub\n";
 						opResult = subTwoInts(a,b);
+						std::cout << "arithend\n";
 					}
 					if (rule[1].at(1)=='/'){
+						std::cout << a << " and " << b << " arithdiv\n";
 						opResult = divTwoInts(a,b);
+						std::cout << "arithend\n";
 					}
-					std::cout << "arithend\n";
+					
 					if (opResult == "false"){
 						newPostfix = "";
 						continue;
