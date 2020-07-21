@@ -834,7 +834,7 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 }
 
 
-std::vector<std::string> makeTree(std::string pfstr){
+void makeTree(std::string pfstr){
 	std::vector<std::string> treeOptions;
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,std::string> operandMap;
@@ -1294,8 +1294,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 	//	std::cout << iter->first << " and " << iter->second << '\n';
 	//}
 	
-	
-	return treeOptions;
+
 }
 
 std::vector<std::string> outputTree(std::string pfstr){
@@ -2015,7 +2014,7 @@ void getAnswerList(std::string s,bool isCorrect) {
 	newPostfix = removeBracketsOne(newPostfix);
 	auto a1 = std::chrono::high_resolution_clock::now();
 	//std::cout << s << " before pl\n";
-	std::vector<std::string> postList = makeTree(newPostfix);
+	makeTree(newPostfix);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	//std::cout << s << " after pl\n";
