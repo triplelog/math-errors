@@ -2138,10 +2138,12 @@ void getAnswerListOld(std::string s,bool isCorrect, int nSteps) {
 	answerListMap[newPostfix] = answerList;
 }
 
-void getAnswerList(std::string s,bool isCorrect, int nSteps) {
+bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 
 	
-	
+	if (nSteps >= 10){
+		return false;
+	}
 	//std::cout << s << "\n";
 	int i;
 	int ii;
@@ -2202,7 +2204,7 @@ void getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	
 	}
 
-
+	return true;
 		
 	
 }
@@ -2269,7 +2271,7 @@ bool correctAnswer(std::string s, std::string a){
 			std::cout << answerListMap[newPostfix][i] << "\n";
 		}
 		
-		if (answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] == mpf){
+		if (answerListMap[newPostfix][i] == mpf){
 			isCorrect = true;
 		}
 	}
