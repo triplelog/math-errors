@@ -2120,6 +2120,7 @@ bool correctAnswer(std::string s, std::string a){
 		else {
 			uniqueAnswers[answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1]]=1;
 			ui++;
+			std::cout << answerListMap[newPostfix][i][answerListMap[newPostfix][i].size()-1] << "\n";
 		}
 		
 		if (answerListMap[newPostfix][i].size() > 1 && answerListMap[newPostfix][i].size()<minLen){
