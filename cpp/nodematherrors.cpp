@@ -1767,7 +1767,7 @@ void makeTree(std::string pfstr){
 					s += pfstr.at(iii);
 					if (pfstr.at(iii) == '#'){
 						t += originalMap[operandMap[iii]] + '_';
-						if (operandMap[iii]<prevRightIndex){
+						if (operandMap[iii]<prevRightOperand){
 							prevRightOperand = operandMap[iii];
 						}
 					}
