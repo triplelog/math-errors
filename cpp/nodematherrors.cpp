@@ -1286,6 +1286,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 		//tempFull.replace(startRightIndex,rightLength,"{"+std::to_string(iidx)+"}");
 		//tempFull.replace(startLeftIndex,i+1-startLeftIndex,"#");
 	}
+	bottomTrees.resize(btSz);
 	//std::cout << "\n";
 	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
 	//	std::cout << iter->first << " and " << iter->second << '\n';
