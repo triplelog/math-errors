@@ -2183,6 +2183,7 @@ bool correctAnswer(std::string s, std::string a){
 	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << answerListMap[newPostfix].size() << "\n\n\n";
 	int i; int ii;
 	std::string mpf = postfixify(a);
+	
 	int minLen = 10000;
 	int minIdx = 0;
 	bool isCorrect = false;
@@ -2207,6 +2208,7 @@ bool correctAnswer(std::string s, std::string a){
 			isCorrect = true;
 		}
 	}
+	std::cout << "your answer: " << mpf << "\n";
 	std::cout << "n answers: " << i  << " and unique: " << ui << "\n";
 
 	jsonmessage = "";
