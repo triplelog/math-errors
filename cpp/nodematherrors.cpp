@@ -893,11 +893,6 @@ std::vector<std::string> makeTree(std::string pfstr){
 	bottomTreesIndex.resize(0);
 	btSz = 0;
 	for (i=0;i<pfstr.length();i++){
-		int lmSz = 0;
-		for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = listMap.begin(); iter != listMap.end(); ++iter){
-			lmSz+= iter->second.size();
-		}
-		std::cout << lmSz << "\n";
 		char mychar = pfstr.at(i);
 		if (mychar == '@'){
 			break;
@@ -1023,7 +1018,7 @@ std::vector<std::string> makeTree(std::string pfstr){
 				int sss = secondS.size();	
 				std::string nFirst = "0";
 				std::string nSecond = "0";	
-				std::cout << "new size: " << fss << " * " << sss << " by " << firstStr + secondStr + pfstr.at(i) + "@" + firstTtr + secondTtr << "\n";
+				//std::cout << "new size: " << fss << " * " << sss << " by " << firstStr + secondStr + pfstr.at(i) + "@" + firstTtr + secondTtr << "\n";
 				fullTrees.resize(ftSz+5+sss*fss*2*5);
 				//condensed
 				fullTrees[ftSz] = "#";
@@ -2477,10 +2472,8 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 
 	std::vector<std::string> allStrings; //vector of the next step
 	flat_hash_map<std::string,bool> uniqueStrings;
-	
-	std::cout << bottomTreesString.size() << "\n";
 
-	
+
 	for (iii=0;iii<someStrings.size();iii++){
 		//std::cout << someStrings[iii] << "\n";
 		someStrings[iii] = removeBracketsOne(someStrings[iii]);
@@ -2496,7 +2489,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 
 	answerListMap[newPostfix] = allStrings;
 	totalAnswers += allStrings.size();
-	std::cout << totalAnswers << "\n";
+	std::cout << "total answers: "<< totalAnswers << "\n";
 	for (ii=0;ii<allStrings.size();ii++){
 		std::cout << allStrings[ii] << "\n";
 		if (answerListMap.find(allStrings[ii]) != answerListMap.end()){
