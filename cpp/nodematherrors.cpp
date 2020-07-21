@@ -2052,6 +2052,7 @@ void initialRun(){
 }
 
 flat_hash_map<std::string,std::vector<std::string>> answerListMap;
+int totalAnswers;
 /*
 void getAnswerListOld(std::string s,bool isCorrect, int nSteps) {
 
@@ -2187,11 +2188,9 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 		
 	}
 
-	
-	
-	
+
 	answerListMap[newPostfix] = allStrings;
-	
+	totalAnswers += allStrings.size();
 	for (ii=0;ii<allStrings.size();ii++){
 		
 		if (answerListMap.find(allStrings[ii]) != answerListMap.end()){
@@ -2248,10 +2247,11 @@ bool correctAnswer(std::string s, std::string a){
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
 	mapSave = 0; mapMake = 0;
 	auto a1 = std::chrono::high_resolution_clock::now();
+	totalAnswers = 0;
 	getAnswerList(newPostfix,true,0);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	//duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
-	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << answerListMap[newPostfix].size() << "\n\n\n";
+	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << totalAnswers << "\n\n\n";
 	int i; int ii;
 	std::string mpf = postfixify(a);
 	
