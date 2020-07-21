@@ -1063,8 +1063,10 @@ std::vector<std::string> makeTree(std::string pfstr){
 								rightLength++;
 							}
 						}
+						std::vector<std::string> tempV;
+						tempV = {firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
 						auto a2 = std::chrono::high_resolution_clock::now();
-						bottomTrees[btSz]={firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
+						bottomTrees[btSz]= tempV;
 						btSz++;
 						
 						auto a3 = std::chrono::high_resolution_clock::now();
