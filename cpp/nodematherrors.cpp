@@ -1125,7 +1125,26 @@ std::vector<std::string> makeTree(std::string pfstr){
 						}
 
 						
-						
+						int numOperations = 0; int ni;
+						for (ni=0;ni<firstS[ii].size();ni++){
+							if (firstS[ii].at(ni)=='@'){
+								break;
+							}
+							else if (firstS[ii].at(ni)!='#'){
+								numOperations++;
+							}
+						}
+						for (ni=0;ni<secondS[iii].size();ni++){
+							if (secondS[iii].at(ni)=='@'){
+								break;
+							}
+							else if (secondS[iii].at(ni)!='#'){
+								numOperations++;
+							}
+						}
+						if (numOperations > 10){
+							continue;
+						}
 						fullTrees[ftSz] = firstS[ii] + secondS[iii]  + pfstr.at(i);
 						ftSz++;
 						fullTrees[ftSz] = firstT[ii] + secondT[iii];
