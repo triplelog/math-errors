@@ -1783,13 +1783,13 @@ void makeTree(std::string pfstr){
 			}
 			
 			if (foundFullTrees){
-				//listMap[inStr]=fullTrees;
-				//someBottomTrees = allListMapBottom[inStr];
-				//sbtSz = someBottomTrees.size();
+				listMap[inStr]=fullTrees;
+				someBottomTrees = allListMapBottom[inStr];
+				sbtSz = someBottomTrees.size();
 				//std::cout << "inStr: " << inStr << " and " << allListMapBottom[inStr][0].size() << "\n";
-				prevBottomTrees = allListMapBottom[inStr];
+				//prevBottomTrees = allListMapBottom[inStr];
 			}
-			if (2==2) {
+			else {
 				
 				int maxi = i-1;
 				int startLeftIndex = maxi;
@@ -2126,31 +2126,8 @@ void makeTree(std::string pfstr){
 							break;
 						}
 					}
-					if (someBottomTrees[ii][0] != prevBottomTrees[ii][0]){
-						std::cout << "0";
-					}
-					if (someBottomTrees[ii][1] != std::to_string(prevLeftIndex)){
-						std::cout << "1";
-					}
-					if (someBottomTrees[ii][2] != prevBottomTrees[ii][2]){
-						std::cout << "2";
-					}
-					if (someBottomTrees[ii][3] != std::to_string(startRightIndex)){
-						std::cout << "3";
-					}
-					if (someBottomTrees[ii][4] != prevBottomTrees[ii][4]){
-						std::cout << "4";
-					}/*
-					std::cout << "new: "<< someBottomTrees[ii][0] << "\n";
-					std::cout << "mapped: "<< prevBottomTrees[ii][0] << "\n";
-					std::cout << "new1: "<< someBottomTrees[ii][1] << "\n";
-					std::cout << "mapped1: "<< prevBottomTrees[ii][1] << "\n";
-					std::cout << "new2: "<< someBottomTrees[ii][2] << "\n";
-					std::cout << "mapped2: "<< prevBottomTrees[ii][2] << "\n";
-					std::cout << "new3: "<< someBottomTrees[ii][3] << "\n";
-					std::cout << "mapped3: "<< prevBottomTrees[ii][3] << "\n";
-					std::cout << "new4: "<< someBottomTrees[ii][4] << "\n";
-					std::cout << "mapped4: "<< prevBottomTrees[ii][4] << "\n";*/
+					bottomTrees[btSz][1] = std::to_string(prevLeftIndex);
+					bottomTrees[btSz][3] = std::to_string(startRightIndex);
 				}
 				btSz++;
 			}
