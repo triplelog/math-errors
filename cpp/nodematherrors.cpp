@@ -28,8 +28,8 @@ using namespace std::chrono;
 using phmap::flat_hash_map;
 flat_hash_map<char,int> prec;
 flat_hash_map<std::string,std::vector<std::vector<std::string>>> rules;
-flat_hash_map<std::string,flat_hash_map<std::string,std::string>> allListMapFull;
-flat_hash_map<std::string,flat_hash_map<std::string,std::string>> allListMapBottom;
+flat_hash_map<std::string,std::vector<std::string>> allListMapFull;
+flat_hash_map<std::string,std::vector<std::vector<std::string>>> allListMapBottom;
 flat_hash_map<std::string,bool> constraintMap;
 std::vector<std::vector<std::string>> bottomTrees;
 int btSz;
@@ -1753,7 +1753,7 @@ void makeTree(std::string pfstr){
 			std::string secondListMapKey = "";
 			
 			std::vector<std::string> fullTrees;
-			std::vector<std::string> someBottomTrees;
+			std::vector<std::vector<std::string>> someBottomTrees;
 			int sbtSz = 0;
 			bool foundFullTrees = false;
 			std::string inStr = "";
@@ -2100,7 +2100,7 @@ void makeTree(std::string pfstr){
 			}
 			bottomTrees.resize(btSz+sbtSz);
 			for (ii=0;ii<sbtSz;ii++){
-				bottomTrees[btSz]=someBottomTrees[sbtSz];
+				bottomTrees[btSz] = someBottomTrees[sbtSz];
 				btSz++;
 			}
 			
