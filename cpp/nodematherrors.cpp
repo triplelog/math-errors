@@ -1750,6 +1750,8 @@ void makeTree(std::string pfstr){
 			break;
 		}
 		else if (mychar != '#'){
+			auto a1 = std::chrono::high_resolution_clock::now();
+			
 			std::vector<std::string> secondS;
 			std::vector<std::string> secondT;
 			std::vector<std::string> secondSBL;
@@ -1791,11 +1793,12 @@ void makeTree(std::string pfstr){
 					secondStr = s;
 					secondTtr = t;
 					secondListMapKey = s + "@" + t;
-					secondS.resize(listMap[s+'@'+t].size()/5);
-					secondT.resize(listMap[s+'@'+t].size()/5);
-					secondSBL.resize(listMap[s+'@'+t].size()/5);
-					secondTBL.resize(listMap[s+'@'+t].size()/5);
-					for (iii=0;iii<listMap[s+'@'+t].size()/5;iii++){
+					int lms = listMap[s+'@'+t].size()/5;
+					secondS.resize(lms);
+					secondT.resize(lms);
+					secondSBL.resize(lms);
+					secondTBL.resize(lms);
+					for (iii=0;iii<lms;iii++){
 						secondS[iii]=listMap[s+'@'+t][iii*5];
 						secondT[iii]=listMap[s+'@'+t][iii*5+1];
 						secondSBL[iii]=listMap[s+'@'+t][iii*5+3];
@@ -1808,7 +1811,8 @@ void makeTree(std::string pfstr){
 					break;
 				}
 			}
-	
+			auto a2 = std::chrono::high_resolution_clock::now();
+			duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	
 
 			std::vector<std::string> firstS;
@@ -1841,11 +1845,12 @@ void makeTree(std::string pfstr){
 						firstListMapKey = s + "@" + t;
 						firstStr = s;
 						firstTtr = t;
-						firstS.resize(listMap[s+'@'+t].size()/5);
-						firstT.resize(listMap[s+'@'+t].size()/5);
-						firstSBL.resize(listMap[s+'@'+t].size()/5);
-						firstTBL.resize(listMap[s+'@'+t].size()/5);
-						for (iii=0;iii<listMap[s+'@'+t].size()/5;iii++){
+						int lms = listMap[s+'@'+t].size()/5;
+						firstS.resize(lms);
+						firstT.resize(lms);
+						firstSBL.resize(lms);
+						firstTBL.resize(lms);
+						for (iii=0;iii<lms;iii++){
 							firstS[iii]=listMap[s+'@'+t][iii*5];
 							firstT[iii]=listMap[s+'@'+t][iii*5+1];
 							firstSBL[iii]=listMap[s+'@'+t][iii*5+3];
@@ -2092,7 +2097,8 @@ void makeTree(std::string pfstr){
 			}
 		
 
-		
+			auto a3 = std::chrono::high_resolution_clock::now();
+			duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 
 			//std::cout << "fullTrees size: " << fullTrees.size() << " @ " << i << "\n";
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
