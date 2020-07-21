@@ -1752,6 +1752,8 @@ void makeTree(std::string pfstr){
 		else if (mychar != '#'){
 			std::vector<std::string> secondS;
 			std::vector<std::string> secondT;
+			std::vector<std::string> secondSBL;
+			std::vector<std::string> secondTBL;
 			std::string secondStr = "";
 			std::string secondTtr = "";
 			std::string secondListMapKey = "";
@@ -1823,11 +1825,15 @@ void makeTree(std::string pfstr){
 						secondStr = s;
 						secondTtr = t;
 						secondListMapKey = s + "@" + t;
-						secondS.resize(listMap[s+'@'+t].size()/3);
-						secondT.resize(listMap[s+'@'+t].size()/3);
-						for (iii=0;iii<listMap[s+'@'+t].size()/3;iii++){
-							secondS[iii]=listMap[s+'@'+t][iii*3];
-							secondT[iii]=listMap[s+'@'+t][iii*3+1];
+						secondS.resize(listMap[s+'@'+t].size()/5);
+						secondT.resize(listMap[s+'@'+t].size()/5);
+						secondSBL.resize(listMap[s+'@'+t].size()/5);
+						secondTBL.resize(listMap[s+'@'+t].size()/5);
+						for (iii=0;iii<listMap[s+'@'+t].size()/5;iii++){
+							secondS[iii]=listMap[s+'@'+t][iii*5];
+							secondT[iii]=listMap[s+'@'+t][iii*5+1];
+							secondSBL[iii]=listMap[s+'@'+t][iii*5+3];
+							secondTBL[iii]=listMap[s+'@'+t][iii*5+4];
 						}
 						maxi = ii;
 						startLeftIndex = ii;
@@ -1841,6 +1847,8 @@ void makeTree(std::string pfstr){
 	
 				std::vector<std::string> firstS;
 				std::vector<std::string> firstT;
+				std::vector<std::string> firstSBL;
+				std::vector<std::string> firstTBL;
 				std::string firstStr = "";
 				std::string firstTtr = "";
 				std::string firstListMapKey = "";
@@ -1888,11 +1896,15 @@ void makeTree(std::string pfstr){
 							firstListMapKey = s + "@" + t;
 							firstStr = s;
 							firstTtr = t;
-							firstS.resize(listMap[s+'@'+t].size()/3);
-							firstT.resize(listMap[s+'@'+t].size()/3);
-							for (iii=0;iii<listMap[s+'@'+t].size()/3;iii++){
-								firstS[iii]=listMap[s+'@'+t][iii*3];
-								firstT[iii]=listMap[s+'@'+t][iii*3+1];
+							firstS.resize(listMap[s+'@'+t].size()/5);
+							firstT.resize(listMap[s+'@'+t].size()/5);
+							firstSBL.resize(listMap[s+'@'+t].size()/5);
+							firstTBL.resize(listMap[s+'@'+t].size()/5);
+							for (iii=0;iii<listMap[s+'@'+t].size()/5;iii++){
+								firstS[iii]=listMap[s+'@'+t][iii*5];
+								firstT[iii]=listMap[s+'@'+t][iii*5+1];
+								firstSBL[iii]=listMap[s+'@'+t][iii*5+3];
+								firstTBL[iii]=listMap[s+'@'+t][iii*5+4];
 							}
 							startLeftIndex = ii;
 							startRightOperand = tempStartRightOperand;
@@ -1900,15 +1912,15 @@ void makeTree(std::string pfstr){
 						}
 					}
 					someBottomTrees.resize(sbtSz+secondS.size()*firstS.size()*2);
-					fullTrees.resize(ftSz+secondS.size()*firstS.size()*3*3);
+					fullTrees.resize(ftSz+secondS.size()*firstS.size()*3*5);
 					for (ii=0;ii<firstS.size();ii++){
-						if (listMap[firstListMapKey][ii*3+2]=="4"){
+						if (listMap[firstListMapKey][ii*5+2]=="4"){
 							continue;
 						}
 						for (iii=0;iii<secondS.size();iii++){
 						
 						
-							if (listMap[secondListMapKey][iii*3+2]=="4"){
+							if (listMap[secondListMapKey][iii*5+2]=="4"){
 								continue;
 							}
 						
@@ -1918,17 +1930,17 @@ void makeTree(std::string pfstr){
 							ftSz++;
 							
 							auto a2 = std::chrono::high_resolution_clock::now();
-							std::string bless = removeBracketsOne(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii]);
+							std::string bless = firstSBL[ii] + secondSBL[iii] + pfstr.at(i) + '@' + firstTBL[ii] + secondTBL[iii];
 							auto a3 = std::chrono::high_resolution_clock::now();
 							duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 							
 							fullTrees[ftSz] = "{"+bless+"}_";
 							ftSz++;
-							if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
+							if (listMap[secondListMapKey][iii*5+2]=="2" || listMap[firstListMapKey][ii*5+2]=="2"){
 								fullTrees[ftSz] = "2";
 								ftSz++;
 							}
-							else if (listMap[secondListMapKey][iii*3+2]=="1" || listMap[firstListMapKey][ii*3+2]=="1"){
+							else if (listMap[secondListMapKey][iii*5+2]=="1" || listMap[firstListMapKey][ii*5+2]=="1"){
 								fullTrees[ftSz] = "1";
 								ftSz++;
 							}
@@ -1936,6 +1948,10 @@ void makeTree(std::string pfstr){
 								fullTrees[ftSz] = "0";
 								ftSz++;
 							}
+							fullTrees[ftSz] = firstSBL[ii] + secondSBL[iii] + pfstr.at(i);
+							ftSz++;
+							fullTrees[ftSz] = firstTBL[ii] + secondTBL[iii];
+							ftSz++;
 						
 							
 						
@@ -1974,7 +1990,7 @@ void makeTree(std::string pfstr){
 						
 						
 						
-							if (listMap[secondListMapKey][iii*3+2]=="3" || listMap[firstListMapKey][ii*3+2]=="3"){
+							if (listMap[secondListMapKey][iii*5+2]=="3" || listMap[firstListMapKey][ii*5+2]=="3"){
 								continue;
 							}
 						
@@ -1985,11 +2001,11 @@ void makeTree(std::string pfstr){
 							ftSz++;
 							fullTrees[ftSz] = firstT[ii] + secondT[iii];
 							ftSz++;
-							if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
+							if (listMap[secondListMapKey][iii*35+2]=="2" || listMap[firstListMapKey][ii*5+2]=="2"){
 								fullTrees[ftSz] = "3";
 								ftSz++;
 							}
-							else if (listMap[secondListMapKey][iii*3+2]=="1" || listMap[firstListMapKey][ii*3+2]=="1"){
+							else if (listMap[secondListMapKey][iii*5+2]=="1" || listMap[firstListMapKey][ii*5+2]=="1"){
 								fullTrees[ftSz] = "2";
 								ftSz++;
 							}
@@ -1997,6 +2013,10 @@ void makeTree(std::string pfstr){
 								fullTrees[ftSz] = "1";
 								ftSz++;
 							}
+							fullTrees[ftSz] = firstSBL[ii] + secondSBL[iii]  + pfstr.at(i);
+							ftSz++;
+							fullTrees[ftSz] = firstTBL[ii] + secondTBL[iii];
+							ftSz++;
 						
 						
 						
@@ -2006,11 +2026,11 @@ void makeTree(std::string pfstr){
 								ftSz++;
 								fullTrees[ftSz] = secondT[iii] + firstT[ii];
 								ftSz++;
-								if (listMap[secondListMapKey][iii*3+2]=="2" || listMap[firstListMapKey][ii*3+2]=="2"){
+								if (listMap[secondListMapKey][iii*5+2]=="2" || listMap[firstListMapKey][ii*5+2]=="2"){
 									fullTrees[ftSz] = "3";
 									ftSz++;
 								}
-								else if (listMap[secondListMapKey][iii*3+2]=="1" || listMap[firstListMapKey][ii*3+2]=="1"){
+								else if (listMap[secondListMapKey][iii*5+2]=="1" || listMap[firstListMapKey][ii*5+2]=="1"){
 									fullTrees[ftSz] = "2";
 									ftSz++;
 								}
@@ -2018,6 +2038,10 @@ void makeTree(std::string pfstr){
 									fullTrees[ftSz] = "1";
 									ftSz++;
 								}
+								fullTrees[ftSz] = secondSBL[iii] + firstSBL[ii]  + pfstr.at(i);
+								ftSz++;
+								fullTrees[ftSz] = secondTBL[iii] + firstTBL[ii];
+								ftSz++;
 							
 							
 								someBottomTrees[sbtSz]={secondS[iii] + firstS[ii]  + pfstr.at(i) + '@' + secondT[iii] + firstT[ii],std::to_string(startLeftIndex),std::to_string(i+1-startLeftIndex),std::to_string(startRightIndex),std::to_string(rightLength)};
@@ -2032,10 +2056,10 @@ void makeTree(std::string pfstr){
 				}
 				else {
 					someBottomTrees.resize(sbtSz+secondS.size());
-					fullTrees.resize(ftSz+secondS.size()*2*3);
+					fullTrees.resize(ftSz+secondS.size()*2*5);
 					for (iii=0;iii<secondS.size();iii++){
 					
-						if (listMap[secondListMapKey][iii*3+2]=="4"){
+						if (listMap[secondListMapKey][iii*5+2]=="4"){
 							continue;
 						}
 					
@@ -2044,16 +2068,16 @@ void makeTree(std::string pfstr){
 						fullTrees[ftSz] = "#";
 						ftSz++;
 						auto a2 = std::chrono::high_resolution_clock::now();
-						std::string bless = removeBracketsOne(secondS[iii] + pfstr.at(i) + '@' + secondT[iii]);
+						std::string bless = secondSBL[iii] + pfstr.at(i) + '@' + secondTBL[iii];
 						auto a3 = std::chrono::high_resolution_clock::now();
 						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 						fullTrees[ftSz] = "{"+bless+"}_";
 						ftSz++;
-						if (listMap[secondListMapKey][iii*3+2]=="2"){
+						if (listMap[secondListMapKey][iii*5+2]=="2"){
 							fullTrees[ftSz] = "2";
 							ftSz++;
 						}
-						else if (listMap[secondListMapKey][iii*3+2]=="1"){
+						else if (listMap[secondListMapKey][iii*5+2]=="1"){
 							fullTrees[ftSz] = "1";
 							ftSz++;
 						}
@@ -2061,7 +2085,10 @@ void makeTree(std::string pfstr){
 							fullTrees[ftSz] = "0";
 							ftSz++;
 						}
-					
+						fullTrees[ftSz] = secondSBL[iii] + pfstr.at(i);
+						ftSz++;
+						fullTrees[ftSz] = secondTBL[iii];
+						ftSz++;
 						
 					
 						//std::cout << "possible part: " << secondS[iii] + pfstr.at(i) + '@' + secondT[iii] << " and " << startLeftIndex << " and " << startRightOperand << " and " << endRightOperand << " from " << pfstr << "\n";
@@ -2094,7 +2121,7 @@ void makeTree(std::string pfstr){
 					
 					
 					
-						if (listMap[secondListMapKey][iii*3+2]=="3"){
+						if (listMap[secondListMapKey][iii*5+2]=="3"){
 							continue;
 						}
 					
@@ -2103,11 +2130,11 @@ void makeTree(std::string pfstr){
 						ftSz++;
 						fullTrees[ftSz] = secondT[iii];
 						ftSz++;
-						if (listMap[secondListMapKey][iii*3+2]=="2"){
+						if (listMap[secondListMapKey][iii*5+2]=="2"){
 							fullTrees[ftSz] = "3";
 							ftSz++;
 						}
-						else if (listMap[secondListMapKey][iii*3+2]=="1"){
+						else if (listMap[secondListMapKey][iii*5+2]=="1"){
 							fullTrees[ftSz] = "2";
 							ftSz++;
 						}
@@ -2115,7 +2142,11 @@ void makeTree(std::string pfstr){
 							fullTrees[ftSz] = "1";
 							ftSz++;
 						}
-					
+						fullTrees[ftSz] = secondSBL[iii] + pfstr.at(i);
+						ftSz++;
+						fullTrees[ftSz] = secondTBL[iii];
+						ftSz++;
+						
 						a3 = std::chrono::high_resolution_clock::now();
 						//duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 					
@@ -2174,7 +2205,22 @@ void makeTree(std::string pfstr){
 			
 		}
 		else {
-			listMap["#@" + originalMap[idx] + "_"]={"#",originalMap[idx]+'_',"0"};
+			std::string remed = removeBracketsOne("#@"+originalMap[idx]+'_');
+			std::string firstRemed = "";
+			std::string secondRemed = "";
+			bool isSecondPart = false;
+			for (ii=0;ii<remed.length();ii++){
+				if (remed.at(ii) == '@'){
+					isSecondPart = true;
+				}
+				else if (isSecondPart){
+					secondRemed += remed.at(ii);
+				}
+				else {
+					firstRemed += remed.at(ii);
+				}
+			}
+			listMap["#@" + originalMap[idx] + "_"]={"#",originalMap[idx]+'_',"0",firstRemed,secondRemed};
 			operandMap[i]=idx;
 			idx++;
 		}
