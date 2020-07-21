@@ -98,20 +98,20 @@ bool solveConstraintFix(std::string input){
 	if (lastOp == -94){ //does not contain--secondExp must be single operand
 		currentOperand = "";
 		postKey = false;
-		for (i=0;i<firstPart.length();i++){
+		for (i=0;i<firstExp.length();i++){
 	
 			if (postKey){
-				if (firstPart.at(i) == '_'){
+				if (firstExp.at(i) == '_'){
 					if (currentOperand==operandList[firstIdx]){
 						return false;
 					}
 					currentOperand ="";
 				}
 				else {
-					currentOperand += firstPart.at(i);
+					currentOperand += firstExp.at(i);
 				}
 			}
-			else if (firstPart.at(i) == '@'){
+			else if (firstExp.at(i) == '@'){
 				postKey = true;
 			
 			}
@@ -122,20 +122,20 @@ bool solveConstraintFix(std::string input){
 	if (lastOp == -87){ //contains--secondExp must be single operand
 		currentOperand = "";
 		postKey = false;
-		for (i=0;i<firstPart.length();i++){
+		for (i=0;i<firstExp.length();i++){
 	
 			if (postKey){
-				if (firstPart.at(i) == '_'){
+				if (firstExp.at(i) == '_'){
 					if (currentOperand==operandList[firstIdx]){
 						return true;
 					}
 					currentOperand ="";
 				}
 				else {
-					currentOperand += firstPart.at(i);
+					currentOperand += firstExp.at(i);
 				}
 			}
-			else if (firstPart.at(i) == '@'){
+			else if (firstExp.at(i) == '@'){
 				postKey = true;
 			
 			}
