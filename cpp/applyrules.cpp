@@ -115,7 +115,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				std::string inside = rule[1];
 				inside.replace(inside.length()-1,1,"");
 				inside.replace(0,2,"");
-				std::cout << inside << "\n";
+				
 				std::string opResult = solvePostfix(inside,partMap);
 				
 				if (opResult == "false"){
