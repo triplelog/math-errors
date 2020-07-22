@@ -1,0 +1,13 @@
+Rule,"Arithmetic","HTML Explanation"
+A+B,=+AB,c,"Perform addition."
+A-B,=-AB,c,"Perform subtraction."
+A*B,=*AB,c,"Perform multiplication."
+A/B,=/AB,c,"Perform division."
+-B,=-0B,c,"Negate."
+/B,=/1B,c,"Invert."
+Rule,"Identities","HTML Explanation"
+A+0,A,c,"Add zero"
+A*1,A,c,"Multiply by 1"
+A*0,0,c,"Multiply by 0"
+A^1,A,c,"Raise to 1st power"
+A^0,1,c,"Raise to 0th power",Anonzero

@@ -2016,6 +2016,7 @@ void initialRun(){
 
 	auto t1 = std::chrono::high_resolution_clock::now();
 	makeRules("derivatives.csv");
+	makeRules("arithmetic.csv");
 	auto t2 = std::chrono::high_resolution_clock::now();
 }
 
