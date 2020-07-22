@@ -131,7 +131,8 @@ std::string solvePostfix(std::string postfix, flat_hash_map<char,std::string> pa
   	std::vector<std::string> intArray;
   	std::string currentOperand = "";
   	for (i=0; i<postfix.length(); i++) 
-    { 
+    {
+    	std::cout << postfix.at(i) << " tttt\n";
     	if (postfix.at(i) == '@') {
         	currentOperand = "";
         }
@@ -152,6 +153,7 @@ std::string solvePostfix(std::string postfix, flat_hash_map<char,std::string> pa
 
     for (i=0; i<postfix.length(); i++) 
     { 
+    	std::cout << postfix.at(i) << " sdfg\n";
         if (postfix.at(i) == '#') {
         	stack[currentIndex] = intArray[arrayIndex];
         	currentIndex++;
