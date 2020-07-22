@@ -2082,11 +2082,11 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 		//std::cout << allStrings[ii] << "\n";
 		if (answerListMap.find(allStrings[ii*2]) != answerListMap.end()){
 			reverseMap[allStrings[ii*2]].push_back(newPostfix);
-			//reverseMap[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
+			reverseMap[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
 		}
 		else {
 			getAnswerList(allStrings[ii*2],isCorrect,nSteps+1);
-			reverseMap[allStrings[ii*2]]={newPostfix};
+			reverseMap[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
 		}
 		
 	
