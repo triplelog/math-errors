@@ -2118,10 +2118,11 @@ std::string fullAnswer(std::string s, std::string a){
 		std::cout << oneStep << "\n";
 		jsonmessage = "";
 		while (reverseMap.find(oneStep) != reverseMap.end()){
-			oneStep = reverseMap[oneStep][0];
-			std::cout << oneStep << "\n";
+			
+			std::cout << reverseMap[oneStep][0] << "\n";
 			std::cout << reverseMap[oneStep][1] << "\n";
 			outputTree(oneStep);
+			oneStep = reverseMap[oneStep][0];
 		}
 	}
 	std::cout << "n maybe wrong answers: " << i  << " and unique: " << ui << "\n";
