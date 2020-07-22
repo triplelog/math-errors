@@ -2530,10 +2530,11 @@ std::string fullAnswer(std::string s, std::string a){
 		error = "Found";
 		std::string oneStep = mpf;
 		std::cout << oneStep << "\n";
+		jsonmessage = "";
 		while (reverseMap.find(oneStep) != reverseMap.end()){
 			oneStep = reverseMap[oneStep][0];
 			std::cout << oneStep << "\n";
-			
+			outputTree(oneStep);
 		}
 	}
 	std::cout << "n maybe wrong answers: " << i  << " and unique: " << ui << "\n";
@@ -2604,12 +2605,14 @@ void GetAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	bool isCorrect = correctAnswer(str,astr);
 	
 	std::cout << "Time to correct: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
-	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
+	
 	std::string error = "None!";
+	jsonmessage = "";
 	if (!isCorrect){
 		error = fullAnswer(str,astr);
 		
 	}
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	std::cout << "Time to error: " << duration1 << "\n";
 	//std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	std::cout << "Error: " << error << "\n";
