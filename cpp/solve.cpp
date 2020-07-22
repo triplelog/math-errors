@@ -172,9 +172,9 @@ std::string solvePostfix(std::string postfix, flat_hash_map<char,std::string> pa
 	            //case ']': stack[currentIndex - 2].w = (stack[currentIndex - 2] >= stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break; 
 	            //case '[': stack[currentIndex - 2].w = (stack[currentIndex - 2] <= stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break;
 	            case '+': stack[currentIndex - 2] = addTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
-	            case '-': stack[currentIndex - 2] = subTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
+	            case '-': stack[currentIndex - 1] = mulTwoInts("-1",stack[currentIndex - 1]); currentIndex++; break; 
 	            case '*': stack[currentIndex - 2] = mulTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
-	            case '/': stack[currentIndex - 2] = divTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); break;
+	            case '/': stack[currentIndex - 1] = divTwoInts("1",stack[currentIndex - 1]); currentIndex++; break;
 	            //case '=': stack[currentIndex - 2] = stack[currentIndex - 2] == stack[currentIndex - 1]; break;
 	            //case '!': stack[currentIndex - 2] = stack[currentIndex - 2] != stack[currentIndex - 1]; break;
 	            //case '%': stack[currentIndex - 2] = stack[currentIndex - 2] % stack[currentIndex - 1]; break; 
