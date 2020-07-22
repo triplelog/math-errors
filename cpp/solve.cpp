@@ -1,6 +1,9 @@
 std::string addTwoInts(std::string a, std::string b){
 	std::string revsum = "";
 	int base = 10;
+	int neg = 1;
+
+	
 	if (b.length() > a.length()){
 		std::string c = a;
 		a = b;
@@ -48,6 +51,15 @@ std::string addTwoInts(std::string a, std::string b){
 
 std::string mulTwoInts(std::string a, std::string b){
 	int base = 10;
+	int neg = 1;
+	if (a.at(0) == '-'){
+		a.replace(0,1,"");
+		neg *= -1;
+	}
+	if (b.at(0) == '-'){
+		b.replace(0,1,"");
+		neg *= -1;
+	}
 	if (b.length() > a.length()){
 		std::string c = a;
 		a = b;
@@ -70,6 +82,7 @@ std::string mulTwoInts(std::string a, std::string b){
 	}
 	int prod = std::stoi(a);
 	prod *= std::stoi(b);
+	prod *= neg;
 	return std::to_string(prod);
 }
 
@@ -172,7 +185,7 @@ std::string solvePostfix(std::string postfix, flat_hash_map<char,std::string> pa
 	            //case ']': stack[currentIndex - 2].w = (stack[currentIndex - 2] >= stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break; 
 	            //case '[': stack[currentIndex - 2].w = (stack[currentIndex - 2] <= stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break;
 	            case '+': stack[currentIndex - 2] = addTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
-	            case '-': stack[currentIndex - 1] = mulTwoInts("-1",stack[currentIndex - 1]); currentIndex++; break; 
+	            case '-': stack[currentIndex - 2] = subTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); i++; break; 
 	            case '*': stack[currentIndex - 2] = mulTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
 	            case '/': stack[currentIndex - 1] = divTwoInts("1",stack[currentIndex - 1]); currentIndex++; break;
 	            //case '=': stack[currentIndex - 2] = stack[currentIndex - 2] == stack[currentIndex - 1]; break;
