@@ -222,7 +222,7 @@ void makeRules(std::string fileName){
 			fullPost = makeRule(rawRules[i][0]);
 			key = fullPost[0];
 			val1 = fullPost[1];
-			rule = {val1,rawRules[i][1],rawRules[i][2]};
+			rule = {val1,rawRules[i][1],rawRules[i][2],rawRules[i][3]};
 			
 		}
 		else {
@@ -231,7 +231,7 @@ void makeRules(std::string fileName){
 			val1 = fullPost[1];
 			fullPost = makeRule(rawRules[i][1]);
 			out = fullPost[0] + '@' + fullPost[1];
-			rule = {val1,out,rawRules[i][2]};
+			rule = {val1,out,rawRules[i][2],rawRules[i][3]};
 			
 		}
 		//TODO: add more constraint options

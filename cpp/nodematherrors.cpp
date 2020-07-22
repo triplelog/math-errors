@@ -1891,7 +1891,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				}
 				if (newPostfix.length()>0){
 					//Constraints go here
-					for (iiii=3;iiii<rule.size();iiii++){
+					for (iiii=4;iiii<rule.size();iiii++){
 						pastKey = false;
 						std::string constraintFix = "";
 						currentOperand = "";
