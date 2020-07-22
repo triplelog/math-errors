@@ -2069,7 +2069,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 		}
 		else {
 			allStrings.push_back(someStrings[iii*2]);
-			//allStrings.push_back(someStrings[iii*2+1]);
+			allStrings.push_back(someStrings[iii*2+1]);
 			uniqueStrings[someStrings[iii*2]]=true;
 		}
 	
@@ -2078,15 +2078,15 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	answerListMap[newPostfix] = allStrings;
 	totalAnswers += allStrings.size();
 	//std::cout << "total answers: "<< totalAnswers << "\n";
-	for (ii=0;ii<allStrings.size();ii++){
+	for (ii=0;ii<allStrings.size()/2;ii++){
 		//std::cout << allStrings[ii] << "\n";
-		if (answerListMap.find(allStrings[ii]) != answerListMap.end()){
-			reverseMap[allStrings[ii]].push_back(newPostfix);
+		if (answerListMap.find(allStrings[ii*2]) != answerListMap.end()){
+			reverseMap[allStrings[ii*2]].push_back(newPostfix);
 			//reverseMap[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
 		}
 		else {
-			getAnswerList(allStrings[ii],isCorrect,nSteps+1);
-			reverseMap[allStrings[ii]]={newPostfix};
+			getAnswerList(allStrings[ii*2],isCorrect,nSteps+1);
+			reverseMap[allStrings[ii*2]]={newPostfix};
 		}
 		
 	
