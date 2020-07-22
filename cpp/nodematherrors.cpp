@@ -1367,6 +1367,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	
 
 }
+
 std::vector<std::string> outputTree(std::string pfstr){
 	std::vector<std::string> treeOptions;
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
@@ -2301,6 +2302,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				tempTemp = removeBracketsOne(tempTemp);
 				newStrings.push_back(tempTemp);
 				allStrings.push_back(tempTemp);
+				allStrings.push_back(key+","+std::to_string(ruleIdx));
 				
 			}
 		}
@@ -2474,15 +2476,16 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	flat_hash_map<std::string,bool> uniqueStrings;
 
 
-	for (iii=0;iii<someStrings.size();iii++){
+	for (iii=0;iii<someStrings.size()/2;iii++){
 		//std::cout << someStrings[iii] << "\n";
-		someStrings[iii] = removeBracketsOne(someStrings[iii]);
-		if (uniqueStrings.find(someStrings[iii]) != uniqueStrings.end()){
+		someStrings[iii*2] = removeBracketsOne(someStrings[iii*2]);
+		if (uniqueStrings.find(someStrings[iii*2]) != uniqueStrings.end()){
 	
 		}
 		else {
-			allStrings.push_back(someStrings[iii]);
-			uniqueStrings[someStrings[iii]]=true;
+			allStrings.push_back(someStrings[iii*2]);
+			allStrings.push_back(someStrings[iii*2+1]);
+			uniqueStrings[someStrings[iii*2]]=true;
 		}
 	
 	}
@@ -2490,14 +2493,15 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	answerListMap[newPostfix] = allStrings;
 	totalAnswers += allStrings.size();
 	//std::cout << "total answers: "<< totalAnswers << "\n";
-	for (ii=0;ii<allStrings.size();ii++){
+	for (ii=0;ii<allStrings.size()/2;ii++){
 		//std::cout << allStrings[ii] << "\n";
-		if (answerListMap.find(allStrings[ii]) != answerListMap.end()){
-			reverseMap[allStrings[ii]].push_back(newPostfix);
+		if (answerListMap.find(allStrings[ii*2]) != answerListMap.end()){
+			reverseMap[allStrings[ii*2]].push_back(newPostfix);
+			reverseMap[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
 		}
 		else {
-			getAnswerList(allStrings[ii],isCorrect,nSteps+1);
-			reverseMap[allStrings[ii]]={newPostfix};
+			getAnswerList(allStrings[ii*2],isCorrect,nSteps+1);
+			reverseMap[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
 		}
 		
 	
@@ -2522,10 +2526,7 @@ std::string fullAnswer(std::string s, std::string a){
 	std::string mpf = postfixify(a);
 	std::string error = "Don't know.";
 	int ui = 0;
-	for (i=0;i<answerListMap[newPostfix].size();i++){
-		std::cout << "answers: " << answerListMap[newPostfix][i] << "\n";
 
-	}
 	if (reverseMap.find(mpf) != reverseMap.end()){
 		error = "Found";
 		std::string oneStep = mpf;
@@ -2534,6 +2535,7 @@ std::string fullAnswer(std::string s, std::string a){
 		while (reverseMap.find(oneStep) != reverseMap.end()){
 			oneStep = reverseMap[oneStep][0];
 			std::cout << oneStep << "\n";
+			std::cout << reverseMap[oneStep][1] << "\n";
 			outputTree(oneStep);
 		}
 	}
@@ -2545,6 +2547,8 @@ bool correctAnswer(std::string s, std::string a){
 	std::string newPostfix = removeBracketsOne(postfixify(s));
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
 	mapSave = 0; mapMake = 0;
+	answerListMap.clear();
+	reverseMap.clear();
 	auto a1 = std::chrono::high_resolution_clock::now();
 	totalAnswers = 0;
 	getAnswerList(newPostfix,true,0);
