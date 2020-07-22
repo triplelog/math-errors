@@ -2351,6 +2351,7 @@ void initialRun(){
 }
 
 flat_hash_map<std::string,std::vector<std::string>> answerListMap;
+flat_hash_map<std::string,std::vector<std::string>> reverseMap;
 int totalAnswers;
 /*
 void getAnswerListOld(std::string s,bool isCorrect, int nSteps) {
@@ -2492,10 +2493,11 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	for (ii=0;ii<allStrings.size();ii++){
 		//std::cout << allStrings[ii] << "\n";
 		if (answerListMap.find(allStrings[ii]) != answerListMap.end()){
-		
+			reverseMap[allStrings[ii]].push_back(newPostfix);
 		}
 		else {
 			getAnswerList(allStrings[ii],isCorrect,nSteps+1);
+			reverseMap[allStrings[ii]]={newPostfix};
 		}
 		
 	
@@ -2510,6 +2512,7 @@ std::string fullAnswer(std::string s, std::string a){
 	std::string newPostfix = removeBracketsOne(postfixify(s));
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
 	answerListMap.clear();
+	reverseMap.clear();
 	auto a1 = std::chrono::high_resolution_clock::now();
 	getAnswerList(newPostfix,false,0);
 	auto a2 = std::chrono::high_resolution_clock::now();
@@ -2523,8 +2526,15 @@ std::string fullAnswer(std::string s, std::string a){
 		std::cout << "answers: " << answerListMap[newPostfix][i] << "\n";
 
 	}
-	if (answerListMap.find(mpf) != answerListMap.end()){
+	if (reverseMap.find(mpf) != reverseMap.end()){
 		error = "Found";
+		std::string oneStep = mpf;
+		std::cout << oneStep << "\n";
+		while (reverseMap.find(oneStep) != reverseMap.end()){
+			oneStep = reverseMap[oneStep][0];
+			std::cout << oneStep << "\n";
+			
+		}
 	}
 	std::cout << "n maybe wrong answers: " << i  << " and unique: " << ui << "\n";
 	return error;
