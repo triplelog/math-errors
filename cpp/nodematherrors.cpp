@@ -2134,9 +2134,13 @@ std::string fullAnswer(std::string s, std::string a){
 					key += rawRule.at(ii);
 				}
 			}
-			auto rule = rules[key][ruleIdx];
+			std::cout << "key: " << key << " and ruleIdx: " << ruleIdx << " from: " << rawRule << "\n";
+			std::vector<std::string> rule = rules[key][ruleIdx];
 			if (rule[2] != "c"){
 				std::cout << "The error is: "<< rule[3] << "\n";
+			}
+			else {
+				std::cout << "No error is: "<< rule[3] << "\n";
 			}
 			
 			outputTree(oneStep);
