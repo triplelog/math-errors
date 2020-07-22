@@ -2497,11 +2497,11 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 		//std::cout << allStrings[ii] << "\n";
 		if (answerListMap.find(allStrings[ii*2]) != answerListMap.end()){
 			reverseMap[allStrings[ii*2]].push_back(newPostfix);
-			reverseMap[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
+			//reverseMap[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
 		}
 		else {
 			getAnswerList(allStrings[ii*2],isCorrect,nSteps+1);
-			reverseMap[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
+			reverseMap[allStrings[ii*2]]={newPostfix};
 		}
 		
 	
@@ -2535,7 +2535,7 @@ std::string fullAnswer(std::string s, std::string a){
 		while (reverseMap.find(oneStep) != reverseMap.end()){
 			oneStep = reverseMap[oneStep][0];
 			std::cout << oneStep << "\n";
-			std::cout << reverseMap[oneStep][1] << "\n";
+			//std::cout << reverseMap[oneStep][1] << "\n";
 			outputTree(oneStep);
 		}
 	}
@@ -2562,10 +2562,7 @@ bool correctAnswer(std::string s, std::string a){
 	int minIdx = 0;
 	bool isCorrect = false;
 	int ui = 0;
-	for (i=0;i<answerListMap[newPostfix].size();i++){
-		std::cout << "corrects: " << answerListMap[newPostfix][i] << "\n";
 
-	}
 	if (answerListMap.find(mpf) != answerListMap.end()){
 		isCorrect = true;
 		std::string oneStep = mpf;
