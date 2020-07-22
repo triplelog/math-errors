@@ -2111,16 +2111,35 @@ std::string fullAnswer(std::string s, std::string a){
 	std::string mpf = postfixify(a);
 	std::string error = "Don't know.";
 	int ui = 0;
-
+	int ii;
 	if (reverseMap.find(mpf) != reverseMap.end()){
 		error = "Found";
 		std::string oneStep = mpf;
 		std::cout << oneStep << "\n";
 		jsonmessage = "";
 		while (reverseMap.find(oneStep) != reverseMap.end()){
+			std:string rawRule = reverseMap[oneStep][1];
 			
-			std::cout << reverseMap[oneStep][0] << "\n";
-			std::cout << reverseMap[oneStep][1] << "\n";
+			std::string key = "";
+			int ruleIdx = 0;
+			bool isSecond = false;
+			for (ii=0;ii<rawRule.length();ii++){
+				if (rawRule.at(ii) == ','){
+					isSecond = true;
+				}
+				else if (isSecond){
+					ruleIdx *= 10;
+					ruleIdx += (rawRule.at(ii) - '0');
+				}
+				else {
+					key += rawRule.at(ii);
+				}
+			}
+			auto rule = rules[key][ruleIdx];
+			if (rule[2] != "c"){
+				std::cout << "The error is: "<< rule[3] << "\n";
+			}
+			
 			outputTree(oneStep);
 			oneStep = reverseMap[oneStep][0];
 		}
