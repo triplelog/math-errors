@@ -222,7 +222,9 @@ void makeRules(std::string fileName){
 			fullPost = makeRule(rawRules[i][0]);
 			key = fullPost[0];
 			val1 = fullPost[1];
-			rule = {val1,rawRules[i][1],rawRules[i][2],rawRules[i][3]};
+			rawRules[i][1].replace(0,1,"");
+			std::string postfixed = postfixify(rawRules[i][1]);
+			rule = {val1,"=("+postfixed+")",rawRules[i][2],rawRules[i][3]};
 			
 		}
 		else {
