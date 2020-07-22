@@ -2120,7 +2120,7 @@ std::string fullAnswer(std::string s, std::string a){
 		while (reverseMap.find(oneStep) != reverseMap.end()){
 			oneStep = reverseMap[oneStep][0];
 			std::cout << oneStep << "\n";
-			//std::cout << reverseMap[oneStep][1] << "\n";
+			std::cout << reverseMap[oneStep][1] << "\n";
 			outputTree(oneStep);
 		}
 	}
