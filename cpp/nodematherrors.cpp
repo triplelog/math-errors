@@ -1627,11 +1627,8 @@ std::vector<std::string> outputTree(std::string pfstr){
 	//	std::cout << iter->first << " and " << iter->second << '\n';
 	//}
 	
-	std::cout << "\n\n---start Bracketless-----\n";
-	flat_hash_map<int,std::string> bracketlessMap = removeBrackets(originalMap);
-	
 
-	std::cout << " ENd bracketless\n";
+	//std::cout << " ENd bracketless\n";
 	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
 	//	std::cout << iter->first << " and " << iter->second << '\n';
 	//}
@@ -2138,9 +2135,6 @@ std::string fullAnswer(std::string s, std::string a){
 			std::vector<std::string> rule = rules[key][ruleIdx];
 			if (rule[2] != "c"){
 				std::cout << "The error is: "<< rule[3] << "\n";
-			}
-			else {
-				std::cout << "No error is: "<< rule[3] << "\n";
 			}
 			
 			outputTree(oneStep);
