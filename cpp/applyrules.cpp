@@ -110,6 +110,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				continue;
 			}
 			bool pastKey = false;
+			/*
 			if (rule[1].at(0)=='='){
 				
 				std::string inside = rule[1];
@@ -126,8 +127,8 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				newPostfix = "#@"+opResult+"_";
 				
 				
-			}
-			else {
+			}*/
+			if (2 ==2) {
 				bool openBrackets = false;
 				std::string insidePostfix = "";
 				bool pastInsideKey = false;
