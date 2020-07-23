@@ -128,11 +128,12 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				
 				
 			}*/
+			bool hasBrackets = false;
 			if (2 ==2) {
 				bool openBrackets = false;
 				std::string insidePostfix = "";
 				bool pastInsideKey = false;
-				bool hasBrackets = false;
+				
 				for (iii=0;iii<rule[1].length();iii++){
 					if (openBrackets){
 						hasBrackets = true;
@@ -268,6 +269,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 			}
 		
 			if (newPostfix.length()>0){
+				
 				//std::cout << userFullString << " anand " << fullStr << " anand " << newPostfix << "\n\n";
 				std::string newPostfixFirst = "";
 				std::string newPostfixSecond = "";
@@ -291,7 +293,9 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				//std::cout << "userFullString: "<< userFullString << "\n";
 				tempTemp.replace(oneIndex[0],oneIndex[1],newPostfixFirst);
 				//std::cout << bottomTrees[ii][1] << " bb " << bottomTrees[ii][2] << " c " << bottomTrees[ii][3] << " d " << bottomTrees[ii][4] << "\n";
-				
+				if (hasBrackets){
+					std::cout "tt: "<< tempTemp << " and " << userFullString << "\n";
+				}
 				if (tempTemp != userFullString){
 					tempTemp = removeBracketsOne(tempTemp);
 					newStrings.push_back(tempTemp);
