@@ -627,6 +627,33 @@ std::string replaceFunctions(std::string input_str){
 	return input_str;
 }
 
+std::string postfixify(std::string input_str) {
+	/*input_str = input_str.toUpperCase();
+	input_str = input_str.replace(/AND/g,'&');
+	input_str = input_str.replace(/OR/g,'|');
+	input_str = input_str.replace(/\[/g,'(');
+	input_str = input_str.replace(/]/g,')');
+	input_str = input_str.replace(/{/g,'(');
+	input_str = input_str.replace(/}/g,')');
+	input_str = input_str.replace(/>=/g,']');
+	input_str = input_str.replace(/<=/g,'[');
+	input_str = input_str.replace(/==/g,'=');
+	input_str = input_str.replace(/!=/g,'!');
+	input_str = input_str.replace(/\+-/g,'-');
+	input_str = input_str.replace(/--/g,'+');*/
+	
+	input_str = replaceFunctions(input_str);
+	
+	char infixexpr[input_str.length() + 1]; 
+    strcpy(infixexpr, input_str.c_str()); 
+
+	infixexpr[input_str.length()] = '\0';
+	//std::cout << makePost(infixexpr) << '\n';
+	
+
+	return makePost(infixexpr);
+}
+
 std::vector<std::string> postfixifyVector(std::string input_str, bool checkComputations){
 
 	input_str = replaceFunctions(input_str);
@@ -691,29 +718,3 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 	return postVector;
 }
 
-std::string postfixify(std::string input_str) {
-	/*input_str = input_str.toUpperCase();
-	input_str = input_str.replace(/AND/g,'&');
-	input_str = input_str.replace(/OR/g,'|');
-	input_str = input_str.replace(/\[/g,'(');
-	input_str = input_str.replace(/]/g,')');
-	input_str = input_str.replace(/{/g,'(');
-	input_str = input_str.replace(/}/g,')');
-	input_str = input_str.replace(/>=/g,']');
-	input_str = input_str.replace(/<=/g,'[');
-	input_str = input_str.replace(/==/g,'=');
-	input_str = input_str.replace(/!=/g,'!');
-	input_str = input_str.replace(/\+-/g,'-');
-	input_str = input_str.replace(/--/g,'+');*/
-	
-	input_str = replaceFunctions(input_str);
-	
-	char infixexpr[input_str.length() + 1]; 
-    strcpy(infixexpr, input_str.c_str()); 
-
-	infixexpr[input_str.length()] = '\0';
-	//std::cout << makePost(infixexpr) << '\n';
-	
-
-	return makePost(infixexpr);
-}
