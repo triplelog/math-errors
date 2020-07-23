@@ -214,9 +214,12 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 					}
 						
 				}
-				if (hasBrackets){
+				if (hasBrackets && newPostfix.length() >0){
 					std::cout << "hasB: " << newPostfix << "\n";
 					newPostfix = removeBracketsOne(newPostfix);
+					std::cout << "Brem: " << newPostfix << "\n";
+					std::cout << "ufs: " << userFullString << "\n";
+					std::cout << "us: " << userString << "\n";
 				}
 				
 				if (newPostfix.length()>0){
