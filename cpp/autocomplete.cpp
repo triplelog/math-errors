@@ -626,7 +626,6 @@ std::string inputify(std::string input) {
 		
 	}
 	
-	std::cout << lastInput << "\n";
 	return lastInput;
 
 
@@ -634,7 +633,7 @@ std::string inputify(std::string input) {
 void autocomplete(flat_hash_map<std::string,std::vector<std::string>> reverseMap, std::string newPostfix,std::string rawAnswer){
 
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
-		std::cout << "comp answer: " << inputify(iter->first) << "\n";
+		std::cout << "comp answer: " << iter->first << " into "<< inputify(iter->first) << "\n";
 	}
 	std::cout << "question: " << inputify(newPostfix) << "\n";
 	std::cout << "user answer: " << rawAnswer << "\n";
