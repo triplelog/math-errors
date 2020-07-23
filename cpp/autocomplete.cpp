@@ -28,7 +28,7 @@ std::string inputify(std::string input) {
 	
 	flat_hash_map<int,std::string> operandMap;
 	for (i=0;i<pfstr.length();i++){
-		
+		std::cout << "i: " << i << " and " << pfstr << "\n";
 		if (pfstr.at(i) == '@'){
 			break;
 		}
@@ -316,6 +316,7 @@ std::string inputify(std::string input) {
 
 }
 std::vector<std::string> autocomplete(flat_hash_map<std::string,std::vector<std::string>> reverseMap, std::string newPostfix,std::string mpf){
+	std::cout << "to input: " << mpf << "\n"
 	std::string answerInput = inputify(mpf);
 	std::cout << answerInput << "\n";
 	//for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
