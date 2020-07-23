@@ -1462,7 +1462,7 @@ bool correctAnswer(std::string s, std::string a){
 	auto a2 = std::chrono::high_resolution_clock::now();
 	//duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << totalAnswers << "\n\n\n";
-	int i; int ii;
+	int i; int ii; int iii;
 	std::string mpf = postfixify(a);
 	
 	int minLen = 10000;
@@ -1490,7 +1490,11 @@ bool correctAnswer(std::string s, std::string a){
 	jsonmessage = "";
 	for (ii=0;ii<answerListMap[newPostfix].size();ii++){
 		std::cout << "one step is: " << answerListMap[newPostfix][ii] << "\n";
+		for (iii=0;iii<answerListMap[answerListMap[newPostfix][ii]].size();iii++){
+			std::cout << "step two is: " << answerListMap[answerListMap[newPostfix][ii]][iii] << "\n";
 		
+			//outputTree(answerListMap[newPostfix][ii]);
+		}
 		//outputTree(answerListMap[newPostfix][ii]);
 	}
 	return isCorrect;
