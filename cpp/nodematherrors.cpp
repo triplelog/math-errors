@@ -1488,16 +1488,18 @@ bool correctAnswer(std::string s, std::string a){
 	std::cout << "n answers: " << i  << " and unique: " << ui << "\n";
 
 	jsonmessage = "";
+	
+
 	for (ii=0;ii<answerListMap[newPostfix].size();ii++){
 		std::cout << "one step is: " << answerListMap[newPostfix][ii] << "\n";
 		for (iii=0;iii<answerListMap[answerListMap[newPostfix][ii]].size();iii++){
 			std::cout << "step two is: " << answerListMap[answerListMap[newPostfix][ii]][iii] << "\n";
 		
-			for (iii=0;iii<answerListMap[answerListMap[answerListMap[newPostfix][ii]][iii]].size();iii++){
-				std::cout << "step 3 is: " << answerListMap[answerListMap[answerListMap[newPostfix][ii]][iii]][iiii] << "\n";
+			//for (iiii=0;iiii<answerListMap[answerListMap[answerListMap[newPostfix][ii]][iii]].size();iiii++){
+			//	std::cout << "step 3 is: " << answerListMap[answerListMap[answerListMap[newPostfix][ii]][iii]][iiii] << "\n";
 		
 				//outputTree(answerListMap[newPostfix][ii]);
-			}
+			//}
 		}
 		//outputTree(answerListMap[newPostfix][ii]);
 	}
