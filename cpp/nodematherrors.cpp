@@ -1385,7 +1385,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 			if (allStrings[ii*2] != newPostfix){
 				getAnswerList(allStrings[ii*2],isCorrect,nSteps+1);
 				reverseMap[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
-				std::cout << allStrings[ii*2] << "\n";
+				std::cout << allStrings[ii*2] << " and " << newPostfix << "\n";
 			}
 			
 		}
