@@ -1,6 +1,6 @@
 std::string inputify(std::string input) {
 
-	int i; int ii;
+	int i; int ii; int iii
 	bool startOperands = false;
 	std::string currentOperator = "";
 	flat_hash_map<int,std::string> originalMap;
@@ -219,7 +219,7 @@ std::string inputify(std::string input) {
 			
 					}
 					case '-': {
-						if (prec[lastOpMap[input[i*3]]] >= prec[lastOpMap[child]]){
+						if (prec[pfstr.at(i)] >= prec[lastOpMap[child]]){
 							s += "-("+listMap[child]+")";
 						}
 						else {
@@ -230,7 +230,7 @@ std::string inputify(std::string input) {
 					case '/': {
 						s += "\\\\frac{1}{"+listMap[child]+"}";
 						/*
-						if (prec[lastOpMap[input[i*3]]] >= prec[lastOpMap[child]]){
+						if (prec[pfstr.at(i)] >= prec[lastOpMap[child]]){
 							s += "/("+listMap[child]+")";
 						}
 						else {
@@ -239,36 +239,36 @@ std::string inputify(std::string input) {
 						break;
 					}
 					default: {
-						if (prec[lastOpMap[input[i*3]]] > prec[lastOpMap[child]]){
+						if (prec[pfstr.at(i)] > prec[lastOpMap[child]]){
 							if (ii > 0){
-								if (lastOpMap[input[i*3]] == '*'){
+								if (pfstr.at(i) == '*'){
 									s += "\\\\cdot ("+listMap[child]+")";
 								}
 								else {
-									s += lastOpMap[input[i*3]]+"("+listMap[child]+")";
+									s += pfstr.at(i)+"("+listMap[child]+")";
 								}
 							}
 							else {
 								s += "("+listMap[child]+")";
 							}
 						}
-						else if (prec[lastOpMap[input[i*3]]] == prec[lastOpMap[child]] && lastOpMap[input[i*3]] != lastOpMap[child]){
+						else if (prec[pfstr.at(i)] == prec[lastOpMap[child]] && pfstr.at(i) != lastOpMap[child]){
 							if (ii > 0){
-								if (lastOpMap[input[i*3]] == '*'){
+								if (pfstr.at(i) == '*'){
 									s += "\\\\cdot "+listMap[child];//want to move this into numerator somehow
 								}
-								else if (lastOpMap[input[i*3]] == '+'){
+								else if (pfstr.at(i) == '+'){
 									s += listMap[child];
 								}
 								else {
-									s += lastOpMap[input[i*3]]+"("+listMap[child]+")";
+									s += pfstr.at(i)+"("+listMap[child]+")";
 								}
 							}
 							else {
-								if (lastOpMap[input[i*3]] == '*'){
+								if (pfstr.at(i) == '*'){
 									s += listMap[child];
 								}
-								else if (lastOpMap[input[i*3]] == '+'){
+								else if (pfstr.at(i) == '+'){
 									s += listMap[child];
 								}
 								else {
@@ -278,11 +278,11 @@ std::string inputify(std::string input) {
 						}
 						else {
 							if (ii > 0){
-								if (lastOpMap[input[i*3]] == '*'){
+								if (pfstr.at(i) == '*'){
 									s += "\\\\cdot "+listMap[child];
 								}
 								else {
-									s += lastOpMap[input[i*3]]+listMap[child];
+									s += pfstr.at(i)+listMap[child];
 								}
 							}
 							else {
