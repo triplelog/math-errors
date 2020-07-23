@@ -658,7 +658,7 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 
 	input_str = replaceFunctions(input_str);
 	flat_hash_map<std::string,std::string> repMap;
-	if (checkComputations){
+	/*if (checkComputations){
 		char repl = 'A';
 		
 		int iii;
@@ -690,7 +690,7 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 			}
 		
 		}
-	}
+	}*/
 	
 	char infixexpr[input_str.length() + 1]; 
     strcpy(infixexpr, input_str.c_str()); 
@@ -699,8 +699,7 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 	//std::cout << makePost(infixexpr) << '\n';
 	
 	std::vector<std::string> postVector = makePostVector(infixexpr);
-	if (checkComputations){
-		char repl = 'A';
+	/*if (checkComputations){
 		int iii;
 		std::string twoChars = "..";
 		for (iii=0;iii<postVector[1].length()-1;iii++){
@@ -713,7 +712,7 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 				iii += 2+repText.length() - 2;
 			}
 		}
-	}
+	}*/
 	std::cout << postVector[1] << "\n";
 	return postVector;
 }
