@@ -687,7 +687,7 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 				repl++;
 				input_str.replace(i,ii+1-i,key);
 				repMap[key]=inside;
-				std::cout << "found\n";
+				std::cout << "found: " << input_str << "\n";
 			}
 		
 		}

@@ -215,6 +215,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 					}
 						
 				}
+				
 				if (hasBrackets && newPostfix.length() >0){
 					newPostfix = removeBracketsOne(newPostfix);
 				}

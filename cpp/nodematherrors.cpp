@@ -1482,7 +1482,7 @@ bool correctAnswer(std::string s, std::string a){
 		}
 	}
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = answerListMap.begin(); iter != answerListMap.end(); ++iter){
-		std::cout << iter->first << "\n";
+		//std::cout << iter->first << "\n";
 	}
 	std::cout << "your answer: " << mpf << "\n";
 	std::cout << "n answers: " << i  << " and unique: " << ui << "\n";
