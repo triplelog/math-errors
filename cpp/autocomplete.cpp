@@ -87,7 +87,7 @@ std::string inputify(std::string input) {
 			std::string s = "";
 			for (ii=0;ii<2;ii++){
 				std::string child = secondChild;
-				if (ii=0 && firstChild != ""){
+				if (ii==0 && firstChild != ""){
 					child = firstChild;
 				}
 				else if (ii==1 && firstChild == ""){
