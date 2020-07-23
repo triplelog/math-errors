@@ -140,16 +140,30 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 						if (pastInsideKey){
 							if (rule[1].at(iii) == '}'){
 								std::cout << "insidePF: "<< insidePostfix << "\n";
-								std::string opResult = solvePostfix(insidePostfix);
-								std::cout << "opR: "<< opResult << "\n";
-								if (opResult == "false"){
-									currentOperand = "{"+insidePostfix+"}";
+								int bi; bool interiorBrackets = false;
+								for (bi=0;bi<insidePostfix.length();bi++){
+									if (insidePostfix.at(bi) == '{'){
+										interiorBrackets = true;
+										break;
+									}
+								}
+								if (interiorBrackets){
+									newPostfix = "";
+									break;
 								}
 								else {
-									currentOperand = "{#@"+opResult+"_}";
+									std::string opResult = solvePostfix(insidePostfix);
+									std::cout << "opR: "<< opResult << "\n";
+									if (opResult == "false"){
+										currentOperand = "{"+insidePostfix+"}";
+									}
+									else {
+										currentOperand = "{#@"+opResult+"_}";
+									}
+									openBrackets = false;
+									pastInsideKey = false;
 								}
-								openBrackets = false;
-								pastInsideKey = false;
+								
 							}
 							else if (rule[1].at(iii) == '_'){
 								std::cout << "co: "<< currentOperand << "\n";
