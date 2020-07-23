@@ -1327,7 +1327,7 @@ int totalAnswers;
 bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 
 	
-	if (nSteps >= 10){
+	if (nSteps >= 100){
 		return false;
 	}
 	//std::cout << s << "\n";
