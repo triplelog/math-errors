@@ -81,7 +81,7 @@ std::string inputify(std::string input) {
 				
 				
 			}
-
+			std::string << "here\n";
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
 			
 			std::string s = "";
@@ -90,7 +90,7 @@ std::string inputify(std::string input) {
 				if (ii=0 && firstChild != ""){
 					child = firstChild;
 				}
-				else if (ii=1 && firstChild == ""){
+				else if (ii==1 && firstChild == ""){
 					break;
 				}
 				switch (pfstr.at(i)){
