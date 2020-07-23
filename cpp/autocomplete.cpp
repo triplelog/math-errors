@@ -316,12 +316,15 @@ std::string latexOne(std::string input) {
 int lev(std::string ss, std::string st){
 
     int i,j,m,n,temp,tracker;
+    
 	m = ss.length(); 
     char s[m + 1]; 
     strcpy(s, ss.c_str());
     n = st.length(); 
     char t[n + 1]; 
     strcpy(t, st.c_str());
+    
+    int d[n+1][m+1];
 
     for(i=0;i<=m;i++){
     	d[0][i] = i;
