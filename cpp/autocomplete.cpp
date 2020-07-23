@@ -27,6 +27,7 @@ std::string inputify(std::string input) {
 	flat_hash_map<std::string,char> lastOpMap;
 	
 	flat_hash_map<int,std::string> operandMap;
+	std::string lastInput = "";
 	for (i=0;i<pfstr.length();i++){
 		std::cout << "i: " << i << " and " << pfstr << "\n";
 		if (pfstr.at(i) == '@'){
@@ -297,7 +298,8 @@ std::string inputify(std::string input) {
 			
 			listMap[fullStr]=s;
 			lastOpMap[fullStr]=pfstr.at(i);
-			std::cout << "fullStr: " << fullStr << "\n";
+			std::cout << "fullStr: " << fullStr << " and " << s << "\n";
+			lastInput = s;
 			
 		}
 		else {
@@ -309,8 +311,8 @@ std::string inputify(std::string input) {
 		
 	}
 	
-	std::cout << listMap[input] << "\n";
-	return listMap[input];
+	std::cout << lastInput << "\n";
+	return lastInput;
 
 
 }
