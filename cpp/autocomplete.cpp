@@ -48,7 +48,7 @@ std::string inputify(std::string input) {
 				if (listMap.find(s + '@' + t) != listMap.end()){
 					secondStr = s;
 					secondTtr = t;
-					secondChild = listMap[s + '@' + t];
+					secondChild = s + '@' + t;
 					maxi = ii;
 					break;
 				}
@@ -72,7 +72,7 @@ std::string inputify(std::string input) {
 					if (listMap.find(s + '@' + t) != listMap.end()){
 						firstStr = s;
 						firstTtr = t;
-						firstChild = listMap[s + '@' + t];
+						firstChild = s + '@' + t;
 						break;
 					}
 				}
