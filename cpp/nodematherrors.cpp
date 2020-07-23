@@ -1489,7 +1489,7 @@ bool correctAnswer(std::string s, std::string a){
 
 	jsonmessage = "";
 	
-	newPostfix = "####-+^*###*?+@2_x_2_1_x_4_x_";
+	//newPostfix = "####-+^*###*?+@2_x_2_1_x_4_x_";
 	for (ii=0;ii<answerListMap[newPostfix].size();ii++){
 		std::cout << "one step is: " << answerListMap[newPostfix][ii] << "\n";
 		for (iii=0;iii<answerListMap[answerListMap[newPostfix][ii]].size();iii++){
