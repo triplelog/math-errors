@@ -139,7 +139,9 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 						hasBrackets = true;
 						if (pastInsideKey){
 							if (rule[1].at(iii) == '}'){
+								std::cout << "insidePF: "<< insidePostfix << "\n";
 								std::string opResult = solvePostfix(insidePostfix);
+								std::cout << "opR: "<< opResult << "\n";
 								if (opResult == "false"){
 									currentOperand = "{"+insidePostfix+"}";
 								}
