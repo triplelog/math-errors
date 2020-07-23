@@ -316,7 +316,7 @@ std::string inputify(std::string input) {
 
 }
 std::vector<std::string> autocomplete(flat_hash_map<std::string,std::vector<std::string>> reverseMap, std::string newPostfix,std::string mpf){
-	std::vector<std::string> answerInput = inputify(mpf);
+	std::string answerInput = inputify(mpf);
 	std::cout << answerInput << "\n";
 	//for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
 		//std::cout << iter->first << "\n";
