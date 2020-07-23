@@ -366,6 +366,22 @@ int lev(std::string ss, std::string st){
     return d[n][m];
 
 }
+
+int autoDistance(std::string ss, std::string control) {
+	int d = lev(ss,control)*1000;
+	int ssl = ss.length();
+	int cl = control.length();
+	if (cl < ssl){
+		ss.replace(cl,ssl-cl,"");
+		d /= ssl;
+		d += lev(ss,control)*1000/cl;
+	}
+	else {
+		d /= ssl;
+		d += lev(ss,control)*1000/cl;
+	}
+	return d;
+}
 std::string inputify(std::string input) {
 
 	int i; int ii; int iii; int idx = 0;
@@ -689,7 +705,7 @@ void autocomplete(flat_hash_map<std::string,std::vector<std::string>> reverseMap
 
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
 		std::string ca = inputify(iter->first);
-		std::cout << "distance: " << lev(ca,rawAnswer) << " of "<< inputify(iter->first) << "\n";
+		std::cout << "distance: " << autoDistance(ca,rawAnswer) << " of "<< inputify(iter->first) << "\n";
 		
 	}
 	std::cout << "question: " << inputify(newPostfix) << "\n";
