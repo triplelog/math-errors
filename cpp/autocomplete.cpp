@@ -5,6 +5,8 @@ std::string inputify(std::string input) {
 	std::string currentOperator = "";
 	flat_hash_map<int,std::string> originalMap;
 	int iidx = 0;
+	std::string pfstr = input;
+	
 	for (i=0;i<pfstr.length();i++){
 		if (pfstr.at(i) == '@'){
 			startOperands = true;
@@ -23,7 +25,7 @@ std::string inputify(std::string input) {
 	
 	flat_hash_map<std::string,std::string> listMap;
 	flat_hash_map<std::string,char> lastOpMap;
-	std::string pfstr = input;
+	
 	flat_hash_map<int,std::string> operandMap;
 	for (i=0;i<pfstr.length();i++){
 		
