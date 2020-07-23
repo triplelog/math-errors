@@ -1397,6 +1397,8 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	
 }
 
+#include "autocomplete.cpp"
+
 std::string fullAnswer(std::string s, std::string a){
 	std::string newPostfix = removeBracketsOne(postfixify(s));
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
@@ -1411,6 +1413,7 @@ std::string fullAnswer(std::string s, std::string a){
 	std::string mpf = postfixify(a);
 	std::string error = "Don't know.";
 	int ui = 0;
+	autocomplete(reverseMap,newPostfix,mpf);
 	if (reverseMap.find(mpf) != reverseMap.end()){
 		error = "Found";
 		std::string oneStep = mpf;
