@@ -673,7 +673,7 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 						openPar++;
 					}
 					else if (input_str.at(ii) == ')'){
-						openPar++;
+						openPar--;
 					}
 					else {
 						inside += input_str.at(ii);
