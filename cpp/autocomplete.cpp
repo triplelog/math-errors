@@ -150,22 +150,22 @@ std::string latexOne(std::string input) {
 						s += "\\\\cot("+listMap[child]+")";
 						break;
 					case -32:
-						s += "\\\\sin^(-1)("+listMap[child]+")";
+						s += "\\\\sin^{-1}("+listMap[child]+")";
 						break;
 					case -31:
-						s += "\\\\cos^(-1)("+listMap[child]+")";
+						s += "\\\\cos^{-1}("+listMap[child]+")";
 						break;
 					case -30:
-						s += "\\\\tan^(-1)("+listMap[child]+")";
+						s += "\\\\tan^{-1}("+listMap[child]+")";
 						break;
 					case -29:
-						s += "\\\\csc^(-1)("+listMap[child]+")";
+						s += "\\\\csc^{-1}("+listMap[child]+")";
 						break;
 					case -28:
-						s += "\\\\sec^(-1)("+listMap[child]+")";
+						s += "\\\\sec^{-1}("+listMap[child]+")";
 						break;
 					case -27:
-						s += "\\\\cot^(-1)("+listMap[child]+")";
+						s += "\\\\cot^{-1}("+listMap[child]+")";
 						break;
 					case -16:
 						s += "\\\\text{sinh}("+listMap[child]+")";
@@ -620,6 +620,7 @@ std::string inputify(std::string input) {
 		}
 		else {
 			listMap["#@" + std::to_string(idx) + "_"]=originalMap[idx];
+			lastOpMap["#@" + std::to_string(idx) + "_"]='#';
 			operandMap[i]=std::to_string(idx);
 			idx++;
 		}
