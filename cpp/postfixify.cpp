@@ -658,6 +658,7 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 
 	input_str = replaceFunctions(input_str);
 	flat_hash_map<std::string,std::string> repMap;
+	std::cout <<"pv: "<< input_str << "\n";
 	if (checkComputations){
 		char repl = 'A';
 		
@@ -686,6 +687,7 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 				repl++;
 				input_str.replace(i,ii+1-i,key);
 				repMap[key]=inside;
+				std::cout << "found\n";
 			}
 		
 		}
