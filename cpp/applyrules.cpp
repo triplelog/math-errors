@@ -133,13 +133,11 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				std::string insidePostfix = "";
 				bool pastInsideKey = false;
 				bool hasBrackets = false;
-				std::cout << "the rule: "<< rule[1] << "\n";
 				for (iii=0;iii<rule[1].length();iii++){
 					if (openBrackets){
 						hasBrackets = true;
 						if (pastInsideKey){
 							if (rule[1].at(iii) == '}'){
-								std::cout << "insidePF: "<< insidePostfix << "\n";
 								int bi; bool interiorBrackets = false;
 								for (bi=0;bi<insidePostfix.length();bi++){
 									if (insidePostfix.at(bi) == '{'){
@@ -153,7 +151,6 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 								}
 								else {
 									std::string opResult = solvePostfix(insidePostfix);
-									std::cout << "opR: "<< opResult << "\n";
 									if (opResult == "false"){
 										currentOperand = "{"+insidePostfix+"}";
 									}
@@ -166,11 +163,8 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 								
 							}
 							else if (rule[1].at(iii) == '_'){
-								std::cout << "co: "<< currentOperand << "\n";
 								if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
 									insidePostfix += partMap[currentOperand.at(0)] + '_';
-									std::cout << "ipf: "<< insidePostfix << "\n";
-									std::cout << "us: "<< userString << "\n";
 								}
 								else {
 									insidePostfix += currentOperand + '_';
@@ -220,7 +214,6 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 					}
 						
 				}
-				std::cout << "post rule: "<< newPostfix << "\n";
 				if (hasBrackets){
 					newPostfix = removeBracketsOne(newPostfix);
 				}
