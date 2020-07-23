@@ -152,7 +152,7 @@ std::string constraintify(std::string input){
 	char dncc{-94};
 	std::string dnc = "";
 	dnc += dncc;
-	std::cout << input << "\n";
+	std::cout << "contraintify: "<< input << "\n";
 	for (i=0;i<input.length();i++){
 		tempStr += input.at(i);
 		tempStr.replace(0,1,"");
@@ -162,7 +162,7 @@ std::string constraintify(std::string input){
 			tempStr = "................";
 		}
 	}
-	std::cout << input << "\n";
+	std::cout << "contraintified: " << input << "\n";
 	return input;
 }
 

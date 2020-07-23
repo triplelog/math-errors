@@ -1385,7 +1385,6 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 			if (allStrings[ii*2] != newPostfix){
 				getAnswerList(allStrings[ii*2],isCorrect,nSteps+1);
 				reverseMap[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
-				std::cout << allStrings[ii*2] << " and " << newPostfix << "\n";
 			}
 			
 		}
@@ -1476,9 +1475,9 @@ bool correctAnswer(std::string s, std::string a){
 		std::string oneStep = mpf;
 		std::cout << oneStep << "\n";
 		jsonmessage = "";
-		while (reverseMap.find(oneStep) != reverseMap.end()){
+		while (reverseMap.find(oneStep) != reverseMap.end() && oneStep != newPostfix){
 			oneStep = reverseMap[oneStep][0];
-			std::cout << oneStep << "\n";
+			std::cout << "next step: "<< oneStep << "\n";
 			outputTree(oneStep);
 		}
 	}
