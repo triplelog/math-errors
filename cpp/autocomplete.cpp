@@ -81,7 +81,7 @@ std::string inputify(std::string input) {
 				
 				
 			}
-			std::string << "here\n";
+			std::cout << "here\n";
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
 			
 			std::string s = "";
