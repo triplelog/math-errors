@@ -1,3 +1,152 @@
+std::vector<std::string> makePostVector(char infixexpr[]) {
+	
+	std::string intstr = "";
+	std::string expstr = "";
+	char topToken;
+	std::vector<std::string> postfixList;
+	int pfidx =0;
+	std::vector<char> opStack;
+	int osidx = 0;
+	std::vector<std::string> tokenList;
+	int idx = 0;
+	int len=0;
+	int i;
+	for (i = 0; infixexpr[i]; i++) 
+    {
+    	len = i+1;
+    }
+	char temptoken[len];
+	tokenList.resize(len);
+	postfixList.resize(len);
+	opStack.resize(len);
+	int iidx = 0;
+	
+	
+	
+	for (i = 0; infixexpr[i]; i++) 
+    {
+		char ie = infixexpr[i];
+		if (prec.find(ie) == prec.end()){
+			temptoken[iidx] = ie;
+			temptoken[iidx+1] = '\0';
+			iidx++;
+		}
+		else{
+			if (iidx != 0){
+				tokenList[idx] = arrayToString(iidx,temptoken);
+				idx++;
+			}
+			std::string s(1,ie);
+			tokenList[idx] = s;
+			idx++;
+			temptoken[0] = '\0';
+			iidx=0;
+		}
+	}
+	if (iidx != 0){
+		tokenList[idx] = arrayToString(iidx,temptoken);
+		idx++;
+	}
+	
+	tokenList.resize(idx);
+	
+	
+	for (i=0;i<idx;i++){
+		std::string token = tokenList[i];
+		char firstChar = token.at(0);
+		if (firstChar == '('){
+			opStack[osidx] = firstChar;
+			osidx++;
+		}
+		else if (firstChar == ')'){
+			topToken = opStack[osidx-1];
+			osidx--;
+			
+			while (topToken != '('){
+				std::string s(1,topToken);
+				postfixList[pfidx] = s;
+				pfidx++;
+				topToken = opStack[osidx-1];
+				osidx--;
+			}
+		}
+		else if (firstChar < 0 || firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '-' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
+			while ((osidx > 0) && (prec[opStack[osidx-1]] >= prec[firstChar])){
+				topToken = opStack[osidx-1];
+				osidx--;
+				std::string s(1,topToken);
+				postfixList[pfidx] = s;
+				pfidx++;
+			}
+			opStack[osidx] = firstChar;
+			osidx++;
+		}
+		else {
+			postfixList[pfidx] = token;
+			pfidx++;
+		}
+	}
+	while (osidx > 0){
+		topToken = opStack[osidx-1];
+		osidx--;
+		std::string s(1,topToken);
+		postfixList[pfidx] = s;
+		pfidx++;
+	}
+	
+
+	for (i=0;i<pfidx;i++){
+		
+		std::string ci = postfixList[i];
+		char firstChar = ci.at(0);
+		if (firstChar == '-'){
+			//expstr += "-";
+			expstr += "-+";
+		}
+		else if (firstChar == '/'){
+			//expstr += "-";
+			expstr += "/*";
+		}
+		else if (firstChar < 0 || firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
+			expstr += ci;
+		}
+		else {
+			
+			if (ci == "pi" || ci == "Pi" || ci == "PI"){
+				intstr += "\\\\pi";
+			}
+			else if (ci == "alpha"){
+				intstr += "\\\\alpha";
+			}
+			else if (ci == "beta"){
+				intstr += "\\\\beta";
+			}
+			else if (ci == "theta"){
+				intstr += "\\\\theta";
+			}
+			else {
+				intstr += ci;
+			}
+			intstr += "_";
+			expstr += "#";
+		}
+
+	}
+	
+	return {expstr,intstr};
+
+
+}
+
+std::string makePost(char infixexpr[]) {
+	std::vector<std::string> v = makePostVector(infixexpr);
+	
+	std::string retstr = v[0]+ "@" + v[1];
+	return retstr;
+
+
+}
+
 std::string replaceFunctions(std::string input_str){
 	flat_hash_map<std::string,std::string> replacements2;
 	flat_hash_map<std::string,std::string> replacements3;

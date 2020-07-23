@@ -122,7 +122,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 					newPostfix = "";
 					continue;
 				}
-				std::cout <<"inside: " << inside << " and "<< opResult << "\n";
+				
 				newPostfix = "#@"+opResult+"_";
 				
 				
