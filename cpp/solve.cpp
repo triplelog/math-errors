@@ -136,7 +136,7 @@ std::string subTwoInts(std::string a, std::string b){
 	return std::to_string(div);
 }
 
-std::string solvePostfix(std::string postfix, flat_hash_map<char,std::string> partMap) {
+std::string solvePostfix(std::string postfix) {
 	int i;
   	int currentIndex = 0;
   	int arrayIndex = 0;
@@ -149,15 +149,10 @@ std::string solvePostfix(std::string postfix, flat_hash_map<char,std::string> pa
         	currentOperand = "";
         }
         else if (postfix.at(i) == '_') {
-        	if (currentOperand.length()==1 && (partMap.find(currentOperand.at(0)) != partMap.end())){
-        		intArray.push_back(partMap[currentOperand.at(0)]);
-        		stack.push_back("");
-        	}
-        	else {
-        		intArray.push_back(currentOperand);
-        		stack.push_back("");
-        	}
-        	
+
+			intArray.push_back(currentOperand);
+			stack.push_back("");
+
         	currentOperand = "";
         }
         else {

@@ -128,28 +128,80 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				
 			}
 			else {
+				bool openBrackets = false;
+				std::string insidePostfix = "";
+				bool pastInsideKey = false;
+				bool hasBrackets = false;
 				for (iii=0;iii<rule[1].length();iii++){
-					if (pastKey){
-						if (rule[1].at(iii) == '_'){
-							if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
-								newPostfix += partMap[currentOperand.at(0)] + '_';
+					if (openBrackets){
+						hasBrackets = true;
+						if (pastInsideKey){
+							if (rule[1].at(iii) == '}'){
+								std::string opResult = solvePostfix(insidePostfix);
+								if (opResult == "false"){
+									newPostfix += "{"+insidePostfix+"}_";
+								}
+								else {
+									newPostfix += "{#@"+opResult+"_}_";
+								}
+								openBrackets = false;
+								currentOperand = "";
+							}
+							else if (rule[1].at(iii) == '_'){
+								if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
+									insidePostfix += partMap[currentOperand.at(0)] + '_';
+								}
+								else {
+									insidePostfix += currentOperand + '_';
+								}
+								currentOperand = "";
 							}
 							else {
-								newPostfix += currentOperand + '_';
+								currentOperand += rule[1].at(iii);
 							}
-							currentOperand = "";
 						}
 						else {
-							currentOperand += rule[1].at(iii);
+							if (rule[1].at(iii) == '@'){
+								pastInsideKey = true;
+								currentOperand = "";
+							}
+							insidePostfix += rule[1].at(iii);
 						}
 					}
 					else {
-						if (rule[1].at(iii) == '@'){
-							pastKey = true;
+						if (pastKey){
+							if (rule[1].at(iii) == '{'){
+								openBrackets = true;
+								currentOperand = "";
+								insidePostfix = "";
+								pastInsideKey = false;
+							}
+							else if (rule[1].at(iii) == '_'){
+								if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
+									newPostfix += partMap[currentOperand.at(0)] + '_';
+								}
+								else {
+									newPostfix += currentOperand + '_';
+								}
+								currentOperand = "";
+							}
+							else {
+								currentOperand += rule[1].at(iii);
+							}
 						}
-						newPostfix += rule[1].at(iii);
+						else {
+							if (rule[1].at(iii) == '@'){
+								pastKey = true;
+							}
+							newPostfix += rule[1].at(iii);
+						}
 					}
+						
 				}
+				if (hasBrackets){
+					newPostfix = removeBracketsOne(newPostfix);
+				}
+				
 				if (newPostfix.length()>0){
 					//Constraints go here
 					for (iiii=4;iiii<rule.size();iiii++){
@@ -219,10 +271,14 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				//std::cout << "userFullString: "<< userFullString << "\n";
 				tempTemp.replace(oneIndex[0],oneIndex[1],newPostfixFirst);
 				//std::cout << bottomTrees[ii][1] << " bb " << bottomTrees[ii][2] << " c " << bottomTrees[ii][3] << " d " << bottomTrees[ii][4] << "\n";
-				tempTemp = removeBracketsOne(tempTemp);
-				newStrings.push_back(tempTemp);
-				allStrings.push_back(tempTemp);
-				allStrings.push_back(key+","+std::to_string(ruleIdx));
+				
+				if (tempTemp != userFullString){
+					tempTemp = removeBracketsOne(tempTemp);
+					newStrings.push_back(tempTemp);
+					allStrings.push_back(tempTemp);
+					allStrings.push_back(key+","+std::to_string(ruleIdx));
+				}
+				
 				
 			}
 		}
