@@ -658,7 +658,7 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 
 	input_str = replaceFunctions(input_str);
 	flat_hash_map<std::string,std::string> repMap;
-	/*if (checkComputations){
+	if (checkComputations){
 		char repl = 'A';
 		
 		int iii;
@@ -690,7 +690,7 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 			}
 		
 		}
-	}*/
+	}
 	
 	char infixexpr[input_str.length() + 1]; 
     strcpy(infixexpr, input_str.c_str()); 
