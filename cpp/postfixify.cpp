@@ -695,10 +695,9 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
     strcpy(infixexpr, input_str.c_str()); 
 
 	infixexpr[input_str.length()] = '\0';
-	//std::cout << makePost(infixexpr) << '\n';
 	
 	std::vector<std::string> postVector = makePostVector(infixexpr);
-	/*if (checkComputations){
+	if (checkComputations){
 		int iii;
 		std::string twoChars = "..";
 		for (iii=0;iii<postVector[1].length()-1;iii++){
@@ -711,8 +710,8 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 				iii += 2+repText.length() - 2;
 			}
 		}
-	}*/
-	std::cout << postVector[1] << "\n";
+	}
+	std::cout <<"pv: "<< postVector[1] << "\n";
 	return postVector;
 }
 
