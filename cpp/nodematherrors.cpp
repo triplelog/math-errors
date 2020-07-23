@@ -1450,7 +1450,9 @@ std::string fullAnswer(std::string s, std::string a){
 }
 
 bool correctAnswer(std::string s, std::string a){
+	std::cout << "input: " << s << "\n";
 	std::string newPostfix = removeBracketsOne(postfixify(s));
+	std::cout << "postfixed: " << postfixify(s) << "\n";
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
 	mapSave = 0; mapMake = 0;
 	answerListMap.clear();
