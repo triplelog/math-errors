@@ -148,7 +148,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 }
 
 std::string makePost(char infixexpr[]) {
-	std::vector<std::string> v = makePostVector(infixexpr, false);
+	std::vector<std::string> v = makePostVector(infixexpr);
 	
 	std::string retstr = v[0]+ "@" + v[1];
 	return retstr;
