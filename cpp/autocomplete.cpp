@@ -1,6 +1,6 @@
 std::string inputify(std::string input) {
 
-	int i; int ii; int iii
+	int i; int ii; int iii; int idx = 0;
 	bool startOperands = false;
 	std::string currentOperator = "";
 	flat_hash_map<int,std::string> originalMap;
