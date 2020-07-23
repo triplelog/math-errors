@@ -630,9 +630,10 @@ std::string replaceFunctions(std::string input_str){
 std::vector<std::string> postfixifyVector(std::string input_str, bool checkComputations){
 
 	input_str = replaceFunctions(input_str);
+	flat_hash_map<std::string,std::string> repMap;
 	if (checkComputations){
 		char repl = 'A';
-		flat_hash_map<std::string,std::string> repMap;
+		
 		int iii;
 		for (iii=0;iii<input_str.length()-2;iii++){
 		
