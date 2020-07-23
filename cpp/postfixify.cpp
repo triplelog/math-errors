@@ -1,3 +1,12 @@
+std::string arrayToString(int n, char input[]) { 
+    int i; 
+    std::string s = ""; 
+    for (i = 0; i < n; i++) { 
+        s = s + input[i]; 
+    } 
+    return s; 
+}
+
 std::vector<std::string> makePostVector(char infixexpr[]) {
 	
 	std::string intstr = "";
@@ -139,7 +148,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 }
 
 std::string makePost(char infixexpr[]) {
-	std::vector<std::string> v = makePostVector(infixexpr);
+	std::vector<std::string> v = makePostVector(infixexpr, false);
 	
 	std::string retstr = v[0]+ "@" + v[1];
 	return retstr;
@@ -618,18 +627,67 @@ std::string replaceFunctions(std::string input_str){
 	return input_str;
 }
 
-std::vector<std::string> postfixifyVector(std::string input_str){
+std::vector<std::string> postfixifyVector(std::string input_str, bool checkComputations){
 
 	input_str = replaceFunctions(input_str);
+	if (checkComputations){
+		char repl = 'A';
+		flat_hash_map<std::string,std::string> repMap;
+		int iii;
+		for (iii=0;iii<input_str.length()-2;iii++){
+		
+			if (input_str.at(iii) == '=' && input_str.at(iii+1) == '(' && (iii==0 || input_str.at(iii-1) == '(' || prec.find(input_str.at(iii-1)) != prec.end())){
+				int i = iii;
+				int ii; int openPar = 0;
+				std::string inside = "";
+				for (ii=i+1;ii<input_str.length();ii++){
+					if (input_str.at(ii) == '('){
+						openPar++;
+					}
+					else if (input_str.at(ii) == ')'){
+						openPar++;
+					}
+					else {
+						inside += input_str.at(ii);
+					}
+					if (openPar == 0){
+						break;
+					}
+				}
+				std::string key = "Q";
+				key += repl;
+				repl++;
+				input_str.replace(i,ii+1-i,key);
+				repMap[key]=inside;
+			}
+		
+		}
+	}
 	
 	char infixexpr[input_str.length() + 1]; 
     strcpy(infixexpr, input_str.c_str()); 
 
 	infixexpr[input_str.length()] = '\0';
-	std::cout << makePost(infixexpr) << '\n';
+	//std::cout << makePost(infixexpr) << '\n';
 	
-
-	return makePostVector(infixexpr);
+	std::vector<std::string> postVector = makePostVector(infixexpr);
+	if (checkComputations){
+		char repl = 'A';
+		int iii;
+		std::string twoChars = "..";
+		for (iii=0;iii<postVector[1].length()-1;iii++){
+			twoChars = "";
+			twoChars += postVector[1].at(iii);
+			twoChars += postVector[1].at(iii+1);
+			if (repMap.find(twoChars) != repMap.end()){
+				std::string repText = postfixify(repMap[twoChars]);
+				postVector[1].replace(iii,2,"{"+repText+"}");
+				iii += 2+repText.length() - 2;
+			}
+		}
+	}
+	std::cout << postVector[1] << "\n";
+	return postVector;
 }
 
 std::string postfixify(std::string input_str) {
@@ -653,7 +711,7 @@ std::string postfixify(std::string input_str) {
     strcpy(infixexpr, input_str.c_str()); 
 
 	infixexpr[input_str.length()] = '\0';
-	std::cout << makePost(infixexpr) << '\n';
+	//std::cout << makePost(infixexpr) << '\n';
 	
 
 	return makePost(infixexpr);

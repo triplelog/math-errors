@@ -212,17 +212,6 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 					}
 				}
 				
-				/*
-				//std::cout << "userFullString: "<< userFullString << " a " << firstOperandIndexSecond << " a " << replaceLengthSecond << " a " << newPostfixSecond << "\n";
-				std::string tempTemp = userFullString;
-				tempTemp.replace(firstOperandIndexSecond,replaceLengthSecond,newPostfixSecond);
-				//std::cout << "userFullString: "<< userFullString << "\n";
-				tempTemp.replace(firstOperandIndex,replaceLength,newPostfixFirst);
-				tempTemp = removeBracketsOne(tempTemp);
-				newStrings.push_back(tempTemp);
-				allStrings.push_back(tempTemp);
-				//return userFullString;
-				*/
 				
 				std::string tempTemp = userFullString;
 				//std::cout << bottomTrees[ii][1] << " b " << bottomTrees[ii][2] << " c " << bottomTrees[ii][3] << " d " << bottomTrees[ii][4] << "\n";

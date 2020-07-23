@@ -171,7 +171,7 @@ std::vector<std::string> makeRule(std::string input){
     strcpy(infixexpr, input.c_str()); 
 
 	infixexpr[input.length()] = '\0';
-	std::vector<std::string> postfixed = postfixifyVector(infixexpr);
+	std::vector<std::string> postfixed = postfixifyVector(infixexpr,true);
 	//std::cout << postfixed;
 	return postfixed;
 	//return makeTree(postfixed)[0];

@@ -47,14 +47,7 @@ int mapSave;
 int mapMake;
 
 		
-std::string arrayToString(int n, char input[]) { 
-    int i; 
-    std::string s = ""; 
-    for (i = 0; i < n; i++) { 
-        s = s + input[i]; 
-    } 
-    return s; 
-}
+
 
 #include "solve.cpp"
 
