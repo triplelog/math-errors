@@ -294,7 +294,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				tempTemp.replace(oneIndex[0],oneIndex[1],newPostfixFirst);
 				//std::cout << bottomTrees[ii][1] << " bb " << bottomTrees[ii][2] << " c " << bottomTrees[ii][3] << " d " << bottomTrees[ii][4] << "\n";
 				if (hasBrackets){
-					std::cout "tt: "<< tempTemp << " and " << userFullString << "\n";
+					std::cout << "tt: "<< tempTemp << " and " << userFullString << "\n";
 				}
 				if (tempTemp != userFullString){
 					tempTemp = removeBracketsOne(tempTemp);
