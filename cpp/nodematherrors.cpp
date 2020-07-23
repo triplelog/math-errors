@@ -1382,9 +1382,12 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 			reverseMap[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
 		}
 		else {
-			getAnswerList(allStrings[ii*2],isCorrect,nSteps+1);
-			reverseMap[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
-			std::cout << allStrings[ii*2] << "\n";
+			if (allStrings[ii*2] != newPostfix){
+				getAnswerList(allStrings[ii*2],isCorrect,nSteps+1);
+				reverseMap[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
+				std::cout << allStrings[ii*2] << "\n";
+			}
+			
 		}
 		
 	

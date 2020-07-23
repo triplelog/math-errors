@@ -290,12 +290,12 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				tempTemp.replace(oneIndex[0],oneIndex[1],newPostfixFirst);
 				//std::cout << bottomTrees[ii][1] << " bb " << bottomTrees[ii][2] << " c " << bottomTrees[ii][3] << " d " << bottomTrees[ii][4] << "\n";
 
-				//if (tempTemp != userFullString){
+				if (tempTemp != userFullString){
 					tempTemp = removeBracketsOne(tempTemp);
 					newStrings.push_back(tempTemp);
 					allStrings.push_back(tempTemp);
 					allStrings.push_back(key+","+std::to_string(ruleIdx));
-				//}
+				}
 				
 				
 			}
