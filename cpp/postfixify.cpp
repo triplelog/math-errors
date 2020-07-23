@@ -697,6 +697,7 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 	infixexpr[input_str.length()] = '\0';
 	
 	std::vector<std::string> postVector = makePostVector(infixexpr);
+	std::cout <<"pv: "<< postVector[0] << " and " << postVector[1] << "\n";
 	if (checkComputations){
 		int iii;
 		std::string twoChars = "..";
