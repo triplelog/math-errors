@@ -297,6 +297,7 @@ std::string inputify(std::string input) {
 			
 			listMap[fullStr]=s;
 			lastOpMap[fullStr]=pfstr.at(i);
+			std::cout << "fullStr: " << fullStr << "\n";
 			
 		}
 		else {
@@ -304,13 +305,11 @@ std::string inputify(std::string input) {
 			operandMap[i]=std::to_string(idx);
 			idx++;
 		}
+		std::cout << "i: " << i << " and " << pfstr << "\n";
 		
 	}
 	
-	
-	
-
-	
+	std::cout << listMap[input] << "\n";
 	return listMap[input];
 
 
