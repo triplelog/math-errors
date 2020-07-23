@@ -133,6 +133,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				std::string insidePostfix = "";
 				bool pastInsideKey = false;
 				bool hasBrackets = false;
+				std::cout << "the rule: "<< rule[1] << "\n";
 				for (iii=0;iii<rule[1].length();iii++){
 					if (openBrackets){
 						hasBrackets = true;
@@ -140,13 +141,12 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 							if (rule[1].at(iii) == '}'){
 								std::string opResult = solvePostfix(insidePostfix);
 								if (opResult == "false"){
-									newPostfix += "{"+insidePostfix+"}_";
+									currentOperand = "{"+insidePostfix+"}";
 								}
 								else {
-									newPostfix += "{#@"+opResult+"_}_";
+									currentOperand = "{#@"+opResult+"_}";
 								}
 								openBrackets = false;
-								currentOperand = "";
 							}
 							else if (rule[1].at(iii) == '_'){
 								if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
@@ -199,6 +199,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 					}
 						
 				}
+				std::cout << "post rule: "<< newPostfix << "\n";
 				if (hasBrackets){
 					newPostfix = removeBracketsOne(newPostfix);
 				}
