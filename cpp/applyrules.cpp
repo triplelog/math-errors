@@ -155,9 +155,11 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 								std::cout << "co: "<< currentOperand << "\n";
 								if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
 									insidePostfix += partMap[currentOperand.at(0)] + '_';
+									std::cout << "ipf: "<< insidePostfix << "\n";
 								}
 								else {
 									insidePostfix += currentOperand + '_';
+									std::cout << "us: "<< userString << "\n";
 								}
 								currentOperand = "";
 							}
