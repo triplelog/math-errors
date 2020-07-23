@@ -1416,7 +1416,7 @@ std::string fullAnswer(std::string s, std::string a){
 		std::string oneStep = mpf;
 		std::cout << oneStep << "\n";
 		jsonmessage = "";
-		while (reverseMap.find(oneStep) != reverseMap.end()){
+		while (reverseMap.find(oneStep) != reverseMap.end() && oneStep != newPostfix){
 			std::string rawRule = reverseMap[oneStep][1];
 			
 			std::string key = "";
