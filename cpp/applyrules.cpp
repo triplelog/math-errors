@@ -149,8 +149,10 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 									currentOperand = "{#@"+opResult+"_}";
 								}
 								openBrackets = false;
+								pastInsideKey = false;
 							}
 							else if (rule[1].at(iii) == '_'){
+								std::cout << "co: "<< currentOperand << "\n";
 								if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
 									insidePostfix += partMap[currentOperand.at(0)] + '_';
 								}
