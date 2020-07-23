@@ -461,7 +461,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	}
 	
 	
-	//std::cout << "before third: " << pfstr << "\n";
+	std::cout << "before third: " << pfstr << "\n";
 	bottomTreesString.resize(0);
 	bottomTreesIndex.resize(0);
 	btSz = 0;
@@ -665,7 +665,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 
 						std::vector<int> tempV;
 						tempV = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
-
+						std::cout << "aaa: " << firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii] << "\n";
 						std::vector<std::string> someStrings = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						int iiiiii;
 						for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
@@ -746,6 +746,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 							//bottomTreesString[btSz] = secondS[iii] + firstS[ii]  + pfstr.at(i) + '@' + secondT[iii] + firstT[ii];
 							//bottomTreesIndex[btSz] = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
 							//btSz++;
+							std::cout << "aab: " << secondS[iii] + firstS[ii]  + pfstr.at(i) + '@' + secondT[iii] + firstT[ii] << "\n";
 							std::vector<std::string> someStrings = applyRulesVectorOnePart(secondS[iii] + firstS[ii]  + pfstr.at(i) + '@' + secondT[iii] + firstT[ii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
 							int iiiiii;
 							for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
@@ -832,6 +833,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 					//bottomTreesString[btSz]=secondS[iii] + pfstr.at(i) + '@' + secondT[iii];
 					//bottomTreesIndex[btSz]={startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
 					//btSz++;
+					std::cout << "aac: " << secondS[iii] + pfstr.at(i) + '@' + secondT[iii] << "\n";
 					std::vector<std::string> someStrings = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
 					int iiiiii;
 					for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
