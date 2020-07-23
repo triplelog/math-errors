@@ -1413,7 +1413,7 @@ std::string fullAnswer(std::string s, std::string a){
 	std::string mpf = postfixify(a);
 	std::string error = "Don't know.";
 	int ui = 0;
-	autocomplete(reverseMap,newPostfix,mpf);
+	autocomplete(reverseMap,newPostfix,a);
 	if (reverseMap.find(mpf) != reverseMap.end()){
 		error = "Found";
 		std::string oneStep = mpf;

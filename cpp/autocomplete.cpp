@@ -316,11 +316,12 @@ std::string inputify(std::string input) {
 
 
 }
-std::vector<std::string> autocomplete(flat_hash_map<std::string,std::vector<std::string>> reverseMap, std::string newPostfix,std::string mpf){
-	std::cout << "to input: " << mpf << "\n";
-	std::string answerInput = inputify(mpf);
-	std::cout << answerInput << "\n";
-	//for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
-		//std::cout << iter->first << "\n";
-	//}
+void autocomplete(flat_hash_map<std::string,std::vector<std::string>> reverseMap, std::string newPostfix,std::string rawAnswer){
+
+	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
+		std::cout << "comp answer: " << inputify(iter->first) << "\n";
+	}
+	std::cout << "question: " << inputify(newPostfix) << "\n";
+	std::cout << "user answer: " << rawAnswer << "\n";
+	
 }
