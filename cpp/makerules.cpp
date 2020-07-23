@@ -218,7 +218,7 @@ void makeRules(std::string fileName){
 	std::string out;
 	for (i=0;i<rawRules.size();i++){
 		std::vector<std::string> rule;
-		if (rawRules[i][1].at(0)=='='){
+		/*if (rawRules[i][1].at(0)=='='){
 			fullPost = makeRule(rawRules[i][0]);
 			key = fullPost[0];
 			val1 = fullPost[1];
@@ -226,8 +226,8 @@ void makeRules(std::string fileName){
 			std::string postfixed = postfixify(rawRules[i][1]);
 			rule = {val1,"=("+postfixed+")",rawRules[i][2],rawRules[i][3]};
 			
-		}
-		else {
+		}*/
+		if (2==2) {
 			fullPost = makeRule(rawRules[i][0]);
 			key = fullPost[0];
 			val1 = fullPost[1];
