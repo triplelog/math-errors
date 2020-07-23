@@ -1376,7 +1376,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	totalAnswers += allStrings.size();
 	//std::cout << "total answers: "<< totalAnswers << "\n";
 	for (ii=0;ii<allStrings.size()/2;ii++){
-		//std::cout << allStrings[ii] << "\n";
+		
 		if (answerListMap.find(allStrings[ii*2]) != answerListMap.end()){
 			reverseMap[allStrings[ii*2]].push_back(newPostfix);
 			reverseMap[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
@@ -1384,6 +1384,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 		else {
 			getAnswerList(allStrings[ii*2],isCorrect,nSteps+1);
 			reverseMap[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
+			std::cout << allStrings[ii*2] << "\n";
 		}
 		
 	
@@ -1441,7 +1442,7 @@ std::string fullAnswer(std::string s, std::string a){
 			oneStep = reverseMap[oneStep][0];
 		}
 	}
-	std::cout << "n maybe wrong answers: " << i  << " and unique: " << ui << "\n";
+
 	return error;
 }
 

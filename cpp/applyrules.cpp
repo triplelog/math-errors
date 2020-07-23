@@ -216,11 +216,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 						
 				}
 				if (hasBrackets && newPostfix.length() >0){
-					std::cout << "hasB: " << newPostfix << "\n";
 					newPostfix = removeBracketsOne(newPostfix);
-					std::cout << "Brem: " << newPostfix << "\n";
-					std::cout << "ufs: " << userFullString << "\n";
-					std::cout << "us: " << userString << "\n";
 				}
 				
 				if (newPostfix.length()>0){
@@ -293,9 +289,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				//std::cout << "userFullString: "<< userFullString << "\n";
 				tempTemp.replace(oneIndex[0],oneIndex[1],newPostfixFirst);
 				//std::cout << bottomTrees[ii][1] << " bb " << bottomTrees[ii][2] << " c " << bottomTrees[ii][3] << " d " << bottomTrees[ii][4] << "\n";
-				if (hasBrackets){
-					std::cout << "tt: "<< tempTemp << " and " << userFullString << "\n";
-				}
+
 				if (tempTemp != userFullString){
 					tempTemp = removeBracketsOne(tempTemp);
 					newStrings.push_back(tempTemp);
