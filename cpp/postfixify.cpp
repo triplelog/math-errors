@@ -663,7 +663,7 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 		
 		int iii;
 		for (iii=0;iii<input_str.length()-2;iii++){
-			std::cout << input_str << " at " << iii << "\n";
+			std::cout << input_str << " at " << iii << " and " << input_str.length() << "\n";
 			if (input_str.at(iii) == '=' && input_str.at(iii+1) == '(' && (iii==0 || input_str.at(iii-1) == '(' || prec.find(input_str.at(iii-1)) != prec.end())){
 				int i = iii;
 				int ii; int openPar = 0;
@@ -688,7 +688,7 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 				input_str.replace(i,ii+1-i,key);
 				repMap[key]=inside;
 			}
-			std::cout << input_str << " at " << iii << "\n";
+			std::cout << input_str << " at " << iii << " and " << input_str.length() << "\n";
 		
 		}
 	}
