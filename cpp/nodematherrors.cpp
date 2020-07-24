@@ -441,7 +441,7 @@ std::string removeParOne(std::string input) {
 	//std::cout << input << " --b\n";
 	input.replace(firstIndex,1,bracketStrings[0]);
 	//std::cout << input << " --c\n";
-	return removeBracketsOne(input);
+	return removeParOne(input);
 	
 	
 	
