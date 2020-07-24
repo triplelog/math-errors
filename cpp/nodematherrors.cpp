@@ -398,6 +398,7 @@ std::string removeParOne(std::string input) {
 	int secondIndex;
 	char mychar;
 	int len = input.length();
+	bool interiorBrackets = false;
 	for (iii=0;iii<len;iii++){
 		mychar = input.at(iii);
 		if (mychar == '('){
@@ -410,17 +411,27 @@ std::string removeParOne(std::string input) {
 			bracketLength++;
 			break;
 		}
-		else if (mychar == '#' && !foundBracket) {
+		if (mychar == '{'){ //Must always be inside of a par
+			interiorBrackets = true;
+			tempString += mychar;
+			bracketLength++;
+		}
+		else if (mychar == '}') {
+			interiorBrackets = false;
+			tempString += mychar;
+			bracketLength++;
+		}
+		else if (mychar == '#' && !foundBracket && !interiorBrackets) {
 			operandToIndex[idx]=iii;
 			idx++;
 		}
-		else if (mychar == '_' && !foundBracket) {
+		else if (mychar == '_' && !foundBracket && !interiorBrackets) {
 			iidx++;
 		}
-		else if (mychar == '@' && !foundBracket) {
+		else if (mychar == '@' && !foundBracket && !interiorBrackets) {
 			foundAt = true;
 		}
-		else if (mychar == '@' && foundBracket) {
+		else if (mychar == '@' && foundBracket && !interiorBrackets) {
 			//tempString += input.at(iii);
 			bracketStrings.push_back(tempString);
 			tempString = "";
