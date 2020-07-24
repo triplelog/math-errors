@@ -369,6 +369,7 @@ int autoDistance(std::string ss, std::string control) {
 	int d = lev(ss,control)*1000;
 	int ssl = ss.length();
 	int cl = control.length();
+	if (ssl == 0 || cl == 0){return 2000;}
 	if (cl < ssl){
 		ss.replace(cl,ssl-cl,"");
 		d /= ssl;
@@ -690,6 +691,7 @@ std::string inputify(std::string input) {
 			listMap["#@" + std::to_string(idx) + "_"]=originalMap[idx];
 			lastOpMap["#@" + std::to_string(idx) + "_"]='#';
 			operandMap[i]=std::to_string(idx);
+			lastInput = originalMap[idx];
 			idx++;
 		}
 		

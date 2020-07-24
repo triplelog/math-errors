@@ -1488,9 +1488,7 @@ std::string fullAnswer(std::string s, std::string a){
 	std::vector<std::string> inputArray;
 	std::cout << "in\n";
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
-		std::cout << "in:" << iter->first << "\n";
 		inputArray.push_back(inputify(iter->first));
-		std::cout << "out:" << inputify(iter->first) << "\n";
 	}
 	auto a1 = std::chrono::high_resolution_clock::now();
 	std::vector<std::string> autoAnswers = autocomplete(inputArray,newPostfix,a);
