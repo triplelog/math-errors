@@ -382,7 +382,7 @@ int autoDistance(std::string ss, std::string control) {
 }
 
 std::string inputify(std::string input) {
-
+	auto a1a = std::chrono::high_resolution_clock::now();
 	int i; int ii; int iii; int idx = 0;
 	bool startOperands = false;
 	std::string currentOperator = "";
@@ -405,7 +405,8 @@ std::string inputify(std::string input) {
 			}
 		}
 	}
-	
+	auto a2a = std::chrono::high_resolution_clock::now();
+	duration7 += std::chrono::duration_cast<std::chrono::microseconds>( a2a - a1a ).count();
 	flat_hash_map<std::string,std::string> listMap;
 	flat_hash_map<std::string,char> lastOpMap;
 	
@@ -720,10 +721,9 @@ void autocomplete(flat_hash_map<std::string,std::vector<std::string>> reverseMap
 	auto a1 = std::chrono::high_resolution_clock::now();
 	
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
-		auto a1a = std::chrono::high_resolution_clock::now();
+		
 		std::string ca = inputify(iter->first);
-		auto a2a = std::chrono::high_resolution_clock::now();
-		duration7 += std::chrono::duration_cast<std::chrono::microseconds>( a2a - a1a ).count();
+		
 		Autocomplete answer;
 		answer.d = autoDistance(ca,rawAnswer);
 		answer.answer = ca;
