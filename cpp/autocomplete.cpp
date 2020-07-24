@@ -739,7 +739,7 @@ std::vector<std::string> autocomplete(std::vector<std::string> inputArray, std::
 	for (i=0;i<12;i++){
 		returnAnswers[i] = answers[i].answer;
 	}
-	return returnAnswers
+	return returnAnswers;
 	
 	//for (i=0;i<10;i++){
 	//	std::cout << answers[i].answer << " with d="<< answers[i].d <<"\n";
