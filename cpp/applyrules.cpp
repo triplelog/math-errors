@@ -130,6 +130,10 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 								}
 							}
 							if (interiorBrackets){
+								std::cout << "ufs: " << userFullString <<"\n";
+								std::cout << "us: " << userString <<"\n";
+								std::cout << "npf: " << newPostfix <<"\n";
+								std::cout << "ipf: " << insidePostfix <<"\n";
 								newPostfix = "";
 								break;
 							}
