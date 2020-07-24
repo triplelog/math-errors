@@ -718,7 +718,7 @@ void autocomplete(std::vector<std::string> inputArray, std::string newPostfix,st
 	duration7 = 0;
 	auto a1 = std::chrono::high_resolution_clock::now();
 	
-	for (i=0;i<inputMap.size();i++){
+	for (i=0;i<inputArray.size();i++){
 		
 		std::string ca = inputArray[i];
 		
