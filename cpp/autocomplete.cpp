@@ -382,7 +382,7 @@ int autoDistance(std::string ss, std::string control) {
 }
 
 std::string inputify(std::string input) {
-	auto a1a = std::chrono::high_resolution_clock::now();
+	
 	int i; int ii; int iii; int idx = 0;
 	bool startOperands = false;
 	std::string currentOperator = "";
@@ -405,8 +405,7 @@ std::string inputify(std::string input) {
 			}
 		}
 	}
-	auto a2a = std::chrono::high_resolution_clock::now();
-	duration7 += std::chrono::duration_cast<std::chrono::microseconds>( a2a - a1a ).count();
+	
 	flat_hash_map<std::string,std::string> listMap;
 	flat_hash_map<std::string,char> lastOpMap;
 	
@@ -417,6 +416,7 @@ std::string inputify(std::string input) {
 			break;
 		}
 		else if (pfstr.at(i) != '#'){
+			auto a1a = std::chrono::high_resolution_clock::now();
 			std::string secondStr = "";
 			std::string secondTtr = "";
 			std::string secondChild = "";
@@ -686,6 +686,8 @@ std::string inputify(std::string input) {
 			listMap[fullStr]=s;
 			lastOpMap[fullStr]=pfstr.at(i);
 			lastInput = s;
+			auto a2a = std::chrono::high_resolution_clock::now();
+			duration7 += std::chrono::duration_cast<std::chrono::microseconds>( a2a - a1a ).count();
 			
 		}
 		else {
