@@ -217,9 +217,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 			}
 			
 			if (hasPar && newPostfix.length() >0){
-				std::cout << "inrem: " << newPostfix << "\n";
 				newPostfix = removeParOne(newPostfix);
-				std::cout << "outrem: " << newPostfix << "\n";
 				//newPostfix = removeBracketsOne(newPostfix);
 			}
 			
