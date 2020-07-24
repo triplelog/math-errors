@@ -312,9 +312,9 @@ std::string latexOne(std::string input) {
 
 
 }
-
+int duration7;
 int lev(std::string ss, std::string st){
-
+	auto a1 = std::chrono::high_resolution_clock::now();
     int i,j,m,n,temp,tracker;
     
 	m = ss.length(); 
@@ -362,7 +362,8 @@ int lev(std::string ss, std::string st){
         }
 
     }
-
+	auto a2 = std::chrono::high_resolution_clock::now();
+	duration7 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
     return d[n][m];
 
 }
@@ -714,12 +715,12 @@ inline bool operator<(const Autocomplete a, const Autocomplete b){
 }
 
 void autocomplete(flat_hash_map<std::string,std::vector<std::string>> reverseMap, std::string newPostfix,std::string rawAnswer){
-	auto a1 = std::chrono::high_resolution_clock::now();
+
 	std::vector<Autocomplete> answers;
 	int i = 0;
 	answers.resize(915);
-	auto a2 = std::chrono::high_resolution_clock::now();
-	std::cout << "autocomplete time1: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n";
+	duration7 = 0;
+	auto a1 = std::chrono::high_resolution_clock::now();
 	
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
 		std::string ca = inputify(iter->first);
@@ -731,8 +732,9 @@ void autocomplete(flat_hash_map<std::string,std::vector<std::string>> reverseMap
 		//std::cout << "distance: " << autoDistance(ca,rawAnswer) << " of "<< inputify(iter->first) << "\n";
 		
 	}
-	auto a3 = std::chrono::high_resolution_clock::now();
-	std::cout << "autocomplete time2: " << std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count() << "\n";
+	auto a2 = std::chrono::high_resolution_clock::now();
+	std::cout << "distance calc total: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n";
+	std::cout << "lev total: " << duration7 << "\n";
 	std::partial_sort(answers.begin(),answers.begin()+10,answers.end());
 	
 	for (i=0;i<10;i++){
