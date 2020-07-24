@@ -382,6 +382,7 @@ int autoDistance(std::string ss, std::string control) {
 	}
 	return d;
 }
+
 std::string inputify(std::string input) {
 
 	int i; int ii; int iii; int idx = 0;
@@ -701,12 +702,33 @@ std::string inputify(std::string input) {
 
 
 }
-void autocomplete(flat_hash_map<std::string,std::vector<std::string>> reverseMap, std::string newPostfix,std::string rawAnswer){
 
+struct Autocomplete {
+	int d = 2000;
+	std::string answer = "";
+	//inline Cppdata operator+=(Cppdata const &b);
+};
+inline bool operator<(const Autocomplete a, const Autocomplete b){
+	if (a.d < b.d){return true;}
+	return false;
+}
+
+void autocomplete(flat_hash_map<std::string,std::vector<std::string>> reverseMap, std::string newPostfix,std::string rawAnswer){
+	std::vector<Autocomplete> answers;
+	
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
 		std::string ca = inputify(iter->first);
-		std::cout << "distance: " << autoDistance(ca,rawAnswer) << " of "<< inputify(iter->first) << "\n";
+		Autocomplete answer;
+		answer.d = autoDistance(ca,rawAnswer);
+		answer.answer = ca;
+		answers.push_back(answer);
+		//std::cout << "distance: " << autoDistance(ca,rawAnswer) << " of "<< inputify(iter->first) << "\n";
 		
+	}
+	std::partial_sort(answers.begin(),answers.begin()+10,answers.end());
+	int i;
+	for (i=0;i<10;i++){
+		std::cout << answers[i].answer << " with d="<< answers[i].d <<"\n";
 	}
 	std::cout << "question: " << inputify(newPostfix) << "\n";
 	std::cout << "user answer: " << rawAnswer << "\n";
