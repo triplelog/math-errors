@@ -129,11 +129,11 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 									break;
 								}
 							}
-							//if (interiorBrackets){
-							//	newPostfix = "";
-							//	break;
-							//}
-							//else {
+							if (interiorBrackets){
+								newPostfix = "";
+								break;
+							}
+							else {
 								std::string opResult = solvePostfix(insidePostfix);
 								if (opResult == "false"){
 									currentOperand = "("+insidePostfix+")";
@@ -143,7 +143,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 								}
 								openPar = false;
 								pastInsideKey = false;
-							//}
+							}
 							
 						}
 						else if (rule[1].at(iii) == '_'){
