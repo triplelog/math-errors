@@ -11,3 +11,4 @@ A^1,A,c,"Raise to 1st power"
 A^0,1,c,"Raise to 0th power",Anonzero
 A+B,B+A,c,""
 A*B,B*A,c,""
+A*C+B*C,(A+B)*C,c,""
