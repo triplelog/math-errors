@@ -9,3 +9,5 @@ A*1,A,c,"Multiply by 1"
 A*0,0,c,"Multiply by 0"
 A^1,A,c,"Raise to 1st power"
 A^0,1,c,"Raise to 0th power",Anonzero
+A+B,B+A,c,""
+A*B,B*A,c,""

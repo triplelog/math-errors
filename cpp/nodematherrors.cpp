@@ -691,6 +691,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 					//		std::cout << ii << " with "<< allSums[ii] << "\n";
 					//	}
 					//}
+					std::vector<std::string> possStr;
 					
 					
 				}
@@ -831,7 +832,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 						//18 ms to here from recent continue
 						
 				
-				
+						/*
 						if (pfstr.at(i) == '+' || pfstr.at(i) == '*'){
 							fullTrees[ftSz] = secondS[iii] + firstS[ii]  + pfstr.at(i);
 							ftSz++;
@@ -863,7 +864,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 							for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
 								returnStrings.push_back(someStrings[iiiiii]);
 							}
-						}
+						}*/
 						//62 ms to here from the 18 ms marker
 						
 					}
