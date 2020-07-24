@@ -711,11 +711,11 @@ inline bool operator<(const Autocomplete a, const Autocomplete b){
 }
 
 void autocomplete(std::vector<std::string> inputArray, std::string newPostfix,std::string rawAnswer){
-
+	auto a1 = std::chrono::high_resolution_clock::now();
 	std::vector<Autocomplete> answers;
 	int i = 0;
 	answers.resize(inputArray.size());
-	auto a1 = std::chrono::high_resolution_clock::now();
+	
 	
 	for (i=0;i<inputArray.size();i++){
 		
@@ -733,10 +733,10 @@ void autocomplete(std::vector<std::string> inputArray, std::string newPostfix,st
 	auto a2 = std::chrono::high_resolution_clock::now();
 	std::cout << "distance plus sort total: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n";
 	
-	for (i=0;i<10;i++){
-		std::cout << answers[i].answer << " with d="<< answers[i].d <<"\n";
-	}
-	std::cout << "question: " << inputify(newPostfix) << "with " << answers.size() << "\n";
-	std::cout << "user answer: " << rawAnswer << "\n";
+	//for (i=0;i<10;i++){
+	//	std::cout << answers[i].answer << " with d="<< answers[i].d <<"\n";
+	//}
+	//std::cout << "question: " << inputify(newPostfix) << "with " << answers.size() << "\n";
+	//std::cout << "user answer: " << rawAnswer << "\n";
 	
 }
