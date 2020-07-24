@@ -718,7 +718,7 @@ std::vector<std::string> autocomplete(std::vector<std::string> inputArray, std::
 	if (ias < 12){
 		return inputArray;
 	}
-	answers.resize(i);
+	answers.resize(ias);
 	
 	
 	for (i=0;i<ias;i++){
