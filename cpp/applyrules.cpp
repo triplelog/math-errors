@@ -135,6 +135,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 			bool pastInsideKey = false;
 			bool interiorBrackets = false;
 			for (iii=0;iii<rule[1].length();iii++){
+				std::cout << "in: " << newPostfix << "\n";
 				if (openPar){
 					hasPar = true;
 					if (pastInsideKey){
@@ -213,6 +214,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 						newPostfix += rule[1].at(iii);
 					}
 				}
+				std::cout << "out: " << newPostfix << "\n";
 					
 			}
 			
