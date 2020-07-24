@@ -372,12 +372,12 @@ int autoDistance(std::string ss, std::string control) {
 	if (ssl == 0 || cl == 0){return 2000;}
 	if (cl < ssl){
 		ss.replace(cl,ssl-cl,"");
-		d /= ssl;
-		d += lev(ss,control)*1000/cl;
+		d /= (ssl+5);
+		d += lev(ss,control)*1000/(cl+5);
 	}
 	else {
-		d /= ssl;
-		d += lev(ss,control)*1000/cl;
+		d /= (ssl+5);
+		d += lev(ss,control)*1000/(cl+5);
 	}
 	return d;
 }
