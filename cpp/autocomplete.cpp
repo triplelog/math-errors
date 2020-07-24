@@ -466,7 +466,8 @@ std::string inputify(std::string input) {
 				
 			}
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
-			
+			auto a2a = std::chrono::high_resolution_clock::now();
+			duration7 += std::chrono::duration_cast<std::chrono::microseconds>( a2a - a1a ).count();
 			std::string s = "";
 			for (ii=0;ii<2;ii++){
 				std::string child = secondChild;
@@ -686,8 +687,7 @@ std::string inputify(std::string input) {
 			listMap[fullStr]=s;
 			lastOpMap[fullStr]=pfstr.at(i);
 			lastInput = s;
-			auto a2a = std::chrono::high_resolution_clock::now();
-			duration7 += std::chrono::duration_cast<std::chrono::microseconds>( a2a - a1a ).count();
+			
 			
 		}
 		else {
