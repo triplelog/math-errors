@@ -411,7 +411,7 @@ std::string removeParOne(std::string input) {
 			bracketLength++;
 			break;
 		}
-		if (mychar == '{'){ //Must always be inside of a par
+		else if (mychar == '{'){ //Must always be inside of a par
 			interiorBrackets = true;
 			tempString += mychar;
 			bracketLength++;
