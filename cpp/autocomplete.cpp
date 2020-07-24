@@ -716,23 +716,25 @@ inline bool operator<(const Autocomplete a, const Autocomplete b){
 void autocomplete(flat_hash_map<std::string,std::vector<std::string>> reverseMap, std::string newPostfix,std::string rawAnswer){
 	auto a1 = std::chrono::high_resolution_clock::now();
 	std::vector<Autocomplete> answers;
+	int i = 0;
+	answers.resize(915);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	std::cout << "autocomplete time1: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n";
+	
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
 		std::string ca = inputify(iter->first);
 		Autocomplete answer;
 		answer.d = autoDistance(ca,rawAnswer);
 		answer.answer = ca;
-		answers.push_back(answer);
+		answers[i] = answer;
+		i++;
 		//std::cout << "distance: " << autoDistance(ca,rawAnswer) << " of "<< inputify(iter->first) << "\n";
 		
 	}
 	auto a3 = std::chrono::high_resolution_clock::now();
-	std::cout << "autocomplete time1: " << std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count() << "\n";
+	std::cout << "autocomplete time2: " << std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count() << "\n";
 	std::partial_sort(answers.begin(),answers.begin()+10,answers.end());
-	auto a4 = std::chrono::high_resolution_clock::now();
-	std::cout << "autocomplete time1: " << std::chrono::duration_cast<std::chrono::microseconds>( a4 - a3 ).count() << "\n";
-	int i;
+	
 	for (i=0;i<10;i++){
 		std::cout << answers[i].answer << " with d="<< answers[i].d <<"\n";
 	}
