@@ -1486,8 +1486,11 @@ std::string fullAnswer(std::string s, std::string a){
 	std::string error = "Don't know.";
 	int ui = 0;
 	std::vector<std::string> inputArray;
+	std::cout << "in\n";
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
+		std::cout << "in:" << iter->first << "\n";
 		inputArray.push_back(inputify(iter->first));
+		std::cout << "out:" << inputify(iter->first) << "\n";
 	}
 	auto a1 = std::chrono::high_resolution_clock::now();
 	std::vector<std::string> autoAnswers = autocomplete(inputArray,newPostfix,a);
@@ -1570,7 +1573,6 @@ bool correctAnswer(std::string s, std::string a){
 		//std::cout << iter->first << "\n";
 	}
 	std::cout << "your answer: " << mpf << "\n";
-	std::cout << "n answers: " << i  << " and unique: " << ui << "\n";
 
 	jsonmessage = "";
 
