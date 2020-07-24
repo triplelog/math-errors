@@ -129,15 +129,12 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 									break;
 								}
 							}
-							if (interiorBrackets){
-								std::cout << "ufs: " << userFullString <<"\n";
-								std::cout << "us: " << userString <<"\n";
-								std::cout << "npf: " << newPostfix <<"\n";
-								std::cout << "ipf: " << insidePostfix <<"\n";
-								newPostfix = "";
-								break;
-							}
-							else {
+							//if (interiorBrackets){
+								
+							//	newPostfix = "";
+							//	break;
+							//}
+							//else {
 								std::string opResult = solvePostfix(insidePostfix);
 								if (opResult == "false"){
 									currentOperand = "("+insidePostfix+")";
@@ -147,7 +144,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 								}
 								openPar = false;
 								pastInsideKey = false;
-							}
+							//}
 							
 						}
 						else if (rule[1].at(iii) == '_'){
@@ -202,6 +199,15 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				}
 					
 			}
+			if (interiorBrackets){
+				std::cout << "ufs: " << userFullString <<"\n";
+				std::cout << "us: " << userString <<"\n";
+				std::cout << "npf: " << newPostfix <<"\n";
+				newPostfix = removeParOne(newPostfix);
+				std::cout << "npf2: " << newPostfix <<"\n";
+				newPostfix = "";
+			}
+			
 			
 			if (hasPar && newPostfix.length() >0){
 				newPostfix = removeParOne(newPostfix);
