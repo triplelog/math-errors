@@ -688,7 +688,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 					}
 					if (allSums.size()>4){
 						for (ii=0;ii<allSums.size();ii++){
-							std::cout << ii << " with "<< allSums[i] << "\n";
+							std::cout << ii << " with "<< allSums[ii] << "\n";
 						}
 					}
 					
