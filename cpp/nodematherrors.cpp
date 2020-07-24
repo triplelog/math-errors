@@ -1418,9 +1418,12 @@ std::string fullAnswer(std::string s, std::string a){
 		inputArray.push_back(inputify(iter->first));
 	}
 	auto a1 = std::chrono::high_resolution_clock::now();
-	autocomplete(inputArray,newPostfix,a);
+	std::vector<std::string> autoAnswers = autocomplete(inputArray,newPostfix,a);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	std::cout << "autocomplete time: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n";
+	for (i=0;i<autoAnswers.size();i++){
+		std::cout << autoAnswers[i] << "\n";
+	}
 	if (reverseMap.find(mpf) != reverseMap.end()){
 		error = "Found";
 		std::string oneStep = mpf;

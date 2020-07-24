@@ -710,14 +710,18 @@ inline bool operator<(const Autocomplete a, const Autocomplete b){
 	return false;
 }
 
-void autocomplete(std::vector<std::string> inputArray, std::string newPostfix,std::string rawAnswer){
-	auto a1 = std::chrono::high_resolution_clock::now();
+std::vector<std::string> autocomplete(std::vector<std::string> inputArray, std::string newPostfix,std::string rawAnswer){
+
 	std::vector<Autocomplete> answers;
-	int i = 0;
-	answers.resize(inputArray.size());
+	int i;
+	int ias = inputArray.size();
+	if (ias < 12){
+		return inputArray;
+	}
+	answers.resize(i);
 	
 	
-	for (i=0;i<inputArray.size();i++){
+	for (i=0;i<ias;i++){
 		
 		std::string ca = inputArray[i];
 		
@@ -729,9 +733,13 @@ void autocomplete(std::vector<std::string> inputArray, std::string newPostfix,st
 		
 	}
 	
-	std::partial_sort(answers.begin(),answers.begin()+10,answers.end());
-	auto a2 = std::chrono::high_resolution_clock::now();
-	std::cout << "distance plus sort total: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n";
+	std::partial_sort(answers.begin(),answers.begin()+12,answers.end());
+	std::vector<std::string> returnAnswers;
+	returnAnswers.resize(12);
+	for (i=0;i<12;i++){
+		returnAnswers[i] = answers[i].answer;
+	}
+	return returnAnswers
 	
 	//for (i=0;i<10;i++){
 	//	std::cout << answers[i].answer << " with d="<< answers[i].d <<"\n";
