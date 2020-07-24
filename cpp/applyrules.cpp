@@ -128,139 +128,139 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				
 				
 			}*/
-			bool hasBrackets = false;
-			if (2 ==2) {
-				bool openBrackets = false;
-				std::string insidePostfix = "";
-				bool pastInsideKey = false;
-				
-				for (iii=0;iii<rule[1].length();iii++){
-					if (openBrackets){
-						hasBrackets = true;
-						if (pastInsideKey){
-							if (rule[1].at(iii) == '}'){
-								int bi; bool interiorBrackets = false;
-								for (bi=0;bi<insidePostfix.length();bi++){
-									if (insidePostfix.at(bi) == '{'){
-										interiorBrackets = true;
-										break;
-									}
-								}
-								if (interiorBrackets){
-									newPostfix = "";
+			bool hasPar = false;
+
+			bool openPar = false;
+			std::string insidePostfix = "";
+			bool pastInsideKey = false;
+			bool interiorBrackets = false;
+			for (iii=0;iii<rule[1].length();iii++){
+				if (openPar){
+					hasPar = true;
+					if (pastInsideKey){
+						if (rule[1].at(iii) == ')'){
+							int bi; 
+							for (bi=0;bi<insidePostfix.length();bi++){
+								if (insidePostfix.at(bi) == '{'){
+									interiorBrackets = true;
 									break;
 								}
-								else {
-									std::string opResult = solvePostfix(insidePostfix);
-									if (opResult == "false"){
-										currentOperand = "{"+insidePostfix+"}";
-									}
-									else {
-										currentOperand = "{#@"+opResult+"_}";
-									}
-									openBrackets = false;
-									pastInsideKey = false;
-								}
-								
 							}
-							else if (rule[1].at(iii) == '_'){
-								if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
-									insidePostfix += partMap[currentOperand.at(0)] + '_';
+							//if (interiorBrackets){
+							//	newPostfix = "";
+							//	break;
+							//}
+							//else {
+								std::string opResult = solvePostfix(insidePostfix);
+								if (opResult == "false"){
+									currentOperand = "("+insidePostfix+")";
 								}
 								else {
-									insidePostfix += currentOperand + '_';
-									
+									currentOperand = "(#@"+opResult+"_)";
 								}
-								currentOperand = "";
+								openPar = false;
+								pastInsideKey = false;
+							//}
+							
+						}
+						else if (rule[1].at(iii) == '_'){
+							if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
+								insidePostfix += partMap[currentOperand.at(0)] + '_';
 							}
 							else {
-								currentOperand += rule[1].at(iii);
+								insidePostfix += currentOperand + '_';
+								
 							}
+							currentOperand = "";
 						}
 						else {
-							if (rule[1].at(iii) == '@'){
-								pastInsideKey = true;
-								currentOperand = "";
-							}
-							insidePostfix += rule[1].at(iii);
+							currentOperand += rule[1].at(iii);
 						}
 					}
 					else {
-						if (pastKey){
-							if (rule[1].at(iii) == '{'){
-								openBrackets = true;
-								currentOperand = "";
-								insidePostfix = "";
-								pastInsideKey = false;
-							}
-							else if (rule[1].at(iii) == '_'){
-								if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
-									newPostfix += partMap[currentOperand.at(0)] + '_';
-								}
-								else {
-									newPostfix += currentOperand + '_';
-								}
-								currentOperand = "";
+						if (rule[1].at(iii) == '@'){
+							pastInsideKey = true;
+							currentOperand = "";
+						}
+						insidePostfix += rule[1].at(iii);
+					}
+				}
+				else {
+					if (pastKey){
+						if (rule[1].at(iii) == '('){
+							openPar = true;
+							currentOperand = "";
+							insidePostfix = "";
+							pastInsideKey = false;
+						}
+						else if (rule[1].at(iii) == '_'){
+							if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
+								newPostfix += partMap[currentOperand.at(0)] + '_';
 							}
 							else {
-								currentOperand += rule[1].at(iii);
+								newPostfix += currentOperand + '_';
 							}
+							currentOperand = "";
 						}
 						else {
-							if (rule[1].at(iii) == '@'){
-								pastKey = true;
-							}
-							newPostfix += rule[1].at(iii);
+							currentOperand += rule[1].at(iii);
 						}
 					}
-						
+					else {
+						if (rule[1].at(iii) == '@'){
+							pastKey = true;
+						}
+						newPostfix += rule[1].at(iii);
+					}
 				}
-				
-				if (hasBrackets && newPostfix.length() >0){
-					newPostfix = removeBracketsOne(newPostfix);
-				}
-				
-				if (newPostfix.length()>0){
-					//Constraints go here
-					for (iiii=4;iiii<rule.size();iiii++){
-						pastKey = false;
-						std::string constraintFix = "";
-						currentOperand = "";
-						
-						for (iii=0;iii<rule[iiii].length();iii++){
-							if (pastKey){
-								if (rule[iiii].at(iii) == '_'){
-									if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
-										constraintFix += partMap[currentOperand.at(0)] + '_';
-									}
-									else {
-										constraintFix += currentOperand + '_';
-									}
-									currentOperand = "";
+					
+			}
+			
+			if (hasPar && newPostfix.length() >0){
+				newPostfix = removeParOne(newPostfix);
+				//newPostfix = removeBracketsOne(newPostfix);
+			}
+			
+			if (newPostfix.length()>0){
+				//Constraints go here
+				for (iiii=4;iiii<rule.size();iiii++){
+					pastKey = false;
+					std::string constraintFix = "";
+					currentOperand = "";
+					
+					for (iii=0;iii<rule[iiii].length();iii++){
+						if (pastKey){
+							if (rule[iiii].at(iii) == '_'){
+								if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
+									constraintFix += partMap[currentOperand.at(0)] + '_';
 								}
 								else {
-									currentOperand += rule[iiii].at(iii);
+									constraintFix += currentOperand + '_';
 								}
+								currentOperand = "";
 							}
 							else {
-								if (rule[iiii].at(iii) == '@'){
-									pastKey = true;
-								}
-								constraintFix += rule[iiii].at(iii);
+								currentOperand += rule[iiii].at(iii);
 							}
 						}
-						bool isAllowed = true;
-						if (constraintMap.find(constraintFix) != constraintMap.end()){
-							isAllowed = constraintMap[constraintFix];
-						}
 						else {
-							isAllowed = solveConstraintFix(constraintFix);
-							constraintMap[constraintFix]=isAllowed;
+							if (rule[iiii].at(iii) == '@'){
+								pastKey = true;
+							}
+							constraintFix += rule[iiii].at(iii);
 						}
-						if (!isAllowed){
-							newPostfix = "";
-							break;
-						}
+					}
+					bool isAllowed = true;
+					if (constraintMap.find(constraintFix) != constraintMap.end()){
+						isAllowed = constraintMap[constraintFix];
+					}
+					else {
+						isAllowed = solveConstraintFix(constraintFix);
+						constraintMap[constraintFix]=isAllowed;
+					}
+					if (!isAllowed){
+						newPostfix = "";
+						break;
 					}
 				}
 			}

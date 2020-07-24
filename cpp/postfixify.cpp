@@ -709,7 +709,7 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 			twoChars += postVector[1].at(iii+1);
 			if (repMap.find(twoChars) != repMap.end()){
 				std::string repText = postfixify(repMap[twoChars]);
-				postVector[1].replace(iii,2,"{"+repText+"}");
+				postVector[1].replace(iii,2,"("+repText+")");
 				iii += 2+repText.length() - 2;
 			}
 		}
