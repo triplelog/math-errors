@@ -110,24 +110,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				continue;
 			}
 			bool pastKey = false;
-			/*
-			if (rule[1].at(0)=='='){
-				
-				std::string inside = rule[1];
-				inside.replace(inside.length()-1,1,"");
-				inside.replace(0,2,"");
-				
-				std::string opResult = solvePostfix(inside,partMap);
-				
-				if (opResult == "false"){
-					newPostfix = "";
-					continue;
-				}
-				
-				newPostfix = "#@"+opResult+"_";
-				
-				
-			}*/
+
 			bool hasPar = false;
 
 			bool openPar = false;

@@ -105,6 +105,7 @@ std::string divTwoInts(std::string a, std::string b){
 	}
 	int div = std::stoi(a);
 	int divb = std::stoi(b);
+	if (divb == 0){return "false";}
 	if (div % divb == 0){
 		div /= divb;
 	}
