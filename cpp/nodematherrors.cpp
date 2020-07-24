@@ -1473,14 +1473,14 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 
 std::string fullAnswer(std::string s, std::string a){
 	std::string newPostfix = removeBracketsOne(postfixify(s));
-	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
+	std::cout << "\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
 	answerListMap.clear();
 	reverseMap.clear();
 	//auto a1 = std::chrono::high_resolution_clock::now();
 	getAnswerList(newPostfix,false,0);
 	//auto a2 = std::chrono::high_resolution_clock::now();
 	//duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
-	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << answerListMap[newPostfix].size() << "\n\n\n";
+	std::cout << "\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
 	int i; int ii;
 	std::string mpf = postfixify(a);
 	std::string error = "Don't know.";
@@ -1493,7 +1493,7 @@ std::string fullAnswer(std::string s, std::string a){
 	auto a1 = std::chrono::high_resolution_clock::now();
 	std::vector<std::string> autoAnswers = autocomplete(inputArray,newPostfix,a);
 	auto a2 = std::chrono::high_resolution_clock::now();
-	std::cout << "autocomplete time: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n";
+	std::cout << "autocomplete time: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "for " << inputArray.size() << "\n";
 	for (i=0;i<autoAnswers.size();i++){
 		std::cout << autoAnswers[i] << "\n";
 	}
