@@ -312,7 +312,7 @@ std::string latexOne(std::string input) {
 
 
 }
-int duration7;
+
 int lev(std::string ss, std::string st){
     int i,j,m,n,temp,tracker;
     
@@ -729,10 +729,10 @@ void autocomplete(std::vector<std::string> inputArray, std::string newPostfix,st
 		//std::cout << "distance: " << autoDistance(ca,rawAnswer) << " of "<< inputify(iter->first) << "\n";
 		
 	}
-	auto a2 = std::chrono::high_resolution_clock::now();
-	std::cout << "distance calc total: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n";
-	std::cout << "inputify total: " << duration7 << "\n";
+	
 	std::partial_sort(answers.begin(),answers.begin()+10,answers.end());
+	auto a2 = std::chrono::high_resolution_clock::now();
+	std::cout << "distance plus sort total: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n";
 	
 	for (i=0;i<10;i++){
 		std::cout << answers[i].answer << " with d="<< answers[i].d <<"\n";
