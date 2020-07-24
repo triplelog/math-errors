@@ -1413,8 +1413,12 @@ std::string fullAnswer(std::string s, std::string a){
 	std::string mpf = postfixify(a);
 	std::string error = "Don't know.";
 	int ui = 0;
+	std::vector<std::string> inputArray;
+	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
+		inputArray.push_back(inputify(iter->first));
+	}
 	auto a1 = std::chrono::high_resolution_clock::now();
-	autocomplete(reverseMap,newPostfix,a);
+	autocomplete(inputArray,newPostfix,a);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	std::cout << "autocomplete time: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n";
 	if (reverseMap.find(mpf) != reverseMap.end()){

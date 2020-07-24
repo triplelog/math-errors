@@ -416,7 +416,6 @@ std::string inputify(std::string input) {
 			break;
 		}
 		else if (pfstr.at(i) != '#'){
-			auto a1a = std::chrono::high_resolution_clock::now();
 			std::string secondStr = "";
 			std::string secondTtr = "";
 			std::string secondChild = "";
@@ -442,7 +441,6 @@ std::string inputify(std::string input) {
 			std::string firstStr = "";
 			std::string firstTtr = "";
 			std::string firstChild = "";
-			std::vector<std::string> fullTrees;
 			
 			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && (pfstr.at(i) >= 0 || pfstr.at(i) <= -69 )){ // Is at least binary function
 				
@@ -466,8 +464,6 @@ std::string inputify(std::string input) {
 				
 			}
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
-			auto a2a = std::chrono::high_resolution_clock::now();
-			duration7 += std::chrono::duration_cast<std::chrono::microseconds>( a2a - a1a ).count();
 			std::string s = "";
 			for (ii=0;ii<2;ii++){
 				std::string child = secondChild;
@@ -714,23 +710,22 @@ inline bool operator<(const Autocomplete a, const Autocomplete b){
 	return false;
 }
 
-void autocomplete(flat_hash_map<std::string,std::vector<std::string>> reverseMap, std::string newPostfix,std::string rawAnswer){
+void autocomplete(std::vector<std::string> inputArray, std::string newPostfix,std::string rawAnswer){
 
 	std::vector<Autocomplete> answers;
 	int i = 0;
-	answers.resize(915);
+	answers.resize(inputMap.size());
 	duration7 = 0;
 	auto a1 = std::chrono::high_resolution_clock::now();
 	
-	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
+	for (i=0;i<inputMap.size();i++){
 		
-		std::string ca = inputify(iter->first);
+		std::string ca = inputArray[i];
 		
 		Autocomplete answer;
 		answer.d = autoDistance(ca,rawAnswer);
 		answer.answer = ca;
 		answers[i] = answer;
-		i++;
 		//std::cout << "distance: " << autoDistance(ca,rawAnswer) << " of "<< inputify(iter->first) << "\n";
 		
 	}
