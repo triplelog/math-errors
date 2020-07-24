@@ -659,7 +659,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 					std::vector<int> allSums ={startLeftIndex,maxi,maxi,i};
 					bool moreTerms = true;
 					int whileI =0;
-					std::cout << pfstr << " and " << allSums[0] << " and " << allSums[3] << "\n";
+					//std::cout << pfstr << " and " << allSums[0] << " and " << allSums[3] << "\n";
 					while (moreTerms){
 						moreTerms = false;
 						for (whileI=0;whileI<allSums.size()/2;whileI++){
@@ -686,11 +686,11 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 							}
 						}
 					}
-					if (allSums.size()>4){
-						for (ii=0;ii<allSums.size();ii++){
-							std::cout << ii << " with "<< allSums[ii] << "\n";
-						}
-					}
+					//if (allSums.size()>4){
+					//	for (ii=0;ii<allSums.size();ii++){
+					//		std::cout << ii << " with "<< allSums[ii] << "\n";
+					//	}
+					//}
 					
 					
 				}
