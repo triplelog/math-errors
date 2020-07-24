@@ -134,7 +134,9 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 							//	break;
 							//}
 							//else {
+								std::cout << "in: " << insidePostfix << "\n";
 								std::string opResult = solvePostfix(insidePostfix);
+								std::cout << "out: " << opResult << "\n";
 								if (opResult == "false"){
 									currentOperand = "("+insidePostfix+")";
 								}
