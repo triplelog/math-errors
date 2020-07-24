@@ -1546,7 +1546,7 @@ bool correctAnswer(std::string s, std::string a){
 	getAnswerList(newPostfix,true,0);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	//duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
-	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << totalAnswers << "\n\n\n";
+	std::cout << "\n\n\n\nCompleted the Correct Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << totalAnswers << "\n\n\n";
 	int i; int ii; int iii; int iiii;
 	std::string mpf = postfixify(a);
 	
