@@ -714,7 +714,7 @@ void autocomplete(std::vector<std::string> inputArray, std::string newPostfix,st
 
 	std::vector<Autocomplete> answers;
 	int i = 0;
-	answers.resize(inputMap.size());
+	answers.resize(inputArray.size());
 	duration7 = 0;
 	auto a1 = std::chrono::high_resolution_clock::now();
 	
