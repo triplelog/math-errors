@@ -199,19 +199,14 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				}
 					
 			}
-			if (interiorBrackets){
-				std::cout << "ufs: " << userFullString <<"\n";
-				std::cout << "us: " << userString <<"\n";
-				std::cout << "npf: " << newPostfix <<"\n";
-				newPostfix = removeParOne(newPostfix);
-				std::cout << "npf2: " << newPostfix <<"\n";
-				newPostfix = "";
-			}
-			
-			
+
+		
 			if (hasPar && newPostfix.length() >0){
 				newPostfix = removeParOne(newPostfix);
 				//newPostfix = removeBracketsOne(newPostfix);
+			}
+			if (newPostfix == userString){
+				newPostfix = "";
 			}
 			
 			if (newPostfix.length()>0){
