@@ -655,6 +655,47 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 					}
 				}
 				
+				if (mychar == '+'){
+					std::vector<int> allSums ={startLeftIndex,maxi,maxi,i};
+					bool moreTerms = true;
+					int whileI =0;
+					std::cout << pfstr << " and " << allSums[0] << " and " << allSums[3] << "\n";
+					while (moreTerms){
+						moreTerms = false;
+						for (whileI=0;whileI<allSums.size()/2;whileI++){
+							if (pfstr.at(allSums[whileI*2+1]-1) == '+'){
+								moreTerms = true;
+								int tempMax = allSums[whileI*2+1]-1;
+								for (ii=0;ii<tempMax;ii++){
+									std::string s = "";
+									std::string t = "";
+									for (iii=ii;iii<tempMax;iii++){
+										s += pfstr.at(iii);
+										if (pfstr.at(iii) == '#'){
+											t += originalMap[operandMap[iii]] + '_';
+										}
+									}
+									if (listMap.find(s + '@' + t) != listMap.end()){
+										allSums[whileI*2+1]=ii;
+										allSums.push_back(ii);
+										allSums.push_back(tempMax);
+										break;
+									}
+								}
+								break;
+							}
+						}
+					}
+					if (allSums.size()>4){
+						for (ii=0;ii<allSums.size();ii++){
+							std::cout << ii << " with "<< allSums[i] << "\n"
+						}
+					}
+					
+					
+				}
+				
+				
 				//bottomTreesString.resize(btSz+secondS.size()*firstS.size()*2);
 				//bottomTreesIndex.resize(btSz+secondS.size()*firstS.size()*2);
 				
