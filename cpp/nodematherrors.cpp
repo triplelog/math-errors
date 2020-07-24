@@ -1404,16 +1404,19 @@ std::string fullAnswer(std::string s, std::string a){
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
 	answerListMap.clear();
 	reverseMap.clear();
-	auto a1 = std::chrono::high_resolution_clock::now();
+	//auto a1 = std::chrono::high_resolution_clock::now();
 	getAnswerList(newPostfix,false,0);
-	auto a2 = std::chrono::high_resolution_clock::now();
+	//auto a2 = std::chrono::high_resolution_clock::now();
 	//duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\n\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << answerListMap[newPostfix].size() << "\n\n\n";
 	int i; int ii;
 	std::string mpf = postfixify(a);
 	std::string error = "Don't know.";
 	int ui = 0;
+	auto a1 = std::chrono::high_resolution_clock::now();
 	autocomplete(reverseMap,newPostfix,a);
+	auto a2 = std::chrono::high_resolution_clock::now();
+	std::cout << "autocomplete time: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n";
 	if (reverseMap.find(mpf) != reverseMap.end()){
 		error = "Found";
 		std::string oneStep = mpf;

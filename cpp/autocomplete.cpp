@@ -730,7 +730,7 @@ void autocomplete(flat_hash_map<std::string,std::vector<std::string>> reverseMap
 	for (i=0;i<10;i++){
 		std::cout << answers[i].answer << " with d="<< answers[i].d <<"\n";
 	}
-	std::cout << "question: " << inputify(newPostfix) << "\n";
+	std::cout << "question: " << inputify(newPostfix) << "with " << answers.size() << "\n";
 	std::cout << "user answer: " << rawAnswer << "\n";
 	
 }
