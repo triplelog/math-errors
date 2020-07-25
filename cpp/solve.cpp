@@ -3,7 +3,7 @@ struct Number {
 	int type = 0;
 	std::string top = "";
 	std::string bottom = "";
-}
+};
 flat_hash_map<std::string,Number> numbers;
 
 std::string numberType(std::string input){
@@ -100,7 +100,7 @@ std::string numberType(std::string input){
 		n.type = 2;
 		n.top = n.top+n.bottom;
 		int nbl = n.bottom.length();
-		n.bottom = "1":
+		n.bottom = "1";
 		for (ii=0;ii<nbl;ii++){
 			n.bottom += "0";
 		}
@@ -190,7 +190,6 @@ std::string addTwo(std::string a, std::string b){
 			sum += revsum.at(i);
 		}
 		return sum;
-		}
 	}
 	return "false";
 
