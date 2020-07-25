@@ -131,7 +131,7 @@ wss.on('connection', function connection(ws) {
 			console.log(outArray);
 			console.log(stdout);
 			var jsonmessage = {'type':'auto',answer:dm.answer,'auto':outArray,'now':dm.now};
-			//ws.send(JSON.stringify(jsonmessage));
+			ws.send(JSON.stringify(jsonmessage));
 		}
 		
   	});
