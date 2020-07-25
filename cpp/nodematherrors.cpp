@@ -1614,6 +1614,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	//std::cout << s << " before pl\n";
 	auto a1 = std::chrono::high_resolution_clock::now();
 	std::vector<std::string> someStrings = makeTree(newPostfix,isCorrect);
+	
 	if (answerIsCorrect && isCorrect){
 		correctAnswers.push_back(newPostfix);
 	}
@@ -1628,6 +1629,9 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 
 
 	for (iii=0;iii<someStrings.size()/2;iii++){
+		if (newPostfix == "###*+###^*##?*+@0_1_4_2_x_1_x_x_"){
+			std::cout << "look::: " << someStrings[iii*2] << "\n";
+		}
 		someStrings[iii*2] = removeBracketsOne(someStrings[iii*2]);
 		if (uniqueStrings.find(someStrings[iii*2]) != uniqueStrings.end()){
 	
