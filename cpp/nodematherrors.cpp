@@ -1779,6 +1779,39 @@ bool correctAnswer(std::string s, std::string a){
 		
 		//outputTree(answerListMap[newPostfix][ii]);
 	}
+	if (reverseMap.find(mpf) != reverseMap.end()){
+		error = "Found";
+		std::string oneStep = mpf;
+		std::cout << oneStep << "\n";
+		jsonmessage = "";
+		while (reverseMap.find(oneStep) != reverseMap.end() && oneStep != newPostfix){
+			std::string rawRule = reverseMap[oneStep][1];
+			
+			std::string key = "";
+			int ruleIdx = 0;
+			bool isSecond = false;
+			for (ii=0;ii<rawRule.length();ii++){
+				if (rawRule.at(ii) == ','){
+					isSecond = true;
+				}
+				else if (isSecond){
+					ruleIdx *= 10;
+					ruleIdx += (rawRule.at(ii) - '0');
+				}
+				else {
+					key += rawRule.at(ii);
+				}
+			}
+			std::cout << "key: " << key << " and ruleIdx: " << ruleIdx << " from: " << rawRule << "\n";
+			std::vector<std::string> rule = rules[key][ruleIdx];
+			if (rule[2] != "c"){
+				std::cout << "The error is: "<< rule[3] << "\n";
+			}
+			
+			outputTree(oneStep);
+			oneStep = reverseMap[oneStep][0];
+		}
+	}
 	return isCorrect;
 }
 
