@@ -46,11 +46,150 @@ int yesC;
 int noC;
 int mapSave;
 int mapMake;
+bool correctAnswer;
 
 		
 
 
 #include "solve.cpp"
+
+bool checkAnswer(std::string answer){
+	std::string key = "";
+	std::string userString = answer;
+	int startAt =0; int ii; int iii; int iiii;
+	bool correct = true;
+	for (ii=0;ii<answer.length();ii++){
+		if (answer.at(ii) == '@'){
+			startAt = ii+1;
+			break;
+		}
+		else {
+			key += answer.at(ii);
+		}
+	}
+	if (answerConstraints.find(key) != answerConstraints.end()){
+		int ruleIdx;
+		for (ruleIdx=0;ruleIdx<answerConstraints[key].size();ruleIdx++){
+			std::vector<std::string> rule = answerConstraints[key][ruleIdx];
+			bool match = false;
+
+			std::string currentOperand = "";
+			flat_hash_map<char,std::string> partMap;
+			std::vector<std::string> userOperands;
+			std::vector<std::string> ruleOperands;
+			for (iii=0;iii<rule[0].length();iii++){
+				if (rule[0].at(iii) == '_'){
+					ruleOperands.push_back(currentOperand);
+					currentOperand = "";
+				}
+				else {
+					currentOperand += rule[0].at(iii);
+				}
+			}
+			currentOperand = "";
+			bool midBracket = false;
+			for (iii=startAt;iii<userString.length();iii++){
+				if (userString.at(iii) == '_' && !midBracket){
+					userOperands.push_back(currentOperand);
+					currentOperand = "";
+				}
+				else if (userString.at(iii) == '{') {
+					currentOperand += userString.at(iii);
+					midBracket = true;
+				}
+				else if (userString.at(iii) == '}') {
+					currentOperand += userString.at(iii);
+					midBracket = false;
+				}
+				else {
+					currentOperand += userString.at(iii);
+				}
+			}
+			bool ignoreThis = false;
+			if (ruleOperands.size() != userOperands.size()){
+				//TODO: move to next rule
+				ignoreThis = true;
+			}
+			for (iii=0;iii<ruleOperands.size();iii++){
+				if (ruleOperands[iii].length()==1){
+					if (ruleOperands[iii].at(0) <= 'Z' && ruleOperands[iii].at(0) >= 'A'){
+						if (partMap.find(ruleOperands[iii].at(0)) != partMap.end()){
+							if (partMap[ruleOperands[iii].at(0)] != userOperands[iii]){
+								ignoreThis = true;
+								break;
+							}
+						}
+						partMap[ruleOperands[iii].at(0)] = userOperands[iii];
+					}
+					else if (ruleOperands[iii] != userOperands[iii]){
+						//TODO: skip this rule
+						ignoreThis = true;
+						break;
+					}
+				}
+				else if (ruleOperands[iii] != userOperands[iii]){
+					//TODO: skip this rule
+					ignoreThis = true;
+					break;
+				}
+			}
+	
+			bool pastKey = false;
+			if (!ignoreThis){
+				for (iiii=4;iiii<rule.size();iiii++){
+					pastKey = false;
+					std::string constraintFix = "";
+					currentOperand = "";
+			
+					for (iii=0;iii<rule[iiii].length();iii++){
+						if (pastKey){
+							if (rule[iiii].at(iii) == '_'){
+								if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
+									constraintFix += partMap[currentOperand.at(0)] + '_';
+								}
+								else {
+									constraintFix += currentOperand + '_';
+								}
+								currentOperand = "";
+							}
+							else {
+								currentOperand += rule[iiii].at(iii);
+							}
+						}
+						else {
+							if (rule[iiii].at(iii) == '@'){
+								pastKey = true;
+							}
+							constraintFix += rule[iiii].at(iii);
+						}
+					}
+					bool isAllowed = true;
+					if (constraintMap.find(constraintFix) != constraintMap.end()){
+						isAllowed = constraintMap[constraintFix];
+					}
+					else {
+						isAllowed = solveConstraintFix(constraintFix);
+						constraintMap[constraintFix]=isAllowed;
+					}
+					if (!isAllowed){
+						ignoreThis = true;
+						break;
+					}
+				}
+			}
+			if (!ignoreThis){
+				match = true;
+			}
+			
+			if (match && rule[2] == "i"){
+				correct = false;
+				break;
+			}
+		}
+	}
+	return correct;
+
+}
 
 flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 	int i; int ii;
@@ -502,7 +641,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	std::string currentOperator = "";
 	int iidx = 0;
 	bool midBrackets = false;
-	
+	correctAnswer = true;
 	
 	for (i=0;i<pfstr.length();i++){
 		if (pfstr.at(i) == '@'){
@@ -780,6 +919,9 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 
 						std::vector<int> tempV;
 						tempV = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
+						if (!checkAnswer(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii])){
+							correctAnswer = false;
+						}
 						std::vector<std::string> someStrings = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						int iiiiii;
 						for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
@@ -946,6 +1088,9 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 					//bottomTreesString[btSz]=secondS[iii] + pfstr.at(i) + '@' + secondT[iii];
 					//bottomTreesIndex[btSz]={startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
 					//btSz++;
+					if (!checkAnswer(secondS[iii] + pfstr.at(i) + '@' + secondT[iii])){
+						correctAnswer = false;
+					}
 					std::vector<std::string> someStrings = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
 					int iiiiii;
 					for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
@@ -1406,143 +1551,8 @@ std::vector<std::string> outputTree(std::string pfstr){
 #include "makeanswers.cpp"
 
 #include "applyrules.cpp"
-bool checkAnswer(std::string answer){
-	std::string key = "";
-	std::string userString = answer;
-	int startAt =0; int ii; int iii; int iiii;
-	bool correct = true;
-	for (ii=0;ii<answer.length();ii++){
-		if (answer.at(ii) == '@'){
-			startAt = ii+1;
-			break;
-		}
-		else {
-			key += answer.at(ii);
-		}
-	}
-	if (answerConstraints.find(key) != answerConstraints.end()){
-		int ruleIdx;
-		for (ruleIdx=0;ruleIdx<answerConstraints[key].size();ruleIdx++){
-			std::vector<std::string> rule = answerConstraints[key][ruleIdx];
-			bool match = false;
 
-			std::string currentOperand = "";
-			flat_hash_map<char,std::string> partMap;
-			std::vector<std::string> userOperands;
-			std::vector<std::string> ruleOperands;
-			for (iii=0;iii<rule[0].length();iii++){
-				if (rule[0].at(iii) == '_'){
-					ruleOperands.push_back(currentOperand);
-					currentOperand = "";
-				}
-				else {
-					currentOperand += rule[0].at(iii);
-				}
-			}
-			currentOperand = "";
-			bool midBracket = false;
-			for (iii=startAt;iii<userString.length();iii++){
-				if (userString.at(iii) == '_' && !midBracket){
-					userOperands.push_back(currentOperand);
-					currentOperand = "";
-				}
-				else if (userString.at(iii) == '{') {
-					currentOperand += userString.at(iii);
-					midBracket = true;
-				}
-				else if (userString.at(iii) == '}') {
-					currentOperand += userString.at(iii);
-					midBracket = false;
-				}
-				else {
-					currentOperand += userString.at(iii);
-				}
-			}
-			bool ignoreThis = false;
-			if (ruleOperands.size() != userOperands.size()){
-				//TODO: move to next rule
-				ignoreThis = true;
-			}
-			for (iii=0;iii<ruleOperands.size();iii++){
-				if (ruleOperands[iii].length()==1){
-					if (ruleOperands[iii].at(0) <= 'Z' && ruleOperands[iii].at(0) >= 'A'){
-						if (partMap.find(ruleOperands[iii].at(0)) != partMap.end()){
-							if (partMap[ruleOperands[iii].at(0)] != userOperands[iii]){
-								ignoreThis = true;
-								break;
-							}
-						}
-						partMap[ruleOperands[iii].at(0)] = userOperands[iii];
-					}
-					else if (ruleOperands[iii] != userOperands[iii]){
-						//TODO: skip this rule
-						ignoreThis = true;
-						break;
-					}
-				}
-				else if (ruleOperands[iii] != userOperands[iii]){
-					//TODO: skip this rule
-					ignoreThis = true;
-					break;
-				}
-			}
-	
-			bool pastKey = false;
-			if (!ignoreThis){
-				for (iiii=4;iiii<rule.size();iiii++){
-					pastKey = false;
-					std::string constraintFix = "";
-					currentOperand = "";
-			
-					for (iii=0;iii<rule[iiii].length();iii++){
-						if (pastKey){
-							if (rule[iiii].at(iii) == '_'){
-								if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
-									constraintFix += partMap[currentOperand.at(0)] + '_';
-								}
-								else {
-									constraintFix += currentOperand + '_';
-								}
-								currentOperand = "";
-							}
-							else {
-								currentOperand += rule[iiii].at(iii);
-							}
-						}
-						else {
-							if (rule[iiii].at(iii) == '@'){
-								pastKey = true;
-							}
-							constraintFix += rule[iiii].at(iii);
-						}
-					}
-					bool isAllowed = true;
-					if (constraintMap.find(constraintFix) != constraintMap.end()){
-						isAllowed = constraintMap[constraintFix];
-					}
-					else {
-						isAllowed = solveConstraintFix(constraintFix);
-						constraintMap[constraintFix]=isAllowed;
-					}
-					if (!isAllowed){
-						ignoreThis = true;
-						break;
-					}
-				}
-			}
-			if (!ignoreThis){
-				match = true;
-			}
-			
-			if (match && rule[2] == "i"){
-				correct = false;
-				break;
-			}
-		}
-	}
-	return correct;
 
-}
 void initialRun(){
 	prec['#'] = 100;
 	int i;
@@ -1577,7 +1587,7 @@ void initialRun(){
 flat_hash_map<std::string,std::vector<std::string>> answerListMap;
 flat_hash_map<std::string,std::vector<std::string>> reverseMap;
 int totalAnswers;
-
+std::vector<std::string> correctAnswers;
 bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 
 	
@@ -1603,6 +1613,9 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	//std::cout << s << " before pl\n";
 	auto a1 = std::chrono::high_resolution_clock::now();
 	std::vector<std::string> someStrings = makeTree(newPostfix,isCorrect);
+	if (correctAnswer && isCorrect){
+		correctAnswers.push_back(newPostfix);
+	}
 	auto a2 = std::chrono::high_resolution_clock::now();
 	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	duration1 += dd1;
@@ -1751,11 +1764,10 @@ bool correctAnswer(std::string s, std::string a){
 	}
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = answerListMap.begin(); iter != answerListMap.end(); ++iter){
 		//std::cout << iter->first << "\n";
-		bool correct = checkAnswer(iter->first);
-		if (correct){
-			std::cout << "correct: " << iter->first << "\n";
-		}
 		
+	}
+	for (ii=0;ii<correctAnswers.size();ii++){
+		std::cout << "correct: " << correctAnswers[ii] << "\n";
 	}
 	std::cout << "your answer: " << mpf << "\n";
 
