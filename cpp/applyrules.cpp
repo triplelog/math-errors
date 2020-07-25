@@ -202,7 +202,13 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 
 		
 			if (hasPar && newPostfix.length() >0){
+				if (userFullString == "###*+###^*##?*+@0_1_4_2_x_1_x_x_"){
+					std::cout << "look: " << newPostfix  << " and " << userString << "\n":
+				}
 				newPostfix = removeParOne(newPostfix);
+				if (userFullString == "###*+###^*##?*+@0_1_4_2_x_1_x_x_"){
+					std::cout << "look again: " << newPostfix << "\n":
+				}
 				//newPostfix = removeBracketsOne(newPostfix);
 			}
 			if (newPostfix == userString){
