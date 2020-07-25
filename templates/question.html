@@ -279,9 +279,9 @@
 					autoComplete[dm.answer] = dm.auto;
 					var el = document.getElementById('autoAnswers');
 					el.innerHTML = "";
-					for (var i=0;i<autoComplete[answer].length;ii++){
+					for (var i=0;i<autoComplete[dm.answer].length;ii++){
 						var div = document.createElement('div');
-						div.textContent = autoComplete[answer][i];
+						div.textContent = autoComplete[dm.answer][i];
 						el.appendChild(div);
 					}
 				}
@@ -326,8 +326,8 @@
 				
 			}
 			else {
-				var jsonmessage = {type:"auto",answer:answer,now:true};
-				ws.send(JSON.stringify(jsonmessage));
+				//var jsonmessage = {type:"auto",answer:answer,now:true};
+				//ws.send(JSON.stringify(jsonmessage));
 			}
 			
 		}
