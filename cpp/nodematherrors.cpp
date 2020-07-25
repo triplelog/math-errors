@@ -1544,7 +1544,7 @@ bool checkAnswer(std::string answer){
 				match = true;
 			}
 			
-			if (match && rule[2] == "i"){
+			if (match && rule[1] == "i"){
 				correct = false;
 				break;
 			}
@@ -1772,7 +1772,7 @@ bool correctAnswer(std::string s, std::string a){
 	for (ii=0;ii<correctAnswers.size();ii++){
 		std::cout << "correct: " << correctAnswers[ii] << "\n";
 	}
-	std::cout << "your answer: " << mpf << "\n";
+	std::cout << "your answer: " << mpf  << " with " << correctAnswers.size() << " choices"<< "\n";
 
 	jsonmessage = "";
 

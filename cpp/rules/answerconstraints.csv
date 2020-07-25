@@ -1,2 +1,3 @@
 Rule,"Answers","HTML Explanation"
-ddx(A),ddx(A),i,""
+ddx(A),i,""
+A*1,i,""
