@@ -32,6 +32,7 @@ bool checkAnswer(std::string answer);
 flat_hash_map<char,int> prec;
 flat_hash_map<std::string,std::vector<std::vector<std::string>>> rules;
 flat_hash_map<std::string,std::vector<std::vector<std::string>>> answerConstraints;
+flat_hash_map<std::string,std::vector<int>> constraintsMet;
 //flat_hash_map<std::string,std::vector<std::string>> allListMapFull;
 //flat_hash_map<std::string,std::vector<std::vector<std::string>>> allListMapBottom;
 flat_hash_map<std::string,bool> constraintMap;
@@ -1548,6 +1549,24 @@ bool checkAnswer(std::string answer){
 				correct = false;
 				break;
 			}
+			if (match && rule[1] == "c"){
+				if (constraintsMet.find(key) != constraintsMet.end()){
+					for(ii=0;ii<constraintsMet[key].size();ii++){
+						if (ruleIdx == constraintsMet[key]){
+							break;
+						}
+						if (ii==constraintsMet[key].size()-1){
+							constraintsMet[key].push_back(ruleIdx);
+							break;
+						}
+					}
+					
+				}
+				else {
+					constraintsMet[key] = {ruleIdx};
+				}
+				
+			}
 		}
 	}
 	return correct;
@@ -1566,7 +1585,7 @@ bool doubleCheckAnswer(std::string pfstr){
 	int iidx = 0;
 	bool midBrackets = false;
 	answerIsCorrect = true;
-	
+	constraintsMet.clear();
 	for (i=0;i<pfstr.length();i++){
 		if (pfstr.at(i) == '@'){
 			startOperands = true;
@@ -2089,9 +2108,29 @@ bool doubleCheckAnswer(std::string pfstr){
 	//for (ii=0;ii<lastVector.size()/5;ii++){
 	//	checkAnswer(lastVector[ii*5]+"@"+lastVector[ii*5+1])
 	//}
+	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = answerConstraints.begin(); iter != answerConstraints.end(); ++iter){
+		std::string key = iter->first;
+		for (i=0;i<answerConstraints[key].size();i++){
+			if (answerConstraints[key][i][1] == 'c'){
+				bool cMatch = false;
+				if (constraintsMet.find(key) == constraintsMet.end()){
+					return false;
+				}
+				for (ii=0;ii<constraintsMet[key].size();ii++){
+					if (constraintsMet[key][ii] == i){
+						cMatch = true;
+						break;
+					}
+				}
+				if (!cMatch){
+					return false;
+				}
+			}
+		}
+	}
 	
 
-	return answerIsCorrect;
+	return true;
 	
 
 }
@@ -2305,12 +2344,16 @@ bool correctAnswer(std::string s, std::string a){
 			outputTree(oneStep);
 		}
 	}
-	
-	for (ii=0;ii<correctAnswers.size();ii++){
+	std::vector<std::string> tempCorrect = correctAnswers;
+	correctAnswers.resize(0);
+	for (ii=0;ii<tempCorrect.size();ii++){
 		//TODO: check each answer: must satisfy any must satisfy and and reordering cannot break rules
-		std::cout << "correct: " << correctAnswers[ii] << "\n";
-		std::cout << "double check: " << doubleCheckAnswer(correctAnswers[ii]) << "\n";
-		answerListMap.erase(correctAnswers[ii]);
+		if (doubleCheckAnswer(tempCorrect[ii])){
+			correctAnswers.push_back(tempCorrect[ii]);
+			std::cout << "correct: " << tempCorrect[ii] << "\n";
+			answerListMap.erase(tempCorrect[ii]);
+		}
+
 	}
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = answerListMap.begin(); iter != answerListMap.end(); ++iter){
 		unfinishedAnswers.push_back(iter->first);
