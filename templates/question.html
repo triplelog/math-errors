@@ -280,9 +280,12 @@
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		function answerDown(evt) {
-			var answer = document.getElementById("answer").value;
-			console.log(answer);
-			console.log(evt.key);
+			var key = evt.key;
+			if (key != 'Shift'){
+				var answer = document.getElementById("answer").value;
+				console.log(answer+key);
+			}
+			
 		}
 		var answerEl = document.getElementById('answer');
 		answerEl.addEventListener('keydown',answerDown);
