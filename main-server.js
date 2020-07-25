@@ -128,8 +128,6 @@ wss.on('connection', function connection(ws) {
 			var outArray = [];
 			eval(stdout);
 			console.log(performance.now(), dm.answer);
-			console.log(outArray);
-			console.log(stdout);
 			var jsonmessage = {'type':'auto',answer:dm.answer,'auto':outArray};
 			ws.send(JSON.stringify(jsonmessage));
 		}

@@ -1,52 +1,199 @@
-std::string addTwoInts(std::string a, std::string b){
+
+struct number {
+	int type = 0;
+	std::string top = "";
+	std::string bottom = "";
+}
+flat_hash_map<std::string,number> numbers;
+
+std::string numberType(std::string input){
+	if (input.length()==0){
+		return "string";
+	}
+	
+	number n;
+	if (input.at(0) == '-'){
+		input.replace(0,1,"");
+		std::string rest
+		if (numbers.find(input) != numbers.end){
+			rest = numbers[input].type;
+		}
+		else {
+			rest = numberType(input);
+		}
+		 
+		if (rest == "string" || rest.at(0) == 'n'){
+			return "string";
+		}
+		else {
+			n.type = numbers[input].type*-1;
+			n.top = numbers[input].top;
+			n.bottom = numbers[input].bottom;
+			numbers["-"+input] = n;
+			return "n"+rest;
+		}
+	}
+	int ii;
+	std::string currentType = "int";
+	for(ii=0;ii<input.length();ii++){
+		switch(input.at(ii)){
+			case '.': {
+				if (currentType == "int"){currentType = "dec";}
+				else if (currentType == "dec"){return "string";}
+				else if (currentType == "red"){return "string";}
+				else if (currentType == "rep"){currentType = "red";}
+				else if (currentType == "sci" || currentType == "scn"){return "string";}
+				n.top = input.substr(0,ii);
+				n.bottom = input.substr(ii+1,input.length()-ii-1);
+				break;
+			}
+			case '_': {
+				if (currentType == "int"){currentType = "rep";}
+				else if (currentType == "dec"){currentType = "red";}
+				else if (currentType == "red"){return "string";}
+				else if (currentType == "rep"){return "string";}
+				else if (currentType == "sci" || currentType == "scn"){return "string";}
+				break;
+			}
+			case 'e': {
+				if (currentType == "int"){currentType = "sci";}
+				else if (currentType == "dec"){currentType = "sci";}
+				else if (currentType == "red"){currentType = "sci";}
+				else if (currentType == "rep"){currentType = "sci";}
+				else if (currentType == "sci" || currentType == "scn"){return "string";}
+				n.top = input.substr(0,ii);
+				n.bottom = input.substr(ii+1,input.length()-ii-1);
+				break;
+			}
+			case '-': {
+				if (currentType == "int"){return "string";}
+				else if (currentType == "dec"){return "string";}
+				else if (currentType == "red"){return "string";}
+				else if (currentType == "rep"){return "string";}
+				else if (currentType == "sci"){currentType = "scn";}
+				else if (currentType == "scn"){return "string";}
+				break;
+			}
+			case '0': break;
+			case '1': break;
+			case '2': break;
+			case '3': break;
+			case '4': break;
+			case '5': break;
+			case '6': break;
+			case '7': break;
+			case '8': break;
+			case '9': break;
+			default: return "string";
+
+		}
+	}
+	
+	if (currentType == "int"){
+		n.type = 1;
+		n.top = input;
+		n.bottom = "1";
+		numbers[input]=n;
+		return "int";
+	}
+	else if (currentType == "dec"){
+		n.type = 2;
+		n.top = n.top+n.bottom;
+		int nbl = n.bottom.length();
+		n.bottom = "1":
+		for (ii=0;ii<nbl;ii++){
+			n.bottom += "0";
+		}
+		numbers[input]=n;
+		return "dec";
+	}
+	else if (currentType == "red"){
+		n.type = 3;
+		//TODO: make correct top and bottom
+		numbers[input]=n;
+		return "rep";
+	}
+	else if (currentType == "sci" || currentType == "scn"){
+		n.type = 4;
+		numbers[input]=n;
+		return "sci";
+	}
+	else {return "string";}
+	return "string";
+}
+
+std::string addTwo(std::string a, std::string b){
 	std::string revsum = "";
 	int base = 10;
-	int neg = 1;
-
+	number numA;
+	number numB;
+	if (numbers.find(a) != numbers.end()){
+		if (numberType(a) == "string"){
+			return "false";
+		}
+		else{
+			numA = numbers[a];
+		}
+	}
+	if (numbers.find(b) != numbers.end()){
+		if (numberType(b) == "string"){
+			return "false";
+		}
+		else{
+			numB = numbers[b];
+		}
+	}
 	
-	if (b.length() > a.length()){
-		std::string c = a;
-		a = b;
-		b = c;
-	}
-	int len = a.length();
-	while (len > b.length()){
-		b = "0"+b;
-	}
-	int i;
-	int charSum =0;
-	int carry = 0;
-	for (i=0;i<a.length();i++){
-		int aa = a.at(len-1-i) - '0';
-		if (aa<0 || aa>9){
-			return "false";
+	if (numA.type == 1 && numB.type == 1){
+		a = numA.top;
+		b = numB.top;
+		if (b.length() > a.length()){
+			std::string c = a;
+			a = b;
+			b = c;
 		}
-		int bb = b.at(len-1-i) - '0';
-		if (bb<0 || bb>9){
-			return "false";
+		int len = a.length();
+		while (len > b.length()){
+			b = "0"+b;
 		}
-		charSum = aa + bb + carry;
-		carry = 0;
-		while (charSum >= base){
-			charSum -= base;
-			carry++;
+		int i;
+		int charSum =0;
+		int carry = 0;
+		for (i=0;i<a.length();i++){
+			int aa = a.at(len-1-i) - '0';
+			if (aa<0 || aa>9){
+				return "false";
+			}
+			int bb = b.at(len-1-i) - '0';
+			if (bb<0 || bb>9){
+				return "false";
+			}
+			charSum = aa + bb + carry;
+			carry = 0;
+			while (charSum >= base){
+				charSum -= base;
+				carry++;
+			}
+			revsum += std::to_string(charSum);
 		}
-		revsum += std::to_string(charSum);
-	}
-	while (carry > 0){
-		charSum = carry;
-		carry = 0;
-		while (charSum >= base){
-			charSum -= base;
-			carry++;
+		while (carry > 0){
+			charSum = carry;
+			carry = 0;
+			while (charSum >= base){
+				charSum -= base;
+				carry++;
+			}
+			revsum += std::to_string(charSum);
 		}
-		revsum += std::to_string(charSum);
+		std::string sum = "";
+		for (i=revsum.length()-1;i>=0;i--){
+			sum += revsum.at(i);
+		}
+		return sum;
+		}
 	}
-	std::string sum = "";
-	for (i=revsum.length()-1;i>=0;i--){
-		sum += revsum.at(i);
-	}
-	return sum;
+	return "false";
+
 }
 
 std::string mulTwoInts(std::string a, std::string b){
@@ -183,7 +330,7 @@ std::string solvePostfix(std::string postfix) {
 	            //case '<': stack[currentIndex - 2].w = (stack[currentIndex - 2] < stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break;
 	            //case ']': stack[currentIndex - 2].w = (stack[currentIndex - 2] >= stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break; 
 	            //case '[': stack[currentIndex - 2].w = (stack[currentIndex - 2] <= stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break;
-	            case '+': stack[currentIndex - 2] = addTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
+	            case '+': stack[currentIndex - 2] = addTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
 	            case '-': stack[currentIndex - 2] = subTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); i++; break; 
 	            case '*': stack[currentIndex - 2] = mulTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
 	            case '/': stack[currentIndex - 1] = divTwoInts("1",stack[currentIndex - 1]); currentIndex++; break;
