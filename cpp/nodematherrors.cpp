@@ -2090,9 +2090,8 @@ bool doubleCheckAnswer(std::string pfstr){
 	//	checkAnswer(lastVector[ii*5]+"@"+lastVector[ii*5+1])
 	//}
 	
-	//std::cout << "\n\n---start Original-----\n";
-	int iiii;
-	return returnStrings;
+
+	return answerIsCorrect;
 	
 
 }
