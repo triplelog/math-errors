@@ -1780,7 +1780,6 @@ bool correctAnswer(std::string s, std::string a){
 		//outputTree(answerListMap[newPostfix][ii]);
 	}
 	if (reverseMap.find(mpf) != reverseMap.end()){
-		error = "Found";
 		std::string oneStep = mpf;
 		std::cout << oneStep << "\n";
 		jsonmessage = "";
