@@ -1409,7 +1409,7 @@ std::vector<std::string> outputTree(std::string pfstr){
 bool checkAnswer(std::string answer){
 	std::string key = "";
 	std::string userString = answer;
-	int startAt =0; int iii; int iiii;
+	int startAt =0; int ii; int iii; int iiii;
 	bool correct = true;
 	for (ii=0;ii<answer.length();ii++){
 		if (answer.at(ii) == '@'){
@@ -1430,7 +1430,6 @@ bool checkAnswer(std::string answer){
 			flat_hash_map<char,std::string> partMap;
 			std::vector<std::string> userOperands;
 			std::vector<std::string> ruleOperands;
-			newPostfix = "";
 			for (iii=0;iii<rule[0].length();iii++){
 				if (rule[0].at(iii) == '_'){
 					ruleOperands.push_back(currentOperand);
@@ -1441,7 +1440,7 @@ bool checkAnswer(std::string answer){
 				}
 			}
 			currentOperand = "";
-			midBracket = false;
+			bool midBracket = false;
 			for (iii=startAt;iii<userString.length();iii++){
 				if (userString.at(iii) == '_' && !midBracket){
 					userOperands.push_back(currentOperand);
@@ -1488,7 +1487,7 @@ bool checkAnswer(std::string answer){
 				}
 			}
 	
-
+			bool pastKey = false;
 			if (!ignoreThis){
 				for (iiii=4;iiii<rule.size();iiii++){
 					pastKey = false;
@@ -1526,7 +1525,6 @@ bool checkAnswer(std::string answer){
 						constraintMap[constraintFix]=isAllowed;
 					}
 					if (!isAllowed){
-						newPostfix = "";
 						ignoreThis = true;
 						break;
 					}
