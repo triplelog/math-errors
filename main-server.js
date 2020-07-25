@@ -122,6 +122,17 @@ wss.on('connection', function connection(ws) {
 			//var jsonmessage = {'type':'answer','answer':outStr};
 			//ws.send(JSON.stringify(jsonmessage));
 		}
+		else if (dm.type == 'auto'){
+			console.log(performance.now());
+			var stdout = maincpp.auto(dm.answer);
+			var outArray = [];
+			eval(stdout);
+			console.log(performance.now(), dm.answer);
+			console.log(outArray);
+			console.log(stdout);
+			var jsonmessage = {'type':'auto','auto':outArray,'now':dm.now};
+			//ws.send(JSON.stringify(jsonmessage));
+		}
 		
   	});
 });

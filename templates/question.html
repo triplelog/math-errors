@@ -131,6 +131,11 @@
 				<input type="submit" onclick="submitAnswer()">
 			</div>
 		</div>
+		
+		<div id="autoAnswers"> 
+	  		
+			
+		</div>
 	
 		<div class="accordion" id="accordionExample">
 		  
@@ -264,7 +269,25 @@
 		ws.onmessage = function(evt){
 			var dm = JSON.parse(evt.data);
 			console.log(dm);
-			createTrees(dm.answer);
+			if (dm.type == 'answer'){
+				createTrees(dm.answer);
+			}
+			else if (dm.type == 'auto'){
+				if (dm.now){
+					autoComplete[dm.answer] = dm.auto;
+					var el = document.getElementById('autoAnswers');
+					el.innerHTML = "";
+					for (var i=0;i<autoComplete[answer].length;ii++){
+						var div = document.createElement('div');
+						div.textContent = autoComplete[answer][i];
+						el.appendChild(div);
+					}
+				}
+				else {
+					autoComplete[dm.answer] = dm.auto;
+				}
+			}
+			
 			
 		}
 		function submitQuestion() {
@@ -283,12 +306,33 @@
 			var key = evt.key;
 			if (key != 'Shift'){
 				var answer = document.getElementById("answer").value;
-				console.log(answer+key);
+				var jsonmessage = {type:"auto",answer:answer+key,now:false};
+				ws.send(JSON.stringify(jsonmessage));
 			}
 			
 		}
+		function answerChange(evt) {
+			var answer = document.getElementById("answer").value;
+			if (autoComplete[answer]){
+				var el = document.getElementById('autoAnswers');
+				el.innerHTML = "";
+				for (var i=0;i<autoComplete[answer].length;ii++){
+					var div = document.createElement('div');
+					div.textContent = autoComplete[answer][i];
+					el.appendChild(div);
+				}
+				
+			}
+			else {
+				var jsonmessage = {type:"auto",answer:answer,now:true};
+				ws.send(JSON.stringify(jsonmessage));
+			}
+			
+		}
+		var autoComplete = {};
 		var answerEl = document.getElementById('answer');
 		answerEl.addEventListener('keydown',answerDown);
+		answerEl.addEventListener('input',answerChange);
 		
 		
 	</script>

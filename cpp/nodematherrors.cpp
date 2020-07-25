@@ -1591,6 +1591,7 @@ int totalAnswers;
 std::vector<std::string> correctAnswers;
 std::vector<std::string> unfinishedAnswers;
 std::vector<std::string> wrongAnswers;
+std::vector<std::string> inputArray;
 bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 
 	
@@ -1685,19 +1686,13 @@ std::string fullAnswer(std::string s, std::string a){
 	std::string mpf = postfixify(a);
 	std::string error = "Don't know.";
 	int ui = 0;
-	std::vector<std::string> inputArray;
+	
 	std::cout << "in\n";
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
 		inputArray.push_back(inputify(iter->first));
 		wrongAnswers.push_back(iter->first);
 	}
-	auto a1 = std::chrono::high_resolution_clock::now();
-	std::vector<std::string> autoAnswers = autocomplete(inputArray,newPostfix,a);
-	auto a2 = std::chrono::high_resolution_clock::now();
-	std::cout << "autocomplete time: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "for " << inputArray.size() << "\n";
-	for (i=0;i<autoAnswers.size();i++){
-		std::cout << autoAnswers[i] << "\n";
-	}
+	
 	if (reverseMap.find(mpf) != reverseMap.end()){
 		error = "Found";
 		std::string oneStep = mpf;
@@ -1848,6 +1843,7 @@ void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	correctAnswers.resize(0);
 	unfinishedAnswers.resize(0);
 	wrongAnswers.resize(0);
+	inputArray.resize(0);
 	
 	bool isCorrect = correctAnswer(str,astr);
 	
@@ -1855,10 +1851,9 @@ void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	std::string error = "None!";
 	jsonmessage = "";
-	if (!isCorrect){
-		error = fullAnswer(str,astr);
-		
-	}
+
+	error = fullAnswer(str,astr);
+
 	
 	std::cout << "Time to error: " << duration1 << "\n";
 	//std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
@@ -1899,6 +1894,31 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
+void AutoAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+	v8::Isolate* isolate = info.GetIsolate();
+	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
+	//int row = info[0]->Int32Value(context).FromJust();
+	v8::String::Utf8Value s(isolate, info[0]);
+	std::string a(*s);
+	
+	
+	auto a1 = std::chrono::high_resolution_clock::now();
+	std::string newPostfix = "#@0_";
+	std::vector<std::string> autoAnswers = autocomplete(inputArray,newPostfix,a);
+	auto a2 = std::chrono::high_resolution_clock::now();
+	std::string jsonmessage = "outArray = [];\n";
+	std::cout << "autocomplete time: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "for " << inputArray.size() << "\n";
+	for (i=0;i<autoAnswers.size();i++){
+		//std::cout << autoAnswers[i] << "\n";
+		jsonmessage += "outArray.push(\""+autoAnswers[i]+"\");\n";
+	}
+	
+
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
+
+	
+	info.GetReturnValue().Set(h.ToLocalChecked());
+}
 void Init(v8::Local<v8::Object> exports) {
   v8::Local<v8::Context> context = exports->CreationContext();
   exports->Set(context,
@@ -1914,6 +1934,11 @@ void Init(v8::Local<v8::Object> exports) {
   exports->Set(context,
                Nan::New("check").ToLocalChecked(),
                Nan::New<v8::FunctionTemplate>(CheckAnswer)
+                   ->GetFunction(context)
+                   .ToLocalChecked());
+  exports->Set(context,
+               Nan::New("auto").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(AutoAnswer)
                    ->GetFunction(context)
                    .ToLocalChecked());
 }
