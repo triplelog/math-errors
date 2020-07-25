@@ -200,13 +200,16 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 					
 			}
 
-		
+			char ddx{-69};
+			std::string tempS = "###*+###^*##";
+			tempS += ddx;
+			tempS += "*+@0_1_4_2_x_1_x_x_";
 			if (hasPar && newPostfix.length() >0){
-				if (userFullString == "###*+###^*##?*+@0_1_4_2_x_1_x_x_"){
+				if (userFullString == tempS){
 					std::cout << "look: " << newPostfix  << " and " << userString << "\n";
 				}
 				newPostfix = removeParOne(newPostfix);
-				if (userFullString == "###*+###^*##?*+@0_1_4_2_x_1_x_x_"){
+				if (userFullString == tempS){
 					std::cout << "look again: " << newPostfix << "\n";
 				}
 				//newPostfix = removeBracketsOne(newPostfix);
@@ -288,16 +291,16 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				std::string tempS = "###*+###^*##";
 				tempS += ddx;
 				tempS += "*+@0_1_4_2_x_1_x_x_";
-				if (userFullString == tempS){
-					std::cout << "-look: " << userFullString << " and " << userString << "\n";
-					std::cout << "--look: " << userFullString << " and " << tempTemp << "\n";
-				}
+				//if (userFullString == tempS){
+				//	std::cout << "-look: " << userFullString << " and " << userString << "\n";
+				//	std::cout << "--look: " << userFullString << " and " << tempTemp << "\n";
+				//}
 				if (tempTemp != userFullString){
 					tempTemp = removeBracketsOne(tempTemp);
-					if (userFullString == tempS){
-						std::cout << "---look: " << userFullString << " and " << userString << "\n";
-						std::cout << "----look: " << userFullString << " and " << tempTemp << "\n";
-					}
+					//if (userFullString == tempS){
+					//	std::cout << "---look: " << userFullString << " and " << userString << "\n";
+					//	std::cout << "----look: " << userFullString << " and " << tempTemp << "\n";
+					//}
 					newStrings.push_back(tempTemp);
 					allStrings.push_back(tempTemp);
 					allStrings.push_back(key+","+std::to_string(ruleIdx));
