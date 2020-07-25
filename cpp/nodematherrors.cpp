@@ -1908,6 +1908,7 @@ void AutoAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	auto a2 = std::chrono::high_resolution_clock::now();
 	std::string jsonmessage = "outArray = [];\n";
 	std::cout << "autocomplete time: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "for " << inputArray.size() << "\n";
+	int i;
 	for (i=0;i<autoAnswers.size();i++){
 		//std::cout << autoAnswers[i] << "\n";
 		jsonmessage += "outArray.push(\""+autoAnswers[i]+"\");\n";
