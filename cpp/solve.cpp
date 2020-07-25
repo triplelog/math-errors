@@ -146,7 +146,10 @@ std::string solvePostfix(std::string postfix) {
   	std::string currentOperand = "";
   	for (i=0; i<postfix.length(); i++) 
     {
-    	if (postfix.at(i) == '@') {
+    	if (postfix.at(i) == '{'){
+    		return "false";
+    	}
+    	else if (postfix.at(i) == '@') {
         	currentOperand = "";
         }
         else if (postfix.at(i) == '_') {
