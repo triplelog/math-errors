@@ -1775,7 +1775,7 @@ bool correctAnswer(std::string s, std::string a){
 	jsonmessage = "";
 
 	for (ii=0;ii<answerListMap[newPostfix].size();ii++){
-		//std::cout << "one step is: " << answerListMap[newPostfix][ii] << "\n";
+		std::cout << "one step is: " << answerListMap[newPostfix][ii] << "\n";
 		
 		//outputTree(answerListMap[newPostfix][ii]);
 	}
