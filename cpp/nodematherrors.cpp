@@ -46,7 +46,7 @@ int yesC;
 int noC;
 int mapSave;
 int mapMake;
-bool correctAnswer;
+bool answerIsCorrect;
 
 		
 
@@ -641,7 +641,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	std::string currentOperator = "";
 	int iidx = 0;
 	bool midBrackets = false;
-	correctAnswer = true;
+	answerIsCorrect = true;
 	
 	for (i=0;i<pfstr.length();i++){
 		if (pfstr.at(i) == '@'){
@@ -920,7 +920,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 						std::vector<int> tempV;
 						tempV = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
 						if (!checkAnswer(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii])){
-							correctAnswer = false;
+							answerIsCorrect = false;
 						}
 						std::vector<std::string> someStrings = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						int iiiiii;
@@ -1089,7 +1089,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 					//bottomTreesIndex[btSz]={startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
 					//btSz++;
 					if (!checkAnswer(secondS[iii] + pfstr.at(i) + '@' + secondT[iii])){
-						correctAnswer = false;
+						answerIsCorrect = false;
 					}
 					std::vector<std::string> someStrings = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
 					int iiiiii;
@@ -1613,7 +1613,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	//std::cout << s << " before pl\n";
 	auto a1 = std::chrono::high_resolution_clock::now();
 	std::vector<std::string> someStrings = makeTree(newPostfix,isCorrect);
-	if (correctAnswer && isCorrect){
+	if (answerIsCorrect && isCorrect){
 		correctAnswers.push_back(newPostfix);
 	}
 	auto a2 = std::chrono::high_resolution_clock::now();
