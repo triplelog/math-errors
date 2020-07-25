@@ -275,15 +275,16 @@
 			else if (dm.type == 'auto'){
 				console.log("ret message");
 				console.log(dm);
-				if (dm.now){
+				if (autoNow == dm.answer){
 					autoComplete[dm.answer] = dm.auto;
 					var el = document.getElementById('autoAnswers');
 					el.innerHTML = "";
-					for (var i=0;i<autoComplete[dm.answer].length;ii++){
+					for (var i=0;i<autoComplete[dm.answer].length;i++){
 						var div = document.createElement('div');
 						div.textContent = autoComplete[dm.answer][i];
 						el.appendChild(div);
 					}
+					autoNow = "";
 				}
 				else {
 					autoComplete[dm.answer] = dm.auto;
@@ -308,7 +309,7 @@
 			var key = evt.key;
 			if (key != 'Shift'){
 				var answer = document.getElementById("answer").value;
-				var jsonmessage = {type:"auto",answer:answer+key,now:false};
+				var jsonmessage = {type:"auto",answer:answer+key};
 				ws.send(JSON.stringify(jsonmessage));
 			}
 			
@@ -318,7 +319,7 @@
 			if (autoComplete[answer]){
 				var el = document.getElementById('autoAnswers');
 				el.innerHTML = "";
-				for (var i=0;i<autoComplete[answer].length;ii++){
+				for (var i=0;i<autoComplete[answer].length;i++){
 					var div = document.createElement('div');
 					div.textContent = autoComplete[answer][i];
 					el.appendChild(div);
@@ -326,12 +327,15 @@
 				
 			}
 			else {
-				//var jsonmessage = {type:"auto",answer:answer,now:true};
-				//ws.send(JSON.stringify(jsonmessage));
+				autoNow = answer;
+				var jsonmessage = {type:"auto",answer:answer};
+				ws.send(JSON.stringify(jsonmessage));
+				
 			}
 			
 		}
 		var autoComplete = {};
+		var autoNow = "";
 		var answerEl = document.getElementById('answer');
 		answerEl.addEventListener('keydown',answerDown);
 		answerEl.addEventListener('input',answerChange);
