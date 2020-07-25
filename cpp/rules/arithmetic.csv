@@ -12,3 +12,4 @@ A^0,1,c,"Raise to 0th power",Anonzero
 A+B,B+A,c,""
 A*B,B*A,c,""
 A*C+B*C,(A+B)*C,c,""
+A*B^C+D*E^F,D*E^F+A*B^C,c,"",C>F

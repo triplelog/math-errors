@@ -372,12 +372,12 @@ int autoDistance(std::string ss, std::string control) {
 	if (ssl == 0 || cl == 0){return 2000;}
 	if (cl < ssl){
 		ss.replace(cl,ssl-cl,"");
-		d /= (ssl+5);
-		d += lev(ss,control)*1000/(cl+5);
+		d /= (ssl+3);
+		d += lev(ss,control)*1000/(cl+3);
 	}
 	else {
-		d /= (ssl+5);
-		d += lev(ss,control)*1000/(cl+5);
+		d /= (ssl+3);
+		d += lev(ss,control)*1000/(cl+3);
 	}
 	return d;
 }
@@ -715,12 +715,14 @@ inline bool operator<(const Autocomplete a, const Autocomplete b){
 std::vector<std::string> autocomplete(std::vector<std::string> inputArray, std::string newPostfix,std::string rawAnswer){
 
 	std::vector<Autocomplete> answers;
+	std::vector<Autocomplete> shortAnswers;
 	int i;
 	int ias = inputArray.size();
 	if (ias < 12){
 		return inputArray;
 	}
 	answers.resize(ias);
+	//shortAnswers.resize(ias);
 	
 	
 	for (i=0;i<ias;i++){
