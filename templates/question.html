@@ -279,6 +279,14 @@
 			var jsonmessage = {type:"check",answer:answer};
 			ws.send(JSON.stringify(jsonmessage));
 		}
+		function answerDown(evt) {
+			var answer = document.getElementById("answer").value;
+			console.log(answer);
+			console.log(evt.key);
+		}
+		var answerEl = document.getElementById('answer');
+		answerEl.addEventListener('onkeydown',answerDown);
+		
 		
 	</script>
   </body>
