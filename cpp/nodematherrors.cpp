@@ -1629,9 +1629,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 
 
 	for (iii=0;iii<someStrings.size()/2;iii++){
-		if (newPostfix == "###*+###^*##?*+@0_1_4_2_x_1_x_x_"){
-			std::cout << "look::: " << someStrings[iii*2] << "\n";
-		}
+		
 		someStrings[iii*2] = removeBracketsOne(someStrings[iii*2]);
 		if (uniqueStrings.find(someStrings[iii*2]) != uniqueStrings.end()){
 	
@@ -1657,6 +1655,9 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 			if (allStrings[ii*2] != newPostfix){
 				getAnswerList(allStrings[ii*2],isCorrect,nSteps+1);
 				reverseMap[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
+				if (allStrings[ii*2] == "###*+###^*##?*+@0_1_4_2_x_1_x_x_"){
+					std::cout << "\n\n\-----look::: " << newPostfix << "\n\n\n";
+				}
 			}
 			
 		}
