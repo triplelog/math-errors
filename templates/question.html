@@ -273,6 +273,8 @@
 				createTrees(dm.answer);
 			}
 			else if (dm.type == 'auto'){
+				console.log("ret message");
+				console.log(dm);
 				if (dm.now){
 					autoComplete[dm.answer] = dm.auto;
 					var el = document.getElementById('autoAnswers');
