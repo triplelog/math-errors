@@ -2111,7 +2111,7 @@ bool doubleCheckAnswer(std::string pfstr){
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = answerConstraints.begin(); iter != answerConstraints.end(); ++iter){
 		std::string key = iter->first;
 		for (i=0;i<answerConstraints[key].size();i++){
-			if (answerConstraints[key][i][1] == 'c'){
+			if (answerConstraints[key][i][1] == "c"){
 				bool cMatch = false;
 				if (constraintsMet.find(key) == constraintsMet.end()){
 					return false;
