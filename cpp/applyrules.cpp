@@ -129,32 +129,16 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 									break;
 								}
 							}
-							//if (interiorBrackets){
-								
-							//	newPostfix = "";
-							//	break;
-							//}
-							//else {
-								char ddx{-69};
-								std::string tempS = "###*+###^*##";
-								tempS += ddx;
-								tempS += "*+@0_1_4_2_x_1_x_x_";
-								if (userFullString == tempS){
-									std::cout << "---:: " << insidePostfix << "\n";
-								}
-								std::string opResult = solvePostfix(insidePostfix);
-								if (userFullString == tempS){
-									std::cout << "::---:: " << opResult << "\n";
-								}
-								if (opResult == "false"){
-									currentOperand = "("+insidePostfix+")";
-								}
-								else {
-									currentOperand = "(#@"+opResult+"_)";
-								}
-								openPar = false;
-								pastInsideKey = false;
-							//}
+							std::string opResult = solvePostfix(insidePostfix);
+
+							if (opResult == "false"){
+								currentOperand = "("+insidePostfix+")";
+							}
+							else {
+								currentOperand = "(#@"+opResult+"_)";
+							}
+							openPar = false;
+							pastInsideKey = false;
 							
 						}
 						else if (rule[1].at(iii) == '_'){
@@ -210,18 +194,9 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 					
 			}
 
-			char ddx{-69};
-			std::string tempS = "###*+###^*##";
-			tempS += ddx;
-			tempS += "*+@0_1_4_2_x_1_x_x_";
+
 			if (hasPar && newPostfix.length() >0){
-				if (userFullString == tempS){
-					std::cout << "look: " << newPostfix  << " and " << userString << "\n";
-				}
 				newPostfix = removeParOne(newPostfix);
-				if (userFullString == tempS){
-					std::cout << "look again: " << newPostfix << "\n";
-				}
 				//newPostfix = removeBracketsOne(newPostfix);
 			}
 			if (newPostfix == userString){
@@ -297,20 +272,11 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				//std::cout << "userFullString: "<< userFullString << "\n";
 				tempTemp.replace(oneIndex[0],oneIndex[1],newPostfixFirst);
 				//std::cout << bottomTrees[ii][1] << " bb " << bottomTrees[ii][2] << " c " << bottomTrees[ii][3] << " d " << bottomTrees[ii][4] << "\n";
-				char ddx{-69};
-				std::string tempS = "###*+###^*##";
-				tempS += ddx;
-				tempS += "*+@0_1_4_2_x_1_x_x_";
-				//if (userFullString == tempS){
-				//	std::cout << "-look: " << userFullString << " and " << userString << "\n";
-				//	std::cout << "--look: " << userFullString << " and " << tempTemp << "\n";
-				//}
+
+
 				if (tempTemp != userFullString){
 					tempTemp = removeBracketsOne(tempTemp);
-					//if (userFullString == tempS){
-					//	std::cout << "---look: " << userFullString << " and " << userString << "\n";
-					//	std::cout << "----look: " << userFullString << " and " << tempTemp << "\n";
-					//}
+
 					newStrings.push_back(tempTemp);
 					allStrings.push_back(tempTemp);
 					allStrings.push_back(key+","+std::to_string(ruleIdx));
