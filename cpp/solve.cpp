@@ -15,7 +15,7 @@ std::string numberType(std::string input){
 	if (input.at(0) == '-'){
 		input.replace(0,1,"");
 		std::string rest = "";
-		if (numbers.find(input) != numbers.end){
+		if (numbers.find(input) != numbers.end()){
 			rest = numbers[input].type;
 		}
 		else {
