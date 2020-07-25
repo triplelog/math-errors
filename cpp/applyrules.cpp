@@ -135,7 +135,17 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 							//	break;
 							//}
 							//else {
+								char ddx{-69};
+								std::string tempS = "###*+###^*##";
+								tempS += ddx;
+								tempS += "*+@0_1_4_2_x_1_x_x_";
+								if (userFullString == tempS){
+									std::cout << "---:: " << insidePostfix << "\n";
+								}
 								std::string opResult = solvePostfix(insidePostfix);
+								if (userFullString == tempS){
+									std::cout << "::---:: " << opResult << "\n";
+								}
 								if (opResult == "false"){
 									currentOperand = "("+insidePostfix+")";
 								}
