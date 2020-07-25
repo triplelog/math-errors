@@ -1803,6 +1803,7 @@ bool correctAnswer(std::string s, std::string a){
 			}
 			std::cout << "key: " << key << " and ruleIdx: " << ruleIdx << " from: " << rawRule << "\n";
 			std::vector<std::string> rule = rules[key][ruleIdx];
+			std::cout << oneStep << " and " << rule[0] << " and " << rule[1] << "\n";
 			if (rule[2] != "c"){
 				std::cout << "The error is: "<< rule[3] << "\n";
 			}
