@@ -1589,6 +1589,8 @@ flat_hash_map<std::string,std::vector<std::string>> answerListMap;
 flat_hash_map<std::string,std::vector<std::string>> reverseMap;
 int totalAnswers;
 std::vector<std::string> correctAnswers;
+std::vector<std::string> unfinishedAnswers;
+std::vector<std::string> wrongAnswers;
 bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 
 	
@@ -1687,6 +1689,7 @@ std::string fullAnswer(std::string s, std::string a){
 	std::cout << "in\n";
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
 		inputArray.push_back(inputify(iter->first));
+		wrongAnswers.push_back(iter->first);
 	}
 	auto a1 = std::chrono::high_resolution_clock::now();
 	std::vector<std::string> autoAnswers = autocomplete(inputArray,newPostfix,a);
@@ -1765,22 +1768,25 @@ bool correctAnswer(std::string s, std::string a){
 			outputTree(oneStep);
 		}
 	}
-	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = answerListMap.begin(); iter != answerListMap.end(); ++iter){
-		//std::cout << iter->first << "\n";
-		
-	}
+	
 	for (ii=0;ii<correctAnswers.size();ii++){
 		std::cout << "correct: " << correctAnswers[ii] << "\n";
+		answerListMap.erase(correctAnswers[ii]);
+	}
+	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = answerListMap.begin(); iter != answerListMap.end(); ++iter){
+		unfinishedAnswers.push_back(iter->first);
 	}
 	std::cout << "your answer: " << mpf  << " with " << correctAnswers.size() << " choices"<< "\n";
+	std::cout << "unfinished answers: " << unfinishedAnswers.size() << " choices"<< "\n";
 
 	jsonmessage = "";
 
 	for (ii=0;ii<answerListMap[newPostfix].size();ii++){
-		std::cout << "one step is: " << answerListMap[newPostfix][ii] << "\n";
+		//std::cout << "one step is: " << answerListMap[newPostfix][ii] << "\n";
 		
 		//outputTree(answerListMap[newPostfix][ii]);
 	}
+	/*
 	if (reverseMap.find(mpf) != reverseMap.end()){
 		std::string oneStep = mpf;
 		std::cout << oneStep << "\n";
@@ -1813,7 +1819,7 @@ bool correctAnswer(std::string s, std::string a){
 			outputTree(oneStep);
 			oneStep = reverseMap[oneStep][0];
 		}
-	}
+	}*/
 	return isCorrect;
 }
 
@@ -1828,7 +1834,7 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
-void GetAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
 	//int row = info[0]->Int32Value(context).FromJust();
@@ -1838,6 +1844,10 @@ void GetAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::string astr(*sa);
 	std::cout << "input: "<< str << "\n";
 	jsonmessage = "";
+	
+	correctAnswers.resize(0);
+	unfinishedAnswers.resize(0);
+	wrongAnswers.resize(0);
 	
 	bool isCorrect = correctAnswer(str,astr);
 	
@@ -1857,6 +1867,38 @@ void GetAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
+void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+	v8::Isolate* isolate = info.GetIsolate();
+	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
+	//int row = info[0]->Int32Value(context).FromJust();
+	v8::String::Utf8Value s(isolate, info[0]);
+	std::string a(*s);
+
+	std::string mpf = postfixify(a);
+	std::cout << "your answer: " << mpf << "\n";
+	int ii;
+	for (ii=0;ii<correctAnswers.size();ii++){
+		if (correctAnswers[ii]==mpf){
+			std::cout << "Correct" << "\n";
+		}
+	}
+	for (ii=0;ii<unfinishedAnswers.size();ii++){
+		if (unfinishedAnswers[ii]==mpf){
+			std::cout << "Unfinished" << "\n";
+		}
+	}
+	for (ii=0;ii<wrongAnswers.size();ii++){
+		if (wrongAnswers[ii]==mpf){
+			std::cout << "Found Error" << "\n";
+		}
+	}
+	
+
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(a);
+
+	
+	info.GetReturnValue().Set(h.ToLocalChecked());
+}
 void Init(v8::Local<v8::Object> exports) {
   v8::Local<v8::Context> context = exports->CreationContext();
   exports->Set(context,
@@ -1866,7 +1908,12 @@ void Init(v8::Local<v8::Object> exports) {
                    .ToLocalChecked());
   exports->Set(context,
                Nan::New("answer").ToLocalChecked(),
-               Nan::New<v8::FunctionTemplate>(GetAnswer)
+               Nan::New<v8::FunctionTemplate>(GetAnswers)
+                   ->GetFunction(context)
+                   .ToLocalChecked());
+  exports->Set(context,
+               Nan::New("check").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(CheckAnswer)
                    ->GetFunction(context)
                    .ToLocalChecked());
 }

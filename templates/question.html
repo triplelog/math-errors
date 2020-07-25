@@ -266,8 +266,14 @@
 		}
 		function submitQuestion() {
 			var question = document.getElementById("equation").value;
-			var answer = document.getElementById("answer").value;
+			var answer = "x";//document.getElementById("answer").value;
 			var jsonmessage = {type:"solve",question:question,answer:answer};
+			ws.send(JSON.stringify(jsonmessage));
+		}
+		function submitAnswer() {
+			//var question = document.getElementById("equation").value;
+			var answer = document.getElementById("answer").value;
+			var jsonmessage = {type:"check",answer:answer};
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		

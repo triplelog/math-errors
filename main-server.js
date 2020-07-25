@@ -114,6 +114,14 @@ wss.on('connection', function connection(ws) {
 			var jsonmessage = {'type':'answer','answer':outStr};
 			ws.send(JSON.stringify(jsonmessage));
 		}
+		else if (dm.type == 'check'){
+			console.log(performance.now());
+			var stdout = maincpp.check(dm.answer);
+			console.log(performance.now(), dm.answer);
+			
+			//var jsonmessage = {'type':'answer','answer':outStr};
+			//ws.send(JSON.stringify(jsonmessage));
+		}
 		
   	});
 });
