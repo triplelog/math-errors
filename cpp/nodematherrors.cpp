@@ -1552,7 +1552,7 @@ bool checkAnswer(std::string answer){
 			if (match && rule[1] == "c"){
 				if (constraintsMet.find(key) != constraintsMet.end()){
 					for(ii=0;ii<constraintsMet[key].size();ii++){
-						if (ruleIdx == constraintsMet[key]){
+						if (ruleIdx == constraintsMet[key][ii]){
 							break;
 						}
 						if (ii==constraintsMet[key].size()-1){
