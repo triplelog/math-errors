@@ -1,20 +1,20 @@
 
-struct number {
+struct Number {
 	int type = 0;
 	std::string top = "";
 	std::string bottom = "";
 }
-flat_hash_map<std::string,number> numbers;
+flat_hash_map<std::string,Number> numbers;
 
 std::string numberType(std::string input){
 	if (input.length()==0){
 		return "string";
 	}
 	
-	number n;
+	Number n;
 	if (input.at(0) == '-'){
 		input.replace(0,1,"");
-		std::string rest
+		std::string rest = "";
 		if (numbers.find(input) != numbers.end){
 			rest = numbers[input].type;
 		}
@@ -125,8 +125,8 @@ std::string numberType(std::string input){
 std::string addTwo(std::string a, std::string b){
 	std::string revsum = "";
 	int base = 10;
-	number numA;
-	number numB;
+	Number numA;
+	Number numB;
 	if (numbers.find(a) != numbers.end()){
 		if (numberType(a) == "string"){
 			return "false";
