@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.72.0">
+    <title>Dashboard Template · Bootstrap</title>
+
+    <link rel="canonical" href="">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+	<link rel="stylesheet" href="css/treeflex.css">
+
+    <style>
+
+      
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+  </head>
+  <body>
+    
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Company name</a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <a class="nav-link" href="#">Sign out</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">
+              <span data-feather="plus"></span>
+              New Question
+            </a>
+          </li>
+          
+        </ul>
+		<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>History</span>
+        </h6>
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>Topics</span>
+          <a class="link-secondary" href="#" aria-label="Add a new report">
+            <span data-feather="plus-circle"></span>
+          </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Arithmetic
+            </a>
+            <div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
+			  <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Derivatives
+            </a>
+            <div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
+			  <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Integrals
+            </a>
+            <div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
+			  <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Limits
+            </a>
+            <div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
+			  <div class="progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+			<h1 class="h2">Dashboard</h1>
+			<div class="btn-toolbar mb-2 mb-md-0">
+			  <div class="btn-group mr-2">
+				<button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+				<button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+			  </div>
+			  <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+				<span data-feather="calendar"></span>
+				This week
+			  </button>
+			</div>
+        </div>
+
+        <div> 
+	  		<div>Text</div>
+			<div>
+				<input type="text" id="question" value="">
+			</div>
+			<div>Variables:</div>
+			<div>
+				<input type="text" id="var1" value="">
+				<input type="text" id="var2" value="">
+			</div>
+			<div>Constraints:</div>
+			<div>
+				<input type="text" id="con1" value="">
+				<input type="text" id="con2" value="">
+			</div>
+			<div>Rules:</div>
+			<div>
+				<div>Required:</div>
+				<div>For grades:</div>
+			</div>
+		</div>
+		
+		<div id="autoAnswers"> 
+	  		
+			
+		</div>
+	
+		<div class="accordion" id="accordionExample">
+		  
+		</div>
+		  <template id="treeTemplate">
+			  <div class="card">
+				<div class="card-header" id="heading">
+				  <h2 class="mb-0">
+					<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
+					  Node
+					</button>
+				  </h2>
+				</div>
+
+				<div id="collapse" class="collapse" aria-labelledby="heading" data-parent="#accordionExample">
+				  <div class="card-body">
+					<div class="tf-tree">
+					  <ul id="tree-simple">
+					  </ul>
+					</div>
+				  </div>
+				</div>
+			  </div>
+		  </template>
+
+    </main>
+  </div>
+</div>
+
+
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" integrity="sha384-EbSscX4STvYAC/DxHse8z5gEDaNiKAIGW+EpfzYTfQrgIlHywXXrM9SUIZ0BlyfF" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha384-i+dHPTzZw7YVZOx9lbH5l6lP74sLRtMtwN2XjVqjf3uAGAREAF4LMIUDTWEVs4LI" crossorigin="anonymous"></script>
+      <script src="js/dashboard.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+	<script>
+		function createTrees(input_str){
+			document.getElementById("accordionExample").innerHTML = "";
+			
+			
+			var trees = [];
+			eval(input_str);
+			for (var i=0;i<trees.length-1;i++){
+				var template = document.querySelector('#treeTemplate');
+				var clone = template.content.cloneNode(true);
+				var button = clone.querySelector('#heading button');
+				button.setAttribute('data-target','#collapse'+i);
+				button.setAttribute('aria-controls','collapse'+i);
+				clone.querySelector('#collapse').setAttribute('aria-labelledby','heading'+i);
+				
+				clone.querySelector('#heading').id = 'heading'+i;
+				clone.querySelector('#collapse').id = 'collapse'+i;
+				clone.querySelector('#tree-simple').id = 'tree-simple'+i;
+				
+				
+				document.getElementById("accordionExample").appendChild(clone);
+				
+			}
+			for (var ii=0;ii<trees.length;ii++){
+				var allNodes = trees[ii].allNodes;
+				var nodes = trees[ii].nodes;
+				var jsonTree = {};
+				for (var i=0;i<allNodes.length;i++){
+					var name = allNodes[i];
+					var text = nodes[name].text;
+					var children = [];
+					var parent = nodes[name].parent;
+					var node = document.createElement('li');
+					var span = document.createElement('span');
+					span.classList.add("tf-nc");
+					span.textContent = text;
+					node.appendChild(span);
+				
+				
+					jsonTree[name]={text:text,children:children,node:node};
+					if (parent != ""){
+						jsonTree[parent].children.push(name);
+						var pnode = jsonTree[parent].node;
+						if (pnode.querySelector('ul')){
+							pnode.querySelector('ul').appendChild(node);
+						}
+						else {
+							var ul = document.createElement('ul');
+							pnode.appendChild(ul);
+							pnode.querySelector('ul').appendChild(node);
+						}
+					
+					}
+					else if (i==0){
+						if (document.getElementById('tree-simple'+ii)){
+							document.getElementById('tree-simple'+ii).appendChild(node);
+						}
+						else if (document.getElementById('tree-simple'+(ii-1))){
+							document.getElementById('tree-simple'+(ii-1)).appendChild(node);
+						}
+						
+						
+					}
+				
+				}
+			}
+			for (var ii=0;ii<trees.length-1;ii++){
+				if (document.getElementById('tree-simple'+ii) && document.getElementById('tree-simple'+(ii+1))){
+					var nextNode = document.getElementById('tree-simple'+(ii+1)).querySelector('li');
+					var node = nextNode.cloneNode(true);
+					document.getElementById('tree-simple'+ii).appendChild(node);
+				}
+				
+			}
+			var katexElements = document.querySelectorAll('span.tf-nc');
+			for (var i=0;i<katexElements.length;i++){
+				var el = katexElements[i];
+				katex.render(el.textContent, el, {
+					throwOnError: false
+				});
+			}
+		}
+			
+		    
+	</script>
+	<script>
+		ws = new WebSocket('wss://matherrors.com:8081');
+		ws.onopen = function(evt) {
+			//var jsonmessage = {'type':'soloKey'};
+			//jsonmessage.message = tkey;
+			//ws.send(JSON.stringify(jsonmessage));
+			
+		}
+		ws.onmessage = function(evt){
+			var dm = JSON.parse(evt.data);
+			console.log(dm);
+			if (dm.type == 'answer'){
+				createTrees(dm.answer);
+			}
+			else if (dm.type == 'auto'){
+				console.log("ret message");
+				console.log(dm);
+				if (autoNow == dm.answer){
+					autoComplete[dm.answer] = dm.auto;
+					var el = document.getElementById('autoAnswers');
+					el.innerHTML = "";
+					for (var i=0;i<autoComplete[dm.answer].length;i++){
+						var div = document.createElement('div');
+						div.textContent = autoComplete[dm.answer][i];
+						el.appendChild(div);
+					}
+					autoNow = "";
+				}
+				else {
+					autoComplete[dm.answer] = dm.auto;
+				}
+			}
+			
+			
+		}
+		function submitQuestion() {
+			var question = document.getElementById("equation").value;
+			var answer = "x";//document.getElementById("answer").value;
+			var jsonmessage = {type:"solve",question:question,answer:answer};
+			ws.send(JSON.stringify(jsonmessage));
+		}
+		function submitAnswer() {
+			//var question = document.getElementById("equation").value;
+			var answer = document.getElementById("answer").value;
+			var jsonmessage = {type:"check",answer:answer};
+			ws.send(JSON.stringify(jsonmessage));
+		}
+		function answerDown(evt) {
+			var key = evt.key;
+			if (key != 'Shift'){
+				var answer = document.getElementById("answer").value;
+				var jsonmessage = {type:"auto",answer:answer+key};
+				ws.send(JSON.stringify(jsonmessage));
+			}
+			
+		}
+		function answerChange(evt) {
+			var answer = document.getElementById("answer").value;
+			if (autoComplete[answer]){
+				var el = document.getElementById('autoAnswers');
+				el.innerHTML = "";
+				for (var i=0;i<autoComplete[answer].length;i++){
+					var div = document.createElement('div');
+					div.textContent = autoComplete[answer][i];
+					el.appendChild(div);
+				}
+				
+			}
+			else {
+				autoNow = answer;
+				var jsonmessage = {type:"auto",answer:answer};
+				ws.send(JSON.stringify(jsonmessage));
+				
+			}
+			
+		}
+		var autoComplete = {};
+		var autoNow = "";
+		var answerEl = document.getElementById('answer');
+		answerEl.addEventListener('keydown',answerDown);
+		answerEl.addEventListener('input',answerChange);
+		
+		
+	</script>
+  </body>
+</html>

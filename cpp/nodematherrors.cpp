@@ -2529,6 +2529,11 @@ void Init(v8::Local<v8::Object> exports) {
                Nan::New<v8::FunctionTemplate>(AutoAnswer)
                    ->GetFunction(context)
                    .ToLocalChecked());
+  exports->Set(context,
+               Nan::New("solution").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(GetSolution)
+                   ->GetFunction(context)
+                   .ToLocalChecked());
 }
 
 NODE_MODULE(helloarray, Init)
