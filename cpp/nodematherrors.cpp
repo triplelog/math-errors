@@ -2507,6 +2507,32 @@ void AutoAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
+void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+	v8::Isolate* isolate = info.GetIsolate();
+	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
+	//int row = info[0]->Int32Value(context).FromJust();
+	v8::String::Utf8Value s(isolate, info[0]);
+	std::string a(*s);
+	
+	
+	auto a1 = std::chrono::high_resolution_clock::now();
+	std::string newPostfix = "#@0_";
+	std::vector<std::string> autoAnswers = autocomplete(inputArray,newPostfix,a);
+	auto a2 = std::chrono::high_resolution_clock::now();
+	std::string jsonmessage = "outArray = [];\n";
+	std::cout << "autocomplete time: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "for " << inputArray.size() << "\n";
+	int i;
+	for (i=0;i<autoAnswers.size();i++){
+		//std::cout << autoAnswers[i] << "\n";
+		jsonmessage += "outArray.push(\""+autoAnswers[i]+"\");\n";
+	}
+	
+
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
+
+	
+	info.GetReturnValue().Set(h.ToLocalChecked());
+}
 void Init(v8::Local<v8::Object> exports) {
   v8::Local<v8::Context> context = exports->CreationContext();
   exports->Set(context,
