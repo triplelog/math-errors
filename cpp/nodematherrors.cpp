@@ -1417,6 +1417,8 @@ std::vector<std::string> outputTree(std::string pfstr){
 
 #include "applyrules.cpp"
 
+#include "makenumbers.cpp"
+
 bool checkAnswer(std::string answer){
 	std::string key = "";
 	std::string userString = answer;
@@ -2413,6 +2415,7 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//std::string str(*s);
 	jsonmessage = "var rule = {};";
 	initialRun();
+	makeInt("[7,8)U((0,3)U[4,6]N(1,2])");
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }

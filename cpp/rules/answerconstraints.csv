@@ -1,7 +1,7 @@
 calculus.derivatives.power.0,"Power Rule"
 calculus.derivatives.power+rg,calculus.derivatives+g
-"What is the derivative of $x^2$?"
-ddx(x^2)
+"What is the derivative of $x^A$?"
+ddx(x^A)
 "<input name='A'></input>"
 A
 "a",ddx(A),i,""
