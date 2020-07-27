@@ -116,7 +116,7 @@
         </div>
 
         <div> 
-	  		<div>What is your question?</div>
+	  		<div id="question"></div>
 			<div>
 				<input type="text" id="equation" value="">
 			</div>
@@ -272,6 +272,9 @@
 			if (dm.type == 'answer'){
 				createTrees(dm.answer);
 			}
+			else if (dm.type == 'question'){
+				document.getElementById('question').textContent = dm.question;
+			}
 			else if (dm.type == 'auto'){
 				console.log("ret message");
 				console.log(dm);
@@ -294,9 +297,9 @@
 			
 		}
 		function submitQuestion() {
-			var question = document.getElementById("equation").value;
-			var answer = "x";//document.getElementById("answer").value;
-			var jsonmessage = {type:"solve",question:question,answer:answer};
+			//var question = document.getElementById("equation").value;
+			//var answer = "x";//document.getElementById("answer").value;
+			var jsonmessage = {type:"question"};
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		function submitAnswer() {

@@ -2541,27 +2541,27 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//v8::String::Utf8Value s(isolate, info[0]);
 	//std::string q(*s);
 	
-	std::string str = makeQuestion("answerconstraints.csv");
-	std::cout << "question: " << str << "\n\n";
+	std::vector<std::string> str = makeQuestion("answerconstraints.csv");
+	//std::cout << "question: " << str << "\n\n";
 	correctAnswers.resize(0);
 	unfinishedAnswers.resize(0);
 	wrongAnswers.resize(0);
 	inputArray.resize(0);
 	
-	bool isCorrect = correctAnswer(str,"x");
+	bool isCorrect = correctAnswer(str[1],"x");
 	
 	//std::cout << "Time to correct: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	//Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	//std::string error = "None!";
 	//jsonmessage = "";
 
-	std::string error = fullAnswer(str,"x");
+	std::string error = fullAnswer(str[1],"x");
 
 	std::string jsonmessage = "outArray = [];\n";
 
 	
 
-	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(str[0]);
 
 	
 	info.GetReturnValue().Set(h.ToLocalChecked());

@@ -10,8 +10,9 @@ std::vector<std::string> makeAnswer(std::string input){
 	//return makeTree(postfixed)[0];
 }
 
-std::string makeQuestion(std::string fileName){
+std::vector<std::string> makeQuestion(std::string fileName){
 	std::vector<std::vector<std::string>> rawRules;
+	std::vector<std::vector<std::string>> question = {"",""};
 	
 	rapidcsv::Document doc("cpp/rules/"+fileName, rapidcsv::LabelParams(-1, -1));
 	
@@ -30,9 +31,11 @@ std::string makeQuestion(std::string fileName){
 	if (qTextRow.size() > 0){
 		qText = qTextRow[0];
 		std::cout << "question: " << qText << "\n\n";
+		question[0] = qText;
 	}
 	if (qRow.size() > 0){
 		q = qRow[0];
+		question[1] = q;
 	}
 	
 	for (i=6;i<nRows;i++){
@@ -89,5 +92,5 @@ std::string makeQuestion(std::string fileName){
 		
 		
 	}
-	return q;
+	return question;
 }
