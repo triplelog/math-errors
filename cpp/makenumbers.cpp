@@ -129,10 +129,10 @@ std::string makeInt(std::string input){
 		if (numbers.find(right) == numbers.end()){
 			std::cout << "is string: " << right << "\n";
 		}
-		r.left = numbers[left];
-		r.right = numbers[right];
-		std::cout << r.left.top << "\n";
-		std::cout << r.right.top << "\n";
+		r.left.push_back(numbers[left]);
+		r.right.push_back(numbers[right]);
+		std::cout << r.left[0].top << "\n";
+		std::cout << r.right[0].top << "\n";
 	}
 	//TODO: solve the postfix to create disjoint union
 	return postfixed;
