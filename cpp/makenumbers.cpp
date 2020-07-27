@@ -1,8 +1,16 @@
+struct Range {
+	std::vector<Number> left;
+	std::vector<Number> right;
+	std::vector<char> incexc;
+};
+
+
+
 std::string makeInt(std::string input){
 	std::vector<std::string> stack;
 	std::vector<std::string> rangeList;
 	int n =0;
-	int i;
+	int i; int ii;
 	bool inRange = false;
 	bool openPar = 0;
 	int rangeStart = 0;
@@ -89,6 +97,43 @@ std::string makeInt(std::string input){
 	std::cout << "newInput:" << input << "\n";
 	std::string postfixed = postfixify(input);
 	std::cout << postfixed << "\n";
+	for (i=0;i<rangeList;i++){
+		Range r;
+		std::string left = "";
+		std::string right = "";
+		bool isRight = false;
+		for (ii=1;ii<rangeList[i].length()-1;ii++){
+			if (rangeList[i].at(ii) == ','){
+				isRight = true;
+			}
+			else if (isRight){
+				right += rangeList[i].at(ii);
+			}
+			else {
+				left += rangeList[i].at(ii);
+			}
+		}
+		if (numbers.find(left) == numbers.end()){
+			if (numberType(left) == "string"){
+				std::cout << "is string: " << left << "\n";
+			}
+		}
+		if (numbers.find(left) == numbers.end()){
+			std::cout << "is string: " << left << "\n";
+		}
+		if (numbers.find(right) == numbers.end()){
+			if (numberType(right) == "string"){
+				std::cout << "is string: " << right << "\n";
+			}
+		}
+		if (numbers.find(right) == numbers.end()){
+			std::cout << "is string: " << right << "\n";
+		}
+		r.left = numbers[left];
+		r.right = numbers[right];
+		std::cout << r.left.top << "\n";
+		std::cout << r.right.top << "\n";
+	}
 	//TODO: solve the postfix to create disjoint union
 	return postfixed;
 }

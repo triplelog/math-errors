@@ -4,6 +4,62 @@ struct Number {
 	std::string top = "";
 	std::string bottom = "";
 };
+inline bool operator>(const Number& a, const Number& b){
+	if (a.type == 1){
+		if (b.type == 1){
+			if (a.top.length()>b.top.length()){
+				return true;
+			}
+			else if (a.top.length()<b.top.length()){
+				return false;
+			}
+			else {
+				int ii;
+				for (ii=0;ii<a.top.length();ii++){
+					if (a.top.at(ii) > b.top.at(ii)){
+						return true;
+					}
+					else if (a.top.at(ii) < b.top.at(ii)){
+						return false;
+					}
+				}
+				return false;
+			}
+		}
+		else if (b.type == -1){
+			return true;
+		}
+	}
+	return true;
+}
+inline bool operator<(const Number& a, const Number& b){
+	if (a.type == 1){
+		if (b.type == 1){
+			if (a.top.length()<b.top.length()){
+				return true;
+			}
+			else if (a.top.length()>b.top.length()){
+				return false;
+			}
+			else {
+				int ii;
+				for (ii=0;ii<a.top.length();ii++){
+					if (a.top.at(ii) < b.top.at(ii)){
+						return true;
+					}
+					else if (a.top.at(ii) > b.top.at(ii)){
+						return false;
+					}
+				}
+				return false;
+			}
+		}
+		else if (b.type == -1){
+			return false;
+		}
+	}
+	return true;
+}
 flat_hash_map<std::string,Number> numbers;
 
 std::string numberType(std::string input){
@@ -127,23 +183,25 @@ std::string addTwo(std::string a, std::string b){
 	int base = 10;
 	Number numA;
 	Number numB;
-	if (numbers.find(a) != numbers.end()){
+	if (numbers.find(a) == numbers.end()){
 		if (numberType(a) == "string"){
 			return "false";
 		}
-		else{
-			numA = numbers[a];
-		}
 	}
-	if (numbers.find(b) != numbers.end()){
+	if (numbers.find(a) == numbers.end()){
+		return "false";
+	}
+	
+	if (numbers.find(b) == numbers.end()){
 		if (numberType(b) == "string"){
 			return "false";
 		}
-		else{
-			numB = numbers[b];
-		}
 	}
-	
+	if (numbers.find(b) == numbers.end()){
+		return "false";
+	}
+	numA = numbers[a];
+	numB = numbers[b];
 	if (numA.type == 1 && numB.type == 1){
 		a = numA.top;
 		b = numB.top;
