@@ -1,5 +1,5 @@
 std::string makeInt(std::string input){
-	std::vector<std::string> union;
+	std::vector<std::string> stack;
 	std::vector<std::string> rangeList;
 	int n =0;
 	int i;
