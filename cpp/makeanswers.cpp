@@ -20,7 +20,7 @@ std::string makeQuestion(std::string fileName){
 	
 	std::cout << "Rows: " << nRows << "\n";
 	if (nRows<6){
-		return;
+		return "";
 	}
 	std::string qText = "";
 	std::string q = "";

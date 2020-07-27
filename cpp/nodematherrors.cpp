@@ -2555,7 +2555,7 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//std::string error = "None!";
 	//jsonmessage = "";
 
-	error = fullAnswer(str,"x");
+	std::string error = fullAnswer(str,"x");
 
 	std::string jsonmessage = "outArray = [];\n";
 
