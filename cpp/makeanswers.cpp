@@ -12,7 +12,7 @@ std::vector<std::string> makeAnswer(std::string input){
 
 std::vector<std::string> makeQuestion(std::string fileName){
 	std::vector<std::vector<std::string>> rawRules;
-	std::vector<std::vector<std::string>> question = {"",""};
+	std::vector<std::string> question = {"",""};
 	
 	rapidcsv::Document doc("cpp/rules/"+fileName, rapidcsv::LabelParams(-1, -1));
 	
