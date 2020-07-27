@@ -97,7 +97,7 @@ std::string makeInt(std::string input){
 	std::cout << "newInput:" << input << "\n";
 	std::string postfixed = postfixify(input);
 	std::cout << postfixed << "\n";
-	for (i=0;i<rangeList;i++){
+	for (i=0;i<rangeList.size();i++){
 		Range r;
 		std::string left = "";
 		std::string right = "";
