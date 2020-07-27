@@ -83,8 +83,10 @@ std::string makeInt(std::string input){
 			
 			}
 		}
+		std::cout << "newInput:" << input << " @ " << i << "\n";
 	}
 	//TODO: postfix the new input
+	std::cout << "newInput:" << input << "\n";
 	std::string postfixed = postfixify(input);
 	std::cout << postfixed << "\n";
 	//TODO: solve the postfix to create disjoint union
