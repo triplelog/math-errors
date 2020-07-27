@@ -26,7 +26,7 @@ std::string makeInt(std::string input){
 					inRange = false;
 					rangeEnd = i;
 					rangeList.push_back(input.substr(rangeStart,rangeEnd+1-rangeStart));
-					ns = std::to_string(n)''
+					ns = std::to_string(n);
 					input.replace(rangeStart,rangeEnd+1-rangeStart,ns);
 					i-=rangeEnd+1-rangeStart-ns.length();
 					n++;
@@ -43,7 +43,7 @@ std::string makeInt(std::string input){
 					inRange = false;
 					rangeEnd = i;
 					rangeList.push_back(input.substr(rangeStart,rangeEnd+1-rangeStart));
-					ns = std::to_string(n)''
+					ns = std::to_string(n);
 					input.replace(rangeStart,rangeEnd+1-rangeStart,ns);
 					i-=rangeEnd+1-rangeStart-ns.length();
 					n++;
@@ -60,7 +60,7 @@ std::string makeInt(std::string input){
 					inRange = false;
 					rangeEnd = i;
 					rangeList.push_back(input.substr(rangeStart,rangeEnd+1-rangeStart));
-					ns = std::to_string(n)''
+					ns = std::to_string(n);
 					input.replace(rangeStart,rangeEnd+1-rangeStart,ns);
 					i-=rangeEnd+1-rangeStart-ns.length();
 					n++;
