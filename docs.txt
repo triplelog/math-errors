@@ -12,3 +12,40 @@ lnln(x) is ln(ln(x)).
 loglog_b(x) is log_b(log_b(x)).
 logloglog_b(x) is log_b(log_b(log_b(x))).
 log^3(x) is (ln(x))^3
+
+
+# Create Topic
+Rule,"Sum Rule","HTML Explanation"
+input,output,correct/incorrect/example,explanation,constraint(s)
+
+
+## Constraints
+
+
+
+
+
+## Answers
+
+
+
+
+## Questions
+first row is dewey category and optional name of question
+second row is matching rules/instructions as dewey(+r)(+g) for required and/or graded
+third row is human text of question
+fourth row is computer text of question
+fifth row is human text of answer
+sixth row is computer text of answer from inputs of human text
+extra rows are constraints as "q" or "a" followed by constraint or "t" followed by list of tags
+then at least one blank row
+
+# Constraints
+first column is "q" or "a"
+2nd column is what to match
+3rd column is type: i for incorrect, j for non-canonical, c for must-have, d for canonical-must-have, p for prompt if matches, q is prompt if no match
+optional 2nd char is commutative flag
+4th column is explanation if user's answer is incorrect
+5th columns are constraints
+
+

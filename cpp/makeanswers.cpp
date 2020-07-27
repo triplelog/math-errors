@@ -10,7 +10,7 @@ std::vector<std::string> makeAnswer(std::string input){
 	//return makeTree(postfixed)[0];
 }
 
-void makeAnswers(std::string fileName){
+std::string makeQuestion(std::string fileName){
 	std::vector<std::vector<std::string>> rawRules;
 	
 	rapidcsv::Document doc("cpp/rules/"+fileName, rapidcsv::LabelParams(-1, -1));
@@ -19,24 +19,35 @@ void makeAnswers(std::string fileName){
 	int i; int ii;
 	
 	std::cout << "Rows: " << nRows << "\n";
+	if (nRows<6){
+		return;
+	}
+	std::string qText = "";
+	std::string q = "";
 	
-	for (i=0;i<nRows;i++){
+	std::vector<std::string> qTextRow = doc.GetRow<std::string>(2);
+	std::vector<std::string> qRow = doc.GetRow<std::string>(3);
+	if (qTextRow.size() > 0){
+		qText = qTextRow[0];
+		std::cout << "question: " << qText << "\n\n";
+	}
+	if (qRow.size() > 0){
+		q = qRow[0];
+	}
+	
+	for (i=6;i<nRows;i++){
 		std::vector<std::string> rawRule = doc.GetRow<std::string>(i);
-		if (rawRule[0] == "Rule"){
-			if (i>0){
-				//jsonmessage += "rules.push(rule);";
-			}
-			//jsonmessage += "rule = {name:\""+rawRule[1]+"\",explanation:\""+rawRule[2]+"\",correct:[],incorrect:[],examples:[]}; rule['id'] = rules.length; \n";
-			
+		if (rawRule.size() < 3 || rawRule[0] != "q"){
+			continue;			
 		}
-		else if (rawRule[1] == "e"){
+		else if (rawRule[2] == "e"){
 			//jsonmessage += "rule.examples.push(\""+rawRule[0]+"\");\n";
 		}
-		else if (rawRule[1] == "c"){
+		else if (rawRule[2] == "c"){
 			rawRules.push_back(rawRule);
 			//jsonmessage += "rule.correct.push(\""+rawRule[0]+"\");\n";
 		}
-		else if (rawRule[1] == "i"){
+		else if (rawRule[2] == "i"){
 			rawRules.push_back(rawRule);
 			//jsonmessage += "rule.incorrect.push(\""+rawRule[0]+"\");\n";
 		}
@@ -52,16 +63,16 @@ void makeAnswers(std::string fileName){
 	for (i=0;i<rawRules.size();i++){
 		std::vector<std::string> rule;
 
-		fullPost = makeAnswer(rawRules[i][0]);
+		fullPost = makeAnswer(rawRules[i][1]);
 		key = fullPost[0];
 		val1 = fullPost[1];
-		rule = {val1,rawRules[i][1],rawRules[i][2]};
+		rule = {val1,rawRules[i][2],rawRules[i][3]};
 			
 
 		//TODO: add more constraint options
 		
-		if (rawRules[i].size()>3){
-			std::string constraint = constraintify(rawRules[i][4]);
+		if (rawRules[i].size()>4){
+			std::string constraint = constraintify(rawRules[i][5]);
 			std::string postfixed = postfixify(constraint);
 			std::cout <<" postfixed " << postfixed << "\n";
 			rule.push_back(postfixed);
@@ -78,4 +89,5 @@ void makeAnswers(std::string fileName){
 		
 		
 	}
+	return q;
 }

@@ -2162,7 +2162,7 @@ void initialRun(){
 	auto t1 = std::chrono::high_resolution_clock::now();
 	makeRules("derivatives.csv");
 	makeRules("arithmetic.csv");
-	makeAnswers("answerconstraints.csv");
+	
 	auto t2 = std::chrono::high_resolution_clock::now();
 }
 
@@ -2533,11 +2533,49 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
+void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+	v8::Isolate* isolate = info.GetIsolate();
+	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
+	//int row = info[0]->Int32Value(context).FromJust();
+	
+	//v8::String::Utf8Value s(isolate, info[0]);
+	//std::string q(*s);
+	
+	std::string str = makeQuestion("answerconstraints.csv");
+	std::cout << "question: " << str << "\n\n";
+	correctAnswers.resize(0);
+	unfinishedAnswers.resize(0);
+	wrongAnswers.resize(0);
+	inputArray.resize(0);
+	
+	bool isCorrect = correctAnswer(str,"x");
+	
+	//std::cout << "Time to correct: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
+	//Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
+	//std::string error = "None!";
+	//jsonmessage = "";
+
+	error = fullAnswer(str,"x");
+
+	std::string jsonmessage = "outArray = [];\n";
+
+	
+
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
+
+	
+	info.GetReturnValue().Set(h.ToLocalChecked());
+}
 void Init(v8::Local<v8::Object> exports) {
   v8::Local<v8::Context> context = exports->CreationContext();
   exports->Set(context,
                Nan::New("hello").ToLocalChecked(),
                Nan::New<v8::FunctionTemplate>(Hello)
+                   ->GetFunction(context)
+                   .ToLocalChecked());
+  exports->Set(context,
+               Nan::New("question").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(GetQuestion)
                    ->GetFunction(context)
                    .ToLocalChecked());
   exports->Set(context,
