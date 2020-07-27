@@ -37,7 +37,7 @@ std::string makeQuestion(std::string fileName){
 	
 	for (i=6;i<nRows;i++){
 		std::vector<std::string> rawRule = doc.GetRow<std::string>(i);
-		if (rawRule.size() < 3 || rawRule[0] != "q"){
+		if (rawRule.size() < 3 || rawRule[0] != "a"){
 			continue;			
 		}
 		else if (rawRule[2] == "e"){
