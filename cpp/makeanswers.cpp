@@ -301,7 +301,9 @@ std::string latexOne(std::string input) {
 		}
 		else {
 			listMap["#@" + std::to_string(idx) + "_"]=originalMap[idx];
+			lastOpMap["#@" + std::to_string(idx) + "_"]='#';
 			operandMap[i]=std::to_string(idx);
+			lastInput = originalMap[idx];
 			idx++;
 		}
 		
