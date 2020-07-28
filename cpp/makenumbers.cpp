@@ -247,7 +247,7 @@ Range solveRange(std::string postfix, std::vector<Range> rangeArray) {
 
 	return stack[0];
 }
-Number makeInt(std::string input){
+std::string makeInt(std::string input){
 	std::vector<std::string> rangeList;
 	std::vector<Range> rangeArray;
 	int n =0;
@@ -398,7 +398,7 @@ Number makeInt(std::string input){
 		//std::cout << outRange.left[i].top << " and " << outRange.right[i].top << " and " << outRange.incexc[i] << "\n";
 	}
 	for (ii=0;ii<100;ii++){
-		int rand = rand() % n;
+		int x = rand() % n;
 		int nn = 0;
 		int nnn = 0;
 		for (i=0;i<outRange.left.size();i++){
@@ -411,12 +411,12 @@ Number makeInt(std::string input){
 			else if (outRange.incexc[i] ==0){
 				nnn--;
 			}
-			if (nn+nnn>rand){
+			if (nn+nnn>x){
 				if (outRange.incexc[i] >= 2){
-					std::cout << (std::stoi(outRange.left[i].top) + rand-nn) << "  ";
+					std::cout << (std::stoi(outRange.left[i].top) + x-nn) << "  ";
 				}
 				else {
-					std::cout << (std::stoi(outRange.left[i].top) + 1 + rand-nn) << "  ";
+					std::cout << (std::stoi(outRange.left[i].top) + 1 + x-nn) << "  ";
 				}
 			}
 			//std::cout << outRange.left[i].top << " and " << outRange.right[i].top << " and " << outRange.incexc[i] << "\n";
