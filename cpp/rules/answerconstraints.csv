@@ -24,7 +24,7 @@ A
 "a",A^1,i,""
 "t",mc
 
-calculus.derivatives.power.0,"Power Rule"
+algebra.derivatives.power.0,"Power Rule"
 "What is the derivative of $x^A$?"
 ddx(x^A)
 "<input name='A'></input>"
