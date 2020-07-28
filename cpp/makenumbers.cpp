@@ -247,7 +247,7 @@ Range solveRange(std::string postfix, std::vector<Range> rangeArray) {
 }
 std::string makeInt(std::string input){
 	std::vector<std::string> rangeList;
-	std::vector<Range> rangeArray
+	std::vector<Range> rangeArray;
 	int n =0;
 	int i; int ii;
 	bool inRange = false;
