@@ -404,9 +404,7 @@ std::vector<std::string> autocomplete(std::vector<std::string> inputArray, std::
 	std::vector<Autocomplete> shortAnswers;
 	int i;
 	int ias = inputArray.size();
-	if (ias < 12){
-		return inputArray;
-	}
+	
 	answers.resize(ias);
 	//shortAnswers.resize(ias);
 	
@@ -422,11 +420,16 @@ std::vector<std::string> autocomplete(std::vector<std::string> inputArray, std::
 		//std::cout << "distance: " << autoDistance(ca,rawAnswer) << " of "<< inputify(iter->first) << "\n";
 		
 	}
+	if (ias > 12){
+		ias = 12;
+	}
+
+	std::sort(answers.begin(),answers.begin()+ias,answers.end());
+
 	
-	std::partial_sort(answers.begin(),answers.begin()+12,answers.end());
 	std::vector<std::string> returnAnswers;
-	returnAnswers.resize(12);
-	for (i=0;i<12;i++){
+	returnAnswers.resize(ias);
+	for (i=0;i<ias;i++){
 		returnAnswers[i] = answers[i].answer;
 		std::cout << answers[i].answer << " with d="<< answers[i].d <<"\n";
 	}
