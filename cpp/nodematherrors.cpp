@@ -2415,6 +2415,7 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//v8::String::Utf8Value s(isolate, info[0]);
 	//std::string str(*s);
 	jsonmessage = "var rule = {};";
+	srand(time(NULL));
 	initialRun();
 	//makeInt("[10,12)U((0,5)U[4,6]U(8,10])");
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
