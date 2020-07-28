@@ -387,7 +387,7 @@ std::string makeInt(std::string input){
 	Range outRange = solveRange(postfixed,rangeArray);
 	n =0;
 	for (i=0;i<outRange.left.size();i++){
-		n += (outRange.right[i].top - outRange.left[i].top);
+		n += (std::stoi(outRange.right[i].top) - std::stoi(outRange.left[i].top));
 		//TODO: make this work for numbers outside of int range
 		if (outRange.incexc[i] == 3){
 			n++;
