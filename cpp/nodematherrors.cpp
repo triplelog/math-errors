@@ -2538,7 +2538,6 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	auto a1 = std::chrono::high_resolution_clock::now();
-	duration1 += dd1;
 	std::vector<Question> qs = makeQuestions("answerconstraints.csv");
 	auto a2 = std::chrono::high_resolution_clock::now();
 	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
