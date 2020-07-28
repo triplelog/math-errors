@@ -51,7 +51,7 @@ function drawDeformedOval( circle,frequency, magnitude,seed) {
             var radius = circle.radius * (1 + magnitude * deformation);
 			var angAdj = angle % (Math.PI / 2);
 			angAdj = (Math.PI / 4)*(Math.PI / 4) - (angAdj - Math.PI / 4)*(angAdj - Math.PI / 4);
-			angAdj = .95 + angAdj/5;
+			angAdj = .9 + angAdj/5;
 			//console.log(angle,angAdj);
 			radius *= angAdj;
             // Extend the circle to this deformed radius
@@ -160,15 +160,18 @@ function drawLines(xc,yc,r){
 //drawFlower({x:100,y:100,radius:50},2.0,0.5,0.1,0.01,300);
 var svg = '<html><body><svg height="216" width="1080">';
 
+var startX = 0;
 for (var i=0;i<10;i++){
 	noise = OpenSimplexNoise.makeNoise3D(Date.now());
 	noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
-	var end3 = drawDot({x:15+120*i,y:15,radius:15},3.0,0.05,0.09,1.5,3);
+	var end3 = drawDot({x:startX+5,y:5,radius:5},3.0,0.05,0.09,1.5,3);
 	svg += end3;
+	startX += 10;
 	noise = OpenSimplexNoise.makeNoise3D(Date.now());
 	noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
-	var end3 = drawDash({x:75+120*i,y:15,radius:15},3.0,0.05,0.09,.7,3);
+	var end3 = drawDash({x:startX+15,y:5,radius:5},3.0,0.05,0.09,.7,3);
 	svg += end3;
+	startX += 30;
 }
 /*
 var noise = OpenSimplexNoise.makeNoise3D(Date.now());
