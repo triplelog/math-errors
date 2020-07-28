@@ -195,11 +195,11 @@ for (var y=5;y<66;y+=16){
 		noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
 		var count = 2;
 		for (var ii=0;ii<count;ii++){
-			if (Math.random()<.5){
-				h.push(10 + noise2D(.9-ii/count*.8,.1+ii/count*.8)*100);
+			if (Math.random()<.25){
+				h.push(0 + noise2D(.9-ii/count*.8,.1+ii/count*.8)*60);
 			}
 			else {
-				h.push(250 + noise2D(.9-ii/count*.8,.1+ii/count*.8)*100);
+				h.push(180 + noise2D(.9-ii/count*.8,.1+ii/count*.8)*180);
 			}
 			
 			s.push((35 + noise2D(.1+ii/count*.8,.9-ii/count*.8)*40)+'%');
