@@ -458,13 +458,13 @@ std::vector<Question> makeQuestions(std::string fileName){
 	int startIdx = 0;
 	int idx = 0;
 	int oldIdx = 0;
+	auto a0 = std::chrono::high_resolution_clock::now();
 	for (idx=0;idx<nRows;idx++){
 
 		std::vector<std::vector<std::string>> rawRules;
 
 		int i; int ii;
 	
-		std::cout << "Rows: " << nRows << "\n";
 		if (nRows<startIdx+5){
 			break;
 		}
@@ -508,10 +508,16 @@ std::vector<Question> makeQuestions(std::string fileName){
 			}
 		
 		}
-	
+		
+		auto a1 = std::chrono::high_resolution_clock::now();
 		Question q = makeQuestion(doc.GetRow<std::string>(oldIdx+2)[0], doc.GetRow<std::string>(oldIdx+1)[0], varMap);
 		q.rawRules = rawRules;
 		questions.push_back(q);
+		auto a2 = std::chrono::high_resolution_clock::now();
+		int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+		std::cout << "time to makeQuestion(): " << dd1 << "\n";
+		int dd2 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a0 ).count();
+		std::cout << "time after rapidcsv: " << dd2 << "\n";
 		if (startIdx == oldIdx){
 			break;
 		}
