@@ -236,10 +236,10 @@ Range solveRange(std::string postfix, std::vector<Range> rangeArray) {
         { 
             switch (postfix.at(i)) 
             { 
-	            case -92: {
+	            case -91: {
 	            	stack[currentIndex-2] = unionTwo(stack[currentIndex-2],stack[currentIndex-1]); break;
 	            }  
-	            case -91: {
+	            case -92: {
 	            	stack[currentIndex-2] = intersectionTwo(stack[currentIndex-2],stack[currentIndex-1]); break;
 	            }          
             } 
