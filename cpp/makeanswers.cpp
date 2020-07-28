@@ -385,6 +385,7 @@ std::vector<std::string> makeQuestion(std::string fileName){
 	
 	flat_hash_map<char,std::string> varMap;
 	for (i=6;i<nRows;i++){
+		std::cout << "row len: "<< doc.GetRow<std::string>(i).length() << "\n";
 		std::vector<std::string> rawRule = doc.GetRow<std::string>(i);
 		if (rawRule.size() < 3 || rawRule[0] == "t"){
 			continue;			

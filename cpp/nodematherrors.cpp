@@ -50,12 +50,7 @@ int mapSave;
 int mapMake;
 bool answerIsCorrect;
 
-		
-
-
 #include "solve.cpp"
-
-
 
 flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 	int i; int ii;
@@ -327,8 +322,6 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 	return latexMap;
 }
 
-
-
 std::string removeBracketsOne(std::string input) {
 	flat_hash_map<int,int> operandToIndex;
 	int iii; int iiii;
@@ -493,8 +486,6 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 	}
 	return input;
 }
-
-
 
 std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
@@ -2421,6 +2412,7 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
+
 void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
@@ -2540,12 +2532,7 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
-	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
-	//int row = info[0]->Int32Value(context).FromJust();
-	
-	//v8::String::Utf8Value s(isolate, info[0]);
-	//std::string q(*s);
-	
+
 	std::vector<std::string> q = makeQuestion("answerconstraints.csv");
 	//std::cout << "question: " << str << "\n\n";
 	correctAnswers.resize(0);
@@ -2554,23 +2541,16 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	inputArray.resize(0);
 	
 	bool isCorrect = correctAnswer(q[1],"x");
-	
-	//std::cout << "Time to correct: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
-	//Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
-	//std::string error = "None!";
-	//jsonmessage = "";
 
 	std::string error = fullAnswer(q[1],"x");
 
-	std::string jsonmessage = "outArray = [];\n";
-
-	
 
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(q[0]);
 
 	
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
+
 void Init(v8::Local<v8::Object> exports) {
   v8::Local<v8::Context> context = exports->CreationContext();
   exports->Set(context,
