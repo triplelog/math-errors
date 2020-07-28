@@ -183,12 +183,15 @@ morseMap['e']=[1];
 morseMap['r']=[1,3,1];
 morseMap['o']=[3,3,3];
 morseMap['s']=[1,1,1];
+morseMap['0']=[3,3,3,3,3];
+morseMap[' ']=[];
 
-var message = 'matherrors';
-
+var messages = ['mather0rs','matherors','matherrors','math errors'];
+var idx = 0;
 for (var y=5;y<66;y+=20){
 	var startX = 0;
-	for (var i=0;i<10;i++){
+	var message = messages[idx];
+	for (var i=0;i<message.length;i++){
 		var letter = message.charAt(i);
 		var morse = morseMap[letter];
 		for (var ii=0;ii<morse.length;ii++){
