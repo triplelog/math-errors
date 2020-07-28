@@ -58,7 +58,7 @@ std::vector<std::string> makeQuestion(std::string fileName){
 				range += rawRule[ii];
 			}
 			std::cout << "range: "<< range << "\n";	
-			std::cout << makeInt(range) << "\n";			
+			std::cout << "random val: " << makeInt(range) << "\n";			
 		}
 		else if (rawRule[2] == "e"){
 			//jsonmessage += "rule.examples.push(\""+rawRule[0]+"\");\n";

@@ -335,7 +335,7 @@ std::string makeInt(std::string input){
 	}
 
 	std::string postfixed = postfixify(input);
-	std::cout << postfixed << "\n";
+	//std::cout << postfixed << "\n";
 	for (i=0;i<rangeList.size();i++){
 		Range r;
 		std::string left = "";
@@ -378,8 +378,8 @@ std::string makeInt(std::string input){
 			incexc += 1;
 		}
 		r.incexc.push_back(incexc);
-		std::cout << r.left[0].top << "\n";
-		std::cout << r.right[0].top << "\n";
+		//std::cout << r.left[0].top << "\n";
+		//std::cout << r.right[0].top << "\n";
 		rangeArray.push_back(r);
 	}
 	Range outRange = solveRange(postfixed,rangeArray);
