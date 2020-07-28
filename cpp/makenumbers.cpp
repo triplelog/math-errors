@@ -393,7 +393,7 @@ std::string makeInt(std::string input){
 		else if (outRange.incexc[i] ==0){
 			n--;
 		}
-		//std::cout << outRange.left[i].top << " and " << outRange.right[i].top << " and " << outRange.incexc[i] << "\n";
+		std::cout << outRange.left[i].top << " and " << outRange.right[i].top << " and " << outRange.incexc[i] << "\n";
 	}
 	std::string out = "";
 	//for (ii=0;ii<100;ii++){
