@@ -2,7 +2,7 @@
 const OpenSimplexNoise = require('open-simplex-noise');
 var fs = require("fs");
 
-function drawDash(circle,frequency, magnitude,independence, spacing,count) {
+function drawDash(circle,frequency, magnitude,independence, spacing,count,h,s,l) {
     // adjust the radius so will have roughly the same size irregardless of magnitude
     let current = {...circle};
     current.radius /= (magnitude + 1);
@@ -17,15 +17,12 @@ function drawDash(circle,frequency, magnitude,independence, spacing,count) {
     }
     var svg = '';
     for (var i=0;i<paths.length;i++){
-    	h = 30 + noise2D(.9-i/paths.length*.8,.1+i/paths.length*.8)*300;
-    	s = (35 + noise2D(.1+i/paths.length*.8,.9-i/paths.length*.8)*40)+'%';
-    	l = (50+Math.min(i%11,10-(i%11))*9)+'%';
-    	if (i%5==0){
-    		svg += '<path stroke="hsl('+h+','+s+','+l+')" fill="none" d="'+paths[i]+'" />';
-    	}
-    	else {
-    		svg += '<path stroke="hsl('+h+','+s+','+l+')" fill="none" d="'+paths[i]+'" />';
-    	}
+    	//h = 30 + noise2D(.9-i/paths.length*.8,.1+i/paths.length*.8)*300;
+    	//s = (35 + noise2D(.1+i/paths.length*.8,.9-i/paths.length*.8)*40)+'%';
+    	//l = (50+Math.min(i%11,10-(i%11))*9)+'%';
+
+    	svg += '<path stroke="hsl('+h[i]+','+s[i]+','+l[i]+')" fill="none" d="'+paths[i]+'" />';
+
     	
     }
     return svg;
@@ -61,7 +58,7 @@ function drawDeformedOval( circle,frequency, magnitude,seed) {
         return path;
 }
 
-function drawDot(circle,frequency, magnitude,independence, spacing,count) {
+function drawDot(circle,frequency, magnitude,independence, spacing,count,h,s,l) {
     // adjust the radius so will have roughly the same size irregardless of magnitude
     let current = {...circle};
     current.radius /= (magnitude + 1);
@@ -76,15 +73,11 @@ function drawDot(circle,frequency, magnitude,independence, spacing,count) {
     }
     var svg = '';
     for (var i=0;i<paths.length;i++){
-    	h = 30 + noise2D(.9-i/paths.length*.8,.1+i/paths.length*.8)*300;
-    	s = (35 + noise2D(.1+i/paths.length*.8,.9-i/paths.length*.8)*40)+'%';
-    	l = (50+Math.min(i%11,10-(i%11))*9)+'%';
-    	if (i%5==0){
-    		svg += '<path stroke="hsl('+h+','+s+','+l+')" fill="none" d="'+paths[i]+'" />';
-    	}
-    	else {
-    		svg += '<path stroke="hsl('+h+','+s+','+l+')" fill="none" d="'+paths[i]+'" />';
-    	}
+    	//h = 30 + noise2D(.9-i/paths.length*.8,.1+i/paths.length*.8)*300;
+    	//s = (35 + noise2D(.1+i/paths.length*.8,.9-i/paths.length*.8)*40)+'%';
+    	//l = (50+Math.min(i%11,10-(i%11))*9)+'%';
+
+    	svg += '<path stroke="hsl('+h[i]+','+s[i]+','+l[i]+')" fill="none" d="'+paths[i]+'" />';
     	
     }
     return svg;
@@ -162,16 +155,15 @@ var svg = '<html><body><svg height="216" width="1080" style="background-color:bl
 
 
 
-function dDot(startX,y){
+function dDot(startX,y,h,s,l){
 	noise = OpenSimplexNoise.makeNoise3D(Date.now());
 	noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
-	var end3 = drawDot({x:startX+5,y:y,radius:5},3.0,0.05,0.09,1.2,2);
+	var end3 = drawDot({x:startX+5,y:y,radius:5},3.0,0.05,0.09,1.2,2,h,s,l);
 	return end3;
 }
-function dDash(startX,y){
-	noise = OpenSimplexNoise.makeNoise3D(Date.now());
-	noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
-	var end3 = drawDash({x:startX+15,y:y,radius:5},3.0,0.05,0.09,.7,2);
+function dDash(startX,y,h,s,l){
+	
+	var end3 = drawDash({x:startX+15,y:y,radius:5},3.0,0.05,0.09,.7,2,h,s,l);
 	return end3;
 }
 var morseMap = {};
@@ -192,16 +184,28 @@ for (var y=5;y<66;y+=20){
 	var startX = 0;
 	var message = messages[idx];
 	idx++;
+	var h = [];
+	var s = [];
+	var l = [];
+	noise = OpenSimplexNoise.makeNoise3D(Date.now());
+	noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
+	var count = 2;
+	for (var i=0;i<count;i++){
+    	h.push(30 + noise2D(.9-i/count*.8,.1+i/count*.8)*300);
+    	s.push((35 + noise2D(.1+i/count*.8,.9-i/count*.8)*40)+'%');
+    	l.push((50+Math.min(i%11,10-(i%11))*9)+'%');
+    	
+    }
 	for (var i=0;i<message.length;i++){
 		var letter = message.charAt(i);
 		var morse = morseMap[letter];
 		for (var ii=0;ii<morse.length;ii++){
 			if (morse[ii]==3){
-				svg += dDash(startX,y);
+				svg += dDash(startX,y,h,s,l);
 				startX += 30;
 			}
 			else if (morse[ii]==1){
-				svg += dDot(startX,y);
+				svg += dDot(startX,y,h,s,l);
 				startX += 10;
 			}
 		}
