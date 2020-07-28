@@ -7,7 +7,7 @@ const assert = require('assert');
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/matherrors', {useNewUrlParser: true});
-var fromLogin = require('./login-server.js');
+var fromLogin = require('../login-server.js');
 var app = fromLogin.loginApp;
 var tempKeys = fromLogin.tempKeys;
 
@@ -28,7 +28,7 @@ const options = {
 
 
 
-const User = require('./models/user');
+const User = require('../models/user');
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
 // use static authenticate method of model in LocalStrategy
