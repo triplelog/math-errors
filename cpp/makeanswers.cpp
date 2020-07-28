@@ -364,7 +364,53 @@ std::vector<std::string> makeAnswer(std::string input){
 	//return makeTree(postfixed)[0];
 }
 
-std::vector<std::string> makeQuestion(std::string fileName){
+struct Question {
+	std::string text = "";
+	std::string comp = "";
+	std::vector<std::string> rawRules;
+}
+
+Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std::string> varMap){
+	Question question;
+	q = postfixify(qRow);
+	std::string newQ = replaceVars(q,varMap);
+	std::cout << "question for computer: " << newQ << "\n\n";
+	question.comp = newQ;
+
+	bool isMath = false;
+	std::string newText = "";
+	std::string currentMath = "";
+	for (i=0;i<qText.length();i++){
+		if (qText.at(i)== '$'){
+			if (isMath){
+				isMath = false;
+				std::cout << "cm: " << currentMath << "\n";
+				std::string pf = postfixify(currentMath);
+				std::cout << "pf: " << pf << "\n";
+				pf = replaceVars(pf,varMap);
+				std::cout << "pf: " << pf << "\n";
+				pf = latexOne(pf);
+				std::cout << "pf: " << pf << "\n";
+				
+				newText += pf;
+			}
+			else {
+				isMath = true;
+			}
+		}
+		else if (isMath) {
+			currentMath += qText.at(i);
+		}
+		else {
+			newText += qText.at(i);
+		}
+	}
+
+	question.text = newText;
+	//jsonmessage += "rules.push(rule);\n";
+}
+
+std::vector<std::string> makeQuestions(std::string fileName){
 	std::vector<std::vector<std::string>> rawRules;
 	std::vector<std::string> question = {"",""};
 	
@@ -377,16 +423,16 @@ std::vector<std::string> makeQuestion(std::string fileName){
 	if (nRows<6){
 		return question;
 	}
-	std::string qText = "";
-	std::string q = "";
-	
+
 	
 	
 	
 	flat_hash_map<char,std::string> varMap;
 	for (i=6;i<nRows;i++){
-		std::cout << "row len: "<< doc.GetRow<std::string>(i).size() << "\n";
 		std::vector<std::string> rawRule = doc.GetRow<std::string>(i);
+		if (rawRule.size() == 1 && rawRule[0] == ""){
+			break;
+		}
 		if (rawRule.size() < 3 || rawRule[0] == "t"){
 			continue;			
 		}
@@ -419,52 +465,9 @@ std::vector<std::string> makeQuestion(std::string fileName){
 		
 	}
 	
-	std::vector<std::string> qRow = doc.GetRow<std::string>(3);
-	if (qRow.size() > 0){
-		q = postfixify(qRow[0]);
-		std::string newQ = replaceVars(q,varMap);
-		std::cout << "question for computer: " << newQ << "\n\n";
-		question[1] = newQ;
-		
-	}
-	
-	std::vector<std::string> qTextRow = doc.GetRow<std::string>(2);
-	
-	if (qTextRow.size() > 0){
-		qText = qTextRow[0];
-		bool isMath = false;
-		std::string newText = "";
-		std::string currentMath = "";
-		for (i=0;i<qText.length();i++){
-			if (qText.at(i)== '$'){
-				if (isMath){
-					isMath = false;
-					std::cout << "cm: " << currentMath << "\n";
-					std::string pf = postfixify(currentMath);
-					std::cout << "pf: " << pf << "\n";
-					pf = replaceVars(pf,varMap);
-					std::cout << "pf: " << pf << "\n";
-					pf = latexOne(pf);
-					std::cout << "pf: " << pf << "\n";
-					
-					newText += pf;
-				}
-				else {
-					isMath = true;
-				}
-			}
-			else if (isMath) {
-				currentMath += qText.at(i);
-			}
-			else {
-				newText += qText.at(i);
-			}
-		}
-		std::cout << "question: " << newText << "\n\n";
-		question[0] = newText;
-	}
-	//jsonmessage += "rules.push(rule);\n";
-	
+	Question q = makeQuestion(doc.GetRow<std::string>(3)[0], doc.GetRow<std::string>(2)[0],flat_hash_map<char,std::string> varMap);
+	question[0] = q.text;
+	question[1] = q.comp;
 	
 	std::vector<std::string> fullPost;
 	std::string key;

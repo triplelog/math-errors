@@ -2533,7 +2533,7 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 
-	std::vector<std::string> q = makeQuestion("answerconstraints.csv");
+	std::vector<std::string> q = makeQuestions("answerconstraints.csv");
 	//std::cout << "question: " << str << "\n\n";
 	correctAnswers.resize(0);
 	unfinishedAnswers.resize(0);
