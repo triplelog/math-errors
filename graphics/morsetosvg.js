@@ -191,6 +191,7 @@ var idx = 0;
 for (var y=5;y<66;y+=20){
 	var startX = 0;
 	var message = messages[idx];
+	idx++;
 	for (var i=0;i<message.length;i++){
 		var letter = message.charAt(i);
 		var morse = morseMap[letter];
