@@ -27,19 +27,15 @@ std::vector<std::string> makeQuestion(std::string fileName){
 	std::string q = "";
 	
 	std::vector<std::string> qTextRow = doc.GetRow<std::string>(2);
-	std::vector<std::string> qRow = doc.GetRow<std::string>(3);
+	
 	if (qTextRow.size() > 0){
 		qText = qTextRow[0];
 		std::cout << "question: " << qText << "\n\n";
 		question[0] = qText;
 	}
-	if (qRow.size() > 0){
-		q = postfixify(qRow[0]);
-		std::cout << "question for computer: " << q << "\n\n";
-		question[1] = q;
-		
-	}
 	
+	
+	flat_hash_map<std::string,std::string> varMap;
 	for (i=6;i<nRows;i++){
 		std::vector<std::string> rawRule = doc.GetRow<std::string>(i);
 		if (rawRule.size() < 3 || rawRule[0] == "t"){
@@ -57,8 +53,8 @@ std::vector<std::string> makeQuestion(std::string fileName){
 				}
 				range += rawRule[ii];
 			}
-			std::cout << "range: "<< range << "\n";	
-			std::cout << "random val: " << makeInt(range) << "\n";			
+			std::cout << "range: "<< range << "\n";		
+			varMap[var]=makeInt(range);
 		}
 		else if (rawRule[2] == "e"){
 			//jsonmessage += "rule.examples.push(\""+rawRule[0]+"\");\n";
@@ -71,6 +67,47 @@ std::vector<std::string> makeQuestion(std::string fileName){
 			rawRules.push_back(rawRule);
 			//jsonmessage += "rule.incorrect.push(\""+rawRule[0]+"\");\n";
 		}
+		
+	}
+	
+	std::vector<std::string> qRow = doc.GetRow<std::string>(3);
+	if (qRow.size() > 0){
+		q = postfixify(qRow[0]);
+		bool pastKey = false;
+		std::string newQ = "";
+		std::string currentOperand = "";
+		for (ii=0;ii<q.length();ii++){
+
+			if (pastKey){
+				if (q.at(ii) == '_'){
+					if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
+						if (varMap.find(currentOperand.at(0)) != varMap.end()){
+							newQ += varMap[currentOperand.at(0)] + '_';
+						}
+						else {
+							newQ += currentOperand + '_';
+						}
+						
+					}
+					else {
+						
+					}
+					currentOperand = "";
+				}
+				else {
+					currentOperand += q.at(ii);
+				}
+			}
+			else {
+				if (q.at(ii) == '@'){
+					pastKey = true;
+				}
+				newQ += q.at(ii);
+			}
+				
+		}
+		std::cout << "question for computer: " << newQ << "\n\n";
+		question[1] = newQ;
 		
 	}
 	//jsonmessage += "rules.push(rule);\n";
