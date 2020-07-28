@@ -18,8 +18,8 @@ function drawDash(circle,frequency, magnitude,independence, spacing,count) {
     var svg = '';
     for (var i=0;i<paths.length;i++){
     	h = 30 + noise2D(.9-i/paths.length*.8,.1+i/paths.length*.8)*300;
-    	s = (35 + noise2D(.1+i/paths.length*.8,.9-i/paths.length*.8)*30)+'%';
-    	l = (45+Math.min(i%11,10-(i%11))*9)+'%';
+    	s = (35 + noise2D(.1+i/paths.length*.8,.9-i/paths.length*.8)*40)+'%';
+    	l = (50+Math.min(i%11,10-(i%11))*9)+'%';
     	if (i%5==0){
     		svg += '<path stroke="hsl('+h+','+s+','+l+')" fill="none" d="'+paths[i]+'" />';
     	}
@@ -77,8 +77,8 @@ function drawDot(circle,frequency, magnitude,independence, spacing,count) {
     var svg = '';
     for (var i=0;i<paths.length;i++){
     	h = 30 + noise2D(.9-i/paths.length*.8,.1+i/paths.length*.8)*300;
-    	s = (35 + noise2D(.1+i/paths.length*.8,.9-i/paths.length*.8)*30)+'%';
-    	l = (45+Math.min(i%11,10-(i%11))*9)+'%';
+    	s = (35 + noise2D(.1+i/paths.length*.8,.9-i/paths.length*.8)*40)+'%';
+    	l = (50+Math.min(i%11,10-(i%11))*9)+'%';
     	if (i%5==0){
     		svg += '<path stroke="hsl('+h+','+s+','+l+')" fill="none" d="'+paths[i]+'" />';
     	}
