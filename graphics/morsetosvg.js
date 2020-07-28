@@ -194,10 +194,10 @@ for (var y=5;y<66;y+=20){
 		noise = OpenSimplexNoise.makeNoise3D(Date.now());
 		noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
 		var count = 2;
-		for (var i=0;i<count;i++){
-			h.push(30 + noise2D(.9-i/count*.8,.1+i/count*.8)*300);
-			s.push((35 + noise2D(.1+i/count*.8,.9-i/count*.8)*40)+'%');
-			l.push((50+Math.min(i%11,10-(i%11))*9)+'%');
+		for (var ii=0;ii<count;ii++){
+			h.push(30 + noise2D(.9-ii/count*.8,.1+ii/count*.8)*300);
+			s.push((35 + noise2D(.1+ii/count*.8,.9-ii/count*.8)*40)+'%');
+			l.push((50+Math.min(ii%11,10-(ii%11))*9)+'%');
 		
 		}
 		for (var ii=0;ii<morse.length;ii++){
