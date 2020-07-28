@@ -466,7 +466,7 @@ std::vector<std::string> makeQuestions(std::string fileName){
 		
 	}
 	
-	Question q = makeQuestion(doc.GetRow<std::string>(3)[0], doc.GetRow<std::string>(2)[0],flat_hash_map<char,std::string> varMap);
+	Question q = makeQuestion(doc.GetRow<std::string>(3)[0], doc.GetRow<std::string>(2)[0], varMap);
 	question[0] = q.text;
 	question[1] = q.comp;
 	
