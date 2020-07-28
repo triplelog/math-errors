@@ -428,12 +428,10 @@ std::vector<std::string> autocomplete(std::vector<std::string> inputArray, std::
 	returnAnswers.resize(12);
 	for (i=0;i<12;i++){
 		returnAnswers[i] = answers[i].answer;
+		std::cout << answers[i].answer << " with d="<< answers[i].d <<"\n";
 	}
 	return returnAnswers;
 	
-	//for (i=0;i<10;i++){
-	//	std::cout << answers[i].answer << " with d="<< answers[i].d <<"\n";
-	//}
 	//std::cout << "question: " << inputify(newPostfix) << "with " << answers.size() << "\n";
 	//std::cout << "user answer: " << rawAnswer << "\n";
 	
