@@ -34,8 +34,10 @@ std::vector<std::string> makeQuestion(std::string fileName){
 		question[0] = qText;
 	}
 	if (qRow.size() > 0){
-		q = qRow[0];
+		q = postfixify(qRow[0]);
+		std::cout << "question for computer: " << q << "\n\n";
 		question[1] = q;
+		
 	}
 	
 	for (i=6;i<nRows;i++){

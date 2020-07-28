@@ -332,10 +332,8 @@ std::string makeInt(std::string input){
 			
 			}
 		}
-		std::cout << "newInput:" << input << " @ " << i << "\n";
 	}
-	//TODO: postfix the new input
-	std::cout << "newInput:" << input << "\n";
+
 	std::string postfixed = postfixify(input);
 	std::cout << postfixed << "\n";
 	for (i=0;i<rangeList.size();i++){
@@ -397,7 +395,8 @@ std::string makeInt(std::string input){
 		}
 		//std::cout << outRange.left[i].top << " and " << outRange.right[i].top << " and " << outRange.incexc[i] << "\n";
 	}
-	for (ii=0;ii<100;ii++){
+	std::string out = "";
+	//for (ii=0;ii<100;ii++){
 		int x = rand() % n;
 		int nn = 0;
 		int nnn = 0;
@@ -413,17 +412,19 @@ std::string makeInt(std::string input){
 			}
 			if (nn+nnn>x){
 				if (outRange.incexc[i] >= 2){
-					std::cout << (std::stoi(outRange.left[i].top) + x-nn) << "  ";
+					out = std::to_string(std::stoi(outRange.left[i].top) + x-nn);
+					//std::cout << (std::stoi(outRange.left[i].top) + x-nn) << "  ";
 				}
 				else {
-					std::cout << (std::stoi(outRange.left[i].top) + 1 + x-nn) << "  ";
+					out = std::to_string(std::stoi(outRange.left[i].top) + 1 + x-nn);
+					//std::cout << (std::stoi(outRange.left[i].top) + 1 + x-nn) << "  ";
 				}
 			}
 			//std::cout << outRange.left[i].top << " and " << outRange.right[i].top << " and " << outRange.incexc[i] << "\n";
 		}
-	}
-	std::cout << "\n";
+	//}
+	//std::cout << "\n";
 	
 
-	return postfixed;
+	return out;
 }
