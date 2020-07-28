@@ -151,7 +151,7 @@ function drawLines(xc,yc,r){
 
 
 //drawFlower({x:100,y:100,radius:50},2.0,0.5,0.1,0.01,300);
-var svg = '<html><body><svg height="216" width="1080" style="background-color:rgb(50,50,0);">';
+var svg = '<html><body><svg height="216" width="1080" style="background-color:rgb(0,80,0);">';
 
 
 
