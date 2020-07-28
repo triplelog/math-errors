@@ -23,3 +23,29 @@ A
 "a",A*0,i,""
 "a",A^1,i,""
 "t",mc
+
+calculus.derivatives.power.0,"Power Rule"
+"What is the derivative of $x^A$?"
+ddx(x^A)
+"<input name='A'></input>"
+A
+"q",A,int,[2,7]U(11,17]
+"a",ddx(A),i,""
+"a",A*1,i,""
+"a",A+0,i,""
+"a",A*0,i,""
+"a",A^1,i,""
+"t",mc
+
+calculus.derivatives.power.0,"Power Rule"
+"What is the derivative of $2*x^A$?"
+ddx(2*x^A)
+"<input name='A'></input>"
+A
+"q",A,int,[2,7]U(11,17]
+"a",ddx(A),i,""
+"a",A*1,i,""
+"a",A+0,i,""
+"a",A*0,i,""
+"a",A^1,i,""
+"t",mc
