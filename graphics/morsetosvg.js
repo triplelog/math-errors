@@ -151,7 +151,7 @@ function drawLines(xc,yc,r){
 
 
 //drawFlower({x:100,y:100,radius:50},2.0,0.5,0.1,0.01,300);
-var svg = '<html><body><svg height="216" width="1080" style="background-color:black">';
+var svg = '<html><body><svg height="216" width="1080" style="background-color:brown;">';
 
 
 
@@ -180,7 +180,7 @@ morseMap[' ']=[];
 
 var messages = ['mather0rs','matherors','matherrors','math errors'];
 var idx = 0;
-for (var y=5;y<66;y+=20){
+for (var y=5;y<66;y+=16){
 	var startX = 0;
 	var message = messages[idx];
 	idx++;
