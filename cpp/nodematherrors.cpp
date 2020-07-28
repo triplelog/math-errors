@@ -2257,7 +2257,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 #include "autocomplete.cpp"
 
 std::string fullAnswer(std::string s, std::string a){
-	std::string newPostfix = removeBracketsOne(postfixify(s));
+	std::string newPostfix = removeBracketsOne(s);
 	std::cout << "\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
 	answerListMap.clear();
 	reverseMap.clear();
@@ -2316,7 +2316,7 @@ std::string fullAnswer(std::string s, std::string a){
 
 bool correctAnswer(std::string s, std::string a){
 	//std::cout << "input: " << s << "\n";
-	std::string newPostfix = removeBracketsOne(postfixify(s));
+	std::string newPostfix = removeBracketsOne(s);
 	//std::cout << "postfixed: " << postfixify(s) << "\n";
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
 	mapSave = 0; mapMake = 0;
@@ -2545,27 +2545,27 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//v8::String::Utf8Value s(isolate, info[0]);
 	//std::string q(*s);
 	
-	std::vector<std::string> str = makeQuestion("answerconstraints.csv");
+	std::vector<std::string> q = makeQuestion("answerconstraints.csv");
 	//std::cout << "question: " << str << "\n\n";
 	correctAnswers.resize(0);
 	unfinishedAnswers.resize(0);
 	wrongAnswers.resize(0);
 	inputArray.resize(0);
 	
-	bool isCorrect = correctAnswer(str[1],"x");
+	bool isCorrect = correctAnswer(q[1],"x");
 	
 	//std::cout << "Time to correct: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	//Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	//std::string error = "None!";
 	//jsonmessage = "";
 
-	std::string error = fullAnswer(str[1],"x");
+	std::string error = fullAnswer(q[1],"x");
 
 	std::string jsonmessage = "outArray = [];\n";
 
 	
 
-	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(str[0]);
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(q[0]);
 
 	
 	info.GetReturnValue().Set(h.ToLocalChecked());
