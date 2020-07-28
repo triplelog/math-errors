@@ -100,12 +100,12 @@ function drawLines(xc,yc,r){
 
 
 //drawFlower({x:100,y:100,radius:50},2.0,0.5,0.1,0.01,300);
-var svg = '<html><body><svg height="200" width="1000">';
+var svg = '<html><body><svg height="216" width="1080">';
 
-for (var i=0;i<10;i++){
+for (var i=0;i<60;i++){
 	noise = OpenSimplexNoise.makeNoise3D(Date.now());
 	noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
-	var end3 = drawLogs({x:100*i,y:100,radius:40},2.0,0.033,0.09,.9,105);
+	var end3 = drawLogs({x:15+15*i,y:15,radius:15},2.0,0.033,0.09,.9,105);
 	svg += end3;
 }
 /*
