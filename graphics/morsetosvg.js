@@ -21,10 +21,10 @@ function drawDash(circle,frequency, magnitude,independence, spacing,count) {
     	s = (45 + noise2D(.1+i/paths.length*.8,.9-i/paths.length*.8)*5)+'%';
     	l = (25+Math.min(i%11,10-(i%11))*9)+'%';
     	if (i%5==0){
-    		svg += '<path fill="hsl('+h+','+s+','+l+')" stroke="none" d="'+paths[i]+'" />';
+    		svg += '<path stroke="hsl('+h+','+s+','+l+')" fill="none" d="'+paths[i]+'" />';
     	}
     	else {
-    		svg += '<path fill="hsl('+h+','+s+','+l+')" stroke="none" d="'+paths[i]+'" />';
+    		svg += '<path stroke="hsl('+h+','+s+','+l+')" fill="none" d="'+paths[i]+'" />';
     	}
     	
     }
@@ -80,10 +80,10 @@ function drawDot(circle,frequency, magnitude,independence, spacing,count) {
     	s = (45 + noise2D(.1+i/paths.length*.8,.9-i/paths.length*.8)*5)+'%';
     	l = (25+Math.min(i%11,10-(i%11))*9)+'%';
     	if (i%5==0){
-    		svg += '<path fill="hsl('+h+','+s+','+l+')" stroke="none" d="'+paths[i]+'" />';
+    		svg += '<path stroke="hsl('+h+','+s+','+l+')" fill="none" d="'+paths[i]+'" />';
     	}
     	else {
-    		svg += '<path fill="hsl('+h+','+s+','+l+')" stroke="none" d="'+paths[i]+'" />';
+    		svg += '<path stroke="hsl('+h+','+s+','+l+')" fill="none" d="'+paths[i]+'" />';
     	}
     	
     }
@@ -163,11 +163,11 @@ var svg = '<html><body><svg height="216" width="1080">';
 for (var i=0;i<10;i++){
 	noise = OpenSimplexNoise.makeNoise3D(Date.now());
 	noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
-	var end3 = drawDot({x:15+120*i,y:15,radius:15},5.0,0.1,0.09,.9,5);
+	var end3 = drawDot({x:15+120*i,y:15,radius:15},4.0,0.075,0.09,.9,5);
 	svg += end3;
 	noise = OpenSimplexNoise.makeNoise3D(Date.now());
 	noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
-	var end3 = drawDash({x:75+120*i,y:15,radius:15},5.0,0.1,0.09,.9,5);
+	var end3 = drawDash({x:75+120*i,y:15,radius:15},4.0,0.075,0.09,.9,5);
 	svg += end3;
 }
 /*
