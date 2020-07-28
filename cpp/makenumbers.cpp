@@ -246,8 +246,8 @@ Range solveRange(std::string postfix, std::vector<Range> rangeArray) {
 	return stack[0];
 }
 std::string makeInt(std::string input){
-	std::vector<Range> stack;
 	std::vector<std::string> rangeList;
+	std::vector<Range> rangeArray
 	int n =0;
 	int i; int ii;
 	bool inRange = false;
@@ -380,8 +380,9 @@ std::string makeInt(std::string input){
 		r.incexc.push_back(incexc);
 		std::cout << r.left[0].top << "\n";
 		std::cout << r.right[0].top << "\n";
+		rangeArray.push_back(r);
 	}
-	Range outRange = solveRange(postfixed,rangeList);
+	Range outRange = solveRange(postfixed,rangeArray);
 	for (i=0;i<outRange.left.size();i++){
 		std::cout << outRange.left[i] << " and " << outRange.right[i] << " and " << outRange.incexc[i] << "\n";
 	}
