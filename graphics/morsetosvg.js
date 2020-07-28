@@ -19,7 +19,7 @@ function drawDash(circle,frequency, magnitude,independence, spacing,count) {
     for (var i=0;i<paths.length;i++){
     	h = 30 + noise2D(.9-i/paths.length*.8,.1+i/paths.length*.8)*10;
     	s = (45 + noise2D(.1+i/paths.length*.8,.9-i/paths.length*.8)*5)+'%';
-    	l = (25+Math.min(i%11,10-(i%11))*9)+'%';
+    	l = (45+Math.min(i%11,10-(i%11))*9)+'%';
     	if (i%5==0){
     		svg += '<path stroke="hsl('+h+','+s+','+l+')" fill="none" d="'+paths[i]+'" />';
     	}
@@ -78,7 +78,7 @@ function drawDot(circle,frequency, magnitude,independence, spacing,count) {
     for (var i=0;i<paths.length;i++){
     	h = 30 + noise2D(.9-i/paths.length*.8,.1+i/paths.length*.8)*10;
     	s = (45 + noise2D(.1+i/paths.length*.8,.9-i/paths.length*.8)*5)+'%';
-    	l = (25+Math.min(i%11,10-(i%11))*9)+'%';
+    	l = (45+Math.min(i%11,10-(i%11))*9)+'%';
     	if (i%5==0){
     		svg += '<path stroke="hsl('+h+','+s+','+l+')" fill="none" d="'+paths[i]+'" />';
     	}
@@ -149,7 +149,7 @@ function drawLines(xc,yc,r){
 		const y = Math.sin(angle)*r + yc;
 		h = 30 + noise2D(.9-j/samples*.8,.1+j/samples*.8)*8;
     	s = (40 + noise2D(.1+j/samples*.8,.9-j/samples*.8)*4)+'%';
-    	l = (25+Math.min(j%11,10-(j%11))*1)+'%';
+    	l = (55+Math.min(j%11,10-(j%11))*3)+'%';
 		var color = 'hsl('+h+','+s+','+l+')';
 		svg += drawLine(x,y,color);
 	}
@@ -158,7 +158,7 @@ function drawLines(xc,yc,r){
 
 
 //drawFlower({x:100,y:100,radius:50},2.0,0.5,0.1,0.01,300);
-var svg = '<html><body><svg height="216" width="1080">';
+var svg = '<html><body><svg height="216" width="1080" style="background-color:black">';
 
 
 
