@@ -42,8 +42,20 @@ std::vector<std::string> makeQuestion(std::string fileName){
 	
 	for (i=6;i<nRows;i++){
 		std::vector<std::string> rawRule = doc.GetRow<std::string>(i);
-		if (rawRule.size() < 3 || rawRule[0] != "a"){
+		if (rawRule.size() < 3 || rawRule[0] == "t"){
 			continue;			
+		}
+		else if (rawRule[0] != "a" && rawRule[0] != "q"){
+			continue;			
+		}
+		else if (rawRule[0] == "q"){
+			std::string range = "";
+			std::string var = rawRule[1];
+			for (ii=3;ii<rawRule.size();ii++){
+				range += rawRule[ii];
+			}
+			std::cout << "range: "<< range << "\n";	
+			std::cout << makeInt(range) << "\n";			
 		}
 		else if (rawRule[2] == "e"){
 			//jsonmessage += "rule.examples.push(\""+rawRule[0]+"\");\n";

@@ -29,6 +29,7 @@ using phmap::flat_hash_map;
 
 std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect);
 bool checkAnswer(std::string answer);
+std::string makeInt(std::string input);
 flat_hash_map<char,int> prec;
 flat_hash_map<std::string,std::vector<std::vector<std::string>>> rules;
 flat_hash_map<std::string,std::vector<std::vector<std::string>>> answerConstraints;

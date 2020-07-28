@@ -4,6 +4,7 @@ calculus.derivatives.power+rg,calculus.derivatives+g
 ddx(x^A)
 "<input name='A'></input>"
 A
+"q",A,int,[2,7]U(11,17]
 "a",ddx(A),i,""
 "a",A*1,i,""
 "a",A+0,i,""
