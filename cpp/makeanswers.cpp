@@ -373,6 +373,7 @@ Question chooseQuestion(std::string dewey, std::vector<Question> questions){
 	std::string val1;
 	std::string out;
 	answerConstraints.clear();
+	int i;
 	for (i=0;i<q.rawRules.size();i++){
 		std::vector<std::string> rule;
 
