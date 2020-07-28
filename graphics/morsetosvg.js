@@ -52,8 +52,8 @@ function drawDeformedOval( circle,frequency, magnitude,seed) {
 			var angAdj = angle % (Math.PI / 2);
 			angAdj = (Math.PI / 4)*(Math.PI / 4) - (angAdj - Math.PI / 4)*(angAdj - Math.PI / 4);
 			angAdj = 1 + angAdj;
-			console.log(angle,angAdj);
-			//radius *= angAdj;
+			//console.log(angle,angAdj);
+			radius *= angAdj;
             // Extend the circle to this deformed radius
             path += (circle.x + radius * x * 3) + ','+(circle.y + radius * y)+' ';
         }
