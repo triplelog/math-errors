@@ -184,21 +184,22 @@ for (var y=5;y<66;y+=20){
 	var startX = 0;
 	var message = messages[idx];
 	idx++;
-	var h = [];
-	var s = [];
-	var l = [];
-	noise = OpenSimplexNoise.makeNoise3D(Date.now());
-	noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
-	var count = 2;
-	for (var i=0;i<count;i++){
-    	h.push(30 + noise2D(.9-i/count*.8,.1+i/count*.8)*300);
-    	s.push((35 + noise2D(.1+i/count*.8,.9-i/count*.8)*40)+'%');
-    	l.push((50+Math.min(i%11,10-(i%11))*9)+'%');
-    	
-    }
+	
 	for (var i=0;i<message.length;i++){
 		var letter = message.charAt(i);
 		var morse = morseMap[letter];
+		var h = [];
+		var s = [];
+		var l = [];
+		noise = OpenSimplexNoise.makeNoise3D(Date.now());
+		noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
+		var count = 2;
+		for (var i=0;i<count;i++){
+			h.push(30 + noise2D(.9-i/count*.8,.1+i/count*.8)*300);
+			s.push((35 + noise2D(.1+i/count*.8,.9-i/count*.8)*40)+'%');
+			l.push((50+Math.min(i%11,10-(i%11))*9)+'%');
+		
+		}
 		for (var ii=0;ii<morse.length;ii++){
 			if (morse[ii]==3){
 				svg += dDash(startX,y,h,s,l);
