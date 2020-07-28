@@ -431,7 +431,7 @@ std::vector<std::string> autocomplete(std::vector<std::string> inputArray, std::
 	returnAnswers.resize(ias);
 	for (i=0;i<ias;i++){
 		returnAnswers[i] = answers[i].answer;
-		std::cout << answers[i].answer << " with d="<< answers[i].d <<"\n";
+		//std::cout << answers[i].answer << " with d="<< answers[i].d <<"\n";
 	}
 	return returnAnswers;
 	
