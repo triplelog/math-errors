@@ -9,8 +9,8 @@ Range unionTwo(Range a, Range b) {
 	int bLast = b.left.size()-1;
 	Number temp;
 	for (ii=0;ii<a.left.size();ii++){
-		std::cout << "a: " << ii << " and " << a.left[ii] << " and " << a.right[ii] << "\n";
-		std::cout << "b: " << ii << " and " << b.left[bLast] << " and " << b.right[bLast] << "\n";
+		std::cout << "a: " << ii << " and " << a.left[ii].top << " and " << a.right[ii].top << "\n";
+		std::cout << "b: " << ii << " and " << b.left[bLast].top << " and " << b.right[bLast].top << "\n";
 		if (b.left[bLast] < a.left[ii]){
 			if (b.right[bLast] > a.left[ii]){
 				temp = a.left[ii];
@@ -203,8 +203,8 @@ Range unionTwo(Range a, Range b) {
 				}
 			}
 		}
-		std::cout << "aa: " << ii << " and " << a.left[ii] << " and " << a.right[ii] << "\n";
-		std::cout << "bb: " << ii << " and " << b.left[bLast] << " and " << b.right[bLast] << "\n";
+		std::cout << "aa: " << ii << " and " << a.left[ii].top << " and " << a.right[ii].top << "\n";
+		std::cout << "bb: " << ii << " and " << b.left[bLast].top << " and " << b.right[bLast].top << "\n";
 	}
 	a.left.push_back(b.left[bLast]);
 	a.right.push_back(b.right[bLast]);
@@ -391,7 +391,7 @@ std::string makeInt(std::string input){
 	Range outRange = solveRange(postfixed,rangeArray);
 	for (i=0;i<outRange.left.size();i++){
 		std::cout << outRange.left[i].top << " and " << outRange.right[i].top << " and " << outRange.incexc[i] << "\n";
-		std::cout << "comparison: " << (outRange.left[i].top > outRange.right[i].top) << "\n";
+		std::cout << "comparison: " << (outRange.left[i] > outRange.right[i]) << "\n";
 	}
 	//TODO: solve the postfix to create disjoint union
 	return postfixed;
