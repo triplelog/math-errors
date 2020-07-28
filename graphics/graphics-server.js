@@ -40,7 +40,7 @@ passport.deserializeUser(User.deserializeUser());
 
 var express = require('express');
 
-app.use('/',express.static('/'));
+app.use('/',express.static('./'));
 
 
 const server1 = https.createServer(options, app);
