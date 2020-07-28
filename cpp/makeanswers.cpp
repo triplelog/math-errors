@@ -368,7 +368,7 @@ struct Question {
 	std::string text = "";
 	std::string comp = "";
 	std::vector<std::string> rawRules;
-}
+};
 
 Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std::string> varMap){
 	Question question;
