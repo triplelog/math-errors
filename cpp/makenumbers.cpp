@@ -9,8 +9,6 @@ Range unionTwo(Range a, Range b) {
 	int bLast = b.left.size()-1;
 	Number temp;
 	for (ii=0;ii<a.left.size();ii++){
-		std::cout << "a: " << ii << " and " << a.left[ii].top << " and " << a.right[ii].top << "\n";
-		std::cout << "b: " << ii << " and " << b.left[bLast].top << " and " << b.right[bLast].top << "\n";
 		if (b.left[bLast] < a.left[ii]){
 			if (b.right[bLast] > a.left[ii]){
 				temp = a.left[ii];
@@ -203,8 +201,6 @@ Range unionTwo(Range a, Range b) {
 				}
 			}
 		}
-		std::cout << "aa: " << ii << " and " << a.left[ii].top << " and " << a.right[ii].top << "\n";
-		std::cout << "bb: " << ii << " and " << b.left[bLast].top << " and " << b.right[bLast].top << "\n";
 	}
 	a.left.push_back(b.left[bLast]);
 	a.right.push_back(b.right[bLast]);
@@ -212,7 +208,7 @@ Range unionTwo(Range a, Range b) {
 	return a;
 }
 Range intersectionTwo(Range a, Range b) {
-
+	//TODO: add intersection logic
 	return a;
 }
 Range solveRange(std::string postfix, std::vector<Range> rangeArray) {
@@ -251,10 +247,10 @@ Range solveRange(std::string postfix, std::vector<Range> rangeArray) {
 
 	return stack[0];
 }
-std::string makeInt(std::string input){
+Number makeInt(std::string input){
 	std::vector<std::string> rangeList;
 	std::vector<Range> rangeArray;
-	int n =0;
+	
 	int i; int ii;
 	bool inRange = false;
 	bool openPar = 0;
@@ -389,10 +385,45 @@ std::string makeInt(std::string input){
 		rangeArray.push_back(r);
 	}
 	Range outRange = solveRange(postfixed,rangeArray);
+	int n =0;
 	for (i=0;i<outRange.left.size();i++){
-		std::cout << outRange.left[i].top << " and " << outRange.right[i].top << " and " << outRange.incexc[i] << "\n";
-		std::cout << "comparison: " << (outRange.left[i] > outRange.right[i]) << "\n";
+		n += (outRange.right[i].top - outRange.left[i].top);
+		//TODO: make this work for numbers outside of int range
+		if (outRange.incexc[i] == 3){
+			n++;
+		}
+		else if (outRange.incexc[i] ==0){
+			n--;
+		}
+		//std::cout << outRange.left[i].top << " and " << outRange.right[i].top << " and " << outRange.incexc[i] << "\n";
 	}
-	//TODO: solve the postfix to create disjoint union
+	for (ii=0;ii<100;ii++){
+		int rand = rand() % n;
+		int nn = 0;
+		int nnn = 0;
+		for (i=0;i<outRange.left.size();i++){
+			nnn = 0;
+			nnn += (outRange.right[i].top - outRange.left[i].top);
+			//TODO: make this work for numbers outside of int range
+			if (outRange.incexc[i] == 3){
+				nnn++;
+			}
+			else if (outRange.incexc[i] ==0){
+				nnn--;
+			}
+			if (nn+nnn>rand){
+				if (outRange.incexc[i] >= 2){
+					std::cout << (outRange.left[i].top + rand-nn) << "  ";
+				}
+				else {
+					std::cout << (outRange.left[i].top + 1 + rand-nn) << "  ";
+				}
+			}
+			//std::cout << outRange.left[i].top << " and " << outRange.right[i].top << " and " << outRange.incexc[i] << "\n";
+		}
+	}
+	std::cout << "\n";
+	
+
 	return postfixed;
 }
