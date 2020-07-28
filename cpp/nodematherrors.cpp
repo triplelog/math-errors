@@ -2537,9 +2537,16 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
-
+	auto a1 = std::chrono::high_resolution_clock::now();
+	duration1 += dd1;
 	std::vector<Question> qs = makeQuestions("answerconstraints.csv");
+	auto a2 = std::chrono::high_resolution_clock::now();
+	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	std::cout << "time to make questions: " << dd1 << "\n";
 	Question question = chooseQuestion("blank",qs);
+	auto a3 = std::chrono::high_resolution_clock::now();
+	int dd2 = std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
+	std::cout << "time to choose question: " << dd2 << "\n";
 	//std::cout << "question: " << str << "\n\n";
 	correctAnswers.resize(0);
 	unfinishedAnswers.resize(0);
