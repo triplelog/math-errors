@@ -160,18 +160,18 @@ function drawLines(xc,yc,r){
 //drawFlower({x:100,y:100,radius:50},2.0,0.5,0.1,0.01,300);
 var svg = '<html><body><svg height="216" width="1080">';
 
-var startX = 0;
 
-function dDot(startX){
+
+function dDot(startX,y){
 	noise = OpenSimplexNoise.makeNoise3D(Date.now());
 	noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
-	var end3 = drawDot({x:startX+5,y:5,radius:5},3.0,0.05,0.09,1.2,2);
+	var end3 = drawDot({x:startX+5,y:y,radius:5},3.0,0.05,0.09,1.2,2);
 	return end3;
 }
-function dDash(startX){
+function dDash(startX,y){
 	noise = OpenSimplexNoise.makeNoise3D(Date.now());
 	noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
-	var end3 = drawDash({x:startX+15,y:5,radius:5},3.0,0.05,0.09,.7,2);
+	var end3 = drawDash({x:startX+15,y:y,radius:5},3.0,0.05,0.09,.7,2);
 	return end3;
 }
 var morseMap = {};
@@ -185,24 +185,27 @@ morseMap['o']=[3,3,3];
 morseMap['s']=[1,1,1];
 
 var message = 'matherrors';
-for (var i=0;i<10;i++){
-	var letter = message.charAt(i);
-	var morse = morseMap[letter];
-	for (var ii=0;ii<morse.length;ii++){
-		if (morse[ii]==3){
-			svg += dDash(startX);
-			startX += 30;
+
+for (var y=5;y<36;y+=10){
+	var startX = 0;
+	for (var i=0;i<10;i++){
+		var letter = message.charAt(i);
+		var morse = morseMap[letter];
+		for (var ii=0;ii<morse.length;ii++){
+			if (morse[ii]==3){
+				svg += dDash(startX,y);
+				startX += 30;
+			}
+			else if (morse[ii]==1){
+				svg += dDot(startX,y);
+				startX += 10;
+			}
 		}
-		else if (morse[ii]==1){
-			svg += dDot(startX);
-			startX += 10;
-		}
+		startX += 10;
+	
 	}
-	startX += 10;
-	
-	
-	
 }
+
 /*
 var noise = OpenSimplexNoise.makeNoise3D(Date.now());
 var noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
