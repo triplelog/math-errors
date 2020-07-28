@@ -60,6 +60,12 @@ inline bool operator<(const Number& a, const Number& b){
 	}
 	return true;
 }
+inline bool operator==(const Number& a, const Number& b){
+	if (!a<b && !a>b){
+		return true;
+	}
+	return false;
+}
 flat_hash_map<std::string,Number> numbers;
 
 std::string numberType(std::string input){

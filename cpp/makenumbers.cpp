@@ -4,10 +4,249 @@ struct Range {
 	std::vector<char> incexc;
 };
 
+Range unionTwo(Range a, Range b) {
+	int i; int ii;
+	int bLast = b.left.size()-1;
+	Number temp;
+	for (ii=0;ii<a.left.size();ii++){
+		if (b.left[bLast] < a.left[ii]){
+			if (b.right[bLast] > a.left[ii]){
+				temp = a.left[ii];
+				a.left[ii] = b.left[bLast];
+				if (b.incexc[bLast] >= 2 && a.incexc[ii] < 2){
+					a.incexc[ii] += 2;
+					b.incexc[ii] -= 2;
+				}
+				else if (b.incexc[bLast] < 2 && a.incexc[ii] >= 2) {
+					a.incexc[ii] -= 2;
+					b.incexc[ii] += 2;
+				}
+				b.left[bLast] = temp;
+				return unionTwo(a,b);
+			}
+			else if ((b.right[bLast] == a.left[ii] && (b.incexc[bLast]%2==0) && (a.incexc[ii] <2)) || (b.right[bLast] < a.left[ii])){
+				a.left.insert(a.left.begin()+ii,b.left[bLast]);
+				a.right.insert(a.right.begin()+ii,b.right[bLast]);
+				a.incexc.insert(a.incexc.begin()+ii,b.incexc[bLast]);
+				
+				if (bLast>0){
+					b.left.pop_back();
+					b.right.pop_back();
+					b.incexc.pop_back();
+					return unionTwo(a,b);
+				}
+				else {
+					return a;
+				}
+			}
+			else {
+				a.left[ii] = b.left[bLast];
+				if (b.incexc[bLast] >= 2 && a.incexc[ii] < 2){
+					a.incexc[ii] += 2;
+				}
+				else if (b.incexc[bLast] < 2 && a.incexc[ii] >= 2) {
+					a.incexc[ii] -= 2;
+				}
+				
+				if (bLast>0){
+					b.left.pop_back();
+					b.right.pop_back();
+					b.incexc.pop_back();
+					return unionTwo(a,b);
+				}
+				else {
+					return a;
+				}
+				
+			}
+		}
+		else if (b.left[bLast] == a.left[ii]){
+			if (b.incexc[bLast] >= 2 && a.incexc[ii] < 2){
+				a.incexc[ii] += 2;
+			}
+			if (b.right[bLast] < a.right[ii]){
+				if (bLast>0){
+					b.left.pop_back();
+					b.right.pop_back();
+					b.incexc.pop_back();
+					return unionTwo(a,b);
+				}
+				else {
+					return a;
+				}
+			}
+			else if (b.right[bLast] == a.right[ii]){
+				if (b.incexc[bLast]%2 > a.incexc[ii]%2){
+					a.incexc[ii] += 1;
+				}
+				if (bLast>0){
+					b.left.pop_back();
+					b.right.pop_back();
+					b.incexc.pop_back();
+					return unionTwo(a,b);
+				}
+				else {
+					return a;
+				}
+			}
+			else {
+				b.left[bLast]=a.right[ii];
+				if (b.incexc[bLast]%2 == 0){
+					b.incexc[bLast]++;
+				}
+				return unionTwo(a,b);
+			}
+		}
+		else if (b.left[bLast] < a.right[ii]){
+			if (b.right[bLast] < a.right[ii]){
+				if (bLast>0){
+					b.left.pop_back();
+					b.right.pop_back();
+					b.incexc.pop_back();
+					return unionTwo(a,b);
+				}
+				else {
+					return a;
+				}
+			}
+			else if (b.right[bLast] == a.right[ii]){
+				if (b.incexc[bLast]%2 > a.incexc[ii]%2){
+					a.incexc[ii] += 1;
+				}
+				if (bLast>0){
+					b.left.pop_back();
+					b.right.pop_back();
+					b.incexc.pop_back();
+					return unionTwo(a,b);
+				}
+				else {
+					return a;
+				}
+			}
+			else {
+				b.left[bLast]=a.right[ii];
+				if (b.incexc[bLast]%2 == 0){
+					b.incexc[bLast]++;
+				}
+				return unionTwo(a,b);
+			}
+		}
+		else if (b.left[bLast] == a.right[ii]){
+			if (b.incexc[bLast]<2 && a.incexc[ii]%2 == 0){
+				continue;
+			}
+			if (ii == a.left.size()-1){
+				a.right[ii] = b.right[bLast];
+				if (b.incexc[bLast]%2 ==1 && a.incexc[ii]%2 ==0){
+					a.incexc[ii]++;
+				}
+				else if (b.incexc[bLast]%2 ==0 && a.incexc[ii]%2 ==1){
+					a.incexc[ii]--;
+				}
+				if (bLast>0){
+					b.left.pop_back();
+					b.right.pop_back();
+					b.incexc.pop_back();
+					return unionTwo(a,b);
+				}
+				else {
+					return a;
+				}
+			}
+			
+			if (b.right[bLast] > a.left[ii+1]){
+
+				a.left[ii+1] = a.left[ii];
+				if (a.incexc[ii+1]>= 2 && a.incexc[ii]<2){
+					a.incexc[ii+1]-=2;
+				}
+				else if (a.incexc[ii+1]<2 && a.incexc[ii]>=){
+					a.incexc[ii+1]+=2;
+				}
+				a.left.erase(a.left.begin()+ii);
+				a.right.erase(a.right.begin()+ii);
+				a.incexc.erase(a.incexc.begin()+ii);
+				return unionTwo(a,b);
+			}
+			else if (b.right[bLast] == a.left[ii+1] && !(b.incexc[bLast]%2 == 0 && a.incexc[ii+1] < 2) ){
+
+				a.left[ii+1] = a.left[ii];
+				if (a.incexc[ii+1]>= 2 && a.incexc[ii]<2){
+					a.incexc[ii+1]-=2;
+				}
+				else if (a.incexc[ii+1]<2 && a.incexc[ii]>=){
+					a.incexc[ii+1]+=2;
+				}
+				a.left.erase(a.left.begin()+ii);
+				a.right.erase(a.right.begin()+ii);
+				a.incexc.erase(a.incexc.begin()+ii);
+				return unionTwo(a,b);
+			}
+			else {
+				a.right[ii] = b.right[bLast];
+				if (b.incexc[bLast]%2 ==1 && a.incexc[ii]%2 ==0){
+					a.incexc[ii]++;
+				}
+				else if (b.incexc[bLast]%2 ==0 && a.incexc[ii]%2 ==1){
+					a.incexc[ii]--;
+				}
+				if (bLast>0){
+					b.left.pop_back();
+					b.right.pop_back();
+					b.incexc.pop_back();
+					return unionTwo(a,b);
+				}
+				else {
+					return a;
+				}
+			}
+		}
+	}
+	//TODO: add b to end of array
+	return a;
+}
+Range intersectionTwo(Range a, Range b) {
+
+	return a;
+}
+Range solveRange(std::string postfix, std::vector<Range> rangeArray) {
+	int i;
+  	int currentIndex = 0;
+  	int arrayIndex = 0;
+  	std::vector<Range> stack = rangeArray;
+
+    for (i=0; i<postfix.length(); i++) 
+    { 
+        if (postfix.at(i) == '#') {
+        	stack[currentIndex] = rangeArray[arrayIndex];
+        	currentIndex++;
+        	arrayIndex++;
+  
+        } 
+        else if (postfix.at(i) == '@') {
+        	break;
+        }
+        else 
+        { 
+            switch (postfix.at(i)) 
+            { 
+	            case -92: {
+	            	stack[currentIndex-2] = unionTwo(stack[currentIndex-2],stack[currentIndex-1]); break;
+	            }  
+	            case -91: {
+	            	stack[currentIndex-2] = intersectionTwo(stack[currentIndex-2],stack[currentIndex-1]); break;
+	            }          
+            } 
+            currentIndex--;
+        } 
+    } 
 
 
+
+	return stack[0];
+}
 std::string makeInt(std::string input){
-	std::vector<std::string> stack;
+	std::vector<Range> stack;
 	std::vector<std::string> rangeList;
 	int n =0;
 	int i; int ii;
@@ -131,6 +370,14 @@ std::string makeInt(std::string input){
 		}
 		r.left.push_back(numbers[left]);
 		r.right.push_back(numbers[right]);
+		char incexc{0};
+		if (rangeList[i].at(0)=='['){
+			incexc += 2;
+		}
+		if (rangeList[i].at(rangeList[i].length()-1)==']'){
+			incexc += 1;
+		}
+		r.incexc.push_back(incexc);
 		std::cout << r.left[0].top << "\n";
 		std::cout << r.right[0].top << "\n";
 	}
