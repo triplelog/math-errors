@@ -32,11 +32,10 @@ input,output,correct/incorrect/example,explanation,constraint(s)
 
 ## Questions
 first row is dewey category and optional name of question
-second row is matching rules/instructions as dewey(+r)(+g) for required and/or graded
-third row is human text of question
-fourth row is computer text of question
-fifth row is human text of answer
-sixth row is computer text of answer from inputs of human text
+2nd row is human text of question
+3rd row is computer text of question
+4th row is human text of answer
+5th row is computer text of answer from inputs of human text
 extra rows are constraints as "q" or "a" followed by constraint or "t" followed by list of tags
 then at least one blank row
 

@@ -370,6 +370,39 @@ struct Question {
 	std::vector<std::vector<std::string>> rawRules;
 };
 
+Question chooseQuestion(std::string dewey,questions){
+	answerConstraints.clear();
+	for (i=0;i<rawRules.size();i++){
+		std::vector<std::string> rule;
+
+		fullPost = makeAnswer(rawRules[i][1]);
+		key = fullPost[0];
+		val1 = fullPost[1];
+		rule = {val1,rawRules[i][2],rawRules[i][3]};
+		
+
+		//TODO: add more constraint options
+	
+		if (rawRules[i].size()>4){
+			std::string constraint = constraintify(rawRules[i][5]);
+			std::string postfixed = postfixify(constraint);
+			std::cout <<" postfixed " << postfixed << "\n";
+			rule.push_back(postfixed);
+		}
+	
+	
+		if (rules.find(key) != rules.end()){
+			answerConstraints[key].push_back(rule);
+		}
+		else {
+			answerConstraints[key] = {rule};
+		}
+	
+	
+	
+	}
+}
+
 Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std::string> varMap){
 	Question question;
 	std::string q = postfixify(qRow);
@@ -411,7 +444,7 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 	return question;
 }
 
-std::vector<std::string> makeQuestions(std::string fileName){
+std::vector<Question> makeQuestions(std::string fileName){
 	
 	
 	rapidcsv::Document doc("cpp/rules/"+fileName, rapidcsv::LabelParams(-1, -1));
@@ -430,13 +463,13 @@ std::vector<std::string> makeQuestions(std::string fileName){
 		int i; int ii;
 	
 		std::cout << "Rows: " << nRows << "\n";
-		if (nRows<startIdx+6){
+		if (nRows<startIdx+5){
 			break;
 		}
 
 
 		flat_hash_map<char,std::string> varMap;
-		for (i=startIdx;i<nRows;i++){
+		for (i=startIdx+5;i<nRows;i++){
 			std::vector<std::string> rawRule = doc.GetRow<std::string>(i);
 			if (rawRule.size() == 1 && rawRule[0] == ""){
 				startIdx = i+1;
@@ -474,7 +507,7 @@ std::vector<std::string> makeQuestions(std::string fileName){
 		
 		}
 	
-		Question q = makeQuestion(doc.GetRow<std::string>(startIdx+3)[0], doc.GetRow<std::string>(startIdx+2)[0], varMap);
+		Question q = makeQuestion(doc.GetRow<std::string>(startIdx+2)[0], doc.GetRow<std::string>(startIdx+1)[0], varMap);
 		q.rawRules = rawRules;
 		question[0] = q.text;
 		question[1] = q.comp;
@@ -483,35 +516,7 @@ std::vector<std::string> makeQuestions(std::string fileName){
 		std::string key;
 		std::string val1;
 		std::string out;
-		for (i=0;i<rawRules.size();i++){
-			std::vector<std::string> rule;
-
-			fullPost = makeAnswer(rawRules[i][1]);
-			key = fullPost[0];
-			val1 = fullPost[1];
-			rule = {val1,rawRules[i][2],rawRules[i][3]};
-			
-
-			//TODO: add more constraint options
 		
-			if (rawRules[i].size()>4){
-				std::string constraint = constraintify(rawRules[i][5]);
-				std::string postfixed = postfixify(constraint);
-				std::cout <<" postfixed " << postfixed << "\n";
-				rule.push_back(postfixed);
-			}
-		
-		
-			if (rules.find(key) != rules.end()){
-				answerConstraints[key].push_back(rule);
-			}
-			else {
-				answerConstraints[key] = {rule};
-			}
-		
-		
-		
-		}
 
 	}
 	
