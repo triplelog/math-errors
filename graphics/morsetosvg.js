@@ -163,7 +163,7 @@ var svg = '<html><body><svg height="216" width="1080">';
 for (var i=0;i<10;i++){
 	noise = OpenSimplexNoise.makeNoise3D(Date.now());
 	noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
-	var end3 = drawDot({x:15+120*i,y:15,radius:15},3.0,0.05,0.09,.15,3);
+	var end3 = drawDot({x:15+120*i,y:15,radius:15},3.0,0.05,0.09,1.5,3);
 	svg += end3;
 	noise = OpenSimplexNoise.makeNoise3D(Date.now());
 	noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
