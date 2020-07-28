@@ -455,6 +455,7 @@ std::vector<Question> makeQuestions(std::string fileName){
 	
 	int startIdx = 0;
 	int idx = 0;
+	int oldIdx = 0;
 	for (idx=0;idx<nRows;idx++){
 
 		std::vector<std::vector<std::string>> rawRules;
@@ -465,7 +466,7 @@ std::vector<Question> makeQuestions(std::string fileName){
 		if (nRows<startIdx+5){
 			break;
 		}
-
+		oldIdx = startIdx;
 
 		flat_hash_map<char,std::string> varMap;
 		for (i=startIdx+5;i<nRows;i++){
@@ -506,9 +507,12 @@ std::vector<Question> makeQuestions(std::string fileName){
 		
 		}
 	
-		Question q = makeQuestion(doc.GetRow<std::string>(startIdx+2)[0], doc.GetRow<std::string>(startIdx+1)[0], varMap);
+		Question q = makeQuestion(doc.GetRow<std::string>(oldIdx+2)[0], doc.GetRow<std::string>(oldIdx+1)[0], varMap);
 		q.rawRules = rawRules;
 		questions.push_back(q);
+		if (startIdx == oldIdx){
+			break;
+		}
 		
 		
 
