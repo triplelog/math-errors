@@ -482,7 +482,7 @@ std::vector<Question> makeQuestions(std::string fileName){
 		if (current.length()>0){
 			dewey.push_back(current);
 		}
-		if (dewey[0] != "algebra"){
+		if (dewey[0] != "calculus"){
 			makeThis = false;
 		}
 		std::vector<std::vector<std::string>> rawRules;
