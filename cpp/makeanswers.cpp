@@ -463,9 +463,9 @@ std::vector<Question> makeQuestions(std::string fileName){
 		int i; int ii;
 		bool makeThis = true;
 		std::vector<std::string> dewey;
-		std::string firstRow = doc.GetRow<std::string>(startIdx);
+		std::vector<std::string> firstRow = doc.GetRow<std::string>(startIdx);
 		
-		if (firstRow.length() < 1){
+		if (firstRow.size() < 1){
 			continue;
 		}
 		std::string rawDewey = firstRow[0]:
