@@ -366,26 +366,26 @@ std::vector<std::string> makeAnswer(std::string input){
 
 
 
-/*
-Question chooseQuestion(std::string dewey,questions){
+Question chooseQuestion(std::string dewey, std::vector<Question> questions){
+	Question q = questions[0];
 	std::vector<std::string> fullPost;
 	std::string key;
 	std::string val1;
 	std::string out;
 	answerConstraints.clear();
-	for (i=0;i<rawRules.size();i++){
+	for (i=0;i<q.rawRules.size();i++){
 		std::vector<std::string> rule;
 
-		fullPost = makeAnswer(rawRules[i][1]);
+		fullPost = makeAnswer(q.rawRules[i][1]);
 		key = fullPost[0];
 		val1 = fullPost[1];
-		rule = {val1,rawRules[i][2],rawRules[i][3]};
+		rule = {val1,q.rawRules[i][2],q.rawRules[i][3]};
 		
 
 		//TODO: add more constraint options
 	
-		if (rawRules[i].size()>4){
-			std::string constraint = constraintify(rawRules[i][5]);
+		if (q.rawRules[i].size()>4){
+			std::string constraint = constraintify(q.rawRules[i][5]);
 			std::string postfixed = postfixify(constraint);
 			std::cout <<" postfixed " << postfixed << "\n";
 			rule.push_back(postfixed);
@@ -402,8 +402,9 @@ Question chooseQuestion(std::string dewey,questions){
 	
 	
 	}
+	return q;
 }
-*/
+
 
 Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std::string> varMap){
 	Question question;

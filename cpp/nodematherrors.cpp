@@ -2538,19 +2538,20 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 
-	std::vector<Question> q = makeQuestions("answerconstraints.csv");
+	std::vector<Question> qs = makeQuestions("answerconstraints.csv");
+	Question question = chooseQuestion("blank",qs);
 	//std::cout << "question: " << str << "\n\n";
 	correctAnswers.resize(0);
 	unfinishedAnswers.resize(0);
 	wrongAnswers.resize(0);
 	inputArray.resize(0);
 	
-	bool isCorrect = correctAnswer(q[0].comp,"x");
+	bool isCorrect = correctAnswer(question.comp,"x");
 
-	std::string error = fullAnswer(q[0].comp,"x");
+	std::string error = fullAnswer(question.comp,"x");
 
 
-	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(q[0].text);
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(question.text);
 
 	
 	info.GetReturnValue().Set(h.ToLocalChecked());
