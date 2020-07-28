@@ -49,6 +49,12 @@ int noC;
 int mapSave;
 int mapMake;
 bool answerIsCorrect;
+struct RawQuestion {
+	std::string qH = "";
+	std::string qC = "";
+	flat_hash_map<char,std::string> rangeMap;
+	std::vector<std::vector<std::string>> rawRules;
+};
 struct Question {
 	std::string text = "";
 	std::string comp = "";
@@ -2538,7 +2544,7 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	auto a1 = std::chrono::high_resolution_clock::now();
-	std::vector<Question> qs = makeQuestions("answerconstraints.csv");
+	std::vector<RawQuestion> qs = makeQuestions("answerconstraints.csv");
 	auto a2 = std::chrono::high_resolution_clock::now();
 	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "time to make questions: " << dd1 << "\n";

@@ -364,51 +364,12 @@ std::vector<std::string> makeAnswer(std::string input){
 	//return makeTree(postfixed)[0];
 }
 
-
-
-Question chooseQuestion(std::string dewey, std::vector<Question> questions){
-	Question q = questions[0];
-	std::vector<std::string> fullPost;
-	std::string key;
-	std::string val1;
-	std::string out;
-	answerConstraints.clear();
-	int i;
-	for (i=0;i<q.rawRules.size();i++){
-		std::vector<std::string> rule;
-
-		fullPost = makeAnswer(q.rawRules[i][1]);
-		key = fullPost[0];
-		val1 = fullPost[1];
-		rule = {val1,q.rawRules[i][2],q.rawRules[i][3]};
-		
-
-		//TODO: add more constraint options
-	
-		if (q.rawRules[i].size()>4){
-			std::string constraint = constraintify(q.rawRules[i][5]);
-			std::string postfixed = postfixify(constraint);
-			std::cout <<" postfixed " << postfixed << "\n";
-			rule.push_back(postfixed);
-		}
-	
-	
-		if (rules.find(key) != rules.end()){
-			answerConstraints[key].push_back(rule);
-		}
-		else {
-			answerConstraints[key] = {rule};
-		}
-	
-	
-	
-	}
-	return q;
-}
-
-
-Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std::string> varMap){
+Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std::string> rangeMap){
 	Question question;
+	flat_hash_map<char,std::string> varMap;
+	for (flat_hash_map<char,std::string>::iterator iter = rangeMap.begin(); iter != rangeMap.end(); ++iter){
+		varMap[iter->first]=makeInt(iter->second);	
+	}
 	std::string q = postfixify(qRow);
 	int i;
 	std::string newQ = replaceVars(q,varMap);
@@ -448,9 +409,53 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 	return question;
 }
 
-std::vector<Question> makeQuestions(std::string fileName){
+Question chooseQuestion(std::string dewey, std::vector<RawQuestion> questions){
+	Question q = makeQuestion(questions[0].qC, questions[0].qH, questions[0].rangeMap);
+	q.rawRules = questions[0].rawRules;
+	std::vector<std::string> fullPost;
+	std::string key;
+	std::string val1;
+	std::string out;
+	answerConstraints.clear();
+	int i;
+	for (i=0;i<q.rawRules.size();i++){
+		std::vector<std::string> rule;
+
+		fullPost = makeAnswer(q.rawRules[i][1]);
+		key = fullPost[0];
+		val1 = fullPost[1];
+		rule = {val1,q.rawRules[i][2],q.rawRules[i][3]};
+		
+
+		//TODO: add more constraint options
 	
-	std::vector<Question> questions;
+		if (q.rawRules[i].size()>4){
+			std::string constraint = constraintify(q.rawRules[i][5]);
+			std::string postfixed = postfixify(constraint);
+			std::cout <<" postfixed " << postfixed << "\n";
+			rule.push_back(postfixed);
+		}
+	
+	
+		if (rules.find(key) != rules.end()){
+			answerConstraints[key].push_back(rule);
+		}
+		else {
+			answerConstraints[key] = {rule};
+		}
+	
+	
+	
+	}
+	return q;
+}
+
+
+
+
+std::vector<RawQuestion> makeQuestions(std::string fileName){
+	
+	std::vector<RawQuestion> questions;
 	rapidcsv::Document doc("cpp/rules/"+fileName, rapidcsv::LabelParams(-1, -1));
 	
 	int nRows = doc.GetRowCount();
@@ -494,7 +499,7 @@ std::vector<Question> makeQuestions(std::string fileName){
 		}
 		oldIdx = startIdx;
 
-		flat_hash_map<char,std::string> varMap;
+		flat_hash_map<char,std::string> rangeMap;
 		for (i=startIdx+5;i<nRows;i++){
 			std::vector<std::string> rawRule = doc.GetRow<std::string>(i);
 			if (rawRule.size() == 1 && rawRule[0] == ""){
@@ -517,8 +522,9 @@ std::vector<Question> makeQuestions(std::string fileName){
 						}
 						range += rawRule[ii];
 					}
-					std::cout << "range: "<< range << "\n";		
-					varMap[var]=makeInt(range);
+					//std::cout << "range: "<< range << "\n";		
+					//varMap[var]=makeInt(range);
+					rangeMap[var]=range;
 				}
 				else if (rawRule[2] == "e"){
 					//jsonmessage += "rule.examples.push(\""+rawRule[0]+"\");\n";
@@ -539,7 +545,10 @@ std::vector<Question> makeQuestions(std::string fileName){
 			continue;
 		}
 		auto a1 = std::chrono::high_resolution_clock::now();
-		Question q = makeQuestion(doc.GetRow<std::string>(oldIdx+2)[0], doc.GetRow<std::string>(oldIdx+1)[0], varMap);
+		RawQuestion q;
+		q.qH = doc.GetRow<std::string>(oldIdx+1)[0];
+		q.qC = doc.GetRow<std::string>(oldIdx+2)[0];
+		q.rangeMap = rangeMap;
 		q.rawRules = rawRules;
 		questions.push_back(q);
 		auto a2 = std::chrono::high_resolution_clock::now();
