@@ -413,11 +413,13 @@ std::string makeInt(std::string input){
 			if (nn+nnn>x){
 				if (outRange.incexc[i] >= 2){
 					out = std::to_string(std::stoi(outRange.left[i].top) + x-nn);
-					std::cout << (std::stoi(outRange.left[i].top) + x-nn) << "  ";
+					//std::cout << (std::stoi(outRange.left[i].top) + x-nn) << "  ";
+					break;
 				}
 				else {
 					out = std::to_string(std::stoi(outRange.left[i].top) + 1 + x-nn);
-					std::cout << (std::stoi(outRange.left[i].top) + 1 + x-nn) << "  ";
+					//std::cout << (std::stoi(outRange.left[i].top) + 1 + x-nn) << "  ";
+					break;
 				}
 			}
 			nn += nnn;
