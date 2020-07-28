@@ -180,7 +180,7 @@ morseMap[' ']=[];
 
 var messages = ['mather0rs','matherors','matherrors','math errors'];
 var idx = 0;
-for (var y=6;y<79;y+=24){
+for (var y=10;y<92;y+=27){
 	var startX = 0;
 	var message = messages[idx];
 	idx++;
