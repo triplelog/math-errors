@@ -468,7 +468,7 @@ std::vector<Question> makeQuestions(std::string fileName){
 		if (firstRow.size() < 1){
 			continue;
 		}
-		std::string rawDewey = firstRow[0]:
+		std::string rawDewey = firstRow[0];
 		std::string current = "";
 		for (i=0;i<rawDewey.length();i++){
 			if (rawDewey.at(i)=='.'){
