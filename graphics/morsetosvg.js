@@ -174,12 +174,27 @@ function dDash(startX){
 	var end3 = drawDash({x:startX+15,y:5,radius:5},3.0,0.05,0.09,.7,3);
 	return end3;
 }
-for (var i=0;i<10;i++){
-	svg += dDot(startX);
-	startX += 10;
-	
-	svg += dDash(startX);
+var morseMap = {};
+morseMap['m']=[3,3];
+
+var message = 'mmmm';
+for (var i=0;i<4;i++){
+	var letter = message.charAt(i);
+	var morse = morseMap[letter];
+	for (var ii=0;ii<morse.length;ii++){
+		if (morse[ii]==3){
+			svg += dDash(startX);
+			startX += 30;
+		}
+		else if (morse[ii]==1){
+			svg += dDot(startX);
+			startX += 10;
+		}
+	}
 	startX += 30;
+	
+	
+	
 }
 /*
 var noise = OpenSimplexNoise.makeNoise3D(Date.now());
