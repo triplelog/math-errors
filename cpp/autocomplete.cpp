@@ -424,7 +424,7 @@ std::vector<std::string> autocomplete(std::vector<std::string> inputArray, std::
 		ias = 12;
 	}
 
-	std::sort(answers.begin(),answers.begin()+ias,answers.end());
+	std::partial_sort(answers.begin(),answers.begin()+ias,answers.end());
 
 	
 	std::vector<std::string> returnAnswers;
