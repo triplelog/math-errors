@@ -202,7 +202,6 @@ Range unionTwo(Range a, Range b) {
 			}
 		}
 	}
-	//TODO: add b to end of array
 	a.left.push_back(b.left[bLast]);
 	a.right.push_back(b.right[bLast]);
 	a.incexc.push_back(b.incexc[bLast]);
@@ -388,7 +387,7 @@ std::string makeInt(std::string input){
 	Range outRange = solveRange(postfixed,rangeArray);
 	for (i=0;i<outRange.left.size();i++){
 		std::cout << outRange.left[i].top << " and " << outRange.right[i].top << " and " << outRange.incexc[i] << "\n";
-		std::cout << "comparison: " << outRange.left[i].top > outRange.right[i].top << "\n";
+		std::cout << "comparison: " << (outRange.left[i].top > outRange.right[i].top) << "\n";
 	}
 	//TODO: solve the postfix to create disjoint union
 	return postfixed;
