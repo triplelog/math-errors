@@ -250,7 +250,7 @@ Range solveRange(std::string postfix, std::vector<Range> rangeArray) {
 Number makeInt(std::string input){
 	std::vector<std::string> rangeList;
 	std::vector<Range> rangeArray;
-	
+	int n =0;
 	int i; int ii;
 	bool inRange = false;
 	bool openPar = 0;
@@ -385,7 +385,7 @@ Number makeInt(std::string input){
 		rangeArray.push_back(r);
 	}
 	Range outRange = solveRange(postfixed,rangeArray);
-	int n =0;
+	n =0;
 	for (i=0;i<outRange.left.size();i++){
 		n += (outRange.right[i].top - outRange.left[i].top);
 		//TODO: make this work for numbers outside of int range
