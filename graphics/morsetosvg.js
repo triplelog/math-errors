@@ -165,13 +165,13 @@ var startX = 0;
 function dDot(startX){
 	noise = OpenSimplexNoise.makeNoise3D(Date.now());
 	noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
-	var end3 = drawDot({x:startX+5,y:5,radius:5},3.0,0.05,0.09,1.2,3);
+	var end3 = drawDot({x:startX+5,y:5,radius:5},3.0,0.05,0.09,1.2,2);
 	return end3;
 }
 function dDash(startX){
 	noise = OpenSimplexNoise.makeNoise3D(Date.now());
 	noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
-	var end3 = drawDash({x:startX+15,y:5,radius:5},3.0,0.05,0.09,.7,3);
+	var end3 = drawDash({x:startX+15,y:5,radius:5},3.0,0.05,0.09,.7,2);
 	return end3;
 }
 var morseMap = {};
@@ -179,9 +179,13 @@ morseMap['m']=[3,3];
 morseMap['a']=[1,3];
 morseMap['t']=[3];
 morseMap['h']=[1,1,1,1];
+morseMap['e']=[1];
+morseMap['r']=[1,3,1];
+morseMap['o']=[3,3,3];
+morseMap['s']=[1,1,1];
 
-var message = 'math';
-for (var i=0;i<4;i++){
+var message = 'matherrors';
+for (var i=0;i<10;i++){
 	var letter = message.charAt(i);
 	var morse = morseMap[letter];
 	for (var ii=0;ii<morse.length;ii++){
