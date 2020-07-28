@@ -52,6 +52,9 @@ std::vector<std::string> makeQuestion(std::string fileName){
 			std::string range = "";
 			std::string var = rawRule[1];
 			for (ii=3;ii<rawRule.size();ii++){
+				if (ii >3){
+					range += ",";
+				}
 				range += rawRule[ii];
 			}
 			std::cout << "range: "<< range << "\n";	
