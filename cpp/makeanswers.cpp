@@ -90,7 +90,7 @@ std::vector<std::string> makeQuestion(std::string fileName){
 						
 					}
 					else {
-						
+						newQ += currentOperand + '_';
 					}
 					currentOperand = "";
 				}
