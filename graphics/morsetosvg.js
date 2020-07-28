@@ -105,7 +105,7 @@ var svg = '<html><body><svg height="216" width="1080">';
 for (var i=0;i<60;i++){
 	noise = OpenSimplexNoise.makeNoise3D(Date.now());
 	noise2D = OpenSimplexNoise.makeNoise2D(Date.now());
-	var end3 = drawLogs({x:15+15*i,y:15,radius:15},2.0,0.033,0.09,.9,105);
+	var end3 = drawLogs({x:15+30*i,y:15,radius:15},2.0,0.05,0.09,.9,30);
 	svg += end3;
 }
 /*
