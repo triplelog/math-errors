@@ -176,8 +176,11 @@ function dDash(startX){
 }
 var morseMap = {};
 morseMap['m']=[3,3];
+morseMap['a']=[1,3];
+morseMap['t']=[3];
+morseMap['h']=[1,1,1,1];
 
-var message = 'mmmm';
+var message = 'math';
 for (var i=0;i<4;i++){
 	var letter = message.charAt(i);
 	var morse = morseMap[letter];
