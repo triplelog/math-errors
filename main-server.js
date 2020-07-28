@@ -41,7 +41,7 @@ passport.deserializeUser(User.deserializeUser());
 
 var express = require('express');
 
-app.use('/',express.static('graphics'));
+app.use('/',express.static('static'));
 
 
 const server1 = https.createServer(options, app);
