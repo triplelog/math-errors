@@ -35,7 +35,7 @@ std::vector<std::string> makeQuestion(std::string fileName){
 	}
 	
 	
-	flat_hash_map<std::string,std::string> varMap;
+	flat_hash_map<char,std::string> varMap;
 	for (i=6;i<nRows;i++){
 		std::vector<std::string> rawRule = doc.GetRow<std::string>(i);
 		if (rawRule.size() < 3 || rawRule[0] == "t"){
@@ -46,7 +46,7 @@ std::vector<std::string> makeQuestion(std::string fileName){
 		}
 		else if (rawRule[0] == "q"){
 			std::string range = "";
-			std::string var = rawRule[1];
+			std::string var = rawRule[1].at(0);
 			for (ii=3;ii<rawRule.size();ii++){
 				if (ii >3){
 					range += ",";
