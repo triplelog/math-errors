@@ -194,7 +194,7 @@ for (var i=0;i<4;i++){
 			startX += 10;
 		}
 	}
-	startX += 30;
+	startX += 10;
 	
 	
 	
