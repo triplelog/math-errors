@@ -364,13 +364,14 @@ std::vector<std::string> makeAnswer(std::string input){
 	//return makeTree(postfixed)[0];
 }
 
-struct Question {
-	std::string text = "";
-	std::string comp = "";
-	std::vector<std::vector<std::string>> rawRules;
-};
 
+
+/*
 Question chooseQuestion(std::string dewey,questions){
+	std::vector<std::string> fullPost;
+	std::string key;
+	std::string val1;
+	std::string out;
 	answerConstraints.clear();
 	for (i=0;i<rawRules.size();i++){
 		std::vector<std::string> rule;
@@ -402,6 +403,7 @@ Question chooseQuestion(std::string dewey,questions){
 	
 	}
 }
+*/
 
 Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std::string> varMap){
 	Question question;
@@ -446,20 +448,17 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 
 std::vector<Question> makeQuestions(std::string fileName){
 	
-	
+	std::vector<Question> questions;
 	rapidcsv::Document doc("cpp/rules/"+fileName, rapidcsv::LabelParams(-1, -1));
 	
 	int nRows = doc.GetRowCount();
 	
 	int startIdx = 0;
 	int idx = 0;
-	std::vector<std::string> question = {"",""};
 	for (idx=0;idx<nRows;idx++){
-	
 
 		std::vector<std::vector<std::string>> rawRules;
-		
-	
+
 		int i; int ii;
 	
 		std::cout << "Rows: " << nRows << "\n";
@@ -509,16 +508,11 @@ std::vector<Question> makeQuestions(std::string fileName){
 	
 		Question q = makeQuestion(doc.GetRow<std::string>(startIdx+2)[0], doc.GetRow<std::string>(startIdx+1)[0], varMap);
 		q.rawRules = rawRules;
-		question[0] = q.text;
-		question[1] = q.comp;
-	
-		std::vector<std::string> fullPost;
-		std::string key;
-		std::string val1;
-		std::string out;
+		questions.push_back(q);
+		
 		
 
 	}
 	
-	return question;
+	return questions;
 }

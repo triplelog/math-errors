@@ -49,6 +49,11 @@ int noC;
 int mapSave;
 int mapMake;
 bool answerIsCorrect;
+struct Question {
+	std::string text = "";
+	std::string comp = "";
+	std::vector<std::vector<std::string>> rawRules;
+};
 
 #include "solve.cpp"
 
@@ -2533,19 +2538,19 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 
-	std::vector<std::string> q = makeQuestions("answerconstraints.csv");
+	std::vector<Question> q = makeQuestions("answerconstraints.csv");
 	//std::cout << "question: " << str << "\n\n";
 	correctAnswers.resize(0);
 	unfinishedAnswers.resize(0);
 	wrongAnswers.resize(0);
 	inputArray.resize(0);
 	
-	bool isCorrect = correctAnswer(q[1],"x");
+	bool isCorrect = correctAnswer(q[0].comp,"x");
 
-	std::string error = fullAnswer(q[1],"x");
+	std::string error = fullAnswer(q[0].comp,"x");
 
 
-	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(q[0]);
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(q[0].text);
 
 	
 	info.GetReturnValue().Set(h.ToLocalChecked());
