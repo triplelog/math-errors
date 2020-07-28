@@ -460,10 +460,34 @@ std::vector<Question> makeQuestions(std::string fileName){
 	int oldIdx = 0;
 	auto a0 = std::chrono::high_resolution_clock::now();
 	for (idx=0;idx<nRows;idx++){
-
+		int i; int ii;
+		bool makeThis = true;
+		std::vector<std::string> dewey;
+		std::string firstRow = doc.GetRow<std::string>(startIdx);
+		
+		if (firstRow.length() < 1){
+			continue;
+		}
+		std::string rawDewey = firstRow[0]:
+		std::string current = "";
+		for (i=0;i<rawDewey.length();i++){
+			if (rawDewey.at(i)=='.'){
+				dewey.push_back(current);
+				current = "";
+			}
+			else {
+				current += rawDewey.at(i);
+			}
+		}
+		if (current.length()>0){
+			dewey.push_back(current);
+		}
+		if (dewey[0] != "algebra"){
+			makeThis = false;
+		}
 		std::vector<std::vector<std::string>> rawRules;
 
-		int i; int ii;
+		
 	
 		if (nRows<startIdx+5){
 			break;
@@ -477,38 +501,43 @@ std::vector<Question> makeQuestions(std::string fileName){
 				startIdx = i+1;
 				break;
 			}
-			if (rawRule.size() < 3 || rawRule[0] == "t"){
-				continue;			
-			}
-			else if (rawRule[0] != "a" && rawRule[0] != "q"){
-				continue;			
-			}
-			else if (rawRule[0] == "q" && rawRule[1].length() == 1){
-				std::string range = "";
-				char var = rawRule[1].at(0);
-				for (ii=3;ii<rawRule.size();ii++){
-					if (ii >3){
-						range += ",";
-					}
-					range += rawRule[ii];
+			if (makeThis){
+				if (rawRule.size() < 3 || rawRule[0] == "t"){
+					continue;			
 				}
-				std::cout << "range: "<< range << "\n";		
-				varMap[var]=makeInt(range);
-			}
-			else if (rawRule[2] == "e"){
-				//jsonmessage += "rule.examples.push(\""+rawRule[0]+"\");\n";
-			}
-			else if (rawRule[2] == "c"){
-				rawRules.push_back(rawRule);
-				//jsonmessage += "rule.correct.push(\""+rawRule[0]+"\");\n";
-			}
-			else if (rawRule[2] == "i"){
-				rawRules.push_back(rawRule);
-				//jsonmessage += "rule.incorrect.push(\""+rawRule[0]+"\");\n";
+				else if (rawRule[0] != "a" && rawRule[0] != "q"){
+					continue;			
+				}
+				else if (rawRule[0] == "q" && rawRule[1].length() == 1){
+					std::string range = "";
+					char var = rawRule[1].at(0);
+					for (ii=3;ii<rawRule.size();ii++){
+						if (ii >3){
+							range += ",";
+						}
+						range += rawRule[ii];
+					}
+					std::cout << "range: "<< range << "\n";		
+					varMap[var]=makeInt(range);
+				}
+				else if (rawRule[2] == "e"){
+					//jsonmessage += "rule.examples.push(\""+rawRule[0]+"\");\n";
+				}
+				else if (rawRule[2] == "c"){
+					rawRules.push_back(rawRule);
+					//jsonmessage += "rule.correct.push(\""+rawRule[0]+"\");\n";
+				}
+				else if (rawRule[2] == "i"){
+					rawRules.push_back(rawRule);
+					//jsonmessage += "rule.incorrect.push(\""+rawRule[0]+"\");\n";
+				}
 			}
 		
 		}
 		
+		if (!makeThis){
+			continue;
+		}
 		auto a1 = std::chrono::high_resolution_clock::now();
 		Question q = makeQuestion(doc.GetRow<std::string>(oldIdx+2)[0], doc.GetRow<std::string>(oldIdx+1)[0], varMap);
 		q.rawRules = rawRules;
