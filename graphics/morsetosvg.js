@@ -186,7 +186,7 @@ morseMap['s']=[1,1,1];
 
 var message = 'matherrors';
 
-for (var y=5;y<36;y+=10){
+for (var y=5;y<66;y+=20){
 	var startX = 0;
 	for (var i=0;i<10;i++){
 		var letter = message.charAt(i);
