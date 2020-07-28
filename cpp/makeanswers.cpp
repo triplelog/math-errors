@@ -367,7 +367,7 @@ std::vector<std::string> makeAnswer(std::string input){
 struct Question {
 	std::string text = "";
 	std::string comp = "";
-	std::vector<std::string> rawRules;
+	std::vector<std::vector<std::string>> rawRules;
 };
 
 Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std::string> varMap){
@@ -412,96 +412,108 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 }
 
 std::vector<std::string> makeQuestions(std::string fileName){
-	std::vector<std::vector<std::string>> rawRules;
-	std::vector<std::string> question = {"",""};
+	
 	
 	rapidcsv::Document doc("cpp/rules/"+fileName, rapidcsv::LabelParams(-1, -1));
 	
 	int nRows = doc.GetRowCount();
-	int i; int ii;
 	
-	std::cout << "Rows: " << nRows << "\n";
-	if (nRows<6){
-		return question;
-	}
+	int startIdx = 0;
+	int idx = 0;
+	std::vector<std::string> question = {"",""};
+	for (idx=0;idx<nRows;idx++){
+	
 
+		std::vector<std::vector<std::string>> rawRules;
+		
 	
+		int i; int ii;
 	
-	
-	flat_hash_map<char,std::string> varMap;
-	for (i=6;i<nRows;i++){
-		std::vector<std::string> rawRule = doc.GetRow<std::string>(i);
-		if (rawRule.size() == 1 && rawRule[0] == ""){
+		std::cout << "Rows: " << nRows << "\n";
+		if (nRows<startIdx+6){
 			break;
 		}
-		if (rawRule.size() < 3 || rawRule[0] == "t"){
-			continue;			
-		}
-		else if (rawRule[0] != "a" && rawRule[0] != "q"){
-			continue;			
-		}
-		else if (rawRule[0] == "q" && rawRule[1].length() == 1){
-			std::string range = "";
-			char var = rawRule[1].at(0);
-			for (ii=3;ii<rawRule.size();ii++){
-				if (ii >3){
-					range += ",";
-				}
-				range += rawRule[ii];
-			}
-			std::cout << "range: "<< range << "\n";		
-			varMap[var]=makeInt(range);
-		}
-		else if (rawRule[2] == "e"){
-			//jsonmessage += "rule.examples.push(\""+rawRule[0]+"\");\n";
-		}
-		else if (rawRule[2] == "c"){
-			rawRules.push_back(rawRule);
-			//jsonmessage += "rule.correct.push(\""+rawRule[0]+"\");\n";
-		}
-		else if (rawRule[2] == "i"){
-			rawRules.push_back(rawRule);
-			//jsonmessage += "rule.incorrect.push(\""+rawRule[0]+"\");\n";
-		}
-		
-	}
-	
-	Question q = makeQuestion(doc.GetRow<std::string>(3)[0], doc.GetRow<std::string>(2)[0], varMap);
-	question[0] = q.text;
-	question[1] = q.comp;
-	
-	std::vector<std::string> fullPost;
-	std::string key;
-	std::string val1;
-	std::string out;
-	for (i=0;i<rawRules.size();i++){
-		std::vector<std::string> rule;
 
-		fullPost = makeAnswer(rawRules[i][1]);
-		key = fullPost[0];
-		val1 = fullPost[1];
-		rule = {val1,rawRules[i][2],rawRules[i][3]};
+
+		flat_hash_map<char,std::string> varMap;
+		for (i=startIdx;i<nRows;i++){
+			std::vector<std::string> rawRule = doc.GetRow<std::string>(i);
+			if (rawRule.size() == 1 && rawRule[0] == ""){
+				startIdx = i+1;
+				break;
+			}
+			if (rawRule.size() < 3 || rawRule[0] == "t"){
+				continue;			
+			}
+			else if (rawRule[0] != "a" && rawRule[0] != "q"){
+				continue;			
+			}
+			else if (rawRule[0] == "q" && rawRule[1].length() == 1){
+				std::string range = "";
+				char var = rawRule[1].at(0);
+				for (ii=3;ii<rawRule.size();ii++){
+					if (ii >3){
+						range += ",";
+					}
+					range += rawRule[ii];
+				}
+				std::cout << "range: "<< range << "\n";		
+				varMap[var]=makeInt(range);
+			}
+			else if (rawRule[2] == "e"){
+				//jsonmessage += "rule.examples.push(\""+rawRule[0]+"\");\n";
+			}
+			else if (rawRule[2] == "c"){
+				rawRules.push_back(rawRule);
+				//jsonmessage += "rule.correct.push(\""+rawRule[0]+"\");\n";
+			}
+			else if (rawRule[2] == "i"){
+				rawRules.push_back(rawRule);
+				//jsonmessage += "rule.incorrect.push(\""+rawRule[0]+"\");\n";
+			}
+		
+		}
+	
+		Question q = makeQuestion(doc.GetRow<std::string>(startIdx+3)[0], doc.GetRow<std::string>(startIdx+2)[0], varMap);
+		q.rawRules = rawRules;
+		question[0] = q.text;
+		question[1] = q.comp;
+	
+		std::vector<std::string> fullPost;
+		std::string key;
+		std::string val1;
+		std::string out;
+		for (i=0;i<rawRules.size();i++){
+			std::vector<std::string> rule;
+
+			fullPost = makeAnswer(rawRules[i][1]);
+			key = fullPost[0];
+			val1 = fullPost[1];
+			rule = {val1,rawRules[i][2],rawRules[i][3]};
 			
 
-		//TODO: add more constraint options
+			//TODO: add more constraint options
 		
-		if (rawRules[i].size()>4){
-			std::string constraint = constraintify(rawRules[i][5]);
-			std::string postfixed = postfixify(constraint);
-			std::cout <<" postfixed " << postfixed << "\n";
-			rule.push_back(postfixed);
+			if (rawRules[i].size()>4){
+				std::string constraint = constraintify(rawRules[i][5]);
+				std::string postfixed = postfixify(constraint);
+				std::cout <<" postfixed " << postfixed << "\n";
+				rule.push_back(postfixed);
+			}
+		
+		
+			if (rules.find(key) != rules.end()){
+				answerConstraints[key].push_back(rule);
+			}
+			else {
+				answerConstraints[key] = {rule};
+			}
+		
+		
+		
 		}
-		
-		
-		if (rules.find(key) != rules.end()){
-			answerConstraints[key].push_back(rule);
-		}
-		else {
-			answerConstraints[key] = {rule};
-		}
-		
-		
-		
+
 	}
+	
 	return question;
 }
