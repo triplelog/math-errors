@@ -403,7 +403,7 @@ Number makeInt(std::string input){
 		int nnn = 0;
 		for (i=0;i<outRange.left.size();i++){
 			nnn = 0;
-			nnn += (outRange.right[i].top - outRange.left[i].top);
+			nnn += (std::stoi(outRange.right[i].top) - std::stoi(outRange.left[i].top));
 			//TODO: make this work for numbers outside of int range
 			if (outRange.incexc[i] == 3){
 				nnn++;
@@ -413,10 +413,10 @@ Number makeInt(std::string input){
 			}
 			if (nn+nnn>rand){
 				if (outRange.incexc[i] >= 2){
-					std::cout << (outRange.left[i].top + rand-nn) << "  ";
+					std::cout << (std::stoi(outRange.left[i].top) + rand-nn) << "  ";
 				}
 				else {
-					std::cout << (outRange.left[i].top + 1 + rand-nn) << "  ";
+					std::cout << (std::stoi(outRange.left[i].top) + 1 + rand-nn) << "  ";
 				}
 			}
 			//std::cout << outRange.left[i].top << " and " << outRange.right[i].top << " and " << outRange.incexc[i] << "\n";
