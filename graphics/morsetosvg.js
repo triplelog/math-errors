@@ -48,7 +48,7 @@ function drawDeformedOval( circle,frequency, magnitude,seed) {
             const deformation = (noise(x * frequency,
                                                y * frequency,
                                                seed) + 1);
-            const radius = circle.radius * (1 + magnitude * deformation);
+            var radius = circle.radius * (1 + magnitude * deformation);
 			var angAdj = angle % 90;
 			angAdj = (Math.PI / 4)*(Math.PI / 4) - (angAdj - Math.PI / 4)*(angAdj - Math.PI / 4);
 			angAdj = 1.5 - angAdj;
