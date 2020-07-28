@@ -51,7 +51,7 @@ function drawDeformedOval( circle,frequency, magnitude,seed) {
             var radius = circle.radius * (1 + magnitude * deformation);
 			var angAdj = angle % (Math.PI / 2);
 			angAdj = (Math.PI / 4)*(Math.PI / 4) - (angAdj - Math.PI / 4)*(angAdj - Math.PI / 4);
-			angAdj = .9 + angAdj/3;
+			angAdj = .9 + angAdj/4;
 			//console.log(angle,angAdj);
 			radius *= angAdj;
             // Extend the circle to this deformed radius
