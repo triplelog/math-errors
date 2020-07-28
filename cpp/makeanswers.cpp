@@ -372,7 +372,8 @@ struct Question {
 
 Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std::string> varMap){
 	Question question;
-	q = postfixify(qRow);
+	std::string q = postfixify(qRow);
+	int i;
 	std::string newQ = replaceVars(q,varMap);
 	std::cout << "question for computer: " << newQ << "\n\n";
 	question.comp = newQ;
@@ -407,7 +408,7 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 	}
 
 	question.text = newText;
-	//jsonmessage += "rules.push(rule);\n";
+	return question;
 }
 
 std::vector<std::string> makeQuestions(std::string fileName){
