@@ -317,6 +317,7 @@ std::string replaceVars(std::string q, flat_hash_map<char,std::string> varMap){
 	bool pastKey = false;
 	std::string newQ = "";
 	std::string currentOperand = "";
+	int ii;
 	for (ii=0;ii<q.length();ii++){
 
 		if (pastKey){
