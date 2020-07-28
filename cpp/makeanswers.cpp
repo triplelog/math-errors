@@ -44,7 +44,7 @@ std::vector<std::string> makeQuestion(std::string fileName){
 		else if (rawRule[0] != "a" && rawRule[0] != "q"){
 			continue;			
 		}
-		else if (rawRule[0] == "q" && rawRule[1].length == 1){
+		else if (rawRule[0] == "q" && rawRule[1].length() == 1){
 			std::string range = "";
 			char var = rawRule[1].at(0);
 			for (ii=3;ii<rawRule.size();ii++){
