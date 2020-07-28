@@ -61,10 +61,10 @@ inline bool operator<(const Number& a, const Number& b){
 	return true;
 }
 inline bool operator==(const Number& a, const Number& b){
-	if (!a<b && !a>b){
-		return true;
+	if (a<b || a>b){
+		return false;
 	}
-	return false;
+	return true;
 }
 flat_hash_map<std::string,Number> numbers;
 

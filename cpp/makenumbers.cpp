@@ -160,7 +160,7 @@ Range unionTwo(Range a, Range b) {
 				if (a.incexc[ii+1]>= 2 && a.incexc[ii]<2){
 					a.incexc[ii+1]-=2;
 				}
-				else if (a.incexc[ii+1]<2 && a.incexc[ii]>=){
+				else if (a.incexc[ii+1]<2 && a.incexc[ii]>=2){
 					a.incexc[ii+1]+=2;
 				}
 				a.left.erase(a.left.begin()+ii);
@@ -174,7 +174,7 @@ Range unionTwo(Range a, Range b) {
 				if (a.incexc[ii+1]>= 2 && a.incexc[ii]<2){
 					a.incexc[ii+1]-=2;
 				}
-				else if (a.incexc[ii+1]<2 && a.incexc[ii]>=){
+				else if (a.incexc[ii+1]<2 && a.incexc[ii]>=2){
 					a.incexc[ii+1]+=2;
 				}
 				a.left.erase(a.left.begin()+ii);
