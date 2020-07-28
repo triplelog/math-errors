@@ -381,6 +381,10 @@ std::string makeInt(std::string input){
 		std::cout << r.left[0].top << "\n";
 		std::cout << r.right[0].top << "\n";
 	}
+	Range outRange = solveRange(postfixed,rangeList);
+	for (i=0;i<outRange.left.size();i++){
+		std::cout << outRange.left[i] << " and " << outRange.right[i] << " and " << outRange.incexc[i] << "\n";
+	}
 	//TODO: solve the postfix to create disjoint union
 	return postfixed;
 }
