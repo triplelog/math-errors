@@ -2318,46 +2318,52 @@ std::string fullAnswer(std::string s){
 flat_hash_map<std::string,std::vector<std::string>> fullSolutionList;
 std::vector<std::string> makeSolutionList(std::string s){
 	std::vector<std::string> v;
-	std::cout << "s: " << s << "\n";
+	//std::cout << "s: " << s << "\n";
 	std::vector<std::string> sv;
 	if (reverseMap.find(s) != reverseMap.end()){
-		std::cout << "svszaa: " << reverseMap.find(s)->second.size() << "\n";
+		//std::cout << "svszaa: " << reverseMap.find(s)->second.size() << "\n";
 		sv = reverseMap.find(s)->second;
-		std::cout << "svsza: " << sv.size() << "\n";
-		std::cout << "svszaaa: " << sv.size() << "\n";
+		//std::cout << "svsza: " << sv.size() << "\n";
+		//std::cout << "svszaaa: " << sv.size() << "\n";
 	}
 	else {
 		v = {s};
 		fullSolutionList[s]=v;
 		return v;
 	}
-	std::cout << "svszb: " << sv.size() << "\n";
+	//std::cout << "svszb: " << sv.size() << "\n";
 
 	if (sv.size() ==0){
 		v = {s};
 		fullSolutionList[s]=v;
 		return v;
 	}
-	std::cout << "sv0: " << sv[0] << "\n";
+	//std::cout << "sv0: " << sv[0] << "\n";
 	
 	int i; int minSize = 100000; int l; int idx = 0;
 	for (i=0;i<sv.size()/2;i++){
-		std::cout << "i: " << i << " and " << sv[i*2] << "\n";
+		//std::cout << "i: " << i << " and " << sv[i*2] << "\n";
 		if (fullSolutionList.find(sv[i*2]) != fullSolutionList.end()){
 			l = fullSolutionList[sv[i*2]].size();
 		}
 		else {
 			l = makeSolutionList(sv[i*2]).size();
 		}
-		std::cout << "i: " << i << " and " << minSize << " and " << l << "\n";
+		//std::cout << "i: " << i << " and " << minSize << " and " << l << "\n";
 		if (l < minSize){
 			minSize = l;
 			idx = i;
 		}
-		std::cout << "i: " << i << " and " << minSize << " and " << idx << "\n";
+		//std::cout << "i: " << i << " and " << minSize << " and " << idx << "\n";
 	}
-	std::cout << "ms: " << minSize << "\n";
+	//std::cout << "ms: " << minSize << "\n";
 	for (i=0;i<minSize;i++){
+		if (fullSolutionList.find(sv[idx*2]) == fullSolutionList.end()){
+			std::cout << "missing: " << s << "\n";
+		}
+		if (i>=fullSolutionList[sv[idx*2]].size()){
+			std::cout << "too big: " << s << "\n";
+		}
 		v.push_back(fullSolutionList[sv[idx*2]][i]);
 	}
 	v.push_back(s);
