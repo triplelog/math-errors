@@ -1,6 +1,6 @@
 calculus.derivatives.power.0,"Power Rule"
-"What is the derivative of $x^A$?"
-ddx(x^A)
+"What is the derivative of $x^A+5*x$?"
+ddx(x^A+5*x)
 "<input name='A'></input>"
 A
 "q",A,int,[2,7]U(11,17]
