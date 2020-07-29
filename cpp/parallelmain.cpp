@@ -823,7 +823,6 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 						
 						pp = tp.push(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						pp.get();
-						tp.pop();
 						//std::future<bool> fut = std::async(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						//fut.get();
 						
@@ -1005,7 +1004,6 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 					
 					pp = tp.push(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
 					pp.get();
-					tp.pop();
 						
 						
 					//std::thread th2(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
@@ -1125,6 +1123,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	}
 	returnStrings1.resize(0);
 	returnStrings2.resize(0);
+	tp.resize(0);
 	return returnStrings;
 	
 
