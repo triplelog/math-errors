@@ -2400,6 +2400,9 @@ bool correctAnswer(std::string s){
 	
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
 		//std::cout << "rm: " << iter->first << " and " << iter->second.size() << "\n";
+		if (iter->first.at(iter->first.length()-1) == -69){
+			std::cout << "rm: " << iter->first << " and " << iter->second.size() << "\n";
+		}
 	}
 	
 	
