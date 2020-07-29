@@ -818,12 +818,12 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 						//pp.get();
 						//std::future<bool> fut = std::async(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						//fut.get();
-						apply1(0,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
-						//std::vector<std::string> someStrings = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
-						//int iiiiii;
-						//for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
-						//	returnStrings.push_back(someStrings[iiiiii]);
-						//}
+						//apply1(0,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
+						std::vector<std::string> someStrings = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
+						int iiiiii;
+						for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
+							returnStrings.push_back(someStrings[iiiiii]);
+						}
 						auto a2 = std::chrono::high_resolution_clock::now();
 						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 						
@@ -988,18 +988,18 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 					std::vector<int> tempV;
 					tempV = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
 					
-					apply2(0,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
+					//apply2(0,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
 					//pp = tp.push(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
 					//pp.get();
 						
 						
 					//std::thread th2(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
 					//th2.join();
-					//std::vector<std::string> someStrings = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
-					//int iiiiii;
-					//for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
-					//	returnStrings.push_back(someStrings[iiiiii]);
-					//}
+					std::vector<std::string> someStrings = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
+					int iiiiii;
+					for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
+						returnStrings.push_back(someStrings[iiiiii]);
+					}
 					auto a2 = std::chrono::high_resolution_clock::now();
 					duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 					
@@ -1102,15 +1102,16 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	
 	//std::cout << "\n\n---start Original-----\n";
 	int iiii;
-	returnStrings1.insert(returnStrings1.end(), returnStrings2.begin(), returnStrings2.end());
-	//returnStrings.resize(returnStrings1.size()+returnStrings2.size());
-	//for (ii=0;ii<returnStrings2.size();ii++){
-	//	returnStrings[ii+returnStrings1.size()]=returnStrings2[ii];
-	//}
-	//returnStrings1.resize(0);
-	//returnStrings2.resize(0);
+	/*
+	returnStrings = returnStrings1;
+	returnStrings.resize(returnStrings1.size()+returnStrings2.size());
+	for (ii=0;ii<returnStrings2.size();ii++){
+		returnStrings[ii+returnStrings1.size()]=returnStrings2[ii];
+	}
+	returnStrings1.resize(0);
+	returnStrings2.resize(0);*/
 
-	return returnStrings1;
+	return returnStrings;
 	
 
 }
