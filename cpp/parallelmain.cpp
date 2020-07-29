@@ -2457,7 +2457,7 @@ std::string fullAnswer(std::string s){
 	for (ii=0;ii<tempFinished.size();ii++){
 		if (doubleCheckAnswer(tempFinished[ii])){
 			finishedAnswers.push_back(tempFinished[ii]);
-			std::vector<std::string> v = makeSolutionList(tempFinished[ii]);
+			std::vector<std::string> v = makeSolutionList(tempFinished[ii],newPostfix);
 			if (v.size() > 0){
 				ca++;
 			}
