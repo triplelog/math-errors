@@ -2329,6 +2329,7 @@ std::vector<std::string> makeSolutionList(std::string s){
 	else {
 		v = {s};
 		fullSolutionList[s]=v;
+		std::cout << "sa: " << s << " and vsz: " << v.size() << "\n";
 		return v;
 	}
 	//std::cout << "svszb: " << sv.size() << "\n";
@@ -2336,6 +2337,7 @@ std::vector<std::string> makeSolutionList(std::string s){
 	if (sv.size() ==0){
 		v = {s};
 		fullSolutionList[s]=v;
+		std::cout << "sb: " << s << " and vsz: " << v.size() << "\n";
 		return v;
 	}
 	//std::cout << "sv0: " << sv[0] << "\n";
@@ -2367,6 +2369,7 @@ std::vector<std::string> makeSolutionList(std::string s){
 	}
 	v.push_back(s);
 	fullSolutionList[s]=v;
+	std::cout << "sc: " << s << " and vsz: " << v.size() << "\n";
 	return v;
 }
 
