@@ -2394,10 +2394,8 @@ bool correctAnswer(std::string s){
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = answerListMap.begin(); iter != answerListMap.end(); ++iter){
 		unfinishedAnswers.push_back(iter->first);
 	}
-	std::cout << "your answer: " << mpf  << " with " << correctAnswers.size() << " choices"<< "\n";
+	std::cout << "correct answers: " << correctAnswers.size() << " choices"<< "\n";
 	std::cout << "unfinished answers: " << unfinishedAnswers.size() << " choices"<< "\n";
-
-	jsonmessage = "";
 
 	return isCorrect;
 }
