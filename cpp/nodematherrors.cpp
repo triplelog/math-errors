@@ -2319,7 +2319,15 @@ flat_hash_map<std::string,std::vector<std::string>> fullSolutionList;
 std::vector<std::string> makeSolutionList(std::string s){
 	std::vector<std::string> v;
 	std::cout << "s: " << s << "\n";
-	std::vector<std::string> sv = reverseMap[s]; 
+	std::vector<std::string> sv;
+	if (reverseMap.find(s) != reverseMap.end()){
+		sv = reverseMap[s];
+	}
+	else {
+		v = {s};
+		fullSolutionList[s]=v;
+		return v;
+	}
 	std::cout << "svsz: " << sv.size() << "\n";
 
 	if (sv.size() ==0){
