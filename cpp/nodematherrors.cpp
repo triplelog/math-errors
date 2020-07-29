@@ -2333,7 +2333,7 @@ std::vector<std::string> makeSolutionList(std::string s){
 			l = fullSolutionList[sv[i*2]].size();
 		}
 		else {
-			l = makeSolutionList[sv[i*2]].size();
+			l = makeSolutionList(sv[i*2]).size();
 		}
 		if (l < minSize){
 			minSize = l;
