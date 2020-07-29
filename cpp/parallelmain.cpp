@@ -2460,7 +2460,7 @@ bool correctAnswer(std::string s){
 	}
 	
 	a2 = std::chrono::high_resolution_clock::now();
-	std::cout << "time to makesolutionlist: " << << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n\n";
+	std::cout << "time to makesolutionlist: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n\n";
 	
 	
 
