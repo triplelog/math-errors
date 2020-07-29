@@ -69,7 +69,6 @@ wss.on('connection', function connection(ws) {
 		}
 		else if (dm.type == 'question'){
 			console.log(performance.now());
-			//var stdout = maincpp.answer(question,dm.answer);
 			var stdout = maincpp.question();
 			console.log(performance.now(), question);
 
@@ -77,11 +76,10 @@ wss.on('connection', function connection(ws) {
 			var jsonmessage = {'type':'question','question':stdout};
 			ws.send(JSON.stringify(jsonmessage));
 		}
-		else if (dm.type == 'solve'){
+		else if (dm.type == 'solve'){//TODO: redo this whole thing
 			console.log(performance.now());
 			var question = dm.question;
 			console.log(performance.now());
-			//var stdout = maincpp.answer(question,dm.answer);
 			var stdout = maincpp.question();
 			console.log(performance.now(), question);
 			var outStr = "";

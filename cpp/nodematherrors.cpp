@@ -2414,39 +2414,6 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
 
-void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-	v8::Isolate* isolate = info.GetIsolate();
-	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
-	//int row = info[0]->Int32Value(context).FromJust();
-	v8::String::Utf8Value s(isolate, info[0]);
-	std::string str(*s);
-	v8::String::Utf8Value sa(isolate, info[1]);
-	std::string astr(*sa);
-	std::cout << "input: "<< str << "\n";
-	jsonmessage = "";
-	
-	correctAnswers.resize(0);
-	unfinishedAnswers.resize(0);
-	wrongAnswers.resize(0);
-	inputArray.resize(0);
-	
-	bool isCorrect = correctAnswer(str,astr);
-	
-	std::cout << "Time to correct: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
-	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
-	std::string error = "None!";
-	jsonmessage = "";
-
-	error = fullAnswer(str,astr);
-
-	
-	std::cout << "Time to error: " << duration1 << "\n";
-	//std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
-	std::cout << "Error: " << error << "\n";
-	
-	//std::cout << "TIMES: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
-	info.GetReturnValue().Set(h.ToLocalChecked());
-}
 void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
@@ -2575,11 +2542,6 @@ void Init(v8::Local<v8::Object> exports) {
   exports->Set(context,
                Nan::New("question").ToLocalChecked(),
                Nan::New<v8::FunctionTemplate>(GetQuestion)
-                   ->GetFunction(context)
-                   .ToLocalChecked());
-  exports->Set(context,
-               Nan::New("answer").ToLocalChecked(),
-               Nan::New<v8::FunctionTemplate>(GetAnswers)
                    ->GetFunction(context)
                    .ToLocalChecked());
   exports->Set(context,
