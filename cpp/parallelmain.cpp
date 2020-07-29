@@ -822,7 +822,7 @@ std::vector<std::vector<std::string>> makeTree(std::string pfstr){
 						//apply1(0,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						std::vector<std::string> someStringsC = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,true);
 						std::vector<std::string> someStringsI = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,false);
-						someStringsI.resize(0);
+						
 						int iiiiii;
 						for (iiiiii=0;iiiiii<someStringsC.size();iiiiii++){
 							returnStringsCorrect.push_back(someStringsC[iiiiii]);
@@ -1003,7 +1003,7 @@ std::vector<std::vector<std::string>> makeTree(std::string pfstr){
 					//th2.join();
 					std::vector<std::string> someStringsC = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,true);
 					std::vector<std::string> someStringsI = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,false);
-					someStringsI.resize(0);
+					
 					int iiiiii;
 					for (iiiiii=0;iiiiii<someStringsC.size();iiiiii++){
 						returnStringsCorrect.push_back(someStringsC[iiiiii]);
@@ -2437,7 +2437,7 @@ std::string fullAnswer(std::string s){
 	for (ii=0;ii<tempFinished.size();ii++){
 		if (doubleCheckAnswer(tempFinished[ii])){
 			finishedAnswers.push_back(tempFinished[ii]);
-			std::vector<std::string> v = makeSolutionList(tempFinished[ii]);
+			//std::vector<std::string> v = makeSolutionList(tempFinished[ii]);
 		}
 		else {
 			unfinishedAnswers.push_back(tempFinished[ii]);
