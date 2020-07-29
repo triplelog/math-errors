@@ -2357,7 +2357,7 @@ std::vector<std::string> makeSolutionList(std::string s){
 		//std::cout << "i: " << i << " and " << minSize << " and " << idx << "\n";
 	}
 	//std::cout << "ms: " << minSize << "\n";
-	for (i=0;i<minSize;i++){
+	for (i=0;i<1;i++){
 		if (fullSolutionList.find(sv[idx*2]) == fullSolutionList.end()){
 			std::cout << "missing: " << s << "\n";
 		}
