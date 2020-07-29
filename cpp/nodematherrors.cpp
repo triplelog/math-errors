@@ -2480,32 +2480,23 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::string a(*s);
 	
 	std::string pfstr = postfixify(a);
-	int i;
+	int i; int ii;
+	jsonmessage = "";
 	for (i=0;i<correctAnswers.size();i++){
 		if (correctAnswers[i] == pfstr){
 			std::cout << "match: " << pfstr << " and " << correctAnswers[i] << "\n";
+			std::vector<std::string> v = fullSolutionList[pfstr];
+			for (ii=0;ii<v.size();ii++){
+				std::cout << "step: " << v[ii] << "\n";
+				outputTree(v[ii]);
+			}
 		}
 		else {
 			std::cout << "no match: " << pfstr << " and " << correctAnswers[i] << "\n";
 		}
 	}
 	
-	
-	/*
-	if (answerListMap.find(mpf) != answerListMap.end()){
-		isCorrect = true;
-		std::string oneStep = mpf;
-		std::cout << oneStep << "\n";
-		jsonmessage = "";
-		while (reverseMap.find(oneStep) != reverseMap.end() && oneStep != newPostfix){
-			oneStep = reverseMap[oneStep][0];
-			std::cout << "next step: "<< oneStep << "\n";
-			outputTree(oneStep);
-		}
-	}*/
-	
-
-	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(pfstr);
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 
 	
 	info.GetReturnValue().Set(h.ToLocalChecked());
