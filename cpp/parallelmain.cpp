@@ -2215,9 +2215,12 @@ std::vector<std::string> correctAnswers;
 std::vector<std::string> unfinishedAnswers;
 std::vector<std::string> wrongAnswers;
 std::vector<std::string> inputArray;
+int maxFound;
 bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 
-	
+	if (nSteps > maxFound){
+		maxFound = nSteps;
+	}
 	if (nSteps >= 100){
 		return false;
 	}
@@ -2444,11 +2447,11 @@ bool correctAnswer(std::string s){
 	for (ii=0;ii<tempCorrect.size();ii++){
 		if (doubleCheckAnswer(tempCorrect[ii])){
 			correctAnswers.push_back(tempCorrect[ii]);
-			std::cout << "correct: " << tempCorrect[ii] << "\n";
+			//std::cout << "correct: " << tempCorrect[ii] << "\n";
 			answerListMap.erase(tempCorrect[ii]);
-			std::cout << "erased: " << tempCorrect[ii] << "\n";
+			//std::cout << "erased: " << tempCorrect[ii] << "\n";
 			std::vector<std::string> v = makeSolutionList(tempCorrect[ii]);
-			std::cout << "made solution list: " << tempCorrect[ii] << "\n";
+			//std::cout << "made solution list: " << tempCorrect[ii] << "\n";
 			//std::cout << "len of sol: " << v.size() << "\n";
 		}
 
@@ -2615,9 +2618,10 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	inputArray.resize(0);
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
+	maxFound = 0;
 	bool isCorrect = correctAnswer(question.comp);
 	
-	std::cout << "times: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
+	std::cout << "mf:" << maxFound << " times: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	
 	std::string error = fullAnswer(question.comp);
 
