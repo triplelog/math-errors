@@ -2341,6 +2341,7 @@ std::vector<std::string> makeSolutionList(std::string s){
 	//std::cout << "sv0: " << sv[0] << "\n";
 	
 	int i; int minSize = 100000; int l; int idx = 0;
+	std::vector<std::string> minV;
 	for (i=0;i<sv.size()/2;i++){
 		//std::cout << "i: " << i << " and " << sv[i*2] << "\n";
 		if (fullSolutionList.find(sv[i*2]) != fullSolutionList.end()){
@@ -2352,19 +2353,16 @@ std::vector<std::string> makeSolutionList(std::string s){
 		//std::cout << "i: " << i << " and " << minSize << " and " << l << "\n";
 		if (l < minSize){
 			minSize = l;
-			idx = i;
+			minV = fullSolutionList[sv[i*2]];
 		}
 		//std::cout << "i: " << i << " and " << minSize << " and " << idx << "\n";
 	}
 	//std::cout << "ms: " << minSize << "\n";
-	for (i=0;i<1;i++){
-		if (fullSolutionList.find(sv[idx*2]) == fullSolutionList.end()){
-			std::cout << "missing: " << s << "\n";
-		}
-		if (i>=fullSolutionList[sv[idx*2]].size()){
+	for (i=0;i<minSize;i++){
+		if (i>=minV.size()){
 			std::cout << "too big: " << s << "\n";
 		}
-		v.push_back(fullSolutionList[sv[idx*2]][i]);
+		v.push_back(minV[i]);
 	}
 	v.push_back(s);
 	fullSolutionList[s]=v;
