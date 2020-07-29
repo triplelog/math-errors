@@ -2259,7 +2259,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 
 #include "autocomplete.cpp"
 
-std::string fullAnswer(std::string s, std::string a){
+std::string fullAnswer(std::string s){
 	std::string newPostfix = removeBracketsOne(s);
 	std::cout << "\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
 	answerListMap.clear();
@@ -2556,9 +2556,9 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	wrongAnswers.resize(0);
 	inputArray.resize(0);
 	
-	bool isCorrect = correctAnswer(question.comp,"x");
+	bool isCorrect = correctAnswer(question.comp);
 
-	std::string error = fullAnswer(question.comp,"x");
+	std::string error = fullAnswer(question.comp);
 
 
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(question.text);
