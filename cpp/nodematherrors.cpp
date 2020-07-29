@@ -2207,9 +2207,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	if (!isCorrect){
 		duration1 += dd1;
 	}
-	else {
-		std::cout << "correct maketree time: " << dd1 << "\n";
-	}
+
 	
 	//std::cout << dd1 << "  ";
 	//std::cout << s << " after pl\n";
@@ -2573,7 +2571,9 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
 	bool isCorrect = correctAnswer(question.comp);
-
+	
+	std::cout << "times: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
+	
 	std::string error = fullAnswer(question.comp);
 
 	auto a2 = std::chrono::high_resolution_clock::now();
