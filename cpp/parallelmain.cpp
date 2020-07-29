@@ -2221,7 +2221,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	if (nSteps > maxFound){
 		maxFound = nSteps;
 	}
-	if (nSteps >= 20){
+	if (nSteps >= 25){
 		return false;
 	}
 	//std::cout << s << "\n";
@@ -2307,9 +2307,11 @@ std::string fullAnswer(std::string s){
 	std::cout << "\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
 	answerListMap.clear();
 	reverseMap.clear();
-	//auto a1 = std::chrono::high_resolution_clock::now();
+	auto a1 = std::chrono::high_resolution_clock::now();
 	getAnswerList(newPostfix,false,0);
-	//auto a2 = std::chrono::high_resolution_clock::now();
+	auto a2 = std::chrono::high_resolution_clock::now();
+	std::cout << "\n\n\n\nCompleted the InCorrect Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << " and " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n\n";
+	
 	//duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
 	int i; int ii;
