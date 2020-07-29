@@ -2318,29 +2318,29 @@ std::string fullAnswer(std::string s){
 flat_hash_map<std::string,std::vector<std::string>> fullSolutionList;
 std::vector<std::string> makeSolutionList(std::string s){
 	std::vector<std::string> v;
-	std::cout << "s: " << s << "\n";
+	//std::cout << "s: " << s << "\n";
 	std::vector<std::string> sv;
 	if (reverseMap.find(s) != reverseMap.end()){
 		sv = reverseMap[s];
-		std::cout << "svsza: " << sv.size() << "\n";
+		//std::cout << "svsza: " << sv.size() << "\n";
 	}
 	else {
 		v = {s};
 		fullSolutionList[s]=v;
 		return v;
 	}
-	std::cout << "svszb: " << sv.size() << "\n";
+	//std::cout << "svszb: " << sv.size() << "\n";
 
 	if (sv.size() ==0){
 		v = {s};
 		fullSolutionList[s]=v;
 		return v;
 	}
-	std::cout << "sv0: " << sv[0] << "\n";
+	//std::cout << "sv0: " << sv[0] << "\n";
 	
 	int i; int minSize = 100000; int l; int idx = 0;
 	for (i=0;i<sv.size()/2;i++){
-		std::cout << "i: " << i << " and " << sv[i*2] << "\n";
+		//std::cout << "i: " << i << " and " << sv[i*2] << "\n";
 		if (fullSolutionList.find(sv[i*2]) != fullSolutionList.end()){
 			l = fullSolutionList[sv[i*2]].size();
 		}
@@ -2352,7 +2352,7 @@ std::vector<std::string> makeSolutionList(std::string s){
 			idx = i;
 		}
 	}
-	std::cout << "ms: " << minSize << "\n";
+	//std::cout << "ms: " << minSize << "\n";
 	for (i=0;i<minSize;i++){
 		v.push_back(fullSolutionList[sv[idx*2]][i]);
 	}
@@ -2387,6 +2387,12 @@ bool correctAnswer(std::string s){
 
 	std::vector<std::string> tempCorrect = correctAnswers;
 	correctAnswers.resize(0);
+	
+	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
+		std::cout << "rm: " << iter->first << " and " << iter->second.size() << "\n";
+	}
+	
+	
 	for (ii=0;ii<tempCorrect.size();ii++){
 		if (doubleCheckAnswer(tempCorrect[ii])){
 			correctAnswers.push_back(tempCorrect[ii]);
