@@ -2270,7 +2270,6 @@ std::string fullAnswer(std::string s){
 	//duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
 	int i; int ii;
-	std::string mpf = postfixify(a);
 	std::string error = "Don't know.";
 	int ui = 0;
 	
@@ -2280,6 +2279,7 @@ std::string fullAnswer(std::string s){
 		wrongAnswers.push_back(iter->first);
 	}
 	
+	/*
 	if (reverseMap.find(mpf) != reverseMap.end()){
 		error = "Found";
 		std::string oneStep = mpf;
@@ -2312,7 +2312,7 @@ std::string fullAnswer(std::string s){
 			outputTree(oneStep);
 			oneStep = reverseMap[oneStep][0];
 		}
-	}
+	}*/
 	answerListMap.clear();
 	return error;
 }
