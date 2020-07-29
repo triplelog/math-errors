@@ -22,9 +22,7 @@
 #include <thread>
 #include <future>
 #include "rapidcsv.h"
-#include "Poco/Thread.h"
-#include "Poco/ThreadPool.h"
-#include "Poco/Runnable.h"
+#include "ctpl/ctpl_stl.h"
 #include "parallel_hashmap/phmap.h"
 
 
@@ -503,13 +501,6 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 }
 std::vector<std::string> returnStrings1;
 std::vector<std::string> returnStrings2;
-
-class HelloRunnable: public Poco::Runnable {
-	virtual void run(){
-		std::cout << "Hello, world!" << std::endl;
-	}
-};
-
 
 
 bool apply1(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect){
@@ -2492,9 +2483,7 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	srand(time(NULL));
 	initialRun();
 	
-	//HelloRunnable runnable;
-	//Poco::ThreadPool::defaultPool().start(runnable);
-	//Poco::ThreadPool::defaultPool().joinAll();
+	ctpl::thread_pool p(2);
 	
 	//makeInt("[10,12)U((0,5)U[4,6]U(8,10])");
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
