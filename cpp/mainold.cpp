@@ -2294,7 +2294,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 		}
 
 	}
-	if (newPostfix i)
+
 
 	return true;
 		
