@@ -2481,20 +2481,56 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	std::string pfstr = postfixify(a);
 	int i; int ii;
-	jsonmessage = "";
+	
+	std::vector<std::string> bestSolution;
+	bool foundSolution = false;
 	for (i=0;i<correctAnswers.size();i++){
 		if (correctAnswers[i] == pfstr){
 			std::cout << "match: " << pfstr << " and " << correctAnswers[i] << "\n";
 			std::vector<std::string> v = fullSolutionList[pfstr];
-			for (ii=0;ii<v.size();ii++){
-				std::cout << "step: " << v[ii] << "\n";
-				outputTree(v[ii]);
-			}
+			bestSolution = v;
+			foundSolution = true;
+			break;
 		}
 		else {
 			std::cout << "no match: " << pfstr << " and " << correctAnswers[i] << "\n";
+			std::vector<std::string> v = fullSolutionList[correctAnswers[i]];
+			if (v.size()<bestSolution.size() || bestSolution.size() == 0){
+				bestSolution = v;
+			}
 		}
 	}
+	jsonmessage = "";
+	while (!foundSolution){
+		foundSolution = true;
+		std::vector<std::string> oldBest = bestSolution;
+		bestSolution.resize(0);
+		for (i=0;i<correctAnswers.size();i++){
+			std::vector<std::string> v = fullSolutionList[correctAnswers[i]];
+			for (ii=0;ii<v.size();ii++){
+				if (ii>=oldBest.size()){
+					if (v.size()<bestSolution.size() || bestSolution.size() == 0){
+						bestSolution = v;
+						foundSolution = false;
+					}
+					
+					break;
+				}
+				if (v[ii] != oldBest[ii]){
+					break;
+				}
+				//std::cout << "step: " << v[ii] << "\n";
+				//outputTree(v[ii]);
+			}
+		}
+		if (foundSolution){
+			bestSolution = oldBest;
+		}
+	}
+	for (i=0;i<bestSolution.size();i++){
+		outputTree(bestSolution[i]);
+	}
+	
 	
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 
