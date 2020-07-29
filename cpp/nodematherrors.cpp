@@ -744,7 +744,6 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 						continue;
 					}
 					
-					auto a2 = std::chrono::high_resolution_clock::now();
 					for (iii=0;iii<sss;iii++){
 				
 						nSecond = listMap[secondListMapKey][iii*5+2];
@@ -879,8 +878,6 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 						//62 ms to here from the 18 ms marker
 						
 					}
-					auto a3 = std::chrono::high_resolution_clock::now();
-					duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 					
 					
 				}
@@ -1021,12 +1018,12 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 			opStr += pfstr.at(i);
 			fullTrees.resize(ftSz);
 			
-			auto a3 = std::chrono::high_resolution_clock::now();
+			//auto a3 = std::chrono::high_resolution_clock::now();
 			
 			listMap[fullStr]=fullTrees;
 			
-			auto a4 = std::chrono::high_resolution_clock::now();
-			duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a4 - a3 ).count();
+			//auto a4 = std::chrono::high_resolution_clock::now();
+			//duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a4 - a3 ).count();
 			
 
 			
@@ -1948,8 +1945,6 @@ bool doubleCheckAnswer(std::string pfstr){
 						//62 ms to here from the 18 ms marker
 						
 					}
-					auto a3 = std::chrono::high_resolution_clock::now();
-					duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
 					
 					
 				}
@@ -2263,10 +2258,10 @@ std::string fullAnswer(std::string s){
 	std::cout << "\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
 	answerListMap.clear();
 	reverseMap.clear();
-	//auto a1 = std::chrono::high_resolution_clock::now();
+	auto a1 = std::chrono::high_resolution_clock::now();
 	getAnswerList(newPostfix,false,0);
-	//auto a2 = std::chrono::high_resolution_clock::now();
-	//duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	auto a2 = std::chrono::high_resolution_clock::now();
+	duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
 	int i; int ii;
 	std::string error = "Don't know.";
@@ -2570,11 +2565,14 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	wrongAnswers.resize(0);
 	inputArray.resize(0);
 	
+	auto a1 = std::chrono::high_resolution_clock::now();
 	bool isCorrect = correctAnswer(question.comp);
 
 	std::string error = fullAnswer(question.comp);
 
-
+	auto a2 = std::chrono::high_resolution_clock::now();
+	duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	std::cout << "times: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(question.text);
 
 	
