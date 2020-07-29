@@ -789,7 +789,10 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 						if (!checkAnswer(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii])){
 							answerIsCorrect = false;
 						}
+						auto a1 = std::chrono::high_resolution_clock::now();
 						std::vector<std::string> someStrings = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
+						auto a2 = std::chrono::high_resolution_clock::now();
+						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 						int iiiiii;
 						for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
 							returnStrings.push_back(someStrings[iiiiii]);
@@ -956,7 +959,10 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 					if (!checkAnswer(secondS[iii] + pfstr.at(i) + '@' + secondT[iii])){
 						answerIsCorrect = false;
 					}
+					auto a1 = std::chrono::high_resolution_clock::now();
 					std::vector<std::string> someStrings = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
+					auto a2 = std::chrono::high_resolution_clock::now();
+					duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 					int iiiiii;
 					for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
 						returnStrings.push_back(someStrings[iiiiii]);
@@ -2262,10 +2268,10 @@ std::string fullAnswer(std::string s){
 	std::cout << "\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
 	answerListMap.clear();
 	reverseMap.clear();
-	auto a1 = std::chrono::high_resolution_clock::now();
+	//auto a1 = std::chrono::high_resolution_clock::now();
 	getAnswerList(newPostfix,false,0);
-	auto a2 = std::chrono::high_resolution_clock::now();
-	duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	//auto a2 = std::chrono::high_resolution_clock::now();
+	//duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
 	int i; int ii;
 	std::string error = "Don't know.";
