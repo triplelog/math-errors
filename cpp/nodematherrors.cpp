@@ -2349,10 +2349,12 @@ std::vector<std::string> makeSolutionList(std::string s){
 		else {
 			l = makeSolutionList(sv[i*2]).size();
 		}
+		std::cout << "i: " << i << " and " << minSize << " and " << l << "\n";
 		if (l < minSize){
 			minSize = l;
 			idx = i;
 		}
+		std::cout << "i: " << i << " and " << minSize << " and " << idx << "\n";
 	}
 	std::cout << "ms: " << minSize << "\n";
 	for (i=0;i<minSize;i++){
