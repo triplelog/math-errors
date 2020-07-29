@@ -2260,7 +2260,7 @@ bool getAnswerList(std::string s, int nSteps) {
 	
 	if (answerIsFinished){
 		finishedAnswers.push_back(newPostfix);
-		std::cout << newPostfix << "\n";
+		//std::cout << newPostfix << "\n";
 	}
 	else {
 		unfinishedAnswers.push_back(newPostfix);
@@ -2361,7 +2361,7 @@ bool getAnswerList(std::string s, int nSteps) {
 #include "autocomplete.cpp"
 
 flat_hash_map<std::string,std::vector<std::string>> fullSolutionList;
-std::vector<std::string> makeSolutionList(std::string s){
+std::vector<std::string> makeSolutionList(std::string s, std::string q){
 	std::vector<std::string> v;
 	//std::cout << "s: " << s << "\n";
 	std::vector<std::string> sv;
@@ -2369,16 +2369,27 @@ std::vector<std::string> makeSolutionList(std::string s){
 	if (reverseMapCorrect.find(s) != reverseMap.end()){
 		sv = reverseMapCorrect.find(s)->second;
 	}
-	else {
+	else if (s == q){
 		v = {s};
 		fullSolutionList[s]=v;
 		//std::cout << "sa: " << s << " and vsz: " << v.size() << "\n";
 		return v;
 	}
+	else {
+		v = {};
+		fullSolutionList[s]=v;
+		return v;
+	}
 	//std::cout << "svszb: " << sv.size() << "\n";
 
-	if (sv.size() ==0){
+	if (sv.size() ==0 && s == q){
 		v = {s};
+		fullSolutionList[s]=v;
+		//std::cout << "sb: " << s << " and vsz: " << v.size() << "\n";
+		return v;
+	}
+	else {
+		v = {};
 		fullSolutionList[s]=v;
 		//std::cout << "sb: " << s << " and vsz: " << v.size() << "\n";
 		return v;
@@ -2397,6 +2408,9 @@ std::vector<std::string> makeSolutionList(std::string s){
 		}
 		l = fullSolutionList[sv[i*2]].size();
 		//std::cout << "i: " << i << " and " << minSize << " and " << l << "\n";
+		if (l == 0){
+			continue;
+		}
 		if (l < minSize){
 			minSize = l;
 			minV = fullSolutionList[sv[i*2]];
@@ -2404,6 +2418,12 @@ std::vector<std::string> makeSolutionList(std::string s){
 		//std::cout << "i: " << i << " and " << minSize << " and " << idx << "\n";
 	}
 	//std::cout << "ms: " << minSize << "\n";
+	if (minSize == 100000){
+		v = {};
+		fullSolutionList[s]=v;
+		//std::cout << "sb: " << s << " and vsz: " << v.size() << "\n";
+		return v;
+	}
 	for (i=0;i<minSize;i++){
 		v.push_back(minV[i]);
 	}
@@ -2433,17 +2453,21 @@ std::string fullAnswer(std::string s){
 	std::cout << "finished answers: " << finishedAnswers.size() << "\n";
 	std::cout << "unfinished answers: " << unfinishedAnswers.size() << "\n";
 	finishedAnswers.resize(0);
-	
+	int ca = 0;
 	for (ii=0;ii<tempFinished.size();ii++){
 		if (doubleCheckAnswer(tempFinished[ii])){
 			finishedAnswers.push_back(tempFinished[ii]);
-			//std::vector<std::string> v = makeSolutionList(tempFinished[ii]);
+			std::vector<std::string> v = makeSolutionList(tempFinished[ii]);
+			if (v.size() > 0){
+				ca++;
+			}
 		}
 		else {
 			unfinishedAnswers.push_back(tempFinished[ii]);
 		}
 	}
 	std::cout << "finished answers: " << finishedAnswers.size() << "\n";
+	std::cout << "correct finished answers: " << ca << "\n";
 	std::cout << "unfinished answers: " << unfinishedAnswers.size() << "\n";
 	//for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMapCorrect.begin(); iter != reverseMapCorrect.end(); ++iter){
 	//	std::cout << "rm: " << iter->first << " and " << iter->second.size() << "\n";		
