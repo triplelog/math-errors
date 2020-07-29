@@ -2403,6 +2403,9 @@ bool correctAnswer(std::string s){
 		for (i=0;i<iter->first.length()-1;i++){
 			if (iter->first.at(i) == -69 && iter->first.at(i+1) == '@'){
 				std::cout << "rm: " << iter->first << " and " << iter->second.size() << "\n";
+				for (ii=0;ii<iter->second.size();ii++){
+					std::cout << "rmb: " << iter->second[ii] << "\n";
+				}
 			}
 		}
 		
