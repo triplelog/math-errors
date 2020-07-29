@@ -503,7 +503,7 @@ std::vector<std::string> returnStrings1;
 std::vector<std::string> returnStrings2;
 
 
-bool apply1(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect){
+bool apply1(int id, std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect){
 	std::vector<std::string> someStrings = applyRulesVectorOnePart(onePart,oneIndex, userFullString, isCorrect);
 	int iiiiii;
 	for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
