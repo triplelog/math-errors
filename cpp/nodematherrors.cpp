@@ -2341,7 +2341,7 @@ std::vector<std::string> makeSolutionList(std::string s){
 		}
 	}
 	for (i=0;i<minSize;i++){
-		v.push_back(fullSolutionList[sv[idx*2]]);
+		v.push_back(fullSolutionList[sv[idx*2]][i]);
 	}
 	v.push_back(s);
 	return v;
