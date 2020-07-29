@@ -2339,6 +2339,7 @@ std::vector<std::string> makeSolutionList(std::string s){
 	
 	int i; int minSize = 100000; int l; int idx = 0;
 	for (i=0;i<sv.size()/2;i++){
+		std::cout << "i: " << i << " and " << sv[i*2] << "\n";
 		if (fullSolutionList.find(sv[i*2]) != fullSolutionList.end()){
 			l = fullSolutionList[sv[i*2]].size();
 		}
