@@ -48,7 +48,7 @@ int yesC;
 int noC;
 int mapSave;
 int mapMake;
-bool answerIsCorrect;
+bool answerIsFinished;
 struct RawQuestion {
 	std::string qH = "";
 	std::string qC = "";
@@ -519,11 +519,12 @@ bool apply2(int id, std::string onePart,std::vector<int> oneIndex, std::string u
 }
 //ctpl::thread_pool tp(2);
 //std::future<bool> pp;
-std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
+std::vector<std::vector<std::string>> makeTree(std::string pfstr){
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,int> operandMap;
 	flat_hash_map<int,std::string> originalMap;
-    std::vector<std::string> returnStrings;
+    std::vector<std::string> returnStringsCorrect;
+    std::vector<std::string> returnStringsIncorrect;
     returnStrings1.resize(0);
     returnStrings2.resize(0);
 	int i; int ii; int iii;
@@ -532,7 +533,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	std::string currentOperator = "";
 	int iidx = 0;
 	bool midBrackets = false;
-	answerIsCorrect = true;
+	answerIsFinished = true;
 	
 	for (i=0;i<pfstr.length();i++){
 		if (pfstr.at(i) == '@'){
@@ -806,7 +807,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 						//std::vector<int> tempV;
 						//tempV = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
 						if (!checkAnswer(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii])){
-							answerIsCorrect = false;
+							answerIsFinished = false;
 						}
 						
 						auto a1 = std::chrono::high_resolution_clock::now();
@@ -819,10 +820,15 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 						//std::future<bool> fut = std::async(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						//fut.get();
 						//apply1(0,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
-						std::vector<std::string> someStrings = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
+						std::vector<std::string> someStringsC = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,true);
+						std::vector<std::string> someStringsI = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,false);
+						
 						int iiiiii;
-						for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
-							returnStrings.push_back(someStrings[iiiiii]);
+						for (iiiiii=0;iiiiii<someStringsC.size();iiiiii++){
+							returnStringsCorrect.push_back(someStrings[iiiiii]);
+						}
+						for (iiiiii=0;iiiiii<someStringsI.size();iiiiii++){
+							returnStringsIncorrect.push_back(someStrings[iiiiii]);
 						}
 						auto a2 = std::chrono::high_resolution_clock::now();
 						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
@@ -981,7 +987,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 						}
 					}
 					if (!checkAnswer(secondS[iii] + pfstr.at(i) + '@' + secondT[iii])){
-						answerIsCorrect = false;
+						answerIsFinished = false;
 					}
 					auto a1 = std::chrono::high_resolution_clock::now();
 					//TODO: make this parallel
@@ -995,10 +1001,14 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 						
 					//std::thread th2(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
 					//th2.join();
-					std::vector<std::string> someStrings = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
+					std::vector<std::string> someStringsC = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
+					std::vector<std::string> someStringsI = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
 					int iiiiii;
-					for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
-						returnStrings.push_back(someStrings[iiiiii]);
+					for (iiiiii=0;iiiiii<someStringsC.size();iiiiii++){
+						returnStringsCorrect.push_back(someStrings[iiiiii]);
+					}
+					for (iiiiii=0;iiiiii<someStringsI.size();iiiiii++){
+						returnStringsIncorrect.push_back(someStrings[iiiiii]);
 					}
 					auto a2 = std::chrono::high_resolution_clock::now();
 					duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
@@ -1111,7 +1121,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	returnStrings1.resize(0);
 	returnStrings2.resize(0);*/
 
-	return returnStrings;
+	return {returnStringsC,returnStringsI};
 	
 
 }
@@ -1634,7 +1644,7 @@ bool doubleCheckAnswer(std::string pfstr){
 	std::string currentOperator = "";
 	int iidx = 0;
 	bool midBrackets = false;
-	answerIsCorrect = true;
+	answerIsFinished = true;
 	constraintsMet.clear();
 	for (i=0;i<pfstr.length();i++){
 		if (pfstr.at(i) == '@'){
@@ -2210,18 +2220,21 @@ void initialRun(){
 
 flat_hash_map<std::string,std::vector<std::string>> answerListMap;
 flat_hash_map<std::string,std::vector<std::string>> reverseMap;
+flat_hash_map<std::string,std::vector<std::string>> reverseMapCorrect;
 int totalAnswers;
-std::vector<std::string> correctAnswers;
+std::vector<std::string> finishedAnswers;
 std::vector<std::string> unfinishedAnswers;
+std::vector<std::string> correctAnswers;
 std::vector<std::string> wrongAnswers;
 std::vector<std::string> inputArray;
 int maxFound;
-bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
+int maxSteps;
+bool getAnswerList(std::string s, int nSteps) {
 
 	if (nSteps > maxFound){
 		maxFound = nSteps;
 	}
-	if (nSteps >= 25){
+	if (nSteps >= maxSteps){
 		return false;
 	}
 	//std::cout << s << "\n";
@@ -2237,15 +2250,15 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 
 	std::string newPostfix = pfstr;
 
-	int maxSteps = 10;
+	
 	newPostfix = removeBracketsOne(newPostfix);
 	
 	//std::cout << s << " before pl\n";
 	auto a1 = std::chrono::high_resolution_clock::now();
-	std::vector<std::string> someStrings = makeTree(newPostfix,isCorrect);
+	std::vector<std::vector<std::string>> someStrings = makeTree(newPostfix);
 	
-	if (answerIsCorrect && isCorrect){
-		correctAnswers.push_back(newPostfix);
+	if (answerIsFinished){
+		finishedAnswers.push_back(newPostfix);
 	}
 	auto a2 = std::chrono::high_resolution_clock::now();
 	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
@@ -2261,19 +2274,49 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	flat_hash_map<std::string,bool> uniqueStrings;
 
 	
-	for (iii=0;iii<someStrings.size()/2;iii++){
-		someStrings[iii*2] = removeBracketsOne(someStrings[iii*2]);
-		if (uniqueStrings.find(someStrings[iii*2]) != uniqueStrings.end()){
+	for (iii=0;iii<someStrings[0].size()/2;iii++){
+		someStrings[0][iii*2] = removeBracketsOne(someStrings[0][iii*2]);
+		if (uniqueStrings.find(someStrings[0][iii*2]) != uniqueStrings.end()){
 	
 		}
 		else {
-			allStrings.push_back(someStrings[iii*2]);
-			allStrings.push_back(someStrings[iii*2+1]);
-			uniqueStrings[someStrings[iii*2]]=true;
+			allStrings.push_back(someStrings[0][iii*2]);
+			allStrings.push_back(someStrings[0][iii*2+1]);
+			uniqueStrings[someStrings[0][iii*2]]=true;
 		}
 	
 	}
+	
+	for (ii=0;ii<allStrings.size()/2;ii++){
+		
+		if (answerListMap.find(allStrings[ii*2]) != answerListMap.end()){
+			reverseMapCorrect[allStrings[ii*2]].push_back(newPostfix);
+			reverseMapCorrect[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
+		}
+		else {
+			if (allStrings[ii*2] != newPostfix){
+				getAnswerList(allStrings[ii*2],nSteps+1);
+				reverseMapCorrect[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
+				
+			}
+			
+		}
 
+	}
+	
+	for (iii=0;iii<someStrings[1].size()/2;iii++){
+		someStrings[1][iii*2] = removeBracketsOne(someStrings[1][iii*2]);
+		if (uniqueStrings.find(someStrings[1][iii*2]) != uniqueStrings.end()){
+	
+		}
+		else {
+			allStrings.push_back(someStrings[1][iii*2]);
+			allStrings.push_back(someStrings[1][iii*2+1]);
+			uniqueStrings[someStrings[1][iii*2]]=true;
+		}
+	
+	}
+	
 	answerListMap[newPostfix] = allStrings;
 	totalAnswers += allStrings.size();
 	//std::cout << "total answers: "<< totalAnswers << "\n";
@@ -2285,14 +2328,13 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 		}
 		else {
 			if (allStrings[ii*2] != newPostfix){
-				getAnswerList(allStrings[ii*2],isCorrect,nSteps+1);
+				getAnswerList(allStrings[ii*2],nSteps+1);
 				reverseMap[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
 				
 			}
 			
 		}
-		
-	
+
 	}
 
 	return true;
@@ -2307,8 +2349,9 @@ std::string fullAnswer(std::string s){
 	std::cout << "\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
 	answerListMap.clear();
 	reverseMap.clear();
+	reverseMapCorrect.clear();
 	auto a1 = std::chrono::high_resolution_clock::now();
-	getAnswerList(newPostfix,false,0);
+	getAnswerList(newPostfix,0);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	std::cout << "\n\n\n\nCompleted the InCorrect Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << " and " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n\n";
 	
@@ -2318,11 +2361,17 @@ std::string fullAnswer(std::string s){
 	std::string error = "Don't know.";
 	int ui = 0;
 	
+	
+	/*
 	std::cout << "in\n";
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
 		inputArray.push_back(inputify(iter->first));
 		wrongAnswers.push_back(iter->first);
 	}
+	*/
+	
+	
+	
 	
 	/*
 	if (reverseMap.find(mpf) != reverseMap.end()){
@@ -2414,6 +2463,7 @@ std::vector<std::string> makeSolutionList(std::string s){
 	return v;
 }
 
+/*
 bool correctAnswer(std::string s){
 	//std::cout << "input: " << s << "\n";
 	std::string newPostfix = removeBracketsOne(s);
@@ -2474,7 +2524,7 @@ bool correctAnswer(std::string s){
 
 	return isCorrect;
 }
-
+*/
 void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//v8::Isolate* isolate = info.GetIsolate();
 	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
@@ -2625,10 +2675,11 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	unfinishedAnswers.resize(0);
 	wrongAnswers.resize(0);
 	inputArray.resize(0);
+	maxSteps = 50;
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
 	maxFound = 0;
-	bool isCorrect = correctAnswer(question.comp);
+	//bool isCorrect = correctAnswer(question.comp);
 	
 	std::cout << "mf:" << maxFound << " times: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	
