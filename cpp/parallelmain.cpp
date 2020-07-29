@@ -2366,7 +2366,7 @@ std::vector<std::string> makeSolutionList(std::string s, std::string q){
 	//std::cout << "s: " << s << "\n";
 	std::vector<std::string> sv;
 	int i; 
-	if (reverseMapCorrect.find(s) != reverseMap.end()){
+	if (reverseMapCorrect.find(s) != reverseMapCorrect.end()){
 		sv = reverseMapCorrect.find(s)->second;
 	}
 	else if (s == q){
