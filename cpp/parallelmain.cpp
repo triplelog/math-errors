@@ -39,9 +39,7 @@ flat_hash_map<std::string,std::vector<int>> constraintsMet;
 //flat_hash_map<std::string,std::vector<std::string>> allListMapFull;
 //flat_hash_map<std::string,std::vector<std::vector<std::string>>> allListMapBottom;
 flat_hash_map<std::string,bool> constraintMap;
-std::vector<std::string> bottomTreesString;
-std::vector<std::vector<int>> bottomTreesIndex;
-int btSz;
+
 std::string jsonmessage;
 int duration1;
 int duration2;
@@ -519,8 +517,8 @@ bool apply2(int id, std::string onePart,std::vector<int> oneIndex, std::string u
 	}
 	return true;
 }
-ctpl::thread_pool tp(2);
-std::future<bool> pp;
+//ctpl::thread_pool tp(2);
+//std::future<bool> pp;
 std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,int> operandMap;
@@ -567,9 +565,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	
 	
 	//std::cout << "before third: " << pfstr << "\n";
-	bottomTreesString.resize(0);
-	bottomTreesIndex.resize(0);
-	btSz = 0;
+
 	
 	for (i=0;i<pfstr.length();i++){
 		char mychar = pfstr.at(i);
@@ -731,9 +727,6 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 				}
 				
 				
-				//bottomTreesString.resize(btSz+secondS.size()*firstS.size()*2);
-				//bottomTreesIndex.resize(btSz+secondS.size()*firstS.size()*2);
-				
 				
 				int fss = firstS.size();
 				int sss = secondS.size();	
@@ -821,11 +814,11 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 						//std::thread th1(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						//th1.join();
 						
-						pp = tp.push(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
-						pp.get();
+						//pp = tp.push(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
+						//pp.get();
 						//std::future<bool> fut = std::async(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						//fut.get();
-						
+						apply1(0,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect)
 						//std::vector<std::string> someStrings = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						//int iiiiii;
 						//for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
@@ -907,9 +900,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 							ftSz++;
 					
 					
-							//bottomTreesString[btSz] = secondS[iii] + firstS[ii]  + pfstr.at(i) + '@' + secondT[iii] + firstT[ii];
-							//bottomTreesIndex[btSz] = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
-							//btSz++;
+
 							std::vector<std::string> someStrings = applyRulesVectorOnePart(secondS[iii] + firstS[ii]  + pfstr.at(i) + '@' + secondT[iii] + firstT[ii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
 							int iiiiii;
 							for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
@@ -929,8 +920,6 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 			
 			}
 			else {
-				//bottomTreesString.resize(btSz+secondS.size());
-				//bottomTreesIndex.resize(btSz+secondS.size());
 				fullTrees.resize(ftSz+5+secondS.size()*1*5);
 				
 				fullTrees[ftSz] = "#";
@@ -991,9 +980,6 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 							rightLength++;
 						}
 					}
-					//bottomTreesString[btSz]=secondS[iii] + pfstr.at(i) + '@' + secondT[iii];
-					//bottomTreesIndex[btSz]={startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
-					//btSz++;
 					if (!checkAnswer(secondS[iii] + pfstr.at(i) + '@' + secondT[iii])){
 						answerIsCorrect = false;
 					}
@@ -1002,8 +988,9 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 					std::vector<int> tempV;
 					tempV = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
 					
-					pp = tp.push(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
-					pp.get();
+					apply2(0,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect)
+					//pp = tp.push(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
+					//pp.get();
 						
 						
 					//std::thread th2(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
@@ -1083,8 +1070,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 
 			
 			
-			//bottomTreesString.resize(btSz);
-			//bottomTreesIndex.resize(btSz);
+
 			
 			
 
@@ -1123,7 +1109,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	}
 	returnStrings1.resize(0);
 	returnStrings2.resize(0);
-	tp.resize(0);
+
 	return returnStrings;
 	
 
@@ -1181,9 +1167,7 @@ std::vector<std::string> outputTree(std::string pfstr){
     
 	int treeIdx = 0;
 	//std::cout << "before third: " << pfstr << "\n";
-	bottomTreesString.resize(0);
-	bottomTreesIndex.resize(0);
-	btSz = 0;
+
 	for (i=0;i<pfstr.length();i++){
 		
 		if (pfstr.at(i) == '@'){
@@ -1682,9 +1666,7 @@ bool doubleCheckAnswer(std::string pfstr){
 	
 	
 	//std::cout << "before third: " << pfstr << "\n";
-	bottomTreesString.resize(0);
-	bottomTreesIndex.resize(0);
-	btSz = 0;
+
 	for (i=0;i<pfstr.length();i++){
 		char mychar = pfstr.at(i);
 		if (mychar == '@'){
@@ -1845,9 +1827,7 @@ bool doubleCheckAnswer(std::string pfstr){
 				}
 				
 				
-				//bottomTreesString.resize(btSz+secondS.size()*firstS.size()*2);
-				//bottomTreesIndex.resize(btSz+secondS.size()*firstS.size()*2);
-				
+
 				
 				int fss = firstS.size();
 				int sss = secondS.size();	
@@ -2018,8 +1998,6 @@ bool doubleCheckAnswer(std::string pfstr){
 			
 			}
 			else {
-				//bottomTreesString.resize(btSz+secondS.size());
-				//bottomTreesIndex.resize(btSz+secondS.size());
 				fullTrees.resize(ftSz+5+secondS.size()*1*5);
 				
 				fullTrees[ftSz] = "#";
