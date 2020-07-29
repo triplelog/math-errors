@@ -2321,8 +2321,9 @@ std::vector<std::string> makeSolutionList(std::string s){
 	//std::cout << "s: " << s << "\n";
 	std::vector<std::string> sv;
 	if (reverseMap.find(s) != reverseMap.end()){
+		std::cout << "svszaa: " << reverseMap[s].size() << "\n";
 		sv = reverseMap[s];
-		//std::cout << "svsza: " << sv.size() << "\n";
+		std::cout << "svsza: " << sv.size() << "\n";
 	}
 	else {
 		v = {s};
@@ -2389,7 +2390,7 @@ bool correctAnswer(std::string s){
 	correctAnswers.resize(0);
 	
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
-		std::cout << "rm: " << iter->first << " and " << iter->second.size() << "\n";
+		//std::cout << "rm: " << iter->first << " and " << iter->second.size() << "\n";
 	}
 	
 	
