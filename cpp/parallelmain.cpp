@@ -2404,7 +2404,7 @@ std::vector<std::string> makeSolutionList(std::string s, std::string q){
 			
 		}
 		else {
-			makeSolutionList(sv[i*2]).size();
+			makeSolutionList(sv[i*2],q).size();
 		}
 		l = fullSolutionList[sv[i*2]].size();
 		//std::cout << "i: " << i << " and " << minSize << " and " << l << "\n";
