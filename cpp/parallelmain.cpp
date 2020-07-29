@@ -22,6 +22,7 @@
 #include <thread>
 #include <future>
 #include "rapidcsv.h"
+#include "Poco/ThreadPool.h"
 #include "parallel_hashmap/phmap.h"
 
 
