@@ -129,6 +129,8 @@ wss.on('connection', function connection(ws) {
 			console.log(performance.now());
 			var stdout = maincpp.check(dm.answer);
 			console.log(performance.now(), dm.answer);
+			maincpp.solution(dm.answer);
+			console.log(performance.now(), dm.answer);
 			
 			//var jsonmessage = {'type':'answer','answer':outStr};
 			//ws.send(JSON.stringify(jsonmessage));

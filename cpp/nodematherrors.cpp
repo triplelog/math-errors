@@ -2353,7 +2353,7 @@ std::vector<std::string> makeSolutionList(std::string s){
 	return v;
 }
 
-bool correctAnswer(std::string s, std::string a){
+bool correctAnswer(std::string s){
 	//std::cout << "input: " << s << "\n";
 	std::string newPostfix = removeBracketsOne(s);
 	//std::cout << "postfixed: " << postfixify(s) << "\n";
@@ -2370,24 +2370,14 @@ bool correctAnswer(std::string s, std::string a){
 	//duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\n\n\nCompleted the Correct Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << totalAnswers << "\n\n\n";
 	int i; int ii; int iii; int iiii;
-	std::string mpf = postfixify(a);
+
 	
 	int minLen = 10000;
 	int minIdx = 0;
 	bool isCorrect = false;
 	int ui = 0;
 
-	if (answerListMap.find(mpf) != answerListMap.end()){
-		isCorrect = true;
-		std::string oneStep = mpf;
-		std::cout << oneStep << "\n";
-		jsonmessage = "";
-		while (reverseMap.find(oneStep) != reverseMap.end() && oneStep != newPostfix){
-			oneStep = reverseMap[oneStep][0];
-			std::cout << "next step: "<< oneStep << "\n";
-			outputTree(oneStep);
-		}
-	}
+
 	std::vector<std::string> tempCorrect = correctAnswers;
 	correctAnswers.resize(0);
 	for (ii=0;ii<tempCorrect.size();ii++){
@@ -2396,7 +2386,7 @@ bool correctAnswer(std::string s, std::string a){
 			std::cout << "correct: " << tempCorrect[ii] << "\n";
 			answerListMap.erase(tempCorrect[ii]);
 			std::vector<std::string> v = makeSolutionList(tempCorrect[ii]);
-			std::cout << "len of sol: " << v.size() << "\n";
+			//std::cout << "len of sol: " << v.size() << "\n";
 		}
 
 	}
@@ -2524,18 +2514,17 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::String::Utf8Value s(isolate, info[0]);
 	std::string a(*s);
 	
-	
-	auto a1 = std::chrono::high_resolution_clock::now();
-	std::string newPostfix = "#@0_";
-	std::vector<std::string> autoAnswers = autocomplete(inputArray,newPostfix,a);
-	auto a2 = std::chrono::high_resolution_clock::now();
-	std::string jsonmessage = "outArray = [];\n";
-	std::cout << "autocomplete time: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "for " << inputArray.size() << "\n";
+	std::string pfstr = postfixify(a);
 	int i;
-	for (i=0;i<autoAnswers.size();i++){
-		//std::cout << autoAnswers[i] << "\n";
-		jsonmessage += "outArray.push(\""+autoAnswers[i]+"\");\n";
+	for (i=0;i<correctAnswers.size();i++){
+		if (correctAnswers[i] == pfstr){
+			std::cout << "match: " << pfstr << " and " << correctAnswers[i] << "\n";
+		}
+		else {
+			std::cout << "no match: " << pfstr << " and " << correctAnswers[i] << "\n";
+		}
 	}
+	
 	
 	/*
 	if (answerListMap.find(mpf) != answerListMap.end()){
@@ -2551,7 +2540,7 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	}*/
 	
 
-	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(pfstr);
 
 	
 	info.GetReturnValue().Set(h.ToLocalChecked());
