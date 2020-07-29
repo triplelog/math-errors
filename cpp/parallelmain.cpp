@@ -519,6 +519,8 @@ bool apply2(int id, std::string onePart,std::vector<int> oneIndex, std::string u
 	}
 	return true;
 }
+ctpl::thread_pool tp(2);
+std::future<bool> pp;
 std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,int> operandMap;
@@ -568,8 +570,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	bottomTreesString.resize(0);
 	bottomTreesIndex.resize(0);
 	btSz = 0;
-	ctpl::thread_pool p(2);
-	std::future<bool> pp;
+	
 	for (i=0;i<pfstr.length();i++){
 		char mychar = pfstr.at(i);
 		if (mychar == '@'){
@@ -820,7 +821,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 						//std::thread th1(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						//th1.join();
 						
-						pp = p.push(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
+						pp = tp.push(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						pp.get();
 						//std::future<bool> fut = std::async(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						//fut.get();
@@ -1001,7 +1002,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 					std::vector<int> tempV;
 					tempV = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
 					
-					pp = p.push(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
+					pp = tp.push(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
 					pp.get();
 						
 						
