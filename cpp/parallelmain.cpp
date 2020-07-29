@@ -22,6 +22,7 @@
 #include <thread>
 #include <future>
 #include "rapidcsv.h"
+#include "Poco/Thread.h"
 #include "Poco/ThreadPool.h"
 #include "parallel_hashmap/phmap.h"
 
@@ -2480,8 +2481,9 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	jsonmessage = "var rule = {};";
 	srand(time(NULL));
 	initialRun();
-	Poco::ThreadPool::defaultPool().start();
-	Poco::ThreadPool::defaultPool().joinAll();
+	Poco::Thread t1;
+	t1.start();
+	t1.join();
 	//makeInt("[10,12)U((0,5)U[4,6]U(8,10])");
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	info.GetReturnValue().Set(h.ToLocalChecked());
