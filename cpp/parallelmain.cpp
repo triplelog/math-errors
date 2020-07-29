@@ -803,8 +803,8 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 							}
 						}
 
-						std::vector<int> tempV;
-						tempV = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
+						//std::vector<int> tempV;
+						//tempV = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
 						if (!checkAnswer(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii])){
 							answerIsCorrect = false;
 						}
@@ -819,7 +819,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 						//std::future<bool> fut = std::async(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						//fut.get();
 						//apply1(0,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
-						std::vector<std::string> someStrings = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
+						std::vector<std::string> someStrings = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
 						int iiiiii;
 						for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
 							returnStrings.push_back(someStrings[iiiiii]);
@@ -985,7 +985,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 					}
 					auto a1 = std::chrono::high_resolution_clock::now();
 					//TODO: make this parallel
-					std::vector<int> tempV;
+					//std::vector<int> tempV;
 					//tempV = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
 					
 					//apply2(0,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
