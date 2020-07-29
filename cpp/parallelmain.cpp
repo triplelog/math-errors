@@ -511,7 +511,7 @@ bool apply1(int id, std::string onePart,std::vector<int> oneIndex, std::string u
 	}
 	return true;
 }
-bool apply2(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect){
+bool apply2(int id, std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect){
 	std::vector<std::string> someStrings = applyRulesVectorOnePart(onePart,oneIndex, userFullString, isCorrect);
 	int iiiiii;
 	for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
@@ -1000,8 +1000,13 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 					//TODO: make this parallel
 					std::vector<int> tempV;
 					tempV = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
-					std::thread th2(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
-					th2.join();
+					
+					pp = p.push(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
+					pp.get();
+						
+						
+					//std::thread th2(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
+					//th2.join();
 					//std::vector<std::string> someStrings = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
 					//int iiiiii;
 					//for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
