@@ -822,7 +822,7 @@ std::vector<std::vector<std::string>> makeTree(std::string pfstr){
 						//apply1(0,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						std::vector<std::string> someStringsC = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,true);
 						std::vector<std::string> someStringsI = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,false);
-						
+						someStringsI.resize(0);
 						int iiiiii;
 						for (iiiiii=0;iiiiii<someStringsC.size();iiiiii++){
 							returnStringsCorrect.push_back(someStringsC[iiiiii]);
@@ -1003,6 +1003,7 @@ std::vector<std::vector<std::string>> makeTree(std::string pfstr){
 					//th2.join();
 					std::vector<std::string> someStringsC = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,true);
 					std::vector<std::string> someStringsI = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,false);
+					someStringsI.resize(0);
 					int iiiiii;
 					for (iiiiii=0;iiiiii<someStringsC.size();iiiiii++){
 						returnStringsCorrect.push_back(someStringsC[iiiiii]);
@@ -2292,11 +2293,14 @@ bool getAnswerList(std::string s, int nSteps) {
 		if (answerListMap.find(allStrings[ii*2]) != answerListMap.end()){
 			reverseMapCorrect[allStrings[ii*2]].push_back(newPostfix);
 			reverseMapCorrect[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
+			reverseMap[allStrings[ii*2]].push_back(newPostfix);
+			reverseMap[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
 		}
 		else {
 			if (allStrings[ii*2] != newPostfix){
 				getAnswerList(allStrings[ii*2],nSteps+1);
 				reverseMapCorrect[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
+				reverseMap[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
 				
 			}
 			
@@ -2304,6 +2308,10 @@ bool getAnswerList(std::string s, int nSteps) {
 
 	}
 	
+	totalAnswers += allStrings.size();
+	std::cout << "total answers: "<< totalAnswers << "\n";
+	
+	allStrings.resize(0);
 	for (iii=0;iii<someStrings[1].size()/2;iii++){
 		someStrings[1][iii*2] = removeBracketsOne(someStrings[1][iii*2]);
 		if (uniqueStrings.find(someStrings[1][iii*2]) != uniqueStrings.end()){
@@ -2675,7 +2683,7 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	unfinishedAnswers.resize(0);
 	wrongAnswers.resize(0);
 	inputArray.resize(0);
-	maxSteps = 50;
+	maxSteps = 25;
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
 	maxFound = 0;
