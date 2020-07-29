@@ -988,7 +988,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 					std::vector<int> tempV;
 					tempV = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
 					
-					apply2(0,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect)
+					apply2(0,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
 					//pp = tp.push(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
 					//pp.get();
 						
