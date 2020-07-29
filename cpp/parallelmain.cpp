@@ -568,6 +568,8 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	bottomTreesString.resize(0);
 	bottomTreesIndex.resize(0);
 	btSz = 0;
+	ctpl::thread_pool p(2);
+	std::future<void> pp;
 	for (i=0;i<pfstr.length();i++){
 		char mychar = pfstr.at(i);
 		if (mychar == '@'){
@@ -818,8 +820,10 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 						//std::thread th1(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						//th1.join();
 						
-						std::future<bool> fut = std::async(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
-						fut.get();
+						pp = p.push(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
+						pp.get();
+						//std::future<bool> fut = std::async(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
+						//fut.get();
 						
 						//std::vector<std::string> someStrings = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						//int iiiiii;
@@ -2483,7 +2487,7 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	srand(time(NULL));
 	initialRun();
 	
-	ctpl::thread_pool p(2);
+	
 	
 	//makeInt("[10,12)U((0,5)U[4,6]U(8,10])");
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
