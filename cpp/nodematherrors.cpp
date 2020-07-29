@@ -2345,11 +2345,12 @@ std::vector<std::string> makeSolutionList(std::string s){
 	for (i=0;i<sv.size()/2;i++){
 		//std::cout << "i: " << i << " and " << sv[i*2] << "\n";
 		if (fullSolutionList.find(sv[i*2]) != fullSolutionList.end()){
-			l = fullSolutionList[sv[i*2]].size();
+			
 		}
 		else {
-			l = makeSolutionList(sv[i*2]).size();
+			makeSolutionList(sv[i*2]).size();
 		}
+		l = fullSolutionList[sv[i*2]].size();
 		//std::cout << "i: " << i << " and " << minSize << " and " << l << "\n";
 		if (l < minSize){
 			minSize = l;
