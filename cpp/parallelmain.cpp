@@ -825,10 +825,10 @@ std::vector<std::vector<std::string>> makeTree(std::string pfstr){
 						
 						int iiiiii;
 						for (iiiiii=0;iiiiii<someStringsC.size();iiiiii++){
-							returnStringsCorrect.push_back(someStrings[iiiiii]);
+							returnStringsCorrect.push_back(someStringsC[iiiiii]);
 						}
 						for (iiiiii=0;iiiiii<someStringsI.size();iiiiii++){
-							returnStringsIncorrect.push_back(someStrings[iiiiii]);
+							returnStringsIncorrect.push_back(someStringsI[iiiiii]);
 						}
 						auto a2 = std::chrono::high_resolution_clock::now();
 						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
@@ -1001,14 +1001,14 @@ std::vector<std::vector<std::string>> makeTree(std::string pfstr){
 						
 					//std::thread th2(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
 					//th2.join();
-					std::vector<std::string> someStringsC = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
-					std::vector<std::string> someStringsI = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
+					std::vector<std::string> someStringsC = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,true);
+					std::vector<std::string> someStringsI = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,false);
 					int iiiiii;
 					for (iiiiii=0;iiiiii<someStringsC.size();iiiiii++){
-						returnStringsCorrect.push_back(someStrings[iiiiii]);
+						returnStringsCorrect.push_back(someStringsC[iiiiii]);
 					}
 					for (iiiiii=0;iiiiii<someStringsI.size();iiiiii++){
-						returnStringsIncorrect.push_back(someStrings[iiiiii]);
+						returnStringsIncorrect.push_back(someStringsI[iiiiii]);
 					}
 					auto a2 = std::chrono::high_resolution_clock::now();
 					duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
@@ -1121,7 +1121,7 @@ std::vector<std::vector<std::string>> makeTree(std::string pfstr){
 	returnStrings1.resize(0);
 	returnStrings2.resize(0);*/
 
-	return {returnStringsC,returnStringsI};
+	return {returnStringsCorrect,returnStringsIncorrect};
 	
 
 }
