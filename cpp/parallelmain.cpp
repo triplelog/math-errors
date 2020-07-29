@@ -24,6 +24,7 @@
 #include "rapidcsv.h"
 #include "Poco/Thread.h"
 #include "Poco/ThreadPool.h"
+#include "Poco/Runnable.h"
 #include "parallel_hashmap/phmap.h"
 
 
@@ -502,6 +503,20 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 }
 std::vector<std::string> returnStrings1;
 std::vector<std::string> returnStrings2;
+
+class Task : public Poco::Runnable {
+	private:
+    	int _id;
+	public:
+		Task (int number) : _id(number) {}
+		void run(){
+			for (int i= 0; i < 100; i++){
+			   std::cout << i << ") Task " << _id << " is working" << std::endl; 
+			}
+		}
+};
+
+
 bool apply1(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect){
 	std::vector<std::string> someStrings = applyRulesVectorOnePart(onePart,oneIndex, userFullString, isCorrect);
 	int iiiiii;
@@ -2481,9 +2496,12 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	jsonmessage = "var rule = {};";
 	srand(time(NULL));
 	initialRun();
+	
+	Task task1(1);
 	Poco::Thread t1;
-	t1.start();
+	t1.start(task1);
 	t1.join();
+	
 	//makeInt("[10,12)U((0,5)U[4,6]U(8,10])");
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	info.GetReturnValue().Set(h.ToLocalChecked());
