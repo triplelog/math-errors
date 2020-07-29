@@ -984,7 +984,9 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 					}
 					auto a1 = std::chrono::high_resolution_clock::now();
 					//TODO: make this parallel
-					std::thread th2(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
+					std::vector<int> tempV;
+					tempV = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
+					std::thread th2(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
 					th2.join();
 					//std::vector<std::string> someStrings = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
 					//int iiiiii;
