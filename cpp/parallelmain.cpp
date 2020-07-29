@@ -809,7 +809,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 						
 						auto a1 = std::chrono::high_resolution_clock::now();
 						//TODO: make this parallel
-						std::thread th1(applyRulesVectorOnePart,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
+						std::thread th1(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						th1.join();
 						//std::vector<std::string> someStrings = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						//int iiiiii;
@@ -984,7 +984,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 					}
 					auto a1 = std::chrono::high_resolution_clock::now();
 					//TODO: make this parallel
-					std::thread th2(applyRulesVectorOnePart,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
+					std::thread th2(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
 					th2.join();
 					//std::vector<std::string> someStrings = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
 					//int iiiiii;
