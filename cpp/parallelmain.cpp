@@ -497,12 +497,29 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 	}
 	return input;
 }
-
+std::vector<std::string> returnStrings1;
+std::vector<std::string> returnStrings2;
+void apply1(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect){
+	std::vector<std::string> someStrings = applyRulesOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect);
+	int iiiiii;
+	for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
+		returnStrings1.push_back(someStrings[iiiiii]);
+	}
+}
+void apply2(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect){
+	std::vector<std::string> someStrings = applyRulesOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect);
+	int iiiiii;
+	for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
+		returnStrings2.push_back(someStrings[iiiiii]);
+	}
+}
 std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,int> operandMap;
 	flat_hash_map<int,std::string> originalMap;
     std::vector<std::string> returnStrings;
+    returnStrings1.resize(0);
+    returnStrings2.resize(0);
 	int i; int ii; int iii;
 	int idx =0;
 	bool startOperands = false;
@@ -792,11 +809,13 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 						
 						auto a1 = std::chrono::high_resolution_clock::now();
 						//TODO: make this parallel
-						std::vector<std::string> someStrings = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
-						int iiiiii;
-						for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
-							returnStrings.push_back(someStrings[iiiiii]);
-						}
+						std::thread th1(applyRulesVectorOnePart,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
+						th1.join();
+						//std::vector<std::string> someStrings = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
+						//int iiiiii;
+						//for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
+						//	returnStrings.push_back(someStrings[iiiiii]);
+						//}
 						auto a2 = std::chrono::high_resolution_clock::now();
 						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 						
@@ -965,11 +984,13 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 					}
 					auto a1 = std::chrono::high_resolution_clock::now();
 					//TODO: make this parallel
-					std::vector<std::string> someStrings = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
-					int iiiiii;
-					for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
-						returnStrings.push_back(someStrings[iiiiii]);
-					}
+					std::thread th2(applyRulesVectorOnePart,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
+					th2.join();
+					//std::vector<std::string> someStrings = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,isCorrect);
+					//int iiiiii;
+					//for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
+					//	returnStrings.push_back(someStrings[iiiiii]);
+					//}
 					auto a2 = std::chrono::high_resolution_clock::now();
 					duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 					
@@ -1073,6 +1094,13 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	
 	//std::cout << "\n\n---start Original-----\n";
 	int iiii;
+	returnStrings = returnStrings1;
+	returnStrings.resize(returnStrings1.size()+returnStrings2.size());
+	for (ii=0;ii<returnStrings2.size();ii++){
+		returnStrings[ii+returnStrings1.size()]=returnStrings2[ii];
+	}
+	returnStrings1.resize(0);
+	returnStrings2.resize(0);
 	return returnStrings;
 	
 
