@@ -504,7 +504,7 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 std::vector<std::string> returnStrings1;
 std::vector<std::string> returnStrings2;
 
-class HelloRunnable: public Poco::Runnable{
+class HelloRunnable: public Poco::Runnable {
 	virtual void run(){
 		std::cout << "Hello, world!" << std::endl;
 	}
