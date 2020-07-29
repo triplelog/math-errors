@@ -2388,7 +2388,7 @@ std::vector<std::string> makeSolutionList(std::string s, std::string q){
 		//std::cout << "sb: " << s << " and vsz: " << v.size() << "\n";
 		return v;
 	}
-	else {
+	else if (sv.size() ==0){
 		v = {};
 		fullSolutionList[s]=v;
 		//std::cout << "sb: " << s << " and vsz: " << v.size() << "\n";
