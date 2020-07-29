@@ -499,19 +499,21 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 }
 std::vector<std::string> returnStrings1;
 std::vector<std::string> returnStrings2;
-void apply1(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect){
+bool apply1(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect){
 	std::vector<std::string> someStrings = applyRulesVectorOnePart(onePart,oneIndex, userFullString, isCorrect);
 	int iiiiii;
 	for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
 		returnStrings1.push_back(someStrings[iiiiii]);
 	}
+	return true;
 }
-void apply2(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect){
+bool apply2(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect){
 	std::vector<std::string> someStrings = applyRulesVectorOnePart(onePart,oneIndex, userFullString, isCorrect);
 	int iiiiii;
 	for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
 		returnStrings2.push_back(someStrings[iiiiii]);
 	}
+	return true;
 }
 std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
@@ -809,8 +811,12 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 						
 						auto a1 = std::chrono::high_resolution_clock::now();
 						//TODO: make this parallel
-						std::thread th1(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
-						th1.join();
+						//std::thread th1(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
+						//th1.join();
+						
+						std::future<bool> fut = std::async(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
+						fut.get();
+						
 						//std::vector<std::string> someStrings = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						//int iiiiii;
 						//for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
