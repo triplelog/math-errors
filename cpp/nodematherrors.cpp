@@ -2321,12 +2321,14 @@ std::vector<std::string> makeSolutionList(std::string s){
 	std::vector<std::string> v;
 	std::vector<std::string> sv = reverseMap[s]; 
 	reverseMapCorrect[s]=reverseMap[s];
-	
+	std::cout << "s: " << s << "\n";
+	std::cout << "svs: " << sv.size() << "\n";
 	if (sv.size() == 2){
 		v = {sv[0],s};
 		fullSolutionList[s]=v;
 		return v;
 	}
+	
 	int i; int minSize = 100000; int l; int idx = 0;
 	for (i=0;i<sv.size()/2;i++){
 		if (fullSolutionList.find(sv[i*2]) != fullSolutionList.end()){
@@ -2390,7 +2392,7 @@ bool correctAnswer(std::string s, std::string a){
 			correctAnswers.push_back(tempCorrect[ii]);
 			std::cout << "correct: " << tempCorrect[ii] << "\n";
 			answerListMap.erase(tempCorrect[ii]);
-			//std::vector<std::string> v = makeSolutionList(tempCorrect[ii]);
+			std::vector<std::string> v = makeSolutionList(tempCorrect[ii]);
 			//std::cout << "len of sol: " << v.size() << "\n";
 		}
 
