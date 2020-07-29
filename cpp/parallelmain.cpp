@@ -2261,6 +2261,9 @@ bool getAnswerList(std::string s, int nSteps) {
 	if (answerIsFinished){
 		finishedAnswers.push_back(newPostfix);
 	}
+	else {
+		unfinishedAnswers.push_back(newPostfix);
+	}
 	auto a2 = std::chrono::high_resolution_clock::now();
 	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 
@@ -2370,6 +2373,32 @@ std::string fullAnswer(std::string s){
 	//duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
 	int i; int ii;
+	
+	a1 = std::chrono::high_resolution_clock::now();
+	std::vector<std::string> tempFinished = finishedAnswers;
+	std::cout << "finished answers: " << finishedAnswers.size() << "\n";
+	std::cout << "unfinished answers: " << unfinishedAnswers.size() << "\n";
+	finishedAnswers.resize(0);
+	
+	for (ii=0;ii<tempFinished.size();ii++){
+		if (doubleCheckAnswer(tempFinished[ii])){
+			finishedAnswers.push_back(tempFinished[ii]);
+			//std::vector<std::string> v = makeSolutionList(tempCorrect[ii]);
+		}
+		else {
+			unfinishedAnswers.push_back(tempFinished[ii]);
+		}
+	}
+	std::cout << "finished answers: " << finishedAnswers.size() << "\n";
+	std::cout << "unfinished answers: " << unfinishedAnswers.size() << "\n";
+	//for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMapCorrect.begin(); iter != reverseMapCorrect.end(); ++iter){
+	//	std::cout << "rm: " << iter->first << " and " << iter->second.size() << "\n";		
+	//}
+	
+	
+	a2 = std::chrono::high_resolution_clock::now();
+	std::cout << "time to find correct answers: " << " and " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n\n";
+	
 	std::string error = "Don't know.";
 	int ui = 0;
 	
