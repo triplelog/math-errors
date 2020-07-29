@@ -2328,6 +2328,11 @@ std::vector<std::string> makeSolutionList(std::string s){
 		fullSolutionList[s]=v;
 		return v;
 	}
+	else if (sv.size() ==0){
+		v = {s};
+		fullSolutionList[s]=v;
+		return v;
+	}
 	
 	int i; int minSize = 100000; int l; int idx = 0;
 	for (i=0;i<sv.size()/2;i++){
