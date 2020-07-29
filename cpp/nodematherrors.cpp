@@ -2322,13 +2322,14 @@ std::vector<std::string> makeSolutionList(std::string s){
 	std::vector<std::string> sv;
 	if (reverseMap.find(s) != reverseMap.end()){
 		sv = reverseMap[s];
+		std::cout << "svsza: " << sv.size() << "\n";
 	}
 	else {
 		v = {s};
 		fullSolutionList[s]=v;
 		return v;
 	}
-	std::cout << "svsz: " << sv.size() << "\n";
+	std::cout << "svszb: " << sv.size() << "\n";
 
 	if (sv.size() ==0){
 		v = {s};
