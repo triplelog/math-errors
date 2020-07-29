@@ -2320,8 +2320,12 @@ std::vector<std::string> makeSolutionList(std::string s){
 	std::vector<std::string> v;
 	std::cout << "s: " << s << "\n";
 	std::vector<std::string> sv;
+	int i; 
 	if (reverseMap.find(s) != reverseMap.end()){
 		std::cout << "svszaa: " << reverseMap.find(s)->second.size() << "\n";
+		for (i=0;i<reverseMap.find(s)->second.size();i++){
+			std::cout << "sv: " << reverseMap.find(s)->second[i] << "\n";
+		}
 		sv = reverseMap.find(s)->second;
 		//std::cout << "svsza: " << sv.size() << "\n";
 		//std::cout << "svszaaa: " << sv.size() << "\n";
@@ -2342,7 +2346,7 @@ std::vector<std::string> makeSolutionList(std::string s){
 	}
 	//std::cout << "sv0: " << sv[0] << "\n";
 	
-	int i; int minSize = 100000; int l; int idx = 0;
+	int minSize = 100000; int l; int idx = 0;
 	std::vector<std::string> minV;
 	for (i=0;i<sv.size()/2;i++){
 		//std::cout << "i: " << i << " and " << sv[i*2] << "\n";
