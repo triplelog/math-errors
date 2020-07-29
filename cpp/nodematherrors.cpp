@@ -2173,7 +2173,6 @@ void initialRun(){
 
 flat_hash_map<std::string,std::vector<std::string>> answerListMap;
 flat_hash_map<std::string,std::vector<std::string>> reverseMap;
-flat_hash_map<std::string,std::vector<std::string>> reverseMapCorrect;
 int totalAnswers;
 std::vector<std::string> correctAnswers;
 std::vector<std::string> unfinishedAnswers;
@@ -2319,8 +2318,10 @@ std::string fullAnswer(std::string s){
 flat_hash_map<std::string,std::vector<std::string>> fullSolutionList;
 std::vector<std::string> makeSolutionList(std::string s){
 	std::vector<std::string> v;
+	std::cout << "s: " << s << "\n";
 	std::vector<std::string> sv = reverseMap[s]; 
-	reverseMapCorrect[s]=reverseMap[s];
+	std::cout << "svsz: " << sv.size() << "\n";
+
 	if (sv.size() == 2){
 		v = {sv[0],s};
 		fullSolutionList[s]=v;
@@ -2331,6 +2332,7 @@ std::vector<std::string> makeSolutionList(std::string s){
 		fullSolutionList[s]=v;
 		return v;
 	}
+	std::cout << "sv0: " << sv[0] << "\n";
 	
 	int i; int minSize = 100000; int l; int idx = 0;
 	for (i=0;i<sv.size()/2;i++){
@@ -2345,6 +2347,7 @@ std::vector<std::string> makeSolutionList(std::string s){
 			idx = i;
 		}
 	}
+	std::cout << "ms: " << minSize << "\n";
 	for (i=0;i<minSize;i++){
 		v.push_back(fullSolutionList[sv[idx*2]][i]);
 	}
@@ -2360,7 +2363,6 @@ bool correctAnswer(std::string s){
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
 	mapSave = 0; mapMake = 0;
 	answerListMap.clear();
-	reverseMapCorrect.clear();
 	reverseMap.clear();
 	fullSolutionList.clear();
 	auto a1 = std::chrono::high_resolution_clock::now();
