@@ -2262,9 +2262,9 @@ bool getAnswerList(std::string s, int nSteps) {
 	}
 	auto a2 = std::chrono::high_resolution_clock::now();
 	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
-	if (!isCorrect){
-		duration1 += dd1;
-	}
+
+	duration1 += dd1;
+
 
 	
 	//std::cout << dd1 << "  ";
