@@ -2324,6 +2324,7 @@ std::vector<std::string> makeSolutionList(std::string s){
 		std::cout << "svszaa: " << reverseMap[s].size() << "\n";
 		sv = reverseMap[s];
 		std::cout << "svsza: " << sv.size() << "\n";
+		std::cout << "svszaaa: " << sv.size() << "\n";
 	}
 	else {
 		v = {s};
