@@ -1,6 +1,6 @@
 calculus.derivatives.power.0,"Power Rule"
 "What is the derivative of $x^7+5*x$?"
-ddx(x^7+5*x)
+ddx(x^7+5*x)+ddx(x^2)
 "<input name='A'></input>"
 A
 "q",A,int,[2,7]U(11,17]
