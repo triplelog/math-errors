@@ -1102,13 +1102,13 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	
 	//std::cout << "\n\n---start Original-----\n";
 	int iiii;
-	returnStrings = returnStrings1;
-	returnStrings.resize(returnStrings1.size()+returnStrings2.size());
-	for (ii=0;ii<returnStrings2.size();ii++){
-		returnStrings[ii+returnStrings1.size()]=returnStrings2[ii];
-	}
-	returnStrings1.resize(0);
-	returnStrings2.resize(0);
+	returnStrings = returnStrings1.insert(returnStrings1.end(), returnStrings2.begin(), returnStrings2.end());
+	//returnStrings.resize(returnStrings1.size()+returnStrings2.size());
+	//for (ii=0;ii<returnStrings2.size();ii++){
+	//	returnStrings[ii+returnStrings1.size()]=returnStrings2[ii];
+	//}
+	//returnStrings1.resize(0);
+	//returnStrings2.resize(0);
 
 	return returnStrings;
 	
