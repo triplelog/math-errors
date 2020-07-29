@@ -2531,6 +2531,7 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		jsonmessage += "outArray.push(\""+autoAnswers[i]+"\");\n";
 	}
 	
+	/*
 	if (answerListMap.find(mpf) != answerListMap.end()){
 		isCorrect = true;
 		std::string oneStep = mpf;
@@ -2541,7 +2542,7 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			std::cout << "next step: "<< oneStep << "\n";
 			outputTree(oneStep);
 		}
-	}
+	}*/
 	
 
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
