@@ -13,3 +13,4 @@ ddx(A^B),B*A^(=(B-1))*ddx(A),c,"Power Rule."
 ddx(x^B),B*x^(=(B-1)),c,"Power Rule."
 ddx(x),1,c,"Not product of derivatives."
 ddx(A),0,c,"Not product of derivatives.",Adoes not containx
+ddx(x^7+5*x),7*x^6+5,c,"do lots in one step"
