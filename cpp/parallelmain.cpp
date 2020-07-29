@@ -500,14 +500,14 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 std::vector<std::string> returnStrings1;
 std::vector<std::string> returnStrings2;
 void apply1(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect){
-	std::vector<std::string> someStrings = applyRulesVectorOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect);
+	std::vector<std::string> someStrings = applyRulesVectorOnePart(onePart,oneIndex, userFullString, isCorrect);
 	int iiiiii;
 	for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
 		returnStrings1.push_back(someStrings[iiiiii]);
 	}
 }
 void apply2(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect){
-	std::vector<std::string> someStrings = applyRulesVectorOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect);
+	std::vector<std::string> someStrings = applyRulesVectorOnePart(onePart,oneIndex, userFullString, isCorrect);
 	int iiiiii;
 	for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
 		returnStrings2.push_back(someStrings[iiiiii]);
