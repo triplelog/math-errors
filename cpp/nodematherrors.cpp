@@ -2318,22 +2318,16 @@ std::string fullAnswer(std::string s){
 flat_hash_map<std::string,std::vector<std::string>> fullSolutionList;
 std::vector<std::string> makeSolutionList(std::string s){
 	std::vector<std::string> v;
-	std::cout << "s: " << s << "\n";
+	//std::cout << "s: " << s << "\n";
 	std::vector<std::string> sv;
 	int i; 
 	if (reverseMap.find(s) != reverseMap.end()){
-		std::cout << "svszaa: " << reverseMap.find(s)->second.size() << "\n";
-		for (i=0;i<reverseMap.find(s)->second.size();i++){
-			std::cout << "sv: " << reverseMap.find(s)->second[i] << "\n";
-		}
 		sv = reverseMap.find(s)->second;
-		//std::cout << "svsza: " << sv.size() << "\n";
-		//std::cout << "svszaaa: " << sv.size() << "\n";
 	}
 	else {
 		v = {s};
 		fullSolutionList[s]=v;
-		std::cout << "sa: " << s << " and vsz: " << v.size() << "\n";
+		//std::cout << "sa: " << s << " and vsz: " << v.size() << "\n";
 		return v;
 	}
 	//std::cout << "svszb: " << sv.size() << "\n";
@@ -2341,7 +2335,7 @@ std::vector<std::string> makeSolutionList(std::string s){
 	if (sv.size() ==0){
 		v = {s};
 		fullSolutionList[s]=v;
-		std::cout << "sb: " << s << " and vsz: " << v.size() << "\n";
+		//std::cout << "sb: " << s << " and vsz: " << v.size() << "\n";
 		return v;
 	}
 	//std::cout << "sv0: " << sv[0] << "\n";
@@ -2366,14 +2360,11 @@ std::vector<std::string> makeSolutionList(std::string s){
 	}
 	//std::cout << "ms: " << minSize << "\n";
 	for (i=0;i<minSize;i++){
-		if (i>=minV.size()){
-			std::cout << "too big: " << s << "\n";
-		}
 		v.push_back(minV[i]);
 	}
 	v.push_back(s);
 	fullSolutionList[s]=v;
-	std::cout << "sc: " << s << " and vsz: " << v.size() << "\n";
+	//std::cout << "sc: " << s << " and vsz: " << v.size() << "\n";
 	return v;
 }
 
@@ -2404,18 +2395,9 @@ bool correctAnswer(std::string s){
 	std::vector<std::string> tempCorrect = correctAnswers;
 	correctAnswers.resize(0);
 	
-	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
-		//std::cout << "rm: " << iter->first << " and " << iter->second.size() << "\n";
-		for (i=0;i<iter->first.length()-1;i++){
-			if (iter->first.at(i) == -69 && iter->first.at(i+1) == '@'){
-				std::cout << "rm: " << iter->first << " and " << iter->second.size() << "\n";
-				for (ii=0;ii<iter->second.size();ii++){
-					std::cout << "rmb: " << iter->second[ii] << "\n";
-				}
-			}
-		}
-		
-	}
+	//for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
+		//std::cout << "rm: " << iter->first << " and " << iter->second.size() << "\n";		
+	//}
 	
 	fullSolutionList[newPostfix]={newPostfix};
 	for (ii=0;ii<tempCorrect.size();ii++){
