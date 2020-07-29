@@ -2290,7 +2290,7 @@ bool getAnswerList(std::string s, int nSteps) {
 	
 	answerListMap[newPostfix] = allStrings;
 	totalAnswers += allStrings.size();
-	std::cout << "total answers: "<< totalAnswers << "\n";
+	//std::cout << "total answers: "<< totalAnswers << "\n";
 	
 	for (ii=0;ii<allStrings.size()/2;ii++){
 		
@@ -2312,8 +2312,8 @@ bool getAnswerList(std::string s, int nSteps) {
 
 	}
 	
-	totalAnswers += allStrings.size();
-	std::cout << "total answers: "<< totalAnswers << "\n";
+	//totalAnswers += allStrings.size();
+	//std::cout << "total answers: "<< totalAnswers << "\n";
 	
 	allStrings.resize(0);
 	for (iii=0;iii<someStrings[1].size()/2;iii++){
@@ -2329,9 +2329,9 @@ bool getAnswerList(std::string s, int nSteps) {
 	
 	}
 	
-	answerListMap[newPostfix] = allStrings;
+	//answerListMap[newPostfix] = allStrings;
 	totalAnswers += allStrings.size();
-	std::cout << "total answers: "<< totalAnswers << "\n";
+	//std::cout << "total answers: "<< totalAnswers << "\n";
 	for (ii=0;ii<allStrings.size()/2;ii++){
 		
 		if (answerListMap.find(allStrings[ii*2]) != answerListMap.end()){
@@ -2366,7 +2366,7 @@ std::string fullAnswer(std::string s){
 	getAnswerList(newPostfix,0);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	std::cout << "\n\n\n\nCompleted the InCorrect Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << " and " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n\n";
-	
+	std::cout << "total answers: "<< totalAnswers << "\n";
 	//duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
 	int i; int ii;
