@@ -2492,7 +2492,7 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	srand(time(NULL));
 	initialRun();
 	
-	HelloRunnable runnable;
+	//HelloRunnable runnable;
 	//Poco::ThreadPool::defaultPool().start(runnable);
 	//Poco::ThreadPool::defaultPool().joinAll();
 	
