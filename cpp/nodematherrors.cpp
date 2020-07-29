@@ -2204,7 +2204,13 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	}
 	auto a2 = std::chrono::high_resolution_clock::now();
 	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
-	duration1 += dd1;
+	if (!isCorrect){
+		duration1 += dd1;
+	}
+	else {
+		std::cout << "correct maketree time: " << dd1 << "\n";
+	}
+	
 	//std::cout << dd1 << "  ";
 	//std::cout << s << " after pl\n";
 
