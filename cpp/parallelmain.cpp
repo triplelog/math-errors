@@ -2221,7 +2221,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 	if (nSteps > maxFound){
 		maxFound = nSteps;
 	}
-	if (nSteps >= 100){
+	if (nSteps >= 30){
 		return false;
 	}
 	//std::cout << s << "\n";
