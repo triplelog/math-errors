@@ -2426,7 +2426,7 @@ bool correctAnswer(std::string s){
 	getAnswerList(newPostfix,true,0);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	//duration1 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
-	std::cout << "\n\n\n\nCompleted the Correct Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << totalAnswers << "\n\n\n";
+	std::cout << "\n\n\n\nCompleted the Correct Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << totalAnswers << " and " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n\n";
 	int i; int ii; int iii; int iiii;
 
 	
@@ -2443,6 +2443,8 @@ bool correctAnswer(std::string s){
 		//std::cout << "rm: " << iter->first << " and " << iter->second.size() << "\n";		
 	//}
 	
+	a1 = std::chrono::high_resolution_clock::now();
+	
 	fullSolutionList[newPostfix]={newPostfix};
 	for (ii=0;ii<tempCorrect.size();ii++){
 		if (doubleCheckAnswer(tempCorrect[ii])){
@@ -2456,6 +2458,11 @@ bool correctAnswer(std::string s){
 		}
 
 	}
+	
+	a2 = std::chrono::high_resolution_clock::now();
+	std::cout << "time to makesolutionlist: " << << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n\n";
+	
+	
 
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = answerListMap.begin(); iter != answerListMap.end(); ++iter){
 		unfinishedAnswers.push_back(iter->first);
