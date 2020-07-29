@@ -2173,6 +2173,7 @@ void initialRun(){
 
 flat_hash_map<std::string,std::vector<std::string>> answerListMap;
 flat_hash_map<std::string,std::vector<std::string>> reverseMap;
+flat_hash_map<std::string,std::vector<std::string>> reverseMapCorrect;
 int totalAnswers;
 std::vector<std::string> correctAnswers;
 std::vector<std::string> unfinishedAnswers;
@@ -2312,8 +2313,38 @@ std::string fullAnswer(std::string s, std::string a){
 			oneStep = reverseMap[oneStep][0];
 		}
 	}
-
+	answerListMap.clear();
 	return error;
+}
+flat_hash_map<std::string,std::vector<std::string>> fullSolutionList;
+std::vector<std::string> makeSolutionList(std::string s){
+	std::vector<std::string> v;
+	std::vector<std::string> sv = reverseMap[s]; 
+	reverseMapCorrect[s]=reverseMap[s];
+	
+	if (sv.size() == 2){
+		v = {sv[0],s};
+		fullSolutionList[s]=v;
+		return v;
+	}
+	int i; int minSize = 100000; int l; int idx = 0;
+	for (i=0;i<sv.size()/2;i++){
+		if (fullSolutionList.find(sv[i*2]) != fullSolutionList.end()){
+			l = fullSolutionList[sv[i*2]].size();
+		}
+		else {
+			l = makeSolutionList[sv[i*2]].size();
+		}
+		if (l < minSize){
+			minSize = l;
+			idx = i;
+		}
+	}
+	for (i=0;i<minSize;i++){
+		v.push_back(fullSolutionList[sv[idx*2]]);
+	}
+	v.push_back(s);
+	return v;
 }
 
 bool correctAnswer(std::string s, std::string a){
@@ -2323,7 +2354,9 @@ bool correctAnswer(std::string s, std::string a){
 	std::cout << "\n\n\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n";
 	mapSave = 0; mapMake = 0;
 	answerListMap.clear();
+	reverseMapCorrect.clear();
 	reverseMap.clear();
+	fullSolutionList.clear();
 	auto a1 = std::chrono::high_resolution_clock::now();
 	totalAnswers = 0;
 	getAnswerList(newPostfix,true,0);
@@ -2352,14 +2385,16 @@ bool correctAnswer(std::string s, std::string a){
 	std::vector<std::string> tempCorrect = correctAnswers;
 	correctAnswers.resize(0);
 	for (ii=0;ii<tempCorrect.size();ii++){
-		//TODO: check each answer: must satisfy any must satisfy and and reordering cannot break rules
 		if (doubleCheckAnswer(tempCorrect[ii])){
 			correctAnswers.push_back(tempCorrect[ii]);
 			std::cout << "correct: " << tempCorrect[ii] << "\n";
 			answerListMap.erase(tempCorrect[ii]);
+			std::vector<std::string> v = makeSolutionList(tempCorrect[ii]);
+			std::cout << "len of sol: " << v.size() << "\n";
 		}
 
 	}
+
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = answerListMap.begin(); iter != answerListMap.end(); ++iter){
 		unfinishedAnswers.push_back(iter->first);
 	}
@@ -2368,45 +2403,6 @@ bool correctAnswer(std::string s, std::string a){
 
 	jsonmessage = "";
 
-	for (ii=0;ii<answerListMap[newPostfix].size();ii++){
-		//std::cout << "one step is: " << answerListMap[newPostfix][ii] << "\n";
-		
-		//outputTree(answerListMap[newPostfix][ii]);
-	}
-	/*
-	if (reverseMap.find(mpf) != reverseMap.end()){
-		std::string oneStep = mpf;
-		std::cout << oneStep << "\n";
-		jsonmessage = "";
-		while (reverseMap.find(oneStep) != reverseMap.end() && oneStep != newPostfix){
-			std::string rawRule = reverseMap[oneStep][1];
-			
-			std::string key = "";
-			int ruleIdx = 0;
-			bool isSecond = false;
-			for (ii=0;ii<rawRule.length();ii++){
-				if (rawRule.at(ii) == ','){
-					isSecond = true;
-				}
-				else if (isSecond){
-					ruleIdx *= 10;
-					ruleIdx += (rawRule.at(ii) - '0');
-				}
-				else {
-					key += rawRule.at(ii);
-				}
-			}
-			std::cout << "key: " << key << " and ruleIdx: " << ruleIdx << " from: " << rawRule << "\n";
-			std::vector<std::string> rule = rules[key][ruleIdx];
-			std::cout << oneStep << " and " << rule[0] << " and " << rule[1] << "\n";
-			if (rule[2] != "c"){
-				std::cout << "The error is: "<< rule[3] << "\n";
-			}
-			
-			outputTree(oneStep);
-			oneStep = reverseMap[oneStep][0];
-		}
-	}*/
 	return isCorrect;
 }
 
@@ -2535,6 +2531,18 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		jsonmessage += "outArray.push(\""+autoAnswers[i]+"\");\n";
 	}
 	
+	if (answerListMap.find(mpf) != answerListMap.end()){
+		isCorrect = true;
+		std::string oneStep = mpf;
+		std::cout << oneStep << "\n";
+		jsonmessage = "";
+		while (reverseMap.find(oneStep) != reverseMap.end() && oneStep != newPostfix){
+			oneStep = reverseMap[oneStep][0];
+			std::cout << "next step: "<< oneStep << "\n";
+			outputTree(oneStep);
+		}
+	}
+	
 
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 
@@ -2543,16 +2551,10 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
-	auto a1 = std::chrono::high_resolution_clock::now();
+	
 	std::vector<RawQuestion> qs = makeQuestions("answerconstraints.csv");
-	auto a2 = std::chrono::high_resolution_clock::now();
-	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
-	std::cout << "time to make questions: " << dd1 << "\n";
 	Question question = chooseQuestion("blank",qs);
-	auto a3 = std::chrono::high_resolution_clock::now();
-	int dd2 = std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count();
-	std::cout << "time to choose question: " << dd2 << "\n";
-	//std::cout << "question: " << str << "\n\n";
+	
 	correctAnswers.resize(0);
 	unfinishedAnswers.resize(0);
 	wrongAnswers.resize(0);
