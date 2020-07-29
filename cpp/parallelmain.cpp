@@ -569,7 +569,7 @@ std::vector<std::string> makeTree(std::string pfstr, bool isCorrect){
 	bottomTreesIndex.resize(0);
 	btSz = 0;
 	ctpl::thread_pool p(2);
-	std::future<void> pp;
+	std::future<bool> pp;
 	for (i=0;i<pfstr.length();i++){
 		char mychar = pfstr.at(i);
 		if (mychar == '@'){
