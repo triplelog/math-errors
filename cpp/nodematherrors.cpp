@@ -2385,7 +2385,9 @@ bool correctAnswer(std::string s){
 			correctAnswers.push_back(tempCorrect[ii]);
 			std::cout << "correct: " << tempCorrect[ii] << "\n";
 			answerListMap.erase(tempCorrect[ii]);
+			std::cout << "erased: " << tempCorrect[ii] << "\n";
 			std::vector<std::string> v = makeSolutionList(tempCorrect[ii]);
+			std::cout << "made solution list: " << tempCorrect[ii] << "\n";
 			//std::cout << "len of sol: " << v.size() << "\n";
 		}
 
