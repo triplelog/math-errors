@@ -3,7 +3,7 @@
     {
       	'target_name': 'binding',
         "cflags_cc": [ "-fexceptions" ],
-      	'sources': [ 'cpp/mainold.cpp' ],
+      	'sources': [ 'cpp/parallelmain.cpp' ],
       	"include_dirs" : [
 			"<!(node -e \"require('nan')\")"
 		]
