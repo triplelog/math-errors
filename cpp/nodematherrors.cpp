@@ -2417,7 +2417,7 @@ bool correctAnswer(std::string s){
 		
 	}
 	
-	
+	fullSolutionList[newPostfix]={newPostfix};
 	for (ii=0;ii<tempCorrect.size();ii++){
 		if (doubleCheckAnswer(tempCorrect[ii])){
 			correctAnswers.push_back(tempCorrect[ii]);
