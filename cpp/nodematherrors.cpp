@@ -2318,10 +2318,10 @@ std::string fullAnswer(std::string s){
 flat_hash_map<std::string,std::vector<std::string>> fullSolutionList;
 std::vector<std::string> makeSolutionList(std::string s){
 	std::vector<std::string> v;
-	//std::cout << "s: " << s << "\n";
+	std::cout << "s: " << s << "\n";
 	std::vector<std::string> sv;
 	if (reverseMap.find(s) != reverseMap.end()){
-		//std::cout << "svszaa: " << reverseMap.find(s)->second.size() << "\n";
+		std::cout << "svszaa: " << reverseMap.find(s)->second.size() << "\n";
 		sv = reverseMap.find(s)->second;
 		//std::cout << "svsza: " << sv.size() << "\n";
 		//std::cout << "svszaaa: " << sv.size() << "\n";
