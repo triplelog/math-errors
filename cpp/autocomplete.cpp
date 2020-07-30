@@ -106,9 +106,7 @@ void inputify() {
 		flat_hash_map<int,std::string> operandMap;
 		flat_hash_map<int,int> operandIntMap;
 		std::string lastInput = "";
-		std::string soFar = "";
 		for (i=0;i<pfstr.length();i++){
-			soFar += pfstr.at(i);
 			if (pfstr.at(i) == '@'){
 				break;
 			}
@@ -116,7 +114,7 @@ void inputify() {
 				
 				bool foundFull = false;
 				std::string fullStr = "";
-				for (ii=0;ii<i+1;ii++){
+				for (ii=0;ii<1;ii++){
 					std::string s = "";
 					std::string t = "";
 					for (iii=ii;iii<i+1;iii++){
