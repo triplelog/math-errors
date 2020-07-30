@@ -117,9 +117,15 @@ void inputify() {
 				
 				bool foundFull = false;
 				std::string fullStr = "";
-				for (ii=0;ii<1;ii++){
-					std::string s = soFarLeft;
-					std::string t = soFarRight;
+				for (ii=0;ii<i+1;ii++){
+					std::string s = "";
+					std::string t = "";
+					for (iii=ii;iii<i+1;iii++){
+						s += pfstr.at(iii);
+						if (pfstr.at(iii) == '#'){
+							t += operandMap[iii] + '_';
+						}
+					}
 					if (listMap.find(s + '@' + t) != listMap.end()){
 						foundFull = true;
 						fullStr = s + '@' + t;
