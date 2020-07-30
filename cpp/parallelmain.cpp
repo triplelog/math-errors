@@ -2538,7 +2538,7 @@ std::string fullAnswer(std::string s){
 	
 
 	for (ii=0;ii<finishedAnswers.size();ii++){
-		if (doubleCheckAnswer(tempFinished[ii])){
+		if (doubleCheckAnswer(finishedAnswers[ii])){
 			
 			std::vector<std::string> v = makeSolutionList(finishedAnswers[ii],newPostfix);
 			int vsz = v.size();
