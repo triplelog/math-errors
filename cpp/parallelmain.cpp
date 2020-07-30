@@ -2585,7 +2585,7 @@ std::string fullAnswer(std::string s){
 			if (vsz > 1){
 				answer.next = v[vsz-2];
 			}
-			answerMap[finishedAnswers[ii]]=answer;
+			answerMap[unfinishedAnswers[ii]]=answer;
 		}
 		else {
 			std::vector<std::string> vv = makeIncorrectSolutionList(unfinishedAnswers[ii],newPostfix);
@@ -2598,7 +2598,7 @@ std::string fullAnswer(std::string s){
 				if (vsz > 1){
 					answer.next = vv[vsz-2];
 				}
-				answerMap[finishedAnswers[ii]]=answer;
+				answerMap[unfinishedAnswers[ii]]=answer;
 			}
 			else {
 				std::cout << "no solution found? " << unfinishedAnswers[ii] << "\n";
