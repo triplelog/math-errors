@@ -163,10 +163,10 @@ void inputify() {
 				
 				}
 				std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
-				if (listMap.find(fullStr) != listMap.end()){
-					lastInput = listMap[fullStr];
-					continue;
-				}
+				//if (listMap.find(fullStr) != listMap.end()){
+				//	lastInput = listMap[fullStr];
+				//	continue;
+				//}
 				std::string s = "";
 				for (ii=0;ii<2;ii++){
 					std::string child = secondChild;
