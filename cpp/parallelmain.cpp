@@ -2724,13 +2724,18 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			std::cout << "Correct" << "\n";
 		}
 	}
-	for (ii=0;ii<unfinishedAnswers.size();ii++){
-		if (unfinishedAnswers[ii]==mpf){
+	for (ii=0;ii<unfinishedCorrect.size();ii++){
+		if (unfinishedCorrect[ii]==mpf){
 			std::cout << "Unfinished" << "\n";
 		}
 	}
-	for (ii=0;ii<wrongAnswers.size();ii++){
-		if (wrongAnswers[ii]==mpf){
+	for (ii=0;ii<finishedErrors.size();ii++){
+		if (finishedErrors[ii]==mpf){
+			std::cout << "Found Error" << "\n";
+		}
+	}
+	for (ii=0;ii<unfinishedErrors.size();ii++){
+		if (unfinishedErrors[ii]==mpf){
 			std::cout << "Found Error" << "\n";
 		}
 	}
