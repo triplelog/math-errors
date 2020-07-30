@@ -104,9 +104,12 @@ void inputify() {
 	
 	
 		flat_hash_map<int,std::string> operandMap;
-		flat_hash_map<int,int> operandIntMap;
 		std::string lastInput = "";
+		std::string soFarLeft = "";
+		std::string soFarRight = "";
 		for (i=0;i<pfstr.length();i++){
+			soFarLeft += pfstr.at(i);
+			
 			if (pfstr.at(i) == '@'){
 				break;
 			}
@@ -115,14 +118,8 @@ void inputify() {
 				bool foundFull = false;
 				std::string fullStr = "";
 				for (ii=0;ii<1;ii++){
-					std::string s = "";
-					std::string t = "";
-					for (iii=ii;iii<i+1;iii++){
-						s += pfstr.at(iii);
-						if (pfstr.at(iii) == '#'){
-							t += originalMap[operandIntMap[iii]] + '_';
-						}
-					}
+					std::string s = soFarLeft;
+					std::string t = soFarRight;
 					if (listMap.find(s + '@' + t) != listMap.end()){
 						foundFull = true;
 						fullStr = s + '@' + t;
@@ -410,10 +407,10 @@ void inputify() {
 			
 			}
 			else {
-				listMap["#@" + std::to_string(idx) + "_"]=originalMap[idx];
-				lastOpMap["#@" + std::to_string(idx) + "_"]='#';
-				operandMap[i]=std::to_string(idx);
-				operandIntMap[i]=idx;
+				soFarRight += originalMap[idx] + '_';
+				listMap["#@" + originalMap[idx] + "_"]=originalMap[idx];
+				lastOpMap["#@" + originalMap[idx] + "_"]='#';
+				operandMap[i]=originalMap[idx];
 				lastInput = originalMap[idx];
 				idx++;
 			}
