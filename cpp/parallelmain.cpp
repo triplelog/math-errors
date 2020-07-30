@@ -2219,7 +2219,7 @@ void initialRun(){
 	auto t2 = std::chrono::high_resolution_clock::now();
 }
 
-
+flat_hash_map<std::string,true> answerListMap;
 flat_hash_map<std::string,std::vector<std::string>> reverseMap;
 flat_hash_map<std::string,std::vector<std::string>> reverseMapCorrect;
 int totalAnswers;
@@ -2292,12 +2292,12 @@ bool getAnswerList(std::string s, int nSteps) {
 	
 	}
 	
-	reverseMapCorrect[newPostfix] = {};
+	answerListMap[newPostfix] = true;
 	totalAnswers += allStrings.size();
 	
 	for (ii=0;ii<allStrings.size()/2;ii++){
 		
-		if (reverseMapCorrect.find(allStrings[ii*2]) != reverseMapCorrect.end()){
+		if (answerListMap.find(allStrings[ii*2]) != answerListMap.end()){
 			reverseMapCorrect[allStrings[ii*2]].push_back(newPostfix);
 			reverseMapCorrect[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
 		}
