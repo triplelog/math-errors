@@ -2461,6 +2461,8 @@ std::string fullAnswer(std::string s){
 			finishedAnswers.push_back(tempFinished[ii]);
 			
 			std::vector<std::string> v = makeSolutionList(tempFinished[ii],newPostfix);
+			v = makeSolutionList(tempFinished[ii],newPostfix);
+			v = makeSolutionList(tempFinished[ii],newPostfix);
 			if (v.size() > 0){
 				std::cout << "fully correct: "<< tempFinished[ii] << "\n";
 				ca++;
