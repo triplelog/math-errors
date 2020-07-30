@@ -2313,6 +2313,9 @@ bool getAnswerList(std::string s, int nSteps) {
 		}
 
 	}
+	
+	
+	/*
 	reverseMap[newPostfix]={};
 	//totalAnswers += allStrings.size();
 	//std::cout << "total answers: "<< totalAnswers << "\n";
@@ -2350,7 +2353,7 @@ bool getAnswerList(std::string s, int nSteps) {
 		}
 
 	}
-
+	*/
 	return true;
 		
 	
