@@ -102,13 +102,18 @@ void inputify() {
 	
 		flat_hash_map<int,std::string> operandMap;
 		std::string lastInput = "";
+		std::string soFar = "";
 		for (i=0;i<pfstr.length();i++){
+			soFar += pfstr.at(i);
 			if (pfstr.at(i) == '@'){
 				break;
 			}
 			else if (pfstr.at(i) != '#'){
 				
-				
+				if (listMap.find(soFar) != listMap.end()){
+					lastInput = listMap[soFar];
+					continue;
+				}
 				
 				
 				std::string secondStr = "";
