@@ -2464,7 +2464,15 @@ std::string fullAnswer(std::string s){
 			}
 		}
 		else {
+			if (tempFinished[ii] == "##^#*#+##*+@x_6_7_5_x_2_"){
+				std::cout << "##^#*#+##*+@x_6_7_5_x_2_ got double checked" << "\n";
+			}
 			unfinishedAnswers.push_back(tempFinished[ii]);
+		}
+	}
+	for (ii=0;ii<unfinishedAnswers.size();ii++){
+		if (unfinishedAnswers[ii] == "##^#*#+##*+@x_6_7_5_x_2_"){
+			std::cout << "##^#*#+##*+@x_6_7_5_x_2_ unfinished" << "\n";
 		}
 	}
 	std::cout << "finished answers: " << finishedAnswers.size() << "\n";
