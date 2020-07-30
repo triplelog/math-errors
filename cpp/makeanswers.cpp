@@ -309,7 +309,7 @@ std::string latexOne(std::string input) {
 		
 	}
 	
-	std::cout << lastInput << "\n";
+	//std::cout << lastInput << "\n";
 	return lastInput;
 
 
