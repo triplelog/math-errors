@@ -409,7 +409,7 @@ std::vector<std::string> autocomplete(std::string newPostfix,std::string rawAnsw
 	std::vector<Autocomplete> shortAnswers;
 	int i;
 	int ias = 0;
-	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = inputMap.begin(); iter != inputrMap.end(); ++iter){
+	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = inputMap.begin(); iter != inputMap.end(); ++iter){
 		
 		ias++;
 	}
@@ -417,7 +417,7 @@ std::vector<std::string> autocomplete(std::string newPostfix,std::string rawAnsw
 	//shortAnswers.resize(ias);
 	
 	i = 0;
-	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = inputMap.begin(); iter != inputrMap.end(); ++iter){
+	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = inputMap.begin(); iter != inputMap.end(); ++iter){
 	
 		
 		std::string ca = iter->second[0];
