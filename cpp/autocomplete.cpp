@@ -121,7 +121,7 @@ void inputify() {
 					for (iii=ii;iii<i+1;iii++){
 						s += pfstr.at(iii);
 						if (pfstr.at(iii) == '#'){
-							t += originalMap[operandMap[iii]] + '_';
+							t += originalMap[std::stoi(operandMap[iii])] + '_';
 						}
 					}
 					if (listMap.find(s + '@' + t) != listMap.end()){
