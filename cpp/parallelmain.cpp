@@ -2632,7 +2632,7 @@ std::string fullAnswer(std::string s){
 	
 	
 	std::cout << "in\n";
-	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = answerMap.begin(); iter != answerMap.end(); ++iter){
+	for (flat_hash_map<std::string,Answer>::iterator iter = answerMap.begin(); iter != answerMap.end(); ++iter){
 		inputArray.push_back(inputify(iter->first));
 	}
 	auto a3 = std::chrono::high_resolution_clock::now();
