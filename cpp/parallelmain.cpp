@@ -2554,7 +2554,7 @@ std::string fullAnswer(std::string s){
 				unfinishedErrors.push_back(unfinishedAnswers[ii]);
 			}
 			else {
-				std::cout << "no solution found? " << "\n";
+				std::cout << "no solution found? " << unfinishedAnswers[ii] << "\n";
 			}
 		}
 		
