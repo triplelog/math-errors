@@ -2537,7 +2537,7 @@ std::string fullAnswer(std::string s){
 	}
 	int ns = 0;
 	for (ii=0;ii<unfinishedAnswers.size();ii++){
-		std::vector<std::string> v = makeSolutionListFull(unfinishedAnswers[ii],newPostfix);
+		std::vector<std::string> v = makeIncorrectSolutionList(unfinishedAnswers[ii],newPostfix);
 		if (v.size() == 0){
 			ns++;
 		}
