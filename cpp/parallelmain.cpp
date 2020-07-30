@@ -2292,7 +2292,27 @@ bool getAnswerList(std::string s, int nSteps) {
 	
 	}
 	
+	reverseMapCorrect[newPostfix] = {};
+	totalAnswers += allStrings.size();
+	
+	for (ii=0;ii<allStrings.size()/2;ii++){
+		
+		if (reverseMapCorrect.find(allStrings[ii*2]) != reverseMapCorrect.end()){
+			reverseMapCorrect[allStrings[ii*2]].push_back(newPostfix);
+			reverseMapCorrect[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
+		}
+		else {
+			if (allStrings[ii*2] != newPostfix){
+				getAnswerList(allStrings[ii*2],nSteps+1);
+				reverseMapCorrect[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
+				
+			}
+			
+		}
 
+	}
+	
+	/*
 	reverseMapCorrect[newPostfix]={};
 	
 	//totalAnswers += allStrings.size();
@@ -2315,7 +2335,7 @@ bool getAnswerList(std::string s, int nSteps) {
 	}
 	
 	
-	/*
+	
 	reverseMap[newPostfix]={};
 	//totalAnswers += allStrings.size();
 	//std::cout << "total answers: "<< totalAnswers << "\n";
