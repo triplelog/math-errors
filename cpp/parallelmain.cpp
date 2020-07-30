@@ -64,6 +64,8 @@ struct Answer {
 	bool finished = false;
 	bool correct = false;
 	std::string next = "";
+	std::string input = "";
+	std::string latex = "";
 	std::vector<std::string> errors;
 };
 
@@ -2240,7 +2242,6 @@ std::vector<std::string> unfinishedCorrect;
 
 flat_hash_map<std::string,Answer> answerMap;
 
-flat_hash_map<std::string,std::vector<std::string>> inputMap;
 int maxFound;
 int maxSteps;
 bool getAnswerList(std::string s, int nSteps) {
@@ -2905,7 +2906,6 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	unfinishedErrors.resize(0);
 	finishedErrors.resize(0);
 	
-	inputMap.clear();
 	fullSolutionList.clear();
 	incorrectSolutionList.clear();
 	answerMap.clear();
