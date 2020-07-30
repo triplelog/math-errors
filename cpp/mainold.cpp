@@ -2454,7 +2454,7 @@ bool correctAnswer(std::string s){
 	for (ii=0;ii<tempCorrect.size();ii++){
 		if (doubleCheckAnswer(tempCorrect[ii])){
 			correctAnswers.push_back(tempCorrect[ii]);
-			//std::cout << "correct: " << tempCorrect[ii] << "\n";
+			std::cout << "correct: " << tempCorrect[ii] << "\n";
 			answerListMap.erase(tempCorrect[ii]);
 			//std::cout << "erased: " << tempCorrect[ii] << "\n";
 			std::vector<std::string> v = makeSolutionList(tempCorrect[ii]);
