@@ -2294,22 +2294,13 @@ bool getAnswerList(std::string s, int nSteps) {
 	
 
 	reverseMapCorrect[newPostfix]={};
-	reverseMap[newPostfix]={};
-	totalAnswers += allStrings.size();
+	
+	//totalAnswers += allStrings.size();
 	//std::cout << "total answers: "<< totalAnswers << "\n";
 	
 	for (ii=0;ii<allStrings.size()/2;ii++){
 		if (allStrings[ii*2] == newPostfix){
 			continue;
-		}
-		if (reverseMap.find(allStrings[ii*2]) != reverseMap.end()){
-			reverseMap[allStrings[ii*2]].push_back(newPostfix);
-			reverseMap[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
-		}
-		else {
-			getAnswerList(allStrings[ii*2],nSteps+1);
-			reverseMap[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
-
 		}
 		if (reverseMapCorrect.find(allStrings[ii*2]) != reverseMapCorrect.end()){
 			reverseMapCorrect[allStrings[ii*2]].push_back(newPostfix);
@@ -2322,11 +2313,11 @@ bool getAnswerList(std::string s, int nSteps) {
 		}
 
 	}
-	
+	reverseMap[newPostfix]={};
 	//totalAnswers += allStrings.size();
 	//std::cout << "total answers: "<< totalAnswers << "\n";
 	
-	allStrings.resize(0);
+	//allStrings.resize(0);
 	for (iii=0;iii<someStrings[1].size()/2;iii++){
 		someStrings[1][iii*2] = removeBracketsOne(someStrings[1][iii*2]);
 		if (uniqueStrings.find(someStrings[1][iii*2]) != uniqueStrings.end()){
