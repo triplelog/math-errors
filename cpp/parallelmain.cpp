@@ -2374,15 +2374,15 @@ std::vector<std::string> makeSolutionList(std::string s, std::string q){
 	std::vector<std::string> sv;
 	int i; 
 	std::cout << "s: " << s << " and q: " << q << "\n";
-	if (reverseMapCorrect.find(s) != reverseMapCorrect.end()){
-		sv = reverseMapCorrect.find(s)->second;
-		std::cout << "s: " << s << " and svsz: " << sv.size() << "\n";
-	}
-	else if (s == q){
+	if (s == q){
 		v = {s};
 		fullSolutionList[s]=v;
 		//std::cout << "sa: " << s << " and vsz: " << v.size() << "\n";
 		return v;
+	}
+	if (reverseMapCorrect.find(s) != reverseMapCorrect.end()){
+		sv = reverseMapCorrect.find(s)->second;
+		std::cout << "s: " << s << " and svsz: " << sv.size() << "\n";
 	}
 	else {
 		v = {};
@@ -2391,13 +2391,7 @@ std::vector<std::string> makeSolutionList(std::string s, std::string q){
 	}
 	//std::cout << "svszb: " << sv.size() << "\n";
 
-	if (sv.size() ==0 && s == q){
-		v = {s};
-		fullSolutionList[s]=v;
-		//std::cout << "sb: " << s << " and vsz: " << v.size() << "\n";
-		return v;
-	}
-	else if (sv.size() ==0){
+	if (sv.size() ==0){
 		v = {};
 		fullSolutionList[s]=v;
 		//std::cout << "sb: " << s << " and vsz: " << v.size() << "\n";
