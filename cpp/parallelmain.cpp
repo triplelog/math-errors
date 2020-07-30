@@ -2445,7 +2445,6 @@ std::vector<std::string> makeSolutionList(std::string s, std::string q){
 std::string fullAnswer(std::string s){
 	std::string newPostfix = removeBracketsOne(s);
 	std::cout << "\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
-	answerListMap.clear();
 	reverseMap.clear();
 	reverseMapCorrect.clear();
 	auto a1 = std::chrono::high_resolution_clock::now();
@@ -2536,7 +2535,7 @@ std::string fullAnswer(std::string s){
 			oneStep = reverseMap[oneStep][0];
 		}
 	}*/
-	answerListMap.clear();
+
 	return error;
 }
 
