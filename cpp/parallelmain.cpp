@@ -2489,8 +2489,15 @@ std::vector<std::string> makeIncorrectSolutionList(std::string s, std::string q)
 		}
 	}
 	if (minSize == 100000){
-		v = {};
-		incorrectSolutionList[s]=v;
+		if (fullSolutionList.find(s) != fullSolutionList.end()){
+			v=fullSolutionList[s];
+			incorrectSolutionList[s]=v;
+		}
+		else {
+			v = {};
+			incorrectSolutionList[s]=v;
+		}
+		
 		//std::cout << "sb: " << s << " and vsz: " << v.size() << "\n";
 		return v;
 	}
@@ -2555,14 +2562,7 @@ std::string fullAnswer(std::string s){
 				unfinishedErrors.push_back(unfinishedAnswers[ii]);
 			}
 			else {
-				std::vector<std::string> vv = makeIncorrectSolutionList(unfinishedAnswers[ii],newPostfix);
-				if (vv.size() > 0){
-					unfinishedErrors.push_back(unfinishedAnswers[ii]);
-				}
-				else {
-					std::cout << "no solution found? " << unfinishedAnswers[ii] << "\n";
-				}
-				
+				std::cout << "no solution found? " << unfinishedAnswers[ii] << "\n";
 			}
 		}
 		
