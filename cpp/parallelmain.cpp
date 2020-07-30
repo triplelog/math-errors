@@ -2544,17 +2544,25 @@ std::string fullAnswer(std::string s){
 	}
 
 	for (ii=0;ii<unfinishedAnswers.size();ii++){
-		std::vector<std::string> vv = makeIncorrectSolutionList(unfinishedAnswers[ii],newPostfix);
+		
 		std::vector<std::string> v = makeSolutionList(unfinishedAnswers[ii],newPostfix);
 		if (v.size() > 0){
 			unfinishedCorrect.push_back(unfinishedAnswers[ii]);
 		}
 		else {
+			std::vector<std::string> vv = makeIncorrectSolutionList(unfinishedAnswers[ii],newPostfix);
 			if (vv.size() > 0){
 				unfinishedErrors.push_back(unfinishedAnswers[ii]);
 			}
 			else {
-				std::cout << "no solution found? " << unfinishedAnswers[ii] << "\n";
+				std::vector<std::string> vv = makeIncorrectSolutionList(unfinishedAnswers[ii],newPostfix);
+				if (vv.size() > 0){
+					unfinishedErrors.push_back(unfinishedAnswers[ii]);
+				}
+				else {
+					std::cout << "no solution found? " << unfinishedAnswers[ii] << "\n";
+				}
+				
 			}
 		}
 		
