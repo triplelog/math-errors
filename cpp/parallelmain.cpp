@@ -60,6 +60,12 @@ struct Question {
 	std::string comp = "";
 	std::vector<std::vector<std::string>> rawRules;
 };
+struct Answer {
+	bool finished = false;
+	bool correct = false;
+	std::string next = "";
+	std::vector<std::string> errors;
+}
 
 #include "solve.cpp"
 
@@ -2232,6 +2238,8 @@ std::vector<std::string> finishedErrors;
 std::vector<std::string> unfinishedErrors;
 std::vector<std::string> unfinishedCorrect;
 
+flat_hash_map<std::string,Answer> answerMap;
+
 std::vector<std::string> inputArray;
 int maxFound;
 int maxSteps;
@@ -2525,41 +2533,72 @@ std::string fullAnswer(std::string s){
 	int i; int ii;
 	
 	a1 = std::chrono::high_resolution_clock::now();
-	std::vector<std::string> tempFinished = finishedAnswers;
 	std::cout << "finished answers: " << finishedAnswers.size() << "\n";
 	std::cout << "unfinished answers: " << unfinishedAnswers.size() << "\n";
-	finishedAnswers.resize(0);
-	int ca = 0;
-	for (ii=0;ii<tempFinished.size();ii++){
+	
+
+	for (ii=0;ii<finishedAnswers.size();ii++){
 		if (doubleCheckAnswer(tempFinished[ii])){
-			finishedAnswers.push_back(tempFinished[ii]);
 			
-			std::vector<std::string> v = makeSolutionList(tempFinished[ii],newPostfix);
-			if (v.size() > 0){
+			std::vector<std::string> v = makeSolutionList(finishedAnswers[ii],newPostfix);
+			int vsz = v.size();
+			if (vsz > 0){
 				//std::cout << "fully correct: "<< tempFinished[ii] << "\n";
-				correctAnswers.push_back(tempFinished[ii]);
-				ca++;
+				correctAnswers.push_back(finishedAnswers[ii]);
+				Answer answer;
+				answer.finished = true;
+				answer.correct = true;
+				if (vsz > 1){
+					answer.next = v[vsz-2];
+				}
+				answerMap[finishedAnswers[ii]]=answer;
+				
 			}
 			else {
-				finishedErrors.push_back(tempFinished[ii]);
+				finishedErrors.push_back(finishedAnswers[ii]);
+				Answer answer;
+				answer.finished = true;
+				answer.correct = false;
+				if (vsz > 1){
+					answer.next = v[vsz-2];
+				}
+				answerMap[finishedAnswers[ii]]=answer;
 			}
 		}
 		else {
 
-			unfinishedAnswers.push_back(tempFinished[ii]);
+			unfinishedAnswers.push_back(finishedAnswers[ii]);
 		}
 	}
+	std::cout << "unfinished answers: " << unfinishedAnswers.size() << "\n";
+	finishedAnswers.resize(0);
 
 	for (ii=0;ii<unfinishedAnswers.size();ii++){
 		
 		std::vector<std::string> v = makeSolutionList(unfinishedAnswers[ii],newPostfix);
-		if (v.size() > 0){
+		int vsz = v.size();
+		if (vsz > 0){
 			unfinishedCorrect.push_back(unfinishedAnswers[ii]);
+			Answer answer;
+			answer.finished = false;
+			answer.correct = true;
+			if (vsz > 1){
+				answer.next = v[vsz-2];
+			}
+			answerMap[finishedAnswers[ii]]=answer;
 		}
 		else {
 			std::vector<std::string> vv = makeIncorrectSolutionList(unfinishedAnswers[ii],newPostfix);
-			if (vv.size() > 0){
+			vsz = vv.size();
+			if (vsz > 0){
 				unfinishedErrors.push_back(unfinishedAnswers[ii]);
+				Answer answer;
+				answer.finished = false;
+				answer.correct = true;
+				if (vsz > 1){
+					answer.next = vv[vsz-2];
+				}
+				answerMap[finishedAnswers[ii]]=answer;
 			}
 			else {
 				std::cout << "no solution found? " << unfinishedAnswers[ii] << "\n";
@@ -2567,14 +2606,15 @@ std::string fullAnswer(std::string s){
 		}
 		
 	}
+	//TODO: loop through the finished errors to collect all errors
+	
+	unfinishedAnswers.resize(0);
 
-	std::cout << "finished answers: " << finishedAnswers.size() << "\n";
-	std::cout << "unfinished answers: " << unfinishedAnswers.size() << "\n";
+
 	std::cout << "correct answers: " << correctAnswers.size() << "\n";
 	std::cout << "unfinished errors: " << unfinishedErrors.size() << "\n";
 	std::cout << "unfinished correct: " << unfinishedCorrect.size() << "\n";
 	std::cout << "finished errors: " << finishedErrors.size() << "\n";
-	std::cout << "correct finished answers: " << ca << "\n";
 	
 	//for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMapCorrect.begin(); iter != reverseMapCorrect.end(); ++iter){
 	//	std::cout << "rm: " << iter->first << " and " << iter->second.size() << "\n";		
@@ -2863,6 +2903,7 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	inputArray.resize(0);
 	fullSolutionList.clear();
 	incorrectSolutionList.clear();
+	answerMap.clear();
 	maxSteps = 25;
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
