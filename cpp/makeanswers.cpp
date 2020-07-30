@@ -256,7 +256,20 @@ std::string latexOne(std::string input) {
 						else if (prec[pfstr.at(i)] == prec[lastOpMap[child]] && pfstr.at(i) != lastOpMap[child]){
 							if (ii > 0){
 								if (pfstr.at(i) == '*'){
-									s += "\\\\cdot "+listMap[child];//want to move this into numerator somehow
+									if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
+										if (listMap[child].length()>0 && (listMap[child].at(0) >= '0' && listMap[child].at(0) <= '9')){
+											//digit followed by digit
+											s += "\\\\cdot "+listMap[child];
+										}
+										else{
+											//digit followed by not a digit
+											s += listMap[child];
+										}
+									}
+									else {
+										s += "\\\\cdot "+listMap[child];//want to move this into numerator somehow
+									}
+									
 								}
 								else if (pfstr.at(i) == '+'){
 									s += listMap[child];
@@ -280,7 +293,19 @@ std::string latexOne(std::string input) {
 						else {
 							if (ii > 0){
 								if (pfstr.at(i) == '*'){
-									s += "\\\\cdot "+listMap[child];
+									if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
+										if (listMap[child].length()>0 && (listMap[child].at(0) >= '0' && listMap[child].at(0) <= '9')){
+											//digit followed by digit
+											s += "\\\\cdot "+listMap[child];
+										}
+										else{
+											//digit followed by not a digit
+											s += listMap[child];
+										}
+									}
+									else {
+										s += "\\\\cdot "+listMap[child];//want to move this into numerator somehow
+									}
 								}
 								else {
 									s += pfstr.at(i)+listMap[child];
