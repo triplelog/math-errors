@@ -2772,25 +2772,14 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::string mpf = postfixify(a);
 	std::cout << "your answer: " << mpf << "\n";
 	int ii;
-	for (ii=0;ii<correctAnswers.size();ii++){
-		if (correctAnswers[ii]==mpf){
-			std::cout << "Correct" << "\n";
-		}
+	
+	if (answerMap.find(mpf) != answerMap.end()){
+		Answer userAnswer = answerMap[mpf];
+		std::cout << "correct? " << userAnswer.correct <<"\n";
+		std::cout << "finished? " << userAnswer.finished <<"\n";
 	}
-	for (ii=0;ii<unfinishedCorrect.size();ii++){
-		if (unfinishedCorrect[ii]==mpf){
-			std::cout << "Unfinished" << "\n";
-		}
-	}
-	for (ii=0;ii<finishedErrors.size();ii++){
-		if (finishedErrors[ii]==mpf){
-			std::cout << "Found Error" << "\n";
-		}
-	}
-	for (ii=0;ii<unfinishedErrors.size();ii++){
-		if (unfinishedErrors[ii]==mpf){
-			std::cout << "Found Error" << "\n";
-		}
+	else {
+		std::cout << "unknown answer" << "\n";
 	}
 	
 
@@ -2899,32 +2888,6 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::vector<RawQuestion> qs = makeQuestions("answerconstraints.csv");
 	currentQuestion = chooseQuestion("blank",qs);
 	
-	/*
-	finishedAnswers.resize(0);
-	unfinishedAnswers.resize(0);
-	
-	correctAnswers.resize(0);
-	unfinishedCorrect.resize(0);
-	unfinishedErrors.resize(0);
-	finishedErrors.resize(0);
-	
-	fullSolutionList.clear();
-	incorrectSolutionList.clear();
-	answerMap.clear();
-	maxSteps = 25;
-	
-	auto a1 = std::chrono::high_resolution_clock::now();
-	maxFound = 0;
-	//bool isCorrect = correctAnswer(question.comp);
-	
-	std::cout << "mf:" << maxFound << " times: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
-	
-	std::string error = fullAnswer(question.comp);
-
-	auto a2 = std::chrono::high_resolution_clock::now();
-	duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
-	std::cout << "times: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
-	*/
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(currentQuestion.text);
 
 	
