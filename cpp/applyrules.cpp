@@ -37,7 +37,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 			
 			
 			if (rule[2] != "c" && isCorrect){continue;}
-			else if (rule[2] != "i" && !isCorrect){continue;}
+			//else if (rule[2] != "i" && !isCorrect){continue;}
 			
 			
 			

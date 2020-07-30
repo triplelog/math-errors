@@ -2277,7 +2277,7 @@ bool getAnswerList(std::string s,bool isCorrect, int nSteps) {
 
 	answerListMap[newPostfix] = allStrings;
 	totalAnswers += allStrings.size();
-	std::cout << "total answers: "<< totalAnswers << "\n";
+	
 	for (ii=0;ii<allStrings.size()/2;ii++){
 		
 		if (answerListMap.find(allStrings[ii*2]) != answerListMap.end()){
@@ -2308,6 +2308,7 @@ std::string fullAnswer(std::string s){
 	std::cout << "\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
 	answerListMap.clear();
 	reverseMap.clear();
+	totalAnswers = 0;
 	auto a1 = std::chrono::high_resolution_clock::now();
 	getAnswerList(newPostfix,false,0);
 	auto a2 = std::chrono::high_resolution_clock::now();
@@ -2315,6 +2316,7 @@ std::string fullAnswer(std::string s){
 	
 	//duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
+	std::cout << "total answers: "<< totalAnswers << "\n";
 	int i; int ii;
 	std::string error = "Don't know.";
 	int ui = 0;
