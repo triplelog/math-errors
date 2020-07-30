@@ -2226,8 +2226,12 @@ flat_hash_map<std::string,std::vector<std::string>> reverseMapCorrect;
 int totalAnswers;
 std::vector<std::string> finishedAnswers;
 std::vector<std::string> unfinishedAnswers;
+
 std::vector<std::string> correctAnswers;
-std::vector<std::string> wrongAnswers;
+std::vector<std::string> finishedErrors;
+std::vector<std::string> unfinishedErrors;
+std::vector<std::string> unfinishedCorrect;
+
 std::vector<std::string> inputArray;
 int maxFound;
 int maxSteps;
@@ -2529,24 +2533,41 @@ std::string fullAnswer(std::string s){
 				correctAnswers.push_back(tempFinished[ii]);
 				ca++;
 			}
+			else {
+				finishedErrors.push_back(tempFinished[ii]);
+			}
 		}
 		else {
 
 			unfinishedAnswers.push_back(tempFinished[ii]);
 		}
 	}
-	int ns = 0;
+
 	for (ii=0;ii<unfinishedAnswers.size();ii++){
-		std::vector<std::string> v = makeIncorrectSolutionList(unfinishedAnswers[ii],newPostfix);
-		if (v.size() == 0){
-			ns++;
+		std::vector<std::string> v = makeSolutionList(unfinishedAnswers[ii],newPostfix);
+		if (v.size() > 0){
+			unfinishedCorrect.push_back(unfinishedAnswers[ii]);
 		}
+		else {
+			std::vector<std::string> v = makeIncorrectSolutionList(unfinishedAnswers[ii],newPostfix);
+			if (v.size() > 0){
+				unfinishedErrors.push_back(unfinishedAnswers[ii]);
+			}
+			else {
+				std::cout << "no solution found? " << "\n";
+			}
+		}
+		
 	}
 
 	std::cout << "finished answers: " << finishedAnswers.size() << "\n";
-	std::cout << "correct finished answers: " << ca << "\n";
-	std::cout << "no solution answers: " << ns << "\n";
 	std::cout << "unfinished answers: " << unfinishedAnswers.size() << "\n";
+	std::cout << "correct answers: " << correctAnswers.size() << "\n";
+	std::cout << "unfinished errors: " << unfinishedErrors.size() << "\n";
+	std::cout << "unfinished correct: " << unfinishedCorrect.size() << "\n";
+	std::cout << "finished errors: " << finishedErrors.size() << "\n";
+	std::cout << "correct finished answers: " << ca << "\n";
+	
 	//for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMapCorrect.begin(); iter != reverseMapCorrect.end(); ++iter){
 	//	std::cout << "rm: " << iter->first << " and " << iter->second.size() << "\n";		
 	//}
@@ -2817,10 +2838,15 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::vector<RawQuestion> qs = makeQuestions("answerconstraints.csv");
 	Question question = chooseQuestion("blank",qs);
 	
-	correctAnswers.resize(0);
+	
 	finishedAnswers.resize(0);
 	unfinishedAnswers.resize(0);
-	wrongAnswers.resize(0);
+	
+	correctAnswers.resize(0);
+	unfinishedCorrect.resize(0);
+	unfinishedErrors.resize(0);
+	finishedErrors.resize(0);
+	
 	inputArray.resize(0);
 	fullSolutionList.clear();
 	incorrectSolutionList.clear();
