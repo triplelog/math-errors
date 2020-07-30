@@ -2635,7 +2635,7 @@ std::string fullAnswer(std::string s){
 	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = answerMap.begin(); iter != answerMap.end(); ++iter){
 		inputArray.push_back(inputify(iter->first));
 	}
-	a3 = std::chrono::high_resolution_clock::now();
+	auto a3 = std::chrono::high_resolution_clock::now();
 	std::cout << "time to inputify answers: " << " and " << std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count() << "\n\n\n";
 	
 	
