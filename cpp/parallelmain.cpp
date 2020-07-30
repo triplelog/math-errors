@@ -2294,6 +2294,7 @@ bool getAnswerList(std::string s, int nSteps) {
 	}
 	
 	answerListMap[newPostfix] = true;
+	answerListMapF[newPostfix] = true;
 	//totalAnswers += allStrings.size();
 	
 	for (ii=0;ii<allStrings.size()/2;ii++){
@@ -2315,7 +2316,7 @@ bool getAnswerList(std::string s, int nSteps) {
 
 	
 	
-	answerListMapF[newPostfix] = true;
+	
 	//totalAnswers += allStrings.size();
 	//std::cout << "total answers: "<< totalAnswers << "\n";
 	
