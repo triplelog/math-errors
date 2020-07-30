@@ -183,8 +183,12 @@ void inputify() {
 				
 				}
 				fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
-
+				
 				std::string s = "";
+				if (listMap.find(fullStr) != listMap.end()){
+					lastInput = listMap[fullStr];
+					continue;
+				}
 				for (ii=0;ii<2;ii++){
 					std::string child = secondChild;
 					if (ii==0 && firstChild != ""){
