@@ -2240,7 +2240,7 @@ std::vector<std::string> unfinishedCorrect;
 
 flat_hash_map<std::string,Answer> answerMap;
 
-std::vector<std::string> inputArray;
+flat_hash_map<std::string,std::vector<std::string>> inputMap;
 int maxFound;
 int maxSteps;
 bool getAnswerList(std::string s, int nSteps) {
@@ -2632,9 +2632,10 @@ std::string fullAnswer(std::string s){
 	
 	
 	std::cout << "in\n";
-	for (flat_hash_map<std::string,Answer>::iterator iter = answerMap.begin(); iter != answerMap.end(); ++iter){
-		inputArray.push_back(inputify(iter->first));
-	}
+	inputify();
+	//for (flat_hash_map<std::string,Answer>::iterator iter = answerMap.begin(); iter != answerMap.end(); ++iter){
+	//	inputArray.push_back(inputify(iter->first));
+	//}
 	auto a3 = std::chrono::high_resolution_clock::now();
 	std::cout << "time to inputify answers: " << " and " << std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count() << "\n\n\n";
 	
@@ -2808,10 +2809,10 @@ void AutoAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
 	std::string newPostfix = "#@0_";
-	std::vector<std::string> autoAnswers = autocomplete(inputArray,newPostfix,a);
+	std::vector<std::string> autoAnswers = autocomplete(newPostfix,a);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	std::string jsonmessage = "outArray = [];\n";
-	std::cout << "autocomplete time: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "for " << inputArray.size() << "\n";
+	std::cout << "autocomplete time: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count()  << "\n";
 	int i;
 	for (i=0;i<autoAnswers.size();i++){
 		//std::cout << autoAnswers[i] << "\n";
@@ -2904,7 +2905,7 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	unfinishedErrors.resize(0);
 	finishedErrors.resize(0);
 	
-	inputArray.resize(0);
+	inputMap.clear();
 	fullSolutionList.clear();
 	incorrectSolutionList.clear();
 	answerMap.clear();
