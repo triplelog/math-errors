@@ -2616,6 +2616,8 @@ std::string fullAnswer(std::string s){
 	std::cout << "unfinished correct: " << unfinishedCorrect.size() << "\n";
 	std::cout << "finished errors: " << finishedErrors.size() << "\n";
 	
+	
+	
 	//for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMapCorrect.begin(); iter != reverseMapCorrect.end(); ++iter){
 	//	std::cout << "rm: " << iter->first << " and " << iter->second.size() << "\n";		
 	//}
@@ -2628,13 +2630,15 @@ std::string fullAnswer(std::string s){
 	int ui = 0;
 	
 	
-	/*
+	
 	std::cout << "in\n";
-	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMap.begin(); iter != reverseMap.end(); ++iter){
+	for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = answerMap.begin(); iter != answerMap.end(); ++iter){
 		inputArray.push_back(inputify(iter->first));
-		wrongAnswers.push_back(iter->first);
 	}
-	*/
+	a3 = std::chrono::high_resolution_clock::now();
+	std::cout << "time to inputify answers: " << " and " << std::chrono::duration_cast<std::chrono::microseconds>( a3 - a2 ).count() << "\n\n\n";
+	
+	
 	
 	
 	
