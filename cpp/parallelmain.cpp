@@ -2220,6 +2220,7 @@ void initialRun(){
 }
 
 flat_hash_map<std::string,bool> answerListMap;
+flat_hash_map<std::string,bool> answerListMapF;
 flat_hash_map<std::string,std::vector<std::string>> reverseMap;
 flat_hash_map<std::string,std::vector<std::string>> reverseMapCorrect;
 int totalAnswers;
@@ -2293,7 +2294,7 @@ bool getAnswerList(std::string s, int nSteps) {
 	}
 	
 	answerListMap[newPostfix] = true;
-	totalAnswers += allStrings.size();
+	//totalAnswers += allStrings.size();
 	
 	for (ii=0;ii<allStrings.size()/2;ii++){
 		if (allStrings[ii*2] == newPostfix){
@@ -2311,31 +2312,10 @@ bool getAnswerList(std::string s, int nSteps) {
 
 	}
 	
-	/*
-	reverseMapCorrect[newPostfix]={};
-	
-	//totalAnswers += allStrings.size();
-	//std::cout << "total answers: "<< totalAnswers << "\n";
-	
-	for (ii=0;ii<allStrings.size()/2;ii++){
-		if (allStrings[ii*2] == newPostfix){
-			continue;
-		}
-		if (reverseMapCorrect.find(allStrings[ii*2]) != reverseMapCorrect.end()){
-			reverseMapCorrect[allStrings[ii*2]].push_back(newPostfix);
-			reverseMapCorrect[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
-		}
-		else {
-			getAnswerList(allStrings[ii*2],nSteps+1);
-			reverseMapCorrect[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
 
-		}
-
-	}
 	
 	
-	
-	reverseMap[newPostfix]={};
+	answerListMapF[newPostfix] = true;
 	//totalAnswers += allStrings.size();
 	//std::cout << "total answers: "<< totalAnswers << "\n";
 	
@@ -2361,7 +2341,7 @@ bool getAnswerList(std::string s, int nSteps) {
 		if (allStrings[ii*2] == newPostfix){
 			continue;
 		}
-		if (reverseMap.find(allStrings[ii*2]) != reverseMap.end()){
+		if (answerListMapF.find(allStrings[ii*2]) != answerListMapF.end()){
 			reverseMap[allStrings[ii*2]].push_back(newPostfix);
 			reverseMap[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
 		}
@@ -2372,7 +2352,7 @@ bool getAnswerList(std::string s, int nSteps) {
 		}
 
 	}
-	*/
+	
 	return true;
 		
 	
