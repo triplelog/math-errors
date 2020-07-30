@@ -80,7 +80,10 @@ void inputify() {
 		std::string currentOperator = "";
 		flat_hash_map<int,std::string> originalMap;
 		int iidx = 0;
-		
+		if (listMap.find(pfstr) != listMap.end()){
+			inputMap[pfstr] = {listMap[pfstr]};
+			continue;
+		}
 	
 		for (i=0;i<pfstr.length();i++){
 			if (pfstr.at(i) == '@'){
@@ -110,10 +113,6 @@ void inputify() {
 			}
 			else if (pfstr.at(i) != '#'){
 				
-				if (listMap.find(soFar) != listMap.end()){
-					lastInput = listMap[soFar];
-					continue;
-				}
 				
 				
 				std::string secondStr = "";
