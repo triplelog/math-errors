@@ -274,7 +274,40 @@
 				createTrees(dm.answer);
 			}
 			else if (dm.type == 'question'){
-				document.getElementById('question').textContent = dm.question;
+				var div = document.getElementById('question');
+				div.innerHTML = "";
+				var isMath = false;
+				var currentSpan = "";
+				for (var i=0;i<dm.question.length;i++){
+					if (dm.question.charAt(i)=='$'){
+						if (isMath){
+							isMath = false;
+							var span = document.createElement('span');
+							span.textContent = currentSpan;
+							div.appendChild(span);
+							katex.render(span.textContent, span, {
+								throwOnError: false
+							});
+							currentSpan = "";
+						}
+						else {
+							var span = document.createElement('span');
+							span.textContent = currentSpan;
+							div.appendChild(span);
+							isMath = true;
+							currentSpan = "";
+						}
+					}
+					else {
+						currentSpan += dm.question.charAt(i);
+					}
+				}
+				if (currentSpan.length > 0){
+					var span = document.createElement('span');
+					span.textContent = currentSpan;
+					div.appendChild(span);
+				}
+				
 			}
 			else if (dm.type == 'auto'){
 				console.log("ret message");

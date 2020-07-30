@@ -416,7 +416,7 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 				pf = latexOne(pf);
 				std::cout << "pf: " << pf << "\n";
 				
-				newText += pf;
+				newText += "$" + pf + "$";
 			}
 			else {
 				isMath = true;
