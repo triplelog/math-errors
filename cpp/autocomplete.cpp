@@ -121,7 +121,7 @@ void inputify() {
 					for (iii=ii;iii<i+1;iii++){
 						s += pfstr.at(iii);
 						if (pfstr.at(iii) == '#'){
-							t += operandMap[iii] + '_';
+							t += originalMap[operandMap[iii]] + '_';
 						}
 					}
 					if (listMap.find(s + '@' + t) != listMap.end()){
@@ -187,10 +187,7 @@ void inputify() {
 				
 				}
 				fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
-				//if (listMap.find(fullStr) != listMap.end()){
-				//	lastInput = listMap[fullStr];
-				//	continue;
-				//}
+
 				std::string s = "";
 				for (ii=0;ii<2;ii++){
 					std::string child = secondChild;
