@@ -65,7 +65,7 @@ struct Answer {
 	bool correct = false;
 	std::string next = "";
 	std::vector<std::string> errors;
-}
+};
 
 #include "solve.cpp"
 
