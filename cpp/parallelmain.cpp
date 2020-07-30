@@ -2413,6 +2413,7 @@ std::vector<std::string> makeSolutionList(std::string s, std::string q){
 			
 		}
 		else {
+			std::cout << "make i: " << i << " and " << sv[i*2] << "\n";
 			makeSolutionList(sv[i*2],q);
 		}
 		l = fullSolutionList[sv[i*2]].size();
