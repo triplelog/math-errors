@@ -460,7 +460,7 @@ std::vector<std::string> autocomplete(std::string newPostfix,std::string rawAnsw
 		
 		Autocomplete answer;
 		answer.d = autoDistance(ca,rawAnswer);
-		answer.answer = ca;
+		answer.answer = iter->first;
 		answers[i] = answer;
 		i++;
 		//std::cout << "distance: " << autoDistance(ca,rawAnswer) << " of "<< inputify(iter->first) << "\n";

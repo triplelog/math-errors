@@ -65,7 +65,6 @@ struct Answer {
 	bool correct = false;
 	std::string next = "";
 	std::string input = "";
-	std::string latex = "";
 	std::vector<std::string> errors;
 };
 
@@ -2817,7 +2816,10 @@ void AutoAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	int i;
 	for (i=0;i<autoAnswers.size();i++){
 		//std::cout << autoAnswers[i] << "\n";
-		jsonmessage += "outArray.push(\""+autoAnswers[i]+"\");\n";
+		if (answerMap.find(autoAnswers[i]) != answerMap.end()){
+			jsonmessage += "outArray.push(\""+latexOne(autoAnswers[i])+"\");\n";
+		}
+		
 	}
 	
 
