@@ -2219,7 +2219,7 @@ void initialRun(){
 	auto t2 = std::chrono::high_resolution_clock::now();
 }
 
-flat_hash_map<std::string,std::vector<std::string>> answerListMap;
+
 flat_hash_map<std::string,std::vector<std::string>> reverseMap;
 flat_hash_map<std::string,std::vector<std::string>> reverseMapCorrect;
 int totalAnswers;
@@ -2292,26 +2292,33 @@ bool getAnswerList(std::string s, int nSteps) {
 	
 	}
 	
-	answerListMap[newPostfix] = allStrings;
+
+	reverseMapCorrect[newPostfix]={};
+	reverseMap[newPostfix]={};
 	totalAnswers += allStrings.size();
 	//std::cout << "total answers: "<< totalAnswers << "\n";
 	
 	for (ii=0;ii<allStrings.size()/2;ii++){
-		
-		if (answerListMap.find(allStrings[ii*2]) != answerListMap.end()){
-			reverseMapCorrect[allStrings[ii*2]].push_back(newPostfix);
-			reverseMapCorrect[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
+		if (allStrings[ii*2] == newPostfix){
+			continue;
+		}
+		if (reverseMap.find(allStrings[ii*2]) != reverseMap.end()){
 			reverseMap[allStrings[ii*2]].push_back(newPostfix);
 			reverseMap[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
 		}
 		else {
-			if (allStrings[ii*2] != newPostfix){
-				getAnswerList(allStrings[ii*2],nSteps+1);
-				reverseMapCorrect[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
-				reverseMap[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
-				
-			}
-			
+			getAnswerList(allStrings[ii*2],nSteps+1);
+			reverseMap[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
+
+		}
+		if (reverseMapCorrect.find(allStrings[ii*2]) != reverseMapCorrect.end()){
+			reverseMapCorrect[allStrings[ii*2]].push_back(newPostfix);
+			reverseMapCorrect[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
+		}
+		else {
+			getAnswerList(allStrings[ii*2],nSteps+1);
+			reverseMapCorrect[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
+
 		}
 
 	}
@@ -2333,22 +2340,22 @@ bool getAnswerList(std::string s, int nSteps) {
 	
 	}
 	
-	//answerListMap[newPostfix] = allStrings;
+	
 	totalAnswers += allStrings.size();
 	//std::cout << "total answers: "<< totalAnswers << "\n";
 	for (ii=0;ii<allStrings.size()/2;ii++){
 		
-		if (answerListMap.find(allStrings[ii*2]) != answerListMap.end()){
+		if (allStrings[ii*2] == newPostfix){
+			continue;
+		}
+		if (reverseMap.find(allStrings[ii*2]) != reverseMap.end()){
 			reverseMap[allStrings[ii*2]].push_back(newPostfix);
 			reverseMap[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
 		}
 		else {
-			if (allStrings[ii*2] != newPostfix){
-				getAnswerList(allStrings[ii*2],nSteps+1);
-				reverseMap[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
-				
-			}
-			
+			getAnswerList(allStrings[ii*2],nSteps+1);
+			reverseMap[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
+
 		}
 
 	}
