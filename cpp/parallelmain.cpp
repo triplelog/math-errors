@@ -2404,7 +2404,7 @@ std::vector<std::string> makeSolutionList(std::string s, std::string q){
 			
 		}
 		else {
-			makeSolutionList(sv[i*2],q).size();
+			makeSolutionList(sv[i*2],q);
 		}
 		l = fullSolutionList[sv[i*2]].size();
 		//std::cout << "i: " << i << " and " << minSize << " and " << l << "\n";
@@ -2457,6 +2457,7 @@ std::string fullAnswer(std::string s){
 	for (ii=0;ii<tempFinished.size();ii++){
 		if (doubleCheckAnswer(tempFinished[ii])){
 			finishedAnswers.push_back(tempFinished[ii]);
+			std::cout << tempFinished[ii] << "\n";
 			std::vector<std::string> v = makeSolutionList(tempFinished[ii],newPostfix);
 			if (v.size() > 0){
 				ca++;
