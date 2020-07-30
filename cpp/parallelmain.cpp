@@ -2362,6 +2362,7 @@ bool getAnswerList(std::string s, int nSteps) {
 #include "autocomplete.cpp"
 
 flat_hash_map<std::string,std::vector<std::string>> fullSolutionList;
+flat_hash_map<std::string,std::vector<std::string>> incorrectSolutionList;
 std::vector<std::string> makeSolutionList(std::string s, std::string q){
 	std::vector<std::string> v;
 	//std::cout << "s: " << s << "\n";
@@ -2430,6 +2431,74 @@ std::vector<std::string> makeSolutionList(std::string s, std::string q){
 	return v;
 }
 
+std::vector<std::string> makeIncorrectSolutionList(std::string s, std::string q){
+	std::vector<std::string> v;
+	//std::cout << "s: " << s << "\n";
+	std::vector<std::string> sv;
+	int i; 
+	if (s == q){
+		v = {s};
+		incorrectSolutionList[s]=v;
+		//std::cout << "sa: " << s << " and vsz: " << v.size() << "\n";
+		return v;
+	}
+	else {
+		incorrectSolutionList[s]={""};
+	}
+	if (reverseMap.find(s) != reverseMap.end()){
+		sv = reverseMap.find(s)->second;
+	}
+	else {
+		v = {};
+		incorrectSolutionList[s]=v;
+		return v;
+	}
+	//std::cout << "svszb: " << sv.size() << "\n";
+
+	if (sv.size() ==0){
+		v = {};
+		incorrectSolutionList[s]=v;
+		//std::cout << "sb: " << s << " and vsz: " << v.size() << "\n";
+		return v;
+	}
+	//std::cout << "sv0: " << sv[0] << "\n";
+	
+	int minSize = 100000; int l; int idx = 0;
+	std::vector<std::string> minV;
+	for (i=0;i<sv.size()/2;i++){
+		//std::cout << "i: " << i << " and " << sv[i*2] << "\n";
+		if (incorrectSolutionList.find(sv[i*2]) != incorrectSolutionList.end()){
+			if (incorrectSolutionList[sv[i*2]].size()==1 && incorrectSolutionList[sv[i*2]][0] == ""){
+				continue;
+			}
+		}
+		else {
+			makeIncorrectSolutionList(sv[i*2],q);
+		}
+		l = incorrectSolutionList[sv[i*2]].size();
+		if (l == 0){
+			continue;
+		}
+		if (l < minSize){
+			minSize = l;
+			minV = incorrectSolutionList[sv[i*2]];
+		}
+	}
+	if (minSize == 100000){
+		v = {};
+		incorrectSolutionList[s]=v;
+		//std::cout << "sb: " << s << " and vsz: " << v.size() << "\n";
+		return v;
+	}
+	for (i=0;i<minSize;i++){
+		v.push_back(minV[i]);
+	}
+	v.push_back(s);
+	incorrectSolutionList[s]=v;
+	//std::cout << "sc: " << s << " and vsz: " << v.size() << "\n";
+	return v;
+}
+
 std::string fullAnswer(std::string s){
 	std::string newPostfix = removeBracketsOne(s);
 	std::cout << "\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
@@ -2456,27 +2525,27 @@ std::string fullAnswer(std::string s){
 			
 			std::vector<std::string> v = makeSolutionList(tempFinished[ii],newPostfix);
 			if (v.size() > 0){
-				std::cout << "fully correct: "<< tempFinished[ii] << "\n";
+				//std::cout << "fully correct: "<< tempFinished[ii] << "\n";
+				correctAnswers.push_back(tempFinished[ii]);
 				ca++;
-			}
-			else {
-				std::cout << "fully incorrect: "<< tempFinished[ii] << "\n";
 			}
 		}
 		else {
-			if (tempFinished[ii] == "##^#*#+##*+@x_6_7_5_x_2_"){
-				std::cout << "##^#*#+##*+@x_6_7_5_x_2_ got double checked" << "\n";
-			}
+
 			unfinishedAnswers.push_back(tempFinished[ii]);
 		}
 	}
+	int ns = 0;
 	for (ii=0;ii<unfinishedAnswers.size();ii++){
-		if (unfinishedAnswers[ii] == "##^#*#+##*+@x_6_7_5_x_2_"){
-			std::cout << "##^#*#+##*+@x_6_7_5_x_2_ unfinished" << "\n";
+		std::vector<std::string> v = makeSolutionListFull(unfinishedAnswers[ii],newPostfix);
+		if (v.size() == 0){
+			ns++;
 		}
 	}
+
 	std::cout << "finished answers: " << finishedAnswers.size() << "\n";
 	std::cout << "correct finished answers: " << ca << "\n";
+	std::cout << "no solution answers: " << ns << "\n";
 	std::cout << "unfinished answers: " << unfinishedAnswers.size() << "\n";
 	//for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = reverseMapCorrect.begin(); iter != reverseMapCorrect.end(); ++iter){
 	//	std::cout << "rm: " << iter->first << " and " << iter->second.size() << "\n";		
@@ -2749,9 +2818,12 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	Question question = chooseQuestion("blank",qs);
 	
 	correctAnswers.resize(0);
+	finishedAnswers.resize(0);
 	unfinishedAnswers.resize(0);
 	wrongAnswers.resize(0);
 	inputArray.resize(0);
+	fullSolutionList.clear();
+	incorrectSolutionList.clear();
 	maxSteps = 25;
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
