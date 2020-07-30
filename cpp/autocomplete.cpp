@@ -163,230 +163,230 @@ void inputify() {
 				
 				}
 				std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
-				//if (listMap.find(fullStr) != listMap.end()){
-				//	lastInput = listMap[fullStr];
-				//	continue;
-				//}
 				std::string s = "";
-				for (ii=0;ii<2;ii++){
-					std::string child = secondChild;
-					if (ii==0 && firstChild != ""){
-						child = firstChild;
-					}
-					else if (ii==1 && firstChild == ""){
-						break;
-					}
-					switch (pfstr.at(i)){
-						case '^': {
-							if (ii > 0){
-								s += "^";
-								if (prec[lastOpMap[child]] < 100){
-									s += "("+listMap[child]+")";
+				if (listMap.find(fullStr) != listMap.end()){
+					s = listMap[fullStr];
+				}
+				else {
+				
+					for (ii=0;ii<2;ii++){
+						std::string child = secondChild;
+						if (ii==0 && firstChild != ""){
+							child = firstChild;
+						}
+						else if (ii==1 && firstChild == ""){
+							break;
+						}
+						switch (pfstr.at(i)){
+							case '^': {
+								if (ii > 0){
+									s += "^";
+									if (prec[lastOpMap[child]] < 100){
+										s += "("+listMap[child]+")";
+									}
+									else {
+										s += listMap[child];
+									}
 								}
 								else {
-									s += listMap[child];
+									if (prec[lastOpMap[child]] < 100){
+										s += "("+listMap[child]+")";
+									}
+									else {
+										s += listMap[child];
+									}
 								}
+								break;
 							}
-							else {
-								if (prec[lastOpMap[child]] < 100){
-									s += "("+listMap[child]+")";
-								}
-								else {
-									s += listMap[child];
-								}
-							}
-							break;
-						}
-						case -69: {
-							if (ii > 0){
-								s += listMap[child]+"]";
-							}
-							else {
-								s += "d/d"+listMap[child]+"[";
-							}
-							break;
-			
-						}
-						case -85: {
-							if (ii > 0){
-								s.replace(6,0,listMap[child]+" d");
-							}
-							else {
-								s += "int "+listMap[child]+"}";
-							}
-							break;
-			
-						}
-						case -34:
-							s += "|"+listMap[child]+"|";
-							break;
-						case -64:
-							s += "sin("+listMap[child]+")";
-							break;
-						case -63:
-							s += "cos("+listMap[child]+")";
-							break;
-						case -62:
-							s += "tan("+listMap[child]+")";
-							break;
-						case -61:
-							s += "csc("+listMap[child]+")";
-							break;
-						case -60:
-							s += "sec("+listMap[child]+")";
-							break;
-						case -59:
-							s += "cot("+listMap[child]+")";
-							break;
-						case -32:
-							s += "sin^(-1)("+listMap[child]+")";
-							break;
-						case -31:
-							s += "cos^(-1)("+listMap[child]+")";
-							break;
-						case -30:
-							s += "tan^(-1)("+listMap[child]+")";
-							break;
-						case -29:
-							s += "csc^(-1)("+listMap[child]+")";
-							break;
-						case -28:
-							s += "sec^(-1)("+listMap[child]+")";
-							break;
-						case -27:
-							s += "cot^(-1)("+listMap[child]+")";
-							break;
-						case -16:
-							s += "sinh("+listMap[child]+")";
-							break;
-						case -15:
-							s += "cosh("+listMap[child]+")";
-							break;
-						case -14:
-							s += "tanh("+listMap[child]+")";
-							break;
-						case -13:
-							s += "csch("+listMap[child]+")";
-							break;
-						case -12:
-							s += "sech("+listMap[child]+")";
-							break;
-						case -11:
-							s += "coth("+listMap[child]+")";
-							break;
-						case -67:
-							s += "sqrt("+listMap[child]+")";
-							break;
-						case -84: {
-							if (ii > 0){
-								s += listMap[child]+")";
-							}
-							else {
-								s += "sqrt["+listMap[child]+"](";
-							}
-							break;
-			
-						}
-						case -93: {
-							if (ii > 0){
-								if (prec[lastOpMap[child]] < 100){
-									s += "("+listMap[child]+")";
+							case -69: {
+								if (ii > 0){
+									s += listMap[child]+"]";
 								}
 								else {
-									s += listMap[child];
+									s += "d/d"+listMap[child]+"[";
 								}
+								break;
+			
+							}
+							case -85: {
+								if (ii > 0){
+									s.replace(6,0,listMap[child]+" d");
+								}
+								else {
+									s += "int "+listMap[child]+"}";
+								}
+								break;
+			
+							}
+							case -34:
+								s += "|"+listMap[child]+"|";
+								break;
+							case -64:
+								s += "sin("+listMap[child]+")";
+								break;
+							case -63:
+								s += "cos("+listMap[child]+")";
+								break;
+							case -62:
+								s += "tan("+listMap[child]+")";
+								break;
+							case -61:
+								s += "csc("+listMap[child]+")";
+								break;
+							case -60:
+								s += "sec("+listMap[child]+")";
+								break;
+							case -59:
+								s += "cot("+listMap[child]+")";
+								break;
+							case -32:
+								s += "sin^(-1)("+listMap[child]+")";
+								break;
+							case -31:
+								s += "cos^(-1)("+listMap[child]+")";
+								break;
+							case -30:
+								s += "tan^(-1)("+listMap[child]+")";
+								break;
+							case -29:
+								s += "csc^(-1)("+listMap[child]+")";
+								break;
+							case -28:
+								s += "sec^(-1)("+listMap[child]+")";
+								break;
+							case -27:
+								s += "cot^(-1)("+listMap[child]+")";
+								break;
+							case -16:
+								s += "sinh("+listMap[child]+")";
+								break;
+							case -15:
+								s += "cosh("+listMap[child]+")";
+								break;
+							case -14:
+								s += "tanh("+listMap[child]+")";
+								break;
+							case -13:
+								s += "csch("+listMap[child]+")";
+								break;
+							case -12:
+								s += "sech("+listMap[child]+")";
+								break;
+							case -11:
+								s += "coth("+listMap[child]+")";
+								break;
+							case -67:
+								s += "sqrt("+listMap[child]+")";
+								break;
+							case -84: {
+								if (ii > 0){
+									s += listMap[child]+")";
+								}
+								else {
+									s += "sqrt["+listMap[child]+"](";
+								}
+								break;
+			
+							}
+							case -93: {
+								if (ii > 0){
+									if (prec[lastOpMap[child]] < 100){
+										s += "("+listMap[child]+")";
+									}
+									else {
+										s += listMap[child];
+									}
 					
-							}
-							else {
-								if (listMap[child] == "e"){
-									s += "ln";
 								}
 								else {
-									s += "log_{"+listMap[child]+"}";
+									if (listMap[child] == "e"){
+										s += "ln";
+									}
+									else {
+										s += "log_{"+listMap[child]+"}";
+									}
 								}
-							}
-							break;
+								break;
 			
-						}
-						case '-': {
-							if (prec[pfstr.at(i)] >= prec[lastOpMap[child]]){
-								s += "-("+listMap[child]+")";
 							}
-							else {
-								s += "-"+listMap[child];
-							}
-							break;
-						}
-						case '/': {
-							s += "1/("+listMap[child]+")";
-							/*
-							if (prec[pfstr.at(i)] >= prec[lastOpMap[child]]){
-								s += "/("+listMap[child]+")";
-							}
-							else {
-								s += "/"+listMap[child];
-							}*/
-							break;
-						}
-						default: {
-							if (prec[pfstr.at(i)] > prec[lastOpMap[child]]){
-								if (ii > 0){
-									if (pfstr.at(i) == '*'){
-										s += "*("+listMap[child]+")";
-									}
-									else {
-										s += pfstr.at(i)+"("+listMap[child]+")";
-									}
+							case '-': {
+								if (prec[pfstr.at(i)] >= prec[lastOpMap[child]]){
+									s += "-("+listMap[child]+")";
 								}
 								else {
-									s += "("+listMap[child]+")";
+									s += "-"+listMap[child];
 								}
+								break;
 							}
-							else if (prec[pfstr.at(i)] == prec[lastOpMap[child]] && pfstr.at(i) != lastOpMap[child]){
-								if (ii > 0){
-									if (pfstr.at(i) == '*'){
-										s += "*"+listMap[child];//want to move this into numerator somehow
-									}
-									else if (pfstr.at(i) == '+'){
-										s += listMap[child];
-									}
-									else {
-										s += pfstr.at(i)+"("+listMap[child]+")";
-									}
+							case '/': {
+								s += "1/("+listMap[child]+")";
+								/*
+								if (prec[pfstr.at(i)] >= prec[lastOpMap[child]]){
+									s += "/("+listMap[child]+")";
 								}
 								else {
-									if (pfstr.at(i) == '*'){
-										s += listMap[child];
-									}
-									else if (pfstr.at(i) == '+'){
-										s += listMap[child];
+									s += "/"+listMap[child];
+								}*/
+								break;
+							}
+							default: {
+								if (prec[pfstr.at(i)] > prec[lastOpMap[child]]){
+									if (ii > 0){
+										if (pfstr.at(i) == '*'){
+											s += "*("+listMap[child]+")";
+										}
+										else {
+											s += pfstr.at(i)+"("+listMap[child]+")";
+										}
 									}
 									else {
 										s += "("+listMap[child]+")";
 									}
 								}
-							}
-							else {
-								if (ii > 0){
-									if (pfstr.at(i) == '*'){
-										s += "*"+listMap[child];
+								else if (prec[pfstr.at(i)] == prec[lastOpMap[child]] && pfstr.at(i) != lastOpMap[child]){
+									if (ii > 0){
+										if (pfstr.at(i) == '*'){
+											s += "*"+listMap[child];//want to move this into numerator somehow
+										}
+										else if (pfstr.at(i) == '+'){
+											s += listMap[child];
+										}
+										else {
+											s += pfstr.at(i)+"("+listMap[child]+")";
+										}
 									}
 									else {
-										s += pfstr.at(i)+listMap[child];
+										if (pfstr.at(i) == '*'){
+											s += listMap[child];
+										}
+										else if (pfstr.at(i) == '+'){
+											s += listMap[child];
+										}
+										else {
+											s += "("+listMap[child]+")";
+										}
 									}
 								}
 								else {
-									s += listMap[child];
+									if (ii > 0){
+										if (pfstr.at(i) == '*'){
+											s += "*"+listMap[child];
+										}
+										else {
+											s += pfstr.at(i)+listMap[child];
+										}
+									}
+									else {
+										s += listMap[child];
+									}
 								}
 							}
 						}
 					}
 				}
-			
 				listMap[fullStr]=s;
 				lastOpMap[fullStr]=pfstr.at(i);
 				lastInput = s;
-			
 			
 			}
 			else {
