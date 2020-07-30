@@ -2373,16 +2373,17 @@ std::vector<std::string> makeSolutionList(std::string s, std::string q){
 	//std::cout << "s: " << s << "\n";
 	std::vector<std::string> sv;
 	int i; 
-	std::cout << "s: " << s << " and q: " << q << "\n";
 	if (s == q){
 		v = {s};
 		fullSolutionList[s]=v;
 		//std::cout << "sa: " << s << " and vsz: " << v.size() << "\n";
 		return v;
 	}
+	else {
+		fullSolutionList[s]={""};
+	}
 	if (reverseMapCorrect.find(s) != reverseMapCorrect.end()){
 		sv = reverseMapCorrect.find(s)->second;
-		std::cout << "s: " << s << " and svsz: " << sv.size() << "\n";
 	}
 	else {
 		v = {};
@@ -2404,14 +2405,14 @@ std::vector<std::string> makeSolutionList(std::string s, std::string q){
 	for (i=0;i<sv.size()/2;i++){
 		std::cout << "i: " << i << " and " << sv[i*2] << "\n";
 		if (fullSolutionList.find(sv[i*2]) != fullSolutionList.end()){
-			
+			if (fullSolutionList[sv[i*2]].size()==1 && fullSolutionList[sv[i*2]][0] == ""){
+				continue;
+			}
 		}
 		else {
-			std::cout << "make i: " << i << " and " << sv[i*2] << "\n";
 			makeSolutionList(sv[i*2],q);
 		}
 		l = fullSolutionList[sv[i*2]].size();
-		std::cout << "i: " << i << " and " << minSize << " and " << l << "\n";
 		if (l == 0){
 			continue;
 		}
@@ -2419,9 +2420,7 @@ std::vector<std::string> makeSolutionList(std::string s, std::string q){
 			minSize = l;
 			minV = fullSolutionList[sv[i*2]];
 		}
-		std::cout << "i: " << i << " and " << minSize << " and " << idx << "\n";
 	}
-	std::cout << "ms: " << minSize << "\n";
 	if (minSize == 100000){
 		v = {};
 		fullSolutionList[s]=v;
