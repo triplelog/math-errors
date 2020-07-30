@@ -2219,7 +2219,7 @@ void initialRun(){
 	auto t2 = std::chrono::high_resolution_clock::now();
 }
 
-flat_hash_map<std::string,true> answerListMap;
+flat_hash_map<std::string,bool> answerListMap;
 flat_hash_map<std::string,std::vector<std::string>> reverseMap;
 flat_hash_map<std::string,std::vector<std::string>> reverseMapCorrect;
 int totalAnswers;
