@@ -75,6 +75,8 @@ wss.on('connection', function connection(ws) {
 			console.log(performance.now());
 			var jsonmessage = {'type':'question','question':stdout};
 			ws.send(JSON.stringify(jsonmessage));
+			stdout = maincpp.answers();
+			console.log(stdout);
 		}
 		else if (dm.type == 'solve'){//TODO: redo this whole thing
 			console.log(performance.now());

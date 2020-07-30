@@ -2761,7 +2761,7 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
-
+Question currentQuestion;
 void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
@@ -2897,9 +2897,9 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	
 	std::vector<RawQuestion> qs = makeQuestions("answerconstraints.csv");
-	Question question = chooseQuestion("blank",qs);
+	currentQuestion = chooseQuestion("blank",qs);
 	
-	
+	/*
 	finishedAnswers.resize(0);
 	unfinishedAnswers.resize(0);
 	
@@ -2924,7 +2924,40 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	auto a2 = std::chrono::high_resolution_clock::now();
 	duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "times: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
-	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(question.text);
+	*/
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(currentQuestion.text);
+
+	
+	info.GetReturnValue().Set(h.ToLocalChecked());
+}
+void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+	v8::Isolate* isolate = info.GetIsolate();
+	
+	
+	finishedAnswers.resize(0);
+	unfinishedAnswers.resize(0);
+	
+	correctAnswers.resize(0);
+	unfinishedCorrect.resize(0);
+	unfinishedErrors.resize(0);
+	finishedErrors.resize(0);
+	
+	fullSolutionList.clear();
+	incorrectSolutionList.clear();
+	answerMap.clear();
+	maxSteps = 25;
+	
+	auto a1 = std::chrono::high_resolution_clock::now();
+	maxFound = 0;
+	
+	std::cout << "mf:" << maxFound << " times: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
+	
+	std::string error = fullAnswer(currentQuestion.comp);
+
+	auto a2 = std::chrono::high_resolution_clock::now();
+	duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	std::cout << "times: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(currentQuestion.text);
 
 	
 	info.GetReturnValue().Set(h.ToLocalChecked());
@@ -2940,6 +2973,11 @@ void Init(v8::Local<v8::Object> exports) {
   exports->Set(context,
                Nan::New("question").ToLocalChecked(),
                Nan::New<v8::FunctionTemplate>(GetQuestion)
+                   ->GetFunction(context)
+                   .ToLocalChecked());
+  exports->Set(context,
+               Nan::New("answers").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(GetAnswers)
                    ->GetFunction(context)
                    .ToLocalChecked());
   exports->Set(context,
