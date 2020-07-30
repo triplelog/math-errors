@@ -104,6 +104,7 @@ void inputify() {
 	
 	
 		flat_hash_map<int,std::string> operandMap;
+		flat_hash_map<int,int> operandIntMap;
 		std::string lastInput = "";
 		std::string soFar = "";
 		for (i=0;i<pfstr.length();i++){
@@ -121,7 +122,7 @@ void inputify() {
 					for (iii=ii;iii<i+1;iii++){
 						s += pfstr.at(iii);
 						if (pfstr.at(iii) == '#'){
-							t += originalMap[std::stoi(operandMap[iii])] + '_';
+							t += originalMap[operandIntMap[iii]] + '_';
 						}
 					}
 					if (listMap.find(s + '@' + t) != listMap.end()){
@@ -414,6 +415,7 @@ void inputify() {
 				listMap["#@" + std::to_string(idx) + "_"]=originalMap[idx];
 				lastOpMap["#@" + std::to_string(idx) + "_"]='#';
 				operandMap[i]=std::to_string(idx);
+				operandIntMap[i]=idx;
 				lastInput = originalMap[idx];
 				idx++;
 			}
