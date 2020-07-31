@@ -2879,8 +2879,8 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		}
 		if (answerMap.find(mpf) != answerMap.end()){
 			k = 1000 - ai*4;
-			if (k<100){
-				k=100;
+			if (k < 100){
+				k = 100;
 			}
 			Answer userAnswer = answerMap[mpf];
 			//std::cout << "correct? " << userAnswer.correct <<"\n";
