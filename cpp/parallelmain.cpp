@@ -2806,6 +2806,53 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 Question currentQuestion;
 
+int eloToProb(int elo){
+	int pyes;
+	for (ei=1;ei<99;ei++){
+		int m = (eloMap[ei]+eloMap[ei+1])/2;
+		if (elo > m){
+			pyes = ei;
+			break;
+		}
+		if (ei == 98){
+			pyes = 99;
+		}
+	}
+	return pyes;
+}
+int probCorrect(){
+	int probc = 1;
+	int probt = 2;
+	int ii; int iii;
+	for (ii=0;ii<correctAnswers.size();ii++){
+		int p = 100;
+		std::vector<Step> v;
+		v = correctSolutionList[correctAnswers[ii]];
+		for (iii=0;iii<v.size();iii++){
+			if (v[iii].rule >= 0){
+				int pp = ruleIndex[v[iii].rule].score;
+				p *= eloToProb(pp);
+				p /= 50;
+			}
+		}
+		probc += p;
+		probt += p;
+	}
+	for (ii=0;ii<finishedErrors.size();ii++){
+		int p = 100;
+		std::vector<Step> v;
+		v = incorrectSolutionList[finishedErrors[ii]];
+		for (iii=0;iii<v.size();iii++){
+			if (v[iii].rule >= 0){
+				int pp = ruleIndex[v[iii].rule].score;
+				p *= eloToProb(pp);
+				p /= 50;
+			}
+		}
+		probt += p;
+	}
+	return probc*100/probt;
+}
 void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
@@ -2861,8 +2908,9 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 				}
 			}
 		}
-	
-	
+		
+		int apc = probCorrect();
+		
 		for (ii=0;ii<ridx;ii++){
 			if (userData[ii][1]){
 				branches[ii]={0,0};
@@ -2922,28 +2970,9 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			int score = ruleIndex[iter->first].score;
 			int d = r - score;
 			int ei;
-			int pyes;
-			int pno;
-			for (ei=1;ei<99;ei++){
-				int m = (eloMap[ei]+eloMap[ei+1])/2;
-				if (d > m){
-					pyes = ei;
-					break;
-				}
-				if (ei == 98){
-					pyes = 99;
-				}
-			}
-			for (ei=1;ei<99;ei++){
-				int m = (eloMap[ei]+eloMap[ei+1])/2;
-				if (-1*d > m){
-					pno = ei;
-					break;
-				}
-				if (ei == 98){
-					pno = 99;
-				}
-			}
+			int pyes = eloToProb(d);
+			int pno = eloToProb(-1*d);
+
 			int k = 500;
 			if (userData[iter->first][0]){
 				ruleIndex[iter->first].score = score + k*pno/100;
@@ -2953,7 +2982,8 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			}
 			std::cout << iter->first << " new score: " << ruleIndex[iter->first].score << " and pyes:" << pyes << "\n";
 		}
-	
+		int ppc = probCorrect();
+		std::cout << "apc: " << apc << " ppc: " << ppc << "\n";
 	}
 	else {
 		std::cout << "unknown answer" << "\n";
