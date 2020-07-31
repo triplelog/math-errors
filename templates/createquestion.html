@@ -137,11 +137,15 @@
 					  <div class="card-body">
 					  	<div>ID:</div>
 					  	<div>
-					  		<input type="text" id="con2" value="">
+					  		<input type="text" id="qid" value="">
+					  	</div>
+					  	<div>Name:</div>
+					  	<div>
+					  		<input type="text" id="name" value="">
 					  	</div>
 						<div>Tags:</div>
 						<div>
-							<input type="text" id="con2" value="">
+							<input type="text" id="tags" value="">
 						</div>
 						
 					  </div>
@@ -159,7 +163,7 @@
 						</div>
 						<div>Computer:</div>
 						<div>
-							<input type="text" id="con1" value="">
+							<input type="text" id="compQ" value="">
 						</div>
 						<div>Constraints:</div>
 						<div>
@@ -181,7 +185,7 @@
 						</div>
 						<div>Computer:</div>
 						<div>
-							<input type="text" id="con1" value="">
+							<input type="text" id="compA" value="">
 						</div>
 						<div>Constraints:</div>
 						<div>
@@ -358,10 +362,17 @@
 		}
 		function refreshQuestion() {
 			var outstr = "";
+			var qid = document.getElementById("qid").value;
+			var name = document.getElementById("name").value;
+			outstr += qid + ",\""+name+"\n";
 			var humanQ = document.getElementById("humanQ").value;
-			var humanA = document.getElementById("humanA").value;
 			outstr += humanQ + "\n";
+			var compQ =  document.getElementById("compQ").value;
+			outstr += compQ + "\n";
+			var humanA = document.getElementById("humanA").value;
 			outstr += humanA + "\n";
+			var compA =  document.getElementById("compA").value;
+			outstr += compA + "\n";
 			document.getElementById("previewQ").innerHTML = "";
 			document.getElementById("previewQ").textContent = outstr;
 			//var jsonmessage = {type:"solve",question:question,answer:answer};
