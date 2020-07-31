@@ -2983,7 +2983,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 				int pyes = eloToProb(d);
 				int pno = eloToProb(-1*d);
 
-				int k = 100;
+				int k = 200;
 				if (userData[iter->first][0]){
 					ruleIndex[iter->first].score = score + k*pno/100;
 				}
