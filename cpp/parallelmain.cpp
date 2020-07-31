@@ -47,6 +47,8 @@ int noC;
 int mapSave;
 int mapMake;
 bool answerIsFinished;
+flat_hash_map<int,int> eloMap;
+
 struct RawQuestion {
 	std::string qH = "";
 	std::string qC = "";
@@ -2801,7 +2803,7 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
 Question currentQuestion;
-flat_hash_map<int,int> eloMap;
+
 void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
