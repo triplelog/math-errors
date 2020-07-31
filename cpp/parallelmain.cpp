@@ -29,7 +29,7 @@
 using namespace std::chrono;
 using phmap::flat_hash_map;
 
-std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect);
+std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect);
 bool checkAnswer(std::string answer);
 std::string makeInt(std::string input);
 flat_hash_map<char,int> prec;
