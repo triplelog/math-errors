@@ -2865,19 +2865,19 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::string pfstr = postfixify(a);
 	int i; int ii;
 	
-	std::vector<std::string> bestSolution;
+	std::vector<Step> bestSolution;
 	bool foundSolution = false;
 	for (i=0;i<correctAnswers.size();i++){
 		if (correctAnswers[i] == pfstr){
 			std::cout << "match: " << pfstr << " and " << correctAnswers[i] << "\n";
-			std::vector<std::string> v = fullSolutionList[pfstr];
+			std::vector<Step> v = fullSolutionList[pfstr];
 			bestSolution = v;
 			foundSolution = true;
 			break;
 		}
 		else {
 			std::cout << "no match: " << pfstr << " and " << correctAnswers[i] << "\n";
-			std::vector<std::string> v = fullSolutionList[correctAnswers[i]];
+			std::vector<Step> v = fullSolutionList[correctAnswers[i]];
 			if (v.size()<bestSolution.size() || bestSolution.size() == 0){
 				bestSolution = v;
 			}
@@ -2886,10 +2886,10 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	jsonmessage = "";
 	while (!foundSolution){
 		foundSolution = true;
-		std::vector<std::string> oldBest = bestSolution;
+		std::vector<Step> oldBest = bestSolution;
 		bestSolution.resize(0);
 		for (i=0;i<correctAnswers.size();i++){
-			std::vector<std::string> v = fullSolutionList[correctAnswers[i]];
+			std::vector<Step> v = fullSolutionList[correctAnswers[i]];
 			for (ii=0;ii<v.size();ii++){
 				if (ii>=oldBest.size()){
 					if (v.size()<bestSolution.size() || bestSolution.size() == 0){
