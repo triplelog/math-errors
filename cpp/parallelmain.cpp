@@ -2915,10 +2915,24 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			if (rr>99){
 				rr = 99;
 			}
-			std::cout << rr << "\n";
 			int r = eloMap[rr];
-			std::cout << iter->first << " and " << branches[iter->first][0] << " and "<< branches[iter->first][1] << " and " << rr << "\n";
+			std::cout << iter->first << " and " << branches[iter->first][0] << " and "<< branches[iter->first][1] << " and " << r << "\n";
 			std::cout << iter->first << " and " << userData[iter->first][0] << " and "<< userData[iter->first][1] << "\n";
+			int score = ruleIndex[iter->first].score;
+			int d = r-score;
+			int ei;
+			int pyes;
+			for (ei=1;ei<99;ei++){
+				int m = (eloMap[ei]+eloMap[ei+1])/2;
+				if (d<m){
+					pyes = ei;
+					break;
+				}
+				if (ei==98){
+					pyes = 99;
+				}
+			}
+			std::cout << iter->first << "score: " << score << " and pyes:" << pyes << "\n";
 		}
 	
 	}
