@@ -2899,7 +2899,7 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 					
 					break;
 				}
-				if (v[ii] != oldBest[ii]){
+				if (v[ii].next != oldBest[ii].next){
 					break;
 				}
 				//std::cout << "step: " << v[ii] << "\n";
@@ -2911,7 +2911,7 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		}
 	}
 	for (i=0;i<bestSolution.size();i++){
-		outputTree(bestSolution[i]);
+		outputTree(bestSolution[i].next);
 	}
 	
 	
