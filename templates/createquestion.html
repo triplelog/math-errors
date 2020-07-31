@@ -189,8 +189,9 @@
 						</div>
 						<div>Constraints:</div>
 						<div>
-							<input type="text" id="con1" value="">
-							<div>Add Constraint</div>
+							<div id="constraintsA"></div>
+							<input type="text" id="addConA" value="">
+							<div onclick="addConA()">Add Constraint</div>
 						</div>
 					  </div>
 					</div>
@@ -364,7 +365,7 @@
 			var outstr = "";
 			var qid = document.getElementById("qid").value;
 			var name = document.getElementById("name").value;
-			outstr += qid + ",\""+name+"\n";
+			outstr += qid + ",\""+name+"\"\n";
 			var humanQ = document.getElementById("humanQ").value;
 			outstr += humanQ + "\n";
 			var compQ =  document.getElementById("compQ").value;
@@ -373,10 +374,19 @@
 			outstr += humanA + "\n";
 			var compA =  document.getElementById("compA").value;
 			outstr += compA + "\n";
+			for (var i=0;i<constraintsA.length;i++){
+				outstr += "\"a\","+constraintsA[i]+"\n";
+			}
 			document.getElementById("previewQ").innerHTML = "";
 			document.getElementById("previewQ").textContent = outstr;
 			//var jsonmessage = {type:"solve",question:question,answer:answer};
 			//ws.send(JSON.stringify(jsonmessage));
+		}
+		var constraintsA = [];
+		function addConA() {
+			var el = document.getElementById('addConA');
+			constraintsA.push(el.value);
+			el.value = "";
 		}
 		
 		
