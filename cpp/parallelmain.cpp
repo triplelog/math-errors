@@ -2821,8 +2821,8 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			std::vector<int> allOptions = answerListMapF[v[iii].next];
 			std::cout << "alosz: " << allOptions.size() << "\n";
 			for (iiii=0;iiii<allOptions.size();iiii++){
-				std::cout << allOptions[iii] << " -- ";
-				std::cout << ruleIndex[allOptions[iii]] << " -- ";
+				std::cout << allOptions[iiii] << " -- ";
+				std::cout << ruleIndex[allOptions[iiii]] << " -- ";
 				Rule rule = ruleIndex[allOptions[iiii]];
 				rule.score++;
 				std::cout << rule.score << " -- ";
