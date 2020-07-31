@@ -2924,7 +2924,8 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			int pyes;
 			for (ei=1;ei<99;ei++){
 				int m = (eloMap[ei]+eloMap[ei+1])/2;
-				if (d<m){
+				std::cout << "m: " << m << " ei: " << ei << "d: " << d;
+				if (d > m){
 					pyes = ei;
 					break;
 				}
@@ -2932,7 +2933,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 					pyes = 99;
 				}
 			}
-			std::cout << iter->first << "score: " << score << " and pyes:" << pyes << "\n";
+			std::cout << "\n" << iter->first << "score: " << score << " and pyes:" << pyes << "\n";
 		}
 	
 	}
