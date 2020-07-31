@@ -444,21 +444,23 @@ Question chooseQuestion(std::string dewey, std::vector<RawQuestion> questions){
 	answerConstraints.clear();
 	int i;
 	for (i=0;i<q.rawRules.size();i++){
-		std::vector<std::string> rule;
+		Rule rule;
 
 		fullPost = makeAnswer(q.rawRules[i][1]);
 		key = fullPost[0];
 		val1 = fullPost[1];
-		rule = {val1,q.rawRules[i][2],q.rawRules[i][3]};
+		rule.operands = val1;
+		rule.type = q.rawRules[i][2];
+		rule.explanation = q.rawRules[i][3];
 		
 
 		//TODO: add more constraint options
 	
 		if (q.rawRules[i].size()>4){
-			std::string constraint = constraintify(q.rawRules[i][5]);
+			std::string constraint = constraintify(q.rawRules[i][4]);
 			std::string postfixed = postfixify(constraint);
-			std::cout <<" postfixed " << postfixed << "\n";
-			rule.push_back(postfixed);
+			//std::cout <<" postfixed " << postfixed << "\n";
+			rule.constraints.push_back(postfixed);
 		}
 	
 	

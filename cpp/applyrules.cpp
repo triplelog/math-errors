@@ -33,11 +33,11 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 		for (ruleIdx=0;ruleIdx<rules[key].size();ruleIdx++){
 			//std::cout << "Key sub-Match: " << key << " and " << rules[key][ruleIdx][0] << "\n";
 			
-			std::vector<std::string> rule = rules[key][ruleIdx];
+			Rule rule = rules[key][ruleIdx];
 			
 			
-			if (rule[2] != "c" && isCorrect){continue;}
-			else if (rule[2] != "i" && !isCorrect){continue;}
+			if (rule.type != "c" && isCorrect){continue;}
+			else if (rule.type != "i" && !isCorrect){continue;}
 			//else if (!isCorrect){continue;}
 			
 			
@@ -47,13 +47,13 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 			std::vector<std::string> userOperands;
 			std::vector<std::string> ruleOperands;
 			newPostfix = "";
-			for (iii=0;iii<rule[0].length();iii++){
-				if (rule[0].at(iii) == '_'){
+			for (iii=0;iii<rule.operands.length();iii++){
+				if (rule.operands.at(iii) == '_'){
 					ruleOperands.push_back(currentOperand);
 					currentOperand = "";
 				}
 				else {
-					currentOperand += rule[0].at(iii);
+					currentOperand += rule.operands.at(iii);
 				}
 			}
 			currentOperand = "";
@@ -119,7 +119,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 			std::string insidePostfix = "";
 			bool pastInsideKey = false;
 			bool interiorBrackets = false;
-			for (iii=0;iii<rule[1].length();iii++){
+			for (iii=0;iii<rule.out.length();iii++){
 				if (openPar){
 					hasPar = true;
 					if (pastInsideKey){
@@ -167,13 +167,13 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				}
 				else {
 					if (pastKey){
-						if (rule[1].at(iii) == '('){
+						if (rule.out.at(iii) == '('){
 							openPar = true;
 							currentOperand = "";
 							insidePostfix = "";
 							pastInsideKey = false;
 						}
-						else if (rule[1].at(iii) == '_'){
+						else if (rule.out.at(iii) == '_'){
 							if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
 								newPostfix += partMap[currentOperand.at(0)] + '_';
 							}
@@ -183,14 +183,14 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 							currentOperand = "";
 						}
 						else {
-							currentOperand += rule[1].at(iii);
+							currentOperand += rule.out.at(iii);
 						}
 					}
 					else {
-						if (rule[1].at(iii) == '@'){
+						if (rule.out.at(iii) == '@'){
 							pastKey = true;
 						}
-						newPostfix += rule[1].at(iii);
+						newPostfix += rule.out.at(iii);
 					}
 				}
 					
@@ -207,14 +207,14 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 			
 			if (newPostfix.length()>0){
 				//Constraints go here
-				for (iiii=4;iiii<rule.size();iiii++){
+				for (iiii=0;iiii<rule.constraints.size();iiii++){
 					pastKey = false;
 					std::string constraintFix = "";
 					currentOperand = "";
 					
-					for (iii=0;iii<rule[iiii].length();iii++){
+					for (iii=0;iii<rule.constraints[iiii].length();iii++){
 						if (pastKey){
-							if (rule[iiii].at(iii) == '_'){
+							if (rule.constraints[iiii].at(iii) == '_'){
 								if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
 									constraintFix += partMap[currentOperand.at(0)] + '_';
 								}
@@ -224,14 +224,14 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 								currentOperand = "";
 							}
 							else {
-								currentOperand += rule[iiii].at(iii);
+								currentOperand += rule.constraints[iiii].at(iii);
 							}
 						}
 						else {
-							if (rule[iiii].at(iii) == '@'){
+							if (rule.constraints[iiii].at(iii) == '@'){
 								pastKey = true;
 							}
-							constraintFix += rule[iiii].at(iii);
+							constraintFix += rule.constraints[iiii].at(iii);
 						}
 					}
 					bool isAllowed = true;

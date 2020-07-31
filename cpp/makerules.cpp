@@ -220,32 +220,25 @@ void makeRules(std::string fileName){
 	std::string val1;
 	std::string out;
 	for (i=0;i<rawRules.size();i++){
-		std::vector<std::string> rule;
-		/*if (rawRules[i][1].at(0)=='='){
-			fullPost = makeRule(rawRules[i][0]);
-			key = fullPost[0];
-			val1 = fullPost[1];
-			rawRules[i][1].replace(0,1,"");
-			std::string postfixed = postfixify(rawRules[i][1]);
-			rule = {val1,"=("+postfixed+")",rawRules[i][2],rawRules[i][3]};
-			
-		}*/
-		if (2==2) {
-			fullPost = makeRule(rawRules[i][0]);
-			key = fullPost[0];
-			val1 = fullPost[1];
-			fullPost = makeRule(rawRules[i][1]);
-			out = fullPost[0] + '@' + fullPost[1];
-			rule = {val1,out,rawRules[i][2],rawRules[i][3]};
-			
-		}
+		Rule rule;
+
+		fullPost = makeRule(rawRules[i][0]);
+		key = fullPost[0];
+		val1 = fullPost[1];
+		fullPost = makeRule(rawRules[i][1]);
+		out = fullPost[0] + '@' + fullPost[1];
+		rule.operands = val1;
+		rule.out = out;
+		rule.type = rawRules[i][2];
+		rule.explanation = rawRules[i][3];
+
 		//TODO: add more constraint options
 		
 		if (rawRules[i].size()>4){
 			std::string constraint = constraintify(rawRules[i][4]);
 			std::string postfixed = postfixify(constraint);
-			std::cout <<" postfixed " << postfixed << "\n";
-			rule.push_back(postfixed);
+			//std::cout <<" postfixed " << postfixed << "\n";
+			rule.constraints.push_back(postfixed);
 		}
 		
 		

@@ -33,8 +33,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 bool checkAnswer(std::string answer);
 std::string makeInt(std::string input);
 flat_hash_map<char,int> prec;
-flat_hash_map<std::string,std::vector<std::vector<std::string>>> rules;
-flat_hash_map<std::string,std::vector<std::vector<std::string>>> answerConstraints;
+
 flat_hash_map<std::string,std::vector<int>> constraintsMet;
 //flat_hash_map<std::string,std::vector<std::string>> allListMapFull;
 //flat_hash_map<std::string,std::vector<std::vector<std::string>>> allListMapBottom;
@@ -67,6 +66,16 @@ struct Answer {
 	std::string input = "";
 	std::vector<std::string> errors;
 };
+struct Rule {
+	std::string operands = "";
+	std::string out = "";
+	std::string type = "";
+	std::string explanation = "";
+	std::vector<std::string> constraints;
+}
+
+flat_hash_map<std::string,std::vector<Rule>> rules;
+flat_hash_map<std::string,std::vector<Rule>> answerConstraints;
 
 #include "solve.cpp"
 
@@ -1502,20 +1511,20 @@ bool checkAnswer(std::string answer){
 	if (answerConstraints.find(key) != answerConstraints.end()){
 		int ruleIdx;
 		for (ruleIdx=0;ruleIdx<answerConstraints[key].size();ruleIdx++){
-			std::vector<std::string> rule = answerConstraints[key][ruleIdx];
+			Rule rule = answerConstraints[key][ruleIdx];
 			bool match = false;
 
 			std::string currentOperand = "";
 			flat_hash_map<char,std::string> partMap;
 			std::vector<std::string> userOperands;
 			std::vector<std::string> ruleOperands;
-			for (iii=0;iii<rule[0].length();iii++){
-				if (rule[0].at(iii) == '_'){
+			for (iii=0;iii<rule.operands.length();iii++){
+				if (rule.operands.at(iii) == '_'){
 					ruleOperands.push_back(currentOperand);
 					currentOperand = "";
 				}
 				else {
-					currentOperand += rule[0].at(iii);
+					currentOperand += rule.operands.at(iii);
 				}
 			}
 			currentOperand = "";
@@ -1568,14 +1577,14 @@ bool checkAnswer(std::string answer){
 	
 			bool pastKey = false;
 			if (!ignoreThis){
-				for (iiii=4;iiii<rule.size();iiii++){
+				for (iiii=0;iiii<rule.constraints.size();iiii++){
 					pastKey = false;
 					std::string constraintFix = "";
 					currentOperand = "";
 			
-					for (iii=0;iii<rule[iiii].length();iii++){
+					for (iii=0;iii<rule.constraints[iiii].length();iii++){
 						if (pastKey){
-							if (rule[iiii].at(iii) == '_'){
+							if (rule.constraints[iiii].at(iii) == '_'){
 								if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
 									constraintFix += partMap[currentOperand.at(0)] + '_';
 								}
@@ -1585,14 +1594,14 @@ bool checkAnswer(std::string answer){
 								currentOperand = "";
 							}
 							else {
-								currentOperand += rule[iiii].at(iii);
+								currentOperand += rule.constraints[iiii].at(iii);
 							}
 						}
 						else {
-							if (rule[iiii].at(iii) == '@'){
+							if (rule.constraints[iiii].at(iii) == '@'){
 								pastKey = true;
 							}
-							constraintFix += rule[iiii].at(iii);
+							constraintFix += rule.constraints[iiii].at(iii);
 						}
 					}
 					bool isAllowed = true;
@@ -1613,11 +1622,11 @@ bool checkAnswer(std::string answer){
 				match = true;
 			}
 			
-			if (match && rule[1] == "i"){
+			if (match && rule.type == "i"){
 				correct = false;
 				break;
 			}
-			if (match && rule[1] == "c"){
+			if (match && rule.type == "c"){
 				if (constraintsMet.find(key) != constraintsMet.end()){
 					for(ii=0;ii<constraintsMet[key].size();ii++){
 						if (ruleIdx == constraintsMet[key][ii]){
@@ -2171,7 +2180,7 @@ bool doubleCheckAnswer(std::string pfstr){
 	for (flat_hash_map<std::string,std::vector<std::vector<std::string>>>::iterator iter = answerConstraints.begin(); iter != answerConstraints.end(); ++iter){
 		std::string key = iter->first;
 		for (i=0;i<answerConstraints[key].size();i++){
-			if (answerConstraints[key][i][1] == "c"){
+			if (answerConstraints[key][i].type == "c"){
 				bool cMatch = false;
 				if (constraintsMet.find(key) == constraintsMet.end()){
 					return false;
@@ -2777,6 +2786,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		Answer userAnswer = answerMap[mpf];
 		std::cout << "correct? " << userAnswer.correct <<"\n";
 		std::cout << "finished? " << userAnswer.finished <<"\n";
+		
 	}
 	else {
 		std::cout << "unknown answer" << "\n";
