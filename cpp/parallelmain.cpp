@@ -2811,12 +2811,14 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::cout << "your answer: " << mpf << "\n";
 	int ii; int iii; int iiii;
 	
+	auto a1 = std::chrono::high_resolution_clock::now();
+	
 	if (answerMap.find(mpf) != answerMap.end()){
 		Answer userAnswer = answerMap[mpf];
 		std::cout << "correct? " << userAnswer.correct <<"\n";
 		std::cout << "finished? " << userAnswer.finished <<"\n";
 		
-		auto a1 = std::chrono::high_resolution_clock::now();
+		
 	
 		flat_hash_map<int,std::vector<int>> branches;
 		flat_hash_map<int,std::vector<bool>> userData;
