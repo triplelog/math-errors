@@ -2821,8 +2821,8 @@ int eloToProb(int elo){
 	return pyes;
 }
 int probCorrect(){
-	int probc = 1;
-	int probt = 2;
+	long probc = 1;
+	long probt = 2;
 	int ii; int iii;
 	for (ii=0;ii<correctAnswers.size();ii++){
 		int p = 100;
