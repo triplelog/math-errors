@@ -2814,19 +2814,13 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
 	
-	for (ii=0;ii<1;ii++){
+	for (ii=0;ii<correctAnswers.size();ii++){
 		std::vector<Step> v = fullSolutionList[correctAnswers[ii]];
-		std::cout << "vsz: " << v.size() << "\n";
 		for (iii=0;iii<v.size();iii++){
 			std::vector<int> allOptions = answerListMapF[v[iii].next];
-			std::cout << "alosz: " << allOptions.size() << "\n";
 			for (iiii=0;iiii<allOptions.size();iiii++){
-				std::cout << allOptions[iiii] << " -- ";
-				std::cout << ruleIndex[allOptions[iiii]].id << " -- ";
 				ruleIndex[allOptions[iiii]].score++;
-				std::cout << ruleIndex[allOptions[iiii]].score << " -- ";
 			}
-			std::cout << "\n";
 		}
 	}
 	for (ii=0;ii<ridx;ii++){
