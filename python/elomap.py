@@ -1,5 +1,6 @@
 import math
 
 for rr in range(1,100):
-	r = (100.0-rr)/rr
-	print(r)
+	rrr = (100.0-rr)/rr
+	rrrr = 1000*math.log(rrr)/math.log(10)
+	print(rrr,rrrr)
