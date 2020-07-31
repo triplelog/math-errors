@@ -2868,7 +2868,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	int ii; int iii; int iiii;
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
-	
+	int ai;
 	for (ai=0;ai<100;ai++){
 		if (ai%2 == 0){
 			mpf = postfixify("7*x^6+5+2*x");
