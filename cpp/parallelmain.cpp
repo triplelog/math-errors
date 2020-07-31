@@ -2799,7 +2799,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
 	std::string mpf = postfixify(a);
 	std::cout << "your answer: " << mpf << "\n";
-	int ii;
+	int ii; int iii; int iiii;
 	
 	if (answerMap.find(mpf) != answerMap.end()){
 		Answer userAnswer = answerMap[mpf];
@@ -2815,7 +2815,17 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	auto a1 = std::chrono::high_resolution_clock::now();
 	
 	for (ii=0;ii<correctAnswers.size();ii++){
-		
+		std::vector<Step> v = fullSolutionList[correctAnswers[ii]];
+		for (iii=0;iii<v.size();iii++){
+			std::vector<Step> allOptions = answerListMapF[v[iii].next];
+			for (iiii=0;iiii<allOptions.size();iiii++){
+				Rule rule = ruleIndex[allOptions[iiii].rule];
+				rule.score++;
+			}
+		}
+	}
+	for (ii=0;ii<ridx;ii++){
+		std::cout << ruleIdx[ii].score << "\n";
 	}
 	
 	auto a2 = std::chrono::high_resolution_clock::now();
