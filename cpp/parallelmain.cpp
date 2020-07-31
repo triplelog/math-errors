@@ -2909,7 +2909,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		}
 		for (flat_hash_map<int,std::vector<int>>::iterator iter = branches.begin(); iter != branches.end(); ++iter){
 			int rr = (branches[iter->first][0]*2 + 1)*100/(branches[iter->first][1]*2+2);
-			std::cout << "rr: " << rr << "\n";
+
 			if (rr < 1){
 				rr = 1;
 			}
@@ -2923,17 +2923,35 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			int d = r - score;
 			int ei;
 			int pyes;
+			int pno;
 			for (ei=1;ei<99;ei++){
 				int m = (eloMap[ei]+eloMap[ei+1])/2;
 				if (d > m){
 					pyes = ei;
 					break;
 				}
-				if (ei==98){
+				if (ei == 98){
 					pyes = 99;
 				}
 			}
-			std::cout << "\n" << iter->first << "score: " << score << " and pyes:" << pyes << "\n";
+			for (ei=1;ei<99;ei++){
+				int m = (eloMap[ei]+eloMap[ei+1])/2;
+				if (-1*d > m){
+					pno = ei;
+					break;
+				}
+				if (ei == 98){
+					pno = 99;
+				}
+			}
+			int k = 100;
+			if (userData[iter->first][0]){
+				ruleIndex[iter->first].score = score + k*pno/100;
+			}
+			else{
+				ruleIndex[iter->first].score = score - k*pyes/100;
+			}
+			std::cout << iter->first << " new score: " << ruleIndex[iter->first].score << " and pyes:" << pyes << "\n";
 		}
 	
 	}
