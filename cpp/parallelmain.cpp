@@ -2869,7 +2869,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
 	int ai;
-	for (ai=0;ai<100;ai++){
+	for (ai=0;ai<1000;ai++){
 		if (ai%2 == 0){
 			mpf = postfixify("7*x^6+5+2*x");
 		}
@@ -3017,7 +3017,10 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 				pelo /= 100;
 			}
 			overallScore += aelo - pelo;
-			std::cout << ai%2 << " apc: " << apc << " ppc: " << ppc << " ovscore: " << overallScore << "\n";
+			if (ai%19==0){
+				std::cout << ai%2 << " apc: " << apc << " ppc: " << ppc << " ovscore: " << overallScore << "\n";
+			}
+			
 		}
 		else {
 			std::cout << "unknown answer" << "\n";
