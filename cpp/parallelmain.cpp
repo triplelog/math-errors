@@ -2905,10 +2905,11 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			}
 		}
 		for (flat_hash_map<int,std::vector<int>>::iterator iter = branches.begin(); iter != branches.end(); ++iter){
-			int rr = (branches[iter->first][0] + 1)*100/(branches[iter->first][1]+2);
-			//if (rr < 1){rr=1;}
-			//else if (rr>99){rr=99;}
-			//int r = eloMap[rr];
+			int rr = (branches[iter->first][0]*2 + 1)*100/(branches[iter->first][1]*2+2);
+			if (rr < 1){rr=1;}
+			else if (rr>99){rr=99;}
+			std::cout << rr << "\n";
+			int r = eloMap[rr];
 			std::cout << iter->first << " and " << branches[iter->first][0] << " and "<< branches[iter->first][1] << " and " << rr << "\n";
 			std::cout << iter->first << " and " << userData[iter->first][0] << " and "<< userData[iter->first][1] << "\n";
 		}
