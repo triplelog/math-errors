@@ -2230,16 +2230,15 @@ flat_hash_map<std::string,std::vector<Step>> reverseMapCorrect;
 int totalAnswers;
 std::vector<std::string> finishedAnswers;
 std::vector<std::string> unfinishedAnswers;
-
 std::vector<std::string> correctAnswers;
 std::vector<std::string> finishedErrors;
 std::vector<std::string> unfinishedErrors;
 std::vector<std::string> unfinishedCorrect;
-
 flat_hash_map<std::string,Answer> answerMap;
-
 int maxFound;
 int maxSteps;
+
+
 bool getAnswerList(std::string s, int nSteps) {
 
 	if (nSteps > maxFound){
@@ -2814,17 +2813,36 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
 	
+	flat_hash_map<int,std::vector<int>> branches;
+	for (ii=0;ii<ridx;ii++){
+		branches[ii]={0,0};
+	}
 	for (ii=0;ii<correctAnswers.size();ii++){
 		std::vector<Step> v = fullSolutionList[correctAnswers[ii]];
+		flat_hash_map<int,bool> alreadyApp;
+		flat_hash_map<int,bool> alreadyOpp;
 		for (iii=0;iii<v.size();iii++){
+			if (alreadyApp.find(v[iii].rule) != alreadyApp.end()){
+			}
+			else {
+				//TODO: make the rule match reality
+				//branches[v[iii].rule][0]++;
+				alreadyApp[v[iii].rule]=true;
+			}
 			std::vector<int> allOptions = answerListMapF[v[iii].next];
 			for (iiii=0;iiii<allOptions.size();iiii++){
-				ruleIndex[allOptions[iiii]].score++;
+				if (alreadyOpp.find(allOptions[iiii]) != alreadyOpp.end()){
+					continue;
+				}
+				else {
+					branches[allOptions[iiii]][1]++;
+					alreadyOpp[allOptions[iiii]]=true;
+				}
 			}
 		}
 	}
 	for (ii=0;ii<ridx;ii++){
-		std::cout << ruleIndex[ii].score << "\n";
+		std::cout << branches[ii][1] << "\n";
 	}
 	
 	auto a2 = std::chrono::high_resolution_clock::now();
