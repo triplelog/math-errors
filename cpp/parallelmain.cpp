@@ -2878,7 +2878,10 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			mpf = postfixify("7*x^6+5*x+2*x");
 		}
 		if (answerMap.find(mpf) != answerMap.end()){
-			k = 500 - ai/3;
+			k = 1000 - ai*4;
+			if (k<100){
+				k=100;
+			}
 			Answer userAnswer = answerMap[mpf];
 			//std::cout << "correct? " << userAnswer.correct <<"\n";
 			//std::cout << "finished? " << userAnswer.finished <<"\n";
