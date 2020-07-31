@@ -122,9 +122,10 @@
 					<div class="card">
 					  <div class="card-header">
 						<b>Preview</b>
+						<button onclick="refreshQuestion()">Refresh</button>
 					  </div>
 					  <div class="card-body">
-						
+						<div id="previewQ"></div>
 					  </div>
 					</div>
 				</div>
@@ -138,11 +139,6 @@
 					  	<div>
 					  		<input type="text" id="con2" value="">
 					  	</div>
-						<div>Rules:</div>
-						<div>
-							<div>Required:</div>
-							<div>For grades:</div>
-						</div>
 						<div>Tags:</div>
 						<div>
 							<input type="text" id="con2" value="">
@@ -159,7 +155,7 @@
 					  <div class="card-body">
 						<div>Human:</div>
 						<div>
-							<textarea id="humanQ" rows="2" cols="50"></textarea>
+							<textarea id="humanQ" rows="2" cols="40"></textarea>
 						</div>
 						<div>Computer:</div>
 						<div>
@@ -181,7 +177,7 @@
 					  <div class="card-body">
 						<div>Human:</div>
 						<div>
-							<textarea id="humanA" rows="2" cols="50"></textarea>
+							<textarea id="humanA" rows="2" cols="40"></textarea>
 						</div>
 						<div>Computer:</div>
 						<div>
@@ -360,52 +356,17 @@
 			
 			
 		}
-		function submitQuestion() {
-			var question = document.getElementById("equation").value;
-			var answer = "x";//document.getElementById("answer").value;
-			var jsonmessage = {type:"solve",question:question,answer:answer};
-			ws.send(JSON.stringify(jsonmessage));
+		function refreshQuestion() {
+			var outstr = "";
+			var humanQ = document.getElementById("humanQ").value;
+			var humanA = document.getElementById("humanA").value;
+			outstr += humanQ + "\n";
+			outstr += humanA + "\n";
+			document.getElementById("previewQ").innerHTML = "";
+			document.getElementById("previewQ").textContent = outstr;
+			//var jsonmessage = {type:"solve",question:question,answer:answer};
+			//ws.send(JSON.stringify(jsonmessage));
 		}
-		function submitAnswer() {
-			//var question = document.getElementById("equation").value;
-			var answer = document.getElementById("answer").value;
-			var jsonmessage = {type:"check",answer:answer};
-			ws.send(JSON.stringify(jsonmessage));
-		}
-		function answerDown(evt) {
-			var key = evt.key;
-			if (key != 'Shift'){
-				var answer = document.getElementById("answer").value;
-				var jsonmessage = {type:"auto",answer:answer+key};
-				ws.send(JSON.stringify(jsonmessage));
-			}
-			
-		}
-		function answerChange(evt) {
-			var answer = document.getElementById("answer").value;
-			if (autoComplete[answer]){
-				var el = document.getElementById('autoAnswers');
-				el.innerHTML = "";
-				for (var i=0;i<autoComplete[answer].length;i++){
-					var div = document.createElement('div');
-					div.textContent = autoComplete[answer][i];
-					el.appendChild(div);
-				}
-				
-			}
-			else {
-				autoNow = answer;
-				var jsonmessage = {type:"auto",answer:answer};
-				ws.send(JSON.stringify(jsonmessage));
-				
-			}
-			
-		}
-		var autoComplete = {};
-		var autoNow = "";
-		var answerEl = document.getElementById('answer');
-		answerEl.addEventListener('keydown',answerDown);
-		answerEl.addEventListener('input',answerChange);
 		
 		
 	</script>
