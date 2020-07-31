@@ -2428,7 +2428,7 @@ std::vector<Step> makeSolutionList(std::string s, std::string q){
 	for (i=0;i<sv.size();i++){
 		//std::cout << "i: " << i << " and " << sv[i*2] << "\n";
 		if (fullSolutionList.find(sv[i].next) != fullSolutionList.end()){
-			if (fullSolutionList[sv[i].next].size()==1 && fullSolutionList[sv[i].next][0] == ""){
+			if (fullSolutionList[sv[i].next].size()==1 && fullSolutionList[sv[i].next][0].next == ""){
 				continue;
 			}
 		}
@@ -2505,7 +2505,7 @@ std::vector<Step> makeIncorrectSolutionList(std::string s, std::string q){
 	for (i=0;i<sv.size();i++){
 		//std::cout << "i: " << i << " and " << sv[i*2] << "\n";
 		if (incorrectSolutionList.find(sv[i].next) != incorrectSolutionList.end()){
-			if (incorrectSolutionList[sv[i].next].size()==1 && incorrectSolutionList[sv[i].next][0] == ""){
+			if (incorrectSolutionList[sv[i].next].size()==1 && incorrectSolutionList[sv[i].next][0].next == ""){
 				continue;
 			}
 		}
