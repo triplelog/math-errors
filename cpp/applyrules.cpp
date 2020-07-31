@@ -1,10 +1,9 @@
-std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect) {
+std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect) {
 	auto a1 = std::chrono::high_resolution_clock::now();
 	int iii; int iiii;
 
 	auto a3 = std::chrono::high_resolution_clock::now();
-	std::vector<std::vector<std::string>> allOptions;
-	std::vector<std::string> allStrings;
+	std::vector<Step> allStrings;
 	std::string newPostfix = "";
 	bool midBracket = false;
 	bool foundAt = false;
@@ -25,7 +24,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 			key += userString.at(iiii);
 		}
 	}
-	std::vector<std::string> newStrings;
+
 	if (rules.find(key) != rules.end()){
 		//std::cout << "Key Match: " << key << " and " << rules[key][0][0] << "\n";
 		//std::cout << "userFullString @ keyMatch: "<< userFullString << "\n";
@@ -279,9 +278,10 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				if (tempTemp != userFullString){
 					tempTemp = removeBracketsOne(tempTemp);
 
-					newStrings.push_back(tempTemp);
-					allStrings.push_back(tempTemp);
-					allStrings.push_back(key+","+std::to_string(ruleIdx));
+					Step step;
+					step.next = tempTemp;
+					step.rule = rule.id;
+					allStrings.push_back(step);
 				}
 				
 				
@@ -289,10 +289,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 		}
 		
 	}
-	if (newStrings.size()>0){
-		allOptions.push_back(newStrings);
-		
-	}
+
 
 	
 	auto a4 = std::chrono::high_resolution_clock::now();

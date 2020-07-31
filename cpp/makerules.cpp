@@ -249,6 +249,10 @@ void makeRules(std::string fileName){
 			rules[key] = {rule};
 		}
 		
+		rule.id = ridx;
+		ruleIndex[ridx]=rule;
+		ridx++;
+		
 		
 		
 	}

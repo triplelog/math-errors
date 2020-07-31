@@ -72,9 +72,17 @@ struct Rule {
 	std::string type = "";
 	std::string explanation = "";
 	std::vector<std::string> constraints;
+	int score = 0;
+	int id;
+};
+struct Step {
+	std::string nest = "";
+	int rule;
 };
 
 flat_hash_map<std::string,std::vector<Rule>> rules;
+flat_hash_map<int,Rule> ruleIndex;
+int ridx;
 flat_hash_map<std::string,std::vector<Rule>> answerConstraints;
 
 #include "solve.cpp"
@@ -513,36 +521,14 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 	}
 	return input;
 }
-std::vector<std::string> returnStrings1;
-std::vector<std::string> returnStrings2;
 
 
-bool apply1(int id, std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect){
-	std::vector<std::string> someStrings = applyRulesVectorOnePart(onePart,oneIndex, userFullString, isCorrect);
-	int iiiiii;
-	for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
-		returnStrings1.push_back(someStrings[iiiiii]);
-	}
-	return true;
-}
-bool apply2(int id, std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect){
-	std::vector<std::string> someStrings = applyRulesVectorOnePart(onePart,oneIndex, userFullString, isCorrect);
-	int iiiiii;
-	for (iiiiii=0;iiiiii<someStrings.size();iiiiii++){
-		returnStrings2.push_back(someStrings[iiiiii]);
-	}
-	return true;
-}
-//ctpl::thread_pool tp(2);
-//std::future<bool> pp;
-std::vector<std::vector<std::string>> makeTree(std::string pfstr){
+std::vector<std::vector<Step>> makeTree(std::string pfstr){
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,int> operandMap;
 	flat_hash_map<int,std::string> originalMap;
-    std::vector<std::string> returnStringsCorrect;
-    std::vector<std::string> returnStringsIncorrect;
-    returnStrings1.resize(0);
-    returnStrings2.resize(0);
+    std::vector<Step> returnStringsCorrect;
+    std::vector<Step> returnStringsIncorrect;
 	int i; int ii; int iii;
 	int idx =0;
 	bool startOperands = false;
@@ -836,8 +822,8 @@ std::vector<std::vector<std::string>> makeTree(std::string pfstr){
 						//std::future<bool> fut = std::async(apply1,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
 						//fut.get();
 						//apply1(0,firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],tempV,pfstr,isCorrect);
-						std::vector<std::string> someStringsC = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,true);
-						std::vector<std::string> someStringsI = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,false);
+						std::vector<Step> someStringsC = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,true);
+						std::vector<Step> someStringsI = applyRulesVectorOnePart(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,false);
 						
 						int iiiiii;
 						for (iiiiii=0;iiiiii<someStringsC.size();iiiiii++){
@@ -1017,8 +1003,8 @@ std::vector<std::vector<std::string>> makeTree(std::string pfstr){
 						
 					//std::thread th2(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
 					//th2.join();
-					std::vector<std::string> someStringsC = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,true);
-					std::vector<std::string> someStringsI = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,false);
+					std::vector<Step> someStringsC = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,true);
+					std::vector<Step> someStringsI = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,false);
 					
 					int iiiiii;
 					for (iiiiii=0;iiiiii<someStringsC.size();iiiiii++){
@@ -2229,16 +2215,17 @@ void initialRun(){
 	
 
 	auto t1 = std::chrono::high_resolution_clock::now();
+	ridx = 0;
 	makeRules("derivatives.csv");
 	makeRules("arithmetic.csv");
 	
 	auto t2 = std::chrono::high_resolution_clock::now();
 }
 
-flat_hash_map<std::string,bool> answerListMap;
-flat_hash_map<std::string,bool> answerListMapF;
-flat_hash_map<std::string,std::vector<std::string>> reverseMap;
-flat_hash_map<std::string,std::vector<std::string>> reverseMapCorrect;
+flat_hash_map<std::string,std::vector<int>> answerListMap;
+flat_hash_map<std::string,std::vector<int>> answerListMapF;
+flat_hash_map<std::string,std::vector<Step>> reverseMap;
+flat_hash_map<std::string,std::vector<Step>> reverseMapCorrect;
 int totalAnswers;
 std::vector<std::string> finishedAnswers;
 std::vector<std::string> unfinishedAnswers;
@@ -2278,7 +2265,7 @@ bool getAnswerList(std::string s, int nSteps) {
 	
 	//std::cout << s << " before pl\n";
 	auto a1 = std::chrono::high_resolution_clock::now();
-	std::vector<std::vector<std::string>> someStrings = makeTree(newPostfix);
+	std::vector<std::vector<Step>> someStrings = makeTree(newPostfix);
 	
 	if (answerIsFinished){
 		finishedAnswers.push_back(newPostfix);
@@ -2297,60 +2284,67 @@ bool getAnswerList(std::string s, int nSteps) {
 	//std::cout << dd1 << "  ";
 	//std::cout << s << " after pl\n";
 
-	std::vector<std::string> allStrings; //vector of the next step
+	std::vector<Step> allStrings; //vector of the next step
 	flat_hash_map<std::string,bool> uniqueStrings;
 
 	
-	for (iii=0;iii<someStrings[0].size()/2;iii++){
-		someStrings[0][iii*2] = removeBracketsOne(someStrings[0][iii*2]);
-		if (uniqueStrings.find(someStrings[0][iii*2]) != uniqueStrings.end()){
+	for (iii=0;iii<someStrings[0].size();iii++){
+		someStrings[0][iii].next = removeBracketsOne(someStrings[0][iii].next);
+		if (uniqueStrings.find(someStrings[0][iii].next) != uniqueStrings.end()){
 	
 		}
 		else {
-			allStrings.push_back(someStrings[0][iii*2]);
-			allStrings.push_back(someStrings[0][iii*2+1]);
-			uniqueStrings[someStrings[0][iii*2]]=true;
+			Step step;
+			step.next = someStrings[0][iii].next;
+			step.rule = someStrings[0][iii].rule;
+			allStrings.push_back(step);
+			uniqueStrings[someStrings[0][iii].next]=true;
 		}
 	
 	}
 	
-	answerListMap[newPostfix] = true;
-	answerListMapF[newPostfix] = true;
+	answerListMap[newPostfix] = {};
+	answerListMapF[newPostfix] = {};
 	//totalAnswers += allStrings.size();
 	
-	for (ii=0;ii<allStrings.size()/2;ii++){
-		if (allStrings[ii*2] == newPostfix){
+	for (ii=0;ii<allStrings.size();ii++){
+		if (allStrings[ii].next == newPostfix){
 			continue;
 		}
-		if (answerListMap.find(allStrings[ii*2]) != answerListMap.end()){
-			reverseMapCorrect[allStrings[ii*2]].push_back(newPostfix);
-			reverseMapCorrect[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
+		if (answerListMap.find(allStrings[ii].next) != answerListMap.end()){
+			Step step;
+			step.next = newPostfix;
+			step.rule = allStrings[ii].rule;
+			reverseMapCorrect[allStrings[ii].next].push_back(step);
+			
 		}
 		else {
-			getAnswerList(allStrings[ii*2],nSteps+1);
-			reverseMapCorrect[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
+			getAnswerList(allStrings[ii].next,nSteps+1);
+			Step step;
+			step.next = newPostfix;
+			step.rule = allStrings[ii].rule;
+			reverseMapCorrect[allStrings[ii].next]={step};
 
 		}
 
 	}
-	
-
-	
 	
 	
 	//totalAnswers += allStrings.size();
 	//std::cout << "total answers: "<< totalAnswers << "\n";
 	
 	//allStrings.resize(0);
-	for (iii=0;iii<someStrings[1].size()/2;iii++){
-		someStrings[1][iii*2] = removeBracketsOne(someStrings[1][iii*2]);
-		if (uniqueStrings.find(someStrings[1][iii*2]) != uniqueStrings.end()){
+	for (iii=0;iii<someStrings[1].size();iii++){
+		someStrings[1][iii].next = removeBracketsOne(someStrings[1][iii].next);
+		if (uniqueStrings.find(someStrings[1][iii].next) != uniqueStrings.end()){
 	
 		}
 		else {
-			allStrings.push_back(someStrings[1][iii*2]);
-			allStrings.push_back(someStrings[1][iii*2+1]);
-			uniqueStrings[someStrings[1][iii*2]]=true;
+			Step step;
+			step.next = someStrings[1][iii].next;
+			step.rule = someStrings[1][iii].rule;
+			allStrings.push_back(step);
+			uniqueStrings[someStrings[1][iii].next]=true;
 		}
 	
 	}
@@ -2358,18 +2352,24 @@ bool getAnswerList(std::string s, int nSteps) {
 	
 	totalAnswers += allStrings.size();
 	//std::cout << "total answers: "<< totalAnswers << "\n";
-	for (ii=0;ii<allStrings.size()/2;ii++){
-		
-		if (allStrings[ii*2] == newPostfix){
+	for (ii=0;ii<allStrings.size();ii++){
+		answerListMapF[newPostfix].push_back(allStrings[ii].rule);
+		if (allStrings[ii].next == newPostfix){
 			continue;
 		}
-		if (answerListMapF.find(allStrings[ii*2]) != answerListMapF.end()){
-			reverseMap[allStrings[ii*2]].push_back(newPostfix);
-			reverseMap[allStrings[ii*2]].push_back(allStrings[ii*2+1]);
+		if (answerListMapF.find(allStrings[ii].next) != answerListMapF.end()){
+			Step step;
+			step.next = newPostfix;
+			step.rule = allStrings[ii].rule;
+			reverseMap[allStrings[ii].next].push_back(step);
+			
 		}
 		else {
-			getAnswerList(allStrings[ii*2],nSteps+1);
-			reverseMap[allStrings[ii*2]]={newPostfix,allStrings[ii*2+1]};
+			getAnswerList(allStrings[ii].next,nSteps+1);
+			Step step;
+			step.next = newPostfix;
+			step.rule = allStrings[ii].rule;
+			reverseMap[allStrings[ii].next]={step};
 
 		}
 
@@ -2382,15 +2382,18 @@ bool getAnswerList(std::string s, int nSteps) {
 
 #include "autocomplete.cpp"
 
-flat_hash_map<std::string,std::vector<std::string>> fullSolutionList;
-flat_hash_map<std::string,std::vector<std::string>> incorrectSolutionList;
-std::vector<std::string> makeSolutionList(std::string s, std::string q){
-	std::vector<std::string> v;
+flat_hash_map<std::string,std::vector<Step>> fullSolutionList;
+flat_hash_map<std::string,std::vector<Step>> incorrectSolutionList;
+std::vector<Step> makeSolutionList(std::string s, std::string q){
+	std::vector<Step> v;
 	//std::cout << "s: " << s << "\n";
-	std::vector<std::string> sv;
+	std::vector<Step> sv;
 	int i; 
 	if (s == q){
-		v = {s};
+		Step step;
+		step.next = s;
+		step.rule = -1;
+		v = {step};
 		fullSolutionList[s]=v;
 		//std::cout << "sa: " << s << " and vsz: " << v.size() << "\n";
 		return v;
@@ -2418,23 +2421,23 @@ std::vector<std::string> makeSolutionList(std::string s, std::string q){
 	
 	int minSize = 100000; int l; int idx = 0;
 	std::vector<std::string> minV;
-	for (i=0;i<sv.size()/2;i++){
+	for (i=0;i<sv.size();i++){
 		//std::cout << "i: " << i << " and " << sv[i*2] << "\n";
-		if (fullSolutionList.find(sv[i*2]) != fullSolutionList.end()){
-			if (fullSolutionList[sv[i*2]].size()==1 && fullSolutionList[sv[i*2]][0] == ""){
+		if (fullSolutionList.find(sv[i].next) != fullSolutionList.end()){
+			if (fullSolutionList[sv[i].next].size()==1 && fullSolutionList[sv[i].next][0] == ""){
 				continue;
 			}
 		}
 		else {
-			makeSolutionList(sv[i*2],q);
+			makeSolutionList(sv[i].next,q);
 		}
-		l = fullSolutionList[sv[i*2]].size();
+		l = fullSolutionList[sv[i].next].size();
 		if (l == 0){
 			continue;
 		}
 		if (l < minSize){
 			minSize = l;
-			minV = fullSolutionList[sv[i*2]];
+			minV = fullSolutionList[sv[i].next];
 		}
 	}
 	if (minSize == 100000){
@@ -2446,25 +2449,34 @@ std::vector<std::string> makeSolutionList(std::string s, std::string q){
 	for (i=0;i<minSize;i++){
 		v.push_back(minV[i]);
 	}
-	v.push_back(s);
+	Step step;
+	step.next = s;
+	step.rule = -1;
+	v.push_back(step);
 	fullSolutionList[s]=v;
 	//std::cout << "sc: " << s << " and vsz: " << v.size() << "\n";
 	return v;
 }
 
-std::vector<std::string> makeIncorrectSolutionList(std::string s, std::string q){
-	std::vector<std::string> v;
+std::vector<Step> makeIncorrectSolutionList(std::string s, std::string q){
+	std::vector<Step> v;
 	//std::cout << "s: " << s << "\n";
-	std::vector<std::string> sv;
+	std::vector<Step> sv;
 	int i; 
 	if (s == q){
-		v = {s};
+		Step step;
+		step.next = s;
+		step.rule = -1;
+		v = {step};
 		incorrectSolutionList[s]=v;
 		//std::cout << "sa: " << s << " and vsz: " << v.size() << "\n";
 		return v;
 	}
 	else {
-		incorrectSolutionList[s]={""};
+		Step step;
+		step.next = "";
+		step.rule = -1;
+		incorrectSolutionList[s]={step};
 	}
 	if (reverseMap.find(s) != reverseMap.end()){
 		sv = reverseMap.find(s)->second;
@@ -2486,23 +2498,23 @@ std::vector<std::string> makeIncorrectSolutionList(std::string s, std::string q)
 	
 	int minSize = 100000; int l; int idx = 0;
 	std::vector<std::string> minV;
-	for (i=0;i<sv.size()/2;i++){
+	for (i=0;i<sv.size();i++){
 		//std::cout << "i: " << i << " and " << sv[i*2] << "\n";
-		if (incorrectSolutionList.find(sv[i*2]) != incorrectSolutionList.end()){
-			if (incorrectSolutionList[sv[i*2]].size()==1 && incorrectSolutionList[sv[i*2]][0] == ""){
+		if (incorrectSolutionList.find(sv[i].next) != incorrectSolutionList.end()){
+			if (incorrectSolutionList[sv[i].next].size()==1 && incorrectSolutionList[sv[i].next][0] == ""){
 				continue;
 			}
 		}
 		else {
-			makeIncorrectSolutionList(sv[i*2],q);
+			makeIncorrectSolutionList(sv[i].next,q);
 		}
-		l = incorrectSolutionList[sv[i*2]].size();
+		l = incorrectSolutionList[sv[i].next].size();
 		if (l == 0){
 			continue;
 		}
 		if (l < minSize){
 			minSize = l;
-			minV = incorrectSolutionList[sv[i*2]];
+			minV = incorrectSolutionList[sv[i].next];
 		}
 	}
 	if (minSize == 100000){
@@ -2521,7 +2533,10 @@ std::vector<std::string> makeIncorrectSolutionList(std::string s, std::string q)
 	for (i=0;i<minSize;i++){
 		v.push_back(minV[i]);
 	}
-	v.push_back(s);
+	Step step;
+	step.next = s;
+	step.rule = -1;
+	v.push_back(step);
 	incorrectSolutionList[s]=v;
 	//std::cout << "sc: " << s << " and vsz: " << v.size() << "\n";
 	return v;
@@ -2549,7 +2564,7 @@ std::string fullAnswer(std::string s){
 	for (ii=0;ii<finishedAnswers.size();ii++){
 		if (doubleCheckAnswer(finishedAnswers[ii])){
 			
-			std::vector<std::string> v = makeSolutionList(finishedAnswers[ii],newPostfix);
+			std::vector<Step> v = makeSolutionList(finishedAnswers[ii],newPostfix);
 			int vsz = v.size();
 			if (vsz > 0){
 				//std::cout << "fully correct: "<< tempFinished[ii] << "\n";
@@ -2558,7 +2573,7 @@ std::string fullAnswer(std::string s){
 				answer.finished = true;
 				answer.correct = true;
 				if (vsz > 1){
-					answer.next = v[vsz-2];
+					answer.next = v[vsz-2].next;
 				}
 				answerMap[finishedAnswers[ii]]=answer;
 				
@@ -2569,7 +2584,7 @@ std::string fullAnswer(std::string s){
 				answer.finished = true;
 				answer.correct = false;
 				if (vsz > 1){
-					answer.next = v[vsz-2];
+					answer.next = v[vsz-2].next;
 				}
 				answerMap[finishedAnswers[ii]]=answer;
 			}
@@ -2584,7 +2599,7 @@ std::string fullAnswer(std::string s){
 
 	for (ii=0;ii<unfinishedAnswers.size();ii++){
 		
-		std::vector<std::string> v = makeSolutionList(unfinishedAnswers[ii],newPostfix);
+		std::vector<Step> v = makeSolutionList(unfinishedAnswers[ii],newPostfix);
 		int vsz = v.size();
 		if (vsz > 0){
 			unfinishedCorrect.push_back(unfinishedAnswers[ii]);
@@ -2592,12 +2607,12 @@ std::string fullAnswer(std::string s){
 			answer.finished = false;
 			answer.correct = true;
 			if (vsz > 1){
-				answer.next = v[vsz-2];
+				answer.next = v[vsz-2].next;
 			}
 			answerMap[unfinishedAnswers[ii]]=answer;
 		}
 		else {
-			std::vector<std::string> vv = makeIncorrectSolutionList(unfinishedAnswers[ii],newPostfix);
+			std::vector<Step> vv = makeIncorrectSolutionList(unfinishedAnswers[ii],newPostfix);
 			vsz = vv.size();
 			if (vsz > 0){
 				unfinishedErrors.push_back(unfinishedAnswers[ii]);
@@ -2605,7 +2620,7 @@ std::string fullAnswer(std::string s){
 				answer.finished = false;
 				answer.correct = true;
 				if (vsz > 1){
-					answer.next = vv[vsz-2];
+					answer.next = vv[vsz-2].next;
 				}
 				answerMap[unfinishedAnswers[ii]]=answer;
 			}
@@ -2792,6 +2807,15 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		std::cout << "unknown answer" << "\n";
 	}
 	
+	
+	auto a1 = std::chrono::high_resolution_clock::now();
+	
+	for (ii=0;ii<correctAnswers.size();ii++){
+		
+	}
+	
+	auto a2 = std::chrono::high_resolution_clock::now();
+	std::cout << "grade time: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n";
 
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(a);
 
