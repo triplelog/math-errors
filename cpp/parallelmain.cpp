@@ -2816,46 +2816,85 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		std::cout << "correct? " << userAnswer.correct <<"\n";
 		std::cout << "finished? " << userAnswer.finished <<"\n";
 		
-	}
-	else {
-		std::cout << "unknown answer" << "\n";
-	}
+		auto a1 = std::chrono::high_resolution_clock::now();
 	
-	
-	auto a1 = std::chrono::high_resolution_clock::now();
-	
-	flat_hash_map<int,std::vector<int>> branches;
-	for (ii=0;ii<ridx;ii++){
-		branches[ii]={0,0};
-	}
-	for (ii=0;ii<correctAnswers.size();ii++){
-		std::vector<Step> v = correctSolutionList[correctAnswers[ii]];
-		flat_hash_map<int,bool> alreadyApp;
-		flat_hash_map<int,bool> alreadyOpp;
-		for (iii=0;iii<v.size();iii++){
-			if (alreadyApp.find(v[iii].rule) != alreadyApp.end()){
-			}
-			else {
-				//TODO: make the rule match reality
-				if (v[iii].rule >= 0){
-					branches[v[iii].rule][0]++;
-				}
-				alreadyApp[v[iii].rule]=true;
-			}
-			std::vector<int> allOptions = answerListMapF[v[iii].next];
-			for (iiii=0;iiii<allOptions.size();iiii++){
-				if (alreadyOpp.find(allOptions[iiii]) != alreadyOpp.end()){
-					continue;
+		flat_hash_map<int,std::vector<int>> branches;
+		flat_hash_map<int,std::vector<bool>> userData;
+		for (ii=0;ii<ridx;ii++){
+			userData[ii]={false,false};
+		}
+		if (userAnswer.correct){
+			std::vector<Step> v = correctSolutionList[mpf];
+			flat_hash_map<int,bool> alreadyApp;
+			flat_hash_map<int,bool> alreadyOpp;
+			for (iii=0;iii<v.size();iii++){
+				if (alreadyApp.find(v[iii].rule) != alreadyApp.end()){
 				}
 				else {
-					branches[allOptions[iiii]][1]++;
-					alreadyOpp[allOptions[iiii]]=true;
+					//TODO: make the rule match reality
+					if (v[iii].rule >= 0){
+						userData[v[iii].rule][0]=true;
+					}
+					alreadyApp[v[iii].rule]=true;
+				}
+				std::vector<int> allOptions = answerListMapF[v[iii].next];
+				for (iiii=0;iiii<allOptions.size();iiii++){
+					if (alreadyOpp.find(allOptions[iiii]) != alreadyOpp.end()){
+						continue;
+					}
+					else {
+						userData[allOptions[iiii]][1]=true;
+						alreadyOpp[allOptions[iiii]]=true;
+					}
 				}
 			}
 		}
+	
+	
+		for (ii=0;ii<ridx;ii++){
+			if (userData[ii][1]){
+				branches[ii]={0,0};
+			}
+		}
+	
+		for (ii=0;ii<correctAnswers.size();ii++){
+			std::vector<Step> v = correctSolutionList[correctAnswers[ii]];
+			flat_hash_map<int,bool> alreadyApp;
+			flat_hash_map<int,bool> alreadyOpp;
+			for (iii=0;iii<v.size();iii++){
+				if (branches.find(v[iii].rule) != branches.end()){
+					if (alreadyApp.find(v[iii].rule) != alreadyApp.end()){
+					}
+					else {
+						//TODO: make the rule match reality
+						if (v[iii].rule >= 0){
+							branches[v[iii].rule][0]++;
+						}
+						alreadyApp[v[iii].rule]=true;
+					}
+				}
+				std::vector<int> allOptions = answerListMapF[v[iii].next];
+				for (iiii=0;iiii<allOptions.size();iiii++){
+					if (branches.find(allOptions[iiii]) != branches.end()){
+						if (alreadyOpp.find(allOptions[iiii]) != alreadyOpp.end()){
+							continue;
+						}
+						else {
+							branches[allOptions[iiii]][1]++;
+							alreadyOpp[allOptions[iiii]]=true;
+						}
+					}
+				}
+			}
+		}
+		for (flat_hash_map<int,std::vector<int>>::iterator iter = branches.begin(); iter != branches.end(); ++iter){
+			std::cout << iter->first << " and " << branches[iter->first][0] << " and "<< branches[iter->first][1] << "\n";
+			std::cout << iter->first << " and " << userData[iter->first][0] << " and "<< userData[iter->first][1] << "\n";
+		}
+	
 	}
-	for (ii=0;ii<ridx;ii++){
-		std::cout << branches[ii][0] << " and "<< branches[ii][1] << "\n";
+	else {
+		std::cout << "unknown answer" << "\n";
 	}
 	
 	auto a2 = std::chrono::high_resolution_clock::now();
