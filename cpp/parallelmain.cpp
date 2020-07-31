@@ -75,7 +75,7 @@ struct Rule {
 	int id;
 };
 struct Step {
-	std::string nest = "";
+	std::string next = "";
 	int rule;
 };
 std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect);
