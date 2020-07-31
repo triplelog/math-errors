@@ -2831,7 +2831,7 @@ int probCorrect(){
 		for (iii=0;iii<v.size();iii++){
 			if (v[iii].rule >= 0){
 				int pp = ruleIndex[v[iii].rule].score;
-				p *= eloToProb(pp);
+				p *= eloToProb(-1*pp);
 				p /= 50;
 			}
 		}
@@ -2851,7 +2851,7 @@ int probCorrect(){
 		}
 		probt += p;
 	}
-	return probc*100/probt;
+	return probc*1000/probt;
 }
 void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
