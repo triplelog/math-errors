@@ -2382,7 +2382,7 @@ bool getAnswerList(std::string s, int nSteps) {
 
 #include "autocomplete.cpp"
 
-flat_hash_map<std::string,std::vector<Step>> fullSolutionList;
+flat_hash_map<std::string,std::vector<Step>> correctSolutionList;
 flat_hash_map<std::string,std::vector<Step>> incorrectSolutionList;
 std::vector<Step> makeSolutionList(std::string s, std::string q){
 	std::vector<Step> v;
@@ -2394,7 +2394,7 @@ std::vector<Step> makeSolutionList(std::string s, std::string q){
 		step.next = s;
 		step.rule = -1;
 		v = {step};
-		fullSolutionList[s]=v;
+		correctSolutionList[s]=v;
 		//std::cout << "sa: " << s << " and vsz: " << v.size() << "\n";
 		return v;
 	}
@@ -2402,21 +2402,21 @@ std::vector<Step> makeSolutionList(std::string s, std::string q){
 		Step step;
 		step.next = "";
 		step.rule = -1;
-		fullSolutionList[s]={step};
+		correctSolutionList[s]={step};
 	}
 	if (reverseMapCorrect.find(s) != reverseMapCorrect.end()){
 		sv = reverseMapCorrect.find(s)->second;
 	}
 	else {
 		v = {};
-		fullSolutionList[s]=v;
+		correctSolutionList[s]=v;
 		return v;
 	}
 	//std::cout << "svszb: " << sv.size() << "\n";
 
 	if (sv.size() ==0){
 		v = {};
-		fullSolutionList[s]=v;
+		correctSolutionList[s]=v;
 		//std::cout << "sb: " << s << " and vsz: " << v.size() << "\n";
 		return v;
 	}
@@ -2424,39 +2424,45 @@ std::vector<Step> makeSolutionList(std::string s, std::string q){
 	
 	int minSize = 100000; int l; int idx = 0;
 	std::vector<Step> minV;
+	int ruleApp;
 	for (i=0;i<sv.size();i++){
 		//std::cout << "i: " << i << " and " << sv[i*2] << "\n";
-		if (fullSolutionList.find(sv[i].next) != fullSolutionList.end()){
-			if (fullSolutionList[sv[i].next].size()==1 && fullSolutionList[sv[i].next][0].next == ""){
+		if (correctSolutionList.find(sv[i].next) != correctSolutionList.end()){
+			if (correctSolutionList[sv[i].next].size()==1 && correctSolutionList[sv[i].next][0].next == ""){
 				continue;
 			}
 		}
 		else {
 			makeSolutionList(sv[i].next,q);
 		}
-		l = fullSolutionList[sv[i].next].size();
+		l = correctSolutionList[sv[i].next].size();
 		if (l == 0){
 			continue;
 		}
 		if (l < minSize){
 			minSize = l;
-			minV = fullSolutionList[sv[i].next];
+			minV = correctSolutionList[sv[i].next];
+			ruleApp = sv[i].rule;
 		}
 	}
 	if (minSize == 100000){
 		v = {};
-		fullSolutionList[s]=v;
+		correctSolutionList[s]=v;
 		//std::cout << "sb: " << s << " and vsz: " << v.size() << "\n";
 		return v;
 	}
+
 	for (i=0;i<minSize;i++){
+		if (i==minSize-1){
+			minV[i].rule = ruleApp;
+		}
 		v.push_back(minV[i]);
 	}
 	Step step;
 	step.next = s;
 	step.rule = -1;
 	v.push_back(step);
-	fullSolutionList[s]=v;
+	correctSolutionList[s]=v;
 	//std::cout << "sc: " << s << " and vsz: " << v.size() << "\n";
 	return v;
 }
@@ -2521,8 +2527,8 @@ std::vector<Step> makeIncorrectSolutionList(std::string s, std::string q){
 		}
 	}
 	if (minSize == 100000){
-		if (fullSolutionList.find(s) != fullSolutionList.end()){
-			v=fullSolutionList[s];
+		if (correctSolutionList.find(s) != correctSolutionList.end()){
+			v=correctSolutionList[s];
 			incorrectSolutionList[s]=v;
 		}
 		else {
@@ -2719,7 +2725,7 @@ bool correctAnswer(std::string s){
 	mapSave = 0; mapMake = 0;
 	answerListMap.clear();
 	reverseMap.clear();
-	fullSolutionList.clear();
+	correctSolutionList.clear();
 	auto a1 = std::chrono::high_resolution_clock::now();
 	totalAnswers = 0;
 	getAnswerList(newPostfix,true,0);
@@ -2744,7 +2750,7 @@ bool correctAnswer(std::string s){
 	
 	a1 = std::chrono::high_resolution_clock::now();
 	
-	fullSolutionList[newPostfix]={newPostfix};
+	correctSolutionList[newPostfix]={newPostfix};
 	for (ii=0;ii<tempCorrect.size();ii++){
 		if (doubleCheckAnswer(tempCorrect[ii])){
 			correctAnswers.push_back(tempCorrect[ii]);
@@ -2818,7 +2824,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		branches[ii]={0,0};
 	}
 	for (ii=0;ii<correctAnswers.size();ii++){
-		std::vector<Step> v = fullSolutionList[correctAnswers[ii]];
+		std::vector<Step> v = correctSolutionList[correctAnswers[ii]];
 		flat_hash_map<int,bool> alreadyApp;
 		flat_hash_map<int,bool> alreadyOpp;
 		for (iii=0;iii<v.size();iii++){
@@ -2897,14 +2903,14 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	for (i=0;i<correctAnswers.size();i++){
 		if (correctAnswers[i] == pfstr){
 			std::cout << "match: " << pfstr << " and " << correctAnswers[i] << "\n";
-			std::vector<Step> v = fullSolutionList[pfstr];
+			std::vector<Step> v = correctSolutionList[pfstr];
 			bestSolution = v;
 			foundSolution = true;
 			break;
 		}
 		else {
 			std::cout << "no match: " << pfstr << " and " << correctAnswers[i] << "\n";
-			std::vector<Step> v = fullSolutionList[correctAnswers[i]];
+			std::vector<Step> v = correctSolutionList[correctAnswers[i]];
 			if (v.size()<bestSolution.size() || bestSolution.size() == 0){
 				bestSolution = v;
 			}
@@ -2916,7 +2922,7 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		std::vector<Step> oldBest = bestSolution;
 		bestSolution.resize(0);
 		for (i=0;i<correctAnswers.size();i++){
-			std::vector<Step> v = fullSolutionList[correctAnswers[i]];
+			std::vector<Step> v = correctSolutionList[correctAnswers[i]];
 			for (ii=0;ii<v.size();ii++){
 				if (ii>=oldBest.size()){
 					if (v.size()<bestSolution.size() || bestSolution.size() == 0){
@@ -2970,7 +2976,7 @@ void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	unfinishedErrors.resize(0);
 	finishedErrors.resize(0);
 	
-	fullSolutionList.clear();
+	correctSolutionList.clear();
 	incorrectSolutionList.clear();
 	answerMap.clear();
 	maxSteps = 25;
