@@ -72,7 +72,7 @@ struct Rule {
 	std::string type = "";
 	std::string explanation = "";
 	std::vector<std::string> constraints;
-}
+};
 
 flat_hash_map<std::string,std::vector<Rule>> rules;
 flat_hash_map<std::string,std::vector<Rule>> answerConstraints;
