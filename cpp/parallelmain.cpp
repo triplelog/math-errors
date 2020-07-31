@@ -2909,22 +2909,22 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		}
 		for (flat_hash_map<int,std::vector<int>>::iterator iter = branches.begin(); iter != branches.end(); ++iter){
 			int rr = (branches[iter->first][0]*2 + 1)*100/(branches[iter->first][1]*2+2);
+			std::cout << "rr: " << rr << "\n";
 			if (rr < 1){
 				rr = 1;
 			}
-			if (rr>99){
+			if (rr > 99){
 				rr = 99;
 			}
 			int r = eloMap[rr];
 			std::cout << iter->first << " and " << branches[iter->first][0] << " and "<< branches[iter->first][1] << " and " << r << "\n";
 			std::cout << iter->first << " and " << userData[iter->first][0] << " and "<< userData[iter->first][1] << "\n";
 			int score = ruleIndex[iter->first].score;
-			int d = r-score;
+			int d = r - score;
 			int ei;
 			int pyes;
 			for (ei=1;ei<99;ei++){
 				int m = (eloMap[ei]+eloMap[ei+1])/2;
-				std::cout << "m: " << m << " ei: " << ei << "d: " << d;
 				if (d > m){
 					pyes = ei;
 					break;
