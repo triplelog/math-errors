@@ -2596,6 +2596,8 @@ std::string fullAnswer(std::string s){
 				
 			}
 			else {
+				v = makeIncorrectSolutionList(finishedAnswers[ii],newPostfix);
+				vsz = v.size();
 				finishedErrors.push_back(finishedAnswers[ii]);
 				Answer answer;
 				answer.finished = true;
@@ -2910,7 +2912,9 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			if (rr < 1){
 				rr = 1;
 			}
-			//else if (rr>99){rr=99;}
+			if (rr>99){
+				rr = 99;
+			}
 			std::cout << rr << "\n";
 			int r = eloMap[rr];
 			std::cout << iter->first << " and " << branches[iter->first][0] << " and "<< branches[iter->first][1] << " and " << rr << "\n";
