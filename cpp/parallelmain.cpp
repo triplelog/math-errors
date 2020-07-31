@@ -2822,7 +2822,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			std::cout << "alosz: " << allOptions.size() << "\n";
 			for (iiii=0;iiii<allOptions.size();iiii++){
 				std::cout << allOptions[iiii] << " -- ";
-				std::cout << ruleIndex[allOptions[iiii]] << " -- ";
+				std::cout << ruleIndex[allOptions[iiii]].id << " -- ";
 				Rule rule = ruleIndex[allOptions[iiii]];
 				rule.score++;
 				std::cout << rule.score << " -- ";
