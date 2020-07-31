@@ -2876,7 +2876,6 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			}
 			else {
 				v = incorrectSolutionList[finishedErrors[ii-correctAnswers.size()]];
-				std::cout << "finished error vsize: " << v.size() << "\n";
 			}
 			
 			flat_hash_map<int,bool> alreadyApp;
@@ -2907,6 +2906,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 				}
 			}
 		}
+		
 		for (flat_hash_map<int,std::vector<int>>::iterator iter = branches.begin(); iter != branches.end(); ++iter){
 			int rr = (branches[iter->first][0]*2 + 1)*100/(branches[iter->first][1]*2+2);
 
@@ -2944,7 +2944,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 					pno = 99;
 				}
 			}
-			int k = 100;
+			int k = 500;
 			if (userData[iter->first][0]){
 				ruleIndex[iter->first].score = score + k*pno/100;
 			}
