@@ -2507,6 +2507,7 @@ std::vector<Step> makeIncorrectSolutionList(std::string s, std::string q){
 	
 	int minSize = 100000; int l; int idx = 0;
 	std::vector<Step> minV;
+	int ruleApp;
 	for (i=0;i<sv.size();i++){
 		//std::cout << "i: " << i << " and " << sv[i*2] << "\n";
 		if (incorrectSolutionList.find(sv[i].next) != incorrectSolutionList.end()){
@@ -2524,6 +2525,7 @@ std::vector<Step> makeIncorrectSolutionList(std::string s, std::string q){
 		if (l < minSize){
 			minSize = l;
 			minV = incorrectSolutionList[sv[i].next];
+			ruleApp = sv[i].rule;
 		}
 	}
 	if (minSize == 100000){
@@ -2540,6 +2542,9 @@ std::vector<Step> makeIncorrectSolutionList(std::string s, std::string q){
 		return v;
 	}
 	for (i=0;i<minSize;i++){
+		if (i==minSize-1){
+			minV[i].rule = ruleApp;
+		}
 		v.push_back(minV[i]);
 	}
 	Step step;
@@ -2832,7 +2837,9 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			}
 			else {
 				//TODO: make the rule match reality
-				//branches[v[iii].rule][0]++;
+				if (v[iii].rule >= 0){
+					branches[v[iii].rule][0]++;
+				}
 				alreadyApp[v[iii].rule]=true;
 			}
 			std::vector<int> allOptions = answerListMapF[v[iii].next];
@@ -2848,7 +2855,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		}
 	}
 	for (ii=0;ii<ridx;ii++){
-		std::cout << branches[ii][1] << "\n";
+		std::cout << branches[ii][0] << " and "<< branches[ii][1] << "\n";
 	}
 	
 	auto a2 = std::chrono::high_resolution_clock::now();
