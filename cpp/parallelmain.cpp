@@ -29,7 +29,6 @@
 using namespace std::chrono;
 using phmap::flat_hash_map;
 
-std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect);
 bool checkAnswer(std::string answer);
 std::string makeInt(std::string input);
 flat_hash_map<char,int> prec;
@@ -79,6 +78,8 @@ struct Step {
 	std::string nest = "";
 	int rule;
 };
+std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect);
+
 
 flat_hash_map<std::string,std::vector<Rule>> rules;
 flat_hash_map<int,Rule> ruleIndex;
