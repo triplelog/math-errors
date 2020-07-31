@@ -2817,15 +2817,15 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	for (ii=0;ii<correctAnswers.size();ii++){
 		std::vector<Step> v = fullSolutionList[correctAnswers[ii]];
 		for (iii=0;iii<v.size();iii++){
-			std::vector<Step> allOptions = answerListMapF[v[iii].next];
+			std::vector<int> allOptions = answerListMapF[v[iii].next];
 			for (iiii=0;iiii<allOptions.size();iiii++){
-				Rule rule = ruleIndex[allOptions[iiii].rule];
+				Rule rule = ruleIndex[allOptions[iiii]];
 				rule.score++;
 			}
 		}
 	}
 	for (ii=0;ii<ridx;ii++){
-		std::cout << ruleIdx[ii].score << "\n";
+		std::cout << ruleIndex[ii].score << "\n";
 	}
 	
 	auto a2 = std::chrono::high_resolution_clock::now();
