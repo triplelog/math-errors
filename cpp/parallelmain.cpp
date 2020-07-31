@@ -2400,7 +2400,10 @@ std::vector<Step> makeSolutionList(std::string s, std::string q){
 		return v;
 	}
 	else {
-		fullSolutionList[s]={""};
+		Step step;
+		step.next = "";
+		step.rule = -1;
+		fullSolutionList[s]={step};
 	}
 	if (reverseMapCorrect.find(s) != reverseMapCorrect.end()){
 		sv = reverseMapCorrect.find(s)->second;
@@ -2421,7 +2424,7 @@ std::vector<Step> makeSolutionList(std::string s, std::string q){
 	//std::cout << "sv0: " << sv[0] << "\n";
 	
 	int minSize = 100000; int l; int idx = 0;
-	std::vector<std::string> minV;
+	std::vector<Step> minV;
 	for (i=0;i<sv.size();i++){
 		//std::cout << "i: " << i << " and " << sv[i*2] << "\n";
 		if (fullSolutionList.find(sv[i].next) != fullSolutionList.end()){
@@ -2498,7 +2501,7 @@ std::vector<Step> makeIncorrectSolutionList(std::string s, std::string q){
 	//std::cout << "sv0: " << sv[0] << "\n";
 	
 	int minSize = 100000; int l; int idx = 0;
-	std::vector<std::string> minV;
+	std::vector<Step> minV;
 	for (i=0;i<sv.size();i++){
 		//std::cout << "i: " << i << " and " << sv[i*2] << "\n";
 		if (incorrectSolutionList.find(sv[i].next) != incorrectSolutionList.end()){
