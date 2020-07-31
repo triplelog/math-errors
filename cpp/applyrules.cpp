@@ -123,7 +123,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 				if (openPar){
 					hasPar = true;
 					if (pastInsideKey){
-						if (rule[1].at(iii) == ')'){
+						if (rule.out.at(iii) == ')'){
 							int bi; 
 							for (bi=0;bi<insidePostfix.length();bi++){
 								if (insidePostfix.at(bi) == '{'){
@@ -143,7 +143,7 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 							pastInsideKey = false;
 							
 						}
-						else if (rule[1].at(iii) == '_'){
+						else if (rule.out.at(iii) == '_'){
 							if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
 								insidePostfix += partMap[currentOperand.at(0)] + '_';
 							}
@@ -154,15 +154,15 @@ std::vector<std::string> applyRulesVectorOnePart(std::string onePart,std::vector
 							currentOperand = "";
 						}
 						else {
-							currentOperand += rule[1].at(iii);
+							currentOperand += rule.out.at(iii);
 						}
 					}
 					else {
-						if (rule[1].at(iii) == '@'){
+						if (rule.out.at(iii) == '@'){
 							pastInsideKey = true;
 							currentOperand = "";
 						}
-						insidePostfix += rule[1].at(iii);
+						insidePostfix += rule.out.at(iii);
 					}
 				}
 				else {

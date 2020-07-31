@@ -2177,7 +2177,7 @@ bool doubleCheckAnswer(std::string pfstr){
 	//for (ii=0;ii<lastVector.size()/5;ii++){
 	//	checkAnswer(lastVector[ii*5]+"@"+lastVector[ii*5+1])
 	//}
-	for (flat_hash_map<std::string,std::vector<std::vector<std::string>>>::iterator iter = answerConstraints.begin(); iter != answerConstraints.end(); ++iter){
+	for (flat_hash_map<std::string,std::vector<Rule>>::iterator iter = answerConstraints.begin(); iter != answerConstraints.end(); ++iter){
 		std::string key = iter->first;
 		for (i=0;i<answerConstraints[key].size();i++){
 			if (answerConstraints[key][i].type == "c"){
