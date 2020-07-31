@@ -2819,11 +2819,15 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		std::cout << "vsz: " << v.size() << "\n";
 		for (iii=0;iii<v.size();iii++){
 			std::vector<int> allOptions = answerListMapF[v[iii].next];
-			std::cout << "alosz: " << allOptions.size() << " -- ";
+			std::cout << "alosz: " << allOptions.size() << "\n";
 			for (iiii=0;iiii<allOptions.size();iiii++){
+				std::cout << allOptions[iii] << " -- ";
+				std::cout << ruleIndex[allOptions[iii]] << " -- ";
 				Rule rule = ruleIndex[allOptions[iiii]];
 				rule.score++;
+				std::cout << rule.score << " -- ";
 			}
+			std::cout << "\n";
 		}
 	}
 	for (ii=0;ii<ridx;ii++){
