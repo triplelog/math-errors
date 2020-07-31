@@ -2871,8 +2871,8 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	if (answerMap.find(mpf) != answerMap.end()){
 		Answer userAnswer = answerMap[mpf];
-		std::cout << "correct? " << userAnswer.correct <<"\n";
-		std::cout << "finished? " << userAnswer.finished <<"\n";
+		//std::cout << "correct? " << userAnswer.correct <<"\n";
+		//std::cout << "finished? " << userAnswer.finished <<"\n";
 		
 		
 	
@@ -2968,8 +2968,8 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 				rr = 99;
 			}
 			int r = eloMap[rr];
-			std::cout << iter->first << " and " << branches[iter->first][0] << " and "<< branches[iter->first][1] << " and " << r << "\n";
-			std::cout << iter->first << " and " << userData[iter->first][0] << " and "<< userData[iter->first][1] << "\n";
+			//std::cout << iter->first << " and " << branches[iter->first][0] << " and "<< branches[iter->first][1] << " and " << r << "\n";
+			//std::cout << iter->first << " and " << userData[iter->first][0] << " and "<< userData[iter->first][1] << "\n";
 			int score = ruleIndex[iter->first].score;
 			int d = r - score;
 			int ei;
@@ -2983,10 +2983,10 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			else{
 				ruleIndex[iter->first].score = score - k*pyes/100;
 			}
-			std::cout << iter->first << " new score: " << ruleIndex[iter->first].score << " and pyes:" << pyes << "\n";
+			//std::cout << iter->first << " new score: " << ruleIndex[iter->first].score << " and pyes:" << pyes << "\n";
 		}
 		int ppc = probCorrect();
-		std::cout << "apc: " << apc << " ppc: " << ppc << "\n";
+		
 		int aelo;
 		if (apc <= 100){
 			aelo = eloMap[1];
@@ -3010,7 +3010,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			pelo /= 100;
 		}
 		overallScore += aelo - pelo;
-		std::cout << overallScore << "\n";
+		std::cout << "apc: " << apc << " ppc: " << ppc << " ovscore: " << overallScore << "\n";
 	}
 	else {
 		std::cout << "unknown answer" << "\n";
