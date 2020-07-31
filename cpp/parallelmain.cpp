@@ -2807,7 +2807,7 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 Question currentQuestion;
 
 int eloToProb(int elo){
-	int pyes;
+	int pyes; int ei;
 	for (ei=1;ei<99;ei++){
 		int m = (eloMap[ei]+eloMap[ei+1])/2;
 		if (elo > m){
