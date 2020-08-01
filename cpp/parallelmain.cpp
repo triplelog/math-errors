@@ -2434,9 +2434,13 @@ bool getAnswerList(std::string s, int nSteps) {
 	totalAnswers += allStrings.size();
 	//std::cout << "total answers: "<< totalAnswers << "\n";
 	for (ii=0;ii<allStrings.size();ii++){
-		answerListMapF[newPostfix].push_back(allStrings[ii].rule);
+		
 		if (allStrings[ii].next == newPostfix){
 			continue;
+		}
+		answerListMapF[newPostfix].push_back(allStrings[ii].rule);
+		if (allStrings[ii].rule<0){
+			std::cout << "almf<0" << allStrings[ii].next << "\n";
 		}
 		if (answerListMapF.find(allStrings[ii].next) != answerListMapF.end()){
 			Step step;
