@@ -106,7 +106,7 @@ OperatorProxy subjectEq;
 OperatorProxy topicEq;
 OperatorProxy ruleEq;
 OperatorProxy idEq;
-OperatorProxy maxEq;
+OperatorProxy minEq;
 inline bool operator>(const OperatorProxy& a, const Dewey& b){
 	if (a.op == 0){
 		if (a.dewey.subject == b.subject && a.dewey.topic == b.topic && a.dewey.rule == b.rule && a.dewey.id == b.id){
