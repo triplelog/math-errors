@@ -3068,13 +3068,13 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	int ii; int iii; int iiii;
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
-	int ai;
+
 
 
 	if (answerMap.find(mpf) != answerMap.end()){
 		Answer userAnswer = answerMap[mpf];
-		//std::cout << "correct? " << userAnswer.correct <<"\n";
-		//std::cout << "finished? " << userAnswer.finished <<"\n";
+		std::cout << "correct? " << userAnswer.correct <<"\n";
+		std::cout << "finished? " << userAnswer.finished <<"\n";
 	
 	
 
@@ -3113,7 +3113,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 				}
 			}
 		}
-	
+		std::cout << "correct?? " << userAnswer.correct <<"\n";
 		int apc = probCorrect();
 	
 		for (ii=0;ii<ridx;ii++){
@@ -3159,7 +3159,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 				}
 			}
 		}
-	
+		std::cout << "correct??? " << userAnswer.correct <<"\n";
 		for (flat_hash_map<int,std::vector<int>>::iterator iter = branches.begin(); iter != branches.end(); ++iter){
 			int rr = (branches[iter->first][0]*2 + 1)*100/(branches[iter->first][1]*2+2);
 
@@ -3215,10 +3215,9 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			pelo /= 100;
 		}
 		overallScore += aelo - pelo;
-		if (ai%19==0){
-			std::cout << " apc: " << apc << " ppc: " << ppc << " ovscore: " << overallScore << "\n";
-		}
-		
+
+		std::cout << " apc: " << apc << " ppc: " << ppc << " ovscore: " << overallScore << "\n";
+
 	}
 	else {
 		std::cout << "unknown answer" << "\n";
