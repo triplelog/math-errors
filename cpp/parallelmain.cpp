@@ -2273,6 +2273,21 @@ void initialRun(){
 	overallScore = 0;
 	subjectEq.op = 1; topicEq.op = 2; ruleEq.op = 3; idEq.op = 0;
 	
+	Dewey testA;
+	Dewey testB;
+	testA.subject = "one";
+	testA.topic = "two";
+	testA.rule = "three";
+	testA.id = "four";
+	
+	testB.subject = "one";
+	testB.topic = "two";
+	testB.rule = "notthree";
+	testB.id = "four";
+	
+	std::cout << "dewey tests: " << testA <idEq> testB << testA <subjectEq> testB << testA <topicEq> testB << testA <ruleEq> testB << "\n";
+	std::cout << "dewey tests commutative: " << testB <idEq> testA << testB <subjectEq> testA << testB <topicEq> testA << testB <ruleEq> testA << "\n";
+	
 	firstCorrect = false;
 	auto t1 = std::chrono::high_resolution_clock::now();
 	ridx = 0;
