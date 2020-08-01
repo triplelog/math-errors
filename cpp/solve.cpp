@@ -297,13 +297,14 @@ Number solvePostfix(std::string postfix) {
   	std::vector<Number> stack;
   	std::vector<Number> intArray;
   	std::string currentOperand = "";
+  	Number n;
   	if (numbers.find("") != numbers.end()){
 			numberType("");
 		}
   	for (i=0; i<postfix.length(); i++) 
     {
     	if (postfix.at(i) == '{'){
-    		return "false";
+    		return n;
     	}
     	else if (postfix.at(i) == '@') {
         	currentOperand = "";
