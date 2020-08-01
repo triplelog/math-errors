@@ -186,7 +186,7 @@ wss.on('connection', function connection(ws) {
 			}
 			var qh = maincpp.previewQuestion(dm.qstr);
 			console.log(qh);
-			fs.writeFile('questions/de/default.csv', dm.qstr, function (err) {
+			fs.appendFile('questions/de/default.csv', dm.qstr, function (err) {
 			  if (err) throw err;
 			});
 			
