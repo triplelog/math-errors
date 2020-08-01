@@ -594,9 +594,10 @@ std::vector<RawQuestion> makeQuestions(std::string fileName){
 	return questions;
 }
 
-RawQuestion previewQuestion(std::string input){
+Question previewQuestion(std::string input){
 	
 	RawQuestion q;
+	Question qq;
 	const std::string& csv = input;
 
     std::stringstream sstream(csv);
@@ -615,7 +616,7 @@ RawQuestion previewQuestion(std::string input){
 	std::vector<std::string> firstRow = doc.GetRow<std::string>(startIdx);
 	
 	if (firstRow.size() < 1){
-		return q;
+		return qq;
 	}
 	std::string rawDewey = firstRow[0];
 	std::string current = "";
@@ -639,7 +640,7 @@ RawQuestion previewQuestion(std::string input){
 	
 
 	if (nRows<startIdx+5){
-		return q;
+		return qq;
 	}
 	oldIdx = startIdx;
 
@@ -686,7 +687,7 @@ RawQuestion previewQuestion(std::string input){
 	}
 	
 	if (!makeThis){
-		return q;
+		return qq;
 	}
 	auto a1 = std::chrono::high_resolution_clock::now();
 	
@@ -694,6 +695,8 @@ RawQuestion previewQuestion(std::string input){
 	q.qC = doc.GetRow<std::string>(oldIdx+2)[0];
 	q.rangeMap = rangeMap;
 	q.rawRules = rawRules;
+	qq = makeQuestion(q.qC, q.qH, q.rangeMap);
+	qq.rawRules = q.rawRules;
 	auto a2 = std::chrono::high_resolution_clock::now();
 	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "time to makeQuestion(): " << dd1 << "\n";
@@ -703,6 +706,6 @@ RawQuestion previewQuestion(std::string input){
 		
 
 	
-	return q;
+	return qq;
 }
 

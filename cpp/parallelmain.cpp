@@ -3147,7 +3147,7 @@ void PreviewQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	RawQuestion rq = previewQuestion(q);
 
 	
-	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(rq.qH);
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(rq.text);
 
 	
 	info.GetReturnValue().Set(h.ToLocalChecked());
