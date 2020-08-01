@@ -504,7 +504,18 @@ std::vector<RawQuestion> makeQuestions(std::string fileName){
 		std::string current = "";
 		for (i=0;i<rawDewey.length();i++){
 			if (rawDewey.at(i)=='.'){
-				dewey.push_back(current);
+				if (dewey.subject == "."){
+					dewey.subject = current;
+				}
+				else if (dewey.topic == "."){
+					dewey.topic = current;
+				}
+				else if (dewey.rule == "."){
+					dewey.rule = current;
+				}
+				else {
+					dewey.id = current;
+				}
 				current = "";
 			}
 			else {
@@ -512,9 +523,21 @@ std::vector<RawQuestion> makeQuestions(std::string fileName){
 			}
 		}
 		if (current.length()>0){
-			dewey.push_back(current);
+			if (dewey.subject == "."){
+				dewey.subject = current;
+			}
+			else if (dewey.topic == "."){
+				dewey.topic = current;
+			}
+			else if (dewey.rule == "."){
+				dewey.rule = current;
+			}
+			else {
+				dewey.id = current;
+			}
 		}
-		if (dewey[0] != "calculus"){
+
+		if (dewey.subject != "calculus"){
 			makeThis = false;
 		}
 		std::vector<std::vector<std::string>> rawRules;
@@ -612,7 +635,7 @@ Question previewQuestion(std::string input){
 
 	int i; int ii;
 	bool makeThis = true;
-	std::vector<std::string> dewey;
+	Dewey dewey;
 	std::vector<std::string> firstRow = doc.GetRow<std::string>(startIdx);
 	
 	if (firstRow.size() < 1){
@@ -622,7 +645,18 @@ Question previewQuestion(std::string input){
 	std::string current = "";
 	for (i=0;i<rawDewey.length();i++){
 		if (rawDewey.at(i)=='.'){
-			dewey.push_back(current);
+			if (dewey.subject == "."){
+				dewey.subject = current;
+			}
+			else if (dewey.topic == "."){
+				dewey.topic = current;
+			}
+			else if (dewey.rule == "."){
+				dewey.rule = current;
+			}
+			else {
+				dewey.id = current;
+			}
 			current = "";
 		}
 		else {
@@ -630,11 +664,20 @@ Question previewQuestion(std::string input){
 		}
 	}
 	if (current.length()>0){
-		dewey.push_back(current);
+		if (dewey.subject == "."){
+			dewey.subject = current;
+		}
+		else if (dewey.topic == "."){
+			dewey.topic = current;
+		}
+		else if (dewey.rule == "."){
+			dewey.rule = current;
+		}
+		else {
+			dewey.id = current;
+		}
 	}
-	if (dewey[0] != "calculus"){
-		makeThis = false;
-	}
+	std::cout << dewey.subject << " -- " << dewey.topic << " -- " << dewey.rule << " -- " << dewey.id << "\n";
 	std::vector<std::vector<std::string>> rawRules;
 
 	
