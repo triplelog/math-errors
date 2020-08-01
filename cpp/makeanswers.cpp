@@ -615,7 +615,7 @@ RawQuestion previewQuestion(std::string input){
 	std::vector<std::string> firstRow = doc.GetRow<std::string>(startIdx);
 	
 	if (firstRow.size() < 1){
-		continue;
+		return q;
 	}
 	std::string rawDewey = firstRow[0];
 	std::string current = "";
