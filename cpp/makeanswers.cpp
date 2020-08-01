@@ -709,7 +709,7 @@ Question previewQuestion(std::string input){
 	std::string val1;
 	std::string out;
 	answerConstraints.clear();
-	int i;
+
 	for (i=0;i<qq.rawRules.size();i++){
 		Rule rule;
 
