@@ -3092,6 +3092,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		}
 		flat_hash_map<int,bool> alreadyApp;
 		flat_hash_map<int,bool> alreadyOpp;
+		std::cout << "correct?? " << userAnswer.correct <<"\n";
 		for (iii=0;iii<v.size();iii++){
 			if (alreadyApp.find(v[iii].rule) != alreadyApp.end()){
 			}
