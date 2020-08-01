@@ -2761,7 +2761,7 @@ bool getOneAnswer(std::string s, int nSteps, std::string oquestion) {
 	
 	if (answerIsFinished){
 		if (doubleCheckAnswer(newPostfix)){
-			
+			correctAnswers.push_back(newPostfix);
 			std::cout << newPostfix << "\n";
 			return false;
 		}
@@ -2839,6 +2839,7 @@ std::string oneAnswer(std::string s){
 	reverseMap.clear();
 	reverseMapCorrect.clear();
 	auto a1 = std::chrono::high_resolution_clock::now();
+	correctAnswers.resize(0);
 	getOneAnswer(newPostfix,0,newPostfix);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	std::cout << "\n\n\n\nCompleted the One Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << " and " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n\n";
@@ -3271,9 +3272,13 @@ void PreviewQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::string q(*s);
 	Question rq = previewQuestion(q);
 
+	std::string outstr = rq.text;
+	oneAnswer(rq.comp);
+	if (correctAnswers.size()>0){
+		outstr += "\n"+correctAnswers[0];
+	}
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(outstr);
 	
-	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(rq.text);
-
 	
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
@@ -3299,8 +3304,8 @@ void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	std::cout << "mf:" << maxFound << " times: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	
-	//std::string error = fullAnswer(currentQuestion.comp);
-	std::string error = oneAnswer(currentQuestion.comp);
+	std::string error = fullAnswer(currentQuestion.comp);
+	
 	
 	auto a2 = std::chrono::high_resolution_clock::now();
 	duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
