@@ -2902,7 +2902,7 @@ std::string oneAnswer(std::string s){
 	
 
 
-	return error;
+	return "blank";
 }
 
 
@@ -3354,6 +3354,7 @@ void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	//std::string error = fullAnswer(currentQuestion.comp);
 	std::string error = oneAnswer(currentQuestion.comp);
+	
 	auto a2 = std::chrono::high_resolution_clock::now();
 	duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "times: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
