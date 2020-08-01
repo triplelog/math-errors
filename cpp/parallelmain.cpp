@@ -2281,8 +2281,8 @@ void initialRun(){
 	testA.id = "four";
 	
 	testB.subject = "one";
-	testB.topic = "two";
-	testB.rule = "notthree";
+	testB.topic = "nottwo";
+	testB.rule = "three";
 	testB.id = "four";
 	
 	std::cout << "dewey tests: " << (testA <idEq> testB) << (testA <subjectEq> testB) << (testA <topicEq> testB) << (testA <ruleEq> testB) << "\n";
