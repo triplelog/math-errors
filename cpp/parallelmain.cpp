@@ -106,25 +106,25 @@ inline bool operator>(const OperatorProxy& a, const Dewey& b){
 		if (a.dewey.subject == b.subject && a.dewey.topic == b.topic && a.dewey.rule == b.rule && a.dewey.id == b.id){
 			return true;
 		}
-		return false
+		return false;
 	}
 	else if (a.op == 1){
 		if (a.dewey.subject == b.subject){
 			return true;
 		}
-		return false
+		return false;
 	}
 	else if (a.op == 2){
 		if (a.dewey.subject == b.subject && a.dewey.topic == b.topic){
 			return true;
 		}
-		return false
+		return false;
 	}
 	else if (a.op == 3){
 		if (a.dewey.subject == b.subject && a.dewey.topic == b.topic && a.dewey.rule == b.rule){
 			return true;
 		}
-		return false
+		return false;
 	}
 	
 	return false;
