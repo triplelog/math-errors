@@ -3092,8 +3092,9 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		}
 		flat_hash_map<int,bool> alreadyApp;
 		flat_hash_map<int,bool> alreadyOpp;
-		std::cout << "correct?? " << userAnswer.correct <<"\n";
+		std::cout << "vsz: " << v.size() <<"\n";
 		for (iii=0;iii<v.size();iii++){
+			std::cout << "here?? " << iii <<"\n";
 			if (alreadyApp.find(v[iii].rule) != alreadyApp.end()){
 			}
 			else {
@@ -3103,7 +3104,9 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 				}
 				alreadyApp[v[iii].rule]=true;
 			}
+			std::cout << "here?? " << iii <<"\n";
 			std::vector<int> allOptions = answerListMapF[v[iii].next];
+			std::cout << "here?? " << iii <<"\n";
 			for (iiii=0;iiii<allOptions.size();iiii++){
 				if (alreadyOpp.find(allOptions[iiii]) != alreadyOpp.end()){
 					continue;
@@ -3113,6 +3116,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 					alreadyOpp[allOptions[iiii]]=true;
 				}
 			}
+			std::cout << "here?? " << iii <<"\n";
 		}
 		std::cout << "correct?? " << userAnswer.correct <<"\n";
 		int apc = probCorrect();
