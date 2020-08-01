@@ -3104,7 +3104,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 				}
 				alreadyApp[v[iii].rule]=true;
 			}
-			std::cout << "here?? " << iii <<"\n";
+			std::cout << "here?? " << iii << " and " << v[iii].next <<"\n";
 			std::vector<int> allOptions = answerListMapF[v[iii].next];
 			std::cout << "here?? " << iii << "and " << allOptions.size() <<"\n";
 			for (iiii=0;iiii<allOptions.size();iiii++){
