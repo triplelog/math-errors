@@ -2434,14 +2434,11 @@ bool getAnswerList(std::string s, int nSteps) {
 	totalAnswers += allStrings.size();
 	//std::cout << "total answers: "<< totalAnswers << "\n";
 	for (ii=0;ii<allStrings.size();ii++){
-		
 		if (allStrings[ii].next == newPostfix){
 			continue;
 		}
 		answerListMapF[newPostfix].push_back(allStrings[ii].rule);
-		if (allStrings[ii].rule<0){
-			std::cout << "almf<0" << allStrings[ii].next << "\n";
-		}
+
 		if (answerListMapF.find(allStrings[ii].next) != answerListMapF.end()){
 			Step step;
 			step.next = newPostfix;
@@ -3096,9 +3093,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		}
 		flat_hash_map<int,bool> alreadyApp;
 		flat_hash_map<int,bool> alreadyOpp;
-		std::cout << "vsz: " << v.size() <<"\n";
 		for (iii=0;iii<v.size();iii++){
-			std::cout << "here?? " << iii <<"\n";
 			if (alreadyApp.find(v[iii].rule) != alreadyApp.end()){
 			}
 			else {
@@ -3108,11 +3103,8 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 				}
 				alreadyApp[v[iii].rule]=true;
 			}
-			std::cout << "here?? " << iii << " and " << v[iii].next <<"\n";
 			std::vector<int> allOptions = answerListMapF[v[iii].next];
-			std::cout << "here?? " << iii << "and " << allOptions.size() <<"\n";
 			for (iiii=0;iiii<allOptions.size();iiii++){
-				std::cout << "here?? " << iiii << "and " << allOptions[iiii] <<"\n";
 				if (alreadyOpp.find(allOptions[iiii]) != alreadyOpp.end()){
 					continue;
 				}
@@ -3120,11 +3112,8 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 					userData[allOptions[iiii]][1]=true;
 					alreadyOpp[allOptions[iiii]]=true;
 				}
-				std::cout << "here?? " << iiii << "and " << allOptions[iiii] <<"\n";
 			}
-			std::cout << "here?? " << iii <<"\n";
 		}
-		std::cout << "correct?? " << userAnswer.correct <<"\n";
 		int apc = probCorrect();
 	
 		for (ii=0;ii<ridx;ii++){
@@ -3170,7 +3159,6 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 				}
 			}
 		}
-		std::cout << "correct??? " << userAnswer.correct <<"\n";
 		for (flat_hash_map<int,std::vector<int>>::iterator iter = branches.begin(); iter != branches.end(); ++iter){
 			int rr = (branches[iter->first][0]*2 + 1)*100/(branches[iter->first][1]*2+2);
 
