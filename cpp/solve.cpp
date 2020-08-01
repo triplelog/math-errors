@@ -192,8 +192,8 @@ Number addTwo(Number numA, Number numB){
 	int base = 10;
 
 	if (numA.type == 1 && numB.type == 1){
-		a = numA.top;
-		b = numB.top;
+		std::string a = numA.top;
+		std::string b = numB.top;
 		if (b.length() > a.length()){
 			std::string c = a;
 			a = b;
