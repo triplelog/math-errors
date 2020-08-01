@@ -2762,15 +2762,13 @@ bool getOneAnswer(std::string s, int nSteps, std::string oquestion) {
 	if (answerIsFinished){
 		std::cout << "npfa: " << newPostfix << "\n";
 		if (doubleCheckAnswer(newPostfix)){
-			
+			correctSolutionList.clear();
 			std::vector<Step> v = makeSolutionList(newPostfix,oquestion);
 			int vsz = v.size();
 			if (vsz > 0){
 				std::cout << newPostfix << "\n";
 				return false;
 			}
-			std::cout << newPostfix << "\n";
-			return false;
 		}
 		
 		std::cout << "npfb: "<< newPostfix << "\n";
