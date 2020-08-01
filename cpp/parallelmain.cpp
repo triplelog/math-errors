@@ -2275,18 +2275,13 @@ bool getAnswerList(std::string s, int nSteps) {
 	
 	if (answerIsFinished){
 		finishedAnswers.push_back(newPostfix);
-		
-		firstCorrect = true;
+
 		//std::cout << newPostfix << "\n";
 	}
 	else {
 		unfinishedAnswers.push_back(newPostfix);
 	}
-	if (!firstCorrect){
-		auto a2 = std::chrono::high_resolution_clock::now();
-		int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
-		duration2 += dd1;
-	}
+
 	auto a2 = std::chrono::high_resolution_clock::now();
 	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 
@@ -2393,6 +2388,160 @@ bool getAnswerList(std::string s, int nSteps) {
 	
 }
 
+bool getOneAnswer(std::string s, int nSteps, std::string oquestion) {
+
+	if (nSteps > maxFound){
+		maxFound = nSteps;
+	}
+	if (nSteps >= maxSteps){
+		return false;
+	}
+	//std::cout << s << "\n";
+	int i;
+	int ii;
+	int iii;
+	int iiii;
+
+	jsonmessage = "";
+	std::string pfstr = s;
+	//std::cout << pfstr << '\n';
+
+
+	std::string newPostfix = pfstr;
+
+	
+	newPostfix = removeBracketsOne(newPostfix);
+	
+	//std::cout << s << " before pl\n";
+	auto a1 = std::chrono::high_resolution_clock::now();
+	std::vector<std::vector<Step>> someStrings = makeTree(newPostfix);
+	
+	if (answerIsFinished){
+		if (doubleCheckAnswer(newPostfix)){
+			
+			std::vector<Step> v = makeSolutionList(newPostfix,oquestion);
+			int vsz = v.size();
+			if (vsz > 0){
+				std::cout << newPostfix << "\n";
+				return false;
+			}
+		}
+		firstCorrect = true;
+		//std::cout << newPostfix << "\n";
+	}
+	else {
+		unfinishedAnswers.push_back(newPostfix);
+	}
+
+	auto a2 = std::chrono::high_resolution_clock::now();
+	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+
+	duration1 += dd1;
+
+
+	
+	//std::cout << dd1 << "  ";
+	//std::cout << s << " after pl\n";
+
+	std::vector<Step> allStrings; //vector of the next step
+	flat_hash_map<std::string,bool> uniqueStrings;
+
+	
+	for (iii=0;iii<someStrings[0].size();iii++){
+		someStrings[0][iii].next = removeBracketsOne(someStrings[0][iii].next);
+		if (uniqueStrings.find(someStrings[0][iii].next) != uniqueStrings.end()){
+	
+		}
+		else {
+			Step step;
+			step.next = someStrings[0][iii].next;
+			step.rule = someStrings[0][iii].rule;
+			allStrings.push_back(step);
+			uniqueStrings[someStrings[0][iii].next]=true;
+		}
+	
+	}
+	
+	answerListMap[newPostfix] = {};
+	answerListMapF[newPostfix] = {};
+	//totalAnswers += allStrings.size();
+	
+	for (ii=0;ii<allStrings.size();ii++){
+		if (allStrings[ii].next == newPostfix){
+			continue;
+		}
+		if (answerListMap.find(allStrings[ii].next) != answerListMap.end()){
+			Step step;
+			step.next = newPostfix;
+			step.rule = allStrings[ii].rule;
+			reverseMapCorrect[allStrings[ii].next].push_back(step);
+			
+		}
+		else {
+			if (!getOneAnswer(allStrings[ii].next,nSteps+1,oquestion)){
+				return false;
+			}
+			Step step;
+			step.next = newPostfix;
+			step.rule = allStrings[ii].rule;
+			reverseMapCorrect[allStrings[ii].next]={step};
+
+		}
+
+	}
+	
+	
+	//totalAnswers += allStrings.size();
+	//std::cout << "total answers: "<< totalAnswers << "\n";
+	
+	//allStrings.resize(0);
+	for (iii=0;iii<someStrings[1].size();iii++){
+		someStrings[1][iii].next = removeBracketsOne(someStrings[1][iii].next);
+		if (uniqueStrings.find(someStrings[1][iii].next) != uniqueStrings.end()){
+	
+		}
+		else {
+			Step step;
+			step.next = someStrings[1][iii].next;
+			step.rule = someStrings[1][iii].rule;
+			allStrings.push_back(step);
+			uniqueStrings[someStrings[1][iii].next]=true;
+		}
+	
+	}
+	
+	
+	totalAnswers += allStrings.size();
+	//std::cout << "total answers: "<< totalAnswers << "\n";
+	for (ii=0;ii<allStrings.size();ii++){
+		answerListMapF[newPostfix].push_back(allStrings[ii].rule);
+		if (allStrings[ii].next == newPostfix){
+			continue;
+		}
+		if (answerListMapF.find(allStrings[ii].next) != answerListMapF.end()){
+			Step step;
+			step.next = newPostfix;
+			step.rule = allStrings[ii].rule;
+			reverseMap[allStrings[ii].next].push_back(step);
+			
+		}
+		else {
+			if (!getOneAnswer(allStrings[ii].next,nSteps+1,oquestion)){
+				return false;
+			}
+			Step step;
+			step.next = newPostfix;
+			step.rule = allStrings[ii].rule;
+			reverseMap[allStrings[ii].next]={step};
+
+		}
+
+	}
+	
+	return true;
+		
+	
+}
 #include "autocomplete.cpp"
 
 flat_hash_map<std::string,std::vector<Step>> correctSolutionList;
@@ -2731,6 +2880,25 @@ std::string fullAnswer(std::string s){
 			oneStep = reverseMap[oneStep][0];
 		}
 	}*/
+
+	return error;
+}
+
+std::string oneAnswer(std::string s){
+	std::string newPostfix = removeBracketsOne(s);
+	std::cout << "\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
+	reverseMap.clear();
+	reverseMapCorrect.clear();
+	auto a1 = std::chrono::high_resolution_clock::now();
+	getOneAnswer(newPostfix,0,newPostfix);
+	auto a2 = std::chrono::high_resolution_clock::now();
+	std::cout << "\n\n\n\nCompleted the InCorrect Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << " and " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n\n";
+	std::cout << "total answers: "<< totalAnswers << "\n";
+	//duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	std::cout << "\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
+
+	
+
 
 	return error;
 }
@@ -3182,8 +3350,8 @@ void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	std::cout << "mf:" << maxFound << " times: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	
-	std::string error = fullAnswer(currentQuestion.comp);
-
+	//std::string error = fullAnswer(currentQuestion.comp);
+	std::string error = oneAnswer(currentQuestion.comp);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	duration3 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "times: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
