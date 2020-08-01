@@ -69,11 +69,13 @@ inline bool operator==(const Number& a, const Number& b){
 flat_hash_map<std::string,Number> numbers;
 
 std::string numberType(std::string input){
+	Number n;
 	if (input.length()==0){
+		numbers[""]=n;
 		return "string";
 	}
 	
-	Number n;
+	
 	if (input.at(0) == '-'){
 		input.replace(0,1,"");
 		std::string rest = "";
@@ -184,30 +186,11 @@ std::string numberType(std::string input){
 	return "string";
 }
 
-std::string addTwo(std::string a, std::string b){
+Number addTwo(Number numA, Number numB){
 	std::string revsum = "";
+	Number n;
 	int base = 10;
-	Number numA;
-	Number numB;
-	if (numbers.find(a) == numbers.end()){
-		if (numberType(a) == "string"){
-			return "false";
-		}
-	}
-	if (numbers.find(a) == numbers.end()){
-		return "false";
-	}
-	
-	if (numbers.find(b) == numbers.end()){
-		if (numberType(b) == "string"){
-			return "false";
-		}
-	}
-	if (numbers.find(b) == numbers.end()){
-		return "false";
-	}
-	numA = numbers[a];
-	numB = numbers[b];
+
 	if (numA.type == 1 && numB.type == 1){
 		a = numA.top;
 		b = numB.top;
@@ -226,11 +209,11 @@ std::string addTwo(std::string a, std::string b){
 		for (i=0;i<a.length();i++){
 			int aa = a.at(len-1-i) - '0';
 			if (aa<0 || aa>9){
-				return "false";
+				return n;
 			}
 			int bb = b.at(len-1-i) - '0';
 			if (bb<0 || bb>9){
-				return "false";
+				return n;
 			}
 			charSum = aa + bb + carry;
 			carry = 0;
@@ -253,107 +236,70 @@ std::string addTwo(std::string a, std::string b){
 		for (i=revsum.length()-1;i>=0;i--){
 			sum += revsum.at(i);
 		}
-		return sum;
+		if (numbers.find(sum) == numbers.end()){
+			numberType(sum);
+		}
+		return numbers[sum];
 	}
-	return "false";
+	return n;
 
 }
 
-std::string mulTwoInts(std::string a, std::string b){
+Number mulTwoInts(Number numA, Number numB){
 	int base = 10;
 	int neg = 1;
-	if (a.at(0) == '-'){
-		a.replace(0,1,"");
-		neg *= -1;
+	Number n;
+	if (numA.type == 1 && numB.type == 1){
+		n.type = 1;
+		int prod = std::stoi(numA.top);
+		prod *= std::stoi(numB.top);
+		n.top = std::to_string(prod);
+		return n;
 	}
-	if (b.at(0) == '-'){
-		b.replace(0,1,"");
-		neg *= -1;
-	}
-	if (b.length() > a.length()){
-		std::string c = a;
-		a = b;
-		b = c;
-	}
-	int len = a.length();
-	while (len > b.length()){
-		b = "0"+b;
-	}
-	int i;
-	for (i=0;i<a.length();i++){
-		int aa = a.at(len-1-i) - '0';
-		if (aa<0 || aa>9){
-			return "false";
-		}
-		int bb = b.at(len-1-i) - '0';
-		if (bb<0 || bb>9){
-			return "false";
-		}
-	}
-	int prod = std::stoi(a);
-	prod *= std::stoi(b);
-	prod *= neg;
-	return std::to_string(prod);
+	return n;
 }
 
-std::string divTwoInts(std::string a, std::string b){
+Number divTwoInts(Number numA, Number numB){
 	int base = 10;
-	int i;
-	int len = a.length();
-	for (i=0;i<len;i++){
-		int aa = a.at(len-1-i) - '0';
-		if (aa<0 || aa>9){
-			return "false";
+	int neg = 1;
+	Number n;
+	if (numA.type == 1 && numB.type == 1){
+		n.type = 1;
+		if (numB.top == "0"){
+			return n;
 		}
+		int div = std::stoi(numA.top);
+		div /= std::stoi(numB.top);
+		n.top = std::to_string(div);
+		return n;
 	}
-	len = b.length();
-	for (i=0;i<len;i++){
-		int bb = b.at(len-1-i) - '0';
-		if (bb<0 || bb>9){
-			return "false";
-		}
-	}
-	int div = std::stoi(a);
-	int divb = std::stoi(b);
-	if (divb == 0){return "false";}
-	if (div % divb == 0){
-		div /= divb;
-	}
-	else {
-		return "false";
-	}
-	return std::to_string(div);
+	return n;
 }
 
-std::string subTwoInts(std::string a, std::string b){
+Number subTwoInts(Number numA, Number numB){
 	int base = 10;
-	int i;
-	int len = a.length();
-	for (i=0;i<len;i++){
-		int aa = a.at(len-1-i) - '0';
-		if (aa<0 || aa>9){
-			return "false";
-		}
+	int neg = 1;
+	Number n;
+	if (numA.type == 1 && numB.type == 1){
+		n.type = 1;
+		int diff = std::stoi(numA.top);
+		diff -= std::stoi(numB.top);
+		n.top = std::to_string(diff);
+		return n;
 	}
-	len = b.length();
-	for (i=0;i<len;i++){
-		int bb = b.at(len-1-i) - '0';
-		if (bb<0 || bb>9){
-			return "false";
-		}
-	}
-	int div = std::stoi(a);
-	div -= std::stoi(b);
-	return std::to_string(div);
+	return n;
 }
 
-std::string solvePostfix(std::string postfix) {
+Number solvePostfix(std::string postfix) {
 	int i;
   	int currentIndex = 0;
   	int arrayIndex = 0;
-  	std::vector<std::string> stack;
-  	std::vector<std::string> intArray;
+  	std::vector<Number> stack;
+  	std::vector<Number> intArray;
   	std::string currentOperand = "";
+  	if (numbers.find("") != numbers.end()){
+			numberType("");
+		}
   	for (i=0; i<postfix.length(); i++) 
     {
     	if (postfix.at(i) == '{'){
@@ -363,9 +309,12 @@ std::string solvePostfix(std::string postfix) {
         	currentOperand = "";
         }
         else if (postfix.at(i) == '_') {
-
-			intArray.push_back(currentOperand);
-			stack.push_back("");
+			//TODO: convert to number here
+			if (numbers.find(currentOperand) == numbers.end()){
+				numberType(currentOperand);
+			}
+			intArray.push_back(numbers[currentOperand]);
+			stack.push_back(numbers[""]);
 
         	currentOperand = "";
         }
