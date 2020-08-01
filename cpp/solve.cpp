@@ -299,8 +299,11 @@ Number solvePostfix(std::string postfix) {
   	std::string currentOperand = "";
   	Number n;
   	if (numbers.find("") != numbers.end()){
-			numberType("");
-		}
+		numberType("");
+	}
+	if (numbers.find("-1") != numbers.end()){
+		numberType("-1");
+	}
   	for (i=0; i<postfix.length(); i++) 
     {
     	if (postfix.at(i) == '{'){
@@ -346,7 +349,7 @@ Number solvePostfix(std::string postfix) {
 	            case '+': stack[currentIndex - 2] = addTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
 	            case '-': stack[currentIndex - 2] = subTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); i++; break; 
 	            case '*': stack[currentIndex - 2] = mulTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
-	            case '/': stack[currentIndex - 1] = divTwoInts("1",stack[currentIndex - 1]); currentIndex++; break;
+	            case '/': stack[currentIndex - 1] = divTwoInts(numbers["-1"],stack[currentIndex - 1]); currentIndex++; break;
 	            //case '=': stack[currentIndex - 2] = stack[currentIndex - 2] == stack[currentIndex - 1]; break;
 	            //case '!': stack[currentIndex - 2] = stack[currentIndex - 2] != stack[currentIndex - 1]; break;
 	            //case '%': stack[currentIndex - 2] = stack[currentIndex - 2] % stack[currentIndex - 1]; break; 
