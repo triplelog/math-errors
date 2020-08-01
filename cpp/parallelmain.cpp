@@ -56,10 +56,17 @@ struct RawQuestion {
 	flat_hash_map<char,std::string> rangeMap;
 	std::vector<std::vector<std::string>> rawRules;
 };
+struct Dewey {
+	std::string subject = "";
+	std::string topic = "";
+	std::string rule = "";
+	std::string id = "";
+};
 struct Question {
 	std::string text = "";
 	std::string comp = "";
 	std::vector<std::vector<std::string>> rawRules;
+	Dewey dewey;
 };
 struct Answer {
 	bool finished = false;
@@ -82,6 +89,13 @@ struct Step {
 	std::string next = "";
 	int rule;
 };
+
+inline bool operator=t(const Dewey& a, const Dewey& b){
+	if (a.subject == b.subject && a.topic == b.topic){
+		return true;
+	}
+	return false;
+}
 std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect);
 
 
