@@ -2759,23 +2759,8 @@ bool getOneAnswer(std::string s, int nSteps, std::string oquestion) {
 	auto a1 = std::chrono::high_resolution_clock::now();
 	std::vector<std::vector<Step>> someStrings = makeTree(newPostfix);
 	
-	if (answerIsFinished){
-		std::cout << "npfa: " << newPostfix << "\n";
-		if (doubleCheckAnswer(newPostfix)){
-			correctSolutionList.clear();
-			std::vector<Step> v = makeSolutionList(newPostfix,oquestion);
-			int vsz = v.size();
-			if (vsz > 0){
-				std::cout << newPostfix << "\n";
-				return false;
-			}
-		}
-		
-		std::cout << "npfb: "<< newPostfix << "\n";
-	}
-	else {
-		unfinishedAnswers.push_back(newPostfix);
-	}
+	
+
 
 	auto a2 = std::chrono::high_resolution_clock::now();
 	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
@@ -2834,52 +2819,19 @@ bool getOneAnswer(std::string s, int nSteps, std::string oquestion) {
 
 	}
 	
-	
-	//totalAnswers += allStrings.size();
-	//std::cout << "total answers: "<< totalAnswers << "\n";
-	
-	//allStrings.resize(0);
-	for (iii=0;iii<someStrings[1].size();iii++){
-		someStrings[1][iii].next = removeBracketsOne(someStrings[1][iii].next);
-		if (uniqueStrings.find(someStrings[1][iii].next) != uniqueStrings.end()){
-	
-		}
-		else {
-			Step step;
-			step.next = someStrings[1][iii].next;
-			step.rule = someStrings[1][iii].rule;
-			allStrings.push_back(step);
-			uniqueStrings[someStrings[1][iii].next]=true;
-		}
-	
-	}
-	
-	
-	totalAnswers += allStrings.size();
-	//std::cout << "total answers: "<< totalAnswers << "\n";
-	for (ii=0;ii<allStrings.size();ii++){
-		answerListMapF[newPostfix].push_back(allStrings[ii].rule);
-		if (allStrings[ii].next == newPostfix){
-			continue;
-		}
-		if (answerListMapF.find(allStrings[ii].next) != answerListMapF.end()){
-			Step step;
-			step.next = newPostfix;
-			step.rule = allStrings[ii].rule;
-			reverseMap[allStrings[ii].next].push_back(step);
-			
-		}
-		else {
-			if (!getOneAnswer(allStrings[ii].next,nSteps+1,oquestion)){
+	if (answerIsFinished){
+		std::cout << "npfa: " << newPostfix << "\n";
+		if (doubleCheckAnswer(newPostfix)){
+			correctSolutionList.clear();
+			std::vector<Step> v = makeSolutionList(newPostfix,oquestion);
+			int vsz = v.size();
+			if (vsz > 0){
+				std::cout << newPostfix << "\n";
 				return false;
 			}
-			Step step;
-			step.next = newPostfix;
-			step.rule = allStrings[ii].rule;
-			reverseMap[allStrings[ii].next]={step};
-
 		}
-
+		
+		std::cout << "npfb: "<< newPostfix << "\n";
 	}
 	
 	return true;
