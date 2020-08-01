@@ -2762,7 +2762,7 @@ bool getOneAnswer(std::string s, int nSteps, std::string oquestion) {
 	if (answerIsFinished){
 		if (doubleCheckAnswer(newPostfix)){
 			correctAnswers.push_back(newPostfix);
-			std::cout << newPostfix << "\n";
+			std::cout << "One answer: " << newPostfix << "\n";
 			return false;
 		}
 		
@@ -3273,6 +3273,8 @@ void PreviewQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	Question rq = previewQuestion(q);
 
 	std::string outstr = rq.text;
+	answerMap.clear();
+	maxSteps = 25;
 	oneAnswer(rq.comp);
 	if (correctAnswers.size()>0){
 		outstr += "\n"+correctAnswers[0];

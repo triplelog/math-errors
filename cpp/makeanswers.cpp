@@ -702,7 +702,45 @@ Question previewQuestion(std::string input){
 	std::cout << "time to makeQuestion(): " << dd1 << "\n";
 	int dd2 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a0 ).count();
 	std::cout << "time after rapidcsv: " << dd2 << "\n";
+	
+	
+	std::vector<std::string> fullPost;
+	std::string key;
+	std::string val1;
+	std::string out;
+	answerConstraints.clear();
+	int i;
+	for (i=0;i<qq.rawRules.size();i++){
+		Rule rule;
 
+		fullPost = makeAnswer(qq.rawRules[i][1]);
+		key = fullPost[0];
+		val1 = fullPost[1];
+		rule.operands = val1;
+		rule.type = qq.rawRules[i][2];
+		rule.explanation = qq.rawRules[i][3];
+		
+
+		//TODO: add more constraint options
+	
+		if (qq.rawRules[i].size()>4){
+			std::string constraint = constraintify(qq.rawRules[i][4]);
+			std::string postfixed = postfixify(constraint);
+			//std::cout <<" postfixed " << postfixed << "\n";
+			rule.constraints.push_back(postfixed);
+		}
+	
+	
+		if (rules.find(key) != rules.end()){
+			answerConstraints[key].push_back(rule);
+		}
+		else {
+			answerConstraints[key] = {rule};
+		}
+	
+	
+	
+	}
 		
 
 	
