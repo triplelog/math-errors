@@ -2770,6 +2770,8 @@ bool getOneAnswer(std::string s, int nSteps, std::string oquestion) {
 				return false;
 			}
 		}
+		std::cout << newPostfix << "\n";
+		return false;
 		std::cout << "npfb: "<< newPostfix << "\n";
 	}
 	else {
