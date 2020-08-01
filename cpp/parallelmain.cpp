@@ -137,16 +137,16 @@ inline bool operator>(const OperatorProxy& a, const Dewey& b){
 			return true;
 		}
 		else if (a.dewey.topic == "." || b.topic == "."){
-			return (a <subjectEq> b);
+			return (a.dewey <subjectEq> b);
 		}
 		else if (a.dewey.rule == "." || b.rule == "."){
-			return (a <topicEq> b);
+			return (a.dewey <topicEq> b);
 		}
 		else if (a.dewey.id == "." || b.id == "."){
-			return (a <ruleEq> b);
+			return (a.dewey <ruleEq> b);
 		}
 		else {
-			return (a <idEq> b);
+			return (a.dewey <idEq> b);
 		}
 		return false;
 	}
