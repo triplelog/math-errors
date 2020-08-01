@@ -452,7 +452,7 @@ Question chooseQuestion(std::string dewey, std::vector<RawQuestion> questions){
 		rule.operands = val1;
 		rule.type = q.rawRules[i][2];
 		rule.explanation = q.rawRules[i][3];
-		
+		rule.id = -1;
 
 		//TODO: add more constraint options
 	
