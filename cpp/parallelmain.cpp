@@ -89,11 +89,44 @@ struct Step {
 	std::string next = "";
 	int rule;
 };
+struct OperatorProxy
+{
+    int op = 0;
+    Dewey dewey;
+};
 
-inline bool operator=t(const Dewey& a, const Dewey& b){
-	if (a.subject == b.subject && a.topic == b.topic){
-		return true;
+OperatorProxy operator<(const Dewey& a, const OperatorProxy& b){
+	OperatorProxy c;
+	c.dewey = a;
+	c.op = b.op;
+	return c;
+}
+inline bool operator>(const OperatorProxy& a, const Dewey& b){
+	if (a.op == 0){
+		if (a.dewey.subject == b.subject && a.dewey.topic == b.topic && a.dewey.rule == b.rule && a.dewey.id == b.id){
+			return true;
+		}
+		return false
 	}
+	else if (a.op == 1){
+		if (a.dewey.subject == b.subject){
+			return true;
+		}
+		return false
+	}
+	else if (a.op == 2){
+		if (a.dewey.subject == b.subject && a.dewey.topic == b.topic){
+			return true;
+		}
+		return false
+	}
+	else if (a.op == 3){
+		if (a.dewey.subject == b.subject && a.dewey.topic == b.topic && a.dewey.rule == b.rule){
+			return true;
+		}
+		return false
+	}
+	
 	return false;
 }
 std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect);
