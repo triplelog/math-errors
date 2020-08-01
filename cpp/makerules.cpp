@@ -250,9 +250,6 @@ void makeRules(std::string fileName){
 		}
 		
 		rule.id = ridx;
-		if (rule.id < 0){
-			std::cout << "negative rule" << rule.out << "\n";
-		}
 		ruleIndex[ridx]=rule;
 		ridx++;
 		
