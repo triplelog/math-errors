@@ -123,6 +123,7 @@
 					  <div class="card-header">
 						<b>Preview</b>
 						<button onclick="refreshQuestion()">Refresh</button>
+						<button onclick="saveQuestion()">Save</button>
 					  </div>
 					  <div class="card-body">
 						<div id="previewQ"></div>
@@ -343,23 +344,9 @@
 			if (dm.type == 'answer'){
 				createTrees(dm.answer);
 			}
-			else if (dm.type == 'auto'){
-				console.log("ret message");
-				console.log(dm);
-				if (autoNow == dm.answer){
-					autoComplete[dm.answer] = dm.auto;
-					var el = document.getElementById('autoAnswers');
-					el.innerHTML = "";
-					for (var i=0;i<autoComplete[dm.answer].length;i++){
-						var div = document.createElement('div');
-						div.textContent = autoComplete[dm.answer][i];
-						el.appendChild(div);
-					}
-					autoNow = "";
-				}
-				else {
-					autoComplete[dm.answer] = dm.auto;
-				}
+			else if (dm.type == 'preview'){
+				document.getElementById("previewQ").innerHTML = "";
+				document.getElementById("previewQ").textContent = dm.preview;
 			}
 			
 			
@@ -386,10 +373,36 @@
 			for (var i=0;i<tags.length;i++){
 				outstr += "\"t\","+tags[i]+"\n";
 			}
+
+			var jsonmessage = {type:"previewQuestion",qstr:outstr};
+			ws.send(JSON.stringify(jsonmessage));
+		}
+		function saveQuestion() {
+			var outstr = "";
+			var qid = document.getElementById("qid").value;
+			var name = document.getElementById("name").value;
+			outstr += qid + ",\""+name+"\"\n";
+			var humanQ = document.getElementById("humanQ").value;
+			outstr += humanQ + "\n";
+			var compQ =  document.getElementById("compQ").value;
+			outstr += compQ + "\n";
+			var humanA = document.getElementById("humanA").value;
+			outstr += humanA + "\n";
+			var compA =  document.getElementById("compA").value;
+			outstr += compA + "\n";
+			for (var i=0;i<constraintsQ.length;i++){
+				outstr += "\"q\","+constraintsQ[i]+"\n";
+			}
+			for (var i=0;i<constraintsA.length;i++){
+				outstr += "\"a\","+constraintsA[i]+"\n";
+			}
+			for (var i=0;i<tags.length;i++){
+				outstr += "\"t\","+tags[i]+"\n";
+			}
 			document.getElementById("previewQ").innerHTML = "";
 			document.getElementById("previewQ").textContent = outstr;
 			
-			var jsonmessage = {type:"createQuestion",qstr:outstr};
+			var jsonmessage = {type:"saveQuestion",qstr:outstr};
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		var constraintsA = [];
