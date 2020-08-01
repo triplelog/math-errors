@@ -2194,7 +2194,7 @@ bool doubleCheckAnswer(std::string pfstr){
 	
 
 }
-
+bool firstCorrect;
 void initialRun(){
 	prec['#'] = 100;
 	int i;
@@ -2244,7 +2244,7 @@ flat_hash_map<std::string,Answer> answerMap;
 int maxFound;
 int maxSteps;
 
-bool firstCorrect;
+
 bool getAnswerList(std::string s, int nSteps) {
 
 	if (nSteps > maxFound){
