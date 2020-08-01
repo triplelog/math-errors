@@ -494,7 +494,7 @@ std::vector<RawQuestion> makeQuestions(std::string fileName){
 	for (idx=0;idx<nRows;idx++){
 		int i; int ii;
 		bool makeThis = true;
-		std::vector<std::string> dewey;
+		Dewey dewey;
 		std::vector<std::string> firstRow = doc.GetRow<std::string>(startIdx);
 		
 		if (firstRow.size() < 1){
