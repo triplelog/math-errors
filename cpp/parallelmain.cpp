@@ -838,7 +838,7 @@ std::vector<std::vector<Step>> makeTree(std::string pfstr){
 							returnStringsIncorrect.push_back(someStringsI[iiiiii]);
 						}
 						auto a2 = std::chrono::high_resolution_clock::now();
-						duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+						//duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 						
 						
 
@@ -1019,7 +1019,7 @@ std::vector<std::vector<Step>> makeTree(std::string pfstr){
 						returnStringsIncorrect.push_back(someStringsI[iiiiii]);
 					}
 					auto a2 = std::chrono::high_resolution_clock::now();
-					duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+					//duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 					
 					
 					
@@ -2243,7 +2243,7 @@ flat_hash_map<std::string,Answer> answerMap;
 int maxFound;
 int maxSteps;
 
-
+bool firstCorrect;
 bool getAnswerList(std::string s, int nSteps) {
 
 	if (nSteps > maxFound){
@@ -2274,6 +2274,12 @@ bool getAnswerList(std::string s, int nSteps) {
 	
 	if (answerIsFinished){
 		finishedAnswers.push_back(newPostfix);
+		if (!firstCorrect){
+			auto a2 = std::chrono::high_resolution_clock::now();
+			int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+			duration2 += dd1;
+		}
+		firstCorrect = true;
 		//std::cout << newPostfix << "\n";
 	}
 	else {
