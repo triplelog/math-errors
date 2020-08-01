@@ -180,6 +180,19 @@ wss.on('connection', function connection(ws) {
 			var jsonmessage = {'type':'auto',answer:dm.answer,'auto':outArray};
 			ws.send(JSON.stringify(jsonmessage));
 		}
+		else if (dm.type == 'createQuestion'){
+			if (dm.qstr.length >= 10000){
+				return;
+			}
+			var qh = maincpp.previewQuestion(dm.qstr);
+			console.log(qh);
+			fs.writeFile('questions/de/default.csv', dm.qstr, function (err) {
+			  if (err) throw err;
+			});
+			
+			//var jsonmessage = {'type':'created'};
+			//ws.send(JSON.stringify(jsonmessage));
+		}
 		
   	});
 });

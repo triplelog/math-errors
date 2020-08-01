@@ -388,8 +388,9 @@
 			}
 			document.getElementById("previewQ").innerHTML = "";
 			document.getElementById("previewQ").textContent = outstr;
-			//var jsonmessage = {type:"solve",question:question,answer:answer};
-			//ws.send(JSON.stringify(jsonmessage));
+			
+			var jsonmessage = {type:"createQuestion",qstr:outstr};
+			ws.send(JSON.stringify(jsonmessage));
 		}
 		var constraintsA = [];
 		function addConA() {

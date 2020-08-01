@@ -3140,6 +3140,18 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
+void PreviewQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+	v8::Isolate* isolate = info.GetIsolate();
+	v8::String::Utf8Value s(isolate, info[0]);
+	std::string q(*s);
+	RawQuestion rq = previewQuestion(q);
+
+	
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(rq.qH);
+
+	
+	info.GetReturnValue().Set(h.ToLocalChecked());
+}
 void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	
@@ -3203,6 +3215,11 @@ void Init(v8::Local<v8::Object> exports) {
   exports->Set(context,
                Nan::New("solution").ToLocalChecked(),
                Nan::New<v8::FunctionTemplate>(GetSolution)
+                   ->GetFunction(context)
+                   .ToLocalChecked());
+  exports->Set(context,
+               Nan::New("previewQuestion").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(PreviewQuestion)
                    ->GetFunction(context)
                    .ToLocalChecked());
 }

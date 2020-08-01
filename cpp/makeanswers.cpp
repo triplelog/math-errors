@@ -593,3 +593,116 @@ std::vector<RawQuestion> makeQuestions(std::string fileName){
 	
 	return questions;
 }
+
+RawQuestion previewQuestion(std::string input){
+	
+	RawQuestion q;
+	const std::string& csv = input;
+
+    std::stringstream sstream(csv);
+	rapidcsv::Document doc(sstream, rapidcsv::LabelParams(-1, -1));
+	
+	int nRows = doc.GetRowCount();
+	
+	int startIdx = 0;
+	int idx = 0;
+	int oldIdx = 0;
+	auto a0 = std::chrono::high_resolution_clock::now();
+
+	int i; int ii;
+	bool makeThis = true;
+	std::vector<std::string> dewey;
+	std::vector<std::string> firstRow = doc.GetRow<std::string>(startIdx);
+	
+	if (firstRow.size() < 1){
+		continue;
+	}
+	std::string rawDewey = firstRow[0];
+	std::string current = "";
+	for (i=0;i<rawDewey.length();i++){
+		if (rawDewey.at(i)=='.'){
+			dewey.push_back(current);
+			current = "";
+		}
+		else {
+			current += rawDewey.at(i);
+		}
+	}
+	if (current.length()>0){
+		dewey.push_back(current);
+	}
+	if (dewey[0] != "calculus"){
+		makeThis = false;
+	}
+	std::vector<std::vector<std::string>> rawRules;
+
+	
+
+	if (nRows<startIdx+5){
+		return q;
+	}
+	oldIdx = startIdx;
+
+	flat_hash_map<char,std::string> rangeMap;
+	for (i=startIdx+5;i<nRows;i++){
+		std::vector<std::string> rawRule = doc.GetRow<std::string>(i);
+		if (rawRule.size() == 1 && rawRule[0] == ""){
+			startIdx = i+1;
+			break;
+		}
+		if (makeThis){
+			if (rawRule.size() < 3 || rawRule[0] == "t"){
+				continue;			
+			}
+			else if (rawRule[0] != "a" && rawRule[0] != "q"){
+				continue;			
+			}
+			else if (rawRule[0] == "q" && rawRule[1].length() == 1){
+				std::string range = "";
+				char var = rawRule[1].at(0);
+				for (ii=3;ii<rawRule.size();ii++){
+					if (ii >3){
+						range += ",";
+					}
+					range += rawRule[ii];
+				}
+				//std::cout << "range: "<< range << "\n";		
+				//varMap[var]=makeInt(range);
+				rangeMap[var]=range;
+			}
+			else if (rawRule[2] == "e"){
+				//jsonmessage += "rule.examples.push(\""+rawRule[0]+"\");\n";
+			}
+			else if (rawRule[2] == "c"){
+				rawRules.push_back(rawRule);
+				//jsonmessage += "rule.correct.push(\""+rawRule[0]+"\");\n";
+			}
+			else if (rawRule[2] == "i"){
+				rawRules.push_back(rawRule);
+				//jsonmessage += "rule.incorrect.push(\""+rawRule[0]+"\");\n";
+			}
+		}
+	
+	}
+	
+	if (!makeThis){
+		return q;
+	}
+	auto a1 = std::chrono::high_resolution_clock::now();
+	
+	q.qH = doc.GetRow<std::string>(oldIdx+1)[0];
+	q.qC = doc.GetRow<std::string>(oldIdx+2)[0];
+	q.rangeMap = rangeMap;
+	q.rawRules = rawRules;
+	auto a2 = std::chrono::high_resolution_clock::now();
+	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+	std::cout << "time to makeQuestion(): " << dd1 << "\n";
+	int dd2 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a0 ).count();
+	std::cout << "time after rapidcsv: " << dd2 << "\n";
+
+		
+
+	
+	return q;
+}
+
