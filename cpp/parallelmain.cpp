@@ -2759,7 +2759,14 @@ bool getOneAnswer(std::string s, int nSteps, std::string oquestion) {
 	auto a1 = std::chrono::high_resolution_clock::now();
 	std::vector<std::vector<Step>> someStrings = makeTree(newPostfix);
 	
-	
+	if (answerIsFinished){
+		if (doubleCheckAnswer(newPostfix)){
+			
+			std::cout << newPostfix << "\n";
+			return false;
+		}
+		
+	}
 
 
 	auto a2 = std::chrono::high_resolution_clock::now();
@@ -2819,20 +2826,7 @@ bool getOneAnswer(std::string s, int nSteps, std::string oquestion) {
 
 	}
 	
-	if (answerIsFinished){
-		std::cout << "npfa: " << newPostfix << "\n";
-		if (doubleCheckAnswer(newPostfix)){
-			correctSolutionList.clear();
-			std::vector<Step> v = makeSolutionList(newPostfix,oquestion);
-			int vsz = v.size();
-			if (vsz > 0){
-				std::cout << newPostfix << "\n";
-				return false;
-			}
-		}
-		
-		std::cout << "npfb: "<< newPostfix << "\n";
-	}
+	
 	
 	return true;
 		
