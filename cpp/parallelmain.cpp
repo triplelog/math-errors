@@ -2737,7 +2737,7 @@ bool getOneAnswer(std::string s, int nSteps, std::string oquestion) {
 		maxFound = nSteps;
 	}
 	if (nSteps >= maxSteps){
-		return false;
+		return true;
 	}
 	//std::cout << s << "\n";
 	int i;
@@ -2760,6 +2760,7 @@ bool getOneAnswer(std::string s, int nSteps, std::string oquestion) {
 	std::vector<std::vector<Step>> someStrings = makeTree(newPostfix);
 	
 	if (answerIsFinished){
+		std::cout << "npfa: " << newPostfix << "\n";
 		if (doubleCheckAnswer(newPostfix)){
 			
 			std::vector<Step> v = makeSolutionList(newPostfix,oquestion);
@@ -2769,8 +2770,7 @@ bool getOneAnswer(std::string s, int nSteps, std::string oquestion) {
 				return false;
 			}
 		}
-		firstCorrect = true;
-		//std::cout << newPostfix << "\n";
+		std::cout << "npfb: "<< newPostfix << "\n";
 	}
 	else {
 		unfinishedAnswers.push_back(newPostfix);
@@ -2894,7 +2894,7 @@ std::string oneAnswer(std::string s){
 	auto a1 = std::chrono::high_resolution_clock::now();
 	getOneAnswer(newPostfix,0,newPostfix);
 	auto a2 = std::chrono::high_resolution_clock::now();
-	std::cout << "\n\n\n\nCompleted the InCorrect Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << " and " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n\n";
+	std::cout << "\n\n\n\nCompleted the One Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << " and " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n\n";
 	std::cout << "total answers: "<< totalAnswers << "\n";
 	//duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
