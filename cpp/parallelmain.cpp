@@ -3106,8 +3106,9 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			}
 			std::cout << "here?? " << iii <<"\n";
 			std::vector<int> allOptions = answerListMapF[v[iii].next];
-			std::cout << "here?? " << iii <<"\n";
+			std::cout << "here?? " << iii << "and " << allOptions.size() <<"\n";
 			for (iiii=0;iiii<allOptions.size();iiii++){
+				std::cout << "here?? " << iiii << "and " << allOptions[iiii] <<"\n";
 				if (alreadyOpp.find(allOptions[iiii]) != alreadyOpp.end()){
 					continue;
 				}
@@ -3115,6 +3116,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 					userData[allOptions[iiii]][1]=true;
 					alreadyOpp[allOptions[iiii]]=true;
 				}
+				std::cout << "here?? " << iiii << "and " << allOptions[iiii] <<"\n";
 			}
 			std::cout << "here?? " << iii <<"\n";
 		}
