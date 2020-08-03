@@ -281,7 +281,9 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 					Step step;
 					step.next = tempTemp;
 					step.rule = rule.id;
-					
+					if (step.rule < 0){
+						std::cout << "negative rule\n";
+					}
 					allStrings.push_back(step);
 				}
 				

@@ -241,7 +241,7 @@ void makeRules(std::string fileName){
 			rule.constraints.push_back(postfixed);
 		}
 		
-		
+		rule.id = ridx;
 		if (rules.find(key) != rules.end()){
 			rules[key].push_back(rule);
 		}
@@ -249,7 +249,7 @@ void makeRules(std::string fileName){
 			rules[key] = {rule};
 		}
 		
-		rule.id = ridx;
+		
 		ruleIndex[ridx]=rule;
 		ridx++;
 		
