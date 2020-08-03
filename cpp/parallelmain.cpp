@@ -2440,6 +2440,11 @@ bool getAnswerList(std::string s, int nSteps) {
 	totalAnswers += allStrings.size();
 	//std::cout << "total answers: "<< totalAnswers << "\n";
 	for (ii=0;ii<allStrings.size();ii++){
+		if (allStrings[ii].rule < 0){
+				std::cout << "negative ruleccc\n";
+		}
+	}
+	for (ii=0;ii<allStrings.size();ii++){
 		if (allStrings[ii].next == newPostfix){
 			continue;
 		}
