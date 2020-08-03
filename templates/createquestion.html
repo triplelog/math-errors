@@ -125,7 +125,7 @@
 						<b>Preview</b>
 						<button onclick="saveQuestion()" class="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-0 px-2 rounded-r focus:outline-none focus:shadow-outline" type="button">Save</button>
 
-						<button onclick="refreshQuestion()" class="float-right bg-red-500 hover:bg-blue-700 text-white font-bold py-0 px-2 rounded-l focus:outline-none focus:shadow-outline" type="button">Refresh</button>
+						<button onclick="refreshQuestion()" class="float-right bg-red-500 hover:bg-red-700 text-white font-bold py-0 px-2 rounded-l focus:outline-none focus:shadow-outline" type="button">Refresh</button>
 						
 					  </div>
 					  <div class="card-body">
@@ -139,19 +139,30 @@
 						<b>Info</b>
 					  </div>
 					  <div class="card-body">
-					  	<div>ID:</div>
 					  	<div>
-					  		<input type="text" id="qid" value="">
-					  	</div>
-					  	<div>Name:</div>
-					  	<div>
-					  		<input type="text" id="name" value="">
-					  	</div>
-						<div>Tags:</div>
+							<label class="block text-gray-700 text-sm font-bold mb-1" for="qid">
+								ID
+							  </label>
+							  <input id="qid" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+
+						</div>
 						<div>
-							<div id="tags"></div>
-							<input type="text" id="addTag" value="">
-							<button onclick="addTag()">Add Tag</button>
+							<label class="block text-gray-700 text-sm font-bold mb-1" for="name">
+								Name
+							  </label>
+							  <input id="name" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+
+						</div>
+						<div>
+							<label class="block text-gray-700 text-sm font-bold mb-1" for="addTag">
+								Tags
+							  </label>
+							  <div id="tags"></div>
+							  <input id="addTag" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+
+						</div>
+						<div>
+							<button onclick="addTag()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">Add Tag</button>
 						</div>
 						
 					  </div>
@@ -163,19 +174,29 @@
 						<b>Question</b>
 					  </div>
 					  <div class="card-body">
-						<div>Human:</div>
 						<div>
-							<textarea id="humanQ" rows="2" cols="40"></textarea>
+							<label class="block text-gray-700 text-sm font-bold mb-1" for="humanQ">
+								Human
+							  </label>
+							  <textarea id="humanQ" rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3"></textarea>
+
 						</div>
-						<div>Computer:</div>
 						<div>
-							<input type="text" id="compQ" value="">
+							<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
+								Computer
+							  </label>
+							  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+
 						</div>
-						<div>Constraints:</div>
 						<div>
 							<div id="constraintsQ"></div>
-							<input type="text" id="addConQ" value="">
-							<button onclick="addConQ()">Add Constraint</button>
+							<label class="block text-gray-700 text-sm font-bold mb-1" for="addConQ">
+								Constraints
+							  </label>
+							  <input id="addConQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+						</div>
+						<div>
+							<button onclick="addConQ()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">Add Constraint</button>
 						</div>
 					  </div>
 				</div>
@@ -190,7 +211,7 @@
 							<label class="block text-gray-700 text-sm font-bold mb-1" for="humanA">
 								Human
 							  </label>
-							  <textarea id="humanA" rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text"></textarea>
+							  <textarea id="humanA" rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3"></textarea>
 
 						</div>
 						<div>
