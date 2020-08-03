@@ -2378,9 +2378,6 @@ bool getAnswerList(std::string s, int nSteps) {
 			Step step;
 			step.next = someStrings[0][iii].next;
 			step.rule = someStrings[0][iii].rule;
-			if (step.rule < 0){
-				std::cout << "negative ruleaaa\n";
-			}
 			allStrings.push_back(step);
 			uniqueStrings[someStrings[0][iii].next]=true;
 		}
@@ -2427,9 +2424,6 @@ bool getAnswerList(std::string s, int nSteps) {
 			Step step;
 			step.next = someStrings[1][iii].next;
 			step.rule = someStrings[1][iii].rule;
-			if (step.rule < 0){
-				std::cout << "negative rulebbb\n";
-			}
 			allStrings.push_back(step);
 			uniqueStrings[someStrings[1][iii].next]=true;
 		}
@@ -2439,11 +2433,7 @@ bool getAnswerList(std::string s, int nSteps) {
 	
 	totalAnswers += allStrings.size();
 	//std::cout << "total answers: "<< totalAnswers << "\n";
-	for (ii=0;ii<allStrings.size();ii++){
-		if (allStrings[ii].rule < 0){
-				std::cout << "negative ruleccc\n";
-		}
-	}
+
 	for (ii=0;ii<allStrings.size();ii++){
 		if (allStrings[ii].next == newPostfix){
 			continue;
