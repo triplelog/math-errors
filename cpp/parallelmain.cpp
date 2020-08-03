@@ -2437,6 +2437,9 @@ bool getAnswerList(std::string s, int nSteps) {
 		if (allStrings[ii].next == newPostfix){
 			continue;
 		}
+		if (allStrings[ii].rule < 0){
+			std::cout << "negative rule: " << allStrings[ii].next << " and " << allStrings[ii].rule << " and " << newPostfix << "\n";
+		}
 		answerListMapF[newPostfix].push_back(allStrings[ii].rule);
 
 		if (answerListMapF.find(allStrings[ii].next) != answerListMapF.end()){
