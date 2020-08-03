@@ -159,7 +159,7 @@
 							  </label>
 							  <div id="tags"></div>
 							  <div class="w-full flex">
-							    <input id="addTag" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-4" type="text">
+							    <input id="addTag" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
 								<button onclick="addTag()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Tag</button>
 							  </div>
 						</div>
@@ -192,11 +192,12 @@
 							<label class="block text-gray-700 text-sm font-bold mb-1" for="addConQ">
 								Constraints
 							  </label>
-							  <input id="addConQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+							  <div class="w-full flex">
+							    <input id="addConQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
+								<button onclick="addConQ()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Constraint</button>
+							  </div>
 						</div>
-						<div>
-							<button onclick="addConQ()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">Add Constraint</button>
-						</div>
+
 					  </div>
 				</div>
 			  </div>
@@ -225,10 +226,10 @@
 							<label class="block text-gray-700 text-sm font-bold mb-1" for="addConA">
 								Constraints
 							  </label>
-							  <input id="addConA" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
-						</div>
-						<div>
-							<button onclick="addConA()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">Add Constraint</button>
+							  <div class="w-full flex">
+							    <input id="addConA" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
+								<button onclick="addConA()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Constraint</button>
+							  </div>						
 						</div>
 					  </div>
 				</div>
