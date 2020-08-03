@@ -29,6 +29,7 @@
     
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
+    <link href="css/output.css" rel="stylesheet">
   </head>
   <body>
     
@@ -105,62 +106,70 @@
     </nav>
 
     <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-			<h1 class="h2">Dashboard</h1>
-			<div class="btn-toolbar mb-2 mb-md-0">
-			  <div class="btn-group mr-2">
-				<button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-				<button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-			  </div>
-			  <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-				<span data-feather="calendar"></span>
-				This week
-			  </button>
-			</div>
+    	<div class="w-full mb-2 py-4">
+			<span class="text-2xl"><b>Create Question</b></span>
+			<button class="float-right bg-white hover:border-gray-900 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-r focus:outline-none focus:shadow-outline" type="button">Share</button>
+			<button class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 focus:outline-none focus:shadow-outline" type="button">Similar</button>
+			<button onclick="submitQuestion()" class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-l focus:outline-none focus:shadow-outline" type="button">New</button>
+					
         </div>
 
-        <div> 
-        	<div>
-				<input type="submit" onclick="submitQuestion()">
-			</div>
-	  		<div id="question"></div>
-			<div>What is your answer?</div>
-			<div>
-				<input type="text" id="answer" value="">
-			</div>
-			<div>
-				<input type="submit" onclick="submitAnswer()">
-			</div>
-		</div>
-		
-		<div id="autoAnswers"> 
-	  		
-			
-		</div>
-	
-		<div class="accordion" id="accordionExample">
-		  
-		</div>
-		  <template id="treeTemplate">
-			  <div class="card">
-				<div class="card-header" id="heading">
-				  <h2 class="mb-0">
-					<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
-					  Node
-					</button>
-				  </h2>
+		<div class="flex flex-wrap w-full">
+		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
+			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
+				<b>Question</b>
+								
+			  </div>
+			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
+				<div id="question"></div>
+				<div>
+					<input type="text" id="answer" value="">
 				</div>
-
-				<div id="collapse" class="collapse" aria-labelledby="heading" data-parent="#accordionExample">
-				  <div class="card-body">
-					<div class="tf-tree">
-					  <ul id="tree-simple">
-					  </ul>
-					</div>
-				  </div>
+				<div>
+					<input type="submit" onclick="submitAnswer()">
 				</div>
 			  </div>
-		  </template>
+		  </div>
+		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
+			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
+				<b>Solution</b>
+								
+			  </div>
+			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
+				<div id="autoAnswers"> 
+	  		
+			
+				</div>
+	
+				<div class="accordion" id="accordionExample">
+		  
+				</div>
+				  <template id="treeTemplate">
+					  <div class="card">
+						<div class="card-header" id="heading">
+						  <h2 class="mb-0">
+							<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
+							  Node
+							</button>
+						  </h2>
+						</div>
+
+						<div id="collapse" class="collapse" aria-labelledby="heading" data-parent="#accordionExample">
+						  <div class="card-body">
+							<div class="tf-tree">
+							  <ul id="tree-simple">
+							  </ul>
+							</div>
+						  </div>
+						</div>
+					  </div>
+				  </template>
+			  </div>
+		  </div>
+		</div>
+
+		
+		
 
     </main>
   </div>
@@ -170,7 +179,6 @@
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" integrity="sha384-EbSscX4STvYAC/DxHse8z5gEDaNiKAIGW+EpfzYTfQrgIlHywXXrM9SUIZ0BlyfF" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha384-i+dHPTzZw7YVZOx9lbH5l6lP74sLRtMtwN2XjVqjf3uAGAREAF4LMIUDTWEVs4LI" crossorigin="anonymous"></script>
       <script src="js/dashboard.js"></script>
   
   <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
