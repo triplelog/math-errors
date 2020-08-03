@@ -341,8 +341,8 @@
 				var template = document.querySelector('#autoTemplate');
 				var clone = template.content.cloneNode(true);
 				var button = clone.querySelector('button');
-				button.textContent = autoComplete[dm.answer][i].latex;
-				button.setAttribute('data-input',autoComplete[dm.answer][i].input);
+				button.textContent = autoComplete[answer][i].latex;
+				button.setAttribute('data-input',autoComplete[answer][i].input);
 				button.id = "auto"+i;
 				el.appendChild(button);
 				katex.render(button.textContent, button, {
