@@ -366,9 +366,18 @@
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		function setAnswer(evt) {
-			var answer = evt.target.getAttribute('data-input');
-			console.log(answer);
-			submitAnswer(answer);
+			var el = evt.target;
+			console.log(el);
+			while (!el.getAttribute('data-input') && el.parentElement){
+				el = el.parentElement;
+			}
+			console.log(el);
+			var answer = el.getAttribute('data-input');
+			if (answer){
+				console.log(answer);
+				submitAnswer(answer);
+			}
+			
 		}
 		function answerDown(evt) {
 			var key = evt.key;
