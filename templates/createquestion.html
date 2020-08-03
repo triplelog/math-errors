@@ -192,10 +192,13 @@
 						<div>
 							<input type="text" id="compA" value="">
 						</div>
-						<div>Constraints:</div>
 						<div>
 							<div id="constraintsA"></div>
-							<input type="text" id="addConA" value="">
+							<label class="block text-gray-700 text-sm font-bold mb-2" for="addConA">
+								Constraints
+							  </label>
+							  <input id="addConA" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text">
+
 							<button onclick="addConA()">Add Constraint</button>
 						</div>
 					  </div>
@@ -205,34 +208,7 @@
 
 		</div>
 		
-		<div id="autoAnswers"> 
-	  		
-			
-		</div>
 	
-		<div class="accordion" id="accordionExample">
-		  
-		</div>
-		  <template id="treeTemplate">
-			  <div class="card">
-				<div class="card-header" id="heading">
-				  <h2 class="mb-0">
-					<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
-					  Node
-					</button>
-				  </h2>
-				</div>
-
-				<div id="collapse" class="collapse" aria-labelledby="heading" data-parent="#accordionExample">
-				  <div class="card-body">
-					<div class="tf-tree">
-					  <ul id="tree-simple">
-					  </ul>
-					</div>
-				  </div>
-				</div>
-			  </div>
-		  </template>
 		  <div class="w-full max-w-xs">
 			  <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
 				<div class="mb-4">
