@@ -129,13 +129,50 @@
 		  </div>
 		  <div class="w-full sm:w-1/1 md:w-1/1 lg:w-1/1 mb-4 px-2">
 			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
+				<b>Errors</b>
+								
+			  </div>
+			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
+				
+	
+				<div class="accordion" id="accordionErrors">
+		  
+				</div>
+				  <template id="errorTemplate">
+					  <div class="card">
+						<div class="card-header" id="heading">
+						  <h2 class="mb-0">
+							<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
+							  Node
+							</button>
+							<button class="float-right bg-blue-200 hover:border-blue-400 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-r focus:outline-none focus:shadow-outline" type="button">Yes</button>
+							<button class="float-right bg-yellow-200 hover:bg-yellow-400 text-gray-700 font-bold py-2 px-2 border border-gray-400 focus:outline-none focus:shadow-outline" type="button">Maybe</button>
+							<button class="float-right bg-red-200 hover:bg-red-400 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-l focus:outline-none focus:shadow-outline" type="button">No</button>
+			
+						  </h2>
+						</div>
+
+						<div id="collapse" class="collapse" aria-labelledby="heading" data-parent="#accordionExample">
+						  <div class="card-body">
+							<div class="tf-tree">
+							  <ul id="tree-simple">
+							  </ul>
+							</div>
+						  </div>
+						</div>
+					  </div>
+				  </template>
+			  </div>
+		  </div>
+		  <div class="w-full sm:w-1/1 md:w-1/1 lg:w-1/1 mb-4 px-2">
+			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
 				<b>Solution</b>
 								
 			  </div>
 			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
 				
 	
-				<div class="accordion" id="accordionExample">
+				<div class="accordion" id="accordionSolution">
 		  
 				</div>
 				  <template id="treeTemplate">
@@ -176,13 +213,13 @@
   <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
 	<script>
 		function createTrees(input_str){
-			document.getElementById("accordionExample").innerHTML = "";
+			document.getElementById("accordionSolution").innerHTML = "";
 			
 			
 			var trees = [];
 			eval(input_str);
 			for (var i=0;i<trees.length-1;i++){
-				var template = document.querySelector('#treeTemplate');
+				var template = document.querySelector('#errorTemplate');
 				var clone = template.content.cloneNode(true);
 				var button = clone.querySelector('#heading button');
 				button.setAttribute('data-target','#collapse'+i);
@@ -194,7 +231,7 @@
 				clone.querySelector('#tree-simple').id = 'tree-simple'+i;
 				
 				
-				document.getElementById("accordionExample").appendChild(clone);
+				document.getElementById("accordionSolution").appendChild(clone);
 				
 			}
 			for (var ii=0;ii<trees.length;ii++){
