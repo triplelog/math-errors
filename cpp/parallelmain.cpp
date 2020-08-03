@@ -3254,7 +3254,7 @@ void AutoAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	for (i=0;i<autoAnswers.size();i++){
 		//std::cout << autoAnswers[i] << "\n";
 		if (answerMap.find(autoAnswers[i]) != answerMap.end()){
-			jsonmessage += "outArray.push(\""+latexOne(autoAnswers[i])+"\");\n";
+			jsonmessage += "outArray.push({latex:\""+latexOne(autoAnswers[i])+"\",input:\""+answerMap[autoAnswers[i]].input+"\"});\n";
 		}
 		
 	}

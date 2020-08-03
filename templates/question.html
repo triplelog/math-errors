@@ -324,20 +324,7 @@
 				console.log(dm);
 				if (autoNow == dm.answer){
 					autoComplete[dm.answer] = dm.auto;
-					var el = document.getElementById('autoAnswers');
-					el.innerHTML = "";
-					for (var i=0;i<autoComplete[dm.answer].length;i++){
-						var template = document.querySelector('#autoTemplate');
-						var clone = template.content.cloneNode(true);
-						var button = clone.querySelector('button');
-						button.textContent = autoComplete[dm.answer][i];
-						button.id = "auto"+i;
-						el.appendChild(button);
-						katex.render(button.textContent, button, {
-							throwOnError: false
-						});
-						
-					}
+					chgAuto(dm.answer);
 					autoNow = "";
 				}
 				else {
@@ -347,6 +334,23 @@
 			
 			
 		}
+		function chgAuto(answer) {
+			var el = document.getElementById('autoAnswers');
+			el.innerHTML = "";
+			for (var i=0;i<autoComplete[answer].length;i++){
+				var template = document.querySelector('#autoTemplate');
+				var clone = template.content.cloneNode(true);
+				var button = clone.querySelector('button');
+				button.textContent = autoComplete[dm.answer][i].latex;
+				button.setAttribute('data-input',autoComplete[dm.answer][i].input);
+				button.id = "auto"+i;
+				el.appendChild(button);
+				katex.render(button.textContent, button, {
+					throwOnError: false
+				});
+				
+			}
+		}
 		function submitQuestion() {
 			//var question = document.getElementById("equation").value;
 			//var answer = "x";//document.getElementById("answer").value;
@@ -354,10 +358,13 @@
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		function submitAnswer() {
-			//var question = document.getElementById("equation").value;
 			var answer = document.getElementById("answer").value;
 			var jsonmessage = {type:"check",answer:answer};
 			ws.send(JSON.stringify(jsonmessage));
+		}
+		function setAnswer(evt) {
+			var answer = evt.target.data-input;
+			console.log(answer);
 		}
 		function answerDown(evt) {
 			var key = evt.key;
@@ -371,13 +378,7 @@
 		function answerChange(evt) {
 			var answer = document.getElementById("answer").value;
 			if (autoComplete[answer]){
-				var el = document.getElementById('autoAnswers');
-				el.innerHTML = "";
-				for (var i=0;i<autoComplete[answer].length;i++){
-					var div = document.createElement('div');
-					div.textContent = autoComplete[answer][i];
-					el.appendChild(div);
-				}
+				chgAuto(answer);
 				
 			}
 			else {
