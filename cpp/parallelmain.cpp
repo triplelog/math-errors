@@ -2378,6 +2378,9 @@ bool getAnswerList(std::string s, int nSteps) {
 			Step step;
 			step.next = someStrings[0][iii].next;
 			step.rule = someStrings[0][iii].rule;
+			if (step.rule < 0){
+				std::cout << "negative ruleaaa\n";
+			}
 			allStrings.push_back(step);
 			uniqueStrings[someStrings[0][iii].next]=true;
 		}
@@ -2424,6 +2427,9 @@ bool getAnswerList(std::string s, int nSteps) {
 			Step step;
 			step.next = someStrings[1][iii].next;
 			step.rule = someStrings[1][iii].rule;
+			if (step.rule < 0){
+				std::cout << "negative rulebbb\n";
+			}
 			allStrings.push_back(step);
 			uniqueStrings[someStrings[1][iii].next]=true;
 		}
