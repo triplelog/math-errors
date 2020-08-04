@@ -7,7 +7,7 @@ const binding = require.resolve(`./build/Release/binding`);
 //const postfix = require('./postfix.js');
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://rwilcox:kZGWGda3A@localhost:27017/matherrors', {useNewUrlParser: true});
+mongoose.connect('mongodb://matherrors:kZGWGda3A@localhost:27017/matherrors', {useNewUrlParser: true});
 var fromLogin = require('./login-server.js');
 var app = fromLogin.loginApp;
 var tempKeys = fromLogin.tempKeys;
