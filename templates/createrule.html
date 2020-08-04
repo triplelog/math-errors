@@ -121,7 +121,7 @@
 			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
 				<div>
 					<label class="block text-gray-700 text-sm font-bold mb-1" for="qid">
-						Category
+						Subject.Topic
 					  </label>
 					  <input id="qid" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
@@ -135,12 +135,11 @@
 				</div>
 				<div>
 					<label class="block text-gray-700 text-sm font-bold mb-1" for="addTag">
-						Tags
+						Explanation
 					  </label>
 					  <div id="tags"></div>
 					  <div class="w-full flex">
 						<input id="addTag" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
-						<button onclick="addTag()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Tag</button>
 					  </div>
 				</div>
 				
@@ -148,19 +147,26 @@
 		  </div>
 		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
 			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
-				<b>Question</b>
+				<b>Correct</b>
 			  </div>
 			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
-				<div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="humanQ">
-						Human
+			  	<div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
+						Explanation
 					  </label>
-					  <textarea id="humanQ" rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3"></textarea>
+					  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
 				<div>
 					<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
-						Computer
+						In
+					  </label>
+					  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+
+				</div>
+				<div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
+						Out
 					  </label>
 					  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
@@ -180,33 +186,80 @@
 		  </div>
 		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
 			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
-				<b>Answer</b>
+				<b>Error</b>
 			  </div>
 			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
-				<div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="humanA">
-						Human
+			  	<div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
+						Explanation
 					  </label>
-					  <textarea id="humanA" rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3"></textarea>
+					  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
 				<div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="compA">
-						Computer
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
+						In
 					  </label>
-					  <input id="compA" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+					  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
 				<div>
-					<div id="constraintsA"></div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="addConA">
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
+						Out
+					  </label>
+					  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+
+				</div>
+				<div>
+					<div id="constraintsQ"></div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="addConQ">
 						Constraints
 					  </label>
 					  <div class="w-full flex">
-						<input id="addConA" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
-						<button onclick="addConA()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Constraint</button>
-					  </div>						
+						<input id="addConQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
+						<button onclick="addConQ()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Constraint</button>
+					  </div>
 				</div>
+
+			  </div>
+		  </div>
+		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
+			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
+				<b>Example</b>
+			  </div>
+			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
+			  	<div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
+						Explanation
+					  </label>
+					  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+
+				</div>
+				<div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
+						In
+					  </label>
+					  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+
+				</div>
+				<div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
+						Out
+					  </label>
+					  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+
+				</div>
+				<div>
+					<div id="constraintsQ"></div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="addConQ">
+						Constraints
+					  </label>
+					  <div class="w-full flex">
+						<input id="addConQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
+						<button onclick="addConQ()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Constraint</button>
+					  </div>
+				</div>
+
 			  </div>
 		  </div>
 		</div>
