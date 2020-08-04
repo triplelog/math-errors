@@ -212,7 +212,7 @@ wss.on('connection', function connection(ws) {
 			SubjectData.findOne({subject:subject}, function(err,result) {
 				if (result == null){
 					var topics = {};
-					topics[topic]={name:name,explanation:explanation,instructions:instructions};
+					topics[topic]=[{name:name,explanation:explanation,instructions:instructions}];
 					var subjectData = new SubjectData({subject:subject,topics:topics});
 					subjectData.save(function(err,result){
 						if (err){
@@ -224,7 +224,7 @@ wss.on('connection', function connection(ws) {
 					});
 				}
 				else {
-					result.topics[topic]={name:name,explanation:explanation,instructions:instructions};
+					result.topics[topic].push({name:name,explanation:explanation,instructions:instructions});
 					result.markModified('topics');
 					result.save(function(err,result){
 						if (err){

@@ -59,11 +59,13 @@
 		  {% for subject in subjects %}
 		  <li class="nav-item">
 			<a class="nav-link" href="#">
-			  {{ subject.name }}
+			  {{ subject.subject }}
 			</a>
-			<div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
-			  <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
+			<ul>
+				{% for topic in subject.topics %}
+				<li>{{ topic }}</li>
+				{% endfor %}
+			</ul>
 		  </li>
 		  {% endfor %}
 		  
