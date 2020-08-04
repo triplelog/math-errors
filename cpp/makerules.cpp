@@ -199,14 +199,14 @@ void makeRules(std::string fileName){
 			jsonmessage += "rule = {name:\""+rawRule[1]+"\",explanation:\""+rawRule[2]+"\",correct:[],incorrect:[],examples:[]}; rule['id'] = rules.length; \n";
 			
 		}
-		else if (rawRule[2] == "e"){
+		else if (rawRule[2] == "x"){
 			jsonmessage += "rule.examples.push(\""+rawRule[0]+"\");\n";
 		}
 		else if (rawRule[2] == "c"){
 			rawRules.push_back(rawRule);
 			jsonmessage += "rule.correct.push(\""+rawRule[0]+"\");\n";
 		}
-		else if (rawRule[2] == "i"){
+		else if (rawRule[2] == "i" || rawRule[2] == "e"){
 			rawRules.push_back(rawRule);
 			jsonmessage += "rule.incorrect.push(\""+rawRule[0]+"\");\n";
 		}

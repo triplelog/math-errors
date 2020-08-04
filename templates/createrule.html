@@ -184,74 +184,86 @@
 			  </div>
 			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
 			  	<div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
+			  		<div id="instructionsE"></div>
+			  	</div>
+			  	<div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="expE">
 						Explanation
 					  </label>
-					  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+					  <input id="expE" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
 				<div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="inE">
 						In
 					  </label>
-					  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+					  <input id="inE" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
 				<div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="outE">
 						Out
 					  </label>
-					  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+					  <input id="outE" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
 				<div>
-					<div id="constraintsQ"></div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="addConQ">
+					<div id="constraintsE"></div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="addConE">
 						Constraints
 					  </label>
 					  <div class="w-full flex">
-						<input id="addConQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
-						<button onclick="addConQ()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Constraint</button>
+						<input id="addConE" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
+						<button onclick="addConE()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Constraint</button>
 					  </div>
+				</div>
+				<div>
+					<button onclick="addInstructionE()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Instruction</button>
 				</div>
 
 			  </div>
 		  </div>
 		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
 			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
-				<b>Example</b>
+				<b>Examples</b>
 			  </div>
 			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
 			  	<div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
+			  		<div id="instructionsX"></div>
+			  	</div>
+			  	<div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="expX">
 						Explanation
 					  </label>
-					  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+					  <input id="expX" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
 				<div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="inX">
 						In
 					  </label>
-					  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+					  <input id="inX" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
 				<div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="outX">
 						Out
 					  </label>
-					  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+					  <input id="outX" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
 				<div>
-					<div id="constraintsQ"></div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="addConQ">
+					<div id="constraintsX"></div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="addConX">
 						Constraints
 					  </label>
 					  <div class="w-full flex">
-						<input id="addConQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
-						<button onclick="addConQ()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Constraint</button>
+						<input id="addConX" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
+						<button onclick="addConX()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Constraint</button>
 					  </div>
+				</div>
+				<div>
+					<button onclick="addInstructionX()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Instruction</button>
 				</div>
 
 			  </div>
@@ -357,10 +369,24 @@
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		var conC = [];
+		var conE = [];
+		var conX = [];
 		function addConC() {
 			var el = document.getElementById('addConC');
 			conC.push(el.value);
 			document.getElementById('constraintsC').textContent += "\n"+el.value;
+			el.value = "";
+		}
+		function addConE() {
+			var el = document.getElementById('addConE');
+			conE.push(el.value);
+			document.getElementById('constraintsE').textContent += "\n"+el.value;
+			el.value = "";
+		}
+		function addConX() {
+			var el = document.getElementById('addConX');
+			conX.push(el.value);
+			document.getElementById('constraintsX').textContent += "\n"+el.value;
 			el.value = "";
 		}
 		function addInstructionC() {
@@ -380,18 +406,41 @@
 			document.getElementById('outC').value = "";
 			document.getElementById('addConC').value = "";
 		}
-		function addConE() {
-			var el = document.getElementById('addConE');
-			instructions.push(el.value);
-			document.getElementById('constraintsE').textContent += "\n"+el.value;
-			el.value = "";
+		function addInstructionE() {
+			var explanation = document.getElementById('expE').value;
+			var inText = document.getElementById('inE').value;
+			var outText = document.getElementById('outE').value;
+			var instruction = inText+","+outText+",e,"+explanation;
+			for (var i=0;i<conE.length;i++){
+				instruction += ","+conE[i];
+			}
+			instructions.push(instruction);
+			document.getElementById('instructionsE').textContent += "\n"+instruction;
+			document.getElementById('constraintsE').textContent = "";
+			conE = [];
+			document.getElementById('expE').value = "";
+			document.getElementById('inE').value = "";
+			document.getElementById('outE').value = "";
+			document.getElementById('addConE').value = "";
 		}
-		function addConX() {
-			var el = document.getElementById('addConX');
-			instructions.push(el.value);
-			document.getElementById('constraintsX').textContent += "\n"+el.value;
-			el.value = "";
+		function addInstructionX() {
+			var explanation = document.getElementById('expX').value;
+			var inText = document.getElementById('inX').value;
+			var outText = document.getElementById('outX').value;
+			var instruction = inText+","+outText+",x,"+explanation;
+			for (var i=0;i<conX.length;i++){
+				instruction += ","+conX[i];
+			}
+			instructions.push(instruction);
+			document.getElementById('instructionsX').textContent += "\n"+instruction;
+			document.getElementById('constraintsX').textContent = "";
+			conX = [];
+			document.getElementById('expX').value = "";
+			document.getElementById('inX').value = "";
+			document.getElementById('outX').value = "";
+			document.getElementById('addConX').value = "";
 		}
+		
 		
 		
 	</script>

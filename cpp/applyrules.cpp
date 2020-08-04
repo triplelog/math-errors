@@ -36,7 +36,7 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 			
 			
 			if (rule.type != "c" && isCorrect){continue;}
-			else if (rule.type != "i" && !isCorrect){continue;}
+			else if (rule.type != "e" && rule.type != "i" && !isCorrect){continue;}
 			//else if (!isCorrect){continue;}
 			
 			

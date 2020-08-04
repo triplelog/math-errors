@@ -576,14 +576,14 @@ std::vector<RawQuestion> makeQuestions(std::string fileName){
 					//varMap[var]=makeInt(range);
 					rangeMap[var]=range;
 				}
-				else if (rawRule[2] == "e"){
+				else if (rawRule[2] == "x"){
 					//jsonmessage += "rule.examples.push(\""+rawRule[0]+"\");\n";
 				}
 				else if (rawRule[2] == "c"){
 					rawRules.push_back(rawRule);
 					//jsonmessage += "rule.correct.push(\""+rawRule[0]+"\");\n";
 				}
-				else if (rawRule[2] == "i"){
+				else if (rawRule[2] == "i" || rawRule[2] == "e"){
 					rawRules.push_back(rawRule);
 					//jsonmessage += "rule.incorrect.push(\""+rawRule[0]+"\");\n";
 				}
@@ -714,14 +714,14 @@ Question previewQuestion(std::string input){
 				//varMap[var]=makeInt(range);
 				rangeMap[var]=range;
 			}
-			else if (rawRule[2] == "e"){
+			else if (rawRule[2] == "x"){
 				//jsonmessage += "rule.examples.push(\""+rawRule[0]+"\");\n";
 			}
 			else if (rawRule[2] == "c"){
 				rawRules.push_back(rawRule);
 				//jsonmessage += "rule.correct.push(\""+rawRule[0]+"\");\n";
 			}
-			else if (rawRule[2] == "i"){
+			else if (rawRule[2] == "i" || rawRule[2] == "e"){
 				rawRules.push_back(rawRule);
 				//jsonmessage += "rule.incorrect.push(\""+rawRule[0]+"\");\n";
 			}
