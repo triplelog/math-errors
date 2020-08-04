@@ -56,38 +56,17 @@
 		  </a>
 		</h6>
 		<ul class="nav flex-column mb-2">
+		  {% for subject in subjects %}
 		  <li class="nav-item">
 			<a class="nav-link" href="#">
-			  Arithmetic
+			  {{ subject.name }}
 			</a>
 			<div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
 			  <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 			</div>
 		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#">
-			  Derivatives
-			</a>
-			<div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
-			  <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#">
-			  Integrals
-			</a>
-			<div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
-			  <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#">
-			  Limits
-			</a>
-			<div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
-			  <div class="progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
-		  </li>
+		  {% endfor %}
+		  
 		</ul>
 	  </div>
 

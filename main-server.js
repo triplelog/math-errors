@@ -281,10 +281,14 @@ app.get('/createquestion',
 		console.log(performance.now());
 		//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
 		//ws.send(JSON.stringify(jsonmessage));
-		res.write(nunjucks.render('templates/createquestion.html',{
-
-		}));
-		res.end();
+		SubjectData.find({}, function(err,result) {
+			res.write(nunjucks.render('templates/createquestion.html',{
+			
+			}));
+			res.end();
+		
+		});
+		
 
 		
 	
@@ -298,10 +302,18 @@ app.get('/createrule',
 		console.log(performance.now());
 		//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
 		//ws.send(JSON.stringify(jsonmessage));
-		res.write(nunjucks.render('templates/createrule.html',{
 
-		}));
-		res.end();
+		SubjectData.find({}, function(err,result) {
+			var subjects = [];
+			for (var i=0;i<result.length;i++){
+				subjects.push(result[i]);
+			}
+			res.write(nunjucks.render('templates/createrule.html',{
+				subjects: subjects,
+			}));
+			res.end();
+		
+		});
 
     }
     
