@@ -57,13 +57,16 @@
 		</h6>
 		<ul class="mx-2 w-full">
 		  {% for subject in subjects %}
-		  <li class="my-4 w-full uppercase">
-			<a class="" href="#">
+		  <li class="my-3 w-full uppercase">
+			<a class="uppercase" href="#">
 			  {{ subject.subject }}
 			</a>
 			<ul class="mx-2 w-full">
 				{% for name, list in subject.topics %}
-				<li class="my-2 w-full capitalize">{{ name }}</li>
+				<li class="my-1 w-full capitalize">
+					<span>{{ name }}</span>
+					<button class="float-right bg-green-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline" type="button">?</button>
+				</li>
 				{% endfor %}
 			</ul>
 		  </li>
