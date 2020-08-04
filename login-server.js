@@ -19,7 +19,7 @@ const { PerformanceObserver, performance } = require('perf_hooks');
 var tempKeys = {};
 const User = require('./models/user');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/matherrors', {useNewUrlParser: true});
+mongoose.connect('mongodb://rwilcox:kZGWGda3A@localhost:27017/matherrors', {useNewUrlParser: true});
 
 
 var passport = require('passport')
