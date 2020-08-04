@@ -204,7 +204,7 @@ wss.on('connection', function connection(ws) {
 		else if (dm.type == 'saveRule'){
 			var subject = dm.subject;
 			var topic = dm.topic;
-			console.log(dsubject);
+			console.log(subject);
 			console.log(topic);
 			SubjectData.findOne({subject:subject}, function(err,result) {
 				if (result == null){
