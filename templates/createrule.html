@@ -120,10 +120,10 @@
 			  </div>
 			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
 				<div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="qid">
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="subtop">
 						Subject.Topic
 					  </label>
-					  <input id="qid" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+					  <input id="subtop" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
 				<div>
@@ -134,13 +134,11 @@
 
 				</div>
 				<div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="addTag">
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="exp">
 						Explanation
 					  </label>
-					  <div id="tags"></div>
-					  <div class="w-full flex">
-						<input id="addTag" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
-					  </div>
+						<textarea rows="3" id="exp" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
+					  
 				</div>
 				
 			  </div>
@@ -327,6 +325,9 @@
 		}
 		function saveRule() {
 			var outstr = "";
+			var subtop = document.getElementById("subtop").value;
+			var subject = subtop.split(".")[0];
+			var topic = subtop.split(".")[1];
 			/*
 			var qid = document.getElementById("qid").value;
 			var name = document.getElementById("name").value;
@@ -349,10 +350,10 @@
 				outstr += "\"t\","+tags[i]+"\n";
 			}
 			*/
-			document.getElementById("previewQ").innerHTML = "";
-			document.getElementById("previewQ").textContent = outstr;
+			//document.getElementById("previewQ").innerHTML = "";
+			//document.getElementById("previewQ").textContent = outstr;
 			
-			var jsonmessage = {type:"saveRule",qstr:outstr};
+			var jsonmessage = {type:"saveRule",subject:subject,topic:topic};
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		var constraintsA = [];

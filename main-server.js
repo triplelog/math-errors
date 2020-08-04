@@ -202,13 +202,29 @@ wss.on('connection', function connection(ws) {
 			//ws.send(JSON.stringify(jsonmessage));
 		}
 		else if (dm.type == 'saveRule'){
-			if (dm.qstr.length >= 10000){
-				return;
-			}
-			var subjectData = new SubjectData({subject:"calculus",topics:[]});
-			subjectData.save(function(err,result){
-				console.log("error: ",err);
+			console.log(subject);
+			console.log(topic);
+			SubjectData.findOne({subject:subject}, function(err,result) {
+				if (result == null){
+					var topics = {};
+					topics[topic]={name:"",explanation:"",rules:[]};
+					var subjectData = new SubjectData({subject:subject,topics:topics});
+					subjectData.save(function(err,result){
+						console.log("error creating: ",err);
+					});
+				}
+				else {
+					result.topics[topic]={name:"",explanation:"",rules:[]};
+					result.markModified('topics');
+					result.save(function(err,result){
+						console.log("error updating: ",err);
+					});
+				}
 			});
+				
+
+			
+			
 			
 			//var jsonmessage = {'type':'created'};
 			//ws.send(JSON.stringify(jsonmessage));
