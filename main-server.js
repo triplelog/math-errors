@@ -247,6 +247,21 @@ app.get('/createquestion',
     }
     
 );
+app.get('/createrule',
+	function(req, res){
+		
+		
+		console.log(performance.now());
+		//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
+		//ws.send(JSON.stringify(jsonmessage));
+		res.write(nunjucks.render('templates/createrule.html',{
+
+		}));
+		res.end();
+
+    }
+    
+);
 app.get('/topic',
 	function(req, res){
 		

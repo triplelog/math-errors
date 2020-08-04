@@ -68,6 +68,22 @@ inline bool operator==(const Number& a, const Number& b){
 }
 flat_hash_map<std::string,Number> numbers;
 
+std::vector<int> factorList(Number n){
+	std::vector<int> list;
+	if (n.type != 1 && n.type != 1){
+		return list;
+	}
+	long nn = std::stoi(n.top);
+	int p = 2;
+	while (p <= nn){
+		if (nn%p == 0){
+			nn /= p;
+			list.push_back(p);
+		}
+		p++;
+	}
+	return list;
+}
 std::string numberType(std::string input){
 	Number n;
 	//TODO: add strings to numbers map with type==0
@@ -102,21 +118,28 @@ std::string numberType(std::string input){
 	}
 	int ii;
 	std::string currentType = "int";
+	int idx = -1;
 	for(ii=0;ii<input.length();ii++){
 		switch(input.at(ii)){
 			case '.': {
 				if (currentType == "int"){currentType = "dec";}
 				else if (currentType == "dec"){return "string";}
 				else if (currentType == "red"){return "string";}
-				else if (currentType == "rep"){currentType = "red";}
+				else if (currentType == "rep"){return "string";}
 				else if (currentType == "sci" || currentType == "scn"){return "string";}
 				n.top = input.substr(0,ii);
 				n.bottom = input.substr(ii+1,input.length()-ii-1);
+				idx = ii;
 				break;
 			}
 			case '_': {
-				if (currentType == "int"){currentType = "rep";}
-				else if (currentType == "dec"){currentType = "red";}
+				if (currentType == "int"){
+					//currentType = "rep";
+					//n.top = input.substr(0,ii);
+					//n.bottom = input.substr(ii+1,input.length()-ii-1);
+					return "string";
+				}
+				else if (currentType == "dec"){currentType = "red"; idx = ii - idx;}
 				else if (currentType == "red"){return "string";}
 				else if (currentType == "rep"){return "string";}
 				else if (currentType == "sci" || currentType == "scn"){return "string";}
@@ -177,6 +200,13 @@ std::string numberType(std::string input){
 	else if (currentType == "red"){
 		n.type = 3;
 		//TODO: make correct top and bottom
+		int repLen = n.bottom.length()-idx;
+		int repTop = std::stoi(n.bottom.substring(idx,n.bottom.length()-idx));
+		std::string repBot = "";
+		for (ii=0;ii<repLen;ii++){
+			repBot += "9";
+		}
+		std::vector<int> fList = factorList(repBot);
 		numbers[input]=n;
 		return "rep";
 	}
@@ -199,19 +229,32 @@ Number negateOne(Number numA){
 Number invertOne(Number numA){
 	Number n;
 	if (numA.type == 0){
-		//TODO: return string
+		n.type = 0; return n;
 	}
 	else if (numA.type == 1 || numA.type == -1){
-		//TODO: create repeating decimal unless == 0
+		if (numA.top == "1"){n = numA; return n;}
+		if (numA.top == "0"){n.type = 0; return n;}
+		n.type = 5*numA.type;
+		n.top = "1";
+		n.bottom = numA.top;
+		return n;
 	}
 	else if (numA.type == 2 || numA.type == -2){
-		//TODO: create repeating decimal unless == 0
+		//TODO: create decimal unless == 0
 	}
 	else if (numA.type == 3 || numA.type == -3){
-		//TODO: create repeating decimal unless == 0
+		//TODO: create decimal unless == 0
 	}
 	else if (numA.type == 4 || numA.type == -4){
-		//TODO: create repeating decimal unless == 0
+		//TODO: create sci not unless == 0
+	}
+	else if (numA.type == 5 || numA.type == -5){
+		if (numA.top == "0"){n.type = 0; return n;}
+		if (numA.top == "1"){n.type = 1*numA.type/5; n.top = numA.bottom; return n;}
+		n.type = numA.type;
+		n.top = numA.bottom;
+		n.bottom = numA.top;
+		return n;
 	}
 	//TODO: create number type for division by zero
 
@@ -313,10 +356,22 @@ Number addTwo(Number numA, Number numB){
 			}
 			return numbers[sum];
 		}
+		else if (numB.type == 2 || numB.type == -2){
+			n.type = 2; n.top = numA.top; n.bottom = "0";
+			return addTwo(n,numB);
+		}
 	}
-	else if (numA.type == -1){
-		if (numB.type == 1){
+	else if (numA.type == 2){
+		if (numB.type == 2){
+			
+		}
+	}
+	else if (numA.type < 0){
+		if (numB.type > 0){
 			return addTwo(numB,numA);
+		}
+		else if (numB.type < 0){
+			return negateOne(addTwo(negateOne(numA),negateOne(numA)));
 		}
 	}
 	return n;

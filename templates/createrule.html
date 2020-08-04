@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.72.0">
+    <title>Dashboard Template · Bootstrap</title>
+
+    <link rel="canonical" href="">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+	<link rel="stylesheet" href="css/treeflex.css">
+
+    <style>
+
+      
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+    <link href="css/output.css" rel="stylesheet">
+  </head>
+  <body>
+    
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Company name</a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <a class="nav-link" href="#">Sign out</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">
+              <span data-feather="plus"></span>
+              New Question
+            </a>
+          </li>
+          
+        </ul>
+		<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>History</span>
+        </h6>
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>Topics</span>
+          <a class="link-secondary" href="#" aria-label="Add a new report">
+            <span data-feather="plus-circle"></span>
+          </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Arithmetic
+            </a>
+            <div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
+			  <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Derivatives
+            </a>
+            <div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
+			  <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Integrals
+            </a>
+            <div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
+			  <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Limits
+            </a>
+            <div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
+			  <div class="progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        <div class="w-full mb-2 py-4">
+			<span class="text-2xl"><b>Create Rule</b></span>
+			<button class="float-right bg-white hover:border-gray-900 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-r focus:outline-none focus:shadow-outline" type="button">Share</button>
+			<button class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 focus:outline-none focus:shadow-outline" type="button">Export</button>
+			<button class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-l focus:outline-none focus:shadow-outline" type="button">Import</button>
+					
+        </div>
+
+		<div class="flex flex-wrap w-full">
+		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
+			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
+				<b>Preview</b>
+				<button onclick="saveQuestion()" class="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-0 px-2 rounded-r focus:outline-none focus:shadow-outline" type="button">Save</button>
+
+				<button onclick="refreshQuestion()" class="float-right bg-red-500 hover:bg-red-700 text-white font-bold py-0 px-2 rounded-l focus:outline-none focus:shadow-outline" type="button">Refresh</button>
+				
+			  </div>
+			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
+				<div id="previewQ"></div>
+			  </div>
+		  </div>
+		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
+			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
+				<b>Info</b>
+			  </div>
+			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
+				<div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="qid">
+						Category
+					  </label>
+					  <input id="qid" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+
+				</div>
+				<div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="name">
+						Name
+					  </label>
+					  <input id="name" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+
+				</div>
+				<div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="addTag">
+						Tags
+					  </label>
+					  <div id="tags"></div>
+					  <div class="w-full flex">
+						<input id="addTag" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
+						<button onclick="addTag()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Tag</button>
+					  </div>
+				</div>
+				
+			  </div>
+		  </div>
+		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
+			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
+				<b>Question</b>
+			  </div>
+			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
+				<div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="humanQ">
+						Human
+					  </label>
+					  <textarea id="humanQ" rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3"></textarea>
+
+				</div>
+				<div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
+						Computer
+					  </label>
+					  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+
+				</div>
+				<div>
+					<div id="constraintsQ"></div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="addConQ">
+						Constraints
+					  </label>
+					  <div class="w-full flex">
+						<input id="addConQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
+						<button onclick="addConQ()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Constraint</button>
+					  </div>
+				</div>
+
+			  </div>
+		  </div>
+		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
+			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
+				<b>Answer</b>
+			  </div>
+			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
+				<div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="humanA">
+						Human
+					  </label>
+					  <textarea id="humanA" rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3"></textarea>
+
+				</div>
+				<div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="compA">
+						Computer
+					  </label>
+					  <input id="compA" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+
+				</div>
+				<div>
+					<div id="constraintsA"></div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="addConA">
+						Constraints
+					  </label>
+					  <div class="w-full flex">
+						<input id="addConA" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
+						<button onclick="addConA()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Constraint</button>
+					  </div>						
+				</div>
+			  </div>
+		  </div>
+		</div>
+
+		
+
+    </main>
+  </div>
+</div>
+
+
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" integrity="sha384-EbSscX4STvYAC/DxHse8z5gEDaNiKAIGW+EpfzYTfQrgIlHywXXrM9SUIZ0BlyfF" crossorigin="anonymous"></script>
+      <script src="js/dashboard.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+
+	<script>
+		ws = new WebSocket('wss://matherrors.com:8081');
+		ws.onopen = function(evt) {
+			//var jsonmessage = {'type':'soloKey'};
+			//jsonmessage.message = tkey;
+			//ws.send(JSON.stringify(jsonmessage));
+			
+		}
+		ws.onmessage = function(evt){
+			var dm = JSON.parse(evt.data);
+			console.log(dm);
+			if (dm.type == 'answer'){
+				createTrees(dm.answer);
+			}
+			else if (dm.type == 'preview'){
+				document.getElementById("previewQ").innerHTML = "";
+				document.getElementById("previewQ").textContent = dm.preview;
+			}
+			
+			
+		}
+		function refreshQuestion() {
+			var outstr = "";
+			var qid = document.getElementById("qid").value;
+			var name = document.getElementById("name").value;
+			outstr += qid + ",\""+name+"\"\n";
+			var humanQ = document.getElementById("humanQ").value;
+			outstr += humanQ + "\n";
+			var compQ =  document.getElementById("compQ").value;
+			outstr += compQ + "\n";
+			var humanA = document.getElementById("humanA").value;
+			outstr += humanA + "\n";
+			var compA =  document.getElementById("compA").value;
+			outstr += compA + "\n";
+			for (var i=0;i<constraintsQ.length;i++){
+				outstr += "\"q\","+constraintsQ[i]+"\n";
+			}
+			for (var i=0;i<constraintsA.length;i++){
+				outstr += "\"a\","+constraintsA[i]+"\n";
+			}
+			for (var i=0;i<tags.length;i++){
+				outstr += "\"t\","+tags[i]+"\n";
+			}
+
+			var jsonmessage = {type:"previewQuestion",qstr:outstr};
+			ws.send(JSON.stringify(jsonmessage));
+		}
+		function saveQuestion() {
+			var outstr = "";
+			var qid = document.getElementById("qid").value;
+			var name = document.getElementById("name").value;
+			outstr += qid + ",\""+name+"\"\n";
+			var humanQ = document.getElementById("humanQ").value;
+			outstr += humanQ + "\n";
+			var compQ =  document.getElementById("compQ").value;
+			outstr += compQ + "\n";
+			var humanA = document.getElementById("humanA").value;
+			outstr += humanA + "\n";
+			var compA =  document.getElementById("compA").value;
+			outstr += compA + "\n";
+			for (var i=0;i<constraintsQ.length;i++){
+				outstr += "\"q\","+constraintsQ[i]+"\n";
+			}
+			for (var i=0;i<constraintsA.length;i++){
+				outstr += "\"a\","+constraintsA[i]+"\n";
+			}
+			for (var i=0;i<tags.length;i++){
+				outstr += "\"t\","+tags[i]+"\n";
+			}
+			document.getElementById("previewQ").innerHTML = "";
+			document.getElementById("previewQ").textContent = outstr;
+			
+			var jsonmessage = {type:"saveQuestion",qstr:outstr};
+			ws.send(JSON.stringify(jsonmessage));
+		}
+		var constraintsA = [];
+		function addConA() {
+			var el = document.getElementById('addConA');
+			constraintsA.push(el.value);
+			document.getElementById('constraintsA').textContent += "\n"+el.value;
+			el.value = "";
+		}
+		var constraintsQ = [];
+		function addConQ() {
+			var el = document.getElementById('addConQ');
+			constraintsQ.push(el.value);
+			document.getElementById('constraintsQ').textContent += "\n"+el.value;
+			el.value = "";
+		}
+		var tags = [];
+		function addTag() {
+			var el = document.getElementById('addTag');
+			tags.push(el.value);
+			document.getElementById('tags').textContent += "\n"+el.value;
+			el.value = "";
+		}
+		
+		
+	</script>
+  </body>
+</html>
