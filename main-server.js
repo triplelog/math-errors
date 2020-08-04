@@ -202,7 +202,9 @@ wss.on('connection', function connection(ws) {
 			//ws.send(JSON.stringify(jsonmessage));
 		}
 		else if (dm.type == 'saveRule'){
-			console.log(subject);
+			var subject = dm.subject;
+			var topic = dm.topic;
+			console.log(dsubject);
 			console.log(topic);
 			SubjectData.findOne({subject:subject}, function(err,result) {
 				if (result == null){
