@@ -7,7 +7,7 @@ const binding = require.resolve(`./build/Release/binding`);
 //const postfix = require('./postfix.js');
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/matherrors', {useNewUrlParser: true});
+mongoose.connect('mongodb://rwilcox:kZGWGda3A@localhost:27017/matherrors', {useNewUrlParser: true});
 var fromLogin = require('./login-server.js');
 var app = fromLogin.loginApp;
 var tempKeys = fromLogin.tempKeys;
@@ -30,6 +30,7 @@ const options = {
 
 
 const User = require('./models/user');
+const SubjectData = require('./models/subjects');
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
 // use static authenticate method of model in LocalStrategy
@@ -195,6 +196,18 @@ wss.on('connection', function connection(ws) {
 			}
 			fs.appendFile('questions/de/default.csv', "\n"+dm.qstr, function (err) {
 			  if (err) throw err;
+			});
+			
+			//var jsonmessage = {'type':'created'};
+			//ws.send(JSON.stringify(jsonmessage));
+		}
+		else if (dm.type == 'saveRule'){
+			if (dm.qstr.length >= 10000){
+				return;
+			}
+			var subjectData = new SubjectData({subject:"calculus",topics:[]});
+			subjectData.save(function(err,result){
+				console.log("error: ",err);
 			});
 			
 			//var jsonmessage = {'type':'created'};

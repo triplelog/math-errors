@@ -105,9 +105,9 @@
 		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
 			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
 				<b>Preview</b>
-				<button onclick="saveQuestion()" class="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-0 px-2 rounded-r focus:outline-none focus:shadow-outline" type="button">Save</button>
+				<button onclick="saveRule()" class="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-0 px-2 rounded-r focus:outline-none focus:shadow-outline" type="button">Save</button>
 
-				<button onclick="refreshQuestion()" class="float-right bg-red-500 hover:bg-red-700 text-white font-bold py-0 px-2 rounded-l focus:outline-none focus:shadow-outline" type="button">Refresh</button>
+				<button onclick="refreshRule()" class="float-right bg-red-500 hover:bg-red-700 text-white font-bold py-0 px-2 rounded-l focus:outline-none focus:shadow-outline" type="button">Refresh</button>
 				
 			  </div>
 			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
@@ -299,7 +299,7 @@
 			
 			
 		}
-		function refreshQuestion() {
+		function refreshRule() {
 			var outstr = "";
 			var qid = document.getElementById("qid").value;
 			var name = document.getElementById("name").value;
@@ -325,8 +325,9 @@
 			var jsonmessage = {type:"previewQuestion",qstr:outstr};
 			ws.send(JSON.stringify(jsonmessage));
 		}
-		function saveQuestion() {
+		function saveRule() {
 			var outstr = "";
+			/*
 			var qid = document.getElementById("qid").value;
 			var name = document.getElementById("name").value;
 			outstr += qid + ",\""+name+"\"\n";
@@ -347,10 +348,11 @@
 			for (var i=0;i<tags.length;i++){
 				outstr += "\"t\","+tags[i]+"\n";
 			}
+			*/
 			document.getElementById("previewQ").innerHTML = "";
 			document.getElementById("previewQ").textContent = outstr;
 			
-			var jsonmessage = {type:"saveQuestion",qstr:outstr};
+			var jsonmessage = {type:"saveRule",qstr:outstr};
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		var constraintsA = [];
