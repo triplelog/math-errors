@@ -201,12 +201,15 @@ std::string numberType(std::string input){
 		n.type = 3;
 		//TODO: make correct top and bottom
 		int repLen = n.bottom.length()-idx;
-		int repTop = std::stoi(n.bottom.substring(idx,n.bottom.length()-idx));
+		int repTop = std::stoi(n.bottom.substr(idx,n.bottom.length()-idx));
 		std::string repBot = "";
 		for (ii=0;ii<repLen;ii++){
 			repBot += "9";
 		}
-		std::vector<int> fList = factorList(repBot);
+		if (numbers.find(repBot) == numbers.end()){
+			numberType(repBot);
+		}
+		std::vector<int> fList = factorList(numbers[repBot]);
 		numbers[input]=n;
 		return "rep";
 	}
