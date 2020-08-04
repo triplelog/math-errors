@@ -62,8 +62,8 @@
 			  {{ subject.subject }}
 			</a>
 			<ul>
-				{% for topic in subject.topics %}
-				<li>{{ topic }}</li>
+				{% for name, list in subject.topics %}
+				<li>{{ name }}</li>
 				{% endfor %}
 			</ul>
 		  </li>

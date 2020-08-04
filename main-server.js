@@ -307,7 +307,6 @@ app.get('/createrule',
 			var subjects = [];
 			for (var i=0;i<result.length;i++){
 				subjects.push(result[i]);
-				console.log(result[i]);
 			}
 			res.write(nunjucks.render('templates/createrule.html',{
 				subjects: subjects,
