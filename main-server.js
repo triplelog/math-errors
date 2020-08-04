@@ -204,22 +204,35 @@ wss.on('connection', function connection(ws) {
 		else if (dm.type == 'saveRule'){
 			var subject = dm.subject;
 			var topic = dm.topic;
+			var name = dm.name;
+			var explanation = dm.explanation;
+			var instructions = dm.instructions;
 			console.log(subject);
 			console.log(topic);
 			SubjectData.findOne({subject:subject}, function(err,result) {
 				if (result == null){
 					var topics = {};
-					topics[topic]={name:"",explanation:"",rules:[]};
+					topics[topic]={name:name,explanation:explanation,instructions:instructions};
 					var subjectData = new SubjectData({subject:subject,topics:topics});
 					subjectData.save(function(err,result){
-						console.log("error creating: ",err);
+						if (err){
+							console.log("error: ", err);
+						}
+						else {
+							console.log(JSON.stringify(topics[topic]));
+						}
 					});
 				}
 				else {
-					result.topics[topic]={name:"",explanation:"",rules:[]};
+					result.topics[topic]={name:name,explanation:explanation,instructions:instructions};
 					result.markModified('topics');
 					result.save(function(err,result){
-						console.log("error updating: ",err);
+						if (err){
+							console.log("error: ", err);
+						}
+						else {
+							console.log(JSON.stringify(result.topics[topic]));
+						}
 					});
 				}
 			});

@@ -305,65 +305,16 @@
 			
 			
 		}
-		function refreshRule() {
-			var outstr = "";
-			var qid = document.getElementById("qid").value;
-			var name = document.getElementById("name").value;
-			outstr += qid + ",\""+name+"\"\n";
-			var humanQ = document.getElementById("humanQ").value;
-			outstr += humanQ + "\n";
-			var compQ =  document.getElementById("compQ").value;
-			outstr += compQ + "\n";
-			var humanA = document.getElementById("humanA").value;
-			outstr += humanA + "\n";
-			var compA =  document.getElementById("compA").value;
-			outstr += compA + "\n";
-			for (var i=0;i<constraintsQ.length;i++){
-				outstr += "\"q\","+constraintsQ[i]+"\n";
-			}
-			for (var i=0;i<constraintsA.length;i++){
-				outstr += "\"a\","+constraintsA[i]+"\n";
-			}
-			for (var i=0;i<tags.length;i++){
-				outstr += "\"t\","+tags[i]+"\n";
-			}
 
-			var jsonmessage = {type:"previewQuestion",qstr:outstr};
-			ws.send(JSON.stringify(jsonmessage));
-		}
 		var instructions = [];
 		function saveRule() {
-			var outstr = "";
 			var subtop = document.getElementById("subtop").value;
 			var subject = subtop.split(".")[0];
 			var topic = subtop.split(".")[1];
 			var name = document.getElementById('name').value;
 			var explanation = document.getElementById('exp').value;
 			
-			/*
-			var qid = document.getElementById("qid").value;
-			var name = document.getElementById("name").value;
-			outstr += qid + ",\""+name+"\"\n";
-			var humanQ = document.getElementById("humanQ").value;
-			outstr += humanQ + "\n";
-			var compQ =  document.getElementById("compQ").value;
-			outstr += compQ + "\n";
-			var humanA = document.getElementById("humanA").value;
-			outstr += humanA + "\n";
-			var compA =  document.getElementById("compA").value;
-			outstr += compA + "\n";
-			for (var i=0;i<constraintsQ.length;i++){
-				outstr += "\"q\","+constraintsQ[i]+"\n";
-			}
-			for (var i=0;i<constraintsA.length;i++){
-				outstr += "\"a\","+constraintsA[i]+"\n";
-			}
-			for (var i=0;i<tags.length;i++){
-				outstr += "\"t\","+tags[i]+"\n";
-			}
-			*/
-			//document.getElementById("previewQ").innerHTML = "";
-			//document.getElementById("previewQ").textContent = outstr;
+
 			
 			var jsonmessage = {type:"saveRule",subject:subject,topic:topic,name:name,explanation:explanation,instructions:instructions};
 			ws.send(JSON.stringify(jsonmessage));
