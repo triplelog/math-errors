@@ -55,15 +55,15 @@
 			<span data-feather="plus-circle"></span>
 		  </a>
 		</h6>
-		<ul class="nav flex-column mb-2">
+		<ul class="mx-2 w-full">
 		  {% for subject in subjects %}
-		  <li class="nav-item">
-			<a class="nav-link" href="#">
+		  <li class="my-4 w-full">
+			<a class="" href="#">
 			  {{ subject.subject }}
 			</a>
-			<ul>
+			<ul class="mx-4 w-full">
 				{% for name, list in subject.topics %}
-				<li>{{ name }}</li>
+				<li class="my-2 w-full">{{ name }}</li>
 				{% endfor %}
 			</ul>
 		  </li>
