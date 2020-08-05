@@ -298,7 +298,7 @@
 			var template = document.querySelector('#instructionTemplate');
 			var clone = template.content.cloneNode(true);
 			clone.querySelector('span').textContent = correct[i];
-			clone.querySelector('button').addEventListener('click',correct[i]);
+			clone.querySelector('button').addEventListener('click',deleteInstruction);
 			document.getElementById('instructionsC').appendChild(clone);
 		}
 		for (var i=0;i<errors.length;i++){
