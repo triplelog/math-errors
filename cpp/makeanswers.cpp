@@ -388,7 +388,78 @@ std::vector<std::string> makeAnswer(std::string input){
 	return postfixed;
 	//return makeTree(postfixed)[0];
 }
+std::string solveInsideQuestion(std::string input) {
+	int iii; bool openPar = false; bool pastInsideKey = false; bool pastKey = false;
+	std::string currentOperand = "";
+	std::string insidePostfix = "";
+	bool hasPar = false;
+	for (iii=0;iii<input.length();iii++){
+		if (openPar){
+			hasPar = true;
+			if (pastInsideKey){
+				if (input.at(iii) == ')'){
+					
+					Number opResult = solvePostfix(insidePostfix);
 
+					if (opResult.type == 0){
+						currentOperand = "{"+insidePostfix+"}";
+					}
+					else if (opResult.type == 1){
+						currentOperand = "{#@"+opResult.top+"_}";
+					}
+					else if (opResult.type == -1){
+						currentOperand = "{#@-"+opResult.top+"_}";
+					}
+					else {
+						currentOperand = "{"+insidePostfix+"}";
+					}
+					openPar = false;
+					pastInsideKey = false;
+					
+				}
+				else if (input.at(iii) == '_'){
+					insidePostfix += currentOperand + '_';
+					currentOperand = "";
+				}
+				else {
+					currentOperand += input.at(iii);
+				}
+			}
+			else {
+				if (input.at(iii) == '@'){
+					pastInsideKey = true;
+					currentOperand = "";
+				}
+				insidePostfix += input.at(iii);
+			}
+		}
+		else {
+			if (pastKey){
+				if (input.at(iii) == '('){
+					openPar = true;
+					currentOperand = "";
+					insidePostfix = "";
+					pastInsideKey = false;
+				}
+				else if (input.at(iii) == '_'){
+					newPostfix += currentOperand + '_';
+					currentOperand = "";
+				}
+				else {
+					currentOperand += input.at(iii);
+				}
+			}
+			else {
+				if (input.at(iii) == '@'){
+					pastKey = true;
+				}
+				newPostfix += input.at(iii);
+			}
+		}
+			
+	}
+	return removeBracketsOne(newPostfix);
+}
 Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std::string> rangeMap){
 	Question question;
 	flat_hash_map<char,std::string> varMap;
@@ -412,9 +483,10 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 				std::string pf = postfixify(currentMath);
 				std::vector<std::string> pv = postfixifyVector(currentMath,true);
 				std::string pvv = replaceVars(pv[0] + "@"+pv[1],varMap);
-				
+				std::string pvvf = solveInsideQuestion(pvv);
 				std::cout << "pf: " << pf << "\n";
-				std::cout << "pv: " << pvv << "\n";
+				std::cout << "pvv: " << pvv << "\n";
+				std::cout << "pvvf: " << pvvf << "\n";
 				pf = replaceVars(pf,varMap);
 				std::cout << "pf: " << pf << "\n";
 				pf = latexOne(pf);
