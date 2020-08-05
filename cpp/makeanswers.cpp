@@ -243,7 +243,13 @@ std::string latexOne(std::string input) {
 						if (prec[pfstr.at(i)] > prec[lastOpMap[child]]){
 							if (ii > 0){
 								if (pfstr.at(i) == '*'){
-									s += "\\\\cdot ("+listMap[child]+")";
+									if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
+										s += "("+listMap[child]+")";
+									}
+									else {
+										s += "\\\\cdot ("+listMap[child]+")";//want to move this into numerator somehow
+									}
+									
 								}
 								else {
 									s += pfstr.at(i)+"("+listMap[child]+")";
