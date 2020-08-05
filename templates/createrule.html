@@ -132,6 +132,11 @@
 			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
 			  	<div>
 			  		<div id="instructionsC"></div>
+			  		<template id="instructionTemplate">
+			  			<div>
+			  				<i data-feather="trash-2"></i><span></span>
+			  			</div>
+			  		</template>
 			  	</div>
 			  	
 				<div>
@@ -345,7 +350,10 @@
 				instruction += ","+conC[i];
 			}
 			instructions.push(instruction);
-			document.getElementById('instructionsC').textContent += "\n"+instruction;
+			var template = document.querySelector('#instructionTemplate');
+			var clone = template.content.cloneNode(true);
+			clone.querySelector('span').textContent = instruction;
+			document.getElementById('instructionsC').appendChild(clone);
 			document.getElementById('constraintsC').textContent = "";
 			conC = [];
 			document.getElementById('expC').value = "";
