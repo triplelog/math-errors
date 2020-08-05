@@ -503,9 +503,11 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 				std::cout << "pf: " << pf << "\n";
 				
 				newText += "$" + pf + "$";
+				currentMath = "";
 			}
 			else {
 				isMath = true;
+				currentMath = "";
 			}
 		}
 		else if (isMath) {
