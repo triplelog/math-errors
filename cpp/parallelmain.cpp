@@ -3332,8 +3332,25 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
+	Dewey dewey;
+
+	if (info.length()>0){
+		v8::String::Utf8Value s(isolate, info[0]);
+		std::string a(*s);
+		dewey.subject = a;
+	}
+	if (info.length()>1){
+		v8::String::Utf8Value s(isolate, info[1]);
+		std::string a(*s);
+		dewey.topic = a;
+	}
+	if (info.length()>2){
+		v8::String::Utf8Value s(isolate, info[2]);
+		std::string a(*s);
+		dewey.rule = a;
+	}
 	
-	std::vector<RawQuestion> qs = makeQuestions("answerconstraints.csv");
+	std::vector<RawQuestion> qs = makeQuestions(dewey, "answerconstraints.csv");
 	currentQuestion = chooseQuestion("blank",qs);
 	
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(currentQuestion.text);

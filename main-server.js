@@ -70,7 +70,7 @@ wss.on('connection', function connection(ws) {
 		}
 		else if (dm.type == 'question'){
 			console.log(performance.now());
-			var stdout = maincpp.question();
+			var stdout = maincpp.question("calculus");
 			console.log(performance.now(), question);
 
 			console.log(performance.now());

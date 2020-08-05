@@ -434,7 +434,7 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 	return question;
 }
 
-Question chooseQuestion(std::string dewey, std::vector<RawQuestion> questions){
+Question chooseQuestion(std::vector<RawQuestion> questions){
 	Question q = makeQuestion(questions[0].qC, questions[0].qH, questions[0].rangeMap);
 	q.rawRules = questions[0].rawRules;
 	std::vector<std::string> fullPost;
@@ -480,7 +480,7 @@ Question chooseQuestion(std::string dewey, std::vector<RawQuestion> questions){
 
 
 
-std::vector<RawQuestion> makeQuestions(std::string fileName){
+std::vector<RawQuestion> makeQuestions(Dewey qDewey, std::string fileName){
 	
 	std::vector<RawQuestion> questions;
 	rapidcsv::Document doc("cpp/rules/"+fileName, rapidcsv::LabelParams(-1, -1));
@@ -537,7 +537,9 @@ std::vector<RawQuestion> makeQuestions(std::string fileName){
 			}
 		}
 
-		if (dewey.subject != "calculus"){
+		if (dewey <minEq> qDewey){
+		}
+		else {
 			makeThis = false;
 		}
 		std::vector<std::vector<std::string>> rawRules;
