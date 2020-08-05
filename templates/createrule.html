@@ -305,14 +305,14 @@
 			var template = document.querySelector('#instructionTemplate');
 			var clone = template.content.cloneNode(true);
 			clone.querySelector('span').textContent = errors[i];
-			document.getElementById('instructionsC').appendChild(clone);
+			document.getElementById('instructionsE').appendChild(clone);
 		}
 		for (var i=0;i<examples.length;i++){
 			instructions.push(examples[i]);
 			var template = document.querySelector('#instructionTemplate');
 			var clone = template.content.cloneNode(true);
 			clone.querySelector('span').textContent = examples[i];
-			document.getElementById('instructionsC').appendChild(clone);
+			document.getElementById('instructionsX').appendChild(clone);
 		}
 		function saveRule() {
 			var subtop = document.getElementById("subtop").value;
@@ -382,7 +382,7 @@
 			var template = document.querySelector('#instructionTemplate');
 			var clone = template.content.cloneNode(true);
 			clone.querySelector('span').textContent = instruction;
-			document.getElementById('instructionsC').appendChild(clone);
+			document.getElementById('instructionsE').appendChild(clone);
 			document.getElementById('constraintsE').textContent = "";
 			conE = [];
 			document.getElementById('expE').value = "";
@@ -398,10 +398,11 @@
 			var template = document.querySelector('#instructionTemplate');
 			var clone = template.content.cloneNode(true);
 			clone.querySelector('span').textContent = instruction;
-			document.getElementById('instructionsC').appendChild(clone);
+			document.getElementById('instructionsX').appendChild(clone);
 			document.getElementById('inX').value = "";
 			document.getElementById('outX').value = "";
 		}
+		feather.replace();
 		
 		
 		
