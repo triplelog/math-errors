@@ -64,7 +64,7 @@ If answer matches an unknown error, ask for information about how error was made
 
 
 ##Substitution
-must be of the form sub(A;B) where A is x=???, a=???, etc...
+must be of the form sub(A;B) where B is x=???, a=???, etc... and A is x+7-5, etc...
 
 
 postcss static/css/tailwind.css -o static/css/output.css

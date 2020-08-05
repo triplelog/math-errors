@@ -26,7 +26,7 @@ A
 
 algebra.derivatives.power.0,"Power Rule"
 "Substitute x=3 into $x+7$?"
-sub(x=3;x+7)
+sub(x+7;x=3)
 "<input name='A'></input>"
 A
 "q",A,int,[2,7]U(11,17]
