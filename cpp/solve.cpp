@@ -620,6 +620,7 @@ std::string substitute(std::string input){
 			}
 		}
 	}
+	std::cout << "var: " << var << " and " << expression << "\n";
 	std::string x = "";
 	std::string xxl = "";
 	std::string xxr = "";
