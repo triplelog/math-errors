@@ -3287,7 +3287,6 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			break;
 		}
 		else {
-			std::cout << "no match: " << pfstr << " and " << correctAnswers[i] << "\n";
 			std::vector<Step> v = correctSolutionList[correctAnswers[i]];
 			if (v.size()<bestSolution.size() || bestSolution.size() == 0){
 				bestSolution = v;
@@ -3322,6 +3321,8 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		}
 	}
 	for (i=0;i<bestSolution.size();i++){
+		std::cout << "bs: " << bestSolution[i].next << "\n";
+		std::cout << "bsr: " << bestSolution[i].rule << "\n";
 		outputTree(bestSolution[i].next);
 	}
 	
