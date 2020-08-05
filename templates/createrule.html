@@ -306,6 +306,7 @@
 			var template = document.querySelector('#instructionTemplate');
 			var clone = template.content.cloneNode(true);
 			clone.querySelector('span').textContent = errors[i];
+			clone.querySelector('button').addEventListener('click',deleteInstruction);
 			document.getElementById('instructionsE').appendChild(clone);
 		}
 		for (var i=0;i<examples.length;i++){
@@ -313,6 +314,7 @@
 			var template = document.querySelector('#instructionTemplate');
 			var clone = template.content.cloneNode(true);
 			clone.querySelector('span').textContent = examples[i];
+			clone.querySelector('button').addEventListener('click',deleteInstruction);
 			document.getElementById('instructionsX').appendChild(clone);
 		}
 		function saveRule() {
@@ -356,7 +358,14 @@
 			while (el.tagName != "DIV" && el.parentElement){
 				el = el.parentElement;
 			}
-			console.log(el.querySelector('span').textContent);
+			var instruction = el.querySelector('span').textContent;
+			for (var i=0;i<instructions.length;i++){
+				if (instructions[i] == instruction){
+					instructions.splice(i,1);
+					el.parentNode.removeChild(el);
+					break;
+				}
+			}
 		}
 		function addInstructionC() {
 			var explanation = document.getElementById('expC').value;
@@ -391,6 +400,7 @@
 			var template = document.querySelector('#instructionTemplate');
 			var clone = template.content.cloneNode(true);
 			clone.querySelector('span').textContent = instruction;
+			clone.querySelector('button').addEventListener('click',deleteInstruction);
 			document.getElementById('instructionsE').appendChild(clone);
 			document.getElementById('constraintsE').textContent = "";
 			conE = [];
@@ -407,6 +417,7 @@
 			var template = document.querySelector('#instructionTemplate');
 			var clone = template.content.cloneNode(true);
 			clone.querySelector('span').textContent = instruction;
+			clone.querySelector('button').addEventListener('click',deleteInstruction);
 			document.getElementById('instructionsX').appendChild(clone);
 			document.getElementById('inX').value = "";
 			document.getElementById('outX').value = "";
