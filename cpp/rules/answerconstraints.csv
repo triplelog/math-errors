@@ -25,12 +25,13 @@ A
 "t",mc
 
 algebra.derivatives.power.0,"Power Rule"
-"Substitute x=3 into $x+7$?"
-sub(x+7;x=3)
+"Substitute $x=A$ into $x+B$?"
+sub(x+B;x=A)
 "<input name='A'></input>"
 A
 "q",A,int,[2,7]U(11,17]
-"a",10,c,""
+"q",B,int,[2,7]U(11,17]
+"a",A+B,i,""
 "a",A*1,i,""
 "a",A+0,i,""
 "a",A*0,i,""
