@@ -428,7 +428,20 @@
 		feather.replace();
 		
 		var subjectEls = document.querySelectorAll('a[data-subject]');
-		console.log(subjectEls.length);
+		for (var i=0;i<subjectEls.length;i++){
+			var a = subjectEls[i];
+			var ul = a.parentElement.querySelector('ul[data-subject]');
+			ul.style.display = "none";
+			a.addEventListener('click',chgNav);
+		}
+		function chgNav(evt){
+			var a = evt.target;
+			while (a.tagName != "A" && a.parentElement){
+				a = a.parentElement;
+			}
+			var ul = a.parentElement.querySelector('ul[data-subject]');
+			ul.style.display = "block";
+		}
 		
 		
 		
