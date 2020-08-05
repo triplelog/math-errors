@@ -135,8 +135,14 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 							if (opResult.type == 0){
 								currentOperand = "("+insidePostfix+")";
 							}
-							else {
+							else if (opResult.type == 1){
 								currentOperand = "(#@"+opResult.top+"_)";
+							}
+							else if (opResult.type == -1){
+								currentOperand = "(#@-"+opResult.top+"_)";
+							}
+							else {
+								currentOperand = "("+insidePostfix+")";
 							}
 							openPar = false;
 							pastInsideKey = false;

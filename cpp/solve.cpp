@@ -554,7 +554,14 @@ Number solvePostfix(std::string postfix) {
 	            case '+': stack[currentIndex - 2] = addTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
 	            case '-': stack[currentIndex - 1] = negateOne(stack[currentIndex - 1]); currentIndex++; break; 
 	            case '*': stack[currentIndex - 2] = mulTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
-	            case '/': stack[currentIndex - 1] = invertOne(stack[currentIndex - 1]); currentIndex++; break;
+	            case '/': {
+	            	if (currentIndex > 1){
+	            		stack[currentIndex - 2] = divTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); break;
+	            	}
+	            	else {
+	            		stack[currentIndex - 1] = invertOne(stack[currentIndex - 1]); currentIndex++; break;
+	            	}
+	            }
 	            case '^': stack[currentIndex - 2] = expTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break;
 	            //case '=': stack[currentIndex - 2] = stack[currentIndex - 2] == stack[currentIndex - 1]; break;
 	            //case '!': stack[currentIndex - 2] = stack[currentIndex - 2] != stack[currentIndex - 1]; break;
