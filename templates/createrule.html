@@ -69,7 +69,7 @@
 					<ul class="mx-2">
 						{% for item in list %}
 						<li class="my-1 capitalize">
-							<span>{{ item.name }}</span>
+							<a href="createrule?s={{subject.subject}}&t={{name}}&r={{item.name}}">{{ item.name }}</a>
 							<button class="float-right bg-green-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline" type="button">?</button>
 						</li>
 						{% endfor %}
