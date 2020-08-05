@@ -84,7 +84,7 @@
 	  </div>
 
 
-    <div class="w-4/5 flex-none px-2 max-h-screen">
+    <div class="w-4/5 flex-none px-2 max-h-screen overflow-y-auto">
         <div class="w-full mb-2 py-4">
 			<span class="text-2xl"><b>Create Rule</b></span>
 			<button class="float-right bg-white hover:border-gray-900 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-r focus:outline-none focus:shadow-outline" type="button">Share</button>
@@ -241,24 +241,7 @@
 
 				</div>
 				<div>
-					<div id="constraintsX"></div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="addConX">
-						Constraints
-					  </label>
-					  <div class="w-full flex">
-						<input id="addConX" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
-						<button onclick="addConX()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Constraint</button>
-					  </div>
-				</div>
-				<div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="expX">
-						Explanation
-					  </label>
-					  <textarea rows="2" id="expX" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3"></textarea>
-
-				</div>
-				<div>
-					<button onclick="addInstructionX()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Instruction</button>
+					<button onclick="addInstructionX()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Example</button>
 				</div>
 
 			  </div>
@@ -341,7 +324,6 @@
 		}
 		var conC = [];
 		var conE = [];
-		var conX = [];
 		function addConC() {
 			var el = document.getElementById('addConC');
 			conC.push(el.value);
@@ -352,12 +334,6 @@
 			var el = document.getElementById('addConE');
 			conE.push(el.value);
 			document.getElementById('constraintsE').textContent += "\n"+el.value;
-			el.value = "";
-		}
-		function addConX() {
-			var el = document.getElementById('addConX');
-			conX.push(el.value);
-			document.getElementById('constraintsX').textContent += "\n"+el.value;
 			el.value = "";
 		}
 		function addInstructionC() {
@@ -395,21 +371,13 @@
 			document.getElementById('addConE').value = "";
 		}
 		function addInstructionX() {
-			var explanation = document.getElementById('expX').value;
 			var inText = document.getElementById('inX').value;
 			var outText = document.getElementById('outX').value;
-			var instruction = inText+","+outText+",x,"+explanation;
-			for (var i=0;i<conX.length;i++){
-				instruction += ","+conX[i];
-			}
+			var instruction = inText+","+outText+",x,";
 			instructions.push(instruction);
 			document.getElementById('instructionsX').textContent += "\n"+instruction;
-			document.getElementById('constraintsX').textContent = "";
-			conX = [];
-			document.getElementById('expX').value = "";
 			document.getElementById('inX').value = "";
 			document.getElementById('outX').value = "";
-			document.getElementById('addConX').value = "";
 		}
 		
 		
