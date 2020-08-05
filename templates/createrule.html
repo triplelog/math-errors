@@ -350,6 +350,13 @@
 			document.getElementById('constraintsE').textContent += "\n"+el.value;
 			el.value = "";
 		}
+		function deleteInstruction(evt) {
+			var el = evt.target.parentElement;
+			if (el.tagName != "DIV"){
+				el = el.parentElement;
+			}
+			console.log(el.querySelector('span').textContent);
+		}
 		function addInstructionC() {
 			var explanation = document.getElementById('expC').value;
 			var inText = document.getElementById('inC').value;
@@ -362,6 +369,7 @@
 			var template = document.querySelector('#instructionTemplate');
 			var clone = template.content.cloneNode(true);
 			clone.querySelector('span').textContent = instruction;
+			clone.querySelector('button').addEventListener('click',deleteInstruction);
 			document.getElementById('instructionsC').appendChild(clone);
 			document.getElementById('constraintsC').textContent = "";
 			conC = [];
