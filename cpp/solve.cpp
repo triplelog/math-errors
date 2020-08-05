@@ -385,12 +385,37 @@ Number mulTwoInts(Number numA, Number numB){
 	int base = 10;
 	int neg = 1;
 	Number n;
-	if (numA.type == 1 && numB.type == 1){
-		n.type = 1;
-		int prod = std::stoi(numA.top);
-		prod *= std::stoi(numB.top);
-		n.top = std::to_string(prod);
-		return n;
+	if (numA.type == 1){
+		if (numB.type == 1){
+			n.type = 1;
+			int prod = std::stoi(numA.top);
+			prod *= std::stoi(numB.top);
+			n.top = std::to_string(prod);
+			return n;
+		}
+		else if (numB.type == -1){
+			n.type = -1;
+			int prod = std::stoi(numA.top);
+			prod *= std::stoi(numB.top);
+			n.top = std::to_string(prod);
+			return n;
+		}
+	}
+	else if (numA.type == -1){
+		if (numB.type == 1){
+			n.type = -1;
+			int prod = std::stoi(numA.top);
+			prod *= std::stoi(numB.top);
+			n.top = std::to_string(prod);
+			return n;
+		}
+		else if (numB.type == -1){
+			n.type = 1;
+			int prod = std::stoi(numA.top);
+			prod *= std::stoi(numB.top);
+			n.top = std::to_string(prod);
+			return n;
+		}
 	}
 	return n;
 }
@@ -399,16 +424,31 @@ Number divTwoInts(Number numA, Number numB){
 	int base = 10;
 	int neg = 1;
 	Number n;
-	if (numA.type == 1 && numB.type == 1){
-		n.type = 1;
-		if (numB.top == "0"){
+	if (numA.type == 1){
+		if (numB.type == 1 || numB.type == -1){
+			n.type = numB.type;
+			if (numB.top == "0"){
+				return n;
+			}
+			int div = std::stoi(numA.top);
+			div /= std::stoi(numB.top);
+			n.top = std::to_string(div);
 			return n;
 		}
-		int div = std::stoi(numA.top);
-		div /= std::stoi(numB.top);
-		n.top = std::to_string(div);
-		return n;
 	}
+	else if (numA.type == -1){
+		if (numB.type == 1 || numB.type == -1){
+			n.type = -1 * numB.type;
+			if (numB.top == "0"){
+				return n;
+			}
+			int div = std::stoi(numA.top);
+			div /= std::stoi(numB.top);
+			n.top = std::to_string(div);
+			return n;
+		}
+	}
+	
 	return n;
 }
 

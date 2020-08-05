@@ -1,53 +1,52 @@
-function addIntsWrong(std::vector<std::string> strs, std::string answer){
-	if (strs.size() == 1){
+function addIntsWrong(strs, answer){
+	if (strs.length == 1){
 		return "size is 1";
 	}
-	else if (strs.size() == 0){
+	else if (strs.length == 0){
 		return "size is 0";
 	}
 
     
     
     
-	std::vector<short> answerDigits;
-	auto it = answer.cend();
-	for (it = answer.cend()-1;it>= answer.cbegin();it--){
-		answerDigits.push_back(*it- '0');
+	var answerDigits = [];
+	for (var it = answer.length-1;it>= 0;it--){
+		answerDigits.push(parseInt(answer[it]));
 	}
-	unsigned int ii;
-	unsigned int sz = 0;
+	var ii;
+	var sz = 0;
 	
-	std::vector<std::vector<short>> digits;
-	for (ii=0;ii<strs.size();ii++){
-		std::vector<short> onestr;
-		for (it = strs[ii].cend()-1;it>= strs[ii].cbegin();it--){
-			onestr.push_back(*it- '0');
+	var digits = [];
+	for (ii=0;ii<strs.length;ii++){
+		onestr = [];
+		for (var it = strs[ii].length-1;it>= 0;it--){
+			onestr.push(parseInt(strs[ii][it]));
 		}
-		if (onestr.size()>sz){
-			sz = onestr.size();
+		if (onestr.length>sz){
+			sz = onestr.length;
 		}
-		digits.push_back(onestr);
+		digits.push(onestr);
 	}
-	unsigned int dsz = digits.size();
-	unsigned int adsz = answerDigits.size();
+	var dsz = digits.length;
+	var adsz = answerDigits.length;
 	for (ii=0;ii<dsz;ii++){
 		int i;
-		for (i = digits[ii].size();i<sz;i++){
-			digits[ii].push_back(0);
+		for (i = digits[ii].length;i<sz;i++){
+			digits[ii].push(0);
 		}
 	}
 	
 	
-	std::vector<short> digits0 = {0,0,0,0,0};
-	std::string errors;
-	std::string returnString;
-	int iii;
-	bool isPossible = true;
+	var digits0 = [0,0,0,0,0];
+	var errors = "";
+	var returnString = "";
+	var iii;
+	var isPossible = true;
 		
-	unsigned int i; unsigned int di;
-	unsigned int carry = 0;
-	unsigned int digit = 0;
-	unsigned int newdigit = 0;
+	var i; var di;
+	var carry = 0;
+	var digit = 0;
+	var newdigit = 0;
 	for (iii=0;iii<100000;iii++){
 		errors = "";
 		di = 0;
@@ -60,7 +59,7 @@ function addIntsWrong(std::vector<std::string> strs, std::string answer){
 			digit = carry;
 			for (ii=0;ii<dsz;ii++){
 				newdigit = digit + digits[ii][i];
-				if (newdigit/10 > digit/10 && rand() % 1000 > 970){
+				if (newdigit/10 > digit/10 && iii % 1000 > 970){
 					digit = newdigit - 10;
 					//std::string d(1,i+'2'); //next digit will be wrong, and start at 1 not 0 -- only up to 9th digit
 					//errors += "You missed a carry on "+d+"rd digit from right.\n";
@@ -106,7 +105,7 @@ function addIntsWrong(std::vector<std::string> strs, std::string answer){
 		}
 		if (isPossible && adsz == di){
 			returnString = errors;
-			returnString += "The correct answer is " + addInts(strs);
+			//returnString += "The correct answer is " + addInts(strs);
 		}
 		
 	}

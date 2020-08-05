@@ -48,3 +48,20 @@ optional 2nd char is commutative flag
 5th columns are constraints
 
 
+#
+Philadelphia error -capital is actually Harrisburg
+Earn points for an answer that robot is aware of
+Earn points for matching an unknown error.
+
+
+Types of Questions:
+Multiple choice: which is a common error?
+Try for particular type of error
+Go for any common error
+Answer two questions with the same incorrect method
+See an error from another and try to match same type of error.
+If answer matches an unknown error, ask for information about how error was made.
+
+postcss static/css/tailwind.css -o static/css/output.css
+
+
