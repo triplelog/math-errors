@@ -664,7 +664,7 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 		
 		int iii;
 		for (iii=0;iii+2<input_str.length();iii++){
-			if (input_str.at(iii) == '=' && input_str.at(iii+1) == '(' && (iii==0 || input_str.at(iii-1) == '(' || prec.find(input_str.at(iii-1)) != prec.end())){
+			if (input_str.at(iii) == '=' && input_str.at(iii+1) == '(' && (iii==0 || input_str.at(iii-1) == '(' || input_str.at(iii-1) == '=' || prec.find(input_str.at(iii-1)) != prec.end())){
 				int i = iii;
 				int ii; int openPar = 0;
 				std::string inside = "";
