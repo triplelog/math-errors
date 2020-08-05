@@ -410,7 +410,9 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 				isMath = false;
 				std::cout << "cm: " << currentMath << "\n";
 				std::string pf = postfixify(currentMath);
+				std::string pv = postfixifyVector(currentMath,true);
 				std::cout << "pf: " << pf << "\n";
+				std::cout << "pv: " << pv[0] << " and " << pv[1] << "\n";
 				pf = replaceVars(pf,varMap);
 				std::cout << "pf: " << pf << "\n";
 				pf = latexOne(pf);
