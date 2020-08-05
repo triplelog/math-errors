@@ -319,7 +319,6 @@ app.get('/createrule',
 			dewey += req.query.s.toLowerCase() + '.';
 			dewey += req.query.t.toLowerCase() + '.';
 			dewey += req.query.r.toLowerCase();
-			console.log(dewey);
 		}
 		console.log(performance.now());
 		//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
@@ -335,7 +334,6 @@ app.get('/createrule',
 					for (var r=0;r<result[i].topics[topic].length;r++){
 						var rule = result[i].topics[topic][r];
 						thisDewey += rule.name;
-						console.log(thisDewey);
 						if (thisDewey == dewey){
 							info = {subtop:result[i].subject + '.'+topic + '.',name:rule.name,explanation:rule.explanation};
 							for (var ii=0;ii<rule.instructions.length;ii++){
