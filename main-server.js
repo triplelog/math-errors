@@ -334,8 +334,10 @@ app.get('/createrule',
 					for (var r=0;r<result[i].topics[topic].length;r++){
 						var rule = result[i].topics[topic][r];
 						thisDewey += rule.name;
+						console.log(thisDewey,dewey);
 						if (thisDewey == dewey){
 							info = {subtop:result[i].subject + '.'+topic,name:rule.name,explanation:rule.explanation};
+							console.log(info);
 							for (var ii=0;ii<rule.instructions.length;ii++){
 								if (rule.instructions[ii].split(',')[2]=="c"){
 									correct.push(rule.instructions[ii]);
