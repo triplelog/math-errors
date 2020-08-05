@@ -353,8 +353,7 @@
 		}
 		function deleteInstruction(evt) {
 			var el = evt.target.parentElement;
-			if (el.tagName != "DIV"){
-				console.log(el);
+			while (el.tagName != "DIV" && el.parentElement){
 				el = el.parentElement;
 			}
 			console.log(el.querySelector('span').textContent);
