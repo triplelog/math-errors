@@ -325,6 +325,17 @@
 			var jsonmessage = {type:"saveRule",subject:subject,topic:topic,name:name,explanation:explanation,instructions:instructions};
 			ws.send(JSON.stringify(jsonmessage));
 		}
+		function deleteRule() {
+			var subtop = document.getElementById("subtop").value;
+			var subject = subtop.split(".")[0];
+			var topic = subtop.split(".")[1];
+			var name = document.getElementById('name').value;
+			var explanation = document.getElementById('exp').value;
+			
+
+			var jsonmessage = {type:"deleteRule",subject:subject,topic:topic,name:name};
+			ws.send(JSON.stringify(jsonmessage));
+		}
 		var conC = [];
 		var conE = [];
 		var conX = [];

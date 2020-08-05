@@ -255,6 +255,44 @@ wss.on('connection', function connection(ws) {
 			//var jsonmessage = {'type':'created'};
 			//ws.send(JSON.stringify(jsonmessage));
 		}
+		else if (dm.type == 'deleteRule'){
+			var subject = dm.subject.toLowerCase();
+			var topic = dm.topic.toLowerCase();
+			var name = dm.name.toLowerCase();
+			var explanation = dm.explanation;
+			var instructions = dm.instructions;
+			console.log(subject);
+			console.log(topic);
+			SubjectData.findOne({subject:subject}, function(err,result) {
+				if (result == null){
+					
+				}
+				else {
+					var foundMatch = false;
+					for (var i=0;i<result.topics[topic].length;i++){
+						if (result.topics[topic][i].name.toLowerCase() == name){
+							result.topics[topic].splice(i,1);
+							foundMatch = true;
+							break;
+						}
+					}
+					if (!foundMatch){
+						return;
+					}
+					
+					result.markModified('topics');
+					result.save(function(err,result){
+						if (err){
+							console.log("error: ", err);
+						}
+						else {
+							console.log(JSON.stringify(result.topics[topic]));
+						}
+					});
+				}
+			});
+				
+		}
 		
   	});
 });
