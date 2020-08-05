@@ -299,6 +299,11 @@
 		}
 
 		var instructions = [];
+		var correct = {{ correct | dump |safe }};
+		for (var i=0;i<correct.length;i++){
+			instructions.push(correct[i]);
+			document.getElementById('instructionsC').textContent += "\n"+correct[i];
+		}
 		function saveRule() {
 			var subtop = document.getElementById("subtop").value;
 			var subject = subtop.split(".")[0];

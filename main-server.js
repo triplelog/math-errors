@@ -310,7 +310,16 @@ app.get('/createquestion',
 app.get('/createrule',
 	function(req, res){
 		
-		
+		var info = {};
+		var correct = [];
+		var errors = [];
+		var examples = [];
+		var dewey = '';
+		if (req.query && req.query.s && req.query.t && req.query.r){
+			dewey += req.query.s.toLowerCase() + '.';
+			dewey += req.query.t.toLowerCase() + '.';
+			dewey += req.query.r.toLowerCase();
+		}
 		console.log(performance.now());
 		//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
 		//ws.send(JSON.stringify(jsonmessage));
@@ -319,9 +328,37 @@ app.get('/createrule',
 			var subjects = [];
 			for (var i=0;i<result.length;i++){
 				subjects.push(result[i]);
+				var thisDewey = result[i].subject + '.';
+				for (var topic in result[i].topics){
+					thisDewey = topic + '.';
+					for (var r=0;r<result[i].topics[topic].length;r++){
+						var rule = result[i].topics[topic][r];
+						thisDewey = rule.name;
+						if (thisDewey == dewey){
+							info = {subtop:result[i].subject + '.'+topic + '.',name:rule.name,explanation:rule.explanation};
+							for (var ii=0;ii<rule.instructions.length;ii++){
+								if (rule.instructions[ii].split(',')[2]=="c"){
+									correct.push(rule.instructions[ii]);
+								}
+								else if (rule.instructions[ii].split(',')[2]=="e" || rule.instructions[ii].split(',')[2]=="i"){
+									errors.push(rule.instructions[ii]);
+								}
+								else if (rule.instructions[ii].split(',')[2]=="x"){
+									examples.push(rule.instructions[ii]);
+								}
+							}
+							
+						}
+					}
+				}
+				
 			}
 			res.write(nunjucks.render('templates/createrule.html',{
 				subjects: subjects,
+				info: info,
+				correct:correct,
+				errors:errors,
+				examples:examples,
 			}));
 			res.end();
 			for (var i=0;i<result.length;i++){
