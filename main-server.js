@@ -297,6 +297,7 @@ app.get('/createquestion',
 			
 			}));
 			res.end();
+			
 		
 		});
 		
@@ -323,6 +324,21 @@ app.get('/createrule',
 				subjects: subjects,
 			}));
 			res.end();
+			for (var i=0;i<result.length;i++){
+				subjects.push(result[i]);
+				var csvStr = "";
+				for (var topic in result[i].topics){
+					for (var r=0;r<result[i].topics[topic].length;r++){
+						var rule = result[i].topics[topic][r];
+						csvStr += "Rule,"+topic+"."+rule.name+","+rule.explanation+"\n";
+						for (var ii=0;ii<rule.instructions.length;ii++){
+							csvStr += rule.instructions[ii]+"\n";
+						}
+					}
+				}
+				fs.writeFile('cpp/subjects/'+result[i].subject+".csv", csvStr, function (err) {});
+			}
+			
 		
 		});
 
