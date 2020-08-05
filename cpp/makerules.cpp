@@ -192,6 +192,7 @@ void makeRules(std::string fileName){
 	
 	for (i=0;i<nRows;i++){
 		std::vector<std::string> rawRule = doc.GetRow<std::string>(i);
+		std::cout << "row: " << i << "\n";
 		if (rawRule[0] == "Rule"){
 			if (i>0){
 				jsonmessage += "rules.push(rule);";
@@ -210,6 +211,7 @@ void makeRules(std::string fileName){
 			rawRules.push_back(rawRule);
 			jsonmessage += "rule.incorrect.push(\""+rawRule[0]+"\");\n";
 		}
+		std::cout << "row: " << i << "\n";
 		
 	}
 	jsonmessage += "rules.push(rule);\n";
@@ -221,7 +223,7 @@ void makeRules(std::string fileName){
 	std::string out;
 	for (i=0;i<rawRules.size();i++){
 		Rule rule;
-
+		
 		fullPost = makeRule(rawRules[i][0]);
 		key = fullPost[0];
 		val1 = fullPost[1];
