@@ -230,7 +230,10 @@ void makeRules(std::string fileName){
 		rule.operands = val1;
 		rule.out = out;
 		rule.type = rawRules[i][2];
-		rule.explanation = rawRules[i][3];
+		if (rawRules[i].size()>3){
+			rule.explanation = rawRules[i][3];
+		}
+		
 
 		//TODO: add more constraint options
 		
