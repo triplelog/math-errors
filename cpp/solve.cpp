@@ -496,6 +496,7 @@ Number divTwoInts(Number numA, Number numB){
 }
 
 Number solvePostfix(std::string postfix) {
+	std::cout << "solving: " << postfix << "\n";
 	int i;
   	int currentIndex = 0;
   	int arrayIndex = 0;
@@ -584,7 +585,7 @@ Number solvePostfix(std::string postfix) {
     } 
 
 
-
+	std::cout << "solved: " << stack[0].type << " and " << stack[0].top << "\n";
 	return stack[0];
 }
 /*
