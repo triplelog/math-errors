@@ -3351,7 +3351,7 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	}
 	
 	std::vector<RawQuestion> qs = makeQuestions(dewey, "answerconstraints.csv");
-	currentQuestion = chooseQuestion("blank",qs);
+	currentQuestion = chooseQuestion(qs);
 	
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(currentQuestion.text);
 
