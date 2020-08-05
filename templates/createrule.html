@@ -58,10 +58,10 @@
 		<ul class="mx-2 w-full">
 		  {% for subject in subjects %}
 		  <li class="my-3 uppercase">
-			<a class="uppercase" href="#">
+			<a class="uppercase" href="#" data-subject="{{ subject.subject }}">
 			  {{ subject.subject }}
 			</a>
-			<ul class="mx-2">
+			<ul class="mx-2" data-subject="{{ subject.subject }}">
 				{% for name, list in subject.topics %}
 				<li class="my-1 capitalize">
 					<span>{{ name }}</span>
@@ -426,6 +426,9 @@
 			feather.replace();
 		}
 		feather.replace();
+		
+		var subjectEls = document.querySelectorAll('a[data-subject]');
+		console.log(subjectEls.length);
 		
 		
 		
