@@ -393,6 +393,7 @@ std::string solveInsideQuestion(std::string input) {
 	std::string currentOperand = "";
 	std::string insidePostfix = "";
 	bool hasPar = false;
+	std::string newPostfix = "";
 	for (iii=0;iii<input.length();iii++){
 		if (openPar){
 			hasPar = true;
