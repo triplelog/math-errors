@@ -467,6 +467,7 @@ Number divTwoInts(Number numA, Number numB){
 	int base = 10;
 	int neg = 1;
 	Number n;
+	std::cout << "div: "<< numA.type << " and " << numA.top << " and " << numB.type << " and " << numB.top << "\n";
 	if (numA.type == 1){
 		if (numB.type == 1 || numB.type == -1){
 			if (numB.top == "0"){
@@ -491,7 +492,7 @@ Number divTwoInts(Number numA, Number numB){
 			return n;
 		}
 	}
-	
+	std::cout << "divd: "<< n.type << " and " << n.top << "\n";
 	return n;
 }
 
