@@ -628,7 +628,7 @@ std::string substitute(std::string input){
 	int idx = 0;
 	for (i=1;i<var.length();i++){
 		if (var.at(i) == '@'){
-			if (i>0 && var.at(i-1) != -89){
+			if (i>0 && var.at(i-1) != '='){
 				return returnStr;
 			}
 			pastKey = true;
@@ -642,7 +642,7 @@ std::string substitute(std::string input){
 			}
 			idx++;
 		}
-		else if (var.at(i) == -89 && !pastKey){
+		else if (var.at(i) == '=' && !pastKey){
 			if (i+1<var.length() && var.at(i+1) == '@'){
 			
 			}
