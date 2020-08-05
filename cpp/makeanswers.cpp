@@ -467,9 +467,12 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 	for (flat_hash_map<char,std::string>::iterator iter = rangeMap.begin(); iter != rangeMap.end(); ++iter){
 		varMap[iter->first]=makeInt(iter->second);	
 	}
-	std::string q = postfixify(qRow);
+	//std::string q = postfixify(qRow);
 	int i;
-	std::string newQ = replaceVars(q,varMap);
+	//std::string newQ = replaceVars(q,varMap);
+	std::vector<std::string> qv = postfixifyVector(qRow,true);
+	std::string q = replaceVars(qv[0] + "@"+qv[1],varMap);
+	std::string newQ = solveInsideQuestion(q);
 	std::cout << "question for computer: " << newQ << "\n\n";
 	question.comp = newQ;
 
@@ -481,15 +484,15 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 			if (isMath){
 				isMath = false;
 				std::cout << "cm: " << currentMath << "\n";
-				std::string pf = postfixify(currentMath);
+				//std::string pf = postfixify(currentMath);
 				std::vector<std::string> pv = postfixifyVector(currentMath,true);
 				std::string pvv = replaceVars(pv[0] + "@"+pv[1],varMap);
-				std::string pvvf = solveInsideQuestion(pvv);
+				std::string pf = solveInsideQuestion(pvv);
+				//std::cout << "pf: " << pf << "\n";
+				//std::cout << "pvv: " << pvv << "\n";
 				std::cout << "pf: " << pf << "\n";
-				std::cout << "pvv: " << pvv << "\n";
-				std::cout << "pvvf: " << pvvf << "\n";
-				pf = replaceVars(pf,varMap);
-				std::cout << "pf: " << pf << "\n";
+				//pf = replaceVars(pf,varMap);
+				//std::cout << "pf: " << pf << "\n";
 				pf = latexOne(pf);
 				std::cout << "pf: " << pf << "\n";
 				
