@@ -225,7 +225,7 @@ wss.on('connection', function connection(ws) {
 				}
 				else {
 					var foundMatch = false;
-					if (result.topics[topic]){
+					if (result.topics[topic] && 3==2){
 						for (var i=0;i<result.topics[topic].length;i++){
 							if (result.topics[topic][i].name == name){
 								result.topics[topic][i] = {name:name,explanation:explanation,instructions:instructions};
