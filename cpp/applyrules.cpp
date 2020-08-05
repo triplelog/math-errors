@@ -130,7 +130,6 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 									break;
 								}
 							}
-							std::cout << "to solve: " << insidePostfix <<"\n";
 							Number opResult = solvePostfix(insidePostfix);
 
 							if (opResult.type == 0){
@@ -140,14 +139,13 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 								currentOperand = "(#@"+opResult.top+"_)";
 							}
 							else if (opResult.type == -1){
-								currentOperand = "(#@"+opResult.top+"_)";
+								currentOperand = "(#@-"+opResult.top+"_)";
 							}
 							else {
 								currentOperand = "("+insidePostfix+")";
 							}
 							openPar = false;
 							pastInsideKey = false;
-							std::cout << "was solved: " << currentOperand <<"\n";
 							
 						}
 						else if (rule.out.at(iii) == '_'){

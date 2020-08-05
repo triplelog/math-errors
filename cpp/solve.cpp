@@ -224,11 +224,9 @@ std::string numberType(std::string input){
 
 Number negateOne(Number numA){
 	Number n;
-	std::cout << "negatea\n";
 	n.type = -1*numA.type;
 	n.top = numA.top;
 	n.bottom = numA.bottom;
-	std::cout << "negateb\n";
 	return n;
 }
 Number invertOne(Number numA){
@@ -467,7 +465,6 @@ Number divTwoInts(Number numA, Number numB){
 	int base = 10;
 	int neg = 1;
 	Number n;
-	std::cout << "div: "<< numA.type << " and " << numA.top << " and " << numB.type << " and " << numB.top << "\n";
 	if (numA.type == 1){
 		if (numB.type == 1 || numB.type == -1){
 			if (numB.top == "0"){
@@ -492,12 +489,10 @@ Number divTwoInts(Number numA, Number numB){
 			return n;
 		}
 	}
-	std::cout << "divd: "<< n.type << " and " << n.top << "\n";
 	return n;
 }
 
 Number solvePostfix(std::string postfix) {
-	std::cout << "solving: " << postfix << "\n";
 	int i;
   	int currentIndex = 0;
   	int arrayIndex = 0;
@@ -556,12 +551,7 @@ Number solvePostfix(std::string postfix) {
 	            //case '<': stack[currentIndex - 2].w = (stack[currentIndex - 2] < stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break;
 	            //case ']': stack[currentIndex - 2].w = (stack[currentIndex - 2] >= stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break; 
 	            //case '[': stack[currentIndex - 2].w = (stack[currentIndex - 2] <= stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break;
-	            case '+': {
-	            	std::cout << "adda"<< stack[currentIndex-2].top << " and " << stack[currentIndex-1].top << "\n";
-	            	stack[currentIndex - 2] = addTwo(stack[currentIndex - 2],stack[currentIndex - 1]);
-	            	std::cout << "addb\n";
-	            	break;
-	            }
+	            case '+': stack[currentIndex - 2] = addTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break;
 	            case '-': stack[currentIndex - 1] = negateOne(stack[currentIndex - 1]); currentIndex++; break; 
 	            case '*': stack[currentIndex - 2] = mulTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
 	            case '/': {
@@ -586,7 +576,6 @@ Number solvePostfix(std::string postfix) {
     } 
 
 
-	std::cout << "solved: " << stack[0].type << " and " << stack[0].top << "\n";
 	return stack[0];
 }
 /*
