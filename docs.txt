@@ -62,6 +62,11 @@ Answer two questions with the same incorrect method
 See an error from another and try to match same type of error.
 If answer matches an unknown error, ask for information about how error was made.
 
+
+##Substitution
+must be of the form sub(A;B) where A is x=???, a=???, etc...
+
+
 postcss static/css/tailwind.css -o static/css/output.css
 
 

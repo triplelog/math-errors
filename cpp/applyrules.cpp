@@ -117,19 +117,24 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 			bool openPar = false;
 			std::string insidePostfix = "";
 			bool pastInsideKey = false;
-			bool interiorBrackets = false;
+			bool isArithmetic = true;
 			for (iii=0;iii<rule.out.length();iii++){
 				if (openPar){
 					hasPar = true;
 					if (pastInsideKey){
 						if (rule.out.at(iii) == ')'){
-							int bi; 
+							int bi;
+							isArithmetic = true;
 							for (bi=0;bi<insidePostfix.length();bi++){
-								if (insidePostfix.at(bi) == '{'){
-									interiorBrackets = true;
+								if (insidePostfix.at(bi) == -89 && bi+1<insidePostfix.length() && insidePostfix.at(bi+1) == '@'){
+									currentOperand = substitute(insidePostfix);
+									isArithmetic = false;
 									break;
 								}
 							}
+							openPar = false;
+							pastInsideKey = false;
+							if (!isArithmetic){continue;}
 							Number opResult = solvePostfix(insidePostfix);
 
 							if (opResult.type == 0){
@@ -144,8 +149,7 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 							else {
 								currentOperand = "("+insidePostfix+")";
 							}
-							openPar = false;
-							pastInsideKey = false;
+							
 							
 						}
 						else if (rule.out.at(iii) == '_'){

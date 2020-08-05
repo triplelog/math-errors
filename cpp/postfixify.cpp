@@ -171,6 +171,7 @@ std::string replaceFunctions(std::string input_str){
 	
 	char ddx{-69};
 	char idx{-85};
+	char sub{-89};
 	int i; int ii;
 	replacements3["ddx"]="x";
 	replacements3["ddx"]+=ddx;
@@ -186,6 +187,8 @@ std::string replaceFunctions(std::string input_str){
 	query3["id?"]+=idx;
 	query3["int"]="";
 	query3["int"]+=idx;
+	query3["sub"]="";
+	query3["sub"]+=sub;
 	
 	std::vector<std::string> trigFunctions;
 	trigFunctions.push_back("sin");
@@ -375,6 +378,40 @@ std::string replaceFunctions(std::string input_str){
 						}
 					}
 					input_str.replace(i-2,repLen,"("+var+")"+idx+"("+inside+")");
+					threeChars = "...";
+					i += -3;
+					//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+				}
+				else if (query3[threeChars].at(0) == sub){ //is a derivative with respect to something
+					//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+					std::string inside = "";
+					std::string var = "";
+					int openPar = 0;
+					bool isVar = false;
+					int repLen = 3;
+					for (ii=i+1;ii<input_str.length();ii++){
+						repLen++;
+						if (input_str.at(ii) == '('){
+							openPar++;
+						}
+						else if (input_str.at(ii) == ')'){
+							openPar--;
+						}
+						else if (input_str.at(ii) == ';'){
+							isVar = true;
+						}
+						else if (isVar){
+							var += input_str.at(ii);
+						}
+						else {
+							inside += input_str.at(ii);
+						}
+				
+						if (openPar == 0){
+							break;
+						}
+					}
+					input_str.replace(i-2,repLen,"("+var+")"+sub+"("+inside+")");
 					threeChars = "...";
 					i += -3;
 					//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';

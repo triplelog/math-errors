@@ -578,48 +578,113 @@ Number solvePostfix(std::string postfix) {
 
 	return stack[0];
 }
-/*
-inline Cppdata solvePostfixVV(char expstr[], std::vector<Cppdata> const intArray, std::vector<Cppdata> stack)
-{
 
-	int i;
-  	int currentIndex = 0;
-  	int arrayIndex = 0;
-
-    for (i = 0; expstr[i]; i++) 
-    { 
-        if (expstr[i] == '#') {
-        	stack[currentIndex] = intArray[arrayIndex];
-        	currentIndex++;
-        	arrayIndex++;
-  
-        } else 
-        { 
-            switch (expstr[i]) 
-            { 
-	            case '>': stack[currentIndex - 2].w = (stack[currentIndex - 2] > stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break; 
-	            case '<': stack[currentIndex - 2].w = (stack[currentIndex - 2] < stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break;
-	            case ']': stack[currentIndex - 2].w = (stack[currentIndex - 2] >= stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break; 
-	            case '[': stack[currentIndex - 2].w = (stack[currentIndex - 2] <= stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break;
-	            case '+': stack[currentIndex - 2] = stack[currentIndex - 2] + stack[currentIndex - 1]; break; 
-	            case '-': stack[currentIndex - 2] = stack[currentIndex - 2] - stack[currentIndex - 1]; break; 
-	            case '*': stack[currentIndex - 2] = stack[currentIndex - 2] * stack[currentIndex - 1]; break; 
-	            case '/': stack[currentIndex - 2] = stack[currentIndex - 2] / stack[currentIndex - 1]; break;
-	            case '=': stack[currentIndex - 2] = stack[currentIndex - 2] == stack[currentIndex - 1]; break;
-	            case '!': stack[currentIndex - 2] = stack[currentIndex - 2] != stack[currentIndex - 1]; break;
-	            //case '%': stack[currentIndex - 2] = stack[currentIndex - 2] % stack[currentIndex - 1]; break; 
-	            case '&': stack[currentIndex - 2].w = (stack[currentIndex - 2].w + stack[currentIndex - 1].w > 1) ? 1 : 0; stack[currentIndex - 2].t = (stack[currentIndex - 2].t == 'B' && stack[currentIndex - 1].t == 'B') ? 'B' : 'N'; break; 
-	            case '|': stack[currentIndex - 2].w = (stack[currentIndex - 2].w + stack[currentIndex - 1].w == 0) ? 0 : 1; stack[currentIndex - 2].t = (stack[currentIndex - 2].t == 'B' && stack[currentIndex - 1].t == 'B') ? 'B' : 'N'; break; 
-	            //multiandcase '&': if (stack[currentIndex - 5] > 0 && stack[currentIndex - 4] > 0 && stack[currentIndex - 3] > 0 && stack[currentIndex - 2] > 0 && stack[currentIndex - 1] > 0) {stack[currentIndex - 5] = 1;} else {stack[currentIndex - 5] = -1;}; currentIndex--; currentIndex--; currentIndex--; currentIndex--; break; 
-            
-            } 
-            currentIndex--;
-        } 
-    } 
-
-
-
-	return stack[0];
-
+std::string substitute(std::string input){
+	std::string returnStr = "("+input+")";
+	if (input.length() < 4){
+		return returnStr;
+	}
+	if (input.at(0) != '#' || input.at(1) != '#' || input.at(2) != -89 || input.at(3) != '@'){
+		return returnStr;
+	}
+	std::string var = "";
+	std::string expression = "":
+	int i; bool isExpression = false;
+	bool inBrackets = false;
+	for (i=4;i<input.length();i++){
+		if (input.at(i)=='{'){
+			inBrackets = true;
+		}
+		else if (input.at(i)=='}'){
+			inBrackets = false;
+		}
+		else if (input.at(i)=='_'){
+			if (inBrackets){
+				if (isExpression){
+					expression += input.at(i);
+				}
+				else {
+					var += input.at(i);
+				}
+			}
+			else {
+				isExpression = true;
+			}
+		}
+		else {
+			if (isExpression){
+				expression += input.at(i);
+			}
+			else {
+				var += input.at(i);
+			}
+		}
+	}
+	std::string x = "";
+	std::string xxl = "";
+	std::string xxr = "";
+	bool pastKey = false;
+	int idx = 0;
+	for (i=1;i<var.length();i++){
+		if (var.at(i) == '@'){
+			if (i>0 && var.at(i-1) != -89){
+				return returnStr;
+			}
+			pastKey = true;
+		}
+		else if (var.at(i) == '_'){
+			if (idx == 0){
+				
+			}
+			else {
+				xxr += var.at(i);
+			}
+			idx++;
+		}
+		else if (var.at(i) == -89 && !pastKey){
+			if (i+1<var.length() && var.at(i+1) == '@'){
+			
+			}
+			else {
+				xxl += var.at(i);
+			}
+		}
+		else {
+			if (pastKey && idx>0){
+				xxr += var.at(i);
+			}
+			else if (pastKey){
+				x += var.at(i);
+			}
+			else {
+				xxl += var.at(i);
+			}
+		}
+	}
+	std::string currentOperand = "";
+	pastKey = false;
+	idx=0;
+	std::string newPostfix = "";
+	for (i=0;i<expression.length();i++){
+		if (expression.at(i) == '@'){
+			pastKey = true;
+			newPostfix += "@";
+		}
+		else if (expression.at(i) == '_'){
+			if (currentOperand == x){
+				newPostfix += "{"+xxl+"@"+xxr+"}_";
+			}
+			else {
+				newPostfix += currentOperand+"_";
+			}
+			currentOperand = "";
+		}
+		else if (pastKey){
+			currentOperand += expression.at(i);
+		}
+		else {
+			newPostfix += expression.at(i);
+		}
+	}
+	return newPostfix;
 }
-*/
