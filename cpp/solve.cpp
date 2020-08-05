@@ -588,7 +588,7 @@ std::string substitute(std::string input){
 		return returnStr;
 	}
 	std::string var = "";
-	std::string expression = "":
+	std::string expression = "";
 	int i; bool isExpression = false;
 	bool inBrackets = false;
 	for (i=4;i<input.length();i++){
