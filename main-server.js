@@ -202,9 +202,9 @@ wss.on('connection', function connection(ws) {
 			//ws.send(JSON.stringify(jsonmessage));
 		}
 		else if (dm.type == 'saveRule'){
-			var subject = dm.subject;
-			var topic = dm.topic;
-			var name = dm.name;
+			var subject = dm.subject.toLowerCase();
+			var topic = dm.topic.toLowerCase();
+			var name = dm.name.toLowerCase();
 			var explanation = dm.explanation;
 			var instructions = dm.instructions;
 			console.log(subject);
@@ -330,7 +330,7 @@ app.get('/createrule',
 				for (var topic in result[i].topics){
 					for (var r=0;r<result[i].topics[topic].length;r++){
 						var rule = result[i].topics[topic][r];
-						csvStr += "Rule,"+topic+"."+rule.name+","+rule.explanation+"\n";
+						csvStr += "Rule,"+result[i].subject+"."+topic+"."+rule.name+","+rule.explanation+"\n";
 						for (var ii=0;ii<rule.instructions.length;ii++){
 							csvStr += rule.instructions[ii]+"\n";
 						}
