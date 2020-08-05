@@ -139,7 +139,7 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 								currentOperand = "(#@"+opResult.top+"_)";
 							}
 							else if (opResult.type == -1){
-								currentOperand = "(#@-"+opResult.top+"_)";
+								currentOperand = "(#@"+opResult.top+"_)";
 							}
 							else {
 								currentOperand = "("+insidePostfix+")";
