@@ -225,16 +225,22 @@ wss.on('connection', function connection(ws) {
 				}
 				else {
 					var foundMatch = false;
-					for (var i=0;i<result.topics[topic].length;i++){
-						if (result.topics[topic][i].name == name){
-							result.topics[topic][i] = {name:name,explanation:explanation,instructions:instructions};
-							foundMatch = true;
-							break;
+					if (result.topics[topic]){
+						for (var i=0;i<result.topics[topic].length;i++){
+							if (result.topics[topic][i].name == name){
+								result.topics[topic][i] = {name:name,explanation:explanation,instructions:instructions};
+								foundMatch = true;
+								break;
+							}
+						}
+						if (!foundMatch){
+							result.topics[topic].push({name:name,explanation:explanation,instructions:instructions});
 						}
 					}
-					if (!foundMatch){
-						result.topics[topic].push({name:name,explanation:explanation,instructions:instructions});
+					else {
+						result.topics[topic] = [{name:name,explanation:explanation,instructions:instructions}];
 					}
+					
 					
 					result.markModified('topics');
 					result.save(function(err,result){

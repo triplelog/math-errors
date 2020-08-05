@@ -260,7 +260,7 @@ Number invertOne(Number numA){
 		return n;
 	}
 	//TODO: create number type for division by zero
-
+	return n;
 }
 
 Number addTwo(Number numA, Number numB){
