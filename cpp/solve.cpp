@@ -556,7 +556,7 @@ Number solvePostfix(std::string postfix) {
 	            case '-': stack[currentIndex - 1] = negateOne(stack[currentIndex - 1]); currentIndex++; break; 
 	            case '*': stack[currentIndex - 2] = mulTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
 	            case '/': {
-	            	if (currentIndex > 1){
+	            	if (currentIndex > 100){
 	            		stack[currentIndex - 2] = divTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); break;
 	            	}
 	            	else {
