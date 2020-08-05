@@ -420,6 +420,46 @@ Number mulTwoInts(Number numA, Number numB){
 	return n;
 }
 
+Number expTwo(Number numA, Number numB){
+	int base = 10;
+	int neg = 1;
+	Number n;
+	//TODO: implement exponentiation instead of multiplication
+	if (numA.type == 1){
+		if (numB.type == 1){
+			n.type = 1;
+			int prod = std::stoi(numA.top);
+			prod *= std::stoi(numB.top);
+			n.top = std::to_string(prod);
+			return n;
+		}
+		else if (numB.type == -1){
+			n.type = -1;
+			int prod = std::stoi(numA.top);
+			prod *= std::stoi(numB.top);
+			n.top = std::to_string(prod);
+			return n;
+		}
+	}
+	else if (numA.type == -1){
+		if (numB.type == 1){
+			n.type = -1;
+			int prod = std::stoi(numA.top);
+			prod *= std::stoi(numB.top);
+			n.top = std::to_string(prod);
+			return n;
+		}
+		else if (numB.type == -1){
+			n.type = 1;
+			int prod = std::stoi(numA.top);
+			prod *= std::stoi(numB.top);
+			n.top = std::to_string(prod);
+			return n;
+		}
+	}
+	return n;
+}
+
 Number divTwoInts(Number numA, Number numB){
 	int base = 10;
 	int neg = 1;
@@ -515,6 +555,7 @@ Number solvePostfix(std::string postfix) {
 	            case '-': stack[currentIndex - 1] = negateOne(stack[currentIndex - 1]); currentIndex++; break; 
 	            case '*': stack[currentIndex - 2] = mulTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
 	            case '/': stack[currentIndex - 1] = invertOne(stack[currentIndex - 1]); currentIndex++; break;
+	            case '^': stack[currentIndex - 2] = expTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break;
 	            //case '=': stack[currentIndex - 2] = stack[currentIndex - 2] == stack[currentIndex - 1]; break;
 	            //case '!': stack[currentIndex - 2] = stack[currentIndex - 2] != stack[currentIndex - 1]; break;
 	            //case '%': stack[currentIndex - 2] = stack[currentIndex - 2] % stack[currentIndex - 1]; break; 

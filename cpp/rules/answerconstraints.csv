@@ -25,12 +25,12 @@ A
 "t",mc
 
 algebra.derivatives.power.0,"Power Rule"
-"What is the derivative of $x^A$?"
-ddx(x^A)
+"Solve for x. $A*(x+7)=2*A$?"
+A*(x+7)=2*A
 "<input name='A'></input>"
 A
 "q",A,int,[2,7]U(11,17]
-"a",ddx(A),i,""
+"a",x=B,c,""
 "a",A*1,i,""
 "a",A+0,i,""
 "a",A*0,i,""
