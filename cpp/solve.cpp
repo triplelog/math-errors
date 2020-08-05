@@ -224,9 +224,11 @@ std::string numberType(std::string input){
 
 Number negateOne(Number numA){
 	Number n;
+	std::cout << "negatea\n";
 	n.type = -1*numA.type;
 	n.top = numA.top;
 	n.bottom = numA.bottom;
+	std::cout << "negateb\n";
 	return n;
 }
 Number invertOne(Number numA){
@@ -552,11 +554,16 @@ Number solvePostfix(std::string postfix) {
 	            //case '<': stack[currentIndex - 2].w = (stack[currentIndex - 2] < stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break;
 	            //case ']': stack[currentIndex - 2].w = (stack[currentIndex - 2] >= stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break; 
 	            //case '[': stack[currentIndex - 2].w = (stack[currentIndex - 2] <= stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break;
-	            case '+': stack[currentIndex - 2] = addTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
+	            case '+': {
+	            	std::cout << "adda"<< stack[currentIndex-2].top << " and " << stack[currentIndex-1].top << "\n";
+	            	stack[currentIndex - 2] = addTwo(stack[currentIndex - 2],stack[currentIndex - 1]);
+	            	std::cout << "addb\n";
+	            	break;
+	            }
 	            case '-': stack[currentIndex - 1] = negateOne(stack[currentIndex - 1]); currentIndex++; break; 
 	            case '*': stack[currentIndex - 2] = mulTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
 	            case '/': {
-	            	if (currentIndex > 100){
+	            	if (currentIndex > 1){
 	            		stack[currentIndex - 2] = divTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); break;
 	            	}
 	            	else {
