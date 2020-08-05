@@ -2297,7 +2297,7 @@ void initialRun(){
 	auto t1 = std::chrono::high_resolution_clock::now();
 	ridx = 0;
 	makeRules("derivatives.csv");
-	makeRules("arithmetic.csv");
+	makeRules("subjects/prealgebra.csv");
 	
 	auto t2 = std::chrono::high_resolution_clock::now();
 }
