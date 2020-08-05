@@ -25,8 +25,8 @@ A
 "t",mc
 
 algebra.derivatives.power.0,"Power Rule"
-"Substitute $x=A$ into $x+B$?"
-sub(x+B;x=A)
+"Substitute $x=A$ into $x+B=10$?"
+sub(x+B=10;x=A)
 "<input name='A'></input>"
 A
 "q",A,int,[2,7]U(11,17]
