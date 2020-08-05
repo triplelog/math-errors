@@ -295,15 +295,24 @@
 		var examples = {{ examples | dump |safe }};
 		for (var i=0;i<correct.length;i++){
 			instructions.push(correct[i]);
-			document.getElementById('instructionsC').textContent += "\n"+correct[i];
+			var template = document.querySelector('#instructionTemplate');
+			var clone = template.content.cloneNode(true);
+			clone.querySelector('span').textContent = correct[i];
+			document.getElementById('instructionsC').appendChild(clone);
 		}
 		for (var i=0;i<errors.length;i++){
 			instructions.push(errors[i]);
-			document.getElementById('instructionsE').textContent += "\n"+errors[i];
+			var template = document.querySelector('#instructionTemplate');
+			var clone = template.content.cloneNode(true);
+			clone.querySelector('span').textContent = errors[i];
+			document.getElementById('instructionsC').appendChild(clone);
 		}
 		for (var i=0;i<examples.length;i++){
 			instructions.push(examples[i]);
-			document.getElementById('instructionsX').textContent += "\n"+examples[i];
+			var template = document.querySelector('#instructionTemplate');
+			var clone = template.content.cloneNode(true);
+			clone.querySelector('span').textContent = examples[i];
+			document.getElementById('instructionsC').appendChild(clone);
 		}
 		function saveRule() {
 			var subtop = document.getElementById("subtop").value;
@@ -370,7 +379,10 @@
 				instruction += ","+conE[i];
 			}
 			instructions.push(instruction);
-			document.getElementById('instructionsE').textContent += "\n"+instruction;
+			var template = document.querySelector('#instructionTemplate');
+			var clone = template.content.cloneNode(true);
+			clone.querySelector('span').textContent = instruction;
+			document.getElementById('instructionsC').appendChild(clone);
 			document.getElementById('constraintsE').textContent = "";
 			conE = [];
 			document.getElementById('expE').value = "";
@@ -383,7 +395,10 @@
 			var outText = document.getElementById('outX').value;
 			var instruction = inText+","+outText+",x,";
 			instructions.push(instruction);
-			document.getElementById('instructionsX').textContent += "\n"+instruction;
+			var template = document.querySelector('#instructionTemplate');
+			var clone = template.content.cloneNode(true);
+			clone.querySelector('span').textContent = instruction;
+			document.getElementById('instructionsC').appendChild(clone);
 			document.getElementById('inX').value = "";
 			document.getElementById('outX').value = "";
 		}
