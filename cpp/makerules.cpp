@@ -183,7 +183,7 @@ std::vector<std::string> makeRule(std::string input){
 void makeRules(std::string fileName){
 	std::vector<std::vector<std::string>> rawRules;
 	
-	rapidcsv::Document doc("cpp/rules/"+fileName, rapidcsv::LabelParams(-1, -1));
+	rapidcsv::Document doc("cpp/"+fileName, rapidcsv::LabelParams(-1, -1));
 	
 	int nRows = doc.GetRowCount();
 	int i; int ii;
