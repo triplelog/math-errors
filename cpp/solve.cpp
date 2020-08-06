@@ -608,6 +608,7 @@ std::vector<std::string> factorList(std::string input) {
 	return list;
 }
 flat_hash_map<std::string,std::string> conditionalPostfixList;
+
 std::string solveConditionalPostfix(std::string var){
 	if (conditionalPostfixList.find(var) != conditionalPostfixList.end()){
 		return conditionalPostfixList[var];
@@ -755,8 +756,61 @@ std::string substitute(std::string input){
 		return returnStr;
 	}
 	std::string var = "";
+	int i;
+	if (input.at(0) != '#' || input.at(1) != '#' || input.at(2) != -89 || input.at(3) != '@'){
+		//TODO: grab the part up to & and convert to format
+		std::string left = "";
+		std::string right = "";
+		std::string left2 = "";
+		std::string right2 = "";
+		bool pastKey= false;
+		bool pastAnd= false;
+		int idx = 0;
+		for (i=0;i<input.length();i++){
+			if (input.at(i)=='&'){
+				pastAnd = true;
+				left += input.at(i);
+			}
+			else if (input.at(i)=='@'){
+				pastKey = true;
+			}
+			else if (!pastAnd){
+				left += input.at(i);
+				if (input.at(i)=='#'){
+					idx++;
+				}
+			}
+			else if (pastAnd && !pastKey){
+				if (input.at(i) != -89){
+					left2 += input.at(i);
+				}
+			}
+			else if (pastKey && input.at(i)=='_'){
+				if (idx >0){
+					right += input.at(i);
+				}
+				idx--;
+				
+			}
+			else if (pastKey && idx > 0){
+				right += input.at(i);
+			}
+			else if (pastKey){
+				right2 + input.at(i);
+			}
+		}
+		std::cout << "l: " << left << " and " << right << "\n";
+		std::cout << "l2: " << left2 << " and " << right2 << "\n";
+		var = solveConditionalPostfix(left + "@" + right);
+		char sub{-89};
+		std::string substr = "";
+		substr += sub;
+		input = "##"+substr+"@{"+var+"}_{"+left2+"@"+right2+"}_";
+		std::cout << input << "\n";
+	}
+	
 	std::string expression = "";
-	int i; bool isExpression = false;
+	bool isExpression = false;
 	bool inBrackets = false;
 	for (i=4;i<input.length();i++){
 		if (input.at(i)=='{'){
