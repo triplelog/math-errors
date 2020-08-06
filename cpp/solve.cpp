@@ -579,6 +579,60 @@ Number solvePostfix(std::string postfix) {
 	return stack[0];
 }
 
+std::vector<std::string> solveConditionalPostfix(std::string var){
+	return {};
+}
+
+std::vector<std::string> varToX(std::string var) {
+	std::string x = "";
+	std::string xxl = "";
+	std::string xxr = "";
+	bool pastKey = false;
+	int idx = 0;
+	int i;
+	for (i=1;i<var.length();i++){
+		if (var.at(i) == '@'){
+			if (i>0 && var.at(i-1) == '&'){
+				var = solveConditionalPostfix(var);
+				return varToX(var);
+			}
+			if (i>0 && var.at(i-1) != '='){
+				return {};
+			}
+			pastKey = true;
+		}
+		else if (var.at(i) == '_'){
+			if (idx == 0){
+				
+			}
+			else {
+				xxr += var.at(i);
+			}
+			idx++;
+		}
+		else if (var.at(i) == '=' && !pastKey){
+			if (i+1<var.length() && var.at(i+1) == '@'){
+			
+			}
+			else {
+				xxl += var.at(i);
+			}
+		}
+		else {
+			if (pastKey && idx>0){
+				xxr += var.at(i);
+			}
+			else if (pastKey){
+				x += var.at(i);
+			}
+			else {
+				xxl += var.at(i);
+			}
+		}
+	}
+	return {x,xxl,xxr};
+}
+
 std::string substitute(std::string input){
 	std::string returnStr = "("+input+")";
 	if (input.length() < 4){
@@ -626,42 +680,11 @@ std::string substitute(std::string input){
 	std::string xxr = "";
 	bool pastKey = false;
 	int idx = 0;
-	for (i=1;i<var.length();i++){
-		if (var.at(i) == '@'){
-			if (i>0 && var.at(i-1) != '='){
-				return returnStr;
-			}
-			pastKey = true;
-		}
-		else if (var.at(i) == '_'){
-			if (idx == 0){
-				
-			}
-			else {
-				xxr += var.at(i);
-			}
-			idx++;
-		}
-		else if (var.at(i) == '=' && !pastKey){
-			if (i+1<var.length() && var.at(i+1) == '@'){
-			
-			}
-			else {
-				xxl += var.at(i);
-			}
-		}
-		else {
-			if (pastKey && idx>0){
-				xxr += var.at(i);
-			}
-			else if (pastKey){
-				x += var.at(i);
-			}
-			else {
-				xxl += var.at(i);
-			}
-		}
+	std::string xv = varToX(var);
+	if (xv.size() == 0){
+		return returnStr;
 	}
+
 	std::string currentOperand = "";
 	pastKey = false;
 	idx=0;
