@@ -2449,7 +2449,7 @@ bool getAnswerList(std::string s, int nSteps) {
 		if (answerListMapF.find(allStrings[ii].next) == answerListMapF.end()){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
-		if (reverseMap.find(allStrings[ii].next) == reverseMap.end())
+		if (reverseMap.find(allStrings[ii].next) == reverseMap.end()){
 			Step step;
 			step.next = newPostfix;
 			step.rule = allStrings[ii].rule;
