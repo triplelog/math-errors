@@ -30,7 +30,7 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 		//std::cout << "userFullString @ keyMatch: "<< userFullString << "\n";
 		int ruleIdx;
 		for (ruleIdx=0;ruleIdx<rules[key].size();ruleIdx++){
-			std::cout << "Key sub-Match: " << key << " and " << rules[key][ruleIdx].out << "\n";
+			//std::cout << "Key sub-Match: " << key << " and " << rules[key][ruleIdx].out << "\n";
 			
 			Rule rule = rules[key][ruleIdx];
 			
@@ -128,9 +128,9 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 							std::cout << "ipf: " << insidePostfix << "\n";
 							for (bi=0;bi<insidePostfix.length();bi++){
 								if (insidePostfix.at(bi) == -89 && bi+1<insidePostfix.length() && insidePostfix.at(bi+1) == '@'){
-									//std::cout << "substitute: " << insidePostfix << "\n";
+									std::cout << "substitute: " << insidePostfix << "\n";
 									currentOperand = substitute(insidePostfix);
-									//std::cout << "substituted: " << currentOperand << "\n";
+									std::cout << "substituted: " << currentOperand << "\n";
 									isArithmetic = false;
 									break;
 								}
@@ -158,7 +158,13 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 						}
 						else if (rule.out.at(iii) == '_'){
 							if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
-								insidePostfix += partMap[currentOperand.at(0)] + '_';
+								if (partMap.find(currentOperand.at(0)) != partMap.end()){
+									insidePostfix += partMap[currentOperand.at(0)] + '_';
+								}
+								else {
+									insidePostfix += currentOperand + '_';
+								}
+								
 							}
 							else {
 								insidePostfix += currentOperand + '_';
