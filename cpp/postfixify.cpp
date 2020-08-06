@@ -818,7 +818,9 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 			twoChars += postVector[1].at(iii);
 			twoChars += postVector[1].at(iii+1);
 			if (repMap.find(twoChars) != repMap.end()){
+				std::cout << "rmtc: " << repMap[twoChars] << "\n";
 				std::string repText = postfixify(repMap[twoChars]);
+				std::cout << "rt: " << repText << "\n";
 				postVector[1].replace(iii,2,"("+repText+")");
 				iii += 2+repText.length() - 2;
 			}
