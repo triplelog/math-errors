@@ -565,17 +565,17 @@ Number solvePostfix(std::string postfix) {
 	            case '^': stack[currentIndex - 2] = expTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break;
 	            case '=': {
 	            	if (stack[currentIndex - 2] == stack[currentIndex - 1]){
-	            		Number n;
-	            		n.type = 1;
-	            		n.top = 1;
-	            		stack[currentIndex - 2] = n;
+	            		Number nn;
+	            		nn.type = 1;
+	            		nn.top = "1";
+	            		stack[currentIndex - 2] = nn;
 	            		break;
 	            	}
 	            	else {
-	            		Number n;
-	            		n.type = 1;
-	            		n.top = 0;
-	            		stack[currentIndex - 2] = n;
+	            		Number nn;
+	            		nn.type = 1;
+	            		nn.top = "0";
+	            		stack[currentIndex - 2] = nn;
 	            		break;
 	            	}
 	            }
@@ -675,7 +675,7 @@ std::string solveConditionalPostfix(std::string var){
 				}
 			}
 			Number n = solvePostfix(newPostfix);
-			if (n.type == 1 && n.top == 1){
+			if (n.type == 1 && n.top == "1"){
 				std::cout << "npf: " << newPostfix << " and " << "true"<< "\n";
 			}
 			
