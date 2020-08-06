@@ -2365,10 +2365,11 @@ bool getAnswerList(std::string s, int nSteps) {
 		if (!foundOneAnswer){
 
 			if (doubleCheckAnswer(newPostfix)){
-				std::cout << "One answer: " << newPostfix << "\n";
+				std::cout << "One answer: " << newPostfix << " and " << maxSteps << "\n";
 				if (nSteps*2+6 < maxSteps){
 					maxSteps = nSteps*2+6;
 				}
+				std::cout << "One answer: " << newPostfix << " and " << maxSteps << "\n";
 				foundOneAnswer = true;
 			}
 		}
