@@ -3444,8 +3444,6 @@ void BreakAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	nodeBreak = true;
 
-	
-	info.GetReturnValue().Set(h.ToLocalChecked());
 }
 void Init(v8::Local<v8::Object> exports) {
   v8::Local<v8::Context> context = exports->CreationContext();
