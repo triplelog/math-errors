@@ -24,7 +24,7 @@ A
 "a",A^1,i,""
 "t",mc
 
-algebra.derivatives.power.0,"Power Rule"
+prealgebra.derivatives.power.0,"Power Rule"
 "Substitute $x=A$ into $x+B=10$?"
 sub(x+B=10;x=A)
 "<input name='A'></input>"
@@ -39,8 +39,8 @@ A
 "t",mc
 
 algebra.derivatives.power.0,"Power Rule"
-"Solve for x. $A*(x+7)==(17*A)$?"
-A*(x+7)=17*A
+"Solve for x. $A*(x+7)+=(2*A)*x==(16*A)$?"
+A*(x+7)+=(2*A)*x==(16*A)
 "<input name='A'></input>"
 A
 "q",A,int,[2,7]U(11,17]
