@@ -434,7 +434,7 @@ std::string replaceFunctions(std::string input_str){
 					bool isVar = true;
 					int repLen = 8;
 					for (ii=i+2;ii<input_str.length();ii++){
-						std::cout << "ii: " << ii << " and " << input_str.at(ii) << "\n";
+						std::cout << "ii: " << ii << " and " << input_str.at(ii) << " and " << input_str << "\n";
 						repLen++;
 						if (input_str.at(ii) == '('){
 							openPar++;
