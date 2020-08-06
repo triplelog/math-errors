@@ -249,6 +249,9 @@ std::string replaceFunctions(std::string input_str){
 	replacements3["abs"]="";
 	replacements3["abs"]+=abs;
 	
+	char element{-94};
+	replacements7["element"]="";
+	replacements7["element"]+=element;
 	
 	std::string twoChars = "..";
 	std::string threeChars = "...";
@@ -278,27 +281,27 @@ std::string replaceFunctions(std::string input_str){
 			std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
 			if (replacements8.find(eightChars) != replacements8.end()){
 				input_str.replace(i-7,8,replacements8[eightChars]);
-				eightChars = "...";
+				eightChars = "........";
 				i+= replacements8[eightChars].length() - 8;
 			}
 			else if (replacements7.find(sevenChars) != replacements7.end()){
 				input_str.replace(i-6,7,replacements7[sevenChars]);
-				sevenChars = "...";
+				sevenChars = ".......";
 				i+= replacements7[sevenChars].length() - 7;
 			}
 			else if (replacements6.find(sixChars) != replacements6.end()){
 				input_str.replace(i-5,6,replacements6[sixChars]);
-				sixChars = "...";
+				sixChars = "......";
 				i+= replacements6[sixChars].length() - 6;
 			}
 			else if (replacements5.find(fiveChars) != replacements5.end()){
 				input_str.replace(i-4,5,replacements5[fiveChars]);
-				fiveChars = "...";
+				fiveChars = ".....";
 				i+= replacements5[fiveChars].length() - 5;
 			}
 			else if (replacements4.find(fourChars) != replacements4.end()){
 				input_str.replace(i-3,4,replacements4[fourChars]);
-				fourChars = "...";
+				fourChars = "....";
 				i+= replacements4[fourChars].length() - 4;
 			}
 			else if (replacements3.find(threeChars) != replacements3.end()){

@@ -596,7 +596,7 @@ std::string solveConditionalPostfix(std::string var){
 			pastKey = true;
 			pastFirst = false;
 		}
-		else if (var.at(i) == -93){
+		else if (var.at(i) == -94){
 			pastFirst = true;
 		}
 		else if (var.at(i) == '&'){
