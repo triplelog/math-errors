@@ -2331,6 +2331,10 @@ int maxSteps;
 
 bool getAnswerList(std::string s, int nSteps) {
 	//std::cout << "s: "<< s << "\n";
+	bool nodeBreak = false;
+	if (nodeBreak){
+		return false;
+	}
 	if (nSteps > maxFound){
 		maxFound = nSteps;
 	}
@@ -3418,7 +3422,7 @@ void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	correctSolutionList.clear();
 	incorrectSolutionList.clear();
 	answerMap.clear();
-	maxSteps = 5;
+	maxSteps = 25;
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
 	maxFound = 0;
@@ -3436,7 +3440,14 @@ void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
+void BreakAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+	v8::Isolate* isolate = info.GetIsolate();
+	
+	nodeBreak = true;
 
+	
+	info.GetReturnValue().Set(h.ToLocalChecked());
+}
 void Init(v8::Local<v8::Object> exports) {
   v8::Local<v8::Context> context = exports->CreationContext();
   exports->Set(context,
@@ -3472,6 +3483,11 @@ void Init(v8::Local<v8::Object> exports) {
   exports->Set(context,
                Nan::New("previewQuestion").ToLocalChecked(),
                Nan::New<v8::FunctionTemplate>(PreviewQuestion)
+                   ->GetFunction(context)
+                   .ToLocalChecked());
+  exports->Set(context,
+               Nan::New("breakAnswer").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(BreakAnswer)
                    ->GetFunction(context)
                    .ToLocalChecked());
 }

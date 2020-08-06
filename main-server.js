@@ -85,6 +85,7 @@ wss.on('connection', function connection(ws) {
 			console.log(performance.now());
 			var stdout = maincpp.question();
 			console.log(performance.now(), question);
+			maincpp.breakAnswer();
 			var outStr = "";
 		
 			var len = stdout.length;
