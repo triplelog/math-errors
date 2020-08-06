@@ -688,12 +688,14 @@ std::string solveConditionalPostfix(std::string var){
 			Number n = solvePostfix(newPostfix);
 			if (n.type == 1 && n.top == "1"){
 				std::cout << "npf: " << newPostfix << " and " << "true"<< "\n";
-				conditionalPostfixList[var]="##@";
+				conditionalPostfixList[var]="##=@C_"+list[ii]+"_";
+				return "##=@C_"+list[ii]+"_";
 			}
 			
 		}
 		std::cout << "var: " << var << " and " << x << " and " << xxl << " and " << xxr << " and " << expressionl << " and " << expressionr << "\n";
 	}
+	conditionalPostfixList[var]="##@";
 	return "##@";
 }
 
@@ -826,5 +828,6 @@ std::string substitute(std::string input){
 			newPostfix += expression.at(i);
 		}
 	}
+	std::cout << "newPostfix: " << newPostfix << "\n";
 	return "("+newPostfix+")";
 }
