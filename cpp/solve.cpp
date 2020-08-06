@@ -790,7 +790,7 @@ std::string substitute(std::string input){
 			}
 		}
 	}
-	//std::cout << "var: " << var << " and " << expression << "\n";
+	std::cout << "var: " << var << " and " << expression << "\n";
 	std::string x = "";
 	std::string xxl = "";
 	std::string xxr = "";
@@ -806,7 +806,7 @@ std::string substitute(std::string input){
 	pastKey = false;
 	idx=0;
 	std::string newPostfix = "";
-	//std::cout << "x: " << x << " and " << xxl << " and " << xxr << "\n";
+	std::cout << "x: " << x << " and " << xxl << " and " << xxr << "\n";
 	for (i=0;i<expression.length();i++){
 		if (expression.at(i) == '@'){
 			pastKey = true;
@@ -828,6 +828,6 @@ std::string substitute(std::string input){
 			newPostfix += expression.at(i);
 		}
 	}
-	//std::cout << "newPostfix: " << newPostfix << "\n";
+	std::cout << "newPostfix: " << newPostfix << "\n";
 	return "("+newPostfix+")";
 }
