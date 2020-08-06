@@ -817,17 +817,18 @@ std::string substitute(std::string input){
 				right2 += input.at(i);
 			}
 		}
-		//std::cout << "l: " << left << " and " << right << "\n";
-		//std::cout << "l2: " << left2 << " and " << right2 << "\n";
+		std::cout << "l: " << left << " and " << right << "\n";
+		std::cout << "l2: " << left2 << " and " << right2 << "\n";
 		var = solveConditionalPostfix(left + "@" + right);
 		if (var == "##@"){
+			std::cout << "fin: nothing" << "\n";
 			return returnStr;
 		}
 		char sub{-89};
 		std::string substr = "";
 		substr += sub;
 		input = "##"+substr+"@{"+var+"}_{"+left2+"@"+right2+"}_";
-		//std::cout << input << "\n";
+		std::cout << "fin: "<< input << "\n";
 	}
 	var = "";
 	std::string expression = "";
