@@ -594,7 +594,24 @@ Number solvePostfix(std::string postfix) {
 	return stack[0];
 }
 
+std::vector<std::string> factorList(std::string input) {
+	int i;
+	int n = std::stoi(input);
+	std::vector<std::string> list;
+	list.push_back("1");
+	for (i=2;i<n;i++){
+		if (n%i == 0){
+			list.push_back(std::to_string(i));
+		}
+	}
+	list.push_back(input);
+	return list;
+}
+flat_hash_map<std::string,std::string> conditionalPostfixList;
 std::string solveConditionalPostfix(std::string var){
+	if (conditionalPostfixList.find(var) != conditionalPostfixList.end()){
+		return conditionalPostfixList[var];
+	}
 	std::vector<Number> possibleValues;
 	std::string x = "";
 	std::string xxl = "";
@@ -649,13 +666,7 @@ std::string solveConditionalPostfix(std::string var){
 	}
 	if (expressionr == "C_12_C_7_" && expressionl == "###/*+#="){
 		
-		std::vector<std::string> list;
-		list.push_back("1");
-		list.push_back("2");
-		list.push_back("3");
-		list.push_back("4");
-		list.push_back("6");
-		list.push_back("12");
+		std::vector<std::string> list = factorList(xxr.substr(0,xxr.length()-1));
 		int ii;
 		for (ii=0;ii<list.size();ii++){
 			std::string currentOperand = "";
@@ -677,6 +688,7 @@ std::string solveConditionalPostfix(std::string var){
 			Number n = solvePostfix(newPostfix);
 			if (n.type == 1 && n.top == "1"){
 				std::cout << "npf: " << newPostfix << " and " << "true"<< "\n";
+				conditionalPostfixList[var]="##@";
 			}
 			
 		}
