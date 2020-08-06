@@ -653,6 +653,10 @@ std::string solveConditionalPostfix(std::string var){
 					else {
 						newPostfix += currentOperand+"_";
 					}
+					currentOperand = "";
+				}
+				else {
+					currentOperand += expressionr.at(i);
 				}
 			}
 			std::cout << "npf: " << newPostfix << "\n";
