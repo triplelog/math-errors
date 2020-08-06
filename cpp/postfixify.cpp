@@ -453,10 +453,11 @@ std::string replaceFunctions(std::string input_str){
 							break;
 						}
 					}
+					std::cout << var << " and " << inside << "\n";
 					input_str.replace(i-6,repLen,var+query7[sevenChars]+"("+inside+")");
 					sevenChars = ".......";
 					i += -7;
-					std::cout << i << " : " << input_str << " char: " << query7[sevenChars] << '\n';
+					std::cout << i << " : " << input_str << " char: " << element << '\n';
 				}
 			}
 			
