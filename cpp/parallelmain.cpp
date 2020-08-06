@@ -3279,6 +3279,10 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::vector<Step> bestSolution;
 	bool foundSolution = false;
 	for (i=0;i<correctAnswers.size();i++){
+		std::vector<Step> v = correctSolutionList[correctAnswers[i]];
+
+	}
+	for (i=0;i<correctAnswers.size();i++){
 		if (correctAnswers[i] == pfstr){
 			std::cout << "match: " << pfstr << " and " << correctAnswers[i] << "\n";
 			std::vector<Step> v = correctSolutionList[pfstr];
