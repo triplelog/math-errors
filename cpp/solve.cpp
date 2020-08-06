@@ -680,10 +680,11 @@ std::string substitute(std::string input){
 	std::string xxr = "";
 	bool pastKey = false;
 	int idx = 0;
-	std::string xv = varToX(var);
-	if (xv.size() == 0){
+	std::vector<std::string> xv = varToX(var);
+	if (xv.size() < 3){
 		return returnStr;
 	}
+	x = xv[0]; xxl = xv[1]; xxr = xv[2];
 
 	std::string currentOperand = "";
 	pastKey = false;
