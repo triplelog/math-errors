@@ -647,6 +647,7 @@ std::vector<std::vector<Step>> makeTree(std::string pfstr){
 
 	
 	for (i=0;i<pfstr.length();i++){
+		std::cout << "i: " << i << "\n";
 		char mychar = pfstr.at(i);
 		if (mychar == '@'){
 			break;
