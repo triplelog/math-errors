@@ -647,7 +647,6 @@ std::vector<std::vector<Step>> makeTree(std::string pfstr){
 
 	
 	for (i=0;i<pfstr.length();i++){
-		std::cout << "i: " << i << "\n";
 		char mychar = pfstr.at(i);
 		if (mychar == '@'){
 			break;
@@ -2353,12 +2352,12 @@ bool getAnswerList(std::string s, int nSteps) {
 
 	//std::cout << "npf1: "<< newPostfix << "\n";
 	newPostfix = removeBracketsOne(newPostfix);
-	std::cout << "npf2: "<< newPostfix << "\n";
+	//std::cout << "npf2: "<< newPostfix << "\n";
 	
 	//std::cout << s << " before pl\n";
 	auto a1 = std::chrono::high_resolution_clock::now();
 	std::vector<std::vector<Step>> someStrings = makeTree(newPostfix);
-	std::cout << "npf3: "<< newPostfix << "\n";
+	//std::cout << "npf3: "<< newPostfix << "\n";
 	if (answerIsFinished){
 		finishedAnswers.push_back(newPostfix);
 
