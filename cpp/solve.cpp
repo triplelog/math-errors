@@ -808,7 +808,7 @@ std::string substitute(std::string input){
 		input = "##"+substr+"@{"+var+"}_{"+left2+"@"+right2+"}_";
 		std::cout << input << "\n";
 	}
-	
+	var = "";
 	std::string expression = "";
 	bool isExpression = false;
 	bool inBrackets = false;
