@@ -2338,12 +2338,28 @@ bool getAnswerList(std::string s, int nSteps) {
 	if (nSteps >= maxSteps){
 		return false;
 	}
+	
+
 	//std::cout << s << "\n";
 	int i;
 	int ii;
 	int iii;
 	int iiii;
-
+	
+	for (i=0;i<s.length();i++){
+		if (s.at(i)==-95){
+			if (reverseMapCorrect.find(s) != reverseMapCorrect.end()){
+				std::vector<Step> v = reverseMapCorrect[s];
+				std::cout << "yes rmc: " << s << "\n";
+				for (ii=0;ii<v.size();ii++){
+					std::cout << v[ii].next << " and " << v[ii].rule << "\n";
+				}
+			}
+			else {
+				std::cout << "no rmc: " << s << "\n";
+			}
+		}
+	}
 	jsonmessage = "";
 	std::string pfstr = s;
 	//std::cout << pfstr << '\n';
@@ -3430,7 +3446,7 @@ void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	correctSolutionList.clear();
 	incorrectSolutionList.clear();
 	answerMap.clear();
-	maxSteps = 25;
+	maxSteps = 15;
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
 	maxFound = 0;
