@@ -213,7 +213,7 @@
 		function toggleNode(evt) {
 			var collapseTarget = evt.target.getAttribute('data-target');
 			console.log(collapseTarget);
-			var el = document.getElementById(collapseTarget);
+			var el = document.querySelector(collapseTarget);
 			if (el.style.display != 'block'){
 				el.style.display = "block";
 			}
