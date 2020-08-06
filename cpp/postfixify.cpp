@@ -250,7 +250,7 @@ std::string replaceFunctions(std::string input_str){
 	replacements3["abs"]="";
 	replacements3["abs"]+=abs;
 	
-	char element{-94};
+	char element{-95};
 	query7["element"]="";
 	query7["element"]+=element;
 	
