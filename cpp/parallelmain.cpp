@@ -2707,7 +2707,7 @@ std::string fullAnswer(std::string s){
 
 	for (ii=0;ii<unfinishedAnswers.size();ii++){
 		
-		std::vector<Step> v = makeSolutionList(unfinishedAnswers[ii],newPostfix);
+		std::vector<Step> v = makeSolutionList(unfinishedAnswers[ii],newPostfix,{unfinishedAnswers[ii]});
 		int vsz = v.size();
 		if (vsz > 0){
 			unfinishedCorrect.push_back(unfinishedAnswers[ii]);
