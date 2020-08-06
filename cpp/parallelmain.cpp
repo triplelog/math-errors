@@ -2350,14 +2350,26 @@ bool getAnswerList(std::string s, int nSteps) {
 		if (s.at(i)==-95){
 			if (reverseMapCorrect.find(s) != reverseMapCorrect.end()){
 				std::vector<Step> v = reverseMapCorrect[s];
-				std::cout << "yes rmc: " << s << "\n";
+				
 				for (ii=0;ii<v.size();ii++){
-					std::cout << v[ii].next << " and " << v[ii].rule << "\n";
+					bool foundElement = false;
+					for (iii=0;iii<v[ii].next.length();iii++){
+						if (v[ii].at(iii)==-95){
+							foundElement = true;
+							break;
+						}
+					}
+					if (!foundElement){
+						std::cout << "yes rmc: " << s << "\n";
+						std::cout << v[ii].next << " and " << v[ii].rule << "\n";
+					}
+					
 				}
 			}
 			else {
-				std::cout << "no rmc: " << s << "\n";
+				//std::cout << "no rmc: " << s << "\n";
 			}
+			break;
 		}
 	}
 	jsonmessage = "";
