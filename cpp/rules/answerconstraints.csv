@@ -43,7 +43,7 @@ algebra.derivatives.power.0,"Power Rule"
 A*(x+7)+=(2*A)*x==(16*A)
 "<input name='A'></input>"
 A
-"q",A,int,[2,7]U(11,17]
+"q",A,int,[7,7]
 "a",x=B,c,""
 "a",A*1,i,""
 "a",A+0,i,""
