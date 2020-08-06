@@ -2328,12 +2328,10 @@ flat_hash_map<std::string,Answer> answerMap;
 int maxFound;
 int maxSteps;
 
-bool nodeBreak = false;
+bool foundOneAnswer;
 bool getAnswerList(std::string s, int nSteps) {
 	//std::cout << "s: "<< s << "\n";
-	if (nodeBreak){
-		return false;
-	}
+
 	if (nSteps > maxFound){
 		maxFound = nSteps;
 	}
@@ -2361,10 +2359,19 @@ bool getAnswerList(std::string s, int nSteps) {
 	auto a1 = std::chrono::high_resolution_clock::now();
 	std::vector<std::vector<Step>> someStrings = makeTree(newPostfix);
 	//std::cout << "npf3: "<< newPostfix << "\n";
+
 	if (answerIsFinished){
 		finishedAnswers.push_back(newPostfix);
+		if (!foundOneAnswer){
 
-		//std::cout << newPostfix << "\n";
+			if (doubleCheckAnswer(newPostfix)){
+				std::cout << "One answer: " << newPostfix << "\n";
+				if (nSteps*2+6 < maxSteps){
+					maxSteps = nSteps*2+6;
+				}
+				foundOneAnswer = true;
+			}
+		}
 	}
 	else {
 		unfinishedAnswers.push_back(newPostfix);
@@ -2676,6 +2683,7 @@ std::string fullAnswer(std::string s){
 	reverseMap.clear();
 	reverseMapCorrect.clear();
 	auto a1 = std::chrono::high_resolution_clock::now();
+	foundOneAnswer = false;
 	getAnswerList(newPostfix,0);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	std::cout << "\n\n\n\nCompleted the InCorrect Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << " and " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n\n";
@@ -3439,12 +3447,7 @@ void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
-void BreakAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-	v8::Isolate* isolate = info.GetIsolate();
-	
-	nodeBreak = true;
 
-}
 void Init(v8::Local<v8::Object> exports) {
   v8::Local<v8::Context> context = exports->CreationContext();
   exports->Set(context,
@@ -3482,11 +3485,7 @@ void Init(v8::Local<v8::Object> exports) {
                Nan::New<v8::FunctionTemplate>(PreviewQuestion)
                    ->GetFunction(context)
                    .ToLocalChecked());
-  exports->Set(context,
-               Nan::New("breakAnswer").ToLocalChecked(),
-               Nan::New<v8::FunctionTemplate>(BreakAnswer)
-                   ->GetFunction(context)
-                   .ToLocalChecked());
+
 }
 
 NODE_MODULE(helloarray, Init)
