@@ -114,17 +114,18 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 
 			bool hasPar = false;
 
-			bool openPar = false;
+			int openPar = 0;
 			std::string insidePostfix = "";
 			bool pastInsideKey = false;
 			bool isArithmetic = true;
 			for (iii=0;iii<rule.out.length();iii++){
-				if (openPar){
+				if (openPar > 0){
 					hasPar = true;
 					if (pastInsideKey){
-						if (rule.out.at(iii) == ')'){
+						if (rule.out.at(iii) == ')' && openPar == 1){
 							int bi;
 							isArithmetic = true;
+							std::cout << "ipf: " << insidePostfix << "\n";
 							for (bi=0;bi<insidePostfix.length();bi++){
 								if (insidePostfix.at(bi) == -89 && bi+1<insidePostfix.length() && insidePostfix.at(bi+1) == '@'){
 									//std::cout << "substitute: " << insidePostfix << "\n";
@@ -151,6 +152,7 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 							else {
 								currentOperand = "("+insidePostfix+")";
 							}
+							openPar--;
 							
 							
 						}
@@ -163,6 +165,10 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 								
 							}
 							currentOperand = "";
+						}
+						else if (rule.out.at(iii) == ')') {
+							openPar--;
+							currentOperand += rule.out.at(iii);
 						}
 						else {
 							currentOperand += rule.out.at(iii);
@@ -179,7 +185,7 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 				else {
 					if (pastKey){
 						if (rule.out.at(iii) == '('){
-							openPar = true;
+							openPar = 1;
 							currentOperand = "";
 							insidePostfix = "";
 							pastInsideKey = false;
