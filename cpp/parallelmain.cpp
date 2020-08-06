@@ -2670,6 +2670,7 @@ std::string fullAnswer(std::string s){
 		if (doubleCheckAnswer(finishedAnswers[ii])){
 			
 			std::vector<Step> v = makeSolutionList(finishedAnswers[ii],newPostfix);
+			v = makeSolutionList(finishedAnswers[ii],newPostfix);
 			int vsz = v.size();
 			if (vsz > 0){
 				//std::cout << "fully correct: "<< tempFinished[ii] << "\n";
@@ -3281,10 +3282,7 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	std::vector<Step> bestSolution;
 	bool foundSolution = false;
-	for (i=0;i<correctAnswers.size();i++){
-		std::vector<Step> v = correctSolutionList[correctAnswers[i]];
 
-	}
 	for (i=0;i<correctAnswers.size();i++){
 		if (correctAnswers[i] == pfstr){
 			std::cout << "match: " << pfstr << " and " << correctAnswers[i] << "\n";
