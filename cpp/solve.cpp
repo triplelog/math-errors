@@ -828,6 +828,6 @@ std::string substitute(std::string input){
 			newPostfix += expression.at(i);
 		}
 	}
-	std::cout << "newPostfix: " << newPostfix << "\n";
+	//std::cout << "newPostfix: " << newPostfix << "\n";
 	return "("+newPostfix+")";
 }
