@@ -2390,6 +2390,9 @@ bool getAnswerList(std::string s, int nSteps) {
 	//totalAnswers += allStrings.size();
 	
 	for (ii=0;ii<allStrings.size();ii++){
+		if (newPostfix == "##*##*+#=@7_12_36_x_192_"){
+			std::cout << "asn: " << allStrings[ii].next << "\n";
+		}
 		if (allStrings[ii].next == newPostfix){
 			continue;
 		}
@@ -2397,14 +2400,23 @@ bool getAnswerList(std::string s, int nSteps) {
 			Step step;
 			step.next = newPostfix;
 			step.rule = allStrings[ii].rule;
+			if (newPostfix == "##*##*+#=@7_12_36_x_192_"){
+				std::cout << "asnf: " << allStrings[ii].next << "\n";
+			}
 			reverseMapCorrect[allStrings[ii].next].push_back(step);
 			
 		}
 		else {
+			if (newPostfix == "##*##*+#=@7_12_36_x_192_"){
+				std::cout << "asnbf: " << allStrings[ii].next << "\n";
+			}
 			getAnswerList(allStrings[ii].next,nSteps+1);
 			Step step;
 			step.next = newPostfix;
 			step.rule = allStrings[ii].rule;
+			if (newPostfix == "##*##*+#=@7_12_36_x_192_"){
+				std::cout << "asnaf: " << allStrings[ii].next << "\n";
+			}
 			reverseMapCorrect[allStrings[ii].next]={step};
 
 		}
@@ -2517,7 +2529,6 @@ std::vector<Step> makeSolutionList(std::string s, std::string q,std::vector<std:
 	std::vector<Step> minV;
 	int ruleApp;
 	for (i=0;i<sv.size();i++){
-		std::cout << "i: " << i << " and " << sv[i].next << "\n";
 		if (correctSolutionList.find(sv[i].next) != correctSolutionList.end()){
 			if (correctSolutionList[sv[i].next].size()==1 && correctSolutionList[sv[i].next][0].next == ""){
 				continue;
