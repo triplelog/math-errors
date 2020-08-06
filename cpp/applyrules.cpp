@@ -131,8 +131,8 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 									
 									currentOperand = substitute(insidePostfix);
 									if (currentOperand != "("+insidePostfix+")"){
-										std::cout << "substitute: " << insidePostfix << "\n";
-										std::cout << "substituted: " << currentOperand << "\n";
+										//std::cout << "substitute: " << insidePostfix << "\n";
+										//std::cout << "substituted: " << currentOperand << "\n";
 									}
 									
 									isArithmetic = false;
