@@ -118,8 +118,9 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 			std::string insidePostfix = "";
 			bool pastInsideKey = false;
 			bool isArithmetic = true;
-			std::cout << userString << " was userString\n";
+			std::cout << userString << " and " << rule.operands << " was userString\n";
 			for (iii=0;iii<rule.out.length();iii++){
+				std::cout << iii << "\n";
 				if (openPar > 0){
 					hasPar = true;
 					if (pastInsideKey){
