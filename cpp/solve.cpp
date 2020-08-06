@@ -579,8 +579,8 @@ Number solvePostfix(std::string postfix) {
 	return stack[0];
 }
 
-std::vector<std::string> solveConditionalPostfix(std::string var){
-	return {};
+std::string solveConditionalPostfix(std::string var){
+	return "##@";
 }
 
 std::vector<std::string> varToX(std::string var) {
