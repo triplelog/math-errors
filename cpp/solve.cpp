@@ -595,8 +595,12 @@ Number solvePostfix(std::string postfix) {
 }
 
 std::vector<std::string> factorList(std::string input) {
+
 	int i;
 	int n = std::stoi(input);
+	if (n<1){
+		return {};
+	}
 	std::vector<std::string> list;
 	list.push_back("1");
 	for (i=2;i<n;i++){
