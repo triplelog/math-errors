@@ -2517,7 +2517,7 @@ std::vector<Step> makeSolutionList(std::string s, std::string q,std::vector<std:
 	std::vector<Step> minV;
 	int ruleApp;
 	for (i=0;i<sv.size();i++){
-		//std::cout << "i: " << i << " and " << sv[i*2] << "\n";
+		std::cout << "i: " << i << " and " << sv[i].next << "\n";
 		if (correctSolutionList.find(sv[i].next) != correctSolutionList.end()){
 			if (correctSolutionList[sv[i].next].size()==1 && correctSolutionList[sv[i].next][0].next == ""){
 				continue;
@@ -2670,6 +2670,7 @@ std::string fullAnswer(std::string s){
 	for (ii=0;ii<oneCheck.size();ii++){
 		std::cout << "oneC: " << oneCheck[ii].next << "\n";
 	}
+	/*
 	for (ii=0;ii<finishedAnswers.size();ii++){
 		if (doubleCheckAnswer(finishedAnswers[ii])){
 			
@@ -2742,7 +2743,7 @@ std::string fullAnswer(std::string s){
 		
 	}
 	//TODO: loop through the finished errors to collect all errors
-	
+	*/
 	unfinishedAnswers.resize(0);
 
 
