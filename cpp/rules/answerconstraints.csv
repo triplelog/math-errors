@@ -39,6 +39,20 @@ A
 "t",mc
 
 algebra.derivatives.power.0,"Power Rule"
+"Substitute factor of B into $(x+C)*(x+B/C)$?"
+sub((x+C)*(x+B/C);CUB&C+B/C=A)
+"<input name='A'></input>"
+A
+"q",A,int,[7,7]
+"q",B,int,[12,12]
+"a",A+B,i,""
+"a",A*1,i,""
+"a",A+0,i,""
+"a",A*0,i,""
+"a",A^1,i,""
+"t",mc
+
+algebra.derivatives.power.0,"Power Rule"
 "Solve for x. $A*(x+7)+=(2*A)*x==(16*A)$?"
 A*(x+7)+=(2*A)*x==(16*A)
 "<input name='A'></input>"

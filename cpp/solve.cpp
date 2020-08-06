@@ -575,11 +575,64 @@ Number solvePostfix(std::string postfix) {
         } 
     } 
 
-	std::cout << "pf: " << postfix << " and " << stack[0].type << " and " << stack[0].top << "\n";
+	//std::cout << "pf: " << postfix << " and " << stack[0].type << " and " << stack[0].top << "\n";
 	return stack[0];
 }
 
 std::string solveConditionalPostfix(std::string var){
+	std::vector<Number> possibleValues;
+	std::string x = "";
+	std::string xxl = "";
+	std::string xxr = "";
+	std::string expressionl = "";
+	std::string expressionr = "";
+	bool pastKey = false;
+	bool pastFirst = false;
+	int idx = 1;
+	int i;
+	std::string currentOperand = "";
+	for (i=1;i<var.length();i++){
+		if (var.at(i) == '@'){
+			pastKey = true;
+			pastFirst = false;
+		}
+		else if (var.at(i) == -91){
+			pastFirst = true;
+		}
+		else if (var.at(i) == '&'){
+		
+		}
+		else if (!pastFirst && !pastKey){
+			xxl += var.at(i);
+			if (var.at(i)=='#'){
+				idx++;
+			}
+		}
+		else if (pastFirst && !pastKey){
+			expressionl += var.at(i);
+		}
+		else if (!pastFirst && pastKey){
+			if (var.at(i) == '_'){
+				pastFirst = true;
+				idx--;
+			}
+			else {
+				x += var.at(i);
+			}
+		}
+		else {
+			if (idx > 0){
+				xxr += var.at(i);
+			}
+			else {
+				expressionr += var.at(i);
+			}
+			if (var.at(i) == '_'){
+				idx--;
+			}
+		}
+	}
+	std::cout << x << " and " << xxl << " and " << xxr << " and " << expressionl << " and " << expressionr << "\n";
 	return "##@";
 }
 
