@@ -3393,7 +3393,7 @@ void PreviewQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
 	std::string outstr = rq.text;
 	answerMap.clear();
-	maxSteps = 25;
+	maxSteps = 5;
 	oneAnswer(rq.comp);
 	if (correctAnswers.size()>0){
 		outstr += "\n"+correctAnswers[0];
