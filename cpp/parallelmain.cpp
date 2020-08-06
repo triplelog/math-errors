@@ -712,6 +712,9 @@ std::vector<std::vector<Step>> makeTree(std::string pfstr){
 					endRightOperand = tempEndRightOperand;
 					break;
 				}
+				if (ii==i-1){
+					std::cout << "No match 1\n";
+				}
 			}
 			
 			
@@ -761,6 +764,9 @@ std::vector<std::vector<Step>> makeTree(std::string pfstr){
 						startLeftIndex = ii;
 						startRightOperand = tempStartRightOperand;
 						break;
+					}
+					if (ii==maxi-1){
+						std::cout << "No match 2\n";
 					}
 				}
 				
@@ -2320,7 +2326,7 @@ int maxSteps;
 
 
 bool getAnswerList(std::string s, int nSteps) {
-	std::cout << "s: "<< s << "\n";
+	//std::cout << "s: "<< s << "\n";
 	if (nSteps > maxFound){
 		maxFound = nSteps;
 	}
@@ -2340,7 +2346,7 @@ bool getAnswerList(std::string s, int nSteps) {
 
 	std::string newPostfix = pfstr;
 
-	std::cout << "npf1: "<< newPostfix << "\n";
+	//std::cout << "npf1: "<< newPostfix << "\n";
 	newPostfix = removeBracketsOne(newPostfix);
 	std::cout << "npf2: "<< newPostfix << "\n";
 	
@@ -2385,7 +2391,7 @@ bool getAnswerList(std::string s, int nSteps) {
 		}
 	
 	}
-	std::cout << "npf4: "<< newPostfix << "\n";
+	//std::cout << "npf4: "<< newPostfix << "\n";
 	answerListMap[newPostfix] = {};
 	answerListMapF[newPostfix] = {};
 	//totalAnswers += allStrings.size();
