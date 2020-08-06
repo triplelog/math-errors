@@ -2354,7 +2354,7 @@ bool getAnswerList(std::string s, int nSteps) {
 				for (ii=0;ii<v.size();ii++){
 					bool foundElement = false;
 					for (iii=0;iii<v[ii].next.length();iii++){
-						if (v[ii].at(iii)==-95){
+						if (v[ii].next.at(iii)==-95){
 							foundElement = true;
 							break;
 						}
