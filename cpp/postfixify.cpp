@@ -165,6 +165,7 @@ std::string replaceFunctions(std::string input_str){
 	flat_hash_map<std::string,std::string> replacements7;
 	flat_hash_map<std::string,std::string> replacements8;
 	
+	flat_hash_map<std::string,std::string> query7;
 	flat_hash_map<std::string,std::string> query4;
 	flat_hash_map<std::string,std::string> query3;
 	flat_hash_map<std::string,std::string> query2;
