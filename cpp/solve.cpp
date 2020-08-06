@@ -789,6 +789,9 @@ std::string substitute(std::string input){
 				if (idx >0){
 					right += input.at(i);
 				}
+				else {
+					right2 += input.at(i);
+				}
 				idx--;
 				
 			}
@@ -796,7 +799,7 @@ std::string substitute(std::string input){
 				right += input.at(i);
 			}
 			else if (pastKey){
-				right2 + input.at(i);
+				right2 += input.at(i);
 			}
 		}
 		std::cout << "l: " << left << " and " << right << "\n";
