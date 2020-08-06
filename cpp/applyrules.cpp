@@ -209,9 +209,7 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 
 
 			if (hasPar && newPostfix.length() >0){
-				std::cout << "npf1: " << newPostfix << "\n";
 				newPostfix = removeParOne(newPostfix);
-				std::cout << "npf2: " << newPostfix << "\n";
 				//newPostfix = removeBracketsOne(newPostfix);
 			}
 			if (newPostfix == userString){

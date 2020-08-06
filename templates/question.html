@@ -150,7 +150,7 @@
 			
 						</div>
 
-						<div id="collapse" class="collapse" aria-labelledby="heading" data-parent="#accordionExample">
+						<div id="collapse" style="display:none;">
 						  <div class="card-body">
 							<div class="tf-tree">
 							  <ul id="tree-simple">
@@ -213,6 +213,14 @@
 		function toggleNode(evt) {
 			var collapseTarget = evt.target.getAttribute('data-target');
 			console.log(collapseTarget);
+			var el = document.getElementById(collapseTarget);
+			if (el.style.display != 'block'){
+				el.style.display = "block";
+			}
+			else {
+				el.style.display = "none";
+			}
+			
 		}
 		function createTrees(input_str){
 			document.getElementById("accordionSolution").innerHTML = "";
