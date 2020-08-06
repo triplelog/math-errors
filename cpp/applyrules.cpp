@@ -118,9 +118,9 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 			std::string insidePostfix = "";
 			bool pastInsideKey = false;
 			bool isArithmetic = true;
-			std::cout << userString << " and " << rule.operands << " and " << key << " and " << rule.out << " was userString\n";
+			//std::cout << userString << " and " << rule.operands << " and " << key << " and " << rule.out << " was userString\n";
 			for (iii=0;iii<rule.out.length();iii++){
-				std::cout << iii << "\n";
+				//std::cout << iii << "\n";
 				if (openPar > 0){
 					hasPar = true;
 					if (pastInsideKey){
@@ -226,15 +226,15 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 
 			
 			if (hasPar && newPostfix.length() >0){
-				std::cout << newPostfix << " was newPostfix\n";
+				//std::cout << newPostfix << " was newPostfix\n";
 				newPostfix = removeParOne(newPostfix);
-				std::cout << newPostfix << " was newPostfix after removal\n";
+				//std::cout << newPostfix << " was newPostfix after removal\n";
 				//newPostfix = removeBracketsOne(newPostfix);
 			}
 			if (newPostfix == userString){
 				newPostfix = "";
 			}
-			std::cout << newPostfix << " was npf\n";
+			//std::cout << newPostfix << " was npf\n";
 			
 			if (newPostfix.length()>0){
 				//Constraints go here
