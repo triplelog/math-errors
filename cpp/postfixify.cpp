@@ -396,10 +396,26 @@ std::string replaceFunctions(std::string input_str){
 					for (ii=i+1;ii<input_str.length();ii++){
 						repLen++;
 						if (input_str.at(ii) == '('){
+							if (openPar >0){
+								if (isVar){
+									var += input_str.at(ii);
+								}
+								else {
+									inside += input_str.at(ii);
+								}
+							}
 							openPar++;
 						}
 						else if (input_str.at(ii) == ')'){
 							openPar--;
+							if (openPar >0){
+								if (isVar){
+									var += input_str.at(ii);
+								}
+								else {
+									inside += input_str.at(ii);
+								}
+							}
 						}
 						else if (input_str.at(ii) == ';'){
 							isVar = true;
