@@ -768,7 +768,7 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 
 	input_str = replaceFunctions(input_str);
 	flat_hash_map<std::string,std::string> repMap;
-	std::cout <<"pv: "<< input_str << "\n";
+	//std::cout <<"pv: "<< input_str << "\n";
 	if (checkComputations){
 		char repl = 'A';
 		
@@ -803,7 +803,7 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 				repl++;
 				input_str.replace(i,ii+1-i,key);
 				repMap[key]=inside;
-				std::cout << "found: " << input_str << "\n";
+				//std::cout << "found: " << input_str << "\n";
 			}
 		
 		}
@@ -815,7 +815,7 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 	infixexpr[input_str.length()] = '\0';
 	
 	std::vector<std::string> postVector = makePostVector(infixexpr);
-	std::cout <<"pv: "<< postVector[0] << " and " << postVector[1] << "\n";
+	//std::cout <<"pv: "<< postVector[0] << " and " << postVector[1] << "\n";
 	if (checkComputations){
 		int iii;
 		std::string twoChars = "..";
@@ -824,15 +824,15 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 			twoChars += postVector[1].at(iii);
 			twoChars += postVector[1].at(iii+1);
 			if (repMap.find(twoChars) != repMap.end()){
-				std::cout << "rmtc: " << repMap[twoChars] << "\n";
+				//std::cout << "rmtc: " << repMap[twoChars] << "\n";
 				std::string repText = postfixify(repMap[twoChars]);
-				std::cout << "rt: " << repText << "\n";
+				//std::cout << "rt: " << repText << "\n";
 				postVector[1].replace(iii,2,"("+repText+")");
 				iii += 2+repText.length() - 2;
 			}
 		}
 	}
-	std::cout <<"pv: "<< postVector[1] << "\n";
+	//std::cout <<"pv: "<< postVector[1] << "\n";
 	return postVector;
 }
 

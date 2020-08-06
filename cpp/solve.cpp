@@ -754,9 +754,6 @@ std::string substitute(std::string input){
 	if (input.length() < 4){
 		return returnStr;
 	}
-	if (input.at(0) != '#' || input.at(1) != '#' || input.at(2) != -89 || input.at(3) != '@'){
-		return returnStr;
-	}
 	std::string var = "";
 	std::string expression = "";
 	int i; bool isExpression = false;
