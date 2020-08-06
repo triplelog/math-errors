@@ -2397,6 +2397,12 @@ bool getAnswerList(std::string s, int nSteps) {
 			continue;
 		}
 		if (answerListMap.find(allStrings[ii].next) != answerListMap.end()){
+		
+		}
+		else {
+			getAnswerList(allStrings[ii].next,nSteps+1);
+		}
+		if (reverseMapCorrect.find(allStrings[ii].next) != reverseMapCorrect.end()){
 			Step step;
 			step.next = newPostfix;
 			step.rule = allStrings[ii].rule;
@@ -2407,10 +2413,6 @@ bool getAnswerList(std::string s, int nSteps) {
 			
 		}
 		else {
-			if (newPostfix == "##*##*+#=@7_12_36_x_192_"){
-				std::cout << "asnbf: " << allStrings[ii].next << "\n";
-			}
-			getAnswerList(allStrings[ii].next,nSteps+1);
 			Step step;
 			step.next = newPostfix;
 			step.rule = allStrings[ii].rule;
