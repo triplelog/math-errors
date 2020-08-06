@@ -665,7 +665,12 @@ std::string solveConditionalPostfix(std::string var){
 			}
 		}
 	}
-	if (expressionr == "C_12_C_7_" && expressionl == "###/*+#="){
+	numberType(xxr.substr(0,xxr.length()-1));
+	if (numbers[xxr.substr(0,xxr.length()-1)].type != 1 && numbers[xxr.substr(0,xxr.length()-1)].type != -1){
+		conditionalPostfixList[var]="##@";
+		return "##@";
+	}
+
 		
 		std::vector<std::string> list = factorList(xxr.substr(0,xxr.length()-1));
 		int ii;
@@ -678,6 +683,13 @@ std::string solveConditionalPostfix(std::string var){
 						newPostfix += list[ii]+"_";
 					}
 					else {
+						if (numbers.find(currentOperand) == numbers.end()){
+							numberType(currentOperand);
+						}
+						if (numbers[currentOperand].type != 1 && numbers[currentOperand].type != -1){
+							conditionalPostfixList[var]="##@";
+							return "##@";
+						}
 						newPostfix += currentOperand+"_";
 					}
 					currentOperand = "";
@@ -695,7 +707,7 @@ std::string solveConditionalPostfix(std::string var){
 			
 		}
 		//std::cout << "var: " << var << " and " << x << " and " << xxl << " and " << xxr << " and " << expressionl << " and " << expressionr << "\n";
-	}
+	
 	conditionalPostfixList[var]="##@";
 	return "##@";
 }
@@ -805,6 +817,9 @@ std::string substitute(std::string input){
 		//std::cout << "l: " << left << " and " << right << "\n";
 		//std::cout << "l2: " << left2 << " and " << right2 << "\n";
 		var = solveConditionalPostfix(left + "@" + right);
+		if (var == "##@"){
+			return returnStr;
+		}
 		char sub{-89};
 		std::string substr = "";
 		substr += sub;
