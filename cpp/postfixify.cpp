@@ -780,10 +780,16 @@ std::vector<std::string> postfixifyVector(std::string input_str, bool checkCompu
 				std::string inside = "";
 				for (ii=i+1;ii<input_str.length();ii++){
 					if (input_str.at(ii) == '('){
+						if (openPar > 0){
+							inside += input_str.at(ii);
+						}
 						openPar++;
 					}
 					else if (input_str.at(ii) == ')'){
 						openPar--;
+						if (openPar > 0){
+							inside += input_str.at(ii);
+						}
 					}
 					else {
 						inside += input_str.at(ii);
