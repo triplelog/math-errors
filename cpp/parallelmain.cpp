@@ -2666,7 +2666,10 @@ std::string fullAnswer(std::string s){
 	std::cout << "finished answers: " << finishedAnswers.size() << "\n";
 	std::cout << "unfinished answers: " << unfinishedAnswers.size() << "\n";
 	
-
+	std::vector<Step> oneCheck = makeSolutionList("##*##*+#=@7_12_36_x_192_",newPostfix,{"##*##*+#=@7_12_36_x_192_"});
+	for (ii=0;ii<oneCheck.size();ii++){
+		std::cout << "oneC: " << oneCheck[ii].next << "\n";
+	}
 	for (ii=0;ii<finishedAnswers.size();ii++){
 		if (doubleCheckAnswer(finishedAnswers[ii])){
 			
