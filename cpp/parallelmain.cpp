@@ -2678,6 +2678,9 @@ std::string fullAnswer(std::string s){
 	std::cout << "unfinished answers: " << unfinishedAnswers.size() << "\n";
 	
 	std::vector<Step> oneCheck = makeSolutionList("##*##*+#=@7_12_x_36_192_",newPostfix,{"##*##*+#=@7_12_x_36_192_"});
+	for (ii=0;ii<reverseMapCorrect["##*##*+#=@7_12_x_36_192_"].size();ii++){
+		std::cout << "rmc: " << reverseMapCorrect["##*##*+#=@7_12_x_36_192_"][ii] << "\n";
+	}
 	for (ii=0;ii<oneCheck.size();ii++){
 		std::cout << "oneC: " << oneCheck[ii].next << "\n";
 	}
