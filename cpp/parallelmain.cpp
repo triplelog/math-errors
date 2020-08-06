@@ -2361,7 +2361,8 @@ bool getAnswerList(std::string s, int nSteps) {
 					}
 					if (!foundElement){
 						std::cout << "yes rmc: " << s << "\n";
-						std::cout << v[ii].next << " and " << v[ii].rule << "\n";
+						Rule rule = ruleIndex[v[ii].rule];
+						std::cout << v[ii].next << " and " << rule.operands << " and " << rule.out << "\n";
 					}
 					
 				}
