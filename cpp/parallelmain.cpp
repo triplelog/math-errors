@@ -2328,10 +2328,9 @@ flat_hash_map<std::string,Answer> answerMap;
 int maxFound;
 int maxSteps;
 
-
+bool nodeBreak = false;
 bool getAnswerList(std::string s, int nSteps) {
 	//std::cout << "s: "<< s << "\n";
-	bool nodeBreak = false;
 	if (nodeBreak){
 		return false;
 	}
