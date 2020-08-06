@@ -632,7 +632,10 @@ std::string solveConditionalPostfix(std::string var){
 			}
 		}
 	}
-	std::cout << "var: " << var << " and " << x << " and " << xxl << " and " << xxr << " and " << expressionl << " and " << expressionr << "\n";
+	if (expressionr == "C_12_C_7_"){
+		std::cout << "var: " << var << " and " << x << " and " << xxl << " and " << xxr << " and " << expressionl << " and " << expressionr << "\n";
+	
+	}
 	return "##@";
 }
 
