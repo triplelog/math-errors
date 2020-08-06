@@ -2390,25 +2390,16 @@ bool getAnswerList(std::string s, int nSteps) {
 	//totalAnswers += allStrings.size();
 	
 	for (ii=0;ii<allStrings.size();ii++){
-		if (newPostfix == "##*##*+#=@7_12_36_x_192_"){
-			std::cout << "asn: " << allStrings[ii].next << "\n";
-		}
 		if (allStrings[ii].next == newPostfix){
 			continue;
 		}
-		if (answerListMap.find(allStrings[ii].next) != answerListMap.end()){
-		
-		}
-		else {
+		if (answerListMap.find(allStrings[ii].next) == answerListMap.end()){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
 		if (reverseMapCorrect.find(allStrings[ii].next) != reverseMapCorrect.end()){
 			Step step;
 			step.next = newPostfix;
 			step.rule = allStrings[ii].rule;
-			if (newPostfix == "##*##*+#=@7_12_36_x_192_"){
-				std::cout << "asnf: " << allStrings[ii].next << "\n";
-			}
 			reverseMapCorrect[allStrings[ii].next].push_back(step);
 			
 		}
@@ -2416,9 +2407,6 @@ bool getAnswerList(std::string s, int nSteps) {
 			Step step;
 			step.next = newPostfix;
 			step.rule = allStrings[ii].rule;
-			if (newPostfix == "##*##*+#=@7_12_36_x_192_"){
-				std::cout << "asnaf: " << allStrings[ii].next << "\n";
-			}
 			reverseMapCorrect[allStrings[ii].next]={step};
 
 		}
@@ -2458,7 +2446,10 @@ bool getAnswerList(std::string s, int nSteps) {
 		}
 		answerListMapF[newPostfix].push_back(allStrings[ii].rule);
 
-		if (answerListMapF.find(allStrings[ii].next) != answerListMapF.end()){
+		if (answerListMapF.find(allStrings[ii].next) == answerListMapF.end()){
+			getAnswerList(allStrings[ii].next,nSteps+1);
+		}
+		if (reverseMap.find(allStrings[ii].next) == reverseMap.end())
 			Step step;
 			step.next = newPostfix;
 			step.rule = allStrings[ii].rule;
@@ -2466,7 +2457,6 @@ bool getAnswerList(std::string s, int nSteps) {
 			
 		}
 		else {
-			getAnswerList(allStrings[ii].next,nSteps+1);
 			Step step;
 			step.next = newPostfix;
 			step.rule = allStrings[ii].rule;
@@ -2679,14 +2669,8 @@ std::string fullAnswer(std::string s){
 	std::cout << "finished answers: " << finishedAnswers.size() << "\n";
 	std::cout << "unfinished answers: " << unfinishedAnswers.size() << "\n";
 	
-	std::vector<Step> oneCheck = makeSolutionList("##*##*+#=@7_12_x_36_192_",newPostfix,{"##*##*+#=@7_12_x_36_192_"});
-	for (ii=0;ii<reverseMapCorrect["##*##*+#=@7_12_x_36_192_"].size();ii++){
-		std::cout << "rmc: " << reverseMapCorrect["##*##*+#=@7_12_x_36_192_"][ii].next << "\n";
-	}
-	for (ii=0;ii<oneCheck.size();ii++){
-		std::cout << "oneC: " << oneCheck[ii].next << "\n";
-	}
-	/*
+
+	
 	for (ii=0;ii<finishedAnswers.size();ii++){
 		if (doubleCheckAnswer(finishedAnswers[ii])){
 			
@@ -2759,7 +2743,7 @@ std::string fullAnswer(std::string s){
 		
 	}
 	//TODO: loop through the finished errors to collect all errors
-	*/
+	
 	unfinishedAnswers.resize(0);
 
 
