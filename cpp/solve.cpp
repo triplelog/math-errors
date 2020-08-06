@@ -575,7 +575,7 @@ Number solvePostfix(std::string postfix) {
         } 
     } 
 
-
+	std::cout << "pf: " << postfix << " and " << stack[0].type << " and " << stack[0].top << "\n";
 	return stack[0];
 }
 
