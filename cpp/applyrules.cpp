@@ -125,7 +125,7 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 						if (rule.out.at(iii) == ')' && openPar == 1){
 							int bi;
 							isArithmetic = true;
-							std::cout << "ipf: " << insidePostfix << "\n";
+							//std::cout << "ipf: " << insidePostfix << "\n";
 							for (bi=0;bi<insidePostfix.length();bi++){
 								if (insidePostfix.at(bi) == -89 && bi+1<insidePostfix.length() && insidePostfix.at(bi+1) == '@'){
 									std::cout << "substitute: " << insidePostfix << "\n";

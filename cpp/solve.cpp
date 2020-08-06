@@ -688,13 +688,13 @@ std::string solveConditionalPostfix(std::string var){
 			}
 			Number n = solvePostfix(newPostfix);
 			if (n.type == 1 && n.top == "1"){
-				std::cout << "npf: " << newPostfix << " and " << "true"<< "\n";
+				//std::cout << "npf: " << newPostfix << " and " << "true"<< "\n";
 				conditionalPostfixList[var]="##=@C_"+list[ii]+"_";
 				return "##=@C_"+list[ii]+"_";
 			}
 			
 		}
-		std::cout << "var: " << var << " and " << x << " and " << xxl << " and " << xxr << " and " << expressionl << " and " << expressionr << "\n";
+		//std::cout << "var: " << var << " and " << x << " and " << xxl << " and " << xxr << " and " << expressionl << " and " << expressionr << "\n";
 	}
 	conditionalPostfixList[var]="##@";
 	return "##@";
@@ -802,14 +802,14 @@ std::string substitute(std::string input){
 				right2 += input.at(i);
 			}
 		}
-		std::cout << "l: " << left << " and " << right << "\n";
-		std::cout << "l2: " << left2 << " and " << right2 << "\n";
+		//std::cout << "l: " << left << " and " << right << "\n";
+		//std::cout << "l2: " << left2 << " and " << right2 << "\n";
 		var = solveConditionalPostfix(left + "@" + right);
 		char sub{-89};
 		std::string substr = "";
 		substr += sub;
 		input = "##"+substr+"@{"+var+"}_{"+left2+"@"+right2+"}_";
-		std::cout << input << "\n";
+		//std::cout << input << "\n";
 	}
 	var = "";
 	std::string expression = "";
@@ -844,7 +844,7 @@ std::string substitute(std::string input){
 			}
 		}
 	}
-	std::cout << "var: " << var << " and " << expression << "\n";
+	//std::cout << "var: " << var << " and " << expression << "\n";
 	std::string x = "";
 	std::string xxl = "";
 	std::string xxr = "";
@@ -860,7 +860,7 @@ std::string substitute(std::string input){
 	pastKey = false;
 	idx=0;
 	std::string newPostfix = "";
-	std::cout << "x: " << x << " and " << xxl << " and " << xxr << "\n";
+	//std::cout << "x: " << x << " and " << xxl << " and " << xxr << "\n";
 	for (i=0;i<expression.length();i++){
 		if (expression.at(i) == '@'){
 			pastKey = true;
@@ -882,6 +882,6 @@ std::string substitute(std::string input){
 			newPostfix += expression.at(i);
 		}
 	}
-	std::cout << "newPostfix: " << newPostfix << "\n";
+	//std::cout << "newPostfix: " << newPostfix << "\n";
 	return "("+newPostfix+")";
 }

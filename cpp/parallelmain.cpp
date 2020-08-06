@@ -2320,7 +2320,7 @@ int maxSteps;
 
 
 bool getAnswerList(std::string s, int nSteps) {
-
+	std::cout << "s: "<< s << "\n";
 	if (nSteps > maxFound){
 		maxFound = nSteps;
 	}
@@ -2340,13 +2340,14 @@ bool getAnswerList(std::string s, int nSteps) {
 
 	std::string newPostfix = pfstr;
 
-	
+	std::cout << "npf1: "<< newPostfix << "\n";
 	newPostfix = removeBracketsOne(newPostfix);
+	std::cout << "npf2: "<< newPostfix << "\n";
 	
 	//std::cout << s << " before pl\n";
 	auto a1 = std::chrono::high_resolution_clock::now();
 	std::vector<std::vector<Step>> someStrings = makeTree(newPostfix);
-	
+	std::cout << "npf3: "<< newPostfix << "\n";
 	if (answerIsFinished){
 		finishedAnswers.push_back(newPostfix);
 
@@ -2384,19 +2385,16 @@ bool getAnswerList(std::string s, int nSteps) {
 		}
 	
 	}
-	
+	std::cout << "npf4: "<< newPostfix << "\n";
 	answerListMap[newPostfix] = {};
 	answerListMapF[newPostfix] = {};
 	//totalAnswers += allStrings.size();
+	
+	
 	for (ii=0;ii<allStrings.size();ii++){
-		if (nSteps == 0){
-			std::cout << "next: " << allStrings[ii].next << " from " << newPostfix << "\n";
-		}
-	}
-	for (ii=0;ii<allStrings.size();ii++){
-		if (nSteps == 0){
-			std::cout << "next: " << allStrings[ii].next << "\n";
-		}
+		//if (nSteps == 0){
+		//	std::cout << "next: " << allStrings[ii].next << "\n";
+		//}
 		
 		if (allStrings[ii].next == newPostfix){
 			continue;
