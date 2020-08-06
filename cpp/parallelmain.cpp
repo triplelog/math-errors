@@ -2487,10 +2487,13 @@ std::vector<Step> makeSolutionList(std::string s, std::string q){
 		return v;
 	}
 	else {
-		Step step;
-		step.next = "";
-		step.rule = -1;
-		correctSolutionList[s]={step};
+		if (correctSolutionList.find(s) == correctSolutionList.end()){
+			Step step;
+			step.next = "";
+			step.rule = -1;
+			correctSolutionList[s]={step};
+		}
+		
 	}
 	if (reverseMapCorrect.find(s) != reverseMapCorrect.end()){
 		sv = reverseMapCorrect.find(s)->second;
@@ -2543,9 +2546,6 @@ std::vector<Step> makeSolutionList(std::string s, std::string q){
 	for (i=0;i<minSize;i++){
 		if (i==minSize-1){
 			minV[i].rule = ruleApp;
-		}
-		else if (minV[i].next == minV[i+1].next){
-			continue;
 		}
 		v.push_back(minV[i]);
 	}
