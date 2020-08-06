@@ -2390,7 +2390,7 @@ bool getAnswerList(std::string s, int nSteps) {
 	//totalAnswers += allStrings.size();
 	for (ii=0;ii<allStrings.size();ii++){
 		if (nSteps == 0){
-			std::cout << "next: " << allStrings[ii].next << "\n";
+			std::cout << "next: " << allStrings[ii].next << " from " << newPostfix << "\n";
 		}
 	}
 	for (ii=0;ii<allStrings.size();ii++){
