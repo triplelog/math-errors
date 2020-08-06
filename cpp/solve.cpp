@@ -563,7 +563,22 @@ Number solvePostfix(std::string postfix) {
 	            	}
 	            }
 	            case '^': stack[currentIndex - 2] = expTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break;
-	            //case '=': stack[currentIndex - 2] = stack[currentIndex - 2] == stack[currentIndex - 1]; break;
+	            case '=': {
+	            	if (stack[currentIndex - 2] == stack[currentIndex - 1]){
+	            		Number n;
+	            		n.type = 1;
+	            		n.top = 1;
+	            		stack[currentIndex - 2] = n;
+	            		break;
+	            	}
+	            	else {
+	            		Number n;
+	            		n.type = 1;
+	            		n.top = 0;
+	            		stack[currentIndex - 2] = n;
+	            		break;
+	            	}
+	            }
 	            //case '!': stack[currentIndex - 2] = stack[currentIndex - 2] != stack[currentIndex - 1]; break;
 	            //case '%': stack[currentIndex - 2] = stack[currentIndex - 2] % stack[currentIndex - 1]; break; 
 	            //case '&': stack[currentIndex - 2].w = (stack[currentIndex - 2].w + stack[currentIndex - 1].w > 1) ? 1 : 0; stack[currentIndex - 2].t = (stack[currentIndex - 2].t == 'B' && stack[currentIndex - 1].t == 'B') ? 'B' : 'N'; break; 
@@ -644,7 +659,7 @@ std::string solveConditionalPostfix(std::string var){
 		int ii;
 		for (ii=0;ii<list.size();ii++){
 			std::string currentOperand = "";
-			std::string newPostfix = "";
+			std::string newPostfix = expressionl+"@";
 			for (i=0;i<expressionr.length();i++){
 				if (expressionr.at(i) == '_'){
 					if (currentOperand == x){
@@ -659,7 +674,11 @@ std::string solveConditionalPostfix(std::string var){
 					currentOperand += expressionr.at(i);
 				}
 			}
-			std::cout << "npf: " << newPostfix << "\n";
+			Number n = solvePostfix(newPostfix);
+			if (n.type == 1 && n.top == 1){
+				std::cout << "npf: " << newPostfix << " and " << "true"<< "\n";
+			}
+			
 		}
 		std::cout << "var: " << var << " and " << x << " and " << xxl << " and " << xxr << " and " << expressionl << " and " << expressionr << "\n";
 	}
