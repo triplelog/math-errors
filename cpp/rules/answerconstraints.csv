@@ -45,7 +45,7 @@ sub((x+C)*(x+B/C);element_C(B)&C+B/C=A)
 A
 "q",A,int,[7,7]
 "q",B,int,[12,12]
-"a",A+B,i,""
+"a",A*B,c,""
 "a",A*1,i,""
 "a",A+0,i,""
 "a",A*0,i,""
