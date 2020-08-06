@@ -782,6 +782,11 @@ std::string substitute(std::string input){
 		bool pastAnd= false;
 		int idx = 0;
 		for (i=0;i<input.length();i++){
+			if (input.at(i)=='{'){
+				return returnStr;
+			}
+			
+			
 			if (input.at(i)=='&'){
 				pastAnd = true;
 				left += input.at(i);
