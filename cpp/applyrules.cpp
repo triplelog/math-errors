@@ -30,7 +30,7 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 		//std::cout << "userFullString @ keyMatch: "<< userFullString << "\n";
 		int ruleIdx;
 		for (ruleIdx=0;ruleIdx<rules[key].size();ruleIdx++){
-			//std::cout << "Key sub-Match: " << key << " and " << rules[key][ruleIdx][0] << "\n";
+			std::cout << "Key sub-Match: " << key << " and " << rules[key][ruleIdx].out << "\n";
 			
 			Rule rule = rules[key][ruleIdx];
 			
