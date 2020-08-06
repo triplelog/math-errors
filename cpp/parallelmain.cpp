@@ -2472,7 +2472,7 @@ bool getAnswerList(std::string s, int nSteps) {
 
 flat_hash_map<std::string,std::vector<Step>> correctSolutionList;
 flat_hash_map<std::string,std::vector<Step>> incorrectSolutionList;
-std::vector<Step> makeSolutionList(std::string s, std::string q){
+std::vector<Step> makeSolutionList(std::string s, std::string q,std::vector<std::string> fut){
 	std::vector<Step> v;
 	//std::cout << "s: " << s << "\n";
 	std::vector<Step> sv;
@@ -2524,7 +2524,8 @@ std::vector<Step> makeSolutionList(std::string s, std::string q){
 			}
 		}
 		else {
-			makeSolutionList(sv[i].next,q);
+			fut.push_back(sv[i].next);
+			makeSolutionList(sv[i].next,q,fut);
 		}
 		l = correctSolutionList[sv[i].next].size();
 		if (l == 0){
@@ -2669,8 +2670,7 @@ std::string fullAnswer(std::string s){
 	for (ii=0;ii<finishedAnswers.size();ii++){
 		if (doubleCheckAnswer(finishedAnswers[ii])){
 			
-			std::vector<Step> v = makeSolutionList(finishedAnswers[ii],newPostfix);
-			v = makeSolutionList(finishedAnswers[ii],newPostfix);
+			std::vector<Step> v = makeSolutionList(finishedAnswers[ii],newPostfix,{finishedAnswers[ii]});
 			int vsz = v.size();
 			if (vsz > 0){
 				//std::cout << "fully correct: "<< tempFinished[ii] << "\n";
