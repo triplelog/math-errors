@@ -250,8 +250,8 @@ std::string replaceFunctions(std::string input_str){
 	replacements3["abs"]+=abs;
 	
 	char element{-94};
-	replacements7["element"]="";
-	replacements7["element"]+=element;
+	query7["element"]="";
+	query7["element"]+=element;
 	
 	std::string twoChars = "..";
 	std::string threeChars = "...";
@@ -422,6 +422,43 @@ std::string replaceFunctions(std::string input_str){
 			
 			}
 			//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+		}
+		else if (query7.find(sevenChars) != query7.end()){
+			if (query7[sevenChars].at(0) == element){
+
+				if (input_str.at(i+1)=='_'){
+					std::string inside = "";
+					std::string var = "";
+					int openPar = 0;
+					bool isVar = true;
+					int repLen = 8;
+					for (ii=i+2;ii<input_str.length();ii++){
+						repLen++;
+						if (input_str.at(ii) == '('){
+							openPar++;
+							isVar = false;
+						}
+						else if (input_str.at(ii) == ')'){
+							openPar--;
+						}
+						else if (isVar){
+							var += input_str.at(ii);
+						}
+						else {
+							inside += input_str.at(ii);
+						}
+			
+						if (openPar == 0 && !isVar){
+							break;
+						}
+					}
+					input_str.replace(i-6,repLen,var+query7[sevenChars]+"("+inside+")");
+					sevenChars = ".......";
+					i += -7;
+					std::cout << i << " : " << input_str << " char: " << query7[sevenChars] << '\n';
+				}
+			}
+			
 		}
 		else if (query4.find(fourChars) != query4.end() && input_str.length() > i+2 && input_str.at(i+1)!='-' && input_str.at(i+2)!='-'){
 			
