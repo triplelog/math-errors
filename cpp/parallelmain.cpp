@@ -732,8 +732,12 @@ std::vector<std::vector<Step>> makeTree(std::string pfstr){
 	
 	
 			if (mychar != '-' && mychar != '/' && (mychar >= 0 || mychar <= -69 )){ // Is at least binary function
-		
-				std::cout << "i: " << i << " and " << maxi << " and " << startLeftIndex << "\n";
+				if (maxi == 0){
+					//TODO figure out why maxi is ever 0
+					returnStringsCorrect.resize(0);
+					returnStringsIncorrect.resize(0);
+					break;
+				}
 				for (ii=0;ii<maxi;ii++){
 					std::string s = "";
 					std::string t = "";
@@ -771,7 +775,6 @@ std::vector<std::vector<Step>> makeTree(std::string pfstr){
 					}
 				}
 				
-				std::cout << "i: " << i << " and " << maxi << " and " << startLeftIndex << "\n";
 				
 				if (mychar == '+'){
 					std::vector<int> allSums ={startLeftIndex,maxi,maxi,i};
@@ -814,7 +817,6 @@ std::vector<std::vector<Step>> makeTree(std::string pfstr){
 					
 				}
 				
-				std::cout << "i: " << i << " and " << maxi << " and " << startLeftIndex << "\n";
 				
 				int fss = firstS.size();
 				int sss = secondS.size();	
