@@ -665,14 +665,17 @@ std::string solveConditionalPostfix(std::string var){
 			}
 		}
 	}
-	numberType(xxr.substr(0,xxr.length()-1));
-	if (numbers[xxr.substr(0,xxr.length()-1)].type != 1 && numbers[xxr.substr(0,xxr.length()-1)].type != -1){
+	std::string xxrp = xxr.substr(0,xxr.length()-1);
+	if (numbers.find(xxrp) == numbers.end()){
+		numberType(xxrp);
+	}
+	if (numbers[xxrp].type != 1 && numbers[xxrp].type != -1){
 		conditionalPostfixList[var]="##@";
 		return "##@";
 	}
 
 		
-		std::vector<std::string> list = factorList(xxr.substr(0,xxr.length()-1));
+		std::vector<std::string> list = factorList(xxrp);
 		int ii;
 		for (ii=0;ii<list.size();ii++){
 			std::string currentOperand = "";
