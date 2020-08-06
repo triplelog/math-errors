@@ -128,14 +128,18 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 							//std::cout << "ipf: " << insidePostfix << "\n";
 							for (bi=0;bi<insidePostfix.length();bi++){
 								if (insidePostfix.at(bi) == -89 && bi+1<insidePostfix.length() && insidePostfix.at(bi+1) == '@'){
-									std::cout << "substitute: " << insidePostfix << "\n";
+									
 									currentOperand = substitute(insidePostfix);
-									std::cout << "substituted: " << currentOperand << "\n";
+									if (currentOperand != "("+insidePostfix+")"){
+										std::cout << "substitute: " << insidePostfix << "\n";
+										std::cout << "substituted: " << currentOperand << "\n";
+									}
+									
 									isArithmetic = false;
 									break;
 								}
 							}
-							openPar = false;
+							openPar--;
 							pastInsideKey = false;
 							if (!isArithmetic){continue;}
 							Number opResult = solvePostfix(insidePostfix);
@@ -152,7 +156,6 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 							else {
 								currentOperand = "("+insidePostfix+")";
 							}
-							openPar--;
 							
 							
 						}
