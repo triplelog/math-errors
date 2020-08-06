@@ -596,7 +596,7 @@ std::string solveConditionalPostfix(std::string var){
 			pastKey = true;
 			pastFirst = false;
 		}
-		else if (var.at(i) == -91){
+		else if (var.at(i) == -93){
 			pastFirst = true;
 		}
 		else if (var.at(i) == '&'){
@@ -632,7 +632,7 @@ std::string solveConditionalPostfix(std::string var){
 			}
 		}
 	}
-	std::cout << x << " and " << xxl << " and " << xxr << " and " << expressionl << " and " << expressionr << "\n";
+	std::cout << "var: " << var << " and " << x << " and " << xxl << " and " << xxr << " and " << expressionl << " and " << expressionr << "\n";
 	return "##@";
 }
 
