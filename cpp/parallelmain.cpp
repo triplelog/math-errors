@@ -2544,8 +2544,8 @@ std::vector<Step> makeSolutionList(std::string s, std::string q){
 		if (i==minSize-1){
 			minV[i].rule = ruleApp;
 		}
-		if (minV[i].next == s){
-			break;
+		else if (minV[i].next == minV[i+1].next){
+			continue;
 		}
 		v.push_back(minV[i]);
 	}
