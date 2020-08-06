@@ -39,8 +39,8 @@ A
 "t",mc
 
 algebra.derivatives.power.0,"Power Rule"
-"Substitute factor of B into $(x+C)*(x+B/C)$?"
-sub((x+C)*(x+B/C);element_C(B)&C+B/C=A)
+"Factor $x^2+A*x+B$?"
+x^2+A*x+B
 "<input name='A'></input>"
 A
 "q",A,int,[7,7]
