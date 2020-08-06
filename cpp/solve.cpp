@@ -632,9 +632,32 @@ std::string solveConditionalPostfix(std::string var){
 			}
 		}
 	}
-	if (expressionr == "C_12_C_7_"){
+	if (expressionr == "C_12_C_7_" && expressionl == "###/*+#="){
+		
+		std::vector<std::string> list;
+		list.push_back("1");
+		list.push_back("2");
+		list.push_back("3");
+		list.push_back("4");
+		list.push_back("6");
+		list.push_back("12");
+		int ii;
+		for (ii=0;ii<list.size();ii++){
+			std::string currentOperand = "";
+			std::string newPostfix = "";
+			for (i=0;i<expressionr.length();i++){
+				if (expressionr.at(i) == '_'){
+					if (currentOperand == x){
+						newPostfix += list[ii]+"_";
+					}
+					else {
+						newPostfix += currentOperand+"_";
+					}
+				}
+			}
+			std::cout << "npf: " << newPostfix << "\n";
+		}
 		std::cout << "var: " << var << " and " << x << " and " << xxl << " and " << xxr << " and " << expressionl << " and " << expressionr << "\n";
-	
 	}
 	return "##@";
 }
