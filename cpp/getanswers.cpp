@@ -1282,7 +1282,6 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
 		if (iter->first == pfstr && iter->second.correct && iter->second.finished){
 			std::cout << "match: " << pfstr << " and " << iter->first << "\n";
-			//std::vector<Step> v = correctSolutionList[pfstr];
 			bestSolution = iter->second.solution;
 			foundSolution = true;
 			break;
@@ -1292,39 +1291,40 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			std::vector<Step> v = iter->second.solution;
 			if (v.size()<bestSolution.size() || bestSolution.size() == 0){
 				bestSolution = v;
-				foundSolution = true;
 			}
 		}
 	}
 	jsonmessage = "";
-	/*
+	
 	while (!foundSolution){
 		foundSolution = true;
 		std::vector<Step> oldBest = bestSolution;
 		bestSolution.resize(0);
-		for (i=0;i<correctAnswers.size();i++){
-			std::vector<Step> v = correctSolutionList[correctAnswers[i]];
-			for (ii=0;ii<v.size();ii++){
-				if (ii>=oldBest.size()){
-					if (v.size()<bestSolution.size() || bestSolution.size() == 0){
-						bestSolution = v;
-						foundSolution = false;
-					}
+		for (flat_hash_map<std::string,Answer>::iterator iter = answerMap.begin(); iter != answerMap.end(); ++iter){
+			if (iter->second.correct && iter->second.finished){
+				std::vector<Step> v = iter->second.solution;
+				for (ii=0;ii<v.size();ii++){
+					if (ii>=oldBest.size()){
+						if (v.size()<bestSolution.size() || bestSolution.size() == 0){
+							bestSolution = v;
+							foundSolution = false;
+						}
 					
-					break;
+						break;
+					}
+					if (v[ii].next != oldBest[ii].next){
+						break;
+					}
+					//std::cout << "step: " << v[ii] << "\n";
+					//outputTree(v[ii]);
 				}
-				if (v[ii].next != oldBest[ii].next){
-					break;
-				}
-				//std::cout << "step: " << v[ii] << "\n";
-				//outputTree(v[ii]);
 			}
 		}
 		if (foundSolution){
 			bestSolution = oldBest;
 		}
 	}
-	*/
+	
 	for (i=0;i<bestSolution.size();i++){
 		std::cout << "bs: " << bestSolution[i].next << "\n";
 		std::cout << "bsr: " << bestSolution[i].rule << "\n";
