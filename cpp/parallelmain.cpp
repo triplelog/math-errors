@@ -2435,7 +2435,7 @@ bool getAnswerList(std::string s, int nSteps) {
 		if (answerListMap.find(allStrings[ii].next) == answerListMap.end()){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
-		else if (nSteps+1<=answerListMap[allStrings[ii].next]){
+		else if (nSteps+1<answerListMap[allStrings[ii].next]){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
 		if (reverseMapCorrect.find(allStrings[ii].next) != reverseMapCorrect.end()){
@@ -2492,7 +2492,7 @@ bool getAnswerList(std::string s, int nSteps) {
 		if (answerListMap.find(allStrings[ii].next) == answerListMap.end()){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
-		else if (nSteps+1<=answerListMap[allStrings[ii].next]){
+		else if (nSteps+1<answerListMap[allStrings[ii].next]){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
 		if (reverseMap.find(allStrings[ii].next) == reverseMap.end()){
@@ -2705,10 +2705,10 @@ std::string fullAnswer(std::string s){
 	auto a1 = std::chrono::high_resolution_clock::now();
 	foundOneAnswer = false;
 	startedWrong = true;
-	//maxSteps = 5;
-	//getAnswerList(newPostfix,0);
-	maxSteps = 10;
+	maxSteps = 5;
 	getAnswerList(newPostfix,0);
+	maxSteps = 10;
+	getAnswerList(newPostfix,-1);
 	//maxSteps = 15;
 	//getAnswerList(newPostfix,0);
 	auto a2 = std::chrono::high_resolution_clock::now();
