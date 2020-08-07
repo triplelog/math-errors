@@ -2435,7 +2435,7 @@ bool getAnswerList(std::string s, int nSteps) {
 		if (answerListMap.find(allStrings[ii].next) == answerListMap.end()){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
-		else if (nSteps+1<answerListMap[allStrings[ii].next]){
+		else if (nSteps+1<=answerListMap[allStrings[ii].next]){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
 		if (reverseMapCorrect.find(allStrings[ii].next) != reverseMapCorrect.end()){
@@ -2492,7 +2492,7 @@ bool getAnswerList(std::string s, int nSteps) {
 		if (answerListMap.find(allStrings[ii].next) == answerListMap.end()){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
-		else if (nSteps+1<answerListMap[allStrings[ii].next]){
+		else if (nSteps+1<=answerListMap[allStrings[ii].next]){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
 		if (reverseMap.find(allStrings[ii].next) == reverseMap.end()){
@@ -2707,10 +2707,10 @@ std::string fullAnswer(std::string s){
 	startedWrong = true;
 	//maxSteps = 5;
 	//getAnswerList(newPostfix,0);
-	//maxSteps = 10;
-	//getAnswerList(newPostfix,0);
-	maxSteps = 15;
+	maxSteps = 10;
 	getAnswerList(newPostfix,0);
+	//maxSteps = 15;
+	//getAnswerList(newPostfix,0);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	std::cout << "\n\n\n\nCompleted the InCorrect Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << " and " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n\n";
 	std::cout << "total answers: "<< totalAnswers << "\n";
