@@ -2709,8 +2709,8 @@ std::string fullAnswer(std::string s){
 	getAnswerList(newPostfix,0);
 	maxSteps = 10;
 	getAnswerList(newPostfix,0);
-	//maxSteps = 15;
-	//getAnswerList(newPostfix,0);
+	maxSteps = 15;
+	getAnswerList(newPostfix,0);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	std::cout << "\n\n\n\nCompleted the InCorrect Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << " and " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n\n";
 	std::cout << "total answers: "<< totalAnswers << "\n";
