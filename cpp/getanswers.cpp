@@ -1129,7 +1129,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			}
 		}
 
-		for (ii=0;ii<correctAnswers.size()+finishedErrors.size();ii++){
+
 		for (flat_hash_map<std::string,Answer>::iterator iter = answerMap.begin(); iter != answerMap.end(); ++iter){
 			if (iter->second.finished){
 				std::vector<Step> v = iter->second.solution;
