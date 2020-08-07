@@ -2413,10 +2413,12 @@ bool getAnswerList(std::string s, int nSteps) {
 	}
 	else {
 		answerListMap[newPostfix] = nSteps;
-		vNext = answerListMapFN[newPostfix];
-		for (iii=0;iii<vNext.size();iii++){
-			oldMap[vNext[iii]]=true;
-		}
+		answerListMapF[newPostfix] = {};
+		answerListMapFN[newPostfix] = {};
+		//vNext = answerListMapFN[newPostfix];
+		//for (iii=0;iii<vNext.size();iii++){
+		//	oldMap[vNext[iii]]=true;
+		//}
 	}
 
 		
@@ -2504,9 +2506,9 @@ bool getAnswerList(std::string s, int nSteps) {
 				std::cout << "negative ruleddd\n";
 		}
 		answerListMapF[newPostfix].push_back(allStrings[ii].rule);
-		if (oldMap.find(allStrings[ii].next) == oldMap.end()){
-			answerListMapFN[newPostfix].push_back(allStrings[ii].next);
-		}
+		//if (oldMap.find(allStrings[ii].next) == oldMap.end()){
+		//	answerListMapFN[newPostfix].push_back(allStrings[ii].next);
+		//}
 		
 
 		if (answerListMap.find(allStrings[ii].next) == answerListMap.end()){
@@ -2515,7 +2517,7 @@ bool getAnswerList(std::string s, int nSteps) {
 		else if (nSteps+1<answerListMap[allStrings[ii].next]){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
-		if (oldMap.find(allStrings[ii].next) == oldMap.end()){
+		//if (oldMap.find(allStrings[ii].next) == oldMap.end()){
 			if (reverseMap.find(allStrings[ii].next) == reverseMap.end()){
 				Step step;
 				step.next = newPostfix;
@@ -2530,7 +2532,7 @@ bool getAnswerList(std::string s, int nSteps) {
 				reverseMap[allStrings[ii].next]={step};
 
 			}
-		}
+		//}
 
 	}
 	
