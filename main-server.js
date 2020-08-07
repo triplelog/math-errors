@@ -3,6 +3,7 @@ const { PerformanceObserver, performance } = require('perf_hooks');
 var fs = require("fs");
 const assert = require('assert');
 const binding = require.resolve(`./build/Release/binding`);
+const bindingA = require.resolve(`./build/Release/bindingA`);
 
 //const postfix = require('./postfix.js');
 

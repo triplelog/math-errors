@@ -73,7 +73,7 @@ struct Answer {
 	bool correct = false;
 	std::string next = "";
 	std::string input = "";
-	std::vector<std::string> errors;
+	std::vector<Step> solution;
 };
 struct Rule {
 	std::string operands = "";
@@ -2796,6 +2796,7 @@ std::string fullAnswer(std::string s){
 				if (vsz > 1){
 					answer.next = v[vsz-2].next;
 				}
+				answer.solution = v;
 				answerMap[finishedAnswers[ii]]=answer;
 				
 			}
@@ -2814,6 +2815,7 @@ std::string fullAnswer(std::string s){
 				if (vsz > 1){
 					answer.next = v[vsz-2].next;
 				}
+				answer.solution = v;
 				answerMap[finishedAnswers[ii]]=answer;
 			}
 		}
@@ -2839,6 +2841,7 @@ std::string fullAnswer(std::string s){
 			if (vsz > 1){
 				answer.next = v[vsz-2].next;
 			}
+			answer.solution = v;
 			answerMap[iter->first]=answer;
 		}
 		else {
@@ -2856,6 +2859,7 @@ std::string fullAnswer(std::string s){
 				if (vsz > 1){
 					answer.next = vv[vsz-2].next;
 				}
+				answer.solution = v;
 				answerMap[iter->first]=answer;
 			}
 			else {
