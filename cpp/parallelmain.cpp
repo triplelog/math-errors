@@ -2422,7 +2422,7 @@ bool getAnswerList(std::string s, int nSteps) {
 		
 	for (iii=0;iii<someStrings[0].size();iii++){
 		someStrings[0][iii].next = removeBracketsOne(someStrings[0][iii].next);
-		if (uniqueStrings.find(someStrings[0][iii].next) != uniqueStrings.end() || oldMap.find(someStrings[0][iii].next) != oldMap.end()){
+		if (uniqueStrings.find(someStrings[0][iii].next) != uniqueStrings.end()){
 	
 		}
 		else {
@@ -2478,7 +2478,7 @@ bool getAnswerList(std::string s, int nSteps) {
 	//allStrings.resize(0);
 	for (iii=0;iii<someStrings[1].size();iii++){
 		someStrings[1][iii].next = removeBracketsOne(someStrings[1][iii].next);
-		if (uniqueStrings.find(someStrings[1][iii].next) != uniqueStrings.end() || oldMap.find(someStrings[1][iii].next) != oldMap.end()){
+		if (uniqueStrings.find(someStrings[1][iii].next) != uniqueStrings.end()){
 	
 		}
 		else {
@@ -2504,7 +2504,10 @@ bool getAnswerList(std::string s, int nSteps) {
 				std::cout << "negative ruleddd\n";
 		}
 		answerListMapF[newPostfix].push_back(allStrings[ii].rule);
-		answerListMapFN[newPostfix].push_back(allStrings[ii].next);
+		if (oldMap.find(allStrings[ii].next) == oldMap.end()){
+			answerListMapFN[newPostfix].push_back(allStrings[ii].next);
+		}
+		
 
 		if (answerListMap.find(allStrings[ii].next) == answerListMap.end()){
 			getAnswerList(allStrings[ii].next,nSteps+1);
@@ -2512,19 +2515,21 @@ bool getAnswerList(std::string s, int nSteps) {
 		else if (nSteps+1<answerListMap[allStrings[ii].next]){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
-		if (reverseMap.find(allStrings[ii].next) == reverseMap.end()){
-			Step step;
-			step.next = newPostfix;
-			step.rule = allStrings[ii].rule;
-			reverseMap[allStrings[ii].next].push_back(step);
+		if (oldMap.find(allStrings[ii].next) == oldMap.end()){
+			if (reverseMap.find(allStrings[ii].next) == reverseMap.end()){
+				Step step;
+				step.next = newPostfix;
+				step.rule = allStrings[ii].rule;
+				reverseMap[allStrings[ii].next].push_back(step);
 			
-		}
-		else {
-			Step step;
-			step.next = newPostfix;
-			step.rule = allStrings[ii].rule;
-			reverseMap[allStrings[ii].next]={step};
+			}
+			else {
+				Step step;
+				step.next = newPostfix;
+				step.rule = allStrings[ii].rule;
+				reverseMap[allStrings[ii].next]={step};
 
+			}
 		}
 
 	}
