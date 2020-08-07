@@ -2325,6 +2325,7 @@ flat_hash_map<std::string,std::vector<Step>> reverseMapCorrect;
 int totalAnswers;
 std::vector<std::string> finishedAnswers;
 std::vector<std::string> unfinishedAnswers;
+flat_hash_map<std::string,bool> unfinishedOptions;
 std::vector<std::string> correctAnswers;
 std::vector<std::string> finishedErrors;
 std::vector<std::string> unfinishedErrors;
@@ -2562,7 +2563,7 @@ bool getAnswerList(std::string s, int nSteps) {
 
 flat_hash_map<std::string,std::vector<Step>> correctSolutionList;
 flat_hash_map<std::string,std::vector<Step>> incorrectSolutionList;
-std::vector<Step> makeSolutionList(std::string s, std::string q,std::vector<std::string> fut){
+std::vector<Step> makeSolutionList(std::string s, std::string q){
 	std::vector<Step> v;
 	//std::cout << "s: " << s << "\n";
 	std::vector<Step> sv;
@@ -2572,6 +2573,9 @@ std::vector<Step> makeSolutionList(std::string s, std::string q,std::vector<std:
 		step.next = s;
 		step.rule = -1;
 		v = {step};
+		if (unfinishedOptions.find(s) == unfinishedOptions.end()){
+			unfinishedOptions[s]=true;
+		}
 		correctSolutionList[s]=v;
 		//std::cout << "sa: " << s << " and vsz: " << v.size() << "\n";
 		return v;
@@ -2613,8 +2617,7 @@ std::vector<Step> makeSolutionList(std::string s, std::string q,std::vector<std:
 			}
 		}
 		else {
-			fut.push_back(sv[i].next);
-			makeSolutionList(sv[i].next,q,fut);
+			makeSolutionList(sv[i].next,q);
 		}
 		l = correctSolutionList[sv[i].next].size();
 		if (l == 0){
@@ -2637,11 +2640,17 @@ std::vector<Step> makeSolutionList(std::string s, std::string q,std::vector<std:
 		if (i==minSize-1){
 			minV[i].rule = ruleApp;
 		}
+		if (unfinishedOptions.find(minV[i].next) == unfinishedOptions.end()){
+			unfinishedOptions[minV[i].next]=true;
+		}
 		v.push_back(minV[i]);
 	}
 	Step step;
 	step.next = s;
 	step.rule = -1;
+	if (unfinishedOptions.find(s) == unfinishedOptions.end()){
+		unfinishedOptions[s]=true;
+	}
 	v.push_back(step);
 	correctSolutionList[s]=v;
 	//std::cout << "sc: " << s << " and vsz: " << v.size() << "\n";
@@ -2658,6 +2667,9 @@ std::vector<Step> makeIncorrectSolutionList(std::string s, std::string q){
 		step.next = s;
 		step.rule = -1;
 		v = {step};
+		if (unfinishedOptions.find(s) == unfinishedOptions.end()){
+			unfinishedOptions[s]=true;
+		}
 		incorrectSolutionList[s]=v;
 		//std::cout << "sa: " << s << " and vsz: " << v.size() << "\n";
 		return v;
@@ -2726,11 +2738,17 @@ std::vector<Step> makeIncorrectSolutionList(std::string s, std::string q){
 		if (i==minSize-1){
 			minV[i].rule = ruleApp;
 		}
+		if (unfinishedOptions.find(minV[i].next) == unfinishedOptions.end()){
+			unfinishedOptions[minV[i].next]=true;
+		}
 		v.push_back(minV[i]);
 	}
 	Step step;
 	step.next = s;
 	step.rule = -1;
+	if (unfinishedOptions.find(s) == unfinishedOptions.end()){
+		unfinishedOptions[s]=true;
+	}
 	v.push_back(step);
 	incorrectSolutionList[s]=v;
 	//std::cout << "sc: " << s << " and vsz: " << v.size() << "\n";
@@ -2763,7 +2781,7 @@ std::string fullAnswer(std::string s){
 	std::cout << "unfinished answers: " << unfinishedAnswers.size() << "\n";
 	
 
-	
+	unfinishedOptions.clear();
 	for (ii=0;ii<finishedAnswers.size();ii++){
 		//std::cout << "f: " << finishedAnswers[ii] << "\n";
 		if (doubleCheckAnswer(finishedAnswers[ii])){
@@ -2795,14 +2813,15 @@ std::string fullAnswer(std::string s){
 				answerMap[finishedAnswers[ii]]=answer;
 			}
 		}
-		else {
-
-			unfinishedAnswers.push_back(finishedAnswers[ii]);
-		}
 	}
-	std::cout << "unfinished answers: " << unfinishedAnswers.size() << "\n";
+	int uos = 0;
+	for (flat_hash_map<std::string,bool>::iterator iter = unfinishedOptions.begin(); iter != unfinishedOptions.end(); ++iter){
+		uos++;
+	} 
+	std::cout << "unfinished answers: " << uos << "\n";
 	finishedAnswers.resize(0);
-
+	
+	/*
 	for (ii=0;ii<unfinishedAnswers.size();ii++){
 		
 		std::vector<Step> v = makeSolutionList(unfinishedAnswers[ii],newPostfix,{unfinishedAnswers[ii]});
@@ -2836,6 +2855,7 @@ std::string fullAnswer(std::string s){
 		}
 		
 	}
+	*/
 	//TODO: loop through the finished errors to collect all errors
 	
 	unfinishedAnswers.resize(0);
