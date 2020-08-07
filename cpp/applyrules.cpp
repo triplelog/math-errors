@@ -132,9 +132,16 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 								if (insidePostfix.at(bi) == -89 && bi+1<insidePostfix.length() && insidePostfix.at(bi+1) == '@'){
 									
 									currentOperand = substitute(insidePostfix);
-									if (currentOperand != "("+insidePostfix+")" && currentOperand.at(5) == -95){
-										std::cout << "substitute: " << insidePostfix << "\n";
-										std::cout << "substituted: " << currentOperand << "\n";
+									if (currentOperand != "("+insidePostfix+")"){
+										int bii;
+										for (bii=0;bii<currentOperand.length();bii++){
+											if (currentOperand.at(bii) == -95){
+												std::cout << "substitute: " << insidePostfix << "\n";
+												std::cout << "substituted: " << currentOperand << "\n";
+												break;
+											}
+										}
+										
 									}
 									
 									isArithmetic = false;
