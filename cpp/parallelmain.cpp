@@ -1658,7 +1658,12 @@ bool checkAnswer(std::string answer){
 						if (pastKey){
 							if (rule.constraints[iiii].at(iii) == '_'){
 								if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
-									constraintFix += partMap[currentOperand.at(0)] + '_';
+									if (partMap.find(currentOperand.at(0)) != partMap.end()){
+										constraintFix += partMap[currentOperand.at(0)] + '_';
+									}
+									else {
+										constraintFix += currentOperand + '_';
+									}
 								}
 								else {
 									constraintFix += currentOperand + '_';

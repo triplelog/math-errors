@@ -203,7 +203,13 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 						}
 						else if (rule.out.at(iii) == '_'){
 							if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
-								newPostfix += partMap[currentOperand.at(0)] + '_';
+								if (partMap.find(currentOperand.at(0)) != partMap.end()){
+									newPostfix += partMap[currentOperand.at(0)] + '_';
+								}
+								else {
+									newPostfix += currentOperand + '_';
+								}
+								
 							}
 							else {
 								newPostfix += currentOperand + '_';
@@ -247,7 +253,12 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 						if (pastKey){
 							if (rule.constraints[iiii].at(iii) == '_'){
 								if (currentOperand.length()==1 && currentOperand.at(0) <='Z' && currentOperand.at(0) >= 'A'){
-									constraintFix += partMap[currentOperand.at(0)] + '_';
+									if (partMap.find(currentOperand.at(0)) != partMap.end()){
+										constraintFix += partMap[currentOperand.at(0)] + '_';
+									}
+									else {
+										constraintFix += currentOperand + '_';
+									}
 								}
 								else {
 									constraintFix += currentOperand + '_';
