@@ -2717,8 +2717,8 @@ std::string fullAnswer(std::string s){
 	auto a1 = std::chrono::high_resolution_clock::now();
 	foundOneAnswer = false;
 	startedWrong = true;
-	//maxSteps = 5;
-	//getAnswerList(newPostfix,0);
+	maxSteps = 6;
+	getAnswerList(newPostfix,1);
 	maxSteps = 10;
 	getAnswerList(newPostfix,0);
 	//maxSteps = 15;
