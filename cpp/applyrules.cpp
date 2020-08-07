@@ -188,6 +188,10 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 							openPar--;
 							currentOperand += rule.out.at(iii);
 						}
+						else if (rule.out.at(iii) == '(') {
+							openPar++;
+							currentOperand += rule.out.at(iii);
+						}
 						else {
 							currentOperand += rule.out.at(iii);
 						}
@@ -196,6 +200,12 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 						if (rule.out.at(iii) == '@'){
 							pastInsideKey = true;
 							currentOperand = "";
+						}
+						else if (rule.out.at(iii) == ')') {
+							openPar--;
+						}
+						else if (rule.out.at(iii) == '(') {
+							openPar++;
 						}
 						insidePostfix += rule.out.at(iii);
 					}
