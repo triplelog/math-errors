@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.72.0">
+    <title>Dashboard Template · Bootstrap</title>
+
+    <link rel="canonical" href="">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+	<link rel="stylesheet" href="css/treeflex.css">
+
+    <style>
+	.morsebg {
+		background-image: url("../images/morsebg.png");
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+	}
+      
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+    <link href="css/output.css" rel="stylesheet">
+</head>
+<body>
+    
+
+
+<div class="flex m-0 p-0">
+    
+	  <div class="w-1/5 flex-none bg-blue-200 min-h-screen">
+		<div class="w-full morsebg text-white py-2 text-center text-2xl">
+			<a>Math Errors</a>
+		</div>
+
+		<ul class="nav flex-column">
+		  <li class="nav-item">
+			<a class="nav-link active" aria-current="page" href="#">
+			  <span data-feather="plus"></span>
+			  New Question
+			</a>
+		  </li>
+	  
+		</ul>
+		<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+		  <span>History</span>
+		</h6>
+		<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+		  <span>Topics</span>
+		  <a class="link-secondary" href="#" aria-label="Add a new report">
+			<span data-feather="plus-circle"></span>
+		  </a>
+		</h6>
+		<ul class="nav flex-column mb-2">
+		  <li class="nav-item">
+			<a class="nav-link" href="#">
+			  Arithmetic
+			</a>
+			<div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
+			  <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+		  </li>
+		  <li class="nav-item">
+			<a class="nav-link" href="#">
+			  Derivatives
+			</a>
+			<div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
+			  <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+		  </li>
+		  <li class="nav-item">
+			<a class="nav-link" href="#">
+			  Integrals
+			</a>
+			<div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
+			  <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+		  </li>
+		  <li class="nav-item">
+			<a class="nav-link" href="#">
+			  Limits
+			</a>
+			<div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
+			  <div class="progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+		  </li>
+		</ul>
+	  </div>
+
+
+    <div class="w-4/5 flex-none px-2 max-h-screen">
+    	<div class="w-full mb-2 py-4">
+			<span class="text-2xl"><b>Quiz</b></span>
+			<button class="float-right bg-white hover:border-gray-900 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-r focus:outline-none focus:shadow-outline" type="button">Share</button>
+			<button class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 focus:outline-none focus:shadow-outline" type="button">Similar</button>
+			<button onclick="submitQuestion()" class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-l focus:outline-none focus:shadow-outline" type="button">New</button>
+					
+        </div>
+
+		<div class="flex flex-wrap w-full">
+		  <div class="w-full sm:w-1/1 md:w-1/1 lg:w-1/1 mb-4 px-2">
+			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
+				<b>Question</b>
+								
+			  </div>
+			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
+				<div id="question" class="mb-4"></div>
+				<div class="w-full flex">
+					<input id="answer" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
+					<button onclick="submitAnswer()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Submit</button>
+
+				</div>
+				<div id="autoAnswers" class="w-full flex flex-wrap"> 
+				</div>
+				<template id="autoTemplate">
+					<button class="bg-white hover:bg-gray-100 text-black py-2 px-2 m-2 rounded flex-auto border border-black focus:outline-none focus:shadow-outline" type="button"></button>
+
+				</template>
+			  </div>
+		  </div>
+		  <div class="w-full sm:w-1/1 md:w-1/1 lg:w-1/1 mb-4 px-2">
+			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
+				<b>Errors</b>
+								
+			  </div>
+			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
+				
+	
+				<div class="accordion" id="accordionErrors">
+		  
+				</div>
+				  <template id="errorTemplate">
+					  <div class="card">
+						<div class="card-header" id="heading">
+							<button class="float-left bg-transparent hover:bg-blue-400 text-gray-700 font-bold py-2 px-2 border border-blue-400 rounded focus:outline-none focus:shadow-outline" type="button">
+							  Node
+							</button>
+							<button class="float-right bg-blue-100 hover:bg-blue-400 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-r focus:outline-none focus:shadow-outline" type="button">Yes</button>
+							<button class="float-right bg-yellow-100 hover:bg-yellow-400 text-gray-700 font-bold py-2 px-2 border border-gray-400 focus:outline-none focus:shadow-outline" type="button">Maybe</button>
+							<button class="float-right bg-red-100 hover:bg-red-400 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-l focus:outline-none focus:shadow-outline" type="button">No</button>
+			
+						</div>
+
+						<div id="collapse" style="display:none;">
+						  <div class="card-body">
+							<div class="tf-tree">
+							  <ul id="tree-simple">
+							  </ul>
+							</div>
+						  </div>
+						</div>
+					  </div>
+				  </template>
+			  </div>
+		  </div>
+		  <div class="w-full sm:w-1/1 md:w-1/1 lg:w-1/1 mb-4 px-2">
+			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
+				<b>Solution</b>
+								
+			  </div>
+			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
+				
+	
+				<div class="accordion" id="accordionSolution">
+		  
+				</div>
+				  <template id="treeTemplate">
+					  <div class="card">
+						<div class="card-header" id="heading">
+						  <h2 class="mb-0">
+							<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse">
+							  Node
+							</button>
+						  </h2>
+						</div>
+
+						<div id="collapse" class="collapse" aria-labelledby="heading" data-parent="#accordionExample">
+						  <div class="card-body">
+							<div class="tf-tree">
+							  <ul id="tree-simple">
+							  </ul>
+							</div>
+						  </div>
+						</div>
+					  </div>
+				  </template>
+			  </div>
+		  </div>
+		</div>
+
+
+    </div>
+
+</div>
+
+
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" integrity="sha384-EbSscX4STvYAC/DxHse8z5gEDaNiKAIGW+EpfzYTfQrgIlHywXXrM9SUIZ0BlyfF" crossorigin="anonymous"></script>
+      <script src="js/dashboard.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+	<script>
+		function toggleNode(evt) {
+			var collapseTarget = evt.target.getAttribute('data-target');
+			console.log(collapseTarget);
+			var el = document.querySelector(collapseTarget);
+			if (el.style.display != 'block'){
+				el.style.display = "block";
+			}
+			else {
+				el.style.display = "none";
+			}
+			
+		}
+		function createTrees(input_str){
+			document.getElementById("accordionSolution").innerHTML = "";
+			
+			
+			var trees = [];
+			eval(input_str);
+			for (var i=0;i<trees.length-1;i++){
+				var template = document.querySelector('#errorTemplate');
+				var clone = template.content.cloneNode(true);
+				var button = clone.querySelector('#heading button.float-left');
+				button.setAttribute('data-target','#collapse'+i);
+				button.setAttribute('aria-controls','collapse'+i);
+				button.addEventListener('click',toggleNode);
+				clone.querySelector('#collapse').setAttribute('aria-labelledby','heading'+i);
+				
+				clone.querySelector('#heading').id = 'heading'+i;
+				clone.querySelector('#collapse').id = 'collapse'+i;
+				clone.querySelector('#tree-simple').id = 'tree-simple'+i;
+				
+				
+				document.getElementById("accordionSolution").appendChild(clone);
+				
+			}
+			for (var ii=0;ii<trees.length;ii++){
+				var allNodes = trees[ii].allNodes;
+				var nodes = trees[ii].nodes;
+				var jsonTree = {};
+				for (var i=0;i<allNodes.length;i++){
+					var name = allNodes[i];
+					var text = nodes[name].text;
+					var children = [];
+					var parent = nodes[name].parent;
+					var node = document.createElement('li');
+					var span = document.createElement('span');
+					span.classList.add("tf-nc");
+					span.textContent = text;
+					node.appendChild(span);
+				
+				
+					jsonTree[name]={text:text,children:children,node:node};
+					if (parent != ""){
+						jsonTree[parent].children.push(name);
+						var pnode = jsonTree[parent].node;
+						if (pnode.querySelector('ul')){
+							pnode.querySelector('ul').appendChild(node);
+						}
+						else {
+							var ul = document.createElement('ul');
+							pnode.appendChild(ul);
+							pnode.querySelector('ul').appendChild(node);
+						}
+					
+					}
+					else if (i==0){
+						if (document.getElementById('tree-simple'+ii)){
+							document.getElementById('tree-simple'+ii).appendChild(node);
+						}
+						else if (document.getElementById('tree-simple'+(ii-1))){
+							document.getElementById('tree-simple'+(ii-1)).appendChild(node);
+						}
+						
+						
+					}
+				
+				}
+			}
+			for (var ii=0;ii<trees.length-1;ii++){
+				if (document.getElementById('tree-simple'+ii) && document.getElementById('tree-simple'+(ii+1))){
+					var nextNode = document.getElementById('tree-simple'+(ii+1)).querySelector('li');
+					var node = nextNode.cloneNode(true);
+					document.getElementById('tree-simple'+ii).appendChild(node);
+				}
+				
+			}
+			var katexElements = document.querySelectorAll('span.tf-nc');
+			for (var i=0;i<katexElements.length;i++){
+				var el = katexElements[i];
+				katex.render(el.textContent, el, {
+					throwOnError: false
+				});
+			}
+		}
+			
+		    
+	</script>
+	<script>
+		ws = new WebSocket('wss://matherrors.com:8081');
+		ws.onopen = function(evt) {
+			//var jsonmessage = {'type':'soloKey'};
+			//jsonmessage.message = tkey;
+			//ws.send(JSON.stringify(jsonmessage));
+			
+		}
+		ws.onmessage = function(evt){
+			var dm = JSON.parse(evt.data);
+			console.log(dm);
+			if (dm.type == 'answer'){
+				createTrees(dm.answer);
+			}
+			else if (dm.type == 'question'){
+				var div = document.getElementById('question');
+				div.innerHTML = "";
+				var isMath = false;
+				var currentSpan = "";
+				for (var i=0;i<dm.question.length;i++){
+					if (dm.question.charAt(i)=='$'){
+						if (isMath){
+							isMath = false;
+							var span = document.createElement('span');
+							span.textContent = currentSpan;
+							div.appendChild(span);
+							katex.render(span.textContent, span, {
+								throwOnError: false
+							});
+							currentSpan = "";
+						}
+						else {
+							var span = document.createElement('span');
+							span.textContent = currentSpan;
+							div.appendChild(span);
+							isMath = true;
+							currentSpan = "";
+						}
+					}
+					else {
+						currentSpan += dm.question.charAt(i);
+					}
+				}
+				if (currentSpan.length > 0){
+					var span = document.createElement('span');
+					span.textContent = currentSpan;
+					div.appendChild(span);
+				}
+				
+			}
+			else if (dm.type == 'auto'){
+				console.log("ret message");
+				console.log(dm);
+				if (autoNow == dm.answer){
+					autoComplete[dm.answer] = dm.auto;
+					chgAuto(dm.answer);
+					autoNow = "";
+				}
+				else {
+					autoComplete[dm.answer] = dm.auto;
+				}
+			}
+			
+			
+		}
+		function chgAuto(answer) {
+			var el = document.getElementById('autoAnswers');
+			el.innerHTML = "";
+			for (var i=0;i<autoComplete[answer].length;i++){
+				var template = document.querySelector('#autoTemplate');
+				var clone = template.content.cloneNode(true);
+				var button = clone.querySelector('button');
+				button.textContent = autoComplete[answer][i].latex;
+				button.setAttribute('data-input',autoComplete[answer][i].input);
+				button.addEventListener('click',setAnswer);
+				button.id = "auto"+i;
+				el.appendChild(button);
+				katex.render(button.textContent, button, {
+					throwOnError: false
+				});
+				
+			}
+		}
+		function submitQuestion() {
+			//var question = document.getElementById("equation").value;
+			//var answer = "x";//document.getElementById("answer").value;
+			var jsonmessage = {type:"makeanswers"};
+			ws.send(JSON.stringify(jsonmessage));
+		}
+		function submitAnswer(answer="") {
+			if (answer == ""){
+				answer = document.getElementById("answer").value;
+			}
+			var jsonmessage = {type:"check",answer:answer};
+			ws.send(JSON.stringify(jsonmessage));
+		}
+		function setAnswer(evt) {
+			var el = evt.target;
+			console.log(el);
+			while (!el.getAttribute('data-input') && el.parentElement){
+				el = el.parentElement;
+			}
+			console.log(el);
+			var answer = el.getAttribute('data-input');
+			if (answer){
+				console.log(answer);
+				submitAnswer(answer);
+			}
+			
+		}
+		function answerDown(evt) {
+			var key = evt.key;
+			if (key != 'Shift'){
+				var answer = document.getElementById("answer").value;
+				var jsonmessage = {type:"auto",answer:answer+key};
+				ws.send(JSON.stringify(jsonmessage));
+			}
+			
+		}
+		function answerChange(evt) {
+			var answer = document.getElementById("answer").value;
+			if (autoComplete[answer]){
+				chgAuto(answer);
+				
+			}
+			else {
+				autoNow = answer;
+				var jsonmessage = {type:"auto",answer:answer};
+				ws.send(JSON.stringify(jsonmessage));
+				
+			}
+			
+		}
+		var autoComplete = {};
+		var autoNow = "";
+		var answerEl = document.getElementById('answer');
+		answerEl.addEventListener('keydown',answerDown);
+		answerEl.addEventListener('input',answerChange);
+		
+		
+	</script>
+  </body>
+</html>
