@@ -3547,21 +3547,6 @@ void Init(v8::Local<v8::Object> exports) {
                    ->GetFunction(context)
                    .ToLocalChecked());
   exports->Set(context,
-               Nan::New("check").ToLocalChecked(),
-               Nan::New<v8::FunctionTemplate>(CheckAnswer)
-                   ->GetFunction(context)
-                   .ToLocalChecked());
-  exports->Set(context,
-               Nan::New("auto").ToLocalChecked(),
-               Nan::New<v8::FunctionTemplate>(AutoAnswer)
-                   ->GetFunction(context)
-                   .ToLocalChecked());
-  exports->Set(context,
-               Nan::New("solution").ToLocalChecked(),
-               Nan::New<v8::FunctionTemplate>(GetSolution)
-                   ->GetFunction(context)
-                   .ToLocalChecked());
-  exports->Set(context,
                Nan::New("previewQuestion").ToLocalChecked(),
                Nan::New<v8::FunctionTemplate>(PreviewQuestion)
                    ->GetFunction(context)

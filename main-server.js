@@ -149,13 +149,6 @@ wss.on('connection', function connection(ws) {
 			var outS = maincppa.makeanswers("Hello");
 			console.log("___",outS,performance.now());
 			
-			var stdout = maincppa.auto("(x+");
-			//console.log(stdout);
-			stdout = maincppa.check("(x+3)*(x+4)");
-			console.log(performance.now(), stdout);
-			stdout = maincppa.solution("(x+3)*(x+4)");
-			console.log(performance.now(), stdout);
-			
 		}
 		else if (dm.type == 'saveQuestion'){
 			if (dm.qstr.length >= 10000){
