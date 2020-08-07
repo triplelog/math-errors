@@ -1077,22 +1077,52 @@ void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::cout << "your question: " << a << "\n";
 	
 	//TODO: read answer from file
-
-  	std::ifstream myfile("testanswer.txt");
-	std::cout << "hello" << "\n";
-	std::string lastLine;
-	if (myfile.is_open()){
-		std::cout << "hello" << "\n";
-		for(std::string line; getline( myfile, line );){
-			std::cout << line << '\n';
-			lastLine = line;
+	rapidcsv::Document doc("testanswer.txt", rapidcsv::LabelParams(-1, -1));
+	
+	int nRows = doc.GetRowCount();
+	int i; int ii;
+	
+	std::cout << "Rows: " << nRows << "\n";
+	
+	for (i=0;i<nRows;i++){
+		std::vector<std::string> rawAnswer = doc.GetRow<std::string>(i);
+		if (rawAnswer.size()< 3){
+			continue;
 		}
-		myfile.close();
+		std::string key = rawAnswer[0];
+		Answer answer;
+		answer.input = rawAnswer[1];
+		if (rawAnswer[2] =="c"){
+			answer.correct = true;
+			answer.finished = true;
+		}
+		else if (rawAnswer[2] =="e"){
+			answer.correct = false;
+			answer.finished = true;
+		}
+		else if (rawAnswer[2] =="u"){
+			answer.correct = false;
+			answer.finished = false;
+		}
+		answer.solution.resize(0);
+		for (ii=3;ii<rawAnswer.size();ii++){
+			if (ii%2 == 0){
+				Step step;
+				step.next = rawAnswer[ii-1];
+				step.rule = std::stoi(rawAnswer[ii]);
+				answer.solution.push_back(step);
+			}
+		}
+		answerMap[key]=answer;
+		
+		
+		
 	}
   	
 	//TODO: create answerMap
 	//TODO: create answerListMapF
 	
+	std::string lastLine = "";
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(lastLine);
 
 	

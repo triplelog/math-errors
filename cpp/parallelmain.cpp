@@ -2776,8 +2776,7 @@ std::string fullAnswer(std::string s){
 	
 
 	unfinishedOptions.clear();
-	std::ofstream myfile;
-	myfile.open("testanswer.txt");
+	
 	for (ii=0;ii<finishedAnswers.size();ii++){
 		//std::cout << "f: " << finishedAnswers[ii] << "\n";
 		if (doubleCheckAnswer(finishedAnswers[ii])){
@@ -2785,11 +2784,7 @@ std::string fullAnswer(std::string s){
 			std::vector<Step> v = makeSolutionList(finishedAnswers[ii],newPostfix);
 			int vsz = v.size();
 			if (vsz > 0){
-				std::string outStr = finishedAnswers[ii]+",c,";
-				for (iii=0;iii<vsz;iii++){
-					outStr += v[iii].next+","+std::to_string(v[iii].rule)+",";
-				}
-				myfile << outStr +"\n";
+				
 				correctAnswers.push_back(finishedAnswers[ii]);
 				Answer answer;
 				answer.finished = true;
@@ -2804,11 +2799,7 @@ std::string fullAnswer(std::string s){
 			else {
 				v = makeIncorrectSolutionList(finishedAnswers[ii],newPostfix);
 				vsz = v.size();
-				std::string outStr = finishedAnswers[ii]+",e,";
-				for (iii=0;iii<vsz;iii++){
-					outStr += v[iii].next+","+std::to_string(v[iii].rule)+",";
-				}
-				myfile << outStr +"\n";
+				
 				finishedErrors.push_back(finishedAnswers[ii]);
 				Answer answer;
 				answer.finished = true;
@@ -2831,11 +2822,6 @@ std::string fullAnswer(std::string s){
 		std::vector<Step> v = makeSolutionList(iter->first,newPostfix);
 		int vsz = v.size();
 		if (vsz > 0){
-			std::string outStr = iter->first+",u,";
-			for (iii=0;iii<vsz;iii++){
-				outStr += v[iii].next+","+std::to_string(v[iii].rule)+",";
-			}
-			myfile << outStr +"\n";
 			Answer answer;
 			answer.finished = false;
 			answer.correct = true;
@@ -2849,11 +2835,7 @@ std::string fullAnswer(std::string s){
 			std::vector<Step> vv = makeIncorrectSolutionList(iter->first,newPostfix);
 			vsz = vv.size();
 			if (vsz > 0){
-				std::string outStr = iter->first+",e,";
-				for (iii=0;iii<vsz;iii++){
-					outStr += v[iii].next+","+std::to_string(v[iii].rule)+",";
-				}
-				myfile << outStr +"\n";
+				
 				Answer answer;
 				answer.finished = false;
 				answer.correct = false;
@@ -2870,7 +2852,7 @@ std::string fullAnswer(std::string s){
 
 		
 	}
-	myfile.close();
+	
 	std::cout << "unfinished answers: " << uos << "\n";
 	finishedAnswers.resize(0);
 	
@@ -2898,6 +2880,30 @@ std::string fullAnswer(std::string s){
 	
 	std::cout << "in\n";
 	inputify();
+	
+	std::ofstream myfile;
+	myfile.open("testanswer.txt");
+	
+	for (flat_hash_map<std::string,Answer>::iterator iter = answerMap.begin(); iter != answerMap.end(); ++iter){
+		std::string outStr = iter->first+",";
+		outStr += iter->second.input+",";
+		if (iter->second.correct && iter->second.finished){
+			outStr += "c,";
+		}
+		else if (iter->second.finished){
+			outStr += "e,";
+		}
+		else {
+			outStr += "u,";
+		}
+		std::vector<Step> v = iter->second.solution;
+		int vsz = v.size();
+		for (iii=0;iii<vsz;iii++){
+			outStr += v[iii].next+","+std::to_string(v[iii].rule)+",";
+		}
+		myfile << outStr +"\n";
+	}
+	myfile.close();
 	//for (flat_hash_map<std::string,Answer>::iterator iter = answerMap.begin(); iter != answerMap.end(); ++iter){
 	//	inputArray.push_back(inputify(iter->first));
 	//}

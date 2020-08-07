@@ -63,7 +63,6 @@ wss.on('connection', function connection(ws) {
   	ws.on('message', function incoming(message) {
   		console.log(performance.now());
 		var dm = JSON.parse(message);
-		console.log("dm",dm);
 		console.log(performance.now());
 		if (dm.operation == 'key'){
 			if (tempKeys[dm.message]){
