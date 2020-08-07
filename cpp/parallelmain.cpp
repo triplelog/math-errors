@@ -2334,6 +2334,7 @@ int maxFound;
 int maxSteps;
 
 bool foundOneAnswer;
+bool startedWrong;
 bool getAnswerList(std::string s, int nSteps) {
 	//std::cout << "s: "<< s << "\n";
 
@@ -2351,33 +2352,6 @@ bool getAnswerList(std::string s, int nSteps) {
 	int iii;
 	int iiii;
 	
-	for (i=0;i<s.length();i++){
-		if (s.at(i)==-95){
-			if (reverseMapCorrect.find(s) != reverseMapCorrect.end()){
-				std::vector<Step> v = reverseMapCorrect[s];
-				
-				for (ii=0;ii<v.size();ii++){
-					bool foundElement = false;
-					for (iii=0;iii<v[ii].next.length();iii++){
-						if (v[ii].next.at(iii)==-95){
-							foundElement = true;
-							break;
-						}
-					}
-					if (!foundElement){
-						std::cout << "yes rmc: " << s << "\n";
-						Rule rule = ruleIndex[v[ii].rule];
-						std::cout << v[ii].next << " and " << rule.operands << " and " << rule.out << "\n";
-					}
-					
-				}
-			}
-			else {
-				//std::cout << "no rmc: " << s << "\n";
-			}
-			break;
-		}
-	}
 	jsonmessage = "";
 	std::string pfstr = s;
 	//std::cout << pfstr << '\n';
@@ -2396,7 +2370,7 @@ bool getAnswerList(std::string s, int nSteps) {
 
 	if (answerIsFinished){
 		finishedAnswers.push_back(newPostfix);
-		if (!foundOneAnswer){
+		if (nSteps*2+6 < maxSteps && !startedWrong){
 
 			if (doubleCheckAnswer(newPostfix)){
 				std::cout << "One answer: " << newPostfix << " and " << maxSteps << "\n";
@@ -2459,7 +2433,7 @@ bool getAnswerList(std::string s, int nSteps) {
 		if (answerListMap.find(allStrings[ii].next) == answerListMap.end()){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
-		else if (nSteps+1<answerListMap[allStrings[ii].next]){
+		else if (nSteps+3<answerListMap[allStrings[ii].next]){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
 		if (reverseMapCorrect.find(allStrings[ii].next) != reverseMapCorrect.end()){
@@ -2504,6 +2478,7 @@ bool getAnswerList(std::string s, int nSteps) {
 	//std::cout << "total answers: "<< totalAnswers << "\n";
 
 	for (ii=0;ii<allStrings.size();ii++){
+		startedWrong = true;
 		if (allStrings[ii].next == newPostfix){
 			continue;
 		}
@@ -2512,7 +2487,10 @@ bool getAnswerList(std::string s, int nSteps) {
 		}
 		answerListMapF[newPostfix].push_back(allStrings[ii].rule);
 
-		if (answerListMapF.find(allStrings[ii].next) == answerListMapF.end()){
+		if (answerListMap.find(allStrings[ii].next) == answerListMap.end()){
+			getAnswerList(allStrings[ii].next,nSteps+1);
+		}
+		else if (nSteps+3<answerListMap[allStrings[ii].next]){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
 		if (reverseMap.find(allStrings[ii].next) == reverseMap.end()){
@@ -2724,6 +2702,7 @@ std::string fullAnswer(std::string s){
 	reverseMapCorrect.clear();
 	auto a1 = std::chrono::high_resolution_clock::now();
 	foundOneAnswer = false;
+	startedWrong = true;
 	getAnswerList(newPostfix,0);
 	auto a2 = std::chrono::high_resolution_clock::now();
 	std::cout << "\n\n\n\nCompleted the InCorrect Loop @$*&^@$*&^@*$&^@*$&^\n\n\n\n" << " and " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n\n";
@@ -3472,7 +3451,7 @@ void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	correctSolutionList.clear();
 	incorrectSolutionList.clear();
 	answerMap.clear();
-	maxSteps = 5;
+	maxSteps = 10;
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
 	maxFound = 0;
