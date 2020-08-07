@@ -449,6 +449,7 @@ std::vector<std::string> autocomplete(std::string newPostfix,std::string rawAnsw
 		
 		ias++;
 	}
+	std::cout << "ias: " << ias << "\n";
 	answers.resize(ias);
 	//shortAnswers.resize(ias);
 	
@@ -463,7 +464,7 @@ std::vector<std::string> autocomplete(std::string newPostfix,std::string rawAnsw
 		answer.answer = iter->first;
 		answers[i] = answer;
 		i++;
-		//std::cout << "distance: " << autoDistance(ca,rawAnswer) << " of "<< inputify(iter->first) << "\n";
+		std::cout << "distance: " << autoDistance(ca,rawAnswer) << " of "<< iter->first << "\n";
 		
 	}
 	if (ias > 12){
