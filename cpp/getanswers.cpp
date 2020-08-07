@@ -1124,6 +1124,9 @@ void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			std::string key = rawAnswer[0];
 			std::vector<int> ruleOpps;
 			for (ii=1;ii<rawAnswer.size();ii++){
+				if (rawAnswer[ii]==""){
+					break;
+				}
 				ruleOpps.push_back(std::stoi(rawAnswer[ii]));
 			}
 			answerListMapF[key]=ruleOpps;
