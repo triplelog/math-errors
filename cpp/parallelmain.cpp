@@ -2411,6 +2411,7 @@ bool getAnswerList(std::string s, int nSteps) {
 	}
 	else {
 		answerListMap[newPostfix] = nSteps;
+		answerListMapF[newPostfix] = {};
 		//pRules = answerListMapF[newPostfix];
 		//for (iii=0;iii<pRules.size();iii++){
 		//	oldMap[pRules[iii]]=true;
