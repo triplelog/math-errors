@@ -195,11 +195,11 @@ wss.on('connection', function connection(ws) {
 		else if (dm.type == 'makeanswers'){
 			console.log("___",performance.now());
 			var outS = maincppa.makeanswers("Hello");
-			var stdout = maincpp.auto("(x+");
+			var stdout = maincppa.auto("(x+");
 			console.log(stdout);
-			stdout = maincpp.check("(x+3)*(x+4)");
+			stdout = maincppa.check("(x+3)*(x+4)");
 			console.log(performance.now(), stdout);
-			stdout = maincpp.solution("(x+3)*(x+4)");
+			stdout = maincppa.solution("(x+3)*(x+4)");
 			console.log(performance.now(), stdout);
 			console.log("___",outS,performance.now());
 		}
