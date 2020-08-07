@@ -2421,7 +2421,7 @@ bool getAnswerList(std::string s, int nSteps) {
 		
 	for (iii=0;iii<someStrings[0].size();iii++){
 		someStrings[0][iii].next = removeBracketsOne(someStrings[0][iii].next);
-		if (uniqueStrings.find(someStrings[0][iii].next) != uniqueStrings.end() || oldMap.find(someStrings[0][iii].rule) != oldMap.end()){
+		if (uniqueStrings.find(someStrings[0][iii].next) != uniqueStrings.end()){
 	
 		}
 		else {
@@ -2454,10 +2454,19 @@ bool getAnswerList(std::string s, int nSteps) {
 		}
 		
 		if (reverseMapCorrect.find(allStrings[ii].next) != reverseMapCorrect.end()){
-			Step step;
-			step.next = newPostfix;
-			step.rule = allStrings[ii].rule;
-			reverseMapCorrect[allStrings[ii].next].push_back(step);
+			bool foundStep = false;
+			for (iii=0;iii<reverseMapCorrect[allStrings[ii].next].size();iii++){
+				if (reverseMapCorrect[allStrings[ii].next][iii].next == newPostfix){
+					foundStep = true;
+					break;
+				}
+			}
+			if (!foundStep){
+				Step step;
+				step.next = newPostfix;
+				step.rule = allStrings[ii].rule;
+				reverseMapCorrect[allStrings[ii].next].push_back(step);
+			}
 			
 		}
 		else {
@@ -2477,7 +2486,7 @@ bool getAnswerList(std::string s, int nSteps) {
 	//allStrings.resize(0);
 	for (iii=0;iii<someStrings[1].size();iii++){
 		someStrings[1][iii].next = removeBracketsOne(someStrings[1][iii].next);
-		if (uniqueStrings.find(someStrings[1][iii].next) != uniqueStrings.end() || oldMap.find(someStrings[1][iii].rule) != oldMap.end()){
+		if (uniqueStrings.find(someStrings[1][iii].next) != uniqueStrings.end()){
 	
 		}
 		else {
@@ -2539,7 +2548,7 @@ flat_hash_map<std::string,std::vector<Step>> correctSolutionList;
 flat_hash_map<std::string,std::vector<Step>> incorrectSolutionList;
 std::vector<Step> makeSolutionList(std::string s, std::string q,std::vector<std::string> fut){
 	std::vector<Step> v;
-	//std::cout << "s: " << s << "\n";
+	std::cout << "s: " << s << "\n";
 	std::vector<Step> sv;
 	int i; 
 	if (s == q){
@@ -2595,7 +2604,7 @@ std::vector<Step> makeSolutionList(std::string s, std::string q,std::vector<std:
 		if (l == 0){
 			continue;
 		}
-		if (l < minSize && l < 10){
+		if (l < minSize){
 			minSize = l;
 			minV = correctSolutionList[sv[i].next];
 			ruleApp = sv[i].rule;
@@ -2746,9 +2755,6 @@ std::string fullAnswer(std::string s){
 			std::vector<Step> v = makeSolutionList(finishedAnswers[ii],newPostfix,{finishedAnswers[ii]});
 			int vsz = v.size();
 			if (vsz > 0){
-				if (vsz < 5){
-					std::cout << "fully correct: "<< finishedAnswers[ii] << "\n";
-				}
 				
 				correctAnswers.push_back(finishedAnswers[ii]);
 				Answer answer;
