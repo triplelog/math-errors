@@ -2740,6 +2740,7 @@ std::string fullAnswer(std::string s){
 
 	
 	for (ii=0;ii<finishedAnswers.size();ii++){
+		std::cout << "f: " << finsishedAnswers[ii] << "\n";
 		if (doubleCheckAnswer(finishedAnswers[ii])){
 			
 			std::vector<Step> v = makeSolutionList(finishedAnswers[ii],newPostfix,{finishedAnswers[ii]});
