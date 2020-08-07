@@ -2435,7 +2435,7 @@ bool getAnswerList(std::string s, int nSteps) {
 		if (answerListMap.find(allStrings[ii].next) == answerListMap.end()){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
-		else if (nSteps+3<answerListMap[allStrings[ii].next]){
+		else if (nSteps+1<answerListMap[allStrings[ii].next]){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
 		if (reverseMapCorrect.find(allStrings[ii].next) != reverseMapCorrect.end()){
@@ -2492,7 +2492,7 @@ bool getAnswerList(std::string s, int nSteps) {
 		if (answerListMap.find(allStrings[ii].next) == answerListMap.end()){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
-		else if (nSteps+3<answerListMap[allStrings[ii].next]){
+		else if (nSteps+1<answerListMap[allStrings[ii].next]){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
 		if (reverseMap.find(allStrings[ii].next) == reverseMap.end()){
