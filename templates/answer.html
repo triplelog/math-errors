@@ -393,7 +393,9 @@
 		function submitQuestion() {
 			//var question = document.getElementById("equation").value;
 			//var answer = "x";//document.getElementById("answer").value;
+			
 			var jsonmessage = {type:"makeanswers"};
+			console.log(jsonmessage);
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		function submitAnswer(answer="") {
