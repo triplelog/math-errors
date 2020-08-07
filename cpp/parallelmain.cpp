@@ -2450,7 +2450,9 @@ bool getAnswerList(std::string s, int nSteps) {
 		//if (nSteps == 0){
 		//	std::cout << "next: " << allStrings[ii].next << "\n";
 		//}
-		
+		if (allStrings[ii].next == "##+##+*@x_3_x_4_"){
+			std::cout << "npf: " << newPostfix << " and " << nSteps << "\n";
+		}
 		if (allStrings[ii].next == newPostfix){
 			continue;
 		}
@@ -3464,7 +3466,7 @@ void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	correctSolutionList.clear();
 	incorrectSolutionList.clear();
 	answerMap.clear();
-	maxSteps = 15;
+	maxSteps = 25;
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
 	maxFound = 0;
