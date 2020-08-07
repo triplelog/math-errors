@@ -193,7 +193,7 @@ wss.on('connection', function connection(ws) {
 			var jsonmessage = {'type':'preview','preview':qh};
 			ws.send(JSON.stringify(jsonmessage));
 		}
-		else if (dm.type == 'makeanswer'){
+		else if (dm.type == 'makeanswers'){
 			console.log("___",performance.now());
 			var outS = maincppa.makeanswers("Hello");
 			console.log("___",outS,performance.now());
