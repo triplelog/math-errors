@@ -1096,12 +1096,8 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			userData[ii]={false,false};
 		}
 		std::vector<Step> v;
-		if (userAnswer.correct){
-			v = correctSolutionList[mpf];
-		}
-		else {
-			v = incorrectSolutionList[mpf];
-		}
+		v = userAnswer.solution;
+
 		flat_hash_map<int,bool> alreadyApp;
 		flat_hash_map<int,bool> alreadyOpp;
 		for (iii=0;iii<v.size();iii++){
@@ -1134,37 +1130,34 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		}
 
 		for (ii=0;ii<correctAnswers.size()+finishedErrors.size();ii++){
-			std::vector<Step> v;
-			if (ii<correctAnswers.size()){
-				v = correctSolutionList[correctAnswers[ii]];
-			}
-			else {
-				v = incorrectSolutionList[finishedErrors[ii-correctAnswers.size()]];
-			}
+		for (flat_hash_map<std::string,Answer>::iterator iter = answerMap.begin(); iter != answerMap.end(); ++iter){
+			if (iter->second.finished){
+				std::vector<Step> v = iter->second.solution;
 		
-			flat_hash_map<int,bool> alreadyApp;
-			flat_hash_map<int,bool> alreadyOpp;
-			for (iii=0;iii<v.size();iii++){
-				if (branches.find(v[iii].rule) != branches.end()){
-					if (alreadyApp.find(v[iii].rule) != alreadyApp.end()){
-					}
-					else {
-						//TODO: make the rule match reality
-						if (v[iii].rule >= 0){
-							branches[v[iii].rule][0]++;
-						}
-						alreadyApp[v[iii].rule]=true;
-					}
-				}
-				std::vector<int> allOptions = answerListMapF[v[iii].next];
-				for (iiii=0;iiii<allOptions.size();iiii++){
-					if (branches.find(allOptions[iiii]) != branches.end()){
-						if (alreadyOpp.find(allOptions[iiii]) != alreadyOpp.end()){
-							continue;
+				flat_hash_map<int,bool> alreadyApp;
+				flat_hash_map<int,bool> alreadyOpp;
+				for (iii=0;iii<v.size();iii++){
+					if (branches.find(v[iii].rule) != branches.end()){
+						if (alreadyApp.find(v[iii].rule) != alreadyApp.end()){
 						}
 						else {
-							branches[allOptions[iiii]][1]++;
-							alreadyOpp[allOptions[iiii]]=true;
+							//TODO: make the rule match reality
+							if (v[iii].rule >= 0){
+								branches[v[iii].rule][0]++;
+							}
+							alreadyApp[v[iii].rule]=true;
+						}
+					}
+					std::vector<int> allOptions = answerListMapF[v[iii].next];
+					for (iiii=0;iiii<allOptions.size();iiii++){
+						if (branches.find(allOptions[iiii]) != branches.end()){
+							if (alreadyOpp.find(allOptions[iiii]) != alreadyOpp.end()){
+								continue;
+							}
+							else {
+								branches[allOptions[iiii]][1]++;
+								alreadyOpp[allOptions[iiii]]=true;
+							}
 						}
 					}
 				}
