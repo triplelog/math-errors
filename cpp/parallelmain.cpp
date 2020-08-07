@@ -2367,27 +2367,29 @@ bool getAnswerList(std::string s, int nSteps) {
 	auto a1 = std::chrono::high_resolution_clock::now();
 	std::vector<std::vector<Step>> someStrings = makeTree(newPostfix);
 	//std::cout << "npf3: "<< newPostfix << "\n";
+	
+	if (answerListMap.find(newPostfix) == answerListMap.end()){
+		if (answerIsFinished){
+			finishedAnswers.push_back(newPostfix);
+			/*
+			if (nSteps*2+6 < maxSteps && !startedWrong){
 
-	if (answerIsFinished){
-		finishedAnswers.push_back(newPostfix);
-		/*
-		if (nSteps*2+6 < maxSteps && !startedWrong){
-
-			if (doubleCheckAnswer(newPostfix)){
-				std::cout << "One answer: " << newPostfix << " and " << maxSteps << "\n";
-				if (nSteps*2+6 < maxSteps){
-					maxSteps = nSteps*2+6;
+				if (doubleCheckAnswer(newPostfix)){
+					std::cout << "One answer: " << newPostfix << " and " << maxSteps << "\n";
+					if (nSteps*2+6 < maxSteps){
+						maxSteps = nSteps*2+6;
+					}
+					std::cout << "One answer: " << newPostfix << " and " << maxSteps << "\n";
+					foundOneAnswer = true;
 				}
-				std::cout << "One answer: " << newPostfix << " and " << maxSteps << "\n";
-				foundOneAnswer = true;
 			}
+			*/
 		}
-		*/
+		else {
+			unfinishedAnswers.push_back(newPostfix);
+		}
 	}
-	else {
-		unfinishedAnswers.push_back(newPostfix);
-	}
-
+	
 	auto a2 = std::chrono::high_resolution_clock::now();
 	int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 
@@ -2409,10 +2411,10 @@ bool getAnswerList(std::string s, int nSteps) {
 	}
 	else {
 		answerListMap[newPostfix] = nSteps;
-		pRules = answerListMapF[newPostfix];
-		for (iii=0;iii<pRules.size();iii++){
-			oldMap[pRules[iii]]=true;
-		}
+		//pRules = answerListMapF[newPostfix];
+		//for (iii=0;iii<pRules.size();iii++){
+		//	oldMap[pRules[iii]]=true;
+		//}
 	}
 
 		
@@ -2716,7 +2718,7 @@ std::string fullAnswer(std::string s){
 	reverseMapCorrect.clear();
 	auto a1 = std::chrono::high_resolution_clock::now();
 	foundOneAnswer = false;
-	startedWrong = true;
+	startedWrong = false;
 	//maxSteps = 5;
 	//getAnswerList(newPostfix,0);
 	maxSteps = 10;
