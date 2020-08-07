@@ -2864,7 +2864,8 @@ std::string fullAnswer(std::string s){
 		}
 
 		
-	} 
+	}
+	myfile.close();
 	std::cout << "unfinished answers: " << uos << "\n";
 	finishedAnswers.resize(0);
 	
