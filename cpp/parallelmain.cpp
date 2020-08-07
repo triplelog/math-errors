@@ -2450,7 +2450,7 @@ bool getAnswerList(std::string s, int nSteps) {
 		//if (nSteps == 0){
 		//	std::cout << "next: " << allStrings[ii].next << "\n";
 		//}
-		if (allStrings[ii].next == "##+##+*@x_3_x_4_"){
+		if (allStrings[ii].next == "##+##+*#+@x_3_x_4_0_"){
 			std::cout << "npf: " << newPostfix << " and " << nSteps << "\n";
 		}
 		if (allStrings[ii].next == newPostfix){
