@@ -118,9 +118,11 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 			std::string insidePostfix = "";
 			bool pastInsideKey = false;
 			bool isArithmetic = true;
+			bool cannotSolve = false;
 			//std::cout << userString << " and " << rule.operands << " and " << key << " and " << rule.out << " was userString\n";
 			for (iii=0;iii<rule.out.length();iii++){
 				//std::cout << iii << "\n";
+				if (cannotSolve){break;}
 				if (openPar > 0){
 					hasPar = true;
 					if (pastInsideKey){
@@ -132,16 +134,8 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 								if (insidePostfix.at(bi) == -89 && bi+1<insidePostfix.length() && insidePostfix.at(bi+1) == '@'){
 									
 									currentOperand = substitute(insidePostfix);
-									if (currentOperand != "("+insidePostfix+")"){
-										int bii;
-										for (bii=0;bii<currentOperand.length();bii++){
-											if (currentOperand.at(bii) == -95){
-												std::cout << "substitute: " << insidePostfix << "\n";
-												std::cout << "substituted: " << currentOperand << "\n";
-												break;
-											}
-										}
-										
+									if (currentOperand == "("+insidePostfix+")"){
+										cannotSolve = true;
 									}
 									
 									isArithmetic = false;
@@ -247,23 +241,15 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 					
 			}
 
-			for (iiii=0;iiii<newPostfix.length();iiii++){
-				if (newPostfix.at(iiii) == -95){
-					std::cout << newPostfix << " askdjfhaskdf1111 " << userString << "\n";
-				}
-			}
-			if (hasPar && newPostfix.length() >0){
-				for (iiii=0;iiii<newPostfix.length();iiii++){
-					if (newPostfix.at(iiii) == -95){
-						std::cout << newPostfix << " askdjfhaskdf2222 " << userString << "\n";
-					}
-				}
+			
+			if (!cannotSolve && hasPar && newPostfix.length() >0){
+				
 				//std::cout << newPostfix << " was newPostfix\n";
 				newPostfix = removeParOne(newPostfix);
 				//std::cout << newPostfix << " was newPostfix after removal\n";
 				//newPostfix = removeBracketsOne(newPostfix);
 			}
-			if (newPostfix == userString){
+			if (newPostfix == userString || cannotSolve){
 				newPostfix = "";
 			}
 			for (iiii=0;iiii<newPostfix.length();iiii++){
