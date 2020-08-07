@@ -192,6 +192,9 @@ wss.on('connection', function connection(ws) {
 			var jsonmessage = {'type':'preview','preview':qh};
 			ws.send(JSON.stringify(jsonmessage));
 		}
+		else if (dm.type == 'makeanswer'){
+			maincppa.makeanswers("Hello");
+		}
 		else if (dm.type == 'saveQuestion'){
 			if (dm.qstr.length >= 10000){
 				return;
@@ -309,6 +312,8 @@ var startTime = performance.now();
 
 const maincpp = require(binding);
 var retHello = maincpp.hello();
+const maincppa = require(bindingA);
+var retHelloA = maincppa.hello();
 var rules = [];
 eval(retHello);
 console.log("hello?: ",retHello);
@@ -322,6 +327,23 @@ app.get('/question',
 		//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
 		//ws.send(JSON.stringify(jsonmessage));
 		res.write(nunjucks.render('templates/question.html',{
+
+		}));
+		res.end();
+
+		
+	
+    }
+    
+);
+app.get('/questiona',
+	function(req, res){
+		
+		
+		console.log(performance.now());
+		//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
+		//ws.send(JSON.stringify(jsonmessage));
+		res.write(nunjucks.render('templates/answer.html',{
 
 		}));
 		res.end();

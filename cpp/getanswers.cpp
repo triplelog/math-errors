@@ -1067,6 +1067,33 @@ int probCorrect(){
 }
 
 flat_hash_map<std::string,std::vector<int>> answerListMapF;
+
+void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+	v8::Isolate* isolate = info.GetIsolate();
+	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
+	//int row = info[0]->Int32Value(context).FromJust();
+	v8::String::Utf8Value s(isolate, info[0]);
+	std::string a(*s);
+	std::cout << "your question: " << a << "\n";
+	
+	//TODO: read answer from file
+	std::string line;
+  	std::ifstream myfile("testanswer.txt");
+  	if (myfile.is_open()){
+		while ( getline(myfile,line) ){
+		  std::cout << line << '\n';
+		}
+		myfile.close();
+  	}
+	//TODO: create answerMap
+	//TODO: create answerListMapF
+	
+	
+
+	
+	info.GetReturnValue().Set(h.ToLocalChecked());
+}
+
 void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
@@ -1359,6 +1386,11 @@ void Init(v8::Local<v8::Object> exports) {
   exports->Set(context,
                Nan::New("solution").ToLocalChecked(),
                Nan::New<v8::FunctionTemplate>(GetSolution)
+                   ->GetFunction(context)
+                   .ToLocalChecked());
+  exports->Set(context,
+               Nan::New("makeanswers").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(MakeAnswers)
                    ->GetFunction(context)
                    .ToLocalChecked());
 
