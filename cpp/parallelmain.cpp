@@ -2820,7 +2820,7 @@ std::string fullAnswer(std::string s){
 	}
 	int uos = 0;
 	for (flat_hash_map<std::string,bool>::iterator iter = unfinishedOptions.begin(); iter != unfinishedOptions.end(); ++iter){
-		if (answerMap.find([iter->first]) != answerMap.end()){
+		if (answerMap.find(iter->first) != answerMap.end()){
 			continue;
 		}
 		uos++;
@@ -2869,8 +2869,7 @@ std::string fullAnswer(std::string s){
 	finishedAnswers.resize(0);
 	
 	//TODO: loop through the finished errors to collect all errors
-	
-	unfinishedAnswers.resize(0);
+
 
 
 	std::cout << "correct answers: " << correctAnswers.size() << "\n";
