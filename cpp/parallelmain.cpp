@@ -2768,11 +2768,10 @@ std::string fullAnswer(std::string s){
 	std::cout << "total answers: "<< totalAnswers << "\n";
 	//duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
-	int i; int ii;
+	int i; int ii; int iii;
 	
 	a1 = std::chrono::high_resolution_clock::now();
 	std::cout << "finished answers: " << finishedAnswers.size() << "\n";
-	std::cout << "unfinished answers: " << unfinishedAnswers.size() << "\n";
 	
 
 	unfinishedOptions.clear();
