@@ -2817,6 +2817,7 @@ std::string fullAnswer(std::string s){
 	int uos = 0;
 	for (flat_hash_map<std::string,bool>::iterator iter = unfinishedOptions.begin(); iter != unfinishedOptions.end(); ++iter){
 		uos++;
+		std::cout << "muf: " << iter->first << "\n";
 	} 
 	std::cout << "unfinished answers: " << uos << "\n";
 	finishedAnswers.resize(0);
