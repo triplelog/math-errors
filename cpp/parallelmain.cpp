@@ -2446,13 +2446,23 @@ bool getAnswerList(std::string s, int nSteps) {
 			continue;
 		}
 		
+		bool isMin = false;
 		if (answerListMap.find(allStrings[ii].next) == answerListMap.end()){
 			getAnswerList(allStrings[ii].next,nSteps+1);
+			isMin = true;
 		}
 		else if (nSteps+1<answerListMap[allStrings[ii].next]){
 			getAnswerList(allStrings[ii].next,nSteps+1);
+			isMin = true;
 		}
 		
+		if (isMin){
+			Step step;
+			step.next = newPostfix;
+			step.rule = allStrings[ii].rule;
+			reverseMapCorrect[allStrings[ii].next]={step};
+		}
+		/*
 		if (reverseMapCorrect.find(allStrings[ii].next) != reverseMapCorrect.end()){
 			bool foundStep = false;
 			for (iii=0;iii<reverseMapCorrect[allStrings[ii].next].size();iii++){
@@ -2476,6 +2486,7 @@ bool getAnswerList(std::string s, int nSteps) {
 			reverseMapCorrect[allStrings[ii].next]={step};
 
 		}
+		*/
 
 	}
 	
@@ -2548,7 +2559,7 @@ flat_hash_map<std::string,std::vector<Step>> correctSolutionList;
 flat_hash_map<std::string,std::vector<Step>> incorrectSolutionList;
 std::vector<Step> makeSolutionList(std::string s, std::string q,std::vector<std::string> fut){
 	std::vector<Step> v;
-	std::cout << "s: " << s << "\n";
+	//std::cout << "s: " << s << "\n";
 	std::vector<Step> sv;
 	int i; 
 	if (s == q){
@@ -2749,7 +2760,7 @@ std::string fullAnswer(std::string s){
 
 	
 	for (ii=0;ii<finishedAnswers.size();ii++){
-		std::cout << "f: " << finishedAnswers[ii] << "\n";
+		//std::cout << "f: " << finishedAnswers[ii] << "\n";
 		if (doubleCheckAnswer(finishedAnswers[ii])){
 			std::cout << "cf: " << finishedAnswers[ii] << "\n";
 			std::vector<Step> v = makeSolutionList(finishedAnswers[ii],newPostfix,{finishedAnswers[ii]});
