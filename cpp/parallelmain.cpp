@@ -2318,7 +2318,7 @@ void initialRun(){
 	auto t2 = std::chrono::high_resolution_clock::now();
 }
 
-flat_hash_map<std::string,std::vector<int>> answerListMap;
+flat_hash_map<std::string,int> answerListMap;
 flat_hash_map<std::string,std::vector<int>> answerListMapF;
 flat_hash_map<std::string,std::vector<Step>> reverseMap;
 flat_hash_map<std::string,std::vector<Step>> reverseMapCorrect;
@@ -2441,7 +2441,7 @@ bool getAnswerList(std::string s, int nSteps) {
 	
 	}
 	//std::cout << "npf4: "<< newPostfix << "\n";
-	answerListMap[newPostfix] = {};
+	answerListMap[newPostfix] = nSteps;
 	answerListMapF[newPostfix] = {};
 	//totalAnswers += allStrings.size();
 	
@@ -2457,6 +2457,9 @@ bool getAnswerList(std::string s, int nSteps) {
 			continue;
 		}
 		if (answerListMap.find(allStrings[ii].next) == answerListMap.end()){
+			getAnswerList(allStrings[ii].next,nSteps+1);
+		}
+		else if (nSteps+1<answerListMap[allStrings[ii].next]){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
 		if (reverseMapCorrect.find(allStrings[ii].next) != reverseMapCorrect.end()){
