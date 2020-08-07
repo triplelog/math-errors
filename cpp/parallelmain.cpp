@@ -2447,7 +2447,6 @@ bool getAnswerList(std::string s, int nSteps) {
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
 		else if (nSteps+1<answerListMap[allStrings[ii].next]){
-			answerListMap[allStrings[ii].next]=nSteps+1;
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
 		
@@ -2475,7 +2474,7 @@ bool getAnswerList(std::string s, int nSteps) {
 	//allStrings.resize(0);
 	for (iii=0;iii<someStrings[1].size();iii++){
 		someStrings[1][iii].next = removeBracketsOne(someStrings[1][iii].next);
-		if (uniqueStrings.find(someStrings[1][iii].next) != uniqueStrings.end() || oldMap.find(someStrings[0][iii].rule) != oldMap.end()){
+		if (uniqueStrings.find(someStrings[1][iii].next) != uniqueStrings.end() || oldMap.find(someStrings[1][iii].rule) != oldMap.end()){
 	
 		}
 		else {
@@ -2506,7 +2505,6 @@ bool getAnswerList(std::string s, int nSteps) {
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
 		else if (nSteps+1<answerListMap[allStrings[ii].next]){
-			answerListMap[allStrings[ii].next]=nSteps+1;
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
 		if (reverseMap.find(allStrings[ii].next) == reverseMap.end()){
