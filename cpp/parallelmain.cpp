@@ -3464,7 +3464,7 @@ void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	correctSolutionList.clear();
 	incorrectSolutionList.clear();
 	answerMap.clear();
-	maxSteps = 30;
+	maxSteps = 15;
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
 	maxFound = 0;
