@@ -979,7 +979,6 @@ void initialRun(){
 	subjectEq.op = 1; topicEq.op = 2; ruleEq.op = 3; idEq.op = 0; minEq.op = 4;
 	
 
-	firstCorrect = false;
 	auto t1 = std::chrono::high_resolution_clock::now();
 	ridx = 0;
 	makeRules("rules/derivatives.csv");
