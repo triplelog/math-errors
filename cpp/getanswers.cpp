@@ -1087,9 +1087,11 @@ void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	for (i=0;i<nRows;i++){
 		if (i%2 == 0){
 			std::vector<std::string> rawAnswer = doc.GetRow<std::string>(i);
+			std::cout << "i: " << i << "\n";
 			if (rawAnswer.size()< 3){
 				continue;
 			}
+			std::cout << "i: " << i << "\n";
 			std::string key = rawAnswer[0];
 			Answer answer;
 			answer.input = rawAnswer[1];
