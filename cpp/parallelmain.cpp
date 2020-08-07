@@ -2902,6 +2902,18 @@ std::string fullAnswer(std::string s){
 			outStr += v[iii].next+","+std::to_string(v[iii].rule)+",";
 		}
 		myfile << outStr +"\n";
+		
+		
+		outStr = iter->first+",";
+		if (answerListMapF.find(iter->first)== answerListMapF.end()){
+			std::cout << "missing??????222222\n";
+			myfile << outStr +"\n";
+			continue;
+		}
+		for (iii=0;iii<answerListMapF[iter->first].size();iii++){
+			outStr += std::to_string(answerListMapF[iter->first][iii])+",";
+		}
+		myfile << outStr +"\n";
 	}
 	myfile.close();
 	//for (flat_hash_map<std::string,Answer>::iterator iter = answerMap.begin(); iter != answerMap.end(); ++iter){

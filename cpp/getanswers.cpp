@@ -1076,7 +1076,7 @@ void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::string a(*s);
 	std::cout << "your question: " << a << "\n";
 	
-	//TODO: read answer from file
+
 	rapidcsv::Document doc("testanswer.txt", rapidcsv::LabelParams(-1, -1));
 	
 	int nRows = doc.GetRowCount();
@@ -1085,42 +1085,53 @@ void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::cout << "Rows: " << nRows << "\n";
 	
 	for (i=0;i<nRows;i++){
-		std::vector<std::string> rawAnswer = doc.GetRow<std::string>(i);
-		if (rawAnswer.size()< 3){
-			continue;
-		}
-		std::string key = rawAnswer[0];
-		Answer answer;
-		answer.input = rawAnswer[1];
-		if (rawAnswer[2] =="c"){
-			answer.correct = true;
-			answer.finished = true;
-		}
-		else if (rawAnswer[2] =="e"){
-			answer.correct = false;
-			answer.finished = true;
-		}
-		else if (rawAnswer[2] =="u"){
-			answer.correct = false;
-			answer.finished = false;
-		}
-		answer.solution.resize(0);
-		for (ii=3;ii<rawAnswer.size();ii++){
-			if (ii%2 == 0){
-				Step step;
-				step.next = rawAnswer[ii-1];
-				step.rule = std::stoi(rawAnswer[ii]);
-				answer.solution.push_back(step);
+		if (i%2 == 0){
+			std::vector<std::string> rawAnswer = doc.GetRow<std::string>(i);
+			if (rawAnswer.size()< 3){
+				continue;
 			}
+			std::string key = rawAnswer[0];
+			Answer answer;
+			answer.input = rawAnswer[1];
+			if (rawAnswer[2] =="c"){
+				answer.correct = true;
+				answer.finished = true;
+			}
+			else if (rawAnswer[2] =="e"){
+				answer.correct = false;
+				answer.finished = true;
+			}
+			else if (rawAnswer[2] =="u"){
+				answer.correct = false;
+				answer.finished = false;
+			}
+			answer.solution.resize(0);
+			for (ii=3;ii<rawAnswer.size();ii++){
+				if (ii%2 == 0){
+					Step step;
+					step.next = rawAnswer[ii-1];
+					step.rule = std::stoi(rawAnswer[ii]);
+					answer.solution.push_back(step);
+				}
+			}
+			answerMap[key]=answer;
 		}
-		answerMap[key]=answer;
-		
+		else {
+			std::vector<std::string> rawAnswer = doc.GetRow<std::string>(i);
+			if (rawAnswer.size()< 1){
+				continue;
+			}
+			std::string key = rawAnswer[0];
+			std::vector<int> ruleOpps;
+			for (ii=1;ii<rawAnswer.size();ii++){
+				ruleOpps.push_back(std::stoi(rawAnswer[ii]));
+			}
+			answerListMapF[key]=ruleOpps;
+		}
 		
 		
 	}
-  	
-	//TODO: create answerMap
-	//TODO: create answerListMapF
+
 	
 	std::string lastLine = "";
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(lastLine);
@@ -1162,6 +1173,10 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		flat_hash_map<int,bool> alreadyApp;
 		flat_hash_map<int,bool> alreadyOpp;
 		for (iii=0;iii<v.size();iii++){
+			if (answerListMapF.find(v[iii].next)== answerListMapF.end()){
+				std::cout << "missing??????\n";
+				continue;
+			}
 			if (alreadyApp.find(v[iii].rule) != alreadyApp.end()){
 			}
 			else {
@@ -1198,6 +1213,10 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 				flat_hash_map<int,bool> alreadyApp;
 				flat_hash_map<int,bool> alreadyOpp;
 				for (iii=0;iii<v.size();iii++){
+					if (answerListMapF.find(v[iii].next)== answerListMapF.end()){
+						std::cout << "missing??????222222\n";
+						continue;
+					}
 					if (branches.find(v[iii].rule) != branches.end()){
 						if (alreadyApp.find(v[iii].rule) != alreadyApp.end()){
 						}
