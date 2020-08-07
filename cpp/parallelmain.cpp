@@ -68,13 +68,7 @@ struct Question {
 	std::vector<std::vector<std::string>> rawRules;
 	Dewey dewey;
 };
-struct Answer {
-	bool finished = false;
-	bool correct = false;
-	std::string next = "";
-	std::string input = "";
-	std::vector<Step> solution;
-};
+
 struct Rule {
 	std::string operands = "";
 	std::string out = "";
@@ -88,6 +82,13 @@ struct Rule {
 struct Step {
 	std::string next = "";
 	int rule;
+};
+struct Answer {
+	bool finished = false;
+	bool correct = false;
+	std::string next = "";
+	std::string input = "";
+	std::vector<Step> solution;
 };
 struct OperatorProxy
 {
