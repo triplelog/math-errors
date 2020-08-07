@@ -2320,7 +2320,6 @@ void initialRun(){
 
 flat_hash_map<std::string,int> answerListMap;
 flat_hash_map<std::string,std::vector<int>> answerListMapF;
-flat_hash_map<std::string,std::vector<std::string>> answerListMapFN;
 flat_hash_map<std::string,std::vector<Step>> reverseMap;
 flat_hash_map<std::string,std::vector<Step>> reverseMapCorrect;
 int totalAnswers;
@@ -2336,7 +2335,6 @@ int maxSteps;
 
 bool foundOneAnswer;
 bool startedWrong;
-flat_hash_map<std::string,std::vector<std::vector<Step>>> toSomeStrings;
 bool getAnswerList(std::string s, int nSteps) {
 	//std::cout << "s: "<< s << "\n";
 
@@ -2368,7 +2366,6 @@ bool getAnswerList(std::string s, int nSteps) {
 	//std::cout << s << " before pl\n";
 	auto a1 = std::chrono::high_resolution_clock::now();
 	std::vector<std::vector<Step>> someStrings = makeTree(newPostfix);
-	toSomeStrings[newPostfix] = someStrings;
 	//std::cout << "npf3: "<< newPostfix << "\n";
 
 	if (answerIsFinished){
@@ -2404,27 +2401,24 @@ bool getAnswerList(std::string s, int nSteps) {
 	std::vector<Step> allStrings; //vector of the next step
 	flat_hash_map<std::string,bool> uniqueStrings;
 	
-	std::vector<std::string> vNext;
-	flat_hash_map<std::string,bool> oldMap;
+	std::vector<int> pRules;
+	flat_hash_map<int,bool> oldMap;
 	if (answerListMapF.find(newPostfix) == answerListMapF.end()){
 		answerListMap[newPostfix] = nSteps;
 		answerListMapF[newPostfix] = {};
-		answerListMapFN[newPostfix] = {};
 	}
 	else {
 		answerListMap[newPostfix] = nSteps;
-		answerListMapF[newPostfix] = {};
-		answerListMapFN[newPostfix] = {};
-		//vNext = answerListMapFN[newPostfix];
-		//for (iii=0;iii<vNext.size();iii++){
-		//	oldMap[vNext[iii]]=true;
-		//}
+		pRules = answerListMapF[newPostfix];
+		for (iii=0;iii<pRules.size();iii++){
+			oldMap[pRules[iii]]=true;
+		}
 	}
 
 		
 	for (iii=0;iii<someStrings[0].size();iii++){
 		someStrings[0][iii].next = removeBracketsOne(someStrings[0][iii].next);
-		if (uniqueStrings.find(someStrings[0][iii].next) != uniqueStrings.end()){
+		if (uniqueStrings.find(someStrings[0][iii].next) != uniqueStrings.end() || oldMap.find(someStrings[0][iii].rule) != oldMap.end()){
 	
 		}
 		else {
@@ -2480,7 +2474,7 @@ bool getAnswerList(std::string s, int nSteps) {
 	//allStrings.resize(0);
 	for (iii=0;iii<someStrings[1].size();iii++){
 		someStrings[1][iii].next = removeBracketsOne(someStrings[1][iii].next);
-		if (uniqueStrings.find(someStrings[1][iii].next) != uniqueStrings.end()){
+		if (uniqueStrings.find(someStrings[1][iii].next) != uniqueStrings.end() || oldMap.find(someStrings[1][iii].rule) != oldMap.end()){
 	
 		}
 		else {
@@ -2506,10 +2500,6 @@ bool getAnswerList(std::string s, int nSteps) {
 				std::cout << "negative ruleddd\n";
 		}
 		answerListMapF[newPostfix].push_back(allStrings[ii].rule);
-		//if (oldMap.find(allStrings[ii].next) == oldMap.end()){
-		//	answerListMapFN[newPostfix].push_back(allStrings[ii].next);
-		//}
-		
 
 		if (answerListMap.find(allStrings[ii].next) == answerListMap.end()){
 			getAnswerList(allStrings[ii].next,nSteps+1);
@@ -2517,22 +2507,20 @@ bool getAnswerList(std::string s, int nSteps) {
 		else if (nSteps+1<answerListMap[allStrings[ii].next]){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
-		//if (oldMap.find(allStrings[ii].next) == oldMap.end()){
-			if (reverseMap.find(allStrings[ii].next) == reverseMap.end()){
-				Step step;
-				step.next = newPostfix;
-				step.rule = allStrings[ii].rule;
-				reverseMap[allStrings[ii].next].push_back(step);
+		if (reverseMap.find(allStrings[ii].next) == reverseMap.end()){
+			Step step;
+			step.next = newPostfix;
+			step.rule = allStrings[ii].rule;
+			reverseMap[allStrings[ii].next].push_back(step);
 			
-			}
-			else {
-				Step step;
-				step.next = newPostfix;
-				step.rule = allStrings[ii].rule;
-				reverseMap[allStrings[ii].next]={step};
+		}
+		else {
+			Step step;
+			step.next = newPostfix;
+			step.rule = allStrings[ii].rule;
+			reverseMap[allStrings[ii].next]={step};
 
-			}
-		//}
+		}
 
 	}
 	
@@ -2729,8 +2717,8 @@ std::string fullAnswer(std::string s){
 	auto a1 = std::chrono::high_resolution_clock::now();
 	foundOneAnswer = false;
 	startedWrong = true;
-	//maxSteps = 6;
-	//getAnswerList(newPostfix,1);
+	//maxSteps = 5;
+	//getAnswerList(newPostfix,0);
 	maxSteps = 10;
 	getAnswerList(newPostfix,0);
 	//maxSteps = 15;
