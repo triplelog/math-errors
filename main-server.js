@@ -193,7 +193,9 @@ wss.on('connection', function connection(ws) {
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		else if (dm.type == 'makeanswer'){
-			maincppa.makeanswers("Hello");
+			console.log("___",performance.now());
+			var outS = maincppa.makeanswers("Hello");
+			console.log("___",outS,performance.now());
 		}
 		else if (dm.type == 'saveQuestion'){
 			if (dm.qstr.length >= 10000){

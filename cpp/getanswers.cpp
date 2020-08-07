@@ -1080,10 +1080,12 @@ void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
   	std::ifstream myfile("testanswer.txt");
 	std::cout << "hello" << "\n";
+	std::string lastLine;
 	if (myfile.is_open()){
 		std::cout << "hello" << "\n";
 		for(std::string line; getline( myfile, line );){
 			std::cout << line << '\n';
+			lastLine = line;
 		}
 		myfile.close();
 	}
@@ -1091,7 +1093,10 @@ void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//TODO: create answerMap
 	//TODO: create answerListMapF
 	
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(lastLine);
+
 	
+	info.GetReturnValue().Set(h.ToLocalChecked());
 }
 
 void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
