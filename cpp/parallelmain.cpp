@@ -2400,25 +2400,11 @@ bool getAnswerList(std::string s, int nSteps) {
 
 	std::vector<Step> allStrings; //vector of the next step
 	flat_hash_map<std::string,bool> uniqueStrings;
-	
-	std::vector<int> pRules;
-	flat_hash_map<int,bool> oldMap;
-	if (answerListMapF.find(newPostfix) == answerListMapF.end()){
-		answerListMap[newPostfix] = nSteps;
-		answerListMapF[newPostfix] = {};
-	}
-	else {
-		answerListMap[newPostfix] = nSteps;
-		pRules = answerListMapF[newPostfix];
-		for (iii=0;iii<pRules.size();iii++){
-			oldMap[pRules[iii]]=true;
-		}
-	}
 
-		
+	
 	for (iii=0;iii<someStrings[0].size();iii++){
 		someStrings[0][iii].next = removeBracketsOne(someStrings[0][iii].next);
-		if (uniqueStrings.find(someStrings[0][iii].next) != uniqueStrings.end() || oldMap.find(someStrings[0][iii].rule) != oldMap.end()){
+		if (uniqueStrings.find(someStrings[0][iii].next) != uniqueStrings.end()){
 	
 		}
 		else {
@@ -2431,7 +2417,8 @@ bool getAnswerList(std::string s, int nSteps) {
 	
 	}
 	//std::cout << "npf4: "<< newPostfix << "\n";
-	
+	answerListMap[newPostfix] = nSteps;
+	answerListMapF[newPostfix] = {};
 	//totalAnswers += allStrings.size();
 	
 	
@@ -2439,17 +2426,18 @@ bool getAnswerList(std::string s, int nSteps) {
 		//if (nSteps == 0){
 		//	std::cout << "next: " << allStrings[ii].next << "\n";
 		//}
+		if (allStrings[ii].next == "##+##+*@x_3_x_4_"){
+			std::cout << "npf: " << newPostfix << " and " << nSteps << "\n";
+		}
 		if (allStrings[ii].next == newPostfix){
 			continue;
 		}
-		
 		if (answerListMap.find(allStrings[ii].next) == answerListMap.end()){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
 		else if (nSteps+1<answerListMap[allStrings[ii].next]){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 		}
-		
 		if (reverseMapCorrect.find(allStrings[ii].next) != reverseMapCorrect.end()){
 			Step step;
 			step.next = newPostfix;
@@ -2474,7 +2462,7 @@ bool getAnswerList(std::string s, int nSteps) {
 	//allStrings.resize(0);
 	for (iii=0;iii<someStrings[1].size();iii++){
 		someStrings[1][iii].next = removeBracketsOne(someStrings[1][iii].next);
-		if (uniqueStrings.find(someStrings[1][iii].next) != uniqueStrings.end() || oldMap.find(someStrings[1][iii].rule) != oldMap.end()){
+		if (uniqueStrings.find(someStrings[1][iii].next) != uniqueStrings.end()){
 	
 		}
 		else {
