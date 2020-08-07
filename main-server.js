@@ -80,59 +80,11 @@ wss.on('connection', function connection(ws) {
 			stdout = maincpp.answers();
 			console.log(stdout);
 		}
-		else if (dm.type == 'solve'){//TODO: redo this whole thing
-			console.log(performance.now());
-			var question = dm.question;
-			console.log(performance.now());
-			var stdout = maincpp.question();
-			console.log(performance.now(), question);
-			maincpp.breakAnswer();
-			var outStr = "";
-		
-			var len = stdout.length;
-			var nodeStr = "......";
-			var inAction = false;
-		
-			var idx = 0;
-			var allStrings = [];
-			var allSteps = [];
-			for (var i=0;i<len;i++){
-				nodeStr += stdout[i];
-				nodeStr = nodeStr.substring(1,7);
-	
-				if (nodeStr == "-DOJS-"){
-					inAction = true;
-				}
-				else if (nodeStr == "-ODJS-"){
-					inAction = false;
-				
-					outStr = outStr.replace("#tree-simple","#tree-simple"+idx);
-					outStr = outStr.replace("var chart =","var chart"+idx+" =");
-					outStr = outStr.substring(0,outStr.length-5);
-					allStrings.push(outStr);
-					allSteps.push("node"+i);
-					idx++;
-					outStr = "";
-				}
-				else if (inAction){
-					outStr += stdout[i];
-				}
-			}
-		
-			//console.log(allStrings);
-			outStr =  "";
-			for (var i=0;i<allStrings.length;i++){
-				outStr += allStrings[i];
-			}
-			console.log(performance.now());
-			var jsonmessage = {'type':'answer','answer':outStr};
-			ws.send(JSON.stringify(jsonmessage));
-		}
 		else if (dm.type == 'check'){
 			console.log(performance.now());
-			var stdout = maincpp.check(dm.answer);
+			var stdout = maincppa.check(dm.answer);
 			console.log(performance.now(), dm.answer);
-			stdout = maincpp.solution(dm.answer);
+			stdout = maincppa.solution(dm.answer);
 			console.log(performance.now());
 			var outStr = "";
 		
@@ -176,7 +128,7 @@ wss.on('connection', function connection(ws) {
 		}
 		else if (dm.type == 'auto'){
 			console.log(performance.now());
-			var stdout = maincpp.auto(dm.answer);
+			var stdout = maincppa.auto(dm.answer);
 			var outArray = [];
 			eval(stdout);
 			console.log(performance.now(), dm.answer);
@@ -195,13 +147,15 @@ wss.on('connection', function connection(ws) {
 		else if (dm.type == 'makeanswers'){
 			console.log("___",performance.now());
 			var outS = maincppa.makeanswers("Hello");
+			console.log("___",outS,performance.now());
+			
 			var stdout = maincppa.auto("(x+");
-			console.log(stdout);
+			//console.log(stdout);
 			stdout = maincppa.check("(x+3)*(x+4)");
 			console.log(performance.now(), stdout);
 			stdout = maincppa.solution("(x+3)*(x+4)");
 			console.log(performance.now(), stdout);
-			console.log("___",outS,performance.now());
+			
 		}
 		else if (dm.type == 'saveQuestion'){
 			if (dm.qstr.length >= 10000){
