@@ -911,5 +911,8 @@ std::string substitute(std::string input){
 		}
 	}
 	//std::cout << "newPostfix: " << newPostfix << "\n";
+	if (newPostfix != input){
+		std::cout << input << " andand " << newPostfix << "\n";
+	}
 	return "("+newPostfix+")";
 }
