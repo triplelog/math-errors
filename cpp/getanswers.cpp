@@ -434,9 +434,170 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 	return latexMap;
 }
 
+std::string removeBracketsOne(std::string input) {
+	flat_hash_map<int,int> operandToIndex;
+	int iii; int iiii;
+	bool foundBracket = false;
+	bool foundAt = false;
+	int idx = 0;
+	int iidx = 0;
+	std::vector<std::string> bracketStrings;
+	std::string tempString = "";
+	int bracketLength = 0;
+	int secondIndex;
+	char mychar;
+	int len = input.length();
+	for (iii=0;iii<len;iii++){
+		mychar = input.at(iii);
+		if (mychar == '{'){
+			foundBracket = true;
+			bracketLength = 1;
+			secondIndex = iii;
+		}
+		else if (mychar == '}') {
+			bracketStrings.push_back(tempString);
+			bracketLength++;
+			break;
+		}
+		else if (mychar == '#' && !foundBracket) {
+			operandToIndex[idx]=iii;
+			idx++;
+		}
+		else if (mychar == '_' && !foundBracket) {
+			iidx++;
+		}
+		else if (mychar == '@' && !foundBracket) {
+			foundAt = true;
+		}
+		else if (mychar == '@' && foundBracket) {
+			//tempString += input.at(iii);
+			bracketStrings.push_back(tempString);
+			tempString = "";
+			bracketLength++;
+		}
+		else if (foundBracket){
+			tempString += mychar;
+			bracketLength++;
+		}
+	}
+	if (!foundBracket){
+		return input;
+	}
+	
+	int firstIndex = operandToIndex[iidx];
+	//std::cout << input << " --a\n";
+	input.replace(secondIndex,bracketLength+1,bracketStrings[1]);
+	//std::cout << input << " --b\n";
+	input.replace(firstIndex,1,bracketStrings[0]);
+	//std::cout << input << " --c\n";
+	return removeBracketsOne(input);
+	
+	
+	
+}
 
+std::string removeParOne(std::string input) {
+	flat_hash_map<int,int> operandToIndex;
+	int iii; int iiii;
+	bool foundBracket = false;
+	bool foundAt = false;
+	int idx = 0;
+	int iidx = 0;
+	std::vector<std::string> bracketStrings;
+	std::string tempString = "";
+	int bracketLength = 0;
+	int secondIndex;
+	char mychar;
+	int len = input.length();
+	bool interiorBrackets = false;
+	for (iii=0;iii<len;iii++){
+		mychar = input.at(iii);
+		if (mychar == '('){
+			foundBracket = true;
+			bracketLength = 1;
+			secondIndex = iii;
+		}
+		else if (mychar == ')') {
+			bracketStrings.push_back(tempString);
+			bracketLength++;
+			break;
+		}
+		else if (mychar == '{'){ //Must always be inside of a par
+			interiorBrackets = true;
+			tempString += mychar;
+			bracketLength++;
+		}
+		else if (mychar == '}') {
+			interiorBrackets = false;
+			tempString += mychar;
+			bracketLength++;
+		}
+		else if (mychar == '#' && !foundBracket && !interiorBrackets) {
+			operandToIndex[idx]=iii;
+			idx++;
+		}
+		else if (mychar == '_' && !foundBracket && !interiorBrackets) {
+			iidx++;
+		}
+		else if (mychar == '@' && !foundBracket && !interiorBrackets) {
+			foundAt = true;
+		}
+		else if (mychar == '@' && foundBracket && !interiorBrackets) {
+			//tempString += input.at(iii);
+			bracketStrings.push_back(tempString);
+			tempString = "";
+			bracketLength++;
+		}
+		else if (foundBracket){
+			tempString += mychar;
+			bracketLength++;
+		}
+	}
+	if (!foundBracket){
+		return input;
+	}
+	
+	int firstIndex = operandToIndex[iidx];
+	//std::cout << input << " --a\n";
+	input.replace(secondIndex,bracketLength+1,bracketStrings[1]);
+	//std::cout << input << " --b\n";
+	input.replace(firstIndex,1,bracketStrings[0]);
+	//std::cout << input << " --c\n";
+	return removeParOne(input);
+	
+	
+	
+}
 
-
+std::string fromOriginal(std::string input,flat_hash_map<int,std::string> originalMap) {
+	int i;
+	bool startOperands = false;
+	std::vector<std::string> indexes;
+	int currentOperator = 0;
+	int startIndex = 0;
+	for (i=0;i<input.length();i++){
+		if (input.at(i) == '@'){
+			startOperands = true;
+			startIndex = i;
+		}
+		else if (startOperands){
+			if (input.at(i) == '_'){
+				indexes.push_back(std::to_string(startIndex+1));
+				indexes.push_back(std::to_string(i - (startIndex+1)));
+				indexes.push_back(originalMap[currentOperator]);
+				currentOperator = 0;
+				startIndex = i;
+			}
+			else {
+				currentOperator = currentOperator*10 + (input.at(i) - '0');
+			}
+		}
+	}
+	for (i=indexes.size()/3-1;i>=0;i--){
+		input.replace(std::stoi(indexes[i*3]),std::stoi(indexes[i*3+1]),indexes[i*3+2]);
+	}
+	return input;
+}
 
 std::vector<std::string> outputTree(std::string pfstr){
 	std::vector<std::string> treeOptions;
@@ -874,37 +1035,39 @@ int probCorrect(){
 	long probc = 1;
 	long probt = 2;
 	int ii; int iii;
-	for (ii=0;ii<correctAnswers.size();ii++){
-		int p = 100;
-		std::vector<Step> v;
-		v = correctSolutionList[correctAnswers[ii]];
-		for (iii=0;iii<v.size();iii++){
-			if (v[iii].rule >= 0){
-				int pp = ruleIndex[v[iii].rule].score;
-				p *= eloToProb(-1*pp);
-				p /= 50;
+	for (flat_hash_map<std::string,Answer>::iterator iter = answerMap.begin(); iter != answerMap.end(); ++iter){
+		if (iter->second.correct && iter->second.finished){
+			int p = 100;
+			std::vector<Step> v;
+			v = iter->second.solution;
+			for (iii=0;iii<v.size();iii++){
+				if (v[iii].rule >= 0){
+					int pp = ruleIndex[v[iii].rule].score;
+					p *= eloToProb(-1*pp);
+					p /= 50;
+				}
 			}
+			probc += p;
+			probt += p;
 		}
-		probc += p;
-		probt += p;
-	}
-	for (ii=0;ii<finishedErrors.size();ii++){
-		int p = 100;
-		std::vector<Step> v;
-		v = incorrectSolutionList[finishedErrors[ii]];
-		for (iii=0;iii<v.size();iii++){
-			if (v[iii].rule >= 0){
-				int pp = ruleIndex[v[iii].rule].score;
-				p *= eloToProb(-1*pp);
-				p /= 50;
+		if (!iter->second.correct && iter->second.finished){
+			int p = 100;
+			std::vector<Step> v;
+			v = iter->second.solution;
+			for (iii=0;iii<v.size();iii++){
+				if (v[iii].rule >= 0){
+					int pp = ruleIndex[v[iii].rule].score;
+					p *= eloToProb(-1*pp);
+					p /= 50;
+				}
 			}
+			probt += p;
 		}
-		probt += p;
 	}
 	return probc*10000/probt;
 }
 
-
+flat_hash_map<std::string,std::vector<int>> answerListMapF;
 void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
