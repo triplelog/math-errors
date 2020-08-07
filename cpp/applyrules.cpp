@@ -247,8 +247,17 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 					
 			}
 
-			
+			for (iiii=0;iiii<newPostfix.length();iiii++){
+				if (newPostfix.at(iiii) == -95){
+					std::cout << newPostfix << " askdjfhaskdf1111 " << userString << "\n";
+				}
+			}
 			if (hasPar && newPostfix.length() >0){
+				for (iiii=0;iiii<newPostfix.length();iiii++){
+					if (newPostfix.at(iiii) == -95){
+						std::cout << newPostfix << " askdjfhaskdf2222 " << userString << "\n";
+					}
+				}
 				//std::cout << newPostfix << " was newPostfix\n";
 				newPostfix = removeParOne(newPostfix);
 				//std::cout << newPostfix << " was newPostfix after removal\n";
@@ -259,7 +268,7 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 			}
 			for (iiii=0;iiii<newPostfix.length();iiii++){
 				if (newPostfix.at(iiii) == -95){
-					std::cout << newPostfix << " askdjfhaskdf " << userString << "\n";
+					std::cout << newPostfix << " askdjfhaskdf3333 " << userString << "\n";
 				}
 			}
 			//std::cout << newPostfix << " was npf\n";
