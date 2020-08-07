@@ -1077,13 +1077,17 @@ void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::cout << "your question: " << a << "\n";
 	
 	//TODO: read answer from file
-	std::string line;
-  	std::ifstream myfile("testanswer.txt");
 
-  	for(std::string line; getline( myfile, line );){
-		std::cout << line << '\n';
-  	}
-  	myfile.close();
+  	std::ifstream myfile("testanswer.txt");
+	std::cout << "hello" << "\n";
+	if (myfile.is_open()){
+		std::cout << "hello" << "\n";
+		for(std::string line; getline( myfile, line );){
+			std::cout << line << '\n';
+		}
+		myfile.close();
+	}
+  	
 	//TODO: create answerMap
 	//TODO: create answerListMapF
 	
