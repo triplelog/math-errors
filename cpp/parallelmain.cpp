@@ -2741,7 +2741,10 @@ std::string fullAnswer(std::string s){
 			std::vector<Step> v = makeSolutionList(finishedAnswers[ii],newPostfix,{finishedAnswers[ii]});
 			int vsz = v.size();
 			if (vsz > 0){
-				std::cout << "fully correct: "<< finishedAnswers[ii] << "\n";
+				if (vsz < 5){
+					std::cout << "fully correct: "<< finishedAnswers[ii] << "\n";
+				}
+				
 				correctAnswers.push_back(finishedAnswers[ii]);
 				Answer answer;
 				answer.finished = true;
