@@ -1079,6 +1079,7 @@ void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//TODO: read answer from file
 	std::string line;
   	std::ifstream myfile("testanswer.txt");
+  	myfile.open();
   	if (myfile.is_open()){
 		while ( getline(myfile,line) ){
 		  std::cout << line << '\n';
