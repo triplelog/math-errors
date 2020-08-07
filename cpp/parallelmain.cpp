@@ -2324,12 +2324,9 @@ flat_hash_map<std::string,std::vector<Step>> reverseMap;
 flat_hash_map<std::string,std::vector<Step>> reverseMapCorrect;
 int totalAnswers;
 std::vector<std::string> finishedAnswers;
-std::vector<std::string> unfinishedAnswers;
 flat_hash_map<std::string,bool> unfinishedOptions;
 std::vector<std::string> correctAnswers;
 std::vector<std::string> finishedErrors;
-std::vector<std::string> unfinishedErrors;
-std::vector<std::string> unfinishedCorrect;
 flat_hash_map<std::string,Answer> answerMap;
 int maxFound;
 int maxSteps;
@@ -2385,9 +2382,6 @@ bool getAnswerList(std::string s, int nSteps) {
 				}
 			}
 			*/
-		}
-		else {
-			unfinishedAnswers.push_back(newPostfix);
 		}
 	}
 	
@@ -2782,6 +2776,8 @@ std::string fullAnswer(std::string s){
 	
 
 	unfinishedOptions.clear();
+	std::ofstream myfile;
+	myfile.open("testanswer.txt");
 	for (ii=0;ii<finishedAnswers.size();ii++){
 		//std::cout << "f: " << finishedAnswers[ii] << "\n";
 		if (doubleCheckAnswer(finishedAnswers[ii])){
@@ -2789,7 +2785,11 @@ std::string fullAnswer(std::string s){
 			std::vector<Step> v = makeSolutionList(finishedAnswers[ii],newPostfix);
 			int vsz = v.size();
 			if (vsz > 0){
-				
+				std::string outStr = finishedAnswers[ii]+",c,";
+				for (iii=0;iii<vsz;iii++){
+					outStr += v[iii].next+","+std::to_string(v[iii].rule)+",";
+				}
+				myfile << outStr +"\n";
 				correctAnswers.push_back(finishedAnswers[ii]);
 				Answer answer;
 				answer.finished = true;
@@ -2803,6 +2803,11 @@ std::string fullAnswer(std::string s){
 			else {
 				v = makeIncorrectSolutionList(finishedAnswers[ii],newPostfix);
 				vsz = v.size();
+				std::string outStr = finishedAnswers[ii]+",e,";
+				for (iii=0;iii<vsz;iii++){
+					outStr += v[iii].next+","+std::to_string(v[iii].rule)+",";
+				}
+				myfile << outStr +"\n";
 				finishedErrors.push_back(finishedAnswers[ii]);
 				Answer answer;
 				answer.finished = true;
@@ -2816,55 +2821,60 @@ std::string fullAnswer(std::string s){
 	}
 	int uos = 0;
 	for (flat_hash_map<std::string,bool>::iterator iter = unfinishedOptions.begin(); iter != unfinishedOptions.end(); ++iter){
+		if (answerMap.find([iter->first]) != answerMap.end()){
+			continue;
+		}
 		uos++;
-		std::cout << "muf: " << iter->first << "\n";
-	} 
-	std::cout << "unfinished answers: " << uos << "\n";
-	finishedAnswers.resize(0);
-	
-	/*
-	for (ii=0;ii<unfinishedAnswers.size();ii++){
 		
-		std::vector<Step> v = makeSolutionList(unfinishedAnswers[ii],newPostfix,{unfinishedAnswers[ii]});
+		std::vector<Step> v = makeSolutionList(iter->first,newPostfix);
 		int vsz = v.size();
 		if (vsz > 0){
-			unfinishedCorrect.push_back(unfinishedAnswers[ii]);
+			std::string outStr = iter->first+",u,";
+			for (iii=0;iii<vsz;iii++){
+				outStr += v[iii].next+","+std::to_string(v[iii].rule)+",";
+			}
+			myfile << outStr +"\n";
 			Answer answer;
 			answer.finished = false;
 			answer.correct = true;
 			if (vsz > 1){
 				answer.next = v[vsz-2].next;
 			}
-			answerMap[unfinishedAnswers[ii]]=answer;
+			answerMap[iter->first]=answer;
 		}
 		else {
-			std::vector<Step> vv = makeIncorrectSolutionList(unfinishedAnswers[ii],newPostfix);
+			std::vector<Step> vv = makeIncorrectSolutionList(iter->first,newPostfix);
 			vsz = vv.size();
 			if (vsz > 0){
-				unfinishedErrors.push_back(unfinishedAnswers[ii]);
+				std::string outStr = iter->first+",e,";
+				for (iii=0;iii<vsz;iii++){
+					outStr += v[iii].next+","+std::to_string(v[iii].rule)+",";
+				}
+				myfile << outStr +"\n";
 				Answer answer;
 				answer.finished = false;
-				answer.correct = true;
+				answer.correct = false;
 				if (vsz > 1){
 					answer.next = vv[vsz-2].next;
 				}
-				answerMap[unfinishedAnswers[ii]]=answer;
+				answerMap[iter->first]=answer;
 			}
 			else {
-				std::cout << "no solution found? " << unfinishedAnswers[ii] << "\n";
+				std::cout << "no solution found? " << iter->first << "\n";
 			}
 		}
+
 		
-	}
-	*/
+	} 
+	std::cout << "unfinished answers: " << uos << "\n";
+	finishedAnswers.resize(0);
+	
 	//TODO: loop through the finished errors to collect all errors
 	
 	unfinishedAnswers.resize(0);
 
 
 	std::cout << "correct answers: " << correctAnswers.size() << "\n";
-	std::cout << "unfinished errors: " << unfinishedErrors.size() << "\n";
-	std::cout << "unfinished correct: " << unfinishedCorrect.size() << "\n";
 	std::cout << "finished errors: " << finishedErrors.size() << "\n";
 	
 	
@@ -2893,42 +2903,6 @@ std::string fullAnswer(std::string s){
 	
 	
 	
-	
-	
-	/*
-	if (reverseMap.find(mpf) != reverseMap.end()){
-		error = "Found";
-		std::string oneStep = mpf;
-		std::cout << oneStep << "\n";
-		jsonmessage = "";
-		while (reverseMap.find(oneStep) != reverseMap.end() && oneStep != newPostfix){
-			std::string rawRule = reverseMap[oneStep][1];
-			
-			std::string key = "";
-			int ruleIdx = 0;
-			bool isSecond = false;
-			for (ii=0;ii<rawRule.length();ii++){
-				if (rawRule.at(ii) == ','){
-					isSecond = true;
-				}
-				else if (isSecond){
-					ruleIdx *= 10;
-					ruleIdx += (rawRule.at(ii) - '0');
-				}
-				else {
-					key += rawRule.at(ii);
-				}
-			}
-			std::cout << "key: " << key << " and ruleIdx: " << ruleIdx << " from: " << rawRule << "\n";
-			std::vector<std::string> rule = rules[key][ruleIdx];
-			if (rule[2] != "c"){
-				std::cout << "The error is: "<< rule[3] << "\n";
-			}
-			
-			outputTree(oneStep);
-			oneStep = reverseMap[oneStep][0];
-		}
-	}*/
 
 	return error;
 }
@@ -3507,11 +3481,8 @@ void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	
 	finishedAnswers.resize(0);
-	unfinishedAnswers.resize(0);
 	
 	correctAnswers.resize(0);
-	unfinishedCorrect.resize(0);
-	unfinishedErrors.resize(0);
 	finishedErrors.resize(0);
 	
 	correctSolutionList.clear();
