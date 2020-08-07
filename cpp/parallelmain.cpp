@@ -2447,6 +2447,7 @@ bool getAnswerList(std::string s, int nSteps) {
 		}
 		
 		bool isMin = false;
+		bool isClose = false;
 		if (answerListMap.find(allStrings[ii].next) == answerListMap.end()){
 			getAnswerList(allStrings[ii].next,nSteps+1);
 			isMin = true;
@@ -2455,6 +2456,9 @@ bool getAnswerList(std::string s, int nSteps) {
 			getAnswerList(allStrings[ii].next,nSteps+1);
 			isMin = true;
 		}
+		else if (nSteps-1<answerListMap[allStrings[ii].next]){
+			isClose = true;
+		}
 		
 		if (isMin){
 			Step step;
@@ -2462,31 +2466,32 @@ bool getAnswerList(std::string s, int nSteps) {
 			step.rule = allStrings[ii].rule;
 			reverseMapCorrect[allStrings[ii].next]={step};
 		}
-		/*
-		if (reverseMapCorrect.find(allStrings[ii].next) != reverseMapCorrect.end()){
-			bool foundStep = false;
-			for (iii=0;iii<reverseMapCorrect[allStrings[ii].next].size();iii++){
-				if (reverseMapCorrect[allStrings[ii].next][iii].next == newPostfix){
-					foundStep = true;
-					break;
+		else if (isClose){
+
+			if (reverseMapCorrect.find(allStrings[ii].next) != reverseMapCorrect.end()){
+				bool foundStep = false;
+				for (iii=0;iii<reverseMapCorrect[allStrings[ii].next].size();iii++){
+					if (reverseMapCorrect[allStrings[ii].next][iii].next == newPostfix){
+						foundStep = true;
+						break;
+					}
 				}
+				if (!foundStep){
+					Step step;
+					step.next = newPostfix;
+					step.rule = allStrings[ii].rule;
+					reverseMapCorrect[allStrings[ii].next].push_back(step);
+				}
+			
 			}
-			if (!foundStep){
+			else {
 				Step step;
 				step.next = newPostfix;
 				step.rule = allStrings[ii].rule;
-				reverseMapCorrect[allStrings[ii].next].push_back(step);
-			}
-			
-		}
-		else {
-			Step step;
-			step.next = newPostfix;
-			step.rule = allStrings[ii].rule;
-			reverseMapCorrect[allStrings[ii].next]={step};
+				reverseMapCorrect[allStrings[ii].next]={step};
 
+			}
 		}
-		*/
 
 	}
 	
