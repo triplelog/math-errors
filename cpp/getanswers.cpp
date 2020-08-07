@@ -1089,9 +1089,6 @@ void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//TODO: create answerListMapF
 	
 	
-
-	
-	info.GetReturnValue().Set(h.ToLocalChecked());
 }
 
 void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
