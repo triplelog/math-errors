@@ -257,6 +257,11 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 			if (newPostfix == userString){
 				newPostfix = "";
 			}
+			for (iiii=0;iiii<newPostfix.length();iiii++){
+				if (newPostfix.at(iiii) == -95){
+					std::cout << newPostfix << " askdjfhaskdf " << userString << "\n";
+				}
+			}
 			//std::cout << newPostfix << " was npf\n";
 			
 			if (newPostfix.length()>0){
