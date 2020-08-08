@@ -2883,7 +2883,18 @@ std::string fullAnswer(std::string s){
 	
 	std::ofstream myfile;
 	myfile.open("testanswer.txt");
-	
+	myfile << currentQuestion.text +"\n";
+	std::string deweyStr = "";
+	if (currentQuestion.dewey.subject != "."){
+		deweyStr += currentQuestion.dewey.subject;
+		if (currentQuestion.dewey.topic != "."){
+			deweyStr += "."+currentQuestion.dewey.topic;
+			if (currentQuestion.dewey.rule != "."){
+				deweyStr += "."+currentQuestion.dewey.rule;
+			}
+		}
+	}
+	myfile << deweyStr +"\n";
 	for (flat_hash_map<std::string,Answer>::iterator iter = answerMap.begin(); iter != answerMap.end(); ++iter){
 		std::string outStr = iter->first+",";
 		outStr += iter->second.input+",";
