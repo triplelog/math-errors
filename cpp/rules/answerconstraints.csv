@@ -39,8 +39,8 @@ A
 "t",mc
 
 algebra.derivatives.power.0,"Power Rule"
-"Factor $x^2+A*x+B$?"
-x^2+A*x+B+0
+"Factor $x^2+A*x+B=0$?"
+x^2+A*x+B=0
 "<input name='A'></input>"
 A
 "q",A,int,[7,7]
