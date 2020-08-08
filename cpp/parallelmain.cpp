@@ -49,7 +49,7 @@ int mapMake;
 int overallScore;
 bool answerIsFinished;
 flat_hash_map<int,int> eloMap;
-Question currentQuestion;
+
 
 struct RawQuestion {
 	std::string qH = "";
@@ -156,7 +156,7 @@ inline bool operator>(const OperatorProxy& a, const Dewey& b){
 	return false;
 }
 std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect);
-
+Question currentQuestion;
 
 flat_hash_map<std::string,std::vector<Rule>> rules;
 flat_hash_map<int,Rule> ruleIndex;
