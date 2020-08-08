@@ -147,7 +147,8 @@ wss.on('connection', function connection(ws) {
 			console.log("___",performance.now());
 			var outS = maincppa.makeanswers("Hello");
 			console.log("___",outS,performance.now());
-			
+			var jsonmessage = {'type':'question','question':outS};
+			ws.send(JSON.stringify(jsonmessage));
 		}
 		else if (dm.type == 'saveQuestion'){
 			if (dm.qstr.length >= 10000){

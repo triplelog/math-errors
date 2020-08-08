@@ -1083,7 +1083,11 @@ void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	int i; int ii;
 	
 	std::cout << "Rows: " << nRows << "\n";
-	
+	std::string q;
+	if (nRows>0){
+		std::vector<std::string> rawQ = doc.GetRow<std::string>(0);
+		q = rawQ[0];
+	}
 	for (i=2;i<nRows;i++){
 		if (i%2 == 0){
 			std::vector<std::string> rawAnswer = doc.GetRow<std::string>(i);
@@ -1135,9 +1139,7 @@ void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		
 	}
 
-	
-	std::string lastLine = "";
-	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(lastLine);
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(q);
 
 	
 	info.GetReturnValue().Set(h.ToLocalChecked());
