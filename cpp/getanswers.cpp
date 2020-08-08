@@ -155,7 +155,7 @@ inline bool operator>(const OperatorProxy& a, const Dewey& b){
 	return false;
 }
 std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect);
-
+Question currentQuestion;
 
 flat_hash_map<std::string,std::vector<Rule>> rules;
 flat_hash_map<int,Rule> ruleIndex;
@@ -1014,7 +1014,7 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
-Question currentQuestion;
+
 
 int eloToProb(int elo){
 	int pyes; int ei;
