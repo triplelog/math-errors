@@ -49,6 +49,7 @@ int mapMake;
 int overallScore;
 bool answerIsFinished;
 flat_hash_map<int,int> eloMap;
+Question currentQuestion;
 
 struct RawQuestion {
 	std::string qH = "";
@@ -3141,7 +3142,7 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
-Question currentQuestion;
+
 
 int eloToProb(int elo){
 	int pyes; int ei;
