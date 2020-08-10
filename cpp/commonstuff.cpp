@@ -197,6 +197,7 @@ Question currentQuestion;
 
 Number solvePostfix(std::string postfix);
 std::string substitute(std::string input);
+std::string numberType(std::string input);
 flat_hash_map<std::string,std::vector<Rule>> rules;
 flat_hash_map<int,Rule> ruleIndex;
 int ridx;
