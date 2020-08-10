@@ -647,7 +647,7 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 #include "applyrules.cpp"
 
 #include "makenumbers.cpp"
-
+bool firstCorrect;
 void initialRun(){
 	prec['#'] = 100;
 	int i;

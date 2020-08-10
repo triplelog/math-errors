@@ -1709,7 +1709,7 @@ bool doubleCheckAnswer(std::string pfstr){
 	
 
 }
-bool firstCorrect;
+
 
 
 flat_hash_map<std::string,int> answerListMap;
