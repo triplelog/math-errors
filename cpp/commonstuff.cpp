@@ -195,6 +195,8 @@ inline bool operator>(const OperatorProxy& a, const Dewey& b){
 std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect);
 Question currentQuestion;
 
+Number solvePostfix(std::string postfix);
+std::string substitute(std::string input);
 flat_hash_map<std::string,std::vector<Rule>> rules;
 flat_hash_map<int,Rule> ruleIndex;
 int ridx;
