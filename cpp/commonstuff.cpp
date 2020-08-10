@@ -66,6 +66,74 @@ struct OperatorProxy
     Dewey dewey;
 };
 
+struct Number {
+	int type = 0;
+	std::string top = "";
+	std::string bottom = "";
+};
+inline bool operator>(const Number& a, const Number& b){
+	if (a.type == 1){
+		if (b.type == 1){
+			if (a.top.length()>b.top.length()){
+				return true;
+			}
+			else if (a.top.length()<b.top.length()){
+				return false;
+			}
+			else {
+				int ii;
+				for (ii=0;ii<a.top.length();ii++){
+					if (a.top.at(ii) > b.top.at(ii)){
+						return true;
+					}
+					else if (a.top.at(ii) < b.top.at(ii)){
+						return false;
+					}
+				}
+				return false;
+			}
+		}
+		else if (b.type == -1){
+			return true;
+		}
+	}
+	return true;
+}
+inline bool operator<(const Number& a, const Number& b){
+	if (a.type == 1){
+		if (b.type == 1){
+			if (a.top.length()<b.top.length()){
+				return true;
+			}
+			else if (a.top.length()>b.top.length()){
+				return false;
+			}
+			else {
+				int ii;
+				for (ii=0;ii<a.top.length();ii++){
+					if (a.top.at(ii) < b.top.at(ii)){
+						return true;
+					}
+					else if (a.top.at(ii) > b.top.at(ii)){
+						return false;
+					}
+				}
+				return false;
+			}
+		}
+		else if (b.type == -1){
+			return false;
+		}
+	}
+	return true;
+}
+inline bool operator==(const Number& a, const Number& b){
+	if (a<b || a>b){
+		return false;
+	}
+	return true;
+}
+flat_hash_map<std::string,Number> numbers;
 
 OperatorProxy operator<(const Dewey& a, const OperatorProxy& b){
 	OperatorProxy c;
