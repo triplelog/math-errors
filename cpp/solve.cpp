@@ -201,7 +201,6 @@ Number negateOne(Number numA){
 }
 Number invertOne(Number numA){
 	Number n;
-	return n;
 	if (numA.type == 0){
 		n.type = 0; return n;
 	}
