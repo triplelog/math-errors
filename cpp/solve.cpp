@@ -643,7 +643,9 @@ Number mulTwo(Number numA, Number numB){
 			prod = std::stoi(numA.bottom);
 			prod *= std::stoi(numB.bottom);
 			n.bottom = std::to_string(prod);
+			std::cout << numA.top << " and1 " << numB.top << " and " << numA.bottom << " and " << numB.bottom  << " and " << outputNumber(n) << "\n";
 			n = reduceFraction(n);
+			std::cout << numA.top << " and2 " << numB.top << " and " << numA.bottom << " and " << numB.bottom  << " and " << outputNumber(n) << "\n";
 			return n;
 		}
 	}
