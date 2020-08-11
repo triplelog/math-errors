@@ -71,7 +71,7 @@ x*3+1.7=5.2
 "<input name='A'></input>"
 A
 "q",A,int,[7,7]
-"a",x=B,c,""
+"a",x=B,c,"",B>1
 "a",A*1,i,""
 "a",A+0,i,""
 "a",A*0,i,""
