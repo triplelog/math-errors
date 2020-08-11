@@ -77,6 +77,7 @@ std::string substitute(std::string input);
 std::string numberType(std::string input);
 Number mulTwo(Number numA, Number numB);
 Number invertOne(Number numA);
+Number negateOne(Number numA);
 
 inline bool operator>(const Number& a, const Number& b){
 	if (a.type == 1){
