@@ -182,15 +182,15 @@ std::string constraintify(std::string input){
 		}
 	}
 	tempStr = "..........";
-	char dncc{-87};
-	std::string dnc = "";
-	dnc += dncc;
+	char dcc{-87};
+	std::string dc = "";
+	dc += dcc;
 	std::cout << "contraintify: "<< input << "\n";
 	for (i=0;i<input.length();i++){
 		tempStr += input.at(i);
 		tempStr.replace(0,1,"");
 		if (tempStr == " contains "){
-			input.replace(i-9,10,dnc);
+			input.replace(i-9,10,dc);
 			i -= 9;
 			tempStr = "..........";
 		}
