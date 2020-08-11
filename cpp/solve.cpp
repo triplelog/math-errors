@@ -211,6 +211,7 @@ Number invertOne(Number numA){
 		n.type = 3*numA.type;
 		n.top = "1";
 		n.bottom = numA.top;
+		std::cout << n.top << " aaa " << n.bottom << " bbb " << numA.top << " ccc " << numA.bottom  << " ddd " << outputNumber(n) << "\n";
 		return n;
 	}
 	else if (numA.type == 2 || numA.type == -2){//decimal
@@ -597,6 +598,8 @@ Number mulTwo(Number numA, Number numB){
 	int base = 10;
 	int neg = 1;
 	Number n;
+	std::cout << numA.top << " and1 " << numB.top << " and " << numA.bottom << " and " << numB.bottom << " tA " << numA.type << " tB " << numB.type << "\n";
+			
 	if (numA.type == 1){
 		if (numB.type == 1){
 			n.type = 1;
