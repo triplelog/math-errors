@@ -648,7 +648,7 @@ Number mulTwo(Number numA, Number numB){
 			return mulTwo(numB,numA);
 		}
 		else if (numB.type < 0){
-			return mulTwo(negateOne(numA),negateOne(numB)));
+			return mulTwo(negateOne(numA),negateOne(numB));
 		}
 	}
 	return n;
