@@ -162,11 +162,14 @@ bool solveConstraintFix(std::string input){
 	else if (lastOp == -96){ //is--secondExp must be single operand
 		currentOperand = "";
 		postKey = false;
+		std::cout << " is1 " << firstExp << " and " << operandList[firstIdx]) << "\n";
 		if (operandList.size()>firstIdx+1){
 			return false;
 		}
 		Number a = solvePostfix(firstExp);
+		std::cout << " is2 " << firstExp << " and " << a.type << "\n";
 		if (a.type == std::stoi(operandList[firstIdx])){
+			std::cout << " is3 " << firstExp << " and " << a.type << "\n";
 			return true;
 		}
 		return false;
