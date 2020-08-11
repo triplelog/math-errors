@@ -265,11 +265,13 @@ std::string outputNumber(Number n){
 		return "-"+n.top;
 	}
 	else if (n.type == 2){
-		double d = std::stoi(n.top) / std::stoi(n.bottom);
+		double d = std::stoi(n.top);
+		d /= std::stoi(n.bottom);
 		return std::to_string(d);
 	}
 	else if (n.type == -2){
-		double d = std::stoi(n.top) / std::stoi(n.bottom);
+		double d = std::stoi(n.top);
+		d /= std::stoi(n.bottom);
 		return "-"+std::to_string(d);
 	}
 	else if (n.type == 3){
