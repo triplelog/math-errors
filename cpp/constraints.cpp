@@ -202,7 +202,11 @@ bool solveConstraintFix(std::string input){
 		return true;
 	}
 	else if (lastOp == -95){ //in--secondExp must be list or range
-		
+		if (operandList.size()>firstIdx+1){
+			return false;
+		}
+		Range inRange = makeRange(operandList[firstIdx]);
+		std::cout << "range: "<< outputNumber(inRange.left[0]) << " and " << outputNumber(inRange.right[0]) << "\n";
 	}
 	
 	

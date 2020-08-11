@@ -76,7 +76,7 @@ struct Range {
 	std::vector<Number> right;
 	std::vector<char> incexc;
 };
-Range unionTwo(Range a, Range b);
+Range makeRange(std::string input);
 Number solvePostfix(std::string postfix);
 std::string outputNumber(Number n);
 std::string substitute(std::string input);
