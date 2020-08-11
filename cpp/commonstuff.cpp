@@ -196,6 +196,7 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 Question currentQuestion;
 
 Number solvePostfix(std::string postfix);
+std::string outputNumber(Number n);
 std::string substitute(std::string input);
 std::string numberType(std::string input);
 flat_hash_map<std::string,std::vector<Rule>> rules;
