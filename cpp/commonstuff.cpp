@@ -80,6 +80,7 @@ Number invertOne(Number numA);
 Number negateOne(Number numA);
 
 inline bool operator>(const Number& a, const Number& b){
+	if (a.type == 0 || b.type == 0){return false;}
 	if (a.type == 1){
 		if (b.type == 1){
 			if (a.top.length()>b.top.length()){
@@ -180,6 +181,7 @@ inline bool operator>(const Number& a, const Number& b){
 	return true;
 }
 inline bool operator<(const Number& a, const Number& b){
+	if (a.type == 0 || b.type == 0){return false;}
 	return b > a;
 	/*
 	if (a.type == 1){
@@ -282,7 +284,18 @@ inline bool operator<(const Number& a, const Number& b){
 	return true;
 	*/
 }
+inline bool operator>=(const Number& a, const Number& b){
+	if (a.type == 0 || b.type == 0){return false;}
+	if (a < b){return false;}
+	else {return true;}
+}
+inline bool operator<=(const Number& a, const Number& b){
+	if (a.type == 0 || b.type == 0){return false;}
+	if (a > b){return false;}
+	else {return true;}
+}
 inline bool operator==(const Number& a, const Number& b){
+	if (a.type == 0 || b.type == 0){return false;}
 	if (a<b || a>b){
 		return false;
 	}

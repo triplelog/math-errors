@@ -802,6 +802,87 @@ Number solvePostfix(std::string postfix) {
 	            		break;
 	            	}
 	            }
+	            case '>': {
+	            	if (stack[currentIndex - 2] > stack[currentIndex - 1]){
+	            		Number nn;
+	            		nn.type = 1;
+	            		nn.top = "1";
+	            		stack[currentIndex - 2] = nn;
+	            		break;
+	            	}
+	            	else {
+	            		Number nn;
+	            		nn.type = 1;
+	            		nn.top = "0";
+	            		stack[currentIndex - 2] = nn;
+	            		break;
+	            	}
+	            }
+	            case '<': {
+	            	if (stack[currentIndex - 2] > stack[currentIndex - 1]){
+	            		Number nn;
+	            		nn.type = 1;
+	            		nn.top = "1";
+	            		stack[currentIndex - 2] = nn;
+	            		break;
+	            	}
+	            	else {
+	            		Number nn;
+	            		nn.type = 1;
+	            		nn.top = "0";
+	            		stack[currentIndex - 2] = nn;
+	            		break;
+	            	}
+	            }
+	            case ']': {
+	            	if (stack[currentIndex - 2] < stack[currentIndex - 1]){
+	            		Number nn;
+	            		nn.type = 1;
+	            		nn.top = "0";
+	            		stack[currentIndex - 2] = nn;
+	            		break;
+	            	}
+	            	else {
+	            		Number nn;
+	            		nn.type = 1;
+	            		nn.top = "1";
+	            		stack[currentIndex - 2] = nn;
+	            		break;
+	            	}
+	            }
+	            case '[': {
+	            	if (stack[currentIndex - 2] > stack[currentIndex - 1]){
+	            		Number nn;
+	            		nn.type = 1;
+	            		nn.top = "0";
+	            		stack[currentIndex - 2] = nn;
+	            		break;
+	            	}
+	            	else {
+	            		Number nn;
+	            		nn.type = 1;
+	            		nn.top = "1";
+	            		stack[currentIndex - 2] = nn;
+	            		break;
+	            	}
+	            }
+	            case '!': {
+	            	if (stack[currentIndex - 2] == stack[currentIndex - 1]){
+	            		Number nn;
+	            		nn.type = 1;
+	            		nn.top = "0";
+	            		stack[currentIndex - 2] = nn;
+	            		break;
+	            	}
+	            	else {
+	            		Number nn;
+	            		nn.type = 1;
+	            		nn.top = "1";
+	            		stack[currentIndex - 2] = nn;
+	            		break;
+	            	}
+	            }
+	            default: n.type = 0; return n;
 	            //case '!': stack[currentIndex - 2] = stack[currentIndex - 2] != stack[currentIndex - 1]; break;
 	            //case '%': stack[currentIndex - 2] = stack[currentIndex - 2] % stack[currentIndex - 1]; break; 
 	            //case '&': stack[currentIndex - 2].w = (stack[currentIndex - 2].w + stack[currentIndex - 1].w > 1) ? 1 : 0; stack[currentIndex - 2].t = (stack[currentIndex - 2].t == 'B' && stack[currentIndex - 1].t == 'B') ? 'B' : 'N'; break; 

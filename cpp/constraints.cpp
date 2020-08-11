@@ -74,6 +74,17 @@ bool solveConstraintFix(std::string input){
 		}
 
 	}
+	
+	Number n = solvePostfix(input);
+	if (n.type == 1){
+		if (n.top == "1"){
+			return true;
+		}
+		else if (n.top == "0"){
+			return false;
+		}
+	}
+	
 	firstExp = firstPart + "@";
 	int idx = 0;
 	for (i=0;i<firstPart.length();i++){
@@ -147,32 +158,6 @@ bool solveConstraintFix(std::string input){
 			}
 		}
 		return false;
-	}
-	else if (lastOp == '>'){
-		Number a = solvePostfix(firstExp);
-		Number b = solvePostfix(secondExp);
-		if (a.type == 0 || b.type == 0){
-			return false;
-		}
-		if (a > b){
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	else if (lastOp == '<'){
-		Number a = solvePostfix(firstExp);
-		Number b = solvePostfix(secondExp);
-		if (a.type == 0 || b.type == 0){
-			return false;
-		}
-		if (a < b){
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 	
 	
