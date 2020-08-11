@@ -71,6 +71,13 @@ struct Number {
 	std::string top = "";
 	std::string bottom = "";
 };
+Number solvePostfix(std::string postfix);
+std::string outputNumber(Number n);
+std::string substitute(std::string input);
+std::string numberType(std::string input);
+Number mulTwo(Number numA, Number numB);
+Number invertOne(Number numA);
+
 inline bool operator>(const Number& a, const Number& b){
 	if (a.type == 1){
 		if (b.type == 1){
@@ -93,13 +100,87 @@ inline bool operator>(const Number& a, const Number& b){
 				return false;
 			}
 		}
-		else if (b.type == -1){
+		else if (b.type == 2 || b.type == 3){
+			if (a.top.length()>b.top.length()){
+				return true;
+			}
+			else {
+				Number n;
+				n.type = 2;
+				n.top = a.top;
+				n.bottom = "1";
+				return n > b;
+			}
+		}
+		else if (b.type < 0){
 			return true;
+		}
+	}
+	else if (a.type == 2 || a.type == 3){
+		if (b.type == 1){
+			if (a.top.length()<b.top.length()){
+				return false;
+			}
+			else {
+				Number n;
+				n.type = 2;
+				n.top = b.top;
+				n.bottom = "1";
+				return a > n;
+			}
+		}
+		else if (b.type == 2 || b.type == 3){
+			if (a.top.length() + b.bottom.length() > a.bottom.length()+b.top.length()+1){
+				return true;
+			}
+			else if (a.top.length() + b.bottom.length() + 1 < a.bottom.length()+b.top.length()){
+				return false;
+			}
+			else if (a.top == "0"){
+				return false;
+			}
+			else if (b.top == "0"){
+				return true;
+			}
+			else {
+				Number n = mulTwo(a,invertOne(b));
+				if (n.top.length()>n.bottom.length()){
+					return true;
+				}
+				else if (n.top.length()<n.bottom.length()){
+					return false;
+				}
+				else {
+					int ii;
+					for (ii=0;ii<n.top.length();ii++){
+						if (n.top.at(ii) > n.bottom.at(ii)){
+							return true;
+						}
+						else if (n.top.at(ii) < n.bottom.at(ii)){
+							return false;
+						}
+					}
+					return false;
+				}
+			}
+		}
+		else if (b.type < 0){
+			return true;
+		}
+	}
+	else if (a.type < 0){
+		if (b.type < 0){
+			return negateOne(b) > negateOne(a);
+		}
+		else if (b.type > 0){
+			return false;
 		}
 	}
 	return true;
 }
 inline bool operator<(const Number& a, const Number& b){
+	return b > a;
+	/*
 	if (a.type == 1){
 		if (b.type == 1){
 			if (a.top.length()<b.top.length()){
@@ -121,11 +202,84 @@ inline bool operator<(const Number& a, const Number& b){
 				return false;
 			}
 		}
-		else if (b.type == -1){
+		else if (b.type == 2 || b.type == 3){
+			if (a.top.length()<b.top.length()){
+				return true;
+			}
+			else {
+				Number n;
+				n.type = 2;
+				n.top = a.top;
+				n.bottom = "1";
+				return n < b;
+			}
+		}
+		else if (b.type < 0){
 			return false;
 		}
 	}
+	else if (a.type == 2 || a.type == 3){
+		if (b.type == 1){
+			if (a.top.length()>b.top.length()){
+				return false;
+			}
+			else {
+				Number n;
+				n.type = 2;
+				n.top = b.top;
+				n.bottom = "1";
+				return a < n;
+			}
+		}
+		else if (b.type == 2 || b.type == 3){
+			if (a.top.length() + b.bottom.length() +1 < a.bottom.length()+b.top.length()){
+				return true;
+			}
+			else if (a.top.length() + b.bottom.length() > a.bottom.length()+b.top.length() + 1){
+				return false;
+			}
+			else if (b.top == "0"){
+				return false;
+			}
+			else if (a.top == "0"){
+				return true;
+			}
+			else {
+				Number n = mulTwo(a,invertOne(b));
+				if (n.top.length()<n.bottom.length()){
+					return true;
+				}
+				else if (n.top.length()>n.bottom.length()){
+					return false;
+				}
+				else {
+					int ii;
+					for (ii=0;ii<n.top.length();ii++){
+						if (n.top.at(ii) < n.bottom.at(ii)){
+							return true;
+						}
+						else if (n.top.at(ii) > n.bottom.at(ii)){
+							return false;
+						}
+					}
+					return false;
+				}
+			}
+		}
+		else if (b.type < 0){
+			return false;
+		}
+	}
+	else if (a.type < 0){
+		if (b.type < 0){
+			return negateOne(b) < negateOne(a);
+		}
+		else if (b.type > 0){
+			return true;
+		}
+	}
 	return true;
+	*/
 }
 inline bool operator==(const Number& a, const Number& b){
 	if (a<b || a>b){
@@ -195,10 +349,7 @@ inline bool operator>(const OperatorProxy& a, const Dewey& b){
 std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect);
 Question currentQuestion;
 
-Number solvePostfix(std::string postfix);
-std::string outputNumber(Number n);
-std::string substitute(std::string input);
-std::string numberType(std::string input);
+
 flat_hash_map<std::string,std::vector<Rule>> rules;
 flat_hash_map<int,Rule> ruleIndex;
 int ridx;

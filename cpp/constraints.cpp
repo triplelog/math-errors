@@ -98,6 +98,9 @@ bool solveConstraintFix(std::string input){
 	if (lastOp == -94){ //does not contain--secondExp must be single operand
 		currentOperand = "";
 		postKey = false;
+		if (operandList.size()>firstIdx+1){
+			return false;
+		}
 		for (i=0;i<firstExp.length();i++){
 	
 			if (postKey){
@@ -122,6 +125,9 @@ bool solveConstraintFix(std::string input){
 	else if (lastOp == -87){ //contains--secondExp must be single operand
 		currentOperand = "";
 		postKey = false;
+		if (operandList.size()>firstIdx+1){
+			return false;
+		}
 		for (i=0;i<firstExp.length();i++){
 	
 			if (postKey){
@@ -143,7 +149,17 @@ bool solveConstraintFix(std::string input){
 		return false;
 	}
 	else if (lastOp == '>'){
-		
+		Number a = solvePostfix(firstExp);
+		Number b = solvePostfix(secondExp);
+		if (a.type == 0 || b.type == 0){
+			return false;
+		}
+		if (a > b){
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	
@@ -151,7 +167,7 @@ bool solveConstraintFix(std::string input){
 }
 std::string constraintify(std::string input){
 	int i;
-	std::string tempStr = "................";
+	std::string tempStr = "..................";
 	char dncc{-94};
 	std::string dnc = "";
 	dnc += dncc;
@@ -159,10 +175,24 @@ std::string constraintify(std::string input){
 	for (i=0;i<input.length();i++){
 		tempStr += input.at(i);
 		tempStr.replace(0,1,"");
-		if (tempStr == "does not contain"){
-			input.replace(i-15,16,dnc);
-			i -= 15;
-			tempStr = "................";
+		if (tempStr == " does not contain "){
+			input.replace(i-17,18,dnc);
+			i -= 17;
+			tempStr = "..................";
+		}
+	}
+	tempStr = "..........";
+	char dncc{-87};
+	std::string dnc = "";
+	dnc += dncc;
+	std::cout << "contraintify: "<< input << "\n";
+	for (i=0;i<input.length();i++){
+		tempStr += input.at(i);
+		tempStr.replace(0,1,"");
+		if (tempStr == " contains "){
+			input.replace(i-9,10,dnc);
+			i -= 9;
+			tempStr = "..........";
 		}
 	}
 	std::cout << "contraintified: " << input << "\n";
