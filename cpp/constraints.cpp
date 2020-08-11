@@ -161,6 +161,19 @@ bool solveConstraintFix(std::string input){
 			return false;
 		}
 	}
+	else if (lastOp == '<'){
+		Number a = solvePostfix(firstExp);
+		Number b = solvePostfix(secondExp);
+		if (a.type == 0 || b.type == 0){
+			return false;
+		}
+		if (a < b){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
 	
 	return false;
