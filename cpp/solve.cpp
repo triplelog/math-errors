@@ -256,6 +256,30 @@ bool isDecimal(Number n){
 	return true;
 }
 
+
+std::string outputNumber(Number n){
+	if (n.type == 1){
+		return n.top;
+	}
+	else if (n.type == -1){
+		return "-"+n.top;
+	}
+	else if (n.type == 2){
+		double d = std::stoi(n.top) / std::stoi(n.bottom);
+		return std::to_string(d);
+	}
+	else if (n.type == -2){
+		double d = std::stoi(n.top) / std::stoi(n.bottom);
+		return "-"+std::to_string(d);
+	}
+	else if (n.type == 3){
+		return n.top + "/"+n.bottom;
+	}
+	else if (n.type == -3){
+		return "-"+n.top + "/"+n.bottom;
+	}
+	return "";
+}
 Number reduceFraction(Number numA){
 	int a = std::stoi(numA.top);
 	int b = std::stoi(numA.bottom);

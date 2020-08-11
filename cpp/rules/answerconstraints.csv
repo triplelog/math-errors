@@ -38,7 +38,7 @@ A
 "a",A^1,i,""
 "t",mc
 
-algebra.derivatives.power.0,"Power Rule"
+prealgebra.derivatives.power.0,"Power Rule"
 "Factor $x^2+A*x+B=0$?"
 x^2+A*x+B=0
 "<input name='A'></input>"
@@ -52,9 +52,22 @@ A
 "a",A^1,i,""
 "t",mc
 
-algebra.derivatives.power.0,"Power Rule"
+prealgebra.derivatives.power.0,"Power Rule"
 "Solve for x. $A*(x+7)+=(2*A)*x==(16*A)$?"
 A*(x+7)+=(2*A)*x==(16*A)
+"<input name='A'></input>"
+A
+"q",A,int,[7,7]
+"a",x=B,c,""
+"a",A*1,i,""
+"a",A+0,i,""
+"a",A*0,i,""
+"a",A^1,i,""
+"t",mc
+
+algebra.derivatives.power.0,"Power Rule"
+"Solve for x. $x*3+1.7=5.2$?"
+x*3+1.7=5.2
 "<input name='A'></input>"
 A
 "q",A,int,[7,7]
