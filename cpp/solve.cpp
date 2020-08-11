@@ -245,11 +245,11 @@ bool isDecimal(Number n){
 	if (n.bottom.length()<1){
 		return false;
 	}
-	if (n.bottom.at(0) != "1"){
+	if (n.bottom.at(0) != '1'){
 		return false;
 	}
 	for (i=1;i<n.bottom.length();i++){
-		if (n.bottom.at(i) != "0"){
+		if (n.bottom.at(i) != '0'){
 			return false;
 		}
 	}
