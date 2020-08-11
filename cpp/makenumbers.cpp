@@ -1,8 +1,4 @@
-struct Range {
-	std::vector<Number> left;
-	std::vector<Number> right;
-	std::vector<char> incexc;
-};
+
 
 Range unionTwo(Range a, Range b) {
 	int i; int ii;
@@ -247,7 +243,7 @@ Range solveRange(std::string postfix, std::vector<Range> rangeArray) {
 
 	return stack[0];
 }
-std::string makeInt(std::string input){
+Range makeRange(std::string input){
 	std::vector<std::string> rangeList;
 	std::vector<Range> rangeArray;
 	int n =0;
@@ -382,8 +378,13 @@ std::string makeInt(std::string input){
 		//std::cout << r.right[0].top << "\n";
 		rangeArray.push_back(r);
 	}
-	Range outRange = solveRange(postfixed,rangeArray);
-	n =0;
+	
+	return solveRange(postfixed,rangeArray);
+}
+std::string makeInt(std::string input){
+	Range outRange = makeRange(input);
+	int n =0;
+	int i;
 	for (i=0;i<outRange.left.size();i++){
 		n += (std::stoi(outRange.right[i].top) - std::stoi(outRange.left[i].top));
 		//TODO: make this work for numbers outside of int range

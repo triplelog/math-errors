@@ -71,6 +71,12 @@ struct Number {
 	std::string top = "";
 	std::string bottom = "";
 };
+struct Range {
+	std::vector<Number> left;
+	std::vector<Number> right;
+	std::vector<char> incexc;
+};
+Range unionTwo(Range a, Range b);
 Number solvePostfix(std::string postfix);
 std::string outputNumber(Number n);
 std::string substitute(std::string input);

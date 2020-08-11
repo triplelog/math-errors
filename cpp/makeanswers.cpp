@@ -411,14 +411,8 @@ std::string solveInsideQuestion(std::string input) {
 					if (opResult.type == 0){
 						currentOperand = "{"+insidePostfix+"}";
 					}
-					else if (opResult.type == 1){
-						currentOperand = "{#@"+opResult.top+"_}";
-					}
-					else if (opResult.type == -1){
-						currentOperand = "{#@-"+opResult.top+"_}";
-					}
 					else {
-						currentOperand = "{"+insidePostfix+"}";
+						currentOperand = "{#@"+outputNumber(opResult)+"_}";
 					}
 					openPar = false;
 					pastInsideKey = false;

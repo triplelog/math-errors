@@ -159,10 +159,9 @@ bool solveConstraintFix(std::string input){
 		}
 		return false;
 	}
-	else if (lastOp == -96){ //is--secondExp must be single operand
+	else if (lastOp == -111){ //is--secondExp must be single operand
 		currentOperand = "";
 		postKey = false;
-		std::cout << " is1 " << firstExp << " and " << operandList[firstIdx] << "\n";
 		if (operandList.size()>firstIdx+1){
 			return false;
 		}
@@ -173,12 +172,37 @@ bool solveConstraintFix(std::string input){
 			numberType(operandList[0]);
 		}
 		Number a = numbers[operandList[0]];
-		std::cout << " is2 " << operandList[0] << " and " << a.type << "\n";
 		if (a.type == std::stoi(operandList[firstIdx])){
-			std::cout << " is3 " << operandList[0] << " and " << a.type << "\n";
+			return true;
+		}
+		else if (a.type != 0 && std::stoi(operandList[firstIdx]) == 9){
 			return true;
 		}
 		return false;
+	}
+	else if (lastOp == -110){ //is not--secondExp must be single operand
+		currentOperand = "";
+		postKey = false;
+		if (operandList.size()>firstIdx+1){
+			return true;
+		}
+		if (firstIdx != 1){
+			return true;
+		}
+		if (numbers.find(operandList[0]) != numbers.end()){
+			numberType(operandList[0]);
+		}
+		Number a = numbers[operandList[0]];
+		if (a.type == std::stoi(operandList[firstIdx])){
+			return false;
+		}
+		else if (a.type != 0 && std::stoi(operandList[firstIdx]) == 9){
+			return false;
+		}
+		return true;
+	}
+	else if (lastOp == -95){ //in--secondExp must be list or range
+		
 	}
 	
 	
@@ -214,7 +238,7 @@ std::string constraintify(std::string input){
 		}
 	}
 	tempStr = "....";
-	char isc{-96};
+	char isc{-111};
 	std::string iss = "";
 	iss += isc;
 	for (i=0;i<input.length();i++){
@@ -224,6 +248,45 @@ std::string constraintify(std::string input){
 			input.replace(i-3,4,iss);
 			i -= 3;
 			tempStr = "....";
+		}
+	}
+	tempStr = "........";
+	char isnc{-110};
+	std::string isns = "";
+	isns += isnc;
+	for (i=0;i<input.length();i++){
+		tempStr += input.at(i);
+		tempStr.replace(0,1,"");
+		if (tempStr == " is not "){
+			input.replace(i-7,8,isns);
+			i -= 7;
+			tempStr = "........";
+		}
+	}
+	tempStr = "....";
+	char inc{-95};
+	std::string ins = "";
+	ins += inc;
+	for (i=0;i<input.length();i++){
+		tempStr += input.at(i);
+		tempStr.replace(0,1,"");
+		if (tempStr == " in "){
+			input.replace(i-3,4,ins);
+			i -= 3;
+			tempStr = "....";
+		}
+	}
+	tempStr = "........";
+	char ninc{-96};
+	std::string nins = "";
+	nins += ninc;
+	for (i=0;i<input.length();i++){
+		tempStr += input.at(i);
+		tempStr.replace(0,1,"");
+		if (tempStr == " not in "){
+			input.replace(i-7,8,nins);
+			i -= 7;
+			tempStr = "........";
 		}
 	}
 	std::cout << "contraintified: " << input << "\n";
