@@ -1,4 +1,4 @@
-
+Number mulTwoInts(Number numA, Number numB);
 std::vector<int> factorList(Number n){
 	std::vector<int> list;
 	if (n.type != 1 && n.type != 1){
@@ -37,7 +37,7 @@ std::string numberType(std::string input){
 		}
 		 
 		if (rest == "string" || numbers[input].type <= 0){
-			return "string";
+			numbers[input]=n; return "string";
 		}
 		else {
 			n.type = numbers[input].type*-1;
@@ -54,10 +54,11 @@ std::string numberType(std::string input){
 		switch(input.at(ii)){
 			case '.': {
 				if (currentType == "int"){currentType = "dec";}
-				else if (currentType == "dec"){return "string";}
-				else if (currentType == "red"){return "string";}
-				else if (currentType == "rep"){return "string";}
-				else if (currentType == "sci" || currentType == "scn"){return "string";}
+				else if (currentType == "dec"){numbers[input]=n; return "string";}
+				else if (currentType == "red"){numbers[input]=n; return "string";}
+				else if (currentType == "rep"){numbers[input]=n; return "string";}
+				else if (currentType == "fra"){numbers[input]=n; return "string";}
+				else if (currentType == "sci" || currentType == "scn"){numbers[input]=n; return "string";}
 				n.top = input.substr(0,ii);
 				n.bottom = input.substr(ii+1,input.length()-ii-1);
 				idx = ii;
@@ -68,12 +69,13 @@ std::string numberType(std::string input){
 					//currentType = "rep";
 					//n.top = input.substr(0,ii);
 					//n.bottom = input.substr(ii+1,input.length()-ii-1);
-					return "string";
+					numbers[input]=n; return "string";
 				}
 				else if (currentType == "dec"){currentType = "red"; idx = ii - idx;}
-				else if (currentType == "red"){return "string";}
-				else if (currentType == "rep"){return "string";}
-				else if (currentType == "sci" || currentType == "scn"){return "string";}
+				else if (currentType == "red"){numbers[input]=n; return "string";}
+				else if (currentType == "rep"){numbers[input]=n; return "string";}
+				else if (currentType == "fra"){numbers[input]=n; return "string";}
+				else if (currentType == "sci" || currentType == "scn"){numbers[input]=n; return "string";}
 				break;
 			}
 			case 'e': {
@@ -81,18 +83,34 @@ std::string numberType(std::string input){
 				else if (currentType == "dec"){currentType = "sci";}
 				else if (currentType == "red"){currentType = "sci";}
 				else if (currentType == "rep"){currentType = "sci";}
-				else if (currentType == "sci" || currentType == "scn"){return "string";}
+				else if (currentType == "fra"){numbers[input]=n; return "string";}
+				else if (currentType == "sci" || currentType == "scn"){numbers[input]=n; return "string";}
 				n.top = input.substr(0,ii);
 				n.bottom = input.substr(ii+1,input.length()-ii-1);
 				break;
 			}
 			case '-': {
-				if (currentType == "int"){return "string";}
-				else if (currentType == "dec"){return "string";}
-				else if (currentType == "red"){return "string";}
-				else if (currentType == "rep"){return "string";}
+				if (currentType == "int"){numbers[input]=n; return "string";}
+				else if (currentType == "dec"){numbers[input]=n; return "string";}
+				else if (currentType == "red"){numbers[input]=n; return "string";}
+				else if (currentType == "rep"){numbers[input]=n; return "string";}
+				else if (currentType == "fra"){numbers[input]=n; return "string";}
 				else if (currentType == "sci"){currentType = "scn";}
-				else if (currentType == "scn"){return "string";}
+				else if (currentType == "scn"){numbers[input]=n; return "string";}
+				break;
+			}
+			case '/': {
+				if (currentType == "int"){currentType = "fra";
+					n.top = input.substr(0,ii);
+					n.bottom = input.substr(ii+1,input.length()-ii-1);
+					idx = ii;
+				}
+				else if (currentType == "dec"){numbers[input]=n; return "string";}
+				else if (currentType == "red"){numbers[input]=n; return "string";}
+				else if (currentType == "rep"){numbers[input]=n; return "string";}
+				else if (currentType == "fra"){numbers[input]=n; return "string";}
+				else if (currentType == "sci"){numbers[input]=n; return "string";}
+				else if (currentType == "scn"){numbers[input]=n; return "string";}
 				break;
 			}
 			case '0': break;
@@ -105,7 +123,7 @@ std::string numberType(std::string input){
 			case '7': break;
 			case '8': break;
 			case '9': break;
-			default: return "string";
+			default: numbers[input]=n; return "string";
 
 		}
 	}
@@ -128,7 +146,7 @@ std::string numberType(std::string input){
 		numbers[input]=n;
 		return "dec";
 	}
-	else if (currentType == "red"){
+	else if (currentType == "fra"){
 		n.type = 3;
 		//TODO: make correct top and bottom
 		int repLen = n.bottom.length()-idx;
@@ -142,14 +160,35 @@ std::string numberType(std::string input){
 		}
 		std::vector<int> fList = factorList(numbers[repBot]);
 		numbers[input]=n;
+		return "fra";
+	}
+	else if (currentType == "red"){
+		/*
+		n.type = 5;
+		//TODO: make correct top and bottom
+		int repLen = n.bottom.length()-idx;
+		int repTop = std::stoi(n.bottom.substr(idx,n.bottom.length()-idx));
+		std::string repBot = "";
+		for (ii=0;ii<repLen;ii++){
+			repBot += "9";
+		}
+		if (numbers.find(repBot) == numbers.end()){
+			numberType(repBot);
+		}
+		std::vector<int> fList = factorList(numbers[repBot]);
+		numbers[input]=n;
 		return "rep";
+		*/
+		numbers[input]=n;
+		return "string";
 	}
 	else if (currentType == "sci" || currentType == "scn"){
 		n.type = 4;
 		numbers[input]=n;
 		return "sci";
 	}
-	else {return "string";}
+	else {numbers[input]=n; return "string";}
+	numbers[input]=n;
 	return "string";
 }
 
@@ -166,35 +205,75 @@ Number invertOne(Number numA){
 	if (numA.type == 0){
 		n.type = 0; return n;
 	}
-	else if (numA.type == 1 || numA.type == -1){
+	else if (numA.type == 1 || numA.type == -1){//integer
 		if (numA.top == "1"){n = numA; return n;}
 		if (numA.top == "0"){n.type = 0; return n;}
-		n.type = 5*numA.type;
+		n.type = 3*numA.type;
 		n.top = "1";
 		n.bottom = numA.top;
 		return n;
 	}
-	else if (numA.type == 2 || numA.type == -2){
+	else if (numA.type == 2 || numA.type == -2){//decimal
 		//TODO: create decimal unless == 0
-	}
-	else if (numA.type == 3 || numA.type == -3){
-		//TODO: create decimal unless == 0
-	}
-	else if (numA.type == 4 || numA.type == -4){
-		//TODO: create sci not unless == 0
-	}
-	else if (numA.type == 5 || numA.type == -5){
 		if (numA.top == "0"){n.type = 0; return n;}
-		if (numA.top == "1"){n.type = 1*numA.type/5; n.top = numA.bottom; return n;}
+		if (numA.top == "1"){n.type = 1*numA.type/2; n.top = numA.bottom; n.bottom = "1"; return n;}
 		n.type = numA.type;
 		n.top = numA.bottom;
 		n.bottom = numA.top;
 		return n;
 	}
+	else if (numA.type == 3 || numA.type == -3){//fraction
+		//TODO: create decimal unless == 0
+		if (numA.top == "0"){n.type = 0; return n;}
+		if (numA.top == "1"){n.type = 1*numA.type/3; n.top = numA.bottom; n.bottom = "1"; return n;}
+		n.type = numA.type;
+		n.top = numA.bottom;
+		n.bottom = numA.top;
+		return n;
+	}
+	else if (numA.type == 4 || numA.type == -4){//sci not
+		//TODO: create sci not unless == 0
+	}
+	else if (numA.type == 5 || numA.type == -5){//rep decimal
+		//TODO: do rep decimal inversion
+	}
 	//TODO: create number type for division by zero
 	return n;
 }
+bool isDecimal(Number n){
+	int i;
+	if (n.bottom.length()<1){
+		return false;
+	}
+	if (n.bottom.at(0) != "1"){
+		return false;
+	}
+	for (i=1;i<n.bottom.length();i++){
+		if (n.bottom.at(i) != "0"){
+			return false;
+		}
+	}
+	return true;
+}
 
+Number reduceFraction(Number numA){
+	int a = std::stoi(numA.top);
+	int b = std::stoi(numA.bottom);
+	std::vector<int> primes = {2,3,5,7,11,13,17,19,23,29};
+	int i;
+	for (i=0;i<10;i++){
+		while (a%primes[i] == 0 && b%primes[i] == 0){
+			a = a/primes[i];
+			b = b/primes[i];
+		}
+	}
+	Number n;
+	n.type = numA.type;
+	n.top = std::to_string(a);
+	n.bottom = std::to_string(b);
+	return n;
+	
+}
 Number addTwo(Number numA, Number numB){
 	std::string revsum = "";
 	Number n;
@@ -292,13 +371,188 @@ Number addTwo(Number numA, Number numB){
 			return numbers[sum];
 		}
 		else if (numB.type == 2 || numB.type == -2){
-			n.type = 2; n.top = numA.top; n.bottom = "0";
+			n.type = 2; n.top = numA.top; n.bottom = "1";
+			return addTwo(n,numB);
+		}
+		else if (numB.type == 3 || numB.type == -3){
+			n.type = 3; n.top = numA.top; n.bottom = "1";
 			return addTwo(n,numB);
 		}
 	}
 	else if (numA.type == 2){
 		if (numB.type == 2){
-			
+			Number nb;
+			nb.type = 1;
+			if (isDecimal(numA) && isDecimal(numB)){
+				int blenDiff = numB.bottom.length() - numA.bottom.length();
+				int i;
+				if (blenDiff > 0){
+					nb.top = numB.top;
+					n.type = 1;
+					n.top = numA.top;
+					for (i=0;i<blenDiff;i++){
+						n.top += "0";
+					}
+					n = addTwo(n,nb);
+					n.bottom = numB.bottom;
+					n.type = 2;
+				}
+				else if (blenDiff < 0){
+					nb.top = numB.top;
+					n.type = 1;
+					n.top = numA.top;
+					for (i=0;i<blenDiff;i++){
+						nb.top += "0";
+					}
+					n = addTwo(n,nb);
+					n.bottom = numA.bottom;
+					n.type = 2;
+				}
+				else {
+					nb.top = numB.top;
+					n.type = 1;
+					n.top = numA.top;
+					n = addTwo(n,nb);
+					n.bottom = numA.bottom;
+					n.type = 2;
+					while (n.top.at(n.top.length()-1)=='0' && n.bottom.length()>1){
+						n.top = n.top.substr(0,n.top.length()-1);
+						n.bottom = n.bottom.substr(0,n.bottom.length()-1);
+					}
+					if (n.bottom == "1"){
+						n.type = 1;
+					}
+				}
+			}
+			else {
+				if (numbers.find(numA.top) == numbers.end()){
+					numberType(numA.top);
+				}
+				if (numbers.find(numB.top) == numbers.end()){
+					numberType(numB.top);
+				}
+				if (numbers.find(numA.bottom) == numbers.end()){
+					numberType(numA.bottom);
+				}
+				if (numbers.find(numB.bottom) == numbers.end()){
+					numberType(numB.bottom);
+				}
+				
+				n = addTwo(mulTwoInts(numbers[numA.top],numbers[numB.bottom]),mulTwoInts(numbers[numB.top],numbers[numA.bottom]));
+				
+				nb = mulTwoInts(numbers[numA.bottom],numbers[numB.bottom]);
+				n.type = 2;
+				n.top = n.top;
+				n.bottom = nb.top;
+				n = reduceFraction(n);
+			}
+		}
+		else if (numB.type == -2){
+			Number nb;
+			nb.type = -1;
+			if (isDecimal(numA) && isDecimal(numB)){
+				int blenDiff = numB.bottom.length() - numA.bottom.length();
+				int i;
+				if (blenDiff > 0){
+					nb.top = numB.top;
+					n.type = 1;
+					n.top = numA.top;
+					for (i=0;i<blenDiff;i++){
+						n.top += "0";
+					}
+					n = addTwo(n,nb);
+					n.bottom = numB.bottom;
+					n.type = 2 * n.type;
+				}
+				else if (blenDiff < 0){
+					nb.top = numB.top;
+					n.type = 1;
+					n.top = numA.top;
+					for (i=0;i<blenDiff;i++){
+						nb.top += "0";
+					}
+					n = addTwo(n,nb);
+					n.bottom = numA.bottom;
+					n.type = 2 * n.type;
+				}
+				else {
+					nb.top = numB.top;
+					n.type = 1;
+					n.top = numA.top;
+					n = addTwo(n,nb);
+					n.bottom = numA.bottom;
+				
+					while (n.top.at(n.top.length()-1)=='0' && n.bottom.length()>1){
+						n.top = n.top.substr(0,n.top.length()-1);
+						n.bottom = n.bottom.substr(0,n.bottom.length()-1);
+					}
+					if (n.bottom != "1"){
+						n.type = 2 * n.type;
+					}
+				}
+			}
+			else {
+				if (numbers.find(numA.top) == numbers.end()){
+					numberType(numA.top);
+				}
+				if (numbers.find(numB.top) == numbers.end()){
+					numberType(numB.top);
+				}
+				if (numbers.find(numA.bottom) == numbers.end()){
+					numberType(numA.bottom);
+				}
+				if (numbers.find(numB.bottom) == numbers.end()){
+					numberType(numB.bottom);
+				}
+				
+				n = addTwo(mulTwoInts(numbers[numA.top],numbers[numB.bottom]),mulTwoInts(negateOne(numbers[numB.top]),numbers[numA.bottom]));
+				
+				nb = mulTwoInts(numbers[numA.bottom],numbers[numB.bottom]);
+				n.type = 2 * n.type;
+				n.top = n.top;
+				n.bottom = nb.top;
+				n = reduceFraction(n);
+			}
+		}
+		else if (numB.type == 1 || numB.type == -1){
+			n.type = 2; n.top = numB.top; n.bottom = "1";
+			return addTwo(n,numA);
+		}
+		else if (numB.type == 3 || numB.type == -3){
+			n.type = 2; n.top = numB.top; n.bottom = numB.bottom;
+			return addTwo(n,numA);
+		}
+	}
+	else if (numA.type == 3){
+		if (numB.type == 3){
+			Number nb;
+			nb.type = 2;
+			nb.top = numB.top;
+			nb.bottom = numB.bottom;
+			n.type = 2;
+			n.top = numA.top;
+			n.bottom = numA.bottom;
+			n = addTwo(n,nb);
+			n.type = 3;
+		}
+		else if (numB.type == -3){
+			Number nb;
+			nb.type = -2;
+			nb.top = numB.top;
+			nb.bottom = numB.bottom;
+			n.type = 2;
+			n.top = numA.top;
+			n.bottom = numA.bottom;
+			n = addTwo(n,nb);
+			n.type = 3 * n.type/2;
+		}
+		else if (numB.type == 1 || numB.type == -1){
+			n.type = 3; n.top = numB.top; n.bottom = "1";
+			return addTwo(n,numA);
+		}
+		else if (numB.type == 2 || numB.type == -2){
+			n.type = 2; n.top = numA.top; n.bottom = numA.bottom;
+			return addTwo(n,numB);
 		}
 	}
 	else if (numA.type < 0){
