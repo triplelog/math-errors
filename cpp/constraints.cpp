@@ -166,13 +166,16 @@ bool solveConstraintFix(std::string input){
 		if (operandList.size()>firstIdx+1){
 			return false;
 		}
-		if (numbers.find(firstExp) != numbers.end()){
-			numberType(firstExp);
+		if (firstIdx != 1){
+			return false;
 		}
-		Number a = numbers[firstExp];
-		std::cout << " is2 " << firstExp << " and " << a.type << "\n";
+		if (numbers.find(operandList[0]) != numbers.end()){
+			numberType(operandList[0]);
+		}
+		Number a = numbers[operandList[0]];
+		std::cout << " is2 " << operandList[0] << " and " << a.type << "\n";
 		if (a.type == std::stoi(operandList[firstIdx])){
-			std::cout << " is3 " << firstExp << " and " << a.type << "\n";
+			std::cout << " is3 " << operandList[0] << " and " << a.type << "\n";
 			return true;
 		}
 		return false;
