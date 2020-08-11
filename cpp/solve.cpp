@@ -1,4 +1,4 @@
-Number mulTwoInts(Number numA, Number numB);
+Number mulTwo(Number numA, Number numB);
 std::vector<int> factorList(Number n){
 	std::vector<int> list;
 	if (n.type != 1 && n.type != 1){
@@ -438,9 +438,9 @@ Number addTwo(Number numA, Number numB){
 					numberType(numB.bottom);
 				}
 				
-				n = addTwo(mulTwoInts(numbers[numA.top],numbers[numB.bottom]),mulTwoInts(numbers[numB.top],numbers[numA.bottom]));
+				n = addTwo(mulTwo(numbers[numA.top],numbers[numB.bottom]),mulTwo(numbers[numB.top],numbers[numA.bottom]));
 				
-				nb = mulTwoInts(numbers[numA.bottom],numbers[numB.bottom]);
+				nb = mulTwo(numbers[numA.bottom],numbers[numB.bottom]);
 				n.type = 2;
 				n.top = n.top;
 				n.bottom = nb.top;
@@ -505,9 +505,9 @@ Number addTwo(Number numA, Number numB){
 					numberType(numB.bottom);
 				}
 				
-				n = addTwo(mulTwoInts(numbers[numA.top],numbers[numB.bottom]),mulTwoInts(negateOne(numbers[numB.top]),numbers[numA.bottom]));
+				n = addTwo(mulTwo(numbers[numA.top],numbers[numB.bottom]),mulTwo(negateOne(numbers[numB.top]),numbers[numA.bottom]));
 				
-				nb = mulTwoInts(numbers[numA.bottom],numbers[numB.bottom]);
+				nb = mulTwo(numbers[numA.bottom],numbers[numB.bottom]);
 				n.type = 2 * n.type;
 				n.top = n.top;
 				n.bottom = nb.top;
@@ -560,14 +560,14 @@ Number addTwo(Number numA, Number numB){
 			return addTwo(numB,numA);
 		}
 		else if (numB.type < 0){
-			return negateOne(addTwo(negateOne(numA),negateOne(numA)));
+			return negateOne(addTwo(negateOne(numA),negateOne(numB)));
 		}
 	}
 	return n;
 
 }
 
-Number mulTwoInts(Number numA, Number numB){
+Number mulTwo(Number numA, Number numB){
 	int base = 10;
 	int neg = 1;
 	Number n;
@@ -586,21 +586,69 @@ Number mulTwoInts(Number numA, Number numB){
 			n.top = std::to_string(prod);
 			return n;
 		}
-	}
-	else if (numA.type == -1){
-		if (numB.type == 1){
-			n.type = -1;
+		else if (numB.type == 2 || numB.type == -2 || numB.type == 3 || numB.type == -3){
+			n.type = numB.type;
 			int prod = std::stoi(numA.top);
 			prod *= std::stoi(numB.top);
 			n.top = std::to_string(prod);
+			n.bottom = numB.bottom;
+			n = reduceFraction(n);
 			return n;
 		}
-		else if (numB.type == -1){
-			n.type = 1;
+	}
+	else if (numA.type == 2){
+		if (numB.type == 1 || numB.type == -1){
+			n.type = 2 * numB.type;
 			int prod = std::stoi(numA.top);
 			prod *= std::stoi(numB.top);
 			n.top = std::to_string(prod);
+			n.bottom = numA.bottom;
+			n = reduceFraction(n);
 			return n;
+		}
+		else if (numB.type == 2 || numB.type == -2 || numB.type == 3 || numB.type == -3){
+			n.type = 2;
+			if (numB.type < 0){
+				n.type = -2;
+			}
+			int prod = std::stoi(numA.top);
+			prod *= std::stoi(numB.top);
+			n.top = std::to_string(prod);
+			prod = std::stoi(numA.bottom);
+			prod *= std::stoi(numB.bottom);
+			n.bottom = std::to_string(prod);
+			n = reduceFraction(n);
+			return n;
+		}
+	}
+	else if (numA.type == 3){
+		if (numB.type == 1 || numB.type == -1){
+			n.type = 3 * numB.type;
+			int prod = std::stoi(numA.top);
+			prod *= std::stoi(numB.top);
+			n.top = std::to_string(prod);
+			n.bottom = numA.bottom;
+			n = reduceFraction(n);
+			return n;
+		}
+		else if (numB.type == 2 || numB.type == -2 || numB.type == 3 || numB.type == -3){
+			n.type = numB.type;
+			int prod = std::stoi(numA.top);
+			prod *= std::stoi(numB.top);
+			n.top = std::to_string(prod);
+			prod = std::stoi(numA.bottom);
+			prod *= std::stoi(numB.bottom);
+			n.bottom = std::to_string(prod);
+			n = reduceFraction(n);
+			return n;
+		}
+	}
+	else if (numA.type < 0){
+		if (numB.type > 0){
+			return mulTwo(numB,numA);
+		}
+		else if (numB.type < 0){
+			return mulTwo(negateOne(numA),negateOne(numB)));
 		}
 	}
 	return n;
@@ -646,36 +694,7 @@ Number expTwo(Number numA, Number numB){
 	return n;
 }
 
-Number divTwoInts(Number numA, Number numB){
-	int base = 10;
-	int neg = 1;
-	Number n;
-	if (numA.type == 1){
-		if (numB.type == 1 || numB.type == -1){
-			if (numB.top == "0"){
-				return n;
-			}
-			n.type = numB.type;
-			int div = std::stoi(numA.top);
-			div /= std::stoi(numB.top);
-			n.top = std::to_string(div);
-			return n;
-		}
-	}
-	else if (numA.type == -1){
-		if (numB.type == 1 || numB.type == -1){
-			if (numB.top == "0"){
-				return n;
-			}
-			n.type = -1 * numB.type;
-			int div = std::stoi(numA.top);
-			div /= std::stoi(numB.top);
-			n.top = std::to_string(div);
-			return n;
-		}
-	}
-	return n;
-}
+
 
 Number solvePostfix(std::string postfix) {
 	int i;
@@ -738,15 +757,8 @@ Number solvePostfix(std::string postfix) {
 	            //case '[': stack[currentIndex - 2].w = (stack[currentIndex - 2] <= stack[currentIndex - 1]) ? 1 : 0; stack[currentIndex - 2].t = 'B'; break;
 	            case '+': stack[currentIndex - 2] = addTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break;
 	            case '-': stack[currentIndex - 1] = negateOne(stack[currentIndex - 1]); currentIndex++; break; 
-	            case '*': stack[currentIndex - 2] = mulTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
-	            case '/': {
-	            	if (currentIndex > 1){
-	            		stack[currentIndex - 2] = divTwoInts(stack[currentIndex - 2],stack[currentIndex - 1]); i++; break;
-	            	}
-	            	else {
-	            		stack[currentIndex - 1] = invertOne(stack[currentIndex - 1]); currentIndex++; break;
-	            	}
-	            }
+	            case '*': stack[currentIndex - 2] = mulTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
+	            case '/': stack[currentIndex - 1] = invertOne(stack[currentIndex - 1]); currentIndex++; break;
 	            case '^': stack[currentIndex - 2] = expTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break;
 	            case '=': {
 	            	if (stack[currentIndex - 2] == stack[currentIndex - 1]){
