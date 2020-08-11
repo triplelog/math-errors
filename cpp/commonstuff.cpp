@@ -833,6 +833,7 @@ void initialRun(){
 	prec[']'] = 2;
 	prec[-94] = 2;//does not contain
 	prec[-87] = 2;//contains
+	prec[-96] = 2;//is
 	prec['&'] = 1;
 	prec['|'] = 0;
 	prec['('] = -1;
