@@ -162,7 +162,7 @@ bool solveConstraintFix(std::string input){
 	else if (lastOp == -96){ //is--secondExp must be single operand
 		currentOperand = "";
 		postKey = false;
-		std::cout << " is1 " << firstExp << " and " << operandList[firstIdx]) << "\n";
+		std::cout << " is1 " << firstExp << " and " << operandList[firstIdx] << "\n";
 		if (operandList.size()>firstIdx+1){
 			return false;
 		}
