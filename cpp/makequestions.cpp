@@ -1694,7 +1694,6 @@ bool doubleCheckAnswer(std::string pfstr){
 			if (answerConstraints[key][i].type == "c"){
 				bool cMatch = false;
 				if (constraintsMet.find(key) == constraintsMet.end()){
-					std::cout << "no c\n";
 					return false;
 				}
 				for (ii=0;ii<constraintsMet[key].size();ii++){
@@ -1704,7 +1703,6 @@ bool doubleCheckAnswer(std::string pfstr){
 					}
 				}
 				if (!cMatch){
-					std::cout << "no c2\n";
 					return false;
 				}
 			}
@@ -2177,7 +2175,7 @@ std::string fullAnswer(std::string s){
 	unfinishedOptions.clear();
 	
 	for (ii=0;ii<finishedAnswers.size();ii++){
-		//std::cout << "f: " << finishedAnswers[ii] << "\n";
+		std::cout << "f: " << finishedAnswers[ii] << "\n";
 		if (doubleCheckAnswer(finishedAnswers[ii])){
 			std::cout << "cf: " << finishedAnswers[ii] << "\n";
 			std::vector<Step> v = makeSolutionList(finishedAnswers[ii],newPostfix);
