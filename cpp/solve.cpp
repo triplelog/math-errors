@@ -743,6 +743,7 @@ Number solvePostfix(std::string postfix) {
   	for (i=0; i<postfix.length(); i++) 
     {
     	if (postfix.at(i) == '{'){
+    		std::cout << "pfb: " << outputNumber(n) << "\n";
     		return n;
     	}
     	else if (postfix.at(i) == '@') {
@@ -751,7 +752,9 @@ Number solvePostfix(std::string postfix) {
         else if (postfix.at(i) == '_') {
 			//TODO: convert to number here
 			if (numbers.find(currentOperand) == numbers.end()){
+				std::cout << "pfc: " << currentOperand << "\n";
 				numberType(currentOperand);
+				std::cout << "pfd: " << currentOperand << "\n";
 			}
 			intArray.push_back(numbers[currentOperand]);
 			stack.push_back(numbers[""]);
