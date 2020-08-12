@@ -131,7 +131,7 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 							isArithmetic = true;
 							//std::cout << "ipf: " << insidePostfix << "\n";
 							for (bi=0;bi<insidePostfix.length();bi++){
-								if (insidePostfix.at(bi) == -89 && bi+1<insidePostfix.length() && insidePostfix.at(bi+1) == '@'){
+								if (insidePostfix.at(bi) == -102 && bi+1<insidePostfix.length() && insidePostfix.at(bi+1) == '@'){
 									
 									currentOperand = substitute(insidePostfix);
 									if (currentOperand == "("+insidePostfix+")"){

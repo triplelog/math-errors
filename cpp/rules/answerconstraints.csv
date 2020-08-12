@@ -38,7 +38,7 @@ A
 "a",A^1,i,""
 "t",mc
 
-prealgebra.derivatives.power.0,"Power Rule"
+algebra.derivatives.power.0,"Power Rule"
 "Factor $x^2+A*x+B=0$?"
 x^2+A*x+B=0
 "<input name='A'></input>"

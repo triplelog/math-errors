@@ -839,7 +839,10 @@ void initialRun(){
 	prec[']'] = 2;
 	prec[-94] = 2;//does not contain
 	prec[-87] = 2;//contains
-	prec[-96] = 2;//is
+	prec[-111] = 2;//is
+	prec[-110] = 2;//is not
+	prec[-95] = 2;//in
+	prec[-96] = 2;//not in
 	prec['&'] = 1;
 	prec['|'] = 0;
 	prec['('] = -1;
