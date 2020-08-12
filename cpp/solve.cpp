@@ -730,6 +730,7 @@ Number solvePostfix(std::string postfix) {
   	std::vector<Number> intArray;
   	std::string currentOperand = "";
   	Number n;
+  	std::cout << "pfa: " << postfix << "\n";
   	if (numbers.find("") != numbers.end()){
 		numberType("");
 	}
@@ -893,8 +894,8 @@ Number solvePostfix(std::string postfix) {
             currentIndex--;
         } 
     } 
-
-	//std::cout << "pf: " << postfix << " and " << stack[0].type << " and " << stack[0].top << "\n";
+	
+	std::cout << "pfb: " << postfix << " and " << stack[0].type << " and " << outputNumber(stack[0]) << "\n";
 	return stack[0];
 }
 
