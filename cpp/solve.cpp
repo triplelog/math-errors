@@ -280,6 +280,18 @@ Number reduceFraction(Number numA){
 			a = a/primes[i];
 			b = b/primes[i];
 		}
+		if (b == 1){
+			Number n;
+			if (numA.type < 0){
+				n.type = -1;
+			}
+			else {
+				n.type = 1;
+			}
+			n.top = std::to_string(a);
+			n.bottom = "1";
+			return n;
+		}
 	}
 	Number n;
 	n.type = numA.type;
