@@ -173,6 +173,9 @@ std::string replaceFunctions(std::string input_str){
 	char ddx{-69};
 	char idx{-85};
 	char sub{-102};
+	char solve{-89};
+	std::string solveStr = "";
+	solveStr += solve;
 	int i; int ii;
 	replacements3["ddx"]="x";
 	replacements3["ddx"]+=ddx;
@@ -254,6 +257,9 @@ std::string replaceFunctions(std::string input_str){
 	query4[" in "]="";
 	query4[" in "]+=element;
 	
+	
+	query5["slope"]="slope";
+	
 	std::string twoChars = "..";
 	std::string threeChars = "...";
 	std::string fourChars = "....";
@@ -324,7 +330,43 @@ std::string replaceFunctions(std::string input_str){
 				i+= replacements2[twoChars].length() - 2;
 			}
 		
-
+			else if (query5.find(fiveChars) != query5.end()){
+				if (query5[fiveChars] == "slope"){ 
+					//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+					std::string inside = "";
+					std::string var = "";
+					int openPar = 0;
+					bool isVar = false;
+					int repLen = 5;
+					for (ii=i+1;ii<input_str.length();ii++){
+						repLen++;
+						if (input_str.at(ii) == '('){
+							openPar++;
+						}
+						else if (input_str.at(ii) == ')'){
+							openPar--;
+						}
+						else if (input_str.at(ii) == ';'){
+							isVar = true;
+						}
+						else if (isVar){
+							var += input_str.at(ii);
+						}
+						else {
+							inside += input_str.at(ii);
+						}
+				
+						if (openPar == 0){
+							break;
+						}
+					}
+					input_str.replace(i-4,repLen, "slope"+solveStr + "("+inside+")");
+					fiveChars = ".....";
+					i += -5;
+					//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+				}
+				
+			}
 			else if (query3.find(threeChars) != query3.end()){
 				if (query3[threeChars].at(0) == ddx){ //is a derivative with respect to something
 					//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
