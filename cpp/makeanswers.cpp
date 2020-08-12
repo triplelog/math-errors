@@ -391,7 +391,8 @@ std::vector<std::string> makeAnswer(std::string input){
 	infixexpr[input.length()] = '\0';
 	std::cout << "infixexpr: " << infixexpr << "\n";
 	std::vector<std::string> postfixed = postfixifyVector(infixexpr,true);
-	std::cout << "postfixed: " << postfixed << "\n";
+	std::cout << "postfixed: " << postfixed[0] << "\n";
+	std::cout << "postfixed: " << postfixed[1] << "\n";
 	return postfixed;
 	//return makeTree(postfixed)[0];
 }
