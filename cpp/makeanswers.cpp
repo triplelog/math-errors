@@ -664,11 +664,105 @@ std::vector<RawQuestion> makeQuestions(Dewey qDewey, std::string fileName){
 					//jsonmessage += "rule.examples.push(\""+rawRule[0]+"\");\n";
 				}
 				else if (rawRule[2] == "c"){
-					rawRules.push_back(rawRule);
+					
+					if (rawRule.size()>5){
+						std::vector<std::string> tempV;
+						std::string currentCon = "";
+						int openPar = 0;
+						int iii;
+						for (ii=0;ii<rawRule.size();ii++){
+							if (ii<4){tempV.push_back(rawRule[ii]);}
+							else {
+								for (iii=0;iii<rawRule[ii].length();iii++){
+									if (rawRule[ii].at(iii) == '['){
+										openPar++;
+									}
+									else if (rawRule[ii].at(iii) == '{'){
+										openPar++;
+									}
+									else if (rawRule[ii].at(iii) == '('){
+										openPar++;
+									}
+									else if (rawRule[ii].at(iii) == '}'){
+										openPar--;
+									}
+									else if (rawRule[ii].at(iii) == ')'){
+										openPar--;
+									}
+									else if (rawRule[ii].at(iii) == ']'){
+										openPar--;
+									}
+									
+									if (rawRule[ii].at(iii) == ',' && openPar == 0){
+										tempV.push_back(currentCon);
+										currentCon = "";
+									}
+									else {
+										currentCon += rawRule[ii].at(iii);
+									}
+								}
+							}
+							
+						}
+						if (currentCon.length()>0){
+							tempV.push_back(currentCon);
+						}
+						rawRules.push_back(tempV)
+					}
+					else {
+						rawRules.push_back(rawRule);
+					}
+					
 					//jsonmessage += "rule.correct.push(\""+rawRule[0]+"\");\n";
 				}
 				else if (rawRule[2] == "i" || rawRule[2] == "e"){
-					rawRules.push_back(rawRule);
+					if (rawRule.size()>5){
+						std::vector<std::string> tempV;
+						std::string currentCon = "";
+						int openPar = 0;
+						int iii;
+						for (ii=0;ii<rawRule.size();ii++){
+							if (ii<4){tempV.push_back(rawRule[ii]);}
+							else {
+								for (iii=0;iii<rawRule[ii].length();iii++){
+									if (rawRule[ii].at(iii) == '['){
+										openPar++;
+									}
+									else if (rawRule[ii].at(iii) == '{'){
+										openPar++;
+									}
+									else if (rawRule[ii].at(iii) == '('){
+										openPar++;
+									}
+									else if (rawRule[ii].at(iii) == '}'){
+										openPar--;
+									}
+									else if (rawRule[ii].at(iii) == ')'){
+										openPar--;
+									}
+									else if (rawRule[ii].at(iii) == ']'){
+										openPar--;
+									}
+									
+									if (rawRule[ii].at(iii) == ',' && openPar == 0){
+										tempV.push_back(currentCon);
+										currentCon = "";
+									}
+									else {
+										currentCon += rawRule[ii].at(iii);
+									}
+								}
+							}
+							
+						}
+						if (currentCon.length()>0){
+							tempV.push_back(currentCon);
+						}
+						rawRules.push_back(tempV)
+					}
+					else {
+						rawRules.push_back(rawRule);
+					}
 					//jsonmessage += "rule.incorrect.push(\""+rawRule[0]+"\");\n";
 				}
 			}
