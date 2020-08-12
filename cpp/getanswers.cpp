@@ -568,6 +568,11 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		flat_hash_map<int,bool> alreadyApp;
 		flat_hash_map<int,bool> alreadyOpp;
 		for (iii=0;iii<v.size();iii++){
+			if (v[iii].rule >= 0){
+				if (ruleIndex[v[iii].rule].type == "e"){
+					std::cout << "error: " << ruleIndex[v[iii].rule].out << "\n";
+				}
+			}
 			if (answerListMapF.find(v[iii].next)== answerListMapF.end()){
 				std::cout << "missing??????\n";
 				continue;

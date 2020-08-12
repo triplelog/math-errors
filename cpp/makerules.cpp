@@ -62,7 +62,12 @@ void makeRules(std::string fileName){
 		std::cout << "out: "<< out << "\n";
 		rule.operands = val1;
 		rule.out = out;
-		rule.type = rawRules[i][2];
+		if (rawRules[i][2] == "e" || rawRules[i][2] == "i"){
+			rule.type = "e";
+		}
+		else {
+			rule.type = rawRules[i][2];
+		}
 		if (rawRules[i].size()>3){
 			rule.explanation = rawRules[i][3];
 		}
