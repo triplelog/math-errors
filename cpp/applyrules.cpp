@@ -146,11 +146,14 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 							pastInsideKey = false;
 							if (!isArithmetic){continue;}
 							Number opResult = solvePostfix(insidePostfix);
-
+							std::cout << "ipf1: " << insidePostfix << "\n";
+							
 							if (opResult.type == 0){
+								std::cout << "ipf2or: \n";
 								currentOperand = "("+insidePostfix+")";
 							}
 							else {
+								std::cout << "ipf2or: " << outputNumber(opResult) << "\n";
 								currentOperand = "(#@"+outputNumber(opResult)+"_)";
 							}
 							
