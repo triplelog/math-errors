@@ -1750,14 +1750,14 @@ bool getAnswerList(std::string s, int nSteps) {
 
 	std::string newPostfix = pfstr;
 
-	std::cout << "npf1: "<< newPostfix << "\n";
+	//std::cout << "npf1: "<< newPostfix << "\n";
 	newPostfix = removeBracketsOne(newPostfix);
-	std::cout << "npf2: "<< newPostfix << "\n";
+	//std::cout << "npf2: "<< newPostfix << "\n";
 	
 	//std::cout << s << " before pl\n";
 	auto a1 = std::chrono::high_resolution_clock::now();
 	std::vector<std::vector<Step>> someStrings = makeTree(newPostfix);
-	std::cout << "npf3: "<< newPostfix << "\n";
+	//std::cout << "npf3: "<< newPostfix << "\n";
 	
 	if (answerListMap.find(newPostfix) == answerListMap.end()){
 		if (answerIsFinished){
@@ -2170,7 +2170,7 @@ std::string fullAnswer(std::string s){
 	unfinishedOptions.clear();
 	
 	for (ii=0;ii<finishedAnswers.size();ii++){
-		//std::cout << "f: " << finishedAnswers[ii] << "\n";
+		std::cout << "f: " << finishedAnswers[ii] << "\n";
 		if (doubleCheckAnswer(finishedAnswers[ii])){
 			std::cout << "cf: " << finishedAnswers[ii] << "\n";
 			std::vector<Step> v = makeSolutionList(finishedAnswers[ii],newPostfix);
