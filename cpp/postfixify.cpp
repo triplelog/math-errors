@@ -251,8 +251,8 @@ std::string replaceFunctions(std::string input_str){
 	replacements3["abs"]+=abs;
 	
 	char element{-95};
-	query7["element"]="";
-	query7["element"]+=element;
+	query7[" in "]="";
+	query7[" in "]+=element;
 	
 	std::string twoChars = "..";
 	std::string threeChars = "...";
@@ -278,7 +278,15 @@ std::string replaceFunctions(std::string input_str){
 		eightChars.replace(0,1,"");
 		eightChars += input_str.at(i);
 		
-		if (input_str.at(i+1) == '('){
+		if (query4.find(fourChars) != query4.end() && query4[fourChars].at(0) == element){
+
+			input_str.replace(i-3,4,query4[fourChars]);
+			fourChars = "....";
+			i += -3;
+			std::cout << i << " : " << input_str << " char: " << element << '\n';
+			
+		}
+		else if (input_str.at(i+1) == '('){
 			std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
 			if (replacements8.find(eightChars) != replacements8.end()){
 				input_str.replace(i-7,8,replacements8[eightChars]);
@@ -439,43 +447,6 @@ std::string replaceFunctions(std::string input_str){
 			
 			}
 			//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
-		}
-		else if (query7.find(sevenChars) != query7.end()){
-			if (query7[sevenChars].at(0) == element){
-
-				if (input_str.at(i+1)=='_'){
-					std::string inside = "";
-					std::string var = "";
-					int openPar = 0;
-					bool isVar = true;
-					int repLen = 8;
-					for (ii=i+2;ii<input_str.length();ii++){
-						repLen++;
-						if (input_str.at(ii) == '('){
-							openPar++;
-							isVar = false;
-						}
-						else if (input_str.at(ii) == ')'){
-							openPar--;
-						}
-						else if (isVar){
-							var += input_str.at(ii);
-						}
-						else {
-							inside += input_str.at(ii);
-						}
-			
-						if (openPar == 0 && !isVar){
-							break;
-						}
-					}
-					input_str.replace(i-6,repLen,var+query7[sevenChars]+"("+inside+")");
-					sevenChars = ".......";
-					i += -7;
-					std::cout << i << " : " << input_str << " char: " << element << '\n';
-				}
-			}
-			
 		}
 		else if (query4.find(fourChars) != query4.end() && input_str.length() > i+2 && input_str.at(i+1)!='-' && input_str.at(i+2)!='-'){
 			
