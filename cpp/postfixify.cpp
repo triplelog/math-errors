@@ -279,7 +279,7 @@ std::string replaceFunctions(std::string input_str){
 		eightChars += input_str.at(i);
 		
 		if (query4.find(fourChars) != query4.end() && query4[fourChars].at(0) == element){
-			input_str.replace(i-3,4,""+element+"");
+			input_str.replace(i-3,4,"" + element + "");
 			fourChars = "....";
 			i += -4;
 			std::cout << i << " : " << input_str << " char: " << element << '\n';
