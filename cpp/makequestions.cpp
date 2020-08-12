@@ -1153,7 +1153,7 @@ bool checkAnswer(std::string answer){
 			}
 		}
 	}
-	//std::cout << "ca key2: " << key << correct<< "\n";
+	std::cout << "ca key2: " << key << correct<< "\n";
 	return correct;
 
 }

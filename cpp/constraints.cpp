@@ -1,7 +1,7 @@
 bool solveConstraintFix(std::string input){
 	int i; int ii; int iii;
 	bool postKey = false;
-	
+	std::cout << "check con1: " << input << "\n";
 	std::string firstPart = "";
 	std::string secondPart = "";
 	std::string firstExp = "";
@@ -84,7 +84,7 @@ bool solveConstraintFix(std::string input){
 			return false;
 		}
 	}
-	
+	std::cout << "check con2: " << input << "\n";
 	firstExp = firstPart + "@";
 	int idx = 0;
 	for (i=0;i<firstPart.length();i++){
@@ -105,7 +105,7 @@ bool solveConstraintFix(std::string input){
 	secondExp = removeBracketsOne(secondExp);
 	
 	std::cout << "constraint: "<< input << " and " << firstExp << " and " << secondExp << " and " << lastOp << "\n";
-	
+
 	if (lastOp == -94){ //does not contain--secondExp must be single operand
 		currentOperand = "";
 		postKey = false;
