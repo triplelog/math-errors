@@ -448,7 +448,7 @@ std::string replaceFunctions(std::string input_str){
 		}
 		else if (query4.find(fourChars) != query4.end() && input_str.length() > i+2 && input_str.at(i+1)!='-' && input_str.at(i+2)!='-'){
 			
-			else if (input_str.at(i)=='^'){ //is trig function to a power--unless add more
+			if (input_str.at(i)=='^'){ //is trig function to a power--unless add more
 				std::cout << i << " : " << input_str << " 4chars: " << fourChars << '\n';
 				std::string inside = "";
 				std::string var = "";
