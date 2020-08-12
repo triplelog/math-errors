@@ -132,9 +132,9 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 							//std::cout << "ipf: " << insidePostfix << "\n";
 							for (bi=0;bi<insidePostfix.length();bi++){
 								if (insidePostfix.at(bi) == -102 && bi+1<insidePostfix.length() && insidePostfix.at(bi+1) == '@'){
-									std::cout << "ipf1a: " << insidePostfix << "\n";
+									//std::cout << "ipf1a: " << insidePostfix << "\n";
 									currentOperand = substitute(insidePostfix);
-									std::cout << "ipf2a: " << currentOperand << "\n";
+									//std::cout << "ipf2a: " << currentOperand << "\n";
 									if (currentOperand == "("+insidePostfix+")"){
 										cannotSolve = true;
 									}
