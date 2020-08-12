@@ -1080,7 +1080,7 @@ std::string substitute(std::string input){
 	}
 	std::string var = "";
 	int i;
-	if (input.at(0) != '#' || input.at(1) != '#' || input.at(2) != -89 || input.at(3) != '@'){
+	if (input.at(0) != '#' || input.at(1) != '#' || input.at(2) != -102 || input.at(3) != '@'){
 		//TODO: grab the part up to & and convert to format
 		std::string left = "";
 		std::string right = "";
@@ -1109,7 +1109,7 @@ std::string substitute(std::string input){
 				}
 			}
 			else if (pastAnd && !pastKey){
-				if (input.at(i) != -89){
+				if (input.at(i) != -102){
 					left2 += input.at(i);
 				}
 			}
@@ -1137,7 +1137,7 @@ std::string substitute(std::string input){
 			std::cout << "fin: nothing" << "\n";
 			return returnStr;
 		}
-		char sub{-89};
+		char sub{-102};
 		std::string substr = "";
 		substr += sub;
 		input = "##"+substr+"@{"+var+"}_{"+left2+"@"+right2+"}_";
