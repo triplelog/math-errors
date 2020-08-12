@@ -1009,6 +1009,7 @@ bool checkAnswer(std::string answer){
 			key += answer.at(ii);
 		}
 	}
+	std::cout << "ca key1: " << key << "\n";
 	if (answerConstraints.find(key) != answerConstraints.end()){
 		int ruleIdx;
 		for (ruleIdx=0;ruleIdx<answerConstraints[key].size();ruleIdx++){
@@ -1152,6 +1153,7 @@ bool checkAnswer(std::string answer){
 			}
 		}
 	}
+	std::cout << "ca key2: " << key << correct<< "\n";
 	return correct;
 
 }
@@ -1441,6 +1443,7 @@ bool doubleCheckAnswer(std::string pfstr){
 						}
 
 						if (!checkAnswer(firstS[ii] + secondS[iii]  + pfstr.at(i) + "@" + firstT[ii] + secondT[iii])){
+							
 							return false;
 						}
 
