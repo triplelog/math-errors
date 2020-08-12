@@ -1691,6 +1691,7 @@ bool doubleCheckAnswer(std::string pfstr){
 			if (answerConstraints[key][i].type == "c"){
 				bool cMatch = false;
 				if (constraintsMet.find(key) == constraintsMet.end()){
+					std::cout << "no c\n";
 					return false;
 				}
 				for (ii=0;ii<constraintsMet[key].size();ii++){
@@ -1700,6 +1701,7 @@ bool doubleCheckAnswer(std::string pfstr){
 					}
 				}
 				if (!cMatch){
+					std::cout << "no c2\n";
 					return false;
 				}
 			}
