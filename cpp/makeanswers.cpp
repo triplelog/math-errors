@@ -707,7 +707,7 @@ std::vector<RawQuestion> makeQuestions(Dewey qDewey, std::string fileName){
 						if (currentCon.length()>0){
 							tempV.push_back(currentCon);
 						}
-						rawRules.push_back(tempV)
+						rawRules.push_back(tempV);
 					}
 					else {
 						rawRules.push_back(rawRule);
@@ -758,7 +758,7 @@ std::vector<RawQuestion> makeQuestions(Dewey qDewey, std::string fileName){
 						if (currentCon.length()>0){
 							tempV.push_back(currentCon);
 						}
-						rawRules.push_back(tempV)
+						rawRules.push_back(tempV);
 					}
 					else {
 						rawRules.push_back(rawRule);
