@@ -710,6 +710,7 @@ std::vector<RawQuestion> makeQuestions(Dewey qDewey, std::string fileName){
 						rawRules.push_back(tempV);
 					}
 					else {
+						std::cout << "rawRule---: " << rawRule << "\n";
 						rawRules.push_back(rawRule);
 					}
 					
