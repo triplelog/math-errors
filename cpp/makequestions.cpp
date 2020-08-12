@@ -1169,6 +1169,7 @@ bool doubleCheckAnswer(std::string pfstr){
 	bool midBrackets = false;
 	answerIsFinished = true;
 	constraintsMet.clear();
+	std::cout << "pfstr: " << pfstr << "\n";
 	for (i=0;i<pfstr.length();i++){
 		if (pfstr.at(i) == '@'){
 			startOperands = true;
@@ -1685,6 +1686,7 @@ bool doubleCheckAnswer(std::string pfstr){
 	//}
 	for (flat_hash_map<std::string,std::vector<Rule>>::iterator iter = answerConstraints.begin(); iter != answerConstraints.end(); ++iter){
 		std::string key = iter->first;
+		std::cout << "akey: " << key << "\n";
 		for (i=0;i<answerConstraints[key].size();i++){
 			if (answerConstraints[key][i].type == "c"){
 				bool cMatch = false;

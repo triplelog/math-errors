@@ -389,10 +389,7 @@ std::vector<std::string> makeAnswer(std::string input){
     strcpy(infixexpr, input.c_str()); 
 
 	infixexpr[input.length()] = '\0';
-	std::cout << "infixexpr: " << infixexpr << "\n";
 	std::vector<std::string> postfixed = postfixifyVector(infixexpr,true);
-	std::cout << "postfixed: " << postfixed[0] << "\n";
-	std::cout << "postfixed: " << postfixed[1] << "\n";
 	return postfixed;
 	//return makeTree(postfixed)[0];
 }
@@ -712,7 +709,6 @@ std::vector<RawQuestion> makeQuestions(Dewey qDewey, std::string fileName){
 						rawRules.push_back(tempV);
 					}
 					else {
-						std::cout << "rawRule---: " << rawRule[1] << "\n";
 						rawRules.push_back(rawRule);
 					}
 					
