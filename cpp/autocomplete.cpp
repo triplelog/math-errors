@@ -240,6 +240,16 @@ void inputify() {
 							break;
 			
 						}
+						case -89: {
+							if (ii > 0){
+								s += listMap[child]+")";
+							}
+							else {
+								s += listMap[child]+"(";
+							}
+							break;
+			
+						}
 						case -34:
 							s += "|"+listMap[child]+"|";
 							break;

@@ -2179,7 +2179,7 @@ std::string fullAnswer(std::string s){
 	unfinishedOptions.clear();
 	
 	for (ii=0;ii<finishedAnswers.size();ii++){
-		std::cout << "f: " << finishedAnswers[ii] << "\n";
+		//std::cout << "f: " << finishedAnswers[ii] << "\n";
 		if (doubleCheckAnswer(finishedAnswers[ii])){
 			std::cout << "cf: " << finishedAnswers[ii] << "\n";
 			std::vector<Step> v = makeSolutionList(finishedAnswers[ii],newPostfix);

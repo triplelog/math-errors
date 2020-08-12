@@ -543,7 +543,7 @@ void CheckAnswer(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::string a(*s);
 
 	std::string mpf = postfixify(a);
-	std::cout << "your answer: " << mpf << "\n";
+	std::cout << "your answer: " << mpf << " postfixed from " << a << "\n";
 	int ii; int iii; int iiii;
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
