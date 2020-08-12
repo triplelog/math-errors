@@ -1153,7 +1153,7 @@ bool checkAnswer(std::string answer){
 			}
 		}
 	}
-	std::cout << "ca key2: " << key << correct<< "\n";
+	//std::cout << "ca key2: " << key << correct<< "\n";
 	return correct;
 
 }
@@ -1676,10 +1676,14 @@ bool doubleCheckAnswer(std::string pfstr){
 					firstRemed += remed.at(ii);
 				}
 			}
+			if (!checkAnswer("#@" + originalMap[idx] + "_")){
+				return false;
+			}
 			listMap["#@" + originalMap[idx] + "_"]={"#",originalMap[idx]+'_',"0",firstRemed,secondRemed};
 			lastVector = {"#",originalMap[idx]+'_',"0",firstRemed,secondRemed};
 			operandMap[i]=idx;
 			idx++;
+			
 		}
 		
 	}
