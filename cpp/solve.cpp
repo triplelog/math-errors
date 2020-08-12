@@ -148,17 +148,6 @@ std::string numberType(std::string input){
 	}
 	else if (currentType == "fra"){
 		n.type = 3;
-		//TODO: make correct top and bottom
-		int repLen = n.bottom.length()-idx;
-		int repTop = std::stoi(n.bottom.substr(idx,n.bottom.length()-idx));
-		std::string repBot = "";
-		for (ii=0;ii<repLen;ii++){
-			repBot += "9";
-		}
-		if (numbers.find(repBot) == numbers.end()){
-			numberType(repBot);
-		}
-		std::vector<int> fList = factorList(numbers[repBot]);
 		numbers[input]=n;
 		return "fra";
 	}
