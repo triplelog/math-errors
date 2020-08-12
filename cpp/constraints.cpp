@@ -1,6 +1,6 @@
 bool solveConstraintFix(std::string input){
 	int i; int ii; int iii;
-	bool postKey = false;\
+	bool postKey = false;
 	
 	std::string firstPart = "";
 	std::string secondPart = "";
@@ -276,12 +276,7 @@ std::string constraintify(std::string input){
 		tempStr += input.at(i);
 		tempStr.replace(0,1,"");
 		if (tempStr == " in "){
-			std::string rangeStr = input.substr(i,input.length()-i);
-			std::cout << "range from: " << rangeStr << "\n";
-			Range inRange = makeRange(rangeStr);
-			std::cout << "range is: "<< outputNumber(inRange.left[0]) << " and " << outputNumber(inRange.right[0]) << "\n";
 			input.replace(i-3,4,ins);
-			
 			i -= 3;
 			tempStr = "....";
 		}

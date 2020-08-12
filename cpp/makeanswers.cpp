@@ -752,6 +752,12 @@ std::vector<RawQuestion> makeQuestions(Dewey qDewey, std::string fileName){
 										currentCon += rawRule[ii].at(iii);
 									}
 								}
+								
+								if (openPar > 0){
+									currentCon += ",";
+								}
+								
+								
 							}
 							
 						}
