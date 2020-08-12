@@ -45,7 +45,7 @@ slope(y=3*x+4+5)
 A
 "q",A,int,[7,7]
 "q",B,int,[12,12]
-"a",slope(y=A+B),c,""
+"a",A,c,"",A is 9
 "a",A*1,i,""
 "a",A+0,i,""
 "a",A*0,i,""

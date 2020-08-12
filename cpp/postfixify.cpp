@@ -261,6 +261,7 @@ std::string replaceFunctions(std::string input_str){
 	
 	
 	query5["slope"]="slope";
+	query6["slopey"]="slopey";
 	
 	std::string twoChars = "..";
 	std::string threeChars = "...";
@@ -331,7 +332,43 @@ std::string replaceFunctions(std::string input_str){
 				twoChars = "..";
 				i+= replacements2[twoChars].length() - 2;
 			}
-		
+			else if (query6.find(sixChars) != query6.end()){
+				if (query6[sixChars] == "slopey"){ 
+					//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+					std::string inside = "";
+					std::string var = "";
+					int openPar = 0;
+					bool isVar = false;
+					int repLen = 6;
+					for (ii=i+1;ii<input_str.length();ii++){
+						repLen++;
+						if (input_str.at(ii) == '('){
+							openPar++;
+						}
+						else if (input_str.at(ii) == ')'){
+							openPar--;
+						}
+						else if (input_str.at(ii) == ';'){
+							isVar = true;
+						}
+						else if (isVar){
+							var += input_str.at(ii);
+						}
+						else {
+							inside += input_str.at(ii);
+						}
+				
+						if (openPar == 0){
+							break;
+						}
+					}
+					input_str.replace(i-5,repLen, "slopey"+solveStr + "("+inside+")");
+					sixChars = "......";
+					i += -6;
+					//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
+				}
+				
+			}
 			else if (query5.find(fiveChars) != query5.end()){
 				if (query5[fiveChars] == "slope"){ 
 					//std::cout << i << " : " << input_str << " 3chars: " << threeChars << '\n';
