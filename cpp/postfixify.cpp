@@ -251,8 +251,8 @@ std::string replaceFunctions(std::string input_str){
 	replacements3["abs"]+=abs;
 	
 	char element{-95};
-	query7[" in "]="";
-	query7[" in "]+=element;
+	query4[" in "]="";
+	query4[" in "]+=element;
 	
 	std::string twoChars = "..";
 	std::string threeChars = "...";
