@@ -1760,14 +1760,14 @@ bool getAnswerList(std::string s, int nSteps) {
 
 	std::string newPostfix = pfstr;
 
-	//std::cout << "npf1: "<< newPostfix << "\n";
+	std::cout << "npf1: "<< newPostfix << "\n";
 	newPostfix = removeBracketsOne(newPostfix);
-	//std::cout << "npf2: "<< newPostfix << "\n";
+	std::cout << "npf2: "<< newPostfix << "\n";
 	
 	//std::cout << s << " before pl\n";
 	auto a1 = std::chrono::high_resolution_clock::now();
 	std::vector<std::vector<Step>> someStrings = makeTree(newPostfix);
-	//std::cout << "npf3: "<< newPostfix << "\n";
+	std::cout << "npf3: "<< newPostfix << "\n";
 	
 	if (answerListMap.find(newPostfix) == answerListMap.end()){
 		if (answerIsFinished){
