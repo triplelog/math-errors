@@ -560,11 +560,11 @@ Number addTwo(Number numA, Number numB){
 			}
 		}
 		else if (numB.type == 1 || numB.type == -1){
-			n.type = 2; n.top = numB.top; n.bottom = "1";
+			n.type = 2 * numB.type; n.top = numB.top; n.bottom = "1";
 			return addTwo(n,numA);
 		}
 		else if (numB.type == 3 || numB.type == -3){
-			n.type = 2; n.top = numB.top; n.bottom = numB.bottom;
+			n.type = 2 * numB.type / 3; n.top = numB.top; n.bottom = numB.bottom;
 			return addTwo(n,numA);
 		}
 	}
@@ -592,7 +592,7 @@ Number addTwo(Number numA, Number numB){
 			n.type = 3 * n.type/2;
 		}
 		else if (numB.type == 1 || numB.type == -1){
-			n.type = 3; n.top = numB.top; n.bottom = "1";
+			n.type = 3 * numB.type; n.top = numB.top; n.bottom = "1";
 			return addTwo(n,numA);
 		}
 		else if (numB.type == 2 || numB.type == -2){
