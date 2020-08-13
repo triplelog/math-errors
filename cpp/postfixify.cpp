@@ -82,8 +82,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 				topToken = opStack[osidx];
 				
 			}
-			if (osidx == 0){previousOperand = true;}
-			else {previousOperand = false;}
+			previousOperand = true;
 			
 		}
 		else if (firstChar < 0 || firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '-' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
@@ -104,7 +103,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 			//	opStack[osidx] = '~';
 			//}
 			osidx++;
-			previousOperand = false;
+			previousOperand = true;
 		}
 		else {
 			postfixList[pfidx] = token;
