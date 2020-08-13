@@ -101,7 +101,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 			}
 			else if (firstChar == '-'){
 				std::cout << "infx: "<< infixexpr << "\n";
-				opStack[osidx] = '~';
+				opStack[osidx] = '-';
 			}
 			osidx++;
 			previousOperand = true;
