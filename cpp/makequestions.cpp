@@ -1735,6 +1735,7 @@ int maxSteps;
 
 bool foundOneAnswer;
 bool startedWrong;
+
 bool getAnswerList(std::string s, int nSteps) {
 	//std::cout << "s: "<< s << "\n";
 
@@ -1836,9 +1837,9 @@ bool getAnswerList(std::string s, int nSteps) {
 	
 	
 	for (ii=0;ii<allStrings.size();ii++){
-		//if (nSteps == 0){
-		//	std::cout << "next: " << allStrings[ii].next << "\n";
-		//}
+		if (nSteps == 0){
+			std::cout << "next: " << allStrings[ii].next << "\n";
+		}
 		if (allStrings[ii].next == newPostfix){
 			continue;
 		}
@@ -2179,7 +2180,7 @@ std::string fullAnswer(std::string s){
 	for (ii=0;ii<finishedAnswers.size();ii++){
 		//std::cout << "f: " << finishedAnswers[ii] << "\n";
 		if (doubleCheckAnswer(finishedAnswers[ii])){
-			std::cout << "cf: " << finishedAnswers[ii] << "\n";
+			//std::cout << "cf: " << finishedAnswers[ii] << "\n";
 			std::vector<Step> v = makeSolutionList(finishedAnswers[ii],newPostfix);
 			int vsz = v.size();
 			if (vsz > 0){
