@@ -72,11 +72,19 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 			osidx--;
 			
 			while (topToken != '('){
+				
+				osidx--;
+				if (topToken == '-' && osidx > 0){
+					topToken = '_';
+				}
+				else if (topToken == '-'){
+					topToken = '-';
+				}
 				std::string s(1,topToken);
 				postfixList[pfidx] = s;
 				pfidx++;
-				topToken = opStack[osidx-1];
-				osidx--;
+				topToken = opStack[osidx];
+				
 			}
 		}
 		else if (firstChar < 0 || firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '-' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
