@@ -74,7 +74,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 			while (topToken != '('){
 				
 				osidx--;
-				if (topToken == '-' && osidx > 0){
+				if (topToken == '-' && pfidx > 1){
 					topToken = '_';
 				}
 				else if (topToken == '-'){
@@ -92,7 +92,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 			while ((osidx > 0) && (prec[opStack[osidx-1]] >= prec[firstChar])){
 				topToken = opStack[osidx-1];
 				osidx--;
-				if (topToken == '-' && osidx > 0){
+				if (topToken == '-' && pfidx > 1){
 					topToken = '_';
 				}
 				else if (topToken == '-'){
@@ -114,7 +114,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 	while (osidx > 0){
 		topToken = opStack[osidx-1];
 		osidx--;
-		if (topToken == '-' && osidx > 0){
+		if (topToken == '-' && pfidx > 1){
 			topToken = '_';
 		}
 		else if (topToken == '-'){
