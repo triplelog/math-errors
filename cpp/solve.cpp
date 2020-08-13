@@ -140,8 +140,19 @@ std::string numberType(std::string input){
 		n.top = n.top+n.bottom;
 		int nbl = n.bottom.length();
 		n.bottom = "1";
+		int lastZero = -1;
 		for (ii=0;ii<nbl;ii++){
 			n.bottom += "0";
+			if (n.bottom.at(ii) != '0'){
+				lastZero = ii;
+			}
+		}
+		if (lastZero < nbl-1){
+			n.top = n.top.substr(0,n.top.length()-(nbl-1-lastZero));
+			n.bottom = n.bottom.substr(0,n.bottom.length()-(nbl-1-lastZero));
+		}
+		if (n.bottom == "1"){
+			n.type = 1;
 		}
 		numbers[input]=n;
 		return "dec";
@@ -694,9 +705,13 @@ Number expTwo(Number numA, Number numB){
 	if (numA.type == 1){
 		if (numB.type == 1){
 			n.type = 1;
-			int prod = std::stoi(numA.top);
-			prod *= std::stoi(numB.top);
-			n.top = std::to_string(prod);
+			double a = std::stoi(numA.top);
+			double b = std::stoi(numB.top);
+			std::string prod = std::to_string(pow(a,b));
+			if (numbers.find(prod) == numbers.end()){
+				numberType(prod);
+			}
+			n = numbers[prod];
 			return n;
 		}
 		else if (numB.type == -1){
