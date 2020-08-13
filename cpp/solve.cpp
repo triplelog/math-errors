@@ -161,6 +161,9 @@ std::string numberType(std::string input){
 	else if (currentType == "fra"){
 		n.type = 3;
 		numbers[input]=n;
+		if (n.bottom == "1"){
+			n.type = 1;
+		}
 		return "fra";
 	}
 	else if (currentType == "red"){
@@ -716,10 +719,36 @@ Number expTwo(Number numA, Number numB){
 			return n;
 		}
 		else if (numB.type == -1){
-			n.type = -1;
-			int prod = std::stoi(numA.top);
-			prod *= std::stoi(numB.top);
-			n.top = std::to_string(prod);
+			n.type = 1;
+			double a = std::stoi(numA.top);
+			double b = std::stoi(numB.top);
+			std::string prod = std::to_string(pow(a,b));
+			if (numbers.find(prod) == numbers.end()){
+				numberType(prod);
+			}
+			n = invertOne(numbers[prod]);
+			return n;
+		}
+		else if (numB.type == 2){
+			n.type = 2;
+			double a = std::stoi(numA.top);
+			double b = std::stod(numB.top) / std::stod(numB.bottom);
+			std::string prod = std::to_string(pow(a,b));
+			if (numbers.find(prod) == numbers.end()){
+				numberType(prod);
+			}
+			n = numbers[prod];
+			return n;
+		}
+		else if (numB.type == -2){
+			n.type = 2;
+			double a = std::stoi(numA.top);
+			double b = std::stod(numB.top) / std::stod(numB.bottom);
+			std::string prod = std::to_string(pow(a,b));
+			if (numbers.find(prod) == numbers.end()){
+				numberType(prod);
+			}
+			n = invertOne(numbers[prod]);
 			return n;
 		}
 	}
