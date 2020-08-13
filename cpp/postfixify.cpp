@@ -98,6 +98,9 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 			if (firstChar == '-' && previousOperand){
 				opStack[osidx] = '~';
 			}
+			else if (firstChar == '-'){
+				opStack[osidx] = '~';
+			}
 			osidx++;
 			previousOperand = false;
 		}
