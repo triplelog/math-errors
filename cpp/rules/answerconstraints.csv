@@ -68,7 +68,7 @@ A
 
 algebra.derivatives.power.0,"Power Rule"
 "Solve for x. $A*(x+7)+=(2*A)*x==(16*A)$?"
-x=3+3^4
+x=3+3^(-1.34)
 "<input name='A'></input>"
 A
 "a",x=B,c,""
