@@ -137,13 +137,14 @@ std::string numberType(std::string input){
 	}
 	else if (currentType == "dec"){
 		n.type = 2;
+		std::string nb = n.bottom;
 		n.top = n.top+n.bottom;
 		int nbl = n.bottom.length();
 		n.bottom = "1";
 		int lastZero = -1;
 		for (ii=0;ii<nbl;ii++){
 			n.bottom += "0";
-			if (n.bottom.at(ii) != '0'){
+			if (nb.at(ii) != '0'){
 				lastZero = ii;
 			}
 		}
