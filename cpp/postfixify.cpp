@@ -87,10 +87,13 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 				postfixList[pfidx] = s;
 				pfidx++;
 			}
-			opStack[osidx] = firstChar;
-			osidx++;
-			if (firstChar == '-' && osidx > 1){
-				opStack[osidx] = '+';
+			
+			if (firstChar == '-' && osidx > 0){
+				opStack[osidx] = '_';
+				osidx++;
+			}
+			else {
+				opStack[osidx] = firstChar;
 				osidx++;
 			}
 		}
@@ -112,7 +115,11 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 		
 		std::string ci = postfixList[i];
 		char firstChar = ci.at(0);
-		if (firstChar == '-'){
+		if (firstChar == '_'){
+			//expstr += "-";
+			expstr += "-+";
+		}
+		else if (firstChar == '-'){
 			//expstr += "-";
 			expstr += "-";
 		}
