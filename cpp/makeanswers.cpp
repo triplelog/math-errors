@@ -523,7 +523,7 @@ Question chooseQuestion(std::vector<RawQuestion> questions){
 	std::string val1;
 	std::string out;
 	answerConstraints.clear();
-	int i;
+	int i; int ii;
 	for (i=0;i<q.rawRules.size();i++){
 		Rule rule;
 
@@ -538,10 +538,12 @@ Question chooseQuestion(std::vector<RawQuestion> questions){
 		//TODO: add more constraint options
 	
 		if (q.rawRules[i].size()>4){
-			std::string constraint = constraintify(q.rawRules[i][4]);
-			std::string postfixed = postfixify(constraint);
-			//std::cout <<" postfixed " << postfixed << "\n";
-			rule.constraints.push_back(postfixed);
+			for (ii=4;ii<q.rawRules[i].size();ii++){
+				std::string constraint = constraintify(q.rawRules[i][ii]);
+				std::string postfixed = postfixify(constraint);
+				//std::cout <<" postfixed " << postfixed << "\n";
+				rule.constraints.push_back(postfixed);
+			}
 		}
 	
 	

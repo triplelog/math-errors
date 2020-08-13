@@ -76,10 +76,12 @@ void makeRules(std::string fileName){
 		//TODO: add more constraint options
 		
 		if (rawRules[i].size()>4){
-			std::string constraint = constraintify(rawRules[i][4]);
-			std::string postfixed = postfixify(constraint);
-			//std::cout <<" postfixed " << postfixed << "\n";
-			rule.constraints.push_back(postfixed);
+			for (ii=4;ii<rawRules[i].size();ii++){
+				std::string constraint = constraintify(rawRules[i][ii]);
+				std::string postfixed = postfixify(constraint);
+				//std::cout <<" postfixed " << postfixed << "\n";
+				rule.constraints.push_back(postfixed);
+			}
 		}
 		
 		rule.id = ridx;
