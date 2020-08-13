@@ -100,11 +100,10 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 				opStack[osidx] = '~';
 			}
 			else if (firstChar == '-'){
-				std::cout << "infx: "<< infixexpr << "\n";
 				opStack[osidx] = '-';
 			}
 			osidx++;
-			previousOperand = true;
+			previousOperand = false;
 		}
 		else {
 			postfixList[pfidx] = token;
@@ -162,7 +161,6 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 		}
 
 	}
-	std::cout << "expstr: "<< expstr << " and " << intstr << "\n";
 	return {expstr,intstr};
 
 
