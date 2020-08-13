@@ -804,6 +804,32 @@ Number expTwo(Number numA, Number numB){
 	return n;
 }
 
+Number logTwo(Number numA, Number numB){
+	int base = 10;
+	int neg = 1;
+	Number n;
+	if (numB.type <= 0 || numA.type <= 0){
+		return n;
+	}
+	if (numB.top == "0"){
+		return n;
+	}
+
+	if (numA.type == 1){
+		if (numB.type == 1){
+			n.type = 1;
+			double a = std::stoi(numA.top);
+			double b = std::stoi(numB.top);
+			std::string prod = std::to_string(log(b)/log(a));
+			if (numbers.find(prod) == numbers.end()){
+				numberType(prod);
+			}
+			n = numbers[prod];
+			return n;
+		}
+	}
+	return n;
+}
 
 
 Number solvePostfix(std::string postfix) {
@@ -872,6 +898,7 @@ Number solvePostfix(std::string postfix) {
 	            case '*': stack[currentIndex - 2] = mulTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break; 
 	            case '/': stack[currentIndex - 1] = invertOne(stack[currentIndex - 1]); currentIndex++; break;
 	            case '^': stack[currentIndex - 2] = expTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break;
+	            case -93: stack[currentIndex - 2] = logTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break;
 	            case '=': {
 	            	if (stack[currentIndex - 2] == stack[currentIndex - 1]){
 	            		Number nn;
