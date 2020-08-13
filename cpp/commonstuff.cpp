@@ -831,6 +831,7 @@ void initialRun(){
 	prec['/'] = 4;
 	prec['+'] = 3;
 	prec['-'] = 3;
+	prec['_'] = 3;
 	prec['>'] = 2;
 	prec['<'] = 2;
 	prec['='] = 2;
