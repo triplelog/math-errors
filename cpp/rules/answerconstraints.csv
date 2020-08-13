@@ -68,6 +68,18 @@ A
 
 algebra.derivatives.power.0,"Power Rule"
 "Solve for x. $A*(x+7)+=(2*A)*x==(16*A)$?"
+x=99*1/33
+"<input name='A'></input>"
+A
+"a",x=B,c,""
+"a",A*1,i,""
+"a",A+0,i,""
+"a",A*0,i,""
+"a",A^1,i,""
+"t",mc
+
+algebra.derivatives.power.0,"Power Rule"
+"Solve for x. $A*(x+7)+=(2*A)*x==(16*A)$?"
 A*(x+7)+=(2*A)*x==(16*A)
 "<input name='A'></input>"
 A
