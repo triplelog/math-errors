@@ -736,7 +736,7 @@ Number solvePostfix(std::string postfix) {
   	std::vector<Number> intArray;
   	std::string currentOperand = "";
   	Number n;
-  	std::cout << "pf: " << postfix << "\n";
+  	//std::cout << "pf: " << postfix << "\n";
   	if (numbers.find("") != numbers.end()){
 		numberType("");
 	}
@@ -771,7 +771,7 @@ Number solvePostfix(std::string postfix) {
 
     for (i=0; i<postfix.length(); i++) 
     { 
-    	std::cout << "pfi: " << i << "\n";
+    	//std::cout << "pfi: " << i << "\n";
         if (postfix.at(i) == '#') {
         	stack[currentIndex] = intArray[arrayIndex];
         	currentIndex++;
@@ -902,7 +902,7 @@ Number solvePostfix(std::string postfix) {
         } 
     } 
 	
-	std::cout << "pfb: " << postfix << " and " << stack[0].type << " and " << outputNumber(stack[0]) << "\n";
+	//std::cout << "pfb: " << postfix << " and " << stack[0].type << " and " << outputNumber(stack[0]) << "\n";
 	return stack[0];
 }
 
