@@ -38,7 +38,7 @@ A
 "a",A^1,i,""
 "t",mc
 
-algebra.derivatives.power.0,"Power Rule"
+prealgebra.derivatives.power.0,"Power Rule"
 "Slope of $y=3*x+4+5$?"
 slope(y=3*x+4+5)
 "<input name='A'></input>"
@@ -52,7 +52,7 @@ A
 "a",A^1,i,""
 "t",mc
 
-algebra.derivatives.power.0,"Power Rule"
+prealgebra.derivatives.power.0,"Power Rule"
 "Factor $x^2+A*x+B=0$?"
 x^2+A*x+B=0
 "<input name='A'></input>"
@@ -66,7 +66,7 @@ A
 "a",A^1,i,""
 "t",mc
 
-prealgebra.derivatives.power.0,"Power Rule"
+algebra.derivatives.power.0,"Power Rule"
 "Solve for x. $A*(x+7)+=(2*A)*x==(16*A)$?"
 A*(x+7)+=(2*A)*x==(16*A)
 "<input name='A'></input>"
