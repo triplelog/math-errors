@@ -81,29 +81,22 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 		}
 		else if (firstChar < 0 || firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '-' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
 			
-			if (firstChar == '-' && osidx > 0){
-				addChar = '_';
-			}
-			else if (firstChar == '-'){
-				addChar = '-';
-			}
-			
 			while ((osidx > 0) && (prec[opStack[osidx-1]] >= prec[firstChar])){
 				topToken = opStack[osidx-1];
 				osidx--;
+				if (topToken == '-' && osidx > 0){
+					topToken = '_';
+				}
+				else if (topToken == '-'){
+					topToken = '-';
+				}
 				std::string s(1,topToken);
 				postfixList[pfidx] = s;
 				pfidx++;
 			}
 			
-			if (firstChar == '-'){
-				opStack[osidx] = addChar;
-				osidx++;
-			}
-			else {
-				opStack[osidx] = firstChar;
-				osidx++;
-			}
+			opStack[osidx] = firstChar;
+			osidx++;
 		}
 		else {
 			postfixList[pfidx] = token;
@@ -113,6 +106,12 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 	while (osidx > 0){
 		topToken = opStack[osidx-1];
 		osidx--;
+		if (topToken == '-' && osidx > 0){
+			topToken = '_';
+		}
+		else if (topToken == '-'){
+			topToken = '-';
+		}
 		std::string s(1,topToken);
 		postfixList[pfidx] = s;
 		pfidx++;
