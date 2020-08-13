@@ -319,7 +319,7 @@ Number addTwo(Number numA, Number numB){
 	std::string revsum = "";
 	Number n;
 	int base = 10;
-
+	std::cout << "addTwo: " << outputNumber(numA) << " and " << outputNumber(numB) << "\n";
 	if (numA.type == 1){
 		if (numB.type == 1){
 			std::string a = numA.top;
