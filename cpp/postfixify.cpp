@@ -67,7 +67,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 		if (firstChar == '('){
 			opStack[osidx] = firstChar;
 			osidx++;
-			previousOperand = false;
+			previousOperand = true;
 		}
 		else if (firstChar == ')'){
 			topToken = opStack[osidx-1];
