@@ -2154,11 +2154,9 @@ std::vector<Step> makeIncorrectSolutionList(std::string s, std::string q){
 std::string fullAnswer(std::string s){
 	std::string newPostfix = removeBracketsOne(s);
 	std::cout << "\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
-	reverseMap.clear();
-	reverseMapCorrect.clear();
+	
 	auto a1 = std::chrono::high_resolution_clock::now();
-	foundOneAnswer = false;
-	startedWrong = false;
+	
 	//maxSteps = 5;
 	//getAnswerList(newPostfix,0);
 	maxSteps = 10;
@@ -2506,7 +2504,8 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		std::string a(*s);
 		dewey.rule = a;
 	}
-	
+	answerConstraints.clear();
+	constraintMap.clear();
 	std::vector<RawQuestion> qs = makeQuestions(dewey, "answerconstraints.csv");
 	currentQuestion = chooseQuestion(qs);
 	
@@ -2542,6 +2541,9 @@ void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	answerMap.clear();
 	reverseMap.clear();
 	reverseMapCorrect.clear();
+	unfinishedOptions.clear();
+	foundOneAnswer = false;
+	startedWrong = false;
 	maxSteps = 25;
 	
 	auto a1 = std::chrono::high_resolution_clock::now();
