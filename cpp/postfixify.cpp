@@ -59,7 +59,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 	
 	tokenList.resize(idx);
 	
-	
+	char addChar;
 	for (i=0;i<idx;i++){
 		std::string token = tokenList[i];
 		char firstChar = token.at(0);
@@ -80,6 +80,14 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 			}
 		}
 		else if (firstChar < 0 || firstChar == '^' || firstChar == '*' || firstChar == '+' || firstChar == '/' || firstChar == '-' || firstChar == '>' || firstChar == '<' || firstChar == '=' || firstChar == '!' || firstChar == '[' || firstChar == ']' || firstChar == '&' || firstChar == '|') {
+			
+			if (firstChar == '-' && osidx > 0){
+				addChar = '_';
+			}
+			else if (firstChar == '-'){
+				addChar = '-';
+			}
+			
 			while ((osidx > 0) && (prec[opStack[osidx-1]] >= prec[firstChar])){
 				topToken = opStack[osidx-1];
 				osidx--;
@@ -88,8 +96,8 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 				pfidx++;
 			}
 			
-			if (firstChar == '-' && osidx > 0){
-				opStack[osidx] = '_';
+			if (firstChar == '-'){
+				opStack[osidx] = addChar;
 				osidx++;
 			}
 			else {
