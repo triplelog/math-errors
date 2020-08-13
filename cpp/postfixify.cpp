@@ -89,6 +89,10 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 			}
 			opStack[osidx] = firstChar;
 			osidx++;
+			if (firstChar == '-' && osidx > 1){
+				opStack[osidx] = '+';
+				osidx++;
+			}
 		}
 		else {
 			postfixList[pfidx] = token;
@@ -110,7 +114,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 		char firstChar = ci.at(0);
 		if (firstChar == '-'){
 			//expstr += "-";
-			expstr += "-+";
+			expstr += "-";
 		}
 		else if (firstChar == '/'){
 			//expstr += "-";
