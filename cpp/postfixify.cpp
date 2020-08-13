@@ -99,9 +99,10 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 			if (firstChar == '-' && previousOperand){
 				opStack[osidx] = '~';
 			}
-			//else if (firstChar == '-'){
-			//	opStack[osidx] = '~';
-			//}
+			else if (firstChar == '-'){
+				std::cout << "infx: "<< infixexpr << "\n";
+				opStack[osidx] = '~';
+			}
 			osidx++;
 			previousOperand = true;
 		}
@@ -161,7 +162,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 		}
 
 	}
-	
+	std::cout << "expstr: "<< expstr << " and " << intstr << "\n";
 	return {expstr,intstr};
 
 
