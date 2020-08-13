@@ -804,7 +804,7 @@ Number expTwo(Number numA, Number numB){
 	return n;
 }
 
-Number logTwo(Number numA, Number numB){
+Number logTwo(Number numA, Number numB){ //numA is base and numB is inside part, of course
 	int base = 10;
 	int neg = 1;
 	Number n;
@@ -817,10 +817,94 @@ Number logTwo(Number numA, Number numB){
 
 	if (numA.type == 1){
 		if (numB.type == 1){
-			n.type = 1;
 			double a = std::stoi(numA.top);
 			double b = std::stoi(numB.top);
 			std::string prod = std::to_string(log(b)/log(a));
+			if (numbers.find(prod) == numbers.end()){
+				numberType(prod);
+			}
+			n = numbers[prod];
+			return n;
+		}
+		else if (numB.type == 2){
+			double a = std::stoi(numA.top);
+			double b = std::stod(numB.top) / std::stod(numB.bottom);
+			std::string prod = std::to_string(log(b)/log(a));
+			if (numbers.find(prod) == numbers.end()){
+				numberType(prod);
+			}
+			n = numbers[prod];
+			return n;
+		}
+		else if (numB.type == 3){
+			n.type = 1;
+			n.top = numB.top;
+			Number nb;
+			nb.type = 1;
+			nb.top = numB.bottom;
+			return addTwo(logTwo(numA,n),negateOne(logTwo(numA,nb)));
+		}
+	}
+	else if (numA.type == 2){
+		if (numB.type == 1){
+			double a = std::stod(numA.top) / std::stod(numA.bottom);
+			double b = std::stoi(numB.top);
+			std::string prod = std::to_string(log(b)/log(a));
+			if (numbers.find(prod) == numbers.end()){
+				numberType(prod);
+			}
+			n = numbers[prod];
+			return n;
+		}
+		else if (numB.type == 2){
+			double a = std::stod(numA.top) / std::stod(numA.bottom);
+			double b = std::stod(numB.top) / std::stod(numB.bottom);
+			std::string prod = std::to_string(log(b)/log(a));
+			if (numbers.find(prod) == numbers.end()){
+				numberType(prod);
+			}
+			n = numbers[prod];
+			return n;
+		}
+		else if (numB.type == 3){
+			double a = std::stod(numA.top) / std::stod(numA.bottom);
+			double b = std::stod(numB.top) / std::stod(numB.bottom);
+			std::string prod = std::to_string(log(b)/log(a));
+			if (numbers.find(prod) == numbers.end()){
+				numberType(prod);
+			}
+			n = numbers[prod];
+			return n;
+		}
+	}
+	else if (numA.type == 3){
+		if (numB.type == 1){
+			double a = std::stoi(numA.top);
+			double aa = std::stoi(numA.bottom);
+			double b = std::stoi(numB.top);
+			std::string prod = std::to_string(log(b)/(log(a)-log(aa)));
+			if (numbers.find(prod) == numbers.end()){
+				numberType(prod);
+			}
+			n = numbers[prod];
+			return n;
+		}
+		else if (numB.type == 2){
+			double a = std::stod(numA.top) / std::stod(numA.bottom);
+			double b = std::stod(numB.top) / std::stod(numB.bottom);
+			std::string prod = std::to_string(log(b)/log(a));
+			if (numbers.find(prod) == numbers.end()){
+				numberType(prod);
+			}
+			n = numbers[prod];
+			return n;
+		}
+		else if (numB.type == 3){
+			double a = std::stoi(numA.top);
+			double aa = std::stoi(numA.bottom);
+			double b = std::stoi(numB.top);
+			double bb = std::stoi(numB.bottom);
+			std::string prod = std::to_string((log(b)-log(bb))/(log(a)-log(aa)));
 			if (numbers.find(prod) == numbers.end()){
 				numberType(prod);
 			}
