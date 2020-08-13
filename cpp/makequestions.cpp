@@ -80,7 +80,7 @@ std::vector<std::vector<Step>> makeTree(std::string pfstr){
 	}
 	
 	
-	//std::cout << "before third: " << pfstr << "\n";
+	std::cout << "before third: " << pfstr << "\n";
 
 	
 	for (i=0;i<pfstr.length();i++){
@@ -526,6 +526,7 @@ std::vector<std::vector<Step>> makeTree(std::string pfstr){
 						
 					//std::thread th2(apply2,secondS[iii] + pfstr.at(i) + '@' + secondT[iii],tempV,pfstr,isCorrect);
 					//th2.join();
+					std::cout << "step info2: " << secondS[iii] + pfstr.at(i) + '@' + secondT[iii] << "\n";
 					std::vector<Step> someStringsC = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,true);
 					std::vector<Step> someStringsI = applyRulesVectorOnePart(secondS[iii] + pfstr.at(i) + '@' + secondT[iii],{startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength},pfstr,false);
 					
