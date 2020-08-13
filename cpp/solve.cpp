@@ -446,7 +446,7 @@ Number addTwo(Number numA, Number numB){
 					nb.top = numB.top;
 					n.type = 1;
 					n.top = numA.top;
-					for (i=0;i<blenDiff;i++){
+					for (i=0;i<-1*blenDiff;i++){
 						nb.top += "0";
 					}
 					n = addTwo(n,nb);
@@ -513,7 +513,7 @@ Number addTwo(Number numA, Number numB){
 					nb.top = numB.top;
 					n.type = 1;
 					n.top = numA.top;
-					for (i=0;i<blenDiff;i++){
+					for (i=0;i<-1*blenDiff;i++){
 						nb.top += "0";
 					}
 					n = addTwo(n,nb);
@@ -561,11 +561,11 @@ Number addTwo(Number numA, Number numB){
 		}
 		else if (numB.type == 1 || numB.type == -1){
 			n.type = 2 * numB.type; n.top = numB.top; n.bottom = "1";
-			return addTwo(n,numA);
+			return addTwo(numA,n);
 		}
 		else if (numB.type == 3 || numB.type == -3){
 			n.type = 2 * numB.type / 3; n.top = numB.top; n.bottom = numB.bottom;
-			return addTwo(n,numA);
+			return addTwo(numA,n);
 		}
 	}
 	else if (numA.type == 3){
