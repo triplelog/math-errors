@@ -821,6 +821,7 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 #include "makenumbers.cpp"
 bool firstCorrect;
 void initialRun(){
+	prec['~'] = 101;
 	prec['#'] = 100;
 	int i;
 	for (i=-128;i<0;i++){
@@ -831,7 +832,6 @@ void initialRun(){
 	prec['/'] = 4;
 	prec['+'] = 3;
 	prec['-'] = 3;
-	prec['~'] = 3;
 	prec['>'] = 2;
 	prec['<'] = 2;
 	prec['='] = 2;
