@@ -705,7 +705,7 @@ Number expTwo(Number numA, Number numB){
 	int base = 10;
 	int neg = 1;
 	Number n;
-	//TODO: implement exponentiation instead of multiplication
+	std::cout << "exp1: " << outputNumber(numA) << " ^ " << outputNumber(numB) <<"\n";
 	if (numA.type == 1){
 		if (numB.type == 1){
 			n.type = 1;
@@ -742,6 +742,7 @@ Number expTwo(Number numA, Number numB){
 		}
 		else if (numB.type == -2){
 			n.type = 2;
+			std::cout << "exp2: " << outputNumber(numA) << " ^ " << outputNumber(numB) <<"\n";
 			double a = std::stoi(numA.top);
 			double b = std::stod(numB.top) / std::stod(numB.bottom);
 			std::string prod = std::to_string(pow(a,b));
