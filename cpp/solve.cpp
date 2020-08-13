@@ -704,6 +704,12 @@ Number expTwo(Number numA, Number numB){
 	int base = 10;
 	int neg = 1;
 	Number n;
+	if (numB.type < 0){
+		n.type = -1*numB.type;
+		n.top = numB.top;
+		n.bottom = numB.bottom;
+		return invertOne(expTwo(numA,n));
+	}
 	if (numA.type == 1){
 		if (numB.type == 1){
 			n.type = 1;
@@ -714,17 +720,6 @@ Number expTwo(Number numA, Number numB){
 				numberType(prod);
 			}
 			n = numbers[prod];
-			return n;
-		}
-		else if (numB.type == -1){
-			n.type = 1;
-			double a = std::stoi(numA.top);
-			double b = std::stoi(numB.top);
-			std::string prod = std::to_string(pow(a,b));
-			if (numbers.find(prod) == numbers.end()){
-				numberType(prod);
-			}
-			n = invertOne(numbers[prod]);
 			return n;
 		}
 		else if (numB.type == 2){
@@ -738,34 +733,73 @@ Number expTwo(Number numA, Number numB){
 			n = numbers[prod];
 			return n;
 		}
-		else if (numB.type == -2){
+	}
+	else if (numA.type == 2){
+		if (numB.type == 1){
+			n.type = 1;
+			double a = std::stod(numA.top) / std::stod(numA.bottom);
+			double b = std::stoi(numB.top);
+			std::string prod = std::to_string(pow(a,b));
+			if (numbers.find(prod) == numbers.end()){
+				numberType(prod);
+			}
+			n = numbers[prod];
+			return n;
+		}
+		else if (numB.type == 2){
 			n.type = 2;
-			//std::cout << "exp2: " << outputNumber(numA) << " ^ " << outputNumber(numB) <<"\n";
-			double a = std::stoi(numA.top);
+			double a = std::stod(numA.top) / std::stod(numA.bottom);
 			double b = std::stod(numB.top) / std::stod(numB.bottom);
 			std::string prod = std::to_string(pow(a,b));
 			if (numbers.find(prod) == numbers.end()){
 				numberType(prod);
 			}
-			n = invertOne(numbers[prod]);
+			n = numbers[prod];
 			return n;
 		}
 	}
-	else if (numA.type == -1){
+	else if (numA.type < 0){
 		if (numB.type == 1){
-			n.type = -1;
-			int prod = std::stoi(numA.top);
-			prod *= std::stoi(numB.top);
-			n.top = std::to_string(prod);
+			char lastDigit = numB.top.at(numB.top.length()-1);
+			if (lastDigit == '0' || lastDigit == '2' || lastDigit == '4' || lastDigit == '6' || lastDigit == '8'){
+				n.type = -1*numA.type;
+				n.top = numA.top;
+				n.bottom = numA.bottom;
+				return expTwo(n,numB);
+			}
+			else {
+				n.type = -1*numA.type;
+				n.top = numA.top;
+				n.bottom = numA.bottom;
+				return negateOne(expTwo(n,numB));
+			}
+		}
+		else if (numB.type == 2){
 			return n;
 		}
-		else if (numB.type == -1){
-			n.type = 1;
-			int prod = std::stoi(numA.top);
-			prod *= std::stoi(numB.top);
-			n.top = std::to_string(prod);
-			return n;
+		else if (numB.type == 3){
+			char lastDigitB = numB.bottom.at(numB.bottom.length()-1);
+			if (lastDigitB == '0' || lastDigitB == '2' || lastDigitB == '4' || lastDigitB == '6' || lastDigitB == '8'){
+				return n;
+			}
+			else {
+				char lastDigit = numB.top.at(numB.top.length()-1);
+				if (lastDigit == '0' || lastDigit == '2' || lastDigit == '4' || lastDigit == '6' || lastDigit == '8'){
+					n.type = -1*numA.type;
+					n.top = numA.top;
+					n.bottom = numA.bottom;
+					return expTwo(n,numB);
+				}
+				else {
+					n.type = -1*numA.type;
+					n.top = numA.top;
+					n.bottom = numA.bottom;
+					return negateOne(expTwo(n,numB));
+				}
+			}
 		}
+		
+
 	}
 	return n;
 }
