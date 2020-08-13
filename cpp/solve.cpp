@@ -388,7 +388,12 @@ Number addTwo(Number numA, Number numB){
 				revsum += std::to_string(charSum);
 			}
 			std::string sum = "";
+			bool pastZero = false;
 			for (i=revsum.length()-1;i>=0;i--){
+				if (!pastZero){
+					if (revsum.at(i) == '0'){continue;}
+					else {pastZero = true;}
+				}
 				sum += revsum.at(i);
 			}
 			if (numbers.find(sum) == numbers.end()){
