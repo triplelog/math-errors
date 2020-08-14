@@ -923,8 +923,21 @@ Number trigTwo(char fn, Number numA){ //numA is base and numB is inside part, of
 		return n;
 	}
 
-	if (numA.type == 1){
-		double a = std::stoi(numA.top);
+	if (numA.type == 1 || numA.type == -1){
+		double a = std::stoi(numA.top) * numA.type;
+		std::string prod;
+		if (fn == -64){
+			prod = std::to_string(sin(a));
+		} 
+		if (numbers.find(prod) == numbers.end()){
+			numberType(prod);
+		}
+		n = numbers[prod];
+		return n;
+	}
+	else if (numA.type == 2 || numA.type == 3 || numA.type == -2 || numA.type == -3){
+		double a = std::stod(numA.top) / std::stod(numA.bottom);
+		if (numA.type < 0){a *= -1;}
 		std::string prod;
 		if (fn == -64){
 			prod = std::to_string(sin(a));
