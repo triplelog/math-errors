@@ -179,6 +179,9 @@ bool solveConstraintFix(std::string input){
 		else if (a.type != 0 && std::stoi(operandList[firstIdx]) == 9){
 			return true;
 		}
+		else if (a.type > 10 && std::stoi(operandList[firstIdx]) == 10){
+			return true;
+		}
 		return false;
 	}
 	else if (lastOp == -110){ //is not--secondExp must be single operand
@@ -198,6 +201,9 @@ bool solveConstraintFix(std::string input){
 			return false;
 		}
 		else if (a.type != 0 && std::stoi(operandList[firstIdx]) == 9){
+			return false;
+		}
+		else if (a.type > 10 && std::stoi(operandList[firstIdx]) == 10){
 			return false;
 		}
 		return true;
@@ -238,19 +244,6 @@ std::string constraintify(std::string input){
 			tempStr = "..........";
 		}
 	}
-	tempStr = "....";
-	char isc{-111};
-	std::string iss = "";
-	iss += isc;
-	for (i=0;i<input.length();i++){
-		tempStr += input.at(i);
-		tempStr.replace(0,1,"");
-		if (tempStr == " is "){
-			input.replace(i-3,4,iss);
-			i -= 3;
-			tempStr = "....";
-		}
-	}
 	tempStr = "........";
 	char isnc{-110};
 	std::string isns = "";
@@ -265,14 +258,14 @@ std::string constraintify(std::string input){
 		}
 	}
 	tempStr = "....";
-	char inc{-95};
-	std::string ins = "";
-	ins += inc;
+	char isc{-111};
+	std::string iss = "";
+	iss += isc;
 	for (i=0;i<input.length();i++){
 		tempStr += input.at(i);
 		tempStr.replace(0,1,"");
-		if (tempStr == " in "){
-			input.replace(i-3,4,ins);
+		if (tempStr == " is "){
+			input.replace(i-3,4,iss);
 			i -= 3;
 			tempStr = "....";
 		}
@@ -290,6 +283,20 @@ std::string constraintify(std::string input){
 			tempStr = "........";
 		}
 	}
+	tempStr = "....";
+	char inc{-95};
+	std::string ins = "";
+	ins += inc;
+	for (i=0;i<input.length();i++){
+		tempStr += input.at(i);
+		tempStr.replace(0,1,"");
+		if (tempStr == " in "){
+			input.replace(i-3,4,ins);
+			i -= 3;
+			tempStr = "....";
+		}
+	}
+	
 	std::cout << "contraintified: " << input << "\n";
 	return input;
 }
