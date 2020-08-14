@@ -22,6 +22,13 @@ std::string numberType(std::string input){
 		numbers[""]=n;
 		return "string";
 	}
+	if (input == "\\\\pi"){
+		n.type = 11;
+		n.top = "1";
+		n.bottom = "pi";
+		numbers[input]=n;
+		return "num";
+	}
 	
 	
 	if (input.at(0) == '-'){
@@ -641,6 +648,14 @@ Number mulTwo(const Number numA, const Number numB){
 			n = reduceFraction(n);
 			return n;
 		}
+		else if (numB.type == 11){
+			Number nn;
+			nn = mulTwo(numA,numbers[numB.top]);
+			n.type = 11;
+			n.top = outputNumber(nn);
+			n.bottom = numB.bottom;
+			return n;
+		}
 	}
 	else if (numA.type == 2){
 		if (numB.type == 1 || numB.type == -1){
@@ -929,6 +944,15 @@ Number trigTwo(char fn, const Number numA){ //numA is base and numB is inside pa
 	else if (numA.type == 2 || numA.type == 3 || numA.type == -2 || numA.type == -3){
 		a = std::stod(numA.top) / std::stod(numA.bottom);
 	}
+	else if (numA.type == 11){
+		if (numA.bottom == "pi"){
+			n = numbers[numA.top];
+			if (n.type == 1 || n.type == -1){
+				if (fn == -64){return numbers["0"];}
+			}
+			//TODO: compute exact value of trig functions of multiples of pi
+		}
+	}
 	else {
 		return n;
 	}
@@ -1065,6 +1089,8 @@ Number roundOne(const Number numA){
 	
 	return n;
 }
+
+
 flat_hash_map<std::string,Number> solvedPostfixMap;
 Number solvePostfix(std::string postfix) {
 	if (solvedPostfixMap.find(postfix) != solvedPostfixMap.end()){
@@ -1086,6 +1112,9 @@ Number solvePostfix(std::string postfix) {
 	}
 	if (numbers.find("1") != numbers.end()){
 		numberType("1");
+	}
+	if (numbers.find("0") != numbers.end()){
+		numberType("0");
 	}
   	for (i=0; i<postfix.length(); i++) 
     {
