@@ -945,12 +945,19 @@ Number trigTwo(char fn, const Number numA){ //numA is base and numB is inside pa
 		a = std::stod(numA.top) / std::stod(numA.bottom);
 	}
 	else if (numA.type == 11){
+		std::cout << "n1: " << outputNumber(numA) << " and " << numB.top << "\n";
 		if (numA.bottom == "pi"){
 			n = numbers[numA.top];
 			if (n.type == 1 || n.type == -1){
 				if (fn == -64){return numbers["0"];}
 			}
+			else {
+				return n;
+			}
 			//TODO: compute exact value of trig functions of multiples of pi
+		}
+		else {
+			return n;
 		}
 	}
 	else {
