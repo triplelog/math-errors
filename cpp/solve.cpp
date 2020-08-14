@@ -922,33 +922,31 @@ Number trigTwo(char fn, Number numA){ //numA is base and numB is inside part, of
 	if (numA.type == 0){
 		return n;
 	}
-
+	double a;
 	if (numA.type == 1 || numA.type == -1){
-		double a = std::stoi(numA.top) * numA.type;
-		std::string prod;
-		if (fn == -64){
-			prod = std::to_string(sin(a));
-		} 
-		if (numbers.find(prod) == numbers.end()){
-			numberType(prod);
-		}
-		n = numbers[prod];
-		return n;
+		a = std::stoi(numA.top);
 	}
 	else if (numA.type == 2 || numA.type == 3 || numA.type == -2 || numA.type == -3){
-		double a = std::stod(numA.top) / std::stod(numA.bottom);
-		if (numA.type < 0){a *= -1;}
-		std::string prod;
-		if (fn == -64){
-			prod = std::to_string(sin(a));
-		} 
-		if (numbers.find(prod) == numbers.end()){
-			numberType(prod);
-		}
-		n = numbers[prod];
+		a = std::stod(numA.top) / std::stod(numA.bottom);
+	}
+	else {
 		return n;
 	}
+
+	std::string prod = "";
+	if (fn == -64){prod = std::to_string(sin(a));}
+	else if (fn == -63){prod = std::to_string(cos(a));} 
+	else if (fn == -62){double ca = cos(a); if (ca != 0){prod = std::to_string(sin(a)/ca);}} 
+	else if (fn == -61){double sa = sin(a); if (sa != 0){prod = std::to_string(1.0/sa);}} 
+	else if (fn == -60){double ca = cos(a); if (ca != 0){prod = std::to_string(1.0/ca);}} 
+	else if (fn == -59){double sa = sin(a); if (sa != 0){prod = std::to_string(cos(a)/sa);}} 
+	
+	if (numbers.find(prod) == numbers.end()){
+		numberType(prod);
+	}
+	n = numbers[prod];
 	return n;
+
 }
 
 Number solvePostfix(std::string postfix) {
@@ -1019,6 +1017,11 @@ Number solvePostfix(std::string postfix) {
 	            case '^': stack[currentIndex - 2] = expTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break;
 	            case -93: stack[currentIndex - 2] = logTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break;
 	            case -64: stack[currentIndex - 1] = trigTwo(-64,stack[currentIndex - 1]); currentIndex++; break;
+	            case -63: stack[currentIndex - 1] = trigTwo(-63,stack[currentIndex - 1]); currentIndex++; break;
+	            case -62: stack[currentIndex - 1] = trigTwo(-62,stack[currentIndex - 1]); currentIndex++; break;
+	            case -61: stack[currentIndex - 1] = trigTwo(-61,stack[currentIndex - 1]); currentIndex++; break;
+	            case -60: stack[currentIndex - 1] = trigTwo(-60,stack[currentIndex - 1]); currentIndex++; break;
+	            case -59: stack[currentIndex - 1] = trigTwo(-59,stack[currentIndex - 1]); currentIndex++; break;
 	            case '=': {
 	            	if (stack[currentIndex - 2] == stack[currentIndex - 1]){
 	            		Number nn;
