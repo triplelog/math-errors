@@ -949,6 +949,74 @@ Number trigTwo(char fn, Number numA){ //numA is base and numB is inside part, of
 
 }
 
+Number invTrigTwo(char fn, Number numA){ //numA is base and numB is inside part, of course
+	int base = 10;
+	int neg = 1;
+	Number n;
+	if (numA.type == 0){
+		return n;
+	}
+	double a;
+	if (numA.type == 1 || numA.type == -1){
+		a = std::stoi(numA.top);
+	}
+	else if (numA.type == 2 || numA.type == 3 || numA.type == -2 || numA.type == -3){
+		a = std::stod(numA.top) / std::stod(numA.bottom);
+	}
+	else {
+		return n;
+	}
+
+	std::string prod = "";
+	if (fn == -32){prod = std::to_string(asin(a));}
+	else if (fn == -31){prod = std::to_string(acos(a));} 
+	//else if (fn == -30){double ca = cos(a); if (ca != 0){prod = std::to_string(sin(a)/ca);}} 
+	//else if (fn == -29){double sa = sin(a); if (sa != 0){prod = std::to_string(1.0/sa);}} 
+	//else if (fn == -28){double ca = cos(a); if (ca != 0){prod = std::to_string(1.0/ca);}} 
+	//else if (fn == -27){double sa = sin(a); if (sa != 0){prod = std::to_string(cos(a)/sa);}} 
+	
+	if (numbers.find(prod) == numbers.end()){
+		numberType(prod);
+	}
+	n = numbers[prod];
+	return n;
+
+}
+
+Number hypTrigTwo(char fn, Number numA){ //numA is base and numB is inside part, of course
+	int base = 10;
+	int neg = 1;
+	Number n;
+	if (numA.type == 0){
+		return n;
+	}
+	double a;
+	if (numA.type == 1 || numA.type == -1){
+		a = std::stoi(numA.top);
+	}
+	else if (numA.type == 2 || numA.type == 3 || numA.type == -2 || numA.type == -3){
+		a = std::stod(numA.top) / std::stod(numA.bottom);
+	}
+	else {
+		return n;
+	}
+
+	std::string prod = "";
+	if (fn == -16){prod = std::to_string(sinh(a));}
+	else if (fn == -15){prod = std::to_string(cosh(a));} 
+	//else if (fn == -14){double ca = cos(a); if (ca != 0){prod = std::to_string(sin(a)/ca);}} 
+	//else if (fn == -13){double sa = sin(a); if (sa != 0){prod = std::to_string(1.0/sa);}} 
+	//else if (fn == -12){double ca = cos(a); if (ca != 0){prod = std::to_string(1.0/ca);}} 
+	//else if (fn == -11){double sa = sin(a); if (sa != 0){prod = std::to_string(cos(a)/sa);}} 
+	
+	if (numbers.find(prod) == numbers.end()){
+		numberType(prod);
+	}
+	n = numbers[prod];
+	return n;
+
+}
+
 Number solvePostfix(std::string postfix) {
 	int i;
   	int currentIndex = 0;
@@ -1022,6 +1090,18 @@ Number solvePostfix(std::string postfix) {
 	            case -61: stack[currentIndex - 1] = trigTwo(-61,stack[currentIndex - 1]); currentIndex++; break;
 	            case -60: stack[currentIndex - 1] = trigTwo(-60,stack[currentIndex - 1]); currentIndex++; break;
 	            case -59: stack[currentIndex - 1] = trigTwo(-59,stack[currentIndex - 1]); currentIndex++; break;
+	            case -32: stack[currentIndex - 1] = invTrigTwo(-32,stack[currentIndex - 1]); currentIndex++; break;
+	            case -31: stack[currentIndex - 1] = invTrigTwo(-31,stack[currentIndex - 1]); currentIndex++; break;
+	            case -30: stack[currentIndex - 1] = invTrigTwo(-30,stack[currentIndex - 1]); currentIndex++; break;
+	            case -29: stack[currentIndex - 1] = invTrigTwo(-29,stack[currentIndex - 1]); currentIndex++; break;
+	            case -28: stack[currentIndex - 1] = invTrigTwo(-28,stack[currentIndex - 1]); currentIndex++; break;
+	            case -27: stack[currentIndex - 1] = invTrigTwo(-27,stack[currentIndex - 1]); currentIndex++; break;
+	            case -16: stack[currentIndex - 1] = hypTrigTwo(-16,stack[currentIndex - 1]); currentIndex++; break;
+	            case -15: stack[currentIndex - 1] = hypTrigTwo(-15,stack[currentIndex - 1]); currentIndex++; break;
+	            case -14: stack[currentIndex - 1] = hypTrigTwo(-14,stack[currentIndex - 1]); currentIndex++; break;
+	            case -13: stack[currentIndex - 1] = hypTrigTwo(-13,stack[currentIndex - 1]); currentIndex++; break;
+	            case -12: stack[currentIndex - 1] = hypTrigTwo(-12,stack[currentIndex - 1]); currentIndex++; break;
+	            case -11: stack[currentIndex - 1] = hypTrigTwo(-11,stack[currentIndex - 1]); currentIndex++; break;
 	            case '=': {
 	            	if (stack[currentIndex - 2] == stack[currentIndex - 1]){
 	            		Number nn;
