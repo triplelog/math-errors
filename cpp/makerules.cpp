@@ -81,7 +81,7 @@ void makeRules(std::string fileName){
 			for (ii=4;ii<rawRules[i].size();ii++){
 				std::string constraint = constraintify(rawRules[i][ii]);
 				std::string postfixed = postfixify(constraint);
-				//std::cout <<" postfixed " << postfixed << "\n";
+				std::cout <<" constraint postfixed " << postfixed << "\n";
 				rule.constraints.push_back(postfixed);
 			}
 		}
