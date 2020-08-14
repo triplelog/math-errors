@@ -143,7 +143,7 @@ std::vector<std::string> makePostVector(char infixexpr[]) {
 		else {
 			
 			if (ci == "pi" || ci == "Pi" || ci == "PI"){
-				intstr += "\\\\pi";
+				intstr += "pi";
 			}
 			else if (ci == "alpha"){
 				intstr += "\\\\alpha";

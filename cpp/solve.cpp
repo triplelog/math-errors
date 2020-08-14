@@ -22,11 +22,23 @@ std::string numberType(std::string input){
 		numbers[""]=n;
 		return "string";
 	}
-	if (input == "\\\\pi"){
+	if (input == "pi"){
 		n.type = 11;
 		n.top = "1";
 		n.bottom = "pi";
 		numbers[input]=n;
+		std::cout << "n1: " << outputNumber(n) << "\n";
+		return "num";
+	}
+	else if (input.length()>2 && input.at(input.length()-2) == 'p' && input.at(input.length()-1) == 'i'){
+		n.type = 11;
+		if (numbers.find(input.substr(0,input.length()-2)) == numbers.end()){
+			numberType(input.substr(0,input.length()-2));
+		}
+		n.top = outputNumber(numbers[input.substr(0,input.length()-2)]);
+		n.bottom = "pi";
+		numbers[input]=n;
+		std::cout << "n2: " << outputNumber(n) << "\n";
 		return "num";
 	}
 	
@@ -289,6 +301,9 @@ std::string outputNumber(Number n){
 	}
 	else if (n.type == -3){
 		return "-"+n.top + "/"+n.bottom;
+	}
+	else if (n.type == 11){
+		return n.top + n.bottom;
 	}
 	return "";
 }
@@ -945,7 +960,7 @@ Number trigTwo(char fn, const Number numA){ //numA is base and numB is inside pa
 		a = std::stod(numA.top) / std::stod(numA.bottom);
 	}
 	else if (numA.type == 11){
-		std::cout << "n1: " << outputNumber(numA) << " and " << numB.top << "\n";
+		std::cout << "n3: " << outputNumber(numA) << " and " << numA.top << " and " << numA.bottom << "\n";
 		if (numA.bottom == "pi"){
 			n = numbers[numA.top];
 			if (n.type == 1 || n.type == -1){
