@@ -172,6 +172,7 @@ bool solveConstraintFix(std::string input){
 			numberType(operandList[0]);
 		}
 		Number a = numbers[operandList[0]];
+		std::cout << "at: " << a.type << " and " << operandList[firstIdx] << " and " << operandList[0] << "\n";
 		if (a.type == std::stoi(operandList[firstIdx])){
 			return true;
 		}
