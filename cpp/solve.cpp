@@ -1016,8 +1016,11 @@ Number hypTrigTwo(char fn, Number numA){ //numA is base and numB is inside part,
 	return n;
 
 }
-
+flat_hash_map<std::string,Number> solvedPostfixMap;
 Number solvePostfix(std::string postfix) {
+	if (solvedPostfixMap.find(postfix) != solvedPostfixMap.end()){
+		return solvedPostfixMap[postfix];
+	}
 	int i;
   	int currentIndex = 0;
   	int arrayIndex = 0;
@@ -1038,6 +1041,7 @@ Number solvePostfix(std::string postfix) {
   	for (i=0; i<postfix.length(); i++) 
     {
     	if (postfix.at(i) == '{'){
+    		solvedPostfixMap[postfix] = n;
     		return n;
     	}
     	else if (postfix.at(i) == '@') {
@@ -1198,7 +1202,7 @@ Number solvePostfix(std::string postfix) {
 	            		break;
 	            	}
 	            }
-	            default: n.type = 0; return n;
+	            default: n.type = 0; solvedPostfixMap[postfix] = n; return n;
 	            //case '!': stack[currentIndex - 2] = stack[currentIndex - 2] != stack[currentIndex - 1]; break;
 	            //case '%': stack[currentIndex - 2] = stack[currentIndex - 2] % stack[currentIndex - 1]; break; 
 	            //case '&': stack[currentIndex - 2].w = (stack[currentIndex - 2].w + stack[currentIndex - 1].w > 1) ? 1 : 0; stack[currentIndex - 2].t = (stack[currentIndex - 2].t == 'B' && stack[currentIndex - 1].t == 'B') ? 'B' : 'N'; break; 
@@ -1211,6 +1215,7 @@ Number solvePostfix(std::string postfix) {
     } 
 	
 	//std::cout << "pfb: " << postfix << " and " << stack[0].type << " and " << outputNumber(stack[0]) << "\n";
+	solvedPostfixMap[postfix] = stack[0];
 	return stack[0];
 }
 
