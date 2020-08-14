@@ -146,9 +146,9 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 							openPar--;
 							pastInsideKey = false;
 							if (!isArithmetic){continue;}
-							std::cout << "ipf1: " << insidePostfix << "\n";
+							//std::cout << "ipf1: " << insidePostfix << "\n";
 							Number opResult = solvePostfix(insidePostfix);
-							std::cout << "ipf2: " << outputNumber(opResult) << "\n";
+							//std::cout << "ipf2: " << outputNumber(opResult) << "\n";
 							
 							if (opResult.type == 0){
 								//std::cout << "ipf2or: \n";
