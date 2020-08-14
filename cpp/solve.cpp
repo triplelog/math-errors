@@ -1129,16 +1129,16 @@ Number solvePostfix(std::string postfix) {
   	std::string currentOperand = "";
   	Number n;
   	//std::cout << "pf: " << postfix << "\n";
-  	if (numbers.find("") != numbers.end()){
+  	if (numbers.find("") == numbers.end()){
 		numberType("");
 	}
-	if (numbers.find("-1") != numbers.end()){
+	if (numbers.find("-1") == numbers.end()){
 		numberType("-1");
 	}
-	if (numbers.find("1") != numbers.end()){
+	if (numbers.find("1") == numbers.end()){
 		numberType("1");
 	}
-	if (numbers.find("0") != numbers.end()){
+	if (numbers.find("0") == numbers.end()){
 		numberType("0");
 	}
   	for (i=0; i<postfix.length(); i++) 
