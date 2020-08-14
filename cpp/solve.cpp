@@ -964,7 +964,10 @@ Number trigTwo(char fn, const Number numA){ //numA is base and numB is inside pa
 		if (numA.bottom == "pi"){
 			n = numbers[numA.top];
 			if (n.type == 1 || n.type == -1){
-				if (fn == -64){return numbers["0"];}
+				if (fn == -64){
+					std::cout << "n4: " << outputNumber(numbers["0"]) << "\n";
+					return numbers["0"];
+				}
 			}
 			else {
 				return n;
