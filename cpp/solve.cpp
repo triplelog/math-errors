@@ -1045,6 +1045,22 @@ Number roundOne(const Number numA){
 		n = numA;
 		return n;
 	}
+	else if (numA.type == 2 || numA.type == -2 || numA.type == 3 || numA.type == -3){
+		double a = std::stod(numA.top) / std::stod(numA.bottom);
+		int aa = round(a);
+		Number n;
+		if (aa < 0){
+			n.type = -1;
+			n.top = std::to_string(aa*-1);
+			n.bottom = "1";
+		}
+		else {
+			n.type = 1;
+			n.top = std::to_string(aa);
+			n.bottom = "1";
+		}
+		return n;
+	}
 	
 	
 	return n;
