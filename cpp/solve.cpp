@@ -1,4 +1,4 @@
-Number mulTwo(Number numA, Number numB);
+Number mulTwo(const Number numA, const Number numB);
 std::vector<int> factorList(Number n){
 	std::vector<int> list;
 	if (n.type != 1 && n.type != 1){
@@ -196,14 +196,14 @@ std::string numberType(std::string input){
 	return "string";
 }
 
-Number negateOne(Number numA){
+Number negateOne(const Number numA){
 	Number n;
 	n.type = -1*numA.type;
 	n.top = numA.top;
 	n.bottom = numA.bottom;
 	return n;
 }
-Number invertOne(Number numA){
+Number invertOne(const Number numA){
 	Number n;
 	if (numA.type == 0){
 		n.type = 0; return n;
@@ -285,7 +285,7 @@ std::string outputNumber(Number n){
 	}
 	return "";
 }
-Number reduceFraction(Number numA){
+Number reduceFraction(const Number numA){
 	int a = std::stoi(numA.top);
 	int b = std::stoi(numA.bottom);
 	std::vector<int> primes = {2,3,5,7,11,13,17,19,23,29};
@@ -315,7 +315,7 @@ Number reduceFraction(Number numA){
 	return n;
 	
 }
-Number addTwo(Number numA, Number numB){
+Number addTwo(const Number numA, const Number numB){
 	std::string revsum = "";
 	Number n;
 	int base = 10;
@@ -612,7 +612,7 @@ Number addTwo(Number numA, Number numB){
 
 }
 
-Number mulTwo(Number numA, Number numB){
+Number mulTwo(const Number numA, const Number numB){
 	int base = 10;
 	int neg = 1;
 	Number n;
@@ -700,7 +700,7 @@ Number mulTwo(Number numA, Number numB){
 	return n;
 }
 
-Number expTwo(Number numA, Number numB){
+Number expTwo(const Number numA, const Number numB){
 	int base = 10;
 	int neg = 1;
 	Number n;
@@ -804,7 +804,7 @@ Number expTwo(Number numA, Number numB){
 	return n;
 }
 
-Number logTwo(Number numA, Number numB){ //numA is base and numB is inside part, of course
+Number logTwo(const Number numA, const Number numB){ //numA is base and numB is inside part, of course
 	int base = 10;
 	int neg = 1;
 	Number n;
@@ -915,7 +915,7 @@ Number logTwo(Number numA, Number numB){ //numA is base and numB is inside part,
 	return n;
 }
 
-Number trigTwo(char fn, Number numA){ //numA is base and numB is inside part, of course
+Number trigTwo(char fn, const Number numA){ //numA is base and numB is inside part, of course
 	int base = 10;
 	int neg = 1;
 	Number n;
@@ -949,7 +949,7 @@ Number trigTwo(char fn, Number numA){ //numA is base and numB is inside part, of
 
 }
 
-Number invTrigTwo(char fn, Number numA){ //numA is base and numB is inside part, of course
+Number invTrigTwo(char fn, const Number numA){ //numA is base and numB is inside part, of course
 	int base = 10;
 	int neg = 1;
 	Number n;
@@ -968,12 +968,29 @@ Number invTrigTwo(char fn, Number numA){ //numA is base and numB is inside part,
 	}
 
 	std::string prod = "";
-	if (fn == -32){prod = std::to_string(asin(a));}
-	else if (fn == -31){prod = std::to_string(acos(a));} 
-	//else if (fn == -30){double ca = cos(a); if (ca != 0){prod = std::to_string(sin(a)/ca);}} 
-	//else if (fn == -29){double sa = sin(a); if (sa != 0){prod = std::to_string(1.0/sa);}} 
-	//else if (fn == -28){double ca = cos(a); if (ca != 0){prod = std::to_string(1.0/ca);}} 
-	//else if (fn == -27){double sa = sin(a); if (sa != 0){prod = std::to_string(cos(a)/sa);}} 
+	if (fn == -32){
+		if (a > 1 || a < -1) {return n;}
+		prod = std::to_string(asin(a));
+	}
+	else if (fn == -31){
+		if (a > 1 || a < -1) {return n;}
+		prod = std::to_string(acos(a));
+	}
+	else if (fn == -30){
+		prod = std::to_string(atan(a));
+	}
+	else if (fn == -29){
+		if (a < 1 && a > -1) {return n;}
+		prod = std::to_string(asin(1.0/a));
+	}
+	else if (fn == -28){
+		if (a < 1 && a > -1) {return n;}
+		prod = std::to_string(acos(1.0/a));
+	}
+	else if (fn == -27){
+		if (a == 0) {return n;}
+		prod = std::to_string(atan(1.0/a));
+	}
 	
 	if (numbers.find(prod) == numbers.end()){
 		numberType(prod);
@@ -983,7 +1000,7 @@ Number invTrigTwo(char fn, Number numA){ //numA is base and numB is inside part,
 
 }
 
-Number hypTrigTwo(char fn, Number numA){ //numA is base and numB is inside part, of course
+Number hypTrigTwo(char fn, const Number numA){ //numA is base and numB is inside part, of course
 	int base = 10;
 	int neg = 1;
 	Number n;
@@ -1004,10 +1021,10 @@ Number hypTrigTwo(char fn, Number numA){ //numA is base and numB is inside part,
 	std::string prod = "";
 	if (fn == -16){prod = std::to_string(sinh(a));}
 	else if (fn == -15){prod = std::to_string(cosh(a));} 
-	//else if (fn == -14){double ca = cos(a); if (ca != 0){prod = std::to_string(sin(a)/ca);}} 
-	//else if (fn == -13){double sa = sin(a); if (sa != 0){prod = std::to_string(1.0/sa);}} 
-	//else if (fn == -12){double ca = cos(a); if (ca != 0){prod = std::to_string(1.0/ca);}} 
-	//else if (fn == -11){double sa = sin(a); if (sa != 0){prod = std::to_string(cos(a)/sa);}} 
+	else if (fn == -14){double ca = cosh(a); if (ca != 0){prod = std::to_string(sinh(a)/ca);}} 
+	else if (fn == -13){double sa = sinh(a); if (sa != 0){prod = std::to_string(1.0/sa);}} 
+	else if (fn == -12){double ca = cosh(a); if (ca != 0){prod = std::to_string(1.0/ca);}} 
+	else if (fn == -11){double sa = sinh(a); if (sa != 0){prod = std::to_string(cosh(a)/sa);}} 
 	
 	if (numbers.find(prod) == numbers.end()){
 		numberType(prod);
@@ -1015,6 +1032,22 @@ Number hypTrigTwo(char fn, Number numA){ //numA is base and numB is inside part,
 	n = numbers[prod];
 	return n;
 
+}
+
+Number roundOne(const Number numA){
+	int base = 10;
+	int neg = 1;
+	Number n;
+	if (numA.type == 0){
+		return n;
+	}
+	if (numA.type == 1 || numA.type == -1){
+		n = numA;
+		return n;
+	}
+	
+	
+	return n;
 }
 flat_hash_map<std::string,Number> solvedPostfixMap;
 Number solvePostfix(std::string postfix) {
@@ -1088,6 +1121,7 @@ Number solvePostfix(std::string postfix) {
 	            case '/': stack[currentIndex - 1] = invertOne(stack[currentIndex - 1]); currentIndex++; break;
 	            case '^': stack[currentIndex - 2] = expTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break;
 	            case -93: stack[currentIndex - 2] = logTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break;
+	            case -82: stack[currentIndex - 1] = roundOne(stack[currentIndex - 1]); currentIndex++; break;
 	            case -64: stack[currentIndex - 1] = trigTwo(-64,stack[currentIndex - 1]); currentIndex++; break;
 	            case -63: stack[currentIndex - 1] = trigTwo(-63,stack[currentIndex - 1]); currentIndex++; break;
 	            case -62: stack[currentIndex - 1] = trigTwo(-62,stack[currentIndex - 1]); currentIndex++; break;
