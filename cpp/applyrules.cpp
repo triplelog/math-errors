@@ -264,7 +264,6 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 					pastKey = false;
 					std::string constraintFix = "";
 					currentOperand = "";
-					std::cout << "key: " << key << "\n";
 					for (iii=0;iii<rule.constraints[iiii].length();iii++){
 						if (pastKey){
 							if (rule.constraints[iiii].at(iii) == '_'){
@@ -292,7 +291,6 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 							constraintFix += rule.constraints[iiii].at(iii);
 						}
 					}
-					std::cout << "cf: " << constraintFix << "\n";
 					bool isAllowed = true;
 					if (constraintMap.find(constraintFix) != constraintMap.end()){
 						isAllowed = constraintMap[constraintFix];
