@@ -146,7 +146,7 @@ std::vector<std::string> outputTree(Step step){
 				std::cout << "right node: " << fullStr << "\n";
 			}
 			else {
-				std::cout << "wrong node: " << fullStr << "\n";
+				std::cout << "wrong node: " << fullStr << " and " << i << " and " << step.startNode << "\n";
 			}
 			
 			//Parent Node
