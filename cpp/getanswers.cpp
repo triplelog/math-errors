@@ -281,6 +281,8 @@ std::vector<std::string> outputTree(Step stepS,Step stepE){
 			operandMap[i]=std::to_string(idx);
 			
 			std::string name = "node"+std::to_string(treeIdx);
+			if (i==stepS.startNode){startNode = name;}
+			if (i==stepE.endNode){endNode = name;}
 			treeIdx++;
 			nodeList["#@" + std::to_string(idx) + "_"] = {name,"","#"};
 			orderedKeyList.push_back("#@" + std::to_string(idx) + "_");
