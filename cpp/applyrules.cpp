@@ -1,3 +1,67 @@
+std::vector<int> removeBracketsList(std::vector<int> nodes, std::string input) {
+	flat_hash_map<int,int> operandToIndex;
+	int iii; int iiii;
+	bool foundBracket = false;
+	bool foundAt = false;
+	int idx = 0;
+	int iidx = 0;
+	std::vector<std::string> bracketStrings;
+	std::string tempString = "";
+	int bracketLength = 0;
+	int secondIndex;
+	char mychar;
+	int len = input.length();
+	for (iii=0;iii<len;iii++){
+		mychar = input.at(iii);
+		if (mychar == '{'){
+			foundBracket = true;
+			bracketLength = 1;
+			secondIndex = iii;
+		}
+		else if (mychar == '}') {
+			bracketStrings.push_back(tempString);
+			bracketLength++;
+			break;
+		}
+		else if (mychar == '#' && !foundBracket) {
+			operandToIndex[idx]=iii;
+			idx++;
+		}
+		else if (mychar == '_' && !foundBracket) {
+			iidx++;
+		}
+		else if (mychar == '@' && !foundBracket) {
+			foundAt = true;
+		}
+		else if (mychar == '@' && foundBracket) {
+			//tempString += input.at(iii);
+			bracketStrings.push_back(tempString);
+			tempString = "";
+			bracketLength++;
+		}
+		else if (foundBracket){
+			tempString += mychar;
+			bracketLength++;
+		}
+	}
+	if (!foundBracket){
+		return nodes;
+	}
+	
+	int firstIndex = operandToIndex[iidx];
+	//std::cout << input << " --a\n";
+	input.replace(secondIndex,bracketLength+1,bracketStrings[1]);
+	//std::cout << input << " --b\n";
+	input.replace(firstIndex,1,bracketStrings[0]);
+	nodes.push_back(firstIndex);
+	nodes.push_back(bracketStrings[0].length());
+	//std::cout << input << " --c\n";
+	return removeBracketsList(nodes,input);
+	
+	
+	
+}
+
 std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> oneIndex, std::string userFullString, bool isCorrect) {
 	auto a1 = std::chrono::high_resolution_clock::now();
 	int iii; int iiii;
@@ -334,8 +398,9 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 
 
 				if (tempTemp != userFullString){
-					tempTemp = removeBracketsOne(tempTemp);
-
+					
+					std::vector<int> v = removeBracketsList({},tempTemp);
+					
 					Step step;
 					step.next = tempTemp;
 					step.rule = rule.id;

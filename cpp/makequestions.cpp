@@ -278,10 +278,8 @@ std::vector<std::vector<Step>> makeTree(std::string pfstr){
 				ftSz++;
 				
 				
-				
 				//50 ms to here from recent continue
 
-				
 				
 				for (ii=0;ii<fss;ii++){
 					nFirst = listMap[firstListMapKey][ii*5+2];
