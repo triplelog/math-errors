@@ -142,7 +142,12 @@ std::vector<std::string> outputTree(Step step){
 			}
 
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
-			
+			if (i==step.startNode){
+				std::cout << "right node: " << fullStr << "\n";
+			}
+			else {
+				std::cout << "wrong node: " << fullStr << "\n";
+			}
 			
 			//Parent Node
 			std::string opStr = "";
