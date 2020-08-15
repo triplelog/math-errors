@@ -257,6 +257,9 @@
 					var node = document.createElement('li');
 					var span = document.createElement('span');
 					span.classList.add("tf-nc");
+					if (nodes[name].special){
+						span.classList.add("specialNode");
+					}
 					span.textContent = text;
 					node.appendChild(span);
 				
