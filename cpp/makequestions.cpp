@@ -2243,7 +2243,7 @@ std::string fullAnswer(std::string s){
 	std::cout << "total answers: "<< totalAnswers << "\n";
 	//duration2 += std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
 	std::cout << "\n\nCompleted the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
-	int i; int ii; int iii;
+	int i; int ii; int iii; int iiii;
 	
 	a1 = std::chrono::high_resolution_clock::now();
 	std::cout << "finished answers: " << finishedAnswers.size() << "\n";
@@ -2378,7 +2378,33 @@ std::string fullAnswer(std::string s){
 		int vsz = v.size();
 		for (iii=0;iii<vsz;iii++){
 			outStr += v[iii].next+","+std::to_string(v[iii].rule)+","+std::to_string(v[iii].startNode)+","+std::to_string(v[iii].endNode)+",";
+			outStr += "\"";
+			for (iiii=0;iiii<v[iii].startNodes.size();iiii++){
+				outStr += std::to_string(v[iii].startNodes[iiii]);
+				if (iiii<v[iii].startNodes.size()-1){
+					outStr += ",";
+				}
+				else {
+					outStr += "\",";
+				}
+			}
+			if (v[iii].startNodes.size()==0){
+				outStr += "\",";
+			}
 			
+			outStr += "\"";
+			for (iiii=0;iiii<v[iii].endNodes.size();iiii++){
+				outStr += std::to_string(v[iii].endNodes[iiii]);
+				if (iiii<v[iii].endNodes.size()-1){
+					outStr += ",";
+				}
+				else {
+					outStr += "\",";
+				}
+			}
+			if (v[iii].endNodes.size()==0){
+				outStr += "\",";
+			}
 		}
 		myfile << outStr +"\n";
 		
