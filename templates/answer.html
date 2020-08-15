@@ -258,10 +258,10 @@
 					var span = document.createElement('span');
 					span.classList.add("tf-nc");
 					if (nodes[name].startNode){
-						node.querySelector('span').classList.add("startNode");
+						span.classList.add("startNode");
 					}
 					if (nodes[name].endNode){
-						node.querySelector('span').classList.add("endNode");
+						span.classList.add("endNode");
 					}
 					span.textContent = text;
 					node.appendChild(span);
