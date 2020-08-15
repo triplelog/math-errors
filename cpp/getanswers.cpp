@@ -36,7 +36,7 @@ using phmap::flat_hash_map;
 
 
 std::vector<std::string> outputTree(Step stepS,Step stepE){
-	std::string pfstr = step.next;
+	std::string pfstr = stepS.next;
 	std::vector<std::string> treeOptions;
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,std::string> operandMap;
