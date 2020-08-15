@@ -35,7 +35,7 @@ using phmap::flat_hash_map;
 #include "solve.cpp"
 
 
-std::vector<std::string> outputTree(Step step){
+std::vector<std::string> outputTree(Step stepS,Step stepE){
 	std::string pfstr = step.next;
 	std::vector<std::string> treeOptions;
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
@@ -44,7 +44,8 @@ std::vector<std::string> outputTree(Step step){
 	std::vector<std::string> finalList;
 	std::vector<std::string> orderedKeyList;
 	flat_hash_map<std::string,std::vector<std::string>> nodeList;
-	std::string specialNode = "";
+	std::string startNode = "";
+	std::string endNode = "";
 	
     
     
@@ -149,7 +150,8 @@ std::vector<std::string> outputTree(Step step){
 			std::string opStr = "";
 			opStr += pfstr.at(i);
 			std::string name = "node"+std::to_string(treeIdx);
-			if (i==step.startNode){specialNode = name;}
+			if (i==stepS.startNode){startNode = name;}
+			if (i==stepE.endNode){endNode = name;}
 			treeIdx++;
 			std::string parent = "";
 			std::string nodeText = fullStr;
@@ -347,8 +349,11 @@ std::vector<std::string> outputTree(Step step){
 		if (latexMap.find(name) != latexMap.end()){
 			std::string outText = "nodes[\""+name + "\"] = {text:";
 			outText += "\"" + latexMap[name] + "\",";
-			if (name == specialNode){
-				outText += "special: true,";
+			if (name == startNode){
+				outText += "startNode: true,";
+			}
+			else if (name == endNode){
+				outText += "endNode: true,";
 			}
 			outText += "op: \"" + nodeList[orderedKeyList[ii]][2] + "\",";
 			outText += "parent: \""+ parent + "\"};\n";
@@ -817,7 +822,13 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	for (i=0;i<bestSolution.size();i++){
 		std::cout << "bs: " << bestSolution[i].next << "\n";
 		std::cout << "bsr: " << bestSolution[i].rule << "\n";
-		outputTree(bestSolution[i]);
+		if (i>0){
+			outputTree(bestSolution[i],bestSolution[i-1]);
+		}
+		else {
+			outputTree(bestSolution[i],bestSolution[i]);
+		}
+		
 	}
 	
 	
