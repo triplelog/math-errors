@@ -1115,6 +1115,46 @@ Number roundOne(const Number numA){
 	return n;
 }
 
+Number rootNth(const Number numA, const Number numB){
+	int base = 10;
+	int neg = 1;
+	Number n;
+
+	if (numA.type == 1){
+		int a = std::stoi(numA.top);
+		double b;
+		if (numB.type == 1){
+			b = std::stoi(numB.top);
+		}
+		else if (numB.type == 2 || numB.type == 3){
+			b = std::stod(numB.top) / std::stod(numB.bottom);
+		}
+		else if (numB.type < 0){
+			if (a%2 == 0){n.type = 0; return n;}
+			else {
+				return negateOne(rootNth(numA,negateOne(numB)));
+			}
+		}
+		double aa = 1.0;
+		aa /= a;
+		std::string prod = std::to_string(pow(b,aa));
+		if (numbers.find(prod) == numbers.end()){
+			numberType(prod);
+		}
+		n = numbers[prod];
+		return n;
+	}
+
+	return n;
+	
+}
+
+Number sqrtOne(const Number numA){
+	if (numbers.find("2") == numbers.end()){
+		numberType("2");
+	}
+	return rootNth(numbers["2"],numA);
+}
 
 flat_hash_map<std::string,Number> solvedPostfixMap;
 Number solvePostfix(std::string postfix) {
@@ -1191,7 +1231,9 @@ Number solvePostfix(std::string postfix) {
 	            case '/': stack[currentIndex - 1] = invertOne(stack[currentIndex - 1]); currentIndex++; break;
 	            case '^': stack[currentIndex - 2] = expTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break;
 	            case -93: stack[currentIndex - 2] = logTwo(stack[currentIndex - 2],stack[currentIndex - 1]); break;
+	            case -84: stack[currentIndex - 2] = rootNth(stack[currentIndex - 2],stack[currentIndex - 1]); break;
 	            case -82: stack[currentIndex - 1] = roundOne(stack[currentIndex - 1]); currentIndex++; break;
+	            case -67: stack[currentIndex - 1] = sqrtOne(stack[currentIndex - 1]); currentIndex++; break;
 	            case -64: stack[currentIndex - 1] = trigTwo(-64,stack[currentIndex - 1]); currentIndex++; break;
 	            case -63: stack[currentIndex - 1] = trigTwo(-63,stack[currentIndex - 1]); currentIndex++; break;
 	            case -62: stack[currentIndex - 1] = trigTwo(-62,stack[currentIndex - 1]); currentIndex++; break;
