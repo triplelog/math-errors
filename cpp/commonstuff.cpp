@@ -52,6 +52,9 @@ struct Rule {
 struct Step {
 	std::string next = "";
 	int rule;
+	int startNode;
+	int endNode;
+	
 };
 struct Answer {
 	bool finished = false;

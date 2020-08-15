@@ -35,7 +35,8 @@ using phmap::flat_hash_map;
 #include "solve.cpp"
 
 
-std::vector<std::string> outputTree(std::string pfstr){
+std::vector<std::string> outputTree(Step step){
+	std::string pfstr = step.next;
 	std::vector<std::string> treeOptions;
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,std::string> operandMap;
@@ -809,7 +810,7 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	for (i=0;i<bestSolution.size();i++){
 		std::cout << "bs: " << bestSolution[i].next << "\n";
 		std::cout << "bsr: " << bestSolution[i].rule << "\n";
-		outputTree(bestSolution[i].next);
+		outputTree(bestSolution[i]);
 	}
 	
 	

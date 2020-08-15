@@ -339,6 +339,8 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 					Step step;
 					step.next = tempTemp;
 					step.rule = rule.id;
+					step.startNode = oneIndex[0]+oneIndex[1];
+					step.endNode = oneIndex[0]+newPostfixFirst.length();
 					
 					allStrings.push_back(step);
 				}
