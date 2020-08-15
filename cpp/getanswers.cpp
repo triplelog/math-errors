@@ -507,10 +507,12 @@ void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			}
 			answer.solution.resize(0);
 			for (ii=3;ii<rawAnswer.size();ii++){
-				if (ii%2 == 0){
+				if (ii%4 == 2){
 					Step step;
-					step.next = rawAnswer[ii-1];
-					step.rule = std::stoi(rawAnswer[ii]);
+					step.next = rawAnswer[ii-3];
+					step.rule = std::stoi(rawAnswer[ii-2]);
+					step.startNode = std::stoi(rawAnswer[ii-1]);
+					step.endNode = std::stoi(rawAnswer[ii]);
 					answer.solution.push_back(step);
 				}
 			}

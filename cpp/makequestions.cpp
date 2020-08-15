@@ -1826,6 +1826,8 @@ bool getAnswerList(std::string s, int nSteps) {
 			Step step;
 			step.next = someStrings[0][iii].next;
 			step.rule = someStrings[0][iii].rule;
+			step.startNode = someStrings[0][iii].startNode;
+			step.endNode = someStrings[0][iii].endNode;
 			allStrings.push_back(step);
 			uniqueStrings[someStrings[0][iii].next]=true;
 		}
@@ -1862,6 +1864,8 @@ bool getAnswerList(std::string s, int nSteps) {
 			Step step;
 			step.next = newPostfix;
 			step.rule = allStrings[ii].rule;
+			step.startNode = allStrings[ii].endNode;
+			step.endNode = allStrings[ii].startNode;
 			reverseMapCorrect[allStrings[ii].next]={step};
 		}
 		else if (isClose){
@@ -1878,6 +1882,8 @@ bool getAnswerList(std::string s, int nSteps) {
 					Step step;
 					step.next = newPostfix;
 					step.rule = allStrings[ii].rule;
+					step.startNode = allStrings[ii].endNode;
+					step.endNode = allStrings[ii].startNode;
 					reverseMapCorrect[allStrings[ii].next].push_back(step);
 				}
 			
@@ -1886,6 +1892,8 @@ bool getAnswerList(std::string s, int nSteps) {
 				Step step;
 				step.next = newPostfix;
 				step.rule = allStrings[ii].rule;
+				step.startNode = allStrings[ii].endNode;
+				step.endNode = allStrings[ii].startNode;
 				reverseMapCorrect[allStrings[ii].next]={step};
 
 			}
@@ -1907,6 +1915,8 @@ bool getAnswerList(std::string s, int nSteps) {
 			Step step;
 			step.next = someStrings[1][iii].next;
 			step.rule = someStrings[1][iii].rule;
+			step.startNode = someStrings[1][iii].startNode;
+			step.endNode = someStrings[1][iii].endNode;
 			allStrings.push_back(step);
 			uniqueStrings[someStrings[1][iii].next]=true;
 		}
@@ -1937,6 +1947,8 @@ bool getAnswerList(std::string s, int nSteps) {
 			Step step;
 			step.next = newPostfix;
 			step.rule = allStrings[ii].rule;
+			step.startNode = allStrings[ii].endNode;
+			step.endNode = allStrings[ii].startNode;
 			reverseMap[allStrings[ii].next].push_back(step);
 			
 		}
@@ -1944,6 +1956,8 @@ bool getAnswerList(std::string s, int nSteps) {
 			Step step;
 			step.next = newPostfix;
 			step.rule = allStrings[ii].rule;
+			step.startNode = allStrings[ii].endNode;
+			step.endNode = allStrings[ii].startNode;
 			reverseMap[allStrings[ii].next]={step};
 
 		}
@@ -1969,6 +1983,8 @@ std::vector<Step> makeSolutionList(std::string s, std::string q){
 		Step step;
 		step.next = s;
 		step.rule = -1;
+		step.startNode = 0;
+		step.endNode = 0;
 		v = {step};
 		if (unfinishedOptions.find(s) == unfinishedOptions.end()){
 			unfinishedOptions[s]=true;
@@ -1982,6 +1998,8 @@ std::vector<Step> makeSolutionList(std::string s, std::string q){
 			Step step;
 			step.next = "";
 			step.rule = -1;
+			step.startNode = 0;
+			step.endNode = 0;
 			correctSolutionList[s]={step};
 		}
 		
@@ -2007,6 +2025,8 @@ std::vector<Step> makeSolutionList(std::string s, std::string q){
 	int minSize = 100000; int l; int idx = 0;
 	std::vector<Step> minV;
 	int ruleApp;
+	int startApp;
+	int endApp;
 	for (i=0;i<sv.size();i++){
 		if (correctSolutionList.find(sv[i].next) != correctSolutionList.end()){
 			if (correctSolutionList[sv[i].next].size()==1 && correctSolutionList[sv[i].next][0].next == ""){
@@ -2024,6 +2044,8 @@ std::vector<Step> makeSolutionList(std::string s, std::string q){
 			minSize = l;
 			minV = correctSolutionList[sv[i].next];
 			ruleApp = sv[i].rule;
+			startApp = sv[i].endNode;
+			endApp = sv[i].startNode;
 		}
 	}
 	if (minSize == 100000){
@@ -2036,6 +2058,8 @@ std::vector<Step> makeSolutionList(std::string s, std::string q){
 	for (i=0;i<minSize;i++){
 		if (i==minSize-1){
 			minV[i].rule = ruleApp;
+			minV[i].startNode = startApp;
+			minV[i].endNode = endApp;
 		}
 		if (unfinishedOptions.find(minV[i].next) == unfinishedOptions.end()){
 			unfinishedOptions[minV[i].next]=true;
@@ -2045,6 +2069,8 @@ std::vector<Step> makeSolutionList(std::string s, std::string q){
 	Step step;
 	step.next = s;
 	step.rule = -1;
+	step.startNode = 0;
+	step.endNode = 0;
 	if (unfinishedOptions.find(s) == unfinishedOptions.end()){
 		unfinishedOptions[s]=true;
 	}
@@ -2063,6 +2089,8 @@ std::vector<Step> makeIncorrectSolutionList(std::string s, std::string q){
 		Step step;
 		step.next = s;
 		step.rule = -1;
+		step.startNode = 0;
+		step.endNode = 0;
 		v = {step};
 		if (unfinishedOptions.find(s) == unfinishedOptions.end()){
 			unfinishedOptions[s]=true;
@@ -2075,6 +2103,8 @@ std::vector<Step> makeIncorrectSolutionList(std::string s, std::string q){
 		Step step;
 		step.next = "";
 		step.rule = -1;
+		step.startNode = 0;
+		step.endNode = 0;
 		incorrectSolutionList[s]={step};
 	}
 	if (reverseMap.find(s) != reverseMap.end()){
@@ -2098,6 +2128,8 @@ std::vector<Step> makeIncorrectSolutionList(std::string s, std::string q){
 	int minSize = 100000; int l; int idx = 0;
 	std::vector<Step> minV;
 	int ruleApp;
+	int startApp;
+	int endApp;
 	for (i=0;i<sv.size();i++){
 		//std::cout << "i: " << i << " and " << sv[i*2] << "\n";
 		if (incorrectSolutionList.find(sv[i].next) != incorrectSolutionList.end()){
@@ -2116,6 +2148,8 @@ std::vector<Step> makeIncorrectSolutionList(std::string s, std::string q){
 			minSize = l;
 			minV = incorrectSolutionList[sv[i].next];
 			ruleApp = sv[i].rule;
+			startApp = sv[i].endNode;
+			endApp = sv[i].startNode;
 		}
 	}
 	if (minSize == 100000){
@@ -2134,6 +2168,8 @@ std::vector<Step> makeIncorrectSolutionList(std::string s, std::string q){
 	for (i=0;i<minSize;i++){
 		if (i==minSize-1){
 			minV[i].rule = ruleApp;
+			minV[i].startNode = startApp;
+			minV[i].endNode = endApp;
 		}
 		if (unfinishedOptions.find(minV[i].next) == unfinishedOptions.end()){
 			unfinishedOptions[minV[i].next]=true;
@@ -2143,6 +2179,8 @@ std::vector<Step> makeIncorrectSolutionList(std::string s, std::string q){
 	Step step;
 	step.next = s;
 	step.rule = -1;
+	step.startNode = 0;
+	step.endNode = 0;
 	if (unfinishedOptions.find(s) == unfinishedOptions.end()){
 		unfinishedOptions[s]=true;
 	}
@@ -2303,7 +2341,7 @@ std::string fullAnswer(std::string s){
 		std::vector<Step> v = iter->second.solution;
 		int vsz = v.size();
 		for (iii=0;iii<vsz;iii++){
-			outStr += v[iii].next+","+std::to_string(v[iii].rule)+",";
+			outStr += v[iii].next+","+std::to_string(v[iii].rule)+","+std::to_string(v[iii].startNode)+","+std::to_string(v[iii].endNode)+",";
 		}
 		myfile << outStr +"\n";
 		
@@ -2334,7 +2372,7 @@ std::string fullAnswer(std::string s){
 }
 
 bool getOneAnswer(std::string s, int nSteps, std::string oquestion) {
-
+	//TODO: make this up-to-date with fullanswer
 	if (nSteps > maxFound){
 		maxFound = nSteps;
 	}
