@@ -37,6 +37,12 @@ using phmap::flat_hash_map;
 
 std::vector<std::string> outputTree(Step stepS,Step stepE){
 	std::string pfstr = stepS.next;
+	std::cout << "pfstr: " << pfstr << " and ";
+	int i; int ii; int iii;
+	for (i=0;i<stepS.startNodes.size();i++){
+		std::cout << stepS.startNodes[i] << " ; ";
+	}
+	std::cout << "\n";
 	std::vector<std::string> treeOptions;
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,std::string> operandMap;
@@ -49,7 +55,7 @@ std::vector<std::string> outputTree(Step stepS,Step stepE){
 	
     
     
-	int i; int ii; int iii;
+	
 	int idx =0;
 	bool startOperands = false;
 	std::string currentOperator = "";
@@ -483,7 +489,7 @@ void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	rapidcsv::Document doc("testanswer.txt", rapidcsv::LabelParams(-1, -1));
 	
 	int nRows = doc.GetRowCount();
-	int i; int ii;
+	int i; int ii; int iii;
 	
 	std::cout << "Rows: " << nRows << "\n";
 	std::string q;
@@ -520,8 +526,34 @@ void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 					step.rule = std::stoi(rawAnswer[ii-4]);
 					step.startNode = std::stoi(rawAnswer[ii-3]);
 					step.endNode = std::stoi(rawAnswer[ii-2]);
-					//step.startNodes = std::stoi(rawAnswer[ii-1]);
-					//step.endNodes = std::stoi(rawAnswer[ii]);
+					step.startNodes = {};
+					std::string currentNode = "";
+					for (iii=0;iii<rawAnswer[ii-1].length();iii++){
+						if (rawAnswer[ii-1].at(iii) == ','){
+							step.startNodes.push_back(std::stoi(currentNode));
+							currentNode = "";
+						}
+						else {
+							currentNode += rawAnswer[ii-1].at(iii);
+						}
+					}
+					if (currentNode.length()>0){
+						step.startNodes.push_back(std::stoi(currentNode));
+					}
+					
+					currentNode = "";
+					for (iii=0;iii<rawAnswer[ii].length();iii++){
+						if (rawAnswer[ii].at(iii) == ','){
+							step.endNodes.push_back(std::stoi(currentNode));
+							currentNode = "";
+						}
+						else {
+							currentNode += rawAnswer[ii].at(iii);
+						}
+					}
+					if (currentNode.length()>0){
+						step.endNodes.push_back(std::stoi(currentNode));
+					}
 					answer.solution.push_back(step);
 				}
 			}
