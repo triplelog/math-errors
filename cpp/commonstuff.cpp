@@ -55,6 +55,7 @@ struct Step {
 	int startNode;
 	int endNode;
 	std::vector<int> endNodes;
+	std::vector<int> startNodes;
 	
 };
 struct Answer {

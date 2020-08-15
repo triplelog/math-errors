@@ -415,6 +415,18 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 						}
 					}
 					
+					m.clear();
+					m = removeBracketsList(m,userString);
+					step.startNodes = {};
+					for (iii=0;iii<startAt-1;iii++){
+						if (m.find(iii) != m.end()){
+							step.startNodes.push_back(oneIndex[0]+iii+m[iii]-1);
+						}
+						else {
+							step.startNodes.push_back(oneIndex[0]+iii);
+						}
+					}
+					
 					allStrings.push_back(step);
 				}
 				
