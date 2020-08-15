@@ -44,6 +44,7 @@ std::vector<std::string> outputTree(Step step){
 	std::vector<std::string> finalList;
 	std::vector<std::string> orderedKeyList;
 	flat_hash_map<std::string,std::vector<std::string>> nodeList;
+	std::string specialNode = "";
 	
     
     
@@ -142,17 +143,13 @@ std::vector<std::string> outputTree(Step step){
 			}
 
 			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
-			if (i==step.startNode){
-				std::cout << "right node: " << fullStr << "\n";
-			}
-			else {
-				std::cout << "wrong node: " << fullStr << " and " << i << " and " << step.startNode << "\n";
-			}
+			
 			
 			//Parent Node
 			std::string opStr = "";
 			opStr += pfstr.at(i);
 			std::string name = "node"+std::to_string(treeIdx);
+			if (i==step.startNode){specialNode = name;}
 			treeIdx++;
 			std::string parent = "";
 			std::string nodeText = fullStr;
@@ -350,6 +347,9 @@ std::vector<std::string> outputTree(Step step){
 		if (latexMap.find(name) != latexMap.end()){
 			std::string outText = "nodes[\""+name + "\"] = {text:";
 			outText += "\"" + latexMap[name] + "\",";
+			if (name == specialNode){
+				outText += "special: true,";
+			}
 			outText += "op: \"" + nodeList[orderedKeyList[ii]][2] + "\",";
 			outText += "parent: \""+ parent + "\"};\n";
 		
