@@ -257,8 +257,11 @@
 					var node = document.createElement('li');
 					var span = document.createElement('span');
 					span.classList.add("tf-nc");
-					if (nodes[name].special){
-						span.classList.add("specialNode");
+					if (nodes[name].startNode){
+						node.querySelector('span').classList.add("startNode");
+					}
+					if (nodes[name].endNode){
+						node.querySelector('span').classList.add("endNode");
 					}
 					span.textContent = text;
 					node.appendChild(span);
@@ -268,6 +271,7 @@
 					if (parent != ""){
 						jsonTree[parent].children.push(name);
 						var pnode = jsonTree[parent].node;
+						
 						if (pnode.querySelector('ul')){
 							pnode.querySelector('ul').appendChild(node);
 						}
