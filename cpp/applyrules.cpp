@@ -1,4 +1,4 @@
-std::vector<int> removeBracketsList(std::vector<int> nodes, std::string input) {
+flat_hash_map<int,int> removeBracketsList(flat_hash_map<int,int> nodes, std::string input) {
 	flat_hash_map<int,int> operandToIndex;
 	int iii; int iiii;
 	bool foundBracket = false;
@@ -53,8 +53,7 @@ std::vector<int> removeBracketsList(std::vector<int> nodes, std::string input) {
 	input.replace(secondIndex,bracketLength+1,bracketStrings[1]);
 	//std::cout << input << " --b\n";
 	input.replace(firstIndex,1,bracketStrings[0]);
-	nodes.push_back(firstIndex);
-	nodes.push_back(bracketStrings[0].length());
+	nodes[firstIndex] = bracketStrings[0].length();
 	//std::cout << input << " --c\n";
 	return removeBracketsList(nodes,input);
 	
@@ -398,14 +397,23 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 
 
 				if (tempTemp != userFullString){
-					
-					std::vector<int> v = removeBracketsList({},tempTemp);
+					flat_hash_map<int,int> m;
+					m = removeBracketsList(m,tempTemp);
 					
 					Step step;
 					step.next = tempTemp;
 					step.rule = rule.id;
 					step.startNode = oneIndex[0]+oneIndex[1]-1;
 					step.endNode = oneIndex[0]+newPostfixFirst.length()-1;
+					step.endNodes = {};
+					for (iii=oneIndex[0];iii<oneIndex[0]+newPostfixFirst.length();iii++){
+						if (m.find(iii) != m.end()){
+							step.endNodes.push_back(iii+m[iii]-1);
+						}
+						else {
+							step.endNodes.push_back(iii);
+						}
+					}
 					
 					allStrings.push_back(step);
 				}
