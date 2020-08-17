@@ -37,12 +37,12 @@ using phmap::flat_hash_map;
 
 std::vector<std::string> outputTree(Step stepS,Step stepE){
 	std::string pfstr = stepS.next;
-	std::cout << "pfstr: " << pfstr << " and ";
+	//std::cout << "pfstr: " << pfstr << " and ";
 	int i; int ii; int iii;
-	for (i=0;i<stepS.startNodes.size();i++){
-		std::cout << stepS.startNodes[i] << " ; ";
-	}
-	std::cout << "\n";
+	//for (i=0;i<stepS.startNodes.size();i++){
+	//	std::cout << stepS.startNodes[i] << " ; ";
+	//}
+	//std::cout << "\n";
 	std::vector<std::string> treeOptions;
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,std::string> operandMap;
@@ -52,6 +52,8 @@ std::vector<std::string> outputTree(Step stepS,Step stepE){
 	flat_hash_map<std::string,std::vector<std::string>> nodeList;
 	std::string startNode = "";
 	std::string endNode = "";
+	flat_hash_map<std::string,bool> startNodes;
+	flat_hash_map<std::string,bool> endNodes;
 	
     
     
@@ -158,6 +160,18 @@ std::vector<std::string> outputTree(Step stepS,Step stepE){
 			std::string name = "node"+std::to_string(treeIdx);
 			if (i==stepS.startNode){startNode = name;}
 			if (i==stepE.endNode){endNode = name;}
+			for (ii=0;ii<stepS.startNodes.size();ii++){
+				if (i==stepS.startNodes[ii]){
+					startNodes[name]=true;
+					break;
+				}
+			}
+			for (ii=0;ii<stepE.endNodes.size();ii++){
+				if (i==stepE.endNodes[ii]){
+					endNodes[name]=true;
+					break;
+				}
+			}
 			treeIdx++;
 			std::string parent = "";
 			std::string nodeText = fullStr;
@@ -289,6 +303,18 @@ std::vector<std::string> outputTree(Step stepS,Step stepE){
 			std::string name = "node"+std::to_string(treeIdx);
 			if (i==stepS.startNode){startNode = name;}
 			if (i==stepE.endNode){endNode = name;}
+			for (ii=0;ii<stepS.startNodes.size();ii++){
+				if (i==stepS.startNodes[ii]){
+					startNodes[name]=true;
+					break;
+				}
+			}
+			for (ii=0;ii<stepE.endNodes.size();ii++){
+				if (i==stepE.endNodes[ii]){
+					endNodes[name]=true;
+					break;
+				}
+			}
 			treeIdx++;
 			nodeList["#@" + std::to_string(idx) + "_"] = {name,"","#"};
 			orderedKeyList.push_back("#@" + std::to_string(idx) + "_");
@@ -360,9 +386,16 @@ std::vector<std::string> outputTree(Step stepS,Step stepE){
 			if (name == startNode){
 				outText += "startNode: true,";
 			}
-			else if (name == endNode){
+			else if (startNodes.find(name) != startNodes.end()){
+				outText += "startNodes: true,";
+			}
+			if (name == endNode){
 				outText += "endNode: true,";
 			}
+			else if (endNodes.find(name) != endNodes.end()){
+				outText += "endNodes: true,";
+			}
+			
 			outText += "op: \"" + nodeList[orderedKeyList[ii]][2] + "\",";
 			outText += "parent: \""+ parent + "\"};\n";
 		
