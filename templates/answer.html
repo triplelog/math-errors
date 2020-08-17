@@ -23,6 +23,9 @@
 		background-size: 100% 100%;
 		background-repeat: no-repeat;
 	}
+	.startNode {
+		background: blue;
+	}
       
     </style>
 
@@ -260,8 +263,14 @@
 					if (nodes[name].startNode){
 						span.classList.add("startNode");
 					}
+					else if (nodes[name].startNodes){
+						span.classList.add("startNodes");
+					}
 					if (nodes[name].endNode){
 						span.classList.add("endNode");
+					}
+					else if (nodes[name].endNodes){
+						span.classList.add("endNodes");
 					}
 					span.textContent = text;
 					node.appendChild(span);
