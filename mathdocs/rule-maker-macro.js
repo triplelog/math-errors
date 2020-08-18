@@ -4,7 +4,7 @@ module.exports = function (registry) {
     self.process(function (doc, reader) {
       var lines = reader.lines
       for (var i = 0; i < lines.length; i++) {
-        lines[i].replace('$','math:');
+        lines[i] = lines[i].replace('$','math:');
         console.log(lines[i]);
       }
       return reader
