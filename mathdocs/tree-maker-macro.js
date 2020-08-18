@@ -5,8 +5,7 @@ module.exports = function (registry) {
     self.onContext('paragraph')
     self.process(function (parent, reader) {
       var lines = reader.getLines().map(function (l) { return l.toUpperCase() })
-      var blk = self.createBlock(parent, 'paragraph', lines);
-      console.log(blk);
+      var blk = self.createBlock(parent, 'quoted', lines);
       return blk;
     })
   })
