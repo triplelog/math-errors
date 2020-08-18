@@ -5,6 +5,7 @@ module.exports = function (registry) {
       var lines = reader.lines
       for (var i = 0; i < lines.length; i++) {
         lines[i].replace('[','|');
+        console.log(lines[i]);
       }
       return reader
     })

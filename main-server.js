@@ -423,7 +423,7 @@ app.get('/rulepage',
 		const asciidoctor = require('asciidoctor')();
 		const registry = asciidoctor.Extensions.create();
 		require('./mathdocs/rule-maker-macro.js')(registry);
-		const html = asciidoctor.convert('this is a math:a[math="A+\[D-1\]-B""] for real.', { 'extension_registry': registry });
+		const html = asciidoctor.convert('this is a math:a[math=A-B] for real.', { 'extension_registry': registry });
 		console.log(html);
 		SubjectData.find({}, function(err,result) {
 			res.write(nunjucks.render('templates/rulepage.html',{
