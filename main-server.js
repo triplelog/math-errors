@@ -427,7 +427,7 @@ app.get('/rulepage',
 		console.log(performance.now());
 		
 		var tree = `[tree]
-    A(x=7)-->B;
+    A($x=7^2$)-->B;
     A-->C;
     B-->D;
     C-->D;
