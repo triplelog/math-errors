@@ -405,6 +405,13 @@ app.get('/createrule',
     }
     
 );
+const katex = require('katex');
+const asciidoctor = require('asciidoctor')();
+const kroki = require('asciidoctor-kroki');
+const registry = asciidoctor.Extensions.create();
+require('./mathdocs/rule-maker-macro.js')(registry);
+kroki.register(registry);
+		
 app.get('/rulepage',
 	function(req, res){
 		
@@ -420,9 +427,7 @@ app.get('/rulepage',
 		}
 		console.log(performance.now());
 		
-		const asciidoctor = require('asciidoctor')();
-		const registry = asciidoctor.Extensions.create();
-		require('./mathdocs/rule-maker-macro.js')(registry);
+		
 		const html = asciidoctor.convert('this is a $A+B$ for real with more $x=7$ to come.', { 'extension_registry': registry });
 		console.log(html);
 		SubjectData.find({}, function(err,result) {
