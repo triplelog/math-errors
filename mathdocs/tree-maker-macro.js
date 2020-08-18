@@ -14,7 +14,7 @@ module.exports = function (registry) {
         for (var ii = 0;ii < lines[i].length; ii++) {
         	if (ii < lines[i].length - 17 && lines[i].substr(ii,17) == "math:infix[math=\"" && !insideDollar){
         		insideDollar = true;
-        		ii += 17;
+        		ii += 16;
         		console.log("found");
         	}
         	else if (lines[i][ii] == "\"" && insideDollar){
