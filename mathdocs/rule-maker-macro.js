@@ -1,3 +1,4 @@
+const katex = require('katex');
 module.exports = function (registry) {
   registry.preprocessor(function () {
     var self = this
