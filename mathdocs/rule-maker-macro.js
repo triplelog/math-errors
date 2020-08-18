@@ -1,5 +1,5 @@
 module.exports = function (registry) {
-  registry.inlineMacro('math', function () {
+  registry.inlineMacro('$', function () {
     var self = this
     self.process(function (parent, target, attrs) {
       var text;
