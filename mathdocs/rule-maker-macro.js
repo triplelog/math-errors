@@ -40,6 +40,9 @@ module.exports = function (registry) {
     self.process(function (parent, target, attrs) {
       var text;
       console.log(target);
+      var html = katex.renderToString("c = \\pm\\sqrt{a^2 + b^2}", {
+			throwOnError: false
+	  });
       text = '<span class="katex">'+attrs.math+'</span>';
       return self.createInline(parent, 'quoted', text, { }).convert()
     })
