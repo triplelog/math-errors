@@ -1,5 +1,5 @@
 <div class="flex flex-wrap w-full">
-	{% for card in self.source %}
+	{% for card in node.getAttribute("source") %}
 	<div class="w-full sm:w-1/1 md:w-1/1 lg:w-1/1 mb-4 px-2">
 		{{ card | safe }}
 	</div>
