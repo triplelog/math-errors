@@ -2,8 +2,9 @@ module.exports = function (registry) {
   registry.inlineMacro('math', function () {
     var self = this
     self.process(function (parent, target, attrs) {
-      var text
-      text = attrs[0];
+      var text;
+      console.log(JSON.stringify(attrs);
+      text = target;
       return self.createInline(parent, 'quoted', text, { 'type': 'strong' }).convert()
     })
   })
