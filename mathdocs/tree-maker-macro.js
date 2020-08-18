@@ -5,7 +5,7 @@ module.exports = function (registry) {
     self.onContext('paragraph')
     self.process(function (parent, reader) {
       var lines = reader.getLines().map(function (l) { return l.toUpperCase() })
-      return self.createBlock(parent, 'paragraph', lines)
+      return self.createBlock(parent, 'cards', lines)
     })
   })
 }
