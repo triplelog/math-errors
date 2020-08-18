@@ -4,8 +4,12 @@ module.exports = function (registry) {
     self.named('tree')
     self.onContext('paragraph')
     self.process(function (parent, reader) {
-      var lines = reader.getLines().map(function (l) { return l.toUpperCase() })
-      var blk = self.createBlock(parent, 'tree', lines);
+      var cards = [];
+      var lines = reader.lines
+      for (var i = 0; i < lines.length; i++) {
+      	cards.push(lines[i]);
+      }
+      var blk = self.createBlock(parent, 'tree', cards);
       return blk;
     })
   })
