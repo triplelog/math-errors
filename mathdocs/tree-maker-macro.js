@@ -5,7 +5,7 @@ module.exports = function (registry) {
     self.onContext('paragraph')
     self.process(function (parent, reader) {
       var lines = reader.getLines().map(function (l) { return l.toUpperCase() })
-      var blk = self.createBlock(parent, 'section', lines);
+      var blk = self.createBlock(parent, 'embedded', lines);
       return blk;
     })
   })
