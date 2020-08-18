@@ -19,14 +19,16 @@ module.exports = function (registry) {
         	}
         	else if (lines[i][ii] == "\"" && insideDollar){
 				//TODO: replace [ and ] from currentMath
+				console.log(currentMath);
 				var newString = katex.renderToString(currentMath, {
 						throwOnError: false
 				  });
+				console.log(newString);
 				lines[i] = lines[i].replace("math:infix[math=\""+currentMath+"\"]",newString);
 				ii += newString.length - (currentMath.length+19);
 				insideDollar = false;
 				currentMath = "";
-				console.log("ended");
+				
         	}
         	else if (insideDollar){
         		currentMath += lines[i][ii];
