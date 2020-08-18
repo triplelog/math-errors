@@ -11,7 +11,7 @@ module.exports = function (registry) {
       	cards.push(lines[i]);
       }
       console.log(JSON.stringify(cards));
-      var blk = self.createBlock(parent, 'tree', "",{source:cards});
+      var blk = self.createBlock(parent, 'tree', "",{source:cards},{source:cards});
       return blk;
     })
   })
