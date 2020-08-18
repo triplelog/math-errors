@@ -7,10 +7,10 @@ module.exports = function (registry) {
       	var currentMath = "";
       	var insideDollar = false;
         for (var ii = 0;ii < lines[i].length; ii++) {
-        	if (lines[i][ii] == "$" && !insideMath){
-        		insideMath = true;
+        	if (lines[i][ii] == "$" && !insideDollar){
+        		insideDollar = true;
         	}
-        	else if (lines[i][ii] == "$" && insideMath){
+        	else if (lines[i][ii] == "$" && insideDollar){
         		if (ii < lines[i].length-1 && lines[i][ii+1] != " "){
         			currentMath += lines[i][ii];
         		}
@@ -22,11 +22,11 @@ module.exports = function (registry) {
         			var newString = "math:infix[math=\""+currentMath+"\"]";
         			lines[i] = lines[i].replace("$"+currentMath+"$",newString);
         			ii += newString.length - (currentMath.length+2);
-        			insideMath = false;
+        			insideDollar = false;
         			currentMath = "";
         		}
         	}
-        	else if (insideMath){
+        	else if (insideDollar){
         		currentMath += lines[i][ii];
         	}
         }
