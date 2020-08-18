@@ -433,7 +433,7 @@ app.get('/rulepage',
     C-->D;
     
     `
-		const html = asciidoctor.convert('this is a $A+B$ for real with more $x=7$ to come.\n'+tree, { 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+		const html = asciidoctor.convert('this is a $A+B$ for real with more $x=7$ to come.\n'+tree, { 'extension_registry': registry, backend: 'html5', template_dir: './templates' });
 		//console.log(html);
 		SubjectData.find({}, function(err,result) {
 			res.write(nunjucks.render('rulepage.html',{
