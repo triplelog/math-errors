@@ -40,8 +40,8 @@ module.exports = function (registry) {
     self.process(function (parent, target, attrs) {
       var text;
       console.log(target);
-      text = attrs.math;
-      return self.createInline(parent, 'quoted', text, { 'type': 'strong' }).convert()
+      text = '<span class="katex">'+attrs.math+'</span>';
+      return self.createInline(parent, 'quoted', text, { }).convert()
     })
   })
 }
