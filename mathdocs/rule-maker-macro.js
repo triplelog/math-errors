@@ -21,8 +21,11 @@ module.exports = function (registry) {
         		else {
         			//TODO: replace [ and ] from currentMath
         			var newString = "math:infix[math=\""+currentMath+"\"]";
-        			lines[i] = lines[i].replace("$"+currentMath+"$",newString);
-        			ii += newString.length - (currentMath.length+2);
+        			var html = katex.renderToString(newString, {
+							throwOnError: false
+					  });
+        			lines[i] = lines[i].replace("$"+currentMath+"$",html);
+        			ii += html.length - (currentMath.length+2);
         			insideDollar = false;
         			currentMath = "";
         		}
