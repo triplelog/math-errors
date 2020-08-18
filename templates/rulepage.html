@@ -87,18 +87,26 @@
     <div class="w-4/5 flex-none px-2 max-h-screen overflow-y-auto">
         <div class="w-full mb-2 py-4">
 			<span class="text-2xl"><b>Create Rule</b></span>
-			<button class="float-right bg-white hover:border-gray-900 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-r focus:outline-none focus:shadow-outline" type="button">Share</button>
-			<button class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 focus:outline-none focus:shadow-outline" type="button">Export</button>
-			<button class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-l focus:outline-none focus:shadow-outline" type="button">Import</button>
+			<button onclick="saveRule()" class="float-right bg-white hover:border-gray-900 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-r focus:outline-none focus:shadow-outline" type="button">Save</button>
+			<button onclick="previewRule()" class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 focus:outline-none focus:shadow-outline" type="button">Preview</button>
+			<button onclick="editRule()" class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-l focus:outline-none focus:shadow-outline" type="button">Edit</button>
 					
         </div>
-
-		<div class="flex flex-wrap w-full">
+        
+		<div class="flex flex-wrap w-full" id="preview" style="display: none;">
+		  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
+			<b>Preview</b>
+			
+		  </div>
+		  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
+		  </div>
+		</div>
+		
+		<div class="flex flex-wrap w-full" id="edit">
 		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
 			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
 				<b>Info</b>
-				<button onclick="saveRule()" class="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-0 px-2 rounded focus:outline-none focus:shadow-outline" type="button">Save</button>
-
+				
 			  </div>
 			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
 				<div>
@@ -186,12 +194,22 @@
 			
 			
 		}
-
+		document.getElementById('preview').style.display = "none";
+		document.getElementById('edit').style.display = "block";
 		
 	</script>
 	<script src="js/asciidoctor.js"></script>
 	<script>
 		var asciidoctor = Asciidoctor();
+		//TODO: convert math into latex
+		function previewRule() {
+			document.getElementById('preview').style.display = "block";
+			document.getElementById('edit').style.display = "none";
+		}
+		function editRule() {
+			document.getElementById('preview').style.display = "none";
+			document.getElementById('edit').style.display = "block";
+		}
 	</script>
   </body>
 </html>
