@@ -24,8 +24,10 @@ module.exports = function (registry) {
 						throwOnError: false
 				  });
 				console.log(newString);
-				lines[i] = lines[i].replace("math:infix[math=\""+currentMath+"\"]",newString);
-				ii += newString.length - (currentMath.length+19);
+				var oldString = "math:infix[math=\""+currentMath+"\"]";
+				console.log(oldString);
+				lines[i] = lines[i].replace(oldString,newString);
+				ii += newString.length - (oldString.length);
 				insideDollar = false;
 				currentMath = "";
 				
@@ -36,7 +38,6 @@ module.exports = function (registry) {
         }
         cards.push(lines[i]);
       }
-      console.log(JSON.stringify(cards));
       var blk = self.createBlock(parent, 'tree', "",{cards:cards});
       return blk;
     })
