@@ -20,12 +20,12 @@ module.exports = function (registry) {
         		}
         		else {
         			//TODO: replace [ and ] from currentMath
-        			var newString = "math:infix[math=\""+currentMath+"\"]";
-        			var html = katex.renderToString(newString, {
+        			//var newString = "math:infix[math=\""+currentMath+"\"]";
+        			var newString = katex.renderToString(currentMath, {
 							throwOnError: false
 					  });
-        			lines[i] = lines[i].replace("$"+currentMath+"$",html);
-        			ii += html.length - (currentMath.length+2);
+        			lines[i] = lines[i].replace("$"+currentMath+"$",newString);
+        			ii += newString.length - (currentMath.length+2);
         			insideDollar = false;
         			currentMath = "";
         		}
