@@ -430,7 +430,7 @@ app.get('/rulepage',
 		var mermaid = `[mermaid,abcd-flowchart,svg]
 ....
 graph TD;
-    A-->B;
+    A[Hello]-->B;
     A-->C;
     B-->D;
     C-->D;
