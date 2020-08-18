@@ -6,7 +6,6 @@ module.exports = function (registry) {
     self.process(function (parent, reader) {
       var cards = [];
       var lines = reader.lines;
-      console.log(JSON.stringify(lines));
       for (var i = 0; i < lines.length; i++) {
       	cards.push(lines[i]);
       }
