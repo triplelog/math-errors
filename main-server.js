@@ -422,7 +422,6 @@ app.get('/rulepage',
 
 		SubjectData.find({}, function(err,result) {
 			res.write(nunjucks.render('templates/rulepage.html',{
-				subjects: subjects,
 				info: info,
 				correct:correct,
 				errors:errors,
