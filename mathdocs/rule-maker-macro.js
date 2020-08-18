@@ -31,7 +31,6 @@ module.exports = function (registry) {
         		currentMath += lines[i][ii];
         	}
         }
-        console.log(lines[i]);
       }
       return reader
     })
@@ -39,13 +38,11 @@ module.exports = function (registry) {
   registry.inlineMacro('math', function () {
     var self = this
     self.process(function (parent, target, attrs) {
-      var text;
       console.log(target);
-      var html = katex.renderToString("c = \\pm\\sqrt{a^2 + b^2}", {
+      var html = katex.renderToString(attrs.math, {
 			throwOnError: false
 	  });
-      text = '<span class="katex">'+attrs.math+'</span>';
-      return self.createInline(parent, 'quoted', text, { }).convert()
+      return self.createInline(parent, 'quoted', html, { }).convert()
     })
   })
 }
