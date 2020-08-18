@@ -4,7 +4,32 @@ module.exports = function (registry) {
     self.process(function (doc, reader) {
       var lines = reader.lines
       for (var i = 0; i < lines.length; i++) {
-        lines[i] = lines[i].replace('$','math:');
+      	var currentMath = "";
+      	var insideDollar = false;
+        for (var ii = 0;ii < lines[i].length; ii++) {
+        	if (lines[i][ii] == "$" && !insideMath){
+        		insideMath = true;
+        	}
+        	else if (lines[i][ii] == "$" && insideMath){
+        		if (ii < lines[i].length-1 && lines[i][ii+1] != " "){
+        			currentMath += lines[i][ii];
+        		}
+        		else if (currentMath == ""){
+        			//is $$ math
+        		}
+        		else {
+        			//TODO: replace [ and ] from currentMath
+        			var newString = "math:infix[math=\""+currentMath+"\"]";
+        			lines[i] = lines[i].replace("$"+currentMath+"$",newString);
+        			ii += newString.length - (currentMath.length+2);
+        			insideMath = false;
+        			currentMath = "";
+        		}
+        	}
+        	else if (insideMath){
+        		currentMath += lines[i][ii];
+        	}
+        }
         console.log(lines[i]);
       }
       return reader
@@ -14,9 +39,8 @@ module.exports = function (registry) {
     var self = this
     self.process(function (parent, target, attrs) {
       var text;
-      console.log(JSON.stringify(attrs));
       console.log(target);
-      text = target;
+      text = attrs.math;
       return self.createInline(parent, 'quoted', text, { 'type': 'strong' }).convert()
     })
   })
