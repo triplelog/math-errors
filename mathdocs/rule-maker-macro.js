@@ -38,7 +38,6 @@ module.exports = function (registry) {
   registry.inlineMacro('math', function () {
     var self = this
     self.process(function (parent, target, attrs) {
-      console.log(target);
       var html = katex.renderToString(attrs.math, {
 			throwOnError: false
 	  });
