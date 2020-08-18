@@ -427,8 +427,15 @@ app.get('/rulepage',
 		}
 		console.log(performance.now());
 		
-		
-		const html = asciidoctor.convert('this is a $A+B$ for real with more $x=7$ to come.', { 'extension_registry': registry });
+		var mermaid = `[mermaid,abcd-flowchart,svg]
+....
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+....`
+		const html = asciidoctor.convert('this is a $A+B$ for real with more $x=7$ to come.\n'+mermaid, { 'extension_registry': registry });
 		//console.log(html);
 		SubjectData.find({}, function(err,result) {
 			res.write(nunjucks.render('templates/rulepage.html',{
