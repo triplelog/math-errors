@@ -407,10 +407,9 @@ app.get('/createrule',
 );
 const katex = require('katex');
 const asciidoctor = require('asciidoctor')();
-const kroki = require('asciidoctor-kroki');
 const registry = asciidoctor.Extensions.create();
 require('./mathdocs/rule-maker-macro.js')(registry);
-kroki.register(registry);
+require('./mathdocs/tree-maker-macro.js')(registry);
 		
 app.get('/rulepage',
 	function(req, res){
@@ -427,15 +426,14 @@ app.get('/rulepage',
 		}
 		console.log(performance.now());
 		
-		var mermaid = `[mermaid,abcd-flowchart,svg]
-....
-graph TD;
+		var tree = `[tree]
     A(x=7)-->B;
     A-->C;
     B-->D;
     C-->D;
-....`
-		const html = asciidoctor.convert('this is a $A+B$ for real with more $x=7$ to come.\n'+mermaid, { 'extension_registry': registry });
+    
+    `
+		const html = asciidoctor.convert('this is a $A+B$ for real with more $x=7$ to come.\n'+tree, { 'extension_registry': registry });
 		//console.log(html);
 		SubjectData.find({}, function(err,result) {
 			res.write(nunjucks.render('templates/rulepage.html',{
