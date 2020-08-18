@@ -12,7 +12,7 @@ module.exports = function (registry) {
         		insideDollar = true;
         	}
         	else if (lines[i][ii] == "$" && insideDollar){
-        		if (ii < lines[i].length-1 && lines[i][ii+1] != " "){
+        		if (ii < lines[i].length-1 && (lines[i][ii+1] == "0" || lines[i][ii+1] == "1" || lines[i][ii+1] == "2" || lines[i][ii+1] == "3" || lines[i][ii+1] == "4" || lines[i][ii+1] == "5" || lines[i][ii+1] == "6" || lines[i][ii+1] == "7" || lines[i][ii+1] == "8" || lines[i][ii+1] == "9") ){
         			currentMath += lines[i][ii];
         		}
         		else if (currentMath == ""){
