@@ -31,6 +31,7 @@ module.exports = function (registry) {
         		currentMath += lines[i][ii];
         	}
         }
+        console.log(lines[i]);
       }
       return reader
     })
