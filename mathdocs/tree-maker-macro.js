@@ -15,6 +15,7 @@ module.exports = function (registry) {
         	if (ii < lines[i].length - 17 && lines[i].substr(ii,17) == "math:infix[math=\"" && !insideDollar){
         		insideDollar = true;
         		ii += 17;
+        		console.log("found");
         	}
         	else if (lines[i][ii] == "\"" && insideDollar){
 				//TODO: replace [ and ] from currentMath
@@ -25,6 +26,7 @@ module.exports = function (registry) {
 				ii += newString.length - (currentMath.length+19);
 				insideDollar = false;
 				currentMath = "";
+				console.log("ended");
         	}
         	else if (insideDollar){
         		currentMath += lines[i][ii];
