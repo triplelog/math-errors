@@ -405,6 +405,53 @@ app.get('/createrule',
     }
     
 );
+app.get('/rulepage',
+	function(req, res){
+		
+		var info = {};
+		var correct = [];
+		var errors = [];
+		var examples = [];
+		var dewey = '';
+		if (req.query && req.query.s && req.query.t && req.query.r){
+			dewey += req.query.s.toLowerCase() + '.';
+			dewey += req.query.t.toLowerCase() + '.';
+			dewey += req.query.r.toLowerCase();
+		}
+		console.log(performance.now());
+
+		SubjectData.find({}, function(err,result) {
+			res.write(nunjucks.render('templates/rulepage.html',{
+				subjects: subjects,
+				info: info,
+				correct:correct,
+				errors:errors,
+				examples:examples,
+			}));
+			res.end();
+			/*
+			for (var i=0;i<result.length;i++){
+				subjects.push(result[i]);
+				var csvStr = "";
+				for (var topic in result[i].topics){
+					for (var r=0;r<result[i].topics[topic].length;r++){
+						var rule = result[i].topics[topic][r];
+						csvStr += "Rule,"+result[i].subject+"."+topic+"."+rule.name+","+rule.explanation+"\n";
+						for (var ii=0;ii<rule.instructions.length;ii++){
+							csvStr += rule.instructions[ii]+"\n";
+						}
+					}
+				}
+				fs.writeFile('cpp/subjects/'+result[i].subject+".csv", csvStr, function (err) {});
+			}
+			*/
+			
+		
+		});
+
+    }
+    
+);
 app.get('/topic',
 	function(req, res){
 		
