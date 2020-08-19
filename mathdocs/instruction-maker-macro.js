@@ -76,7 +76,7 @@ module.exports = function (registry) {
       var html = katex.renderToString(maincppp.latexify(target), {
 				throwOnError: false
 	  });
-      var blk = self.createBlock(parent, 'example', html);
+      var blk = self.createBlock(parent, 'example', "", {block:html});
       return blk;
     })
   })
