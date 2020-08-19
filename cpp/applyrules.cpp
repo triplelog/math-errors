@@ -409,9 +409,11 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 					step.endNodes = {};
 					for (iii=oneIndex[0];iii<oneIndex[0]+newPostfixFirst.length();iii++){
 						if (m.find(iii) != m.end()){
+							std::cout << "aa: " << iii+m[iii]-1 << "\n";
 							step.endNodes.push_back(iii+m[iii]-1);
 						}
 						else {
+							std::cout << "bb: " << iii+m[iii]-1 << "\n";
 							step.endNodes.push_back(iii);
 						}
 					}
