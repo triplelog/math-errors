@@ -56,6 +56,7 @@ void makeRules(std::string fileName){
 		fullPost = makeRule(rawRules[i][0]);
 		key = fullPost[0];
 		val1 = fullPost[1];
+		rule.key = key;
 		std::cout << "key: "<< key << "\n";
 		std::cout << "val1: "<< val1 << "\n";
 		fullPost = makeRule(rawRules[i][1]);
@@ -64,6 +65,7 @@ void makeRules(std::string fileName){
 		std::cout << "out: "<< out << "\n";
 		rule.operands = val1;
 		rule.out = out;
+		
 		if (rawRules[i][2] == "e" || rawRules[i][2] == "i"){
 			rule.type = "e";
 		}

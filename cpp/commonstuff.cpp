@@ -40,6 +40,7 @@ struct Question {
 };
 
 struct Rule {
+	std::string key = "";
 	std::string operands = "";
 	std::string out = "";
 	std::string type = "";

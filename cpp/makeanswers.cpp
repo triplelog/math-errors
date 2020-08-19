@@ -182,6 +182,7 @@ Question chooseQuestion(std::vector<RawQuestion> questions){
 		fullPost = makeAnswer(q.rawRules[i][1]);
 		key = fullPost[0];
 		val1 = fullPost[1];
+		rule.key = key;
 		rule.operands = val1;
 		rule.type = q.rawRules[i][2];
 		rule.explanation = q.rawRules[i][3];
