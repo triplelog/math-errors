@@ -671,23 +671,38 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//make tree
 	std::string postfixed = postfixify(a);
 	std::vector<std::vector<Step>> steps = partialTree(postfixed);
+	std::string jsonmessage = "{'input':\""+latexOne(postfixed)+"\",'steps':[";
 	int i;
 	for (i=0;i<steps[0].size();i++){
 		flat_hash_map<char,std::string> partMap = steps[0][i].partMap;
 		if (steps[0][i].rule < 0){
 			continue;
 		}
-		std::cout << "RULE\n";
-		std::cout << latexOne(postfixed) << "\n";
-		std::cout << ruleIndex[steps[0][i].rule].key + "@" + ruleIndex[steps[0][i].rule].operands << "\n";
+		//std::cout << "RULE\n";
+		std::string oldString = ruleIndex[steps[0][i].rule].key + "@" + ruleIndex[steps[0][i].rule].operands;
+		if (jsonmessage.at(jsonmessage.length()-1)=='['){
+			jsonmessage += "{'input':\""+latexOne(oldString)+"\",'map':[";
+		}
+		else {
+			jsonmessage += ",{'input':\""+latexOne(oldString)+"\",'map':[";
+		}
+		
 		
 		for (flat_hash_map<char,std::string>::iterator iter = partMap.begin(); iter != partMap.end(); ++iter){
 					
-			std::cout << "first: " << iter->first << " and " << iter->second << "\n";
+			if (jsonmessage.at(jsonmessage.length()-1)=='['){
+				jsonmessage += "\""+iter->first+"\",\""+iter->second+"\"";
+			}
+			else {
+				jsonmessage += ",\""+iter->first+"\",\""+iter->second+"\"";
+			}
+			
 		}
-		
-		std::cout << latexOne(steps[0][i].next) << "\n";
+		jsonmessage += "],";
+		jsonmessage += "'output':\""+latexOne(ruleIndex[steps[0][i].rule].out)+"\",";
+		jsonmessage += "'final':\""+latexOne(steps[0][i].next)+"\"}";
 	}
+	jsonmessage += "]}";
 	//if applies, grab initial form (i.e. A=...,B=...)
 	//solve and grab new form
 	//get final form
@@ -696,7 +711,7 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	
 	
-	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(a);
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
 
 	
 	info.GetReturnValue().Set(h.ToLocalChecked());
