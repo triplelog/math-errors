@@ -413,7 +413,6 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 						if (m.find(iii) != m.end()){
 							offset += m[iii]-1;
 							std::cout << "aa: " << offset << "\n";
-							iii+=offset;
 						}
 						else {
 							std::cout << "bb: " << offset << "\n";
