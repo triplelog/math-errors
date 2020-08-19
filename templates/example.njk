@@ -1,15 +1,34 @@
 <div class="flex w-full">
 	<div class="w-auto inline-block object-center border rounded">
 		<div class="w-full px-3 py-3">
-		{{ node.getAttribute("block") | safe }}
+		{{ node.getAttribute("parsed").input | safe }}
 		</div>
 	</div>
 	<div class="w-auto inline-block object-center mx-2 py-3">
-		------------>
+		----->
 	</div>
+	
+	<div class="w-auto inline-block object-center border rounded">
+		<div class="w-full px-3 py-3">
+		{{ node.getAttribute("parsed").steps[0].input | safe }}
+		</div>
+	</div>
+	<div class="w-auto inline-block object-center mx-2 py-3">
+		----->
+	</div>
+	
+	<div class="w-auto inline-block object-center border rounded">
+		<div class="w-full px-3 py-3">
+		{{ node.getAttribute("parsed").steps[0].output | safe }}
+		</div>
+	</div>
+	<div class="w-auto inline-block object-center mx-2 py-3">
+		----->
+	</div>
+	
 	<div class="w-auto inline-block">
 		<div class="w-full object-center px-3 py-3 border rounded">
-		{{ node.getAttribute("block") | safe }}
+		{{ node.getAttribute("parsed").steps[0].final | safe }}
 		</div>
 	</div>
 </div>

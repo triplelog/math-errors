@@ -75,7 +75,13 @@ module.exports = function (registry) {
       var jsonmessage = maincppp.onerule(target);
       console.log(jsonmessage);
 	  var parsed = JSON.parse(jsonmessage);
-      var blk = self.createBlock(parent, 'example', "", {block:parsed.input});
+	  parsed.input = katex.renderToString(parsed.input, {throwOnError: false});
+	  for (var i=0;i<parsed.steps.length;i++){
+	  	parsed.steps[i].input = katex.renderToString(parsed.steps[i].input, {throwOnError: false});
+	  	parsed.steps[i].output = katex.renderToString(parsed.steps[i].output, {throwOnError: false});
+	  	parsed.steps[i].final = katex.renderToString(parsed.steps[i].final, {throwOnError: false});
+	  }
+      var blk = self.createBlock(parent, 'example', "", {parsed:parsed});
       return blk;
     })
   })
