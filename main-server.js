@@ -438,11 +438,7 @@ OUT: B+A
 A is 1
 B is not 11
 
-[sample]
-IN: A+B
-OUT: B+A
-A is 1
-B is not 11
+example::A+B[]
     
     `
 		const html = asciidoctor.convert('this is a $A+B$ for real with more $x=7$ to come.\n'+instruction, { 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
