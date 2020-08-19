@@ -269,6 +269,8 @@ const maincpp = require(binding);
 var retHello = maincpp.hello();
 const maincppa = require(bindingA);
 var retHelloA = maincppa.hello();
+const maincppp = require(bindingP);
+var retHelloP = maincppp.hello();
 var rules = [];
 eval(retHello);
 console.log("hello?: ",retHello);
@@ -425,7 +427,7 @@ app.get('/rulepage',
 			dewey += req.query.r.toLowerCase();
 		}
 		console.log(performance.now());
-		
+		console.log(maincppp.latexify("x/3+7^2=4"))
 		var instruction = `[rule]
 IN: A+B
 OUT: B+A
