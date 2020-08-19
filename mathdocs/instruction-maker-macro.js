@@ -15,7 +15,7 @@ module.exports = function (registry) {
       		cards['out']=lines.substr(5);
       	}
       }
-      var blk = self.createBlock(parent, 'tree', "",{cards:cards});
+      var blk = self.createBlock(parent, 'instruction', "",{cards:cards});
       return blk;
     })
   })
