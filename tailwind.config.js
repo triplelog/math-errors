@@ -1,7 +1,7 @@
 module.exports = {
   purge: {
     enabled: true,
-    content: ['./templates/*.html'],
+    content: ['./templates/*.html','./templates/*.njk'],
   },
   theme: {},
   variants: {},
