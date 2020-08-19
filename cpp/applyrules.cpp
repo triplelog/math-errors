@@ -407,16 +407,19 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 					step.startNode = oneIndex[0]+oneIndex[1]-1;
 					step.endNode = oneIndex[0]+newPostfixFirst.length()-1;
 					step.endNodes = {};
+					int offset = 0;
+					std::cout << "___: " << tempTemp << "\n";
 					for (iii=oneIndex[0];iii<oneIndex[0]+newPostfixFirst.length();iii++){
 						if (m.find(iii) != m.end()){
+							offset += m[iii]-iii-1;
 							std::cout << "aa: " << iii+m[iii]-1 << "\n";
-							step.endNodes.push_back(iii+m[iii]-1);
 						}
 						else {
 							std::cout << "bb: " << iii+m[iii]-1 << "\n";
-							step.endNodes.push_back(iii);
 						}
+						step.endNodes.push_back(iii+offset);
 					}
+					std::cout << "___: \n";
 					
 					m.clear();
 					m = removeBracketsList(m,userString);
