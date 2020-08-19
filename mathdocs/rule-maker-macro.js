@@ -1,5 +1,6 @@
 const katex = require('katex');
-const bindingP = require.resolve(`./build/Release/bindingP`);
+const assert = require('assert');
+const bindingP = require.resolve(`../build/Release/bindingP`);
 const maincppp = require(bindingP);
 var retHelloP = maincppp.hello();
 
