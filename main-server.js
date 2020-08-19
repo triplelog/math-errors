@@ -427,10 +427,10 @@ app.get('/rulepage',
 		console.log(performance.now());
 		
 		var instruction = `[instruction]
-    IN: A+B
-    OUT: B+A
-    Y: A is 1
-    N: B is 11
+IN: A+B
+OUT: B+A
+Y: A is 1
+N: B is 11
     
     `
 		const html = asciidoctor.convert('this is a $A+B$ for real with more $x=7$ to come.\n'+instruction, { 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
