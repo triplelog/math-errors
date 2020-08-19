@@ -5,7 +5,7 @@ module.exports = function (registry) {
     self.named('instruction')
     self.onContext('paragraph')
     self.process(function (parent, reader) {
-      var cards = {constraintsYes:[],constraintsNo:[]};
+      var cards = {constraints:[]};
       var lines = reader.lines;
       for (var i = 0; i < lines.length; i++) {
       	console.log(lines[i].substr(0,5).toLowerCase());
@@ -15,11 +15,8 @@ module.exports = function (registry) {
       	else if (lines[i].substr(0,5).toLowerCase() == "out: "){
       		cards['out']=lines[i].substr(5);
       	}
-      	else if (lines[i].substr(0,3).toLowerCase() == "y: "){
-      		cards['constraintsYes'].push(lines[i].substr(3));
-      	}
-      	else if (lines[i].substr(0,3).toLowerCase() == "n: "){
-      		cards['constraintsNo'].push(lines[i].substr(3));
+      	else{
+      		cards['constraints'].push(lines[i]);
       	}
       }
       console.log(JSON.stringify(cards));
