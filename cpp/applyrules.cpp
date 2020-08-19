@@ -412,11 +412,12 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 					for (iii=oneIndex[0];iii<oneIndex[0]+newPostfixFirst.length();iii++){
 						if (m.find(iii) != m.end()){
 							offset += m[iii]-iii-1;
-							std::cout << "aa: " << iii+m[iii]-1 << "\n";
+							std::cout << "aa: " << offset << "\n";
 						}
 						else {
-							std::cout << "bb: " << iii+m[iii]-1 << "\n";
+							std::cout << "bb: " << offset << "\n";
 						}
+						std::cout << "cc: " << iii+offset << "\n";
 						step.endNodes.push_back(iii+offset);
 					}
 					std::cout << "___: \n";
