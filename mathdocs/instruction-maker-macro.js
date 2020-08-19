@@ -71,10 +71,10 @@ module.exports = function (registry) {
     var self = this
     self.named('example')
     self.process(function (parent, target, attrs) {
-      var html = katex.renderToString(maincppp.latexify(target), {
-				throwOnError: false
-	  });
-      var blk = self.createBlock(parent, 'example', "", {block:html});
+      var jsonmessage = JSON.parse(maincppp.onerule(target));
+      console.log(jsonmessage);
+
+      var blk = self.createBlock(parent, 'example', "", {block:jsonmessage.input});
       return blk;
     })
   })

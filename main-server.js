@@ -428,7 +428,7 @@ app.get('/rulepage',
 			dewey += req.query.r.toLowerCase();
 		}
 		console.log(performance.now());
-		console.log(maincppp.onerule("x+3"));
+		
 		var instruction = `[rule]
 IN: A^2+B/7
 OUT: B+A/2
@@ -441,7 +441,7 @@ OUT: B+A
 A is 1
 B is not 11
 
-example::A+B[]
+example::x^12+3[]
     
     `
 		const html = asciidoctor.convert('this is a $A^12+B/7$ for real with more $x=7$ to come.\n'+instruction, { 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
