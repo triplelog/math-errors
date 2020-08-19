@@ -10,9 +10,16 @@
 		</div>
 		{% endfor %}
 	</div>
+	{% if node.getAttribute("type") == "rule" %}
 	<div class="w-auto inline-block object-center mx-2 py-4">
 		---->
 	</div>
+	{% endif %}
+	{% if node.getAttribute("type") == "error" %}
+	<div class="w-auto bg-red-400 inline-block object-center mx-2 py-4">
+		---->
+	</div>
+	{% endif %}
 	<div class="w-auto inline-block">
 		<div class="w-full object-center px-4 py-4 border rounded">
 		{{ node.getAttribute("cards").out | safe }}

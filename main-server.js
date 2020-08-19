@@ -426,7 +426,13 @@ app.get('/rulepage',
 		}
 		console.log(performance.now());
 		
-		var instruction = `[instruction]
+		var instruction = `[rule]
+IN: A+B
+OUT: B+A
+A is 1
+B is not 11
+
+[error]
 IN: A+B
 OUT: B+A
 A is 1
