@@ -1,5 +1,5 @@
 <div class="flex flex-wrap w-full">
-	<div class="m-8 p-8 border rounded">
+	<div class="mx-8 px-8 py-4 border rounded">
 		<div>
 		{{ node.getAttribute("cards").in | safe }}
 		</div>
@@ -16,7 +16,7 @@
 		</div>
 		{% endfor %}
 	</div>
-	<div class="m-8 p-8 border rounded">
+	<div class="mx-8 px-8 py-4 border rounded">
 		{{ node.getAttribute("cards").out | safe }}
 	</div>
 </div>
