@@ -690,7 +690,8 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			std::string s(1,iter->first);
 			std::string sec = iter->second;
 			if (sec.length()>0 && sec.at(0) == '{'){
-				sec = sec.substring(1,sec.length()-2);
+				sec = sec.substr(1,sec.length()-2);
+				std::cout << "sec: " << sec << "\n";
 				sec = latexOne(sec);
 			}
 			if (oneStep.at(oneStep.length()-1)=='['){
