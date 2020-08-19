@@ -430,13 +430,13 @@ app.get('/rulepage',
 		console.log(performance.now());
 		console.log(maincppp.latexify("x/3+7^2=4"))
 		var instruction = `[rule]
-IN: A+B
-OUT: B+A
+IN: A^2+B/7
+OUT: B+A/2
 A is 1
 B is not 11
 
 [error]
-IN: A+B
+IN: sin(A)+B
 OUT: B+A
 A is 1
 B is not 11

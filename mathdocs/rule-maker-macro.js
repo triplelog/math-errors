@@ -1,4 +1,8 @@
 const katex = require('katex');
+const bindingP = require.resolve(`./build/Release/bindingP`);
+const maincppp = require(bindingP);
+var retHelloP = maincppp.hello();
+
 module.exports = function (registry) {
   registry.preprocessor(function () {
     var self = this
@@ -20,12 +24,13 @@ module.exports = function (registry) {
         		}
         		else {
         			//TODO: replace [ and ] from currentMath
-        			var newString = "math:infix[math=\""+currentMath+"\"]";
+        			var newString = "math:infix[math=\""+maincppp.latexify(currentMath)+"\"]";
+        			var oldString = "$"+currentMath+"$";
         			//var newString = katex.renderToString(currentMath, {
 					//		throwOnError: false
 					//  });
-        			lines[i] = lines[i].replace("$"+currentMath+"$",newString);
-        			ii += newString.length - (currentMath.length+2);
+        			lines[i] = lines[i].replace(oldString,newString);
+        			ii += newString.length - (oldString.length);
         			insideDollar = false;
         			currentMath = "";
         		}
