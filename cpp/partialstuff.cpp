@@ -673,35 +673,41 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::vector<std::vector<Step>> steps = partialTree(postfixed);
 	std::string jsonmessage = "{\"input\":\""+latexOne(postfixed)+"\",\"steps\":[";
 	int i;
+	flat_hash_map<std::string,bool> uniqueSteps;
 	for (i=0;i<steps[0].size();i++){
 		flat_hash_map<char,std::string> partMap = steps[0][i].partMap;
 		if (steps[0][i].rule < 0){
 			continue;
 		}
 		//std::cout << "RULE\n";
+		std::string oneStep = "";
 		std::string oldString = ruleIndex[steps[0][i].rule].key + "@" + ruleIndex[steps[0][i].rule].operands;
-		if (jsonmessage.at(jsonmessage.length()-1)=='['){
-			jsonmessage += "{\"input\":\""+latexOne(oldString)+"\",\"map\":[";
+		if (oneStep.at(oneStep.length()-1)=='['){
+			oneStep += "{\"input\":\""+latexOne(oldString)+"\",\"map\":[";
 		}
 		else {
-			jsonmessage += ",{\"input\":\""+latexOne(oldString)+"\",\"map\":[";
+			oneStep += ",{\"input\":\""+latexOne(oldString)+"\",\"map\":[";
 		}
 		
 		
 		for (flat_hash_map<char,std::string>::iterator iter = partMap.begin(); iter != partMap.end(); ++iter){
 			std::string s(1,iter->first);
-			if (jsonmessage.at(jsonmessage.length()-1)=='['){
-				jsonmessage += "\"" + s +"\",\""+ iter->second +"\"";
+			if (oneStep.at(oneStep.length()-1)=='['){
+				oneStep += "\"" + s +"\",\""+ iter->second +"\"";
 			}
 			else {
-				jsonmessage += ",\"" + s +"\",\""+ iter->second +"\"";
+				oneStep += ",\"" + s +"\",\""+ iter->second +"\"";
 			}
 			
 		}
-		jsonmessage += "],";
-		jsonmessage += "\"output\":\""+latexOne(ruleIndex[steps[0][i].rule].out)+"\",";
-		jsonmessage += "\"final\":\""+latexOne(removeBracketsOne(steps[0][i].next))+"\"}";
-		std::cout << "Final: " << steps[0][i].next << " and " << latexOne(steps[0][i].next) << " and " << latexOne(removeBracketsOne(steps[0][i].next)) << "\n";
+		oneStep += "],";
+		oneStep += "\"output\":\""+latexOne(ruleIndex[steps[0][i].rule].out)+"\",";
+		oneStep += "\"final\":\""+latexOne(removeBracketsOne(steps[0][i].next))+"\"}";
+		if (uniqueSteps.find(oneStep) == uniqueSteps.end()){
+			jsonmessage += oneStep;
+			uniqueSteps[oneStep]=true;
+		}
+		
 	}
 	jsonmessage += "]}";
 	//if applies, grab initial form (i.e. A=...,B=...)
