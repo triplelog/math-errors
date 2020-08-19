@@ -31,6 +31,8 @@ using phmap::flat_hash_map;
 
 #include "commonstuff.cpp"
 
+#include "solve.cpp"
+
 std::vector<std::vector<Step>> partialTree(std::string pfstr){
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,int> operandMap;
@@ -324,9 +326,7 @@ std::vector<std::vector<Step>> partialTree(std::string pfstr){
 
 						//std::vector<int> tempV;
 						//tempV = {startLeftIndex,i+1-startLeftIndex,startRightIndex,rightLength};
-						if (!checkAnswer(firstS[ii] + secondS[iii] + pfstr.at(i) + '@' + firstT[ii] + secondT[iii])){
-							answerIsFinished = false;
-						}
+
 						
 						auto a1 = std::chrono::high_resolution_clock::now();
 						//TODO: make this parallel
@@ -504,9 +504,7 @@ std::vector<std::vector<Step>> partialTree(std::string pfstr){
 							rightLength++;
 						}
 					}
-					if (!checkAnswer(secondS[iii] + pfstr.at(i) + '@' + secondT[iii])){
-						answerIsFinished = false;
-					}
+
 					auto a1 = std::chrono::high_resolution_clock::now();
 					//TODO: make this parallel
 					//std::vector<int> tempV;
