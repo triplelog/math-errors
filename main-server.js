@@ -441,7 +441,7 @@ OUT: B+A
 A is 1
 B is not 11
 
-example::x^12+3+5[]
+example::1+2+x^12+3+5[]
     
     `
 		const html = asciidoctor.convert('this is a $A^12+B/7$ for real with more $x=7$ to come.\n'+instruction, { 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
