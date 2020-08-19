@@ -428,6 +428,7 @@ app.get('/rulepage',
 			dewey += req.query.r.toLowerCase();
 		}
 		console.log(performance.now());
+		console.log(maincppp.onerule("x+3"));
 		var instruction = `[rule]
 IN: A^2+B/7
 OUT: B+A/2

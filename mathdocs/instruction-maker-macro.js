@@ -32,7 +32,6 @@ module.exports = function (registry) {
       		cards['constraints'].push(html);
       	}
       }
-      console.log(JSON.stringify(cards));
       var blk = self.createBlock(parent, 'instruction', "",{cards:cards,type:"rule"});
       return blk;
     })
@@ -64,7 +63,6 @@ module.exports = function (registry) {
       		cards['constraints'].push(html);
       	}
       }
-      console.log(JSON.stringify(cards));
       var blk = self.createBlock(parent, 'instruction', "",{cards:cards,type:"error"});
       return blk;
     })
