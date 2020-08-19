@@ -438,7 +438,7 @@ OUT: B+A
 A is 1
 B is not 11
 
-[exampleM]
+[sample]
 IN: A+B
 OUT: B+A
 A is 1
