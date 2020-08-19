@@ -75,13 +75,13 @@ module.exports = function (registry) {
       var jsonmessage = maincppp.onerule(target);
       console.log(jsonmessage);
 	  var parsed = JSON.parse(jsonmessage);
-	  for (var i=0;i<parsed.steps.length;i++){
-	  	parsed.steps[i].start = katex.renderToString(parsed.steps[i].start, {throwOnError: false});
-	  	parsed.steps[i].input = katex.renderToString(parsed.steps[i].input, {throwOnError: false});
-	  	parsed.steps[i].output = katex.renderToString(parsed.steps[i].output, {throwOnError: false});
-	  	parsed.steps[i].final = katex.renderToString(parsed.steps[i].final, {throwOnError: false});
-	  	for (var ii=0;ii<parsed.steps[i].map.length;ii++){
-	  		parsed.steps[i].map[ii] = katex.renderToString(parsed.steps[i].map[ii], {throwOnError: false});
+	  for (var i=0;i<parsed.length;i++){
+	  	parsed[i].start = katex.renderToString(parsed[i].start, {throwOnError: false});
+	  	parsed[i].input = katex.renderToString(parsed[i].input, {throwOnError: false});
+	  	parsed[i].output = katex.renderToString(parsed[i].output, {throwOnError: false});
+	  	parsed[i].final = katex.renderToString(parsed[i].final, {throwOnError: false});
+	  	for (var ii=0;ii<parsed[i].map.length;ii++){
+	  		parsed[i].map[ii] = katex.renderToString(parsed[i].map[ii], {throwOnError: false});
 	  	}
 	  }
       var blk = self.createBlock(parent, 'example', "", {parsed:parsed});
