@@ -7,16 +7,22 @@
 		</div>
 	</div>
 	<div class="w-auto inline-block object-center mx-2 py-3">
-		----->
+		--->
 	</div>
 	
 	<div class="w-auto inline-block object-center border rounded">
 		<div class="w-full px-3 py-3">
 		{{ node.getAttribute("parsed").steps[i].input | safe }}
 		</div>
+		{% for ii in range(0,node.getAttribute("parsed").steps[i].map.length/2) %}
+		<hr>
+		<div class="w-full bg-red-100 px-2">
+			{{ node.getAttribute("parsed").steps[i].map[ii*2+1] | safe }} -> {{ node.getAttribute("parsed").steps[i].map[ii*2] | safe }}
+		</div>
+		{% endfor %}
 	</div>
 	<div class="w-auto inline-block object-center mx-2 py-3">
-		----->
+		--->
 	</div>
 	
 	<div class="w-auto inline-block object-center border rounded">
@@ -25,7 +31,7 @@
 		</div>
 	</div>
 	<div class="w-auto inline-block object-center mx-2 py-3">
-		----->
+		--->
 	</div>
 	
 	<div class="w-auto inline-block">

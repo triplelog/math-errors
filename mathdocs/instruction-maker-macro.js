@@ -80,6 +80,9 @@ module.exports = function (registry) {
 	  	parsed.steps[i].input = katex.renderToString(parsed.steps[i].input, {throwOnError: false});
 	  	parsed.steps[i].output = katex.renderToString(parsed.steps[i].output, {throwOnError: false});
 	  	parsed.steps[i].final = katex.renderToString(parsed.steps[i].final, {throwOnError: false});
+	  	for (var ii=0;ii<parsed.steps[i].map.length;ii++){
+	  		parsed.steps[i].map[ii] = katex.renderToString(parsed.steps[i].map[ii], {throwOnError: false});
+	  	}
 	  }
       var blk = self.createBlock(parent, 'example', "", {parsed:parsed});
       return blk;

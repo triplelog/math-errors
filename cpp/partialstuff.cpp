@@ -688,11 +688,16 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 		for (flat_hash_map<char,std::string>::iterator iter = partMap.begin(); iter != partMap.end(); ++iter){
 			std::string s(1,iter->first);
+			std::string sec = iter->second;
+			if (sec.length()>0 && sec.at(0) == '{'){
+				sec = sec.substring(1,sec.length()-2);
+				sec = latexOne(sec);
+			}
 			if (oneStep.at(oneStep.length()-1)=='['){
-				oneStep += "\"" + s +"\",\""+ iter->second +"\"";
+				oneStep += "\"" + s +"\",\""+ sec +"\"";
 			}
 			else {
-				oneStep += ",\"" + s +"\",\""+ iter->second +"\"";
+				oneStep += ",\"" + s +"\",\""+ sec +"\"";
 			}
 			
 		}
