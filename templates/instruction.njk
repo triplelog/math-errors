@@ -1,5 +1,5 @@
 <div class="w-full">
-	<div class="mx-8 px-8 py-4 border rounded">
+	<span class="mx-4 px-4 py-4 border rounded">
 		<div>
 		{{ node.getAttribute("cards").in | safe }}
 		</div>
@@ -15,8 +15,8 @@
 			{{ constraint | safe }}
 		</div>
 		{% endfor %}
-	</div>
-	<div class="mx-8 px-8 py-4 border rounded">
+	</span>
+	<span class="mx-4 px-4 py-4 border rounded">
 		{{ node.getAttribute("cards").out | safe }}
-	</div>
+	</span>
 </div>
