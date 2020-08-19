@@ -428,7 +428,6 @@ app.get('/rulepage',
 			dewey += req.query.r.toLowerCase();
 		}
 		console.log(performance.now());
-		console.log(maincppp.latexify("x/3+7^2=4"))
 		var instruction = `[rule]
 IN: A^2+B/7
 OUT: B+A/2
@@ -444,7 +443,7 @@ B is not 11
 example::A+B[]
     
     `
-		const html = asciidoctor.convert('this is a $A+B$ for real with more $x=7$ to come.\n'+instruction, { 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+		const html = asciidoctor.convert('this is a $A^12+B/7$ for real with more $x=7$ to come.\n'+instruction, { 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 		//console.log(html);
 		SubjectData.find({}, function(err,result) {
 			res.write(nunjucks.render('rulepage.html',{

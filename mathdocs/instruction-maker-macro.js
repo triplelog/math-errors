@@ -1,4 +1,9 @@
 const katex = require('katex');
+const assert = require('assert');
+const bindingP = require.resolve(`../build/Release/bindingP`);
+const maincppp = require(bindingP);
+var retHelloP = maincppp.hello();
+
 module.exports = function (registry) {
   registry.block(function () {
     var self = this
@@ -10,13 +15,13 @@ module.exports = function (registry) {
       for (var i = 0; i < lines.length; i++) {
       	console.log(lines[i].substr(0,5).toLowerCase());
       	if (lines[i].substr(0,4).toLowerCase() == "in: "){
-      		cards['in']=lines[i].substr(4);
+      		cards['in']=maincpp.latexify(lines[i].substr(4));
       	}
       	else if (lines[i].substr(0,5).toLowerCase() == "out: "){
-      		cards['out']=lines[i].substr(5);
+      		cards['out']=maincpp.latexify(lines[i].substr(5));
       	}
       	else{
-      		cards['constraints'].push(lines[i]);
+      		cards['constraints'].push(maincpp.latexify(lines[i]));
       	}
       }
       console.log(JSON.stringify(cards));
@@ -34,13 +39,13 @@ module.exports = function (registry) {
       for (var i = 0; i < lines.length; i++) {
       	console.log(lines[i].substr(0,5).toLowerCase());
       	if (lines[i].substr(0,4).toLowerCase() == "in: "){
-      		cards['in']=lines[i].substr(4);
+      		cards['in']=maincpp.latexify(lines[i].substr(4));
       	}
       	else if (lines[i].substr(0,5).toLowerCase() == "out: "){
-      		cards['out']=lines[i].substr(5);
+      		cards['out']=maincpp.latexify(lines[i].substr(5));
       	}
       	else{
-      		cards['constraints'].push(lines[i]);
+      		cards['constraints'].push(maincpp.latexify(lines[i]));
       	}
       }
       console.log(JSON.stringify(cards));
@@ -52,7 +57,7 @@ module.exports = function (registry) {
     var self = this
     self.named('example')
     self.process(function (parent, target, attrs) {
-      var blk = self.createBlock(parent, 'example', target);
+      var blk = self.createBlock(parent, 'example', maincpp.latexify(target));
       return blk;
     })
   })
