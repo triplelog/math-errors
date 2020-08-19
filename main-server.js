@@ -426,14 +426,14 @@ app.get('/rulepage',
 		}
 		console.log(performance.now());
 		
-		var tree = `[tree]
-    A($x=7^2$)-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+		var instruction = `[instruction]
+    IN: A+B
+    OUT: B+A
+    Y: A is 1
+    N: B is 11
     
     `
-		const html = asciidoctor.convert('this is a $A+B$ for real with more $x=7$ to come.\n'+tree, { 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+		const html = asciidoctor.convert('this is a $A+B$ for real with more $x=7$ to come.\n'+instruction, { 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 		//console.log(html);
 		SubjectData.find({}, function(err,result) {
 			res.write(nunjucks.render('rulepage.html',{

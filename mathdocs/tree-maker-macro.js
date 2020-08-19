@@ -15,7 +15,6 @@ module.exports = function (registry) {
         	if (ii < lines[i].length - 17 && lines[i].substr(ii,17) == "math:infix[math=\"" && !insideDollar){
         		insideDollar = true;
         		ii += 16;
-        		console.log("found");
         	}
         	else if (lines[i][ii] == "\"" && insideDollar){
 				//TODO: replace [ and ] from currentMath
@@ -23,9 +22,7 @@ module.exports = function (registry) {
 				var newString = katex.renderToString(currentMath, {
 						throwOnError: false
 				  });
-				console.log(newString);
 				var oldString = "math:infix[math=\""+currentMath+"\"]";
-				console.log(oldString);
 				lines[i] = lines[i].replace(oldString,newString);
 				ii += newString.length - (oldString.length);
 				insideDollar = false;

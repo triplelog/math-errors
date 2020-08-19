@@ -1,0 +1,8 @@
+<div class="flex flex-wrap w-full">
+	<div class="mb-4 px-2 border rounded">
+		{{ node.getAttribute("cards").in | safe }}
+	</div>
+	<div class="mb-4 px-2 border rounded">
+		{{ node.getAttribute("cards").out | safe }}
+	</div>
+</div>
