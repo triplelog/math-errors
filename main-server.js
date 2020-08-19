@@ -4,6 +4,7 @@ var fs = require("fs");
 const assert = require('assert');
 const binding = require.resolve(`./build/Release/binding`);
 const bindingA = require.resolve(`./build/Release/bindingA`);
+const bindingP = require.resolve(`./build/Release/bindingP`);
 
 //const postfix = require('./postfix.js');
 
