@@ -672,7 +672,6 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::string postfixed = postfixify(a);
 	std::vector<std::vector<Step>> steps = partialTree(postfixed);
 	std::string jsonmessage = "[";
-	std::string jsonmessage = "{\"input\":\""+latexBoxed(postfixed,steps[0])+"\",\"steps\":[";
 	int i;
 	flat_hash_map<std::string,bool> uniqueSteps;
 	int idx = 0;
