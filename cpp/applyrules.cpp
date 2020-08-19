@@ -409,9 +409,9 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 					step.endNodes = {};
 					int offset = 0;
 					std::cout << "___: " << tempTemp << "\n";
-					for (iii=oneIndex[0];iii<oneIndex[0]+newPostfixFirst.length()+offset;iii++){
-						if (m.find(iii) != m.end()){
-							offset += m[iii]-1;
+					for (iii=oneIndex[0];iii<oneIndex[0]+newPostfixFirst.length();iii++){
+						if (m.find(iii+offset) != m.end()){
+							offset += m[iii+offset]-1;
 							std::cout << "aa: " << offset << "\n";
 						}
 						else {
