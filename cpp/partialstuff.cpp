@@ -683,14 +683,9 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		//std::cout << "RULE\n";
 		std::string oneStep = "";
 		std::string oldString = ruleIndex[steps[0][i].rule].key + "@" + ruleIndex[steps[0][i].rule].operands;
-		if (idx == 0){
-			oneStep += "{\"input\":\""+latexOne(oldString)+"\",\"map\":[";
-		}
-		else {
-			oneStep += ",{\"input\":\""+latexOne(oldString)+"\",\"map\":[";
-		}
-		
-		
+
+		oneStep += "{\"input\":\""+latexOne(oldString)+"\",\"map\":[";
+	
 		for (flat_hash_map<char,std::string>::iterator iter = partMap.begin(); iter != partMap.end(); ++iter){
 			std::string s(1,iter->first);
 			if (oneStep.at(oneStep.length()-1)=='['){
@@ -705,10 +700,14 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		oneStep += "\"output\":\""+latexOne(ruleIndex[steps[0][i].rule].out)+"\",";
 		oneStep += "\"final\":\""+latexOne(removeBracketsOne(steps[0][i].next))+"\"}";
 		if (uniqueSteps.find(oneStep) == uniqueSteps.end()){
-			jsonmessage += oneStep;
+			if (idx ==0){
+				jsonmessage += oneStep;
+			}
+			else {
+				jsonmessage += ","+oneStep;
+			}
 			uniqueSteps[oneStep]=true;
 			idx++;
-			std::cout << oneStep << "\n";
 		}
 		
 	}
