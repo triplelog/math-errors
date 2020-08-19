@@ -409,7 +409,7 @@ const katex = require('katex');
 const asciidoctor = require('asciidoctor')();
 const registry = asciidoctor.Extensions.create();
 require('./mathdocs/rule-maker-macro.js')(registry);
-require('./mathdocs/tree-maker-macro.js')(registry);
+require('./mathdocs/instruction-maker-macro.js')(registry);
 		
 app.get('/rulepage',
 	function(req, res){

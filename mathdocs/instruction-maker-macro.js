@@ -15,6 +15,7 @@ module.exports = function (registry) {
       		cards['out']=lines.substr(5);
       	}
       }
+      console.log(JSON.stringify(cards));
       var blk = self.createBlock(parent, 'instruction', "",{cards:cards});
       return blk;
     })
