@@ -671,7 +671,8 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//make tree
 	std::string postfixed = postfixify(a);
 	std::vector<std::vector<Step>> steps = partialTree(postfixed);
-	std::string jsonmessage = "{\"input\":\""+latexOne(postfixed)+"\",\"steps\":[";
+	std::string jsonmessage = "[";
+	std::string jsonmessage = "{\"input\":\""+latexBoxed(postfixed,steps[0])+"\",\"steps\":[";
 	int i;
 	flat_hash_map<std::string,bool> uniqueSteps;
 	int idx = 0;
@@ -681,10 +682,10 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			continue;
 		}
 		//std::cout << "RULE\n";
-		std::string oneStep = "";
+		std::string oneStep = "{\"start\":\""+latexBoxed(postfixed,steps[0][i].startNode)+"\",";
 		std::string oldString = ruleIndex[steps[0][i].rule].key + "@" + ruleIndex[steps[0][i].rule].operands;
 		
-		oneStep += "{\"input\":\""+latexBoxed(oldString,steps[0][i].startNode)+"\",\"map\":[";
+		oneStep += "\"input\":\""+latexOne(oldString)+"\",\"map\":[";
 	
 		for (flat_hash_map<char,std::string>::iterator iter = partMap.begin(); iter != partMap.end(); ++iter){
 			std::string s(1,iter->first);
@@ -716,7 +717,7 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		}
 		
 	}
-	jsonmessage += "]}";
+	jsonmessage += "]";
 	//if applies, grab initial form (i.e. A=...,B=...)
 	//solve and grab new form
 	//get final form
