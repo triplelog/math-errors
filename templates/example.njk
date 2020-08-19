@@ -1,11 +1,11 @@
 {% for i in range(0,node.getAttribute("parsed").length) %}
-<div class="flex w-full">
+<div class="flex w-full py-3">
 	
 	<div class="w-auto inline-block object-center">
-		<div class="w-full px-3 py-3 border rounded">
+		<div class="w-full px-3 py-3 border rounded mb-2">
 		{{ node.getAttribute("parsed")[i].start | safe }}
 		</div>
-		
+
 		<div class="w-full border rounded">
 		
 			<div class="w-full px-3 py-3">
@@ -23,7 +23,7 @@
 		--->
 	</div>
 	<div class="w-auto inline-block">
-		<div class="w-full object-center px-3 py-3 border rounded">
+		<div class="w-full object-center px-3 py-3 border rounded mb-2">
 		{{ node.getAttribute("parsed")[i].final | safe }}
 		</div>
 		
