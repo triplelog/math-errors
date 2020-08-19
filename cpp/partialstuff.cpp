@@ -704,8 +704,8 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		oneStep += "],";
 		oneStep += "\"output\":\""+latexOne(ruleIndex[steps[0][i].rule].out)+"\",";
 		int eNode = steps[0][i].endNode;
-		if (steps[0][i].endNodes.length() > 0){
-			eNode = steps[0][i].endNodes[steps[0][i].endNodes.length()-1];
+		if (steps[0][i].endNodes.size() > 0){
+			eNode = steps[0][i].endNodes[steps[0][i].endNodes.size()-1];
 		}
 		oneStep += "\"final\":\""+latexBoxed(removeBracketsOne(steps[0][i].next),eNode)+"\"}";
 		if (uniqueSteps.find(oneStep) == uniqueSteps.end()){
