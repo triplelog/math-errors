@@ -50,7 +50,7 @@ module.exports = function (registry) {
   })
   registry.block(function () {
     var self = this
-    self.named('example')
+    self.named('exampleM')
     self.onContext('paragraph')
     self.process(function (parent, reader) {
       var cards = {constraints:[]};
