@@ -8,11 +8,11 @@ module.exports = function (registry) {
       var cards = {};
       var lines = reader.lines;
       for (var i = 0; i < lines.length; i++) {
-      	if (lines.substr(0,4).toLowerCase() == "in: "){
-      		cards['in']=lines.substr(4);
+      	if (lines[i].substr(0,4).toLowerCase() == "in: "){
+      		cards['in']=lines[i].substr(4);
       	}
-      	else if (lines.substr(0,5).toLowerCase() == "out: "){
-      		cards['out']=lines.substr(5);
+      	else if (lines[i].substr(0,5).toLowerCase() == "out: "){
+      		cards['out']=lines[i].substr(5);
       	}
       }
       console.log(JSON.stringify(cards));
