@@ -708,6 +708,7 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			jsonmessage += oneStep;
 			uniqueSteps[oneStep]=true;
 			idx++;
+			std::cout << oneStep << "\n";
 		}
 		
 	}
