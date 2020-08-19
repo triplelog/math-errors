@@ -408,30 +408,22 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 					step.endNode = oneIndex[0]+newPostfixFirst.length()-1;
 					step.endNodes = {};
 					int offset = 0;
-					std::cout << "___: " << tempTemp << "\n";
 					for (iii=oneIndex[0];iii<oneIndex[0]+newPostfixFirst.length();iii++){
 						if (m.find(iii+offset) != m.end()){
 							offset += m[iii+offset]-1;
-							std::cout << "aa: " << offset << "\n";
 						}
-						else {
-							std::cout << "bb: " << offset << "\n";
-						}
-						std::cout << "cc: " << iii+offset << "\n";
 						step.endNodes.push_back(iii+offset);
 					}
-					std::cout << "___: \n";
 					
 					m.clear();
 					m = removeBracketsList(m,userString);
 					step.startNodes = {};
+					offset = 0;
 					for (iii=0;iii<startAt-1;iii++){
-						if (m.find(iii) != m.end()){
-							step.startNodes.push_back(oneIndex[0]+iii+m[iii]-1);
+						if (m.find(iii+offset) != m.end()){
+							offset += m[iii+offset]-1;
 						}
-						else {
-							step.startNodes.push_back(oneIndex[0]+iii);
-						}
+						step.startNodes.push_back(oneIndex[0]+offset+iii);
 					}
 					
 					allStrings.push_back(step);
