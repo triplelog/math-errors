@@ -678,13 +678,15 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			continue;
 		}
 		std::cout << "RULE\n";
+		std::cout << latexify(postfixed) << "\n";
 		std::cout << ruleIndex[steps[0][i].rule].key + "@" + ruleIndex[steps[0][i].rule].operands << "\n";
-		std::cout << ruleIndex[steps[0][i].rule].out << "\n";
+		
 		for (flat_hash_map<char,std::string>::iterator iter = partMap.begin(); iter != partMap.end(); ++iter){
 					
 			std::cout << "first: " << iter->first << " and " << iter->second << "\n";
 		}
-		std::cout << steps[0][i].next << "\n";
+		
+		std::cout << latexify(steps[0][i].next) << "\n";
 	}
 	//if applies, grab initial form (i.e. A=...,B=...)
 	//solve and grab new form
