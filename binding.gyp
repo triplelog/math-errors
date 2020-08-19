@@ -15,6 +15,14 @@
       	"include_dirs" : [
 			"<!(node -e \"require('nan')\")"
 		]
+    },
+    {
+      	'target_name': 'bindingP',
+        "cflags_cc": [ "-fexceptions" ],
+      	'sources': [ 'cpp/partialstuff.cpp' ],
+      	"include_dirs" : [
+			"<!(node -e \"require('nan')\")"
+		]
     }
   ]
 }
