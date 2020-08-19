@@ -683,8 +683,8 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		//std::cout << "RULE\n";
 		std::string oneStep = "";
 		std::string oldString = ruleIndex[steps[0][i].rule].key + "@" + ruleIndex[steps[0][i].rule].operands;
-
-		oneStep += "{\"input\":\""+latexOne(oldString)+"\",\"map\":[";
+		
+		oneStep += "{\"input\":\""+latexBoxed(oldString,steps[0][i].startNode)+"\",\"map\":[";
 	
 		for (flat_hash_map<char,std::string>::iterator iter = partMap.begin(); iter != partMap.end(); ++iter){
 			std::string s(1,iter->first);
