@@ -56,6 +56,7 @@ struct Step {
 	int endNode;
 	std::vector<int> endNodes;
 	std::vector<int> startNodes;
+	flat_hash_map<char,std::string> partMap;
 	
 };
 struct Answer {

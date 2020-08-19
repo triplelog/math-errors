@@ -673,7 +673,11 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::vector<std::vector<Step>> steps = partialTree(postfixed);
 	int i;
 	for (i=0;i<steps[0].size();i++){
-		std::cout << steps[0][i].next << "\n";
+		flat_hash_map<char,std::string> partMap = steps[0][i].partMap;
+		for (flat_hash_map<char,std::string>::iterator iter = partMap.begin(); iter != partMap.end(); ++iter){
+					
+			std::cout << "first: " << iter->first << " and " << iter->second << "\n";
+		}
 	}
 	//if applies, grab initial form (i.e. A=...,B=...)
 	//solve and grab new form

@@ -403,6 +403,7 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 					Step step;
 					step.next = tempTemp;
 					step.rule = rule.id;
+					step.partMap = partMap;
 					step.startNode = oneIndex[0]+oneIndex[1]-1;
 					step.endNode = oneIndex[0]+newPostfixFirst.length()-1;
 					step.endNodes = {};
@@ -446,3 +447,4 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 	return allStrings;
 	
 }
+
