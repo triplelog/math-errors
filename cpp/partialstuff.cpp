@@ -674,6 +674,7 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::string jsonmessage = "{\"input\":\""+latexOne(postfixed)+"\",\"steps\":[";
 	int i;
 	flat_hash_map<std::string,bool> uniqueSteps;
+	int idx = 0;
 	for (i=0;i<steps[0].size();i++){
 		flat_hash_map<char,std::string> partMap = steps[0][i].partMap;
 		if (steps[0][i].rule < 0){
@@ -682,7 +683,7 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		//std::cout << "RULE\n";
 		std::string oneStep = "";
 		std::string oldString = ruleIndex[steps[0][i].rule].key + "@" + ruleIndex[steps[0][i].rule].operands;
-		if (oneStep.at(oneStep.length()-1)=='['){
+		if (idx == 0){
 			oneStep += "{\"input\":\""+latexOne(oldString)+"\",\"map\":[";
 		}
 		else {
@@ -706,6 +707,7 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		if (uniqueSteps.find(oneStep) == uniqueSteps.end()){
 			jsonmessage += oneStep;
 			uniqueSteps[oneStep]=true;
+			idx++;
 		}
 		
 	}
