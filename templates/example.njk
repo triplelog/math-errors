@@ -1,4 +1,5 @@
 <div class="flex w-full">
+	{% for i in range(0,node.getAttribute("parsed").steps.length) %}
 	<div class="w-auto inline-block object-center border rounded">
 		<div class="w-full px-3 py-3">
 		{{ node.getAttribute("parsed").input | safe }}
@@ -10,7 +11,7 @@
 	
 	<div class="w-auto inline-block object-center border rounded">
 		<div class="w-full px-3 py-3">
-		{{ node.getAttribute("parsed").steps[0].input | safe }}
+		{{ node.getAttribute("parsed").steps[i].input | safe }}
 		</div>
 	</div>
 	<div class="w-auto inline-block object-center mx-2 py-3">
@@ -19,7 +20,7 @@
 	
 	<div class="w-auto inline-block object-center border rounded">
 		<div class="w-full px-3 py-3">
-		{{ node.getAttribute("parsed").steps[0].output | safe }}
+		{{ node.getAttribute("parsed").steps[i].output | safe }}
 		</div>
 	</div>
 	<div class="w-auto inline-block object-center mx-2 py-3">
@@ -28,7 +29,8 @@
 	
 	<div class="w-auto inline-block">
 		<div class="w-full object-center px-3 py-3 border rounded">
-		{{ node.getAttribute("parsed").steps[0].final | safe }}
+		{{ node.getAttribute("parsed").steps[i].final | safe }}
 		</div>
 	</div>
+	{% endfor %}
 </div>
