@@ -689,12 +689,12 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		
 		
 		for (flat_hash_map<char,std::string>::iterator iter = partMap.begin(); iter != partMap.end(); ++iter){
-					
+			std::string s(1,iter->first);
 			if (jsonmessage.at(jsonmessage.length()-1)=='['){
-				jsonmessage += "\""+iter->first+"\",\""+iter->second+"\"";
+				jsonmessage += "\"" + s +"\",\""+ iter->second +"\"";
 			}
 			else {
-				jsonmessage += ",\""+iter->first+"\",\""+iter->second+"\"";
+				jsonmessage += ",\"" + s +"\",\""+ iter->second +"\"";
 			}
 			
 		}
