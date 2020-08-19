@@ -703,7 +703,7 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		}
 		oneStep += "],";
 		oneStep += "\"output\":\""+latexOne(ruleIndex[steps[0][i].rule].out)+"\",";
-		oneStep += "\"final\":\""+latexOne(removeBracketsOne(steps[0][i].next))+"\"}";
+		oneStep += "\"final\":\""+latexBoxed(removeBracketsOne(steps[0][i].next),steps[0][i].endNode)+"\"}";
 		if (uniqueSteps.find(oneStep) == uniqueSteps.end()){
 			if (idx ==0){
 				jsonmessage += oneStep;
