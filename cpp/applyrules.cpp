@@ -411,7 +411,7 @@ std::vector<Step> applyRulesVectorOnePart(std::string onePart,std::vector<int> o
 					std::cout << "___: " << tempTemp << "\n";
 					for (iii=oneIndex[0];iii<oneIndex[0]+newPostfixFirst.length();iii++){
 						if (m.find(iii) != m.end()){
-							offset += m[iii]-iii-1;
+							offset += m[iii]-1;
 							std::cout << "aa: " << offset << "\n";
 						}
 						else {
