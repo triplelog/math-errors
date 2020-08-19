@@ -17,7 +17,7 @@
 		{% for ii in range(0,node.getAttribute("parsed").steps[i].map.length/2) %}
 		<hr>
 		<div class="w-full bg-red-100 px-2">
-			{{ node.getAttribute("parsed").steps[i].map[ii*2+1] | safe }} -> {{ node.getAttribute("parsed").steps[i].map[ii*2] | safe }}
+			{{ node.getAttribute("parsed").steps[i].map[ii*2] | safe }}: {{ node.getAttribute("parsed").steps[i].map[ii*2+1] | safe }}
 		</div>
 		{% endfor %}
 	</div>
