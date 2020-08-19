@@ -14,13 +14,13 @@ module.exports = function (registry) {
       var lines = reader.lines;
       for (var i = 0; i < lines.length; i++) {
       	if (lines[i].substr(0,4).toLowerCase() == "in: "){
-      		var html = katex.renderToString(maincppp.latexify(lines[i].substr(4), {
+      		var html = katex.renderToString(maincppp.latexify(lines[i].substr(4)), {
 				throwOnError: false
 		  	});
       		cards['in']=html;
       	}
       	else if (lines[i].substr(0,5).toLowerCase() == "out: "){
-      		var html = katex.renderToString(maincppp.latexify(lines[i].substr(5), {
+      		var html = katex.renderToString(maincppp.latexify(lines[i].substr(5)), {
 				throwOnError: false
 		  	});
       		cards['out']=html;
@@ -46,13 +46,13 @@ module.exports = function (registry) {
       var lines = reader.lines;
       for (var i = 0; i < lines.length; i++) {
       	if (lines[i].substr(0,4).toLowerCase() == "in: "){
-      		var html = katex.renderToString(maincppp.latexify(lines[i].substr(4), {
+      		var html = katex.renderToString(maincppp.latexify(lines[i].substr(4)), {
 				throwOnError: false
 		  	});
       		cards['in']=html;
       	}
       	else if (lines[i].substr(0,5).toLowerCase() == "out: "){
-      		var html = katex.renderToString(maincppp.latexify(lines[i].substr(5), {
+      		var html = katex.renderToString(maincppp.latexify(lines[i].substr(5)), {
 				throwOnError: false
 		  	});
       		cards['out']=html;
