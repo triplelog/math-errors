@@ -15,13 +15,13 @@ module.exports = function (registry) {
       for (var i = 0; i < lines.length; i++) {
       	console.log(lines[i].substr(0,5).toLowerCase());
       	if (lines[i].substr(0,4).toLowerCase() == "in: "){
-      		cards['in']=maincpp.latexify(lines[i].substr(4));
+      		cards['in']=maincppp.latexify(lines[i].substr(4));
       	}
       	else if (lines[i].substr(0,5).toLowerCase() == "out: "){
-      		cards['out']=maincpp.latexify(lines[i].substr(5));
+      		cards['out']=maincppp.latexify(lines[i].substr(5));
       	}
       	else{
-      		cards['constraints'].push(maincpp.latexify(lines[i]));
+      		cards['constraints'].push(maincppp.latexify(lines[i]));
       	}
       }
       console.log(JSON.stringify(cards));
@@ -39,13 +39,13 @@ module.exports = function (registry) {
       for (var i = 0; i < lines.length; i++) {
       	console.log(lines[i].substr(0,5).toLowerCase());
       	if (lines[i].substr(0,4).toLowerCase() == "in: "){
-      		cards['in']=maincpp.latexify(lines[i].substr(4));
+      		cards['in']=maincppp.latexify(lines[i].substr(4));
       	}
       	else if (lines[i].substr(0,5).toLowerCase() == "out: "){
-      		cards['out']=maincpp.latexify(lines[i].substr(5));
+      		cards['out']=maincppp.latexify(lines[i].substr(5));
       	}
       	else{
-      		cards['constraints'].push(maincpp.latexify(lines[i]));
+      		cards['constraints'].push(maincppp.latexify(lines[i]));
       	}
       }
       console.log(JSON.stringify(cards));
@@ -57,7 +57,7 @@ module.exports = function (registry) {
     var self = this
     self.named('example')
     self.process(function (parent, target, attrs) {
-      var blk = self.createBlock(parent, 'example', maincpp.latexify(target));
+      var blk = self.createBlock(parent, 'example', maincppp.latexify(target));
       return blk;
     })
   })
