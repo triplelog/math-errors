@@ -700,8 +700,8 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		}
 		jsonmessage += "],";
 		jsonmessage += "\"output\":\""+latexOne(ruleIndex[steps[0][i].rule].out)+"\",";
-		jsonmessage += "\"final\":\""+latexOne(replaceBracketsOne(steps[0][i].next))+"\"}";
-		std::cout << "Final: " << steps[0][i].next << " and " << latexOne(steps[0][i].next) << " and " << latexOne(replaceBracketsOne(steps[0][i].next)) << "\n";
+		jsonmessage += "\"final\":\""+latexOne(removeBracketsOne(steps[0][i].next))+"\"}";
+		std::cout << "Final: " << steps[0][i].next << " and " << latexOne(steps[0][i].next) << " and " << latexOne(removeBracketsOne(steps[0][i].next)) << "\n";
 	}
 	jsonmessage += "]}";
 	//if applies, grab initial form (i.e. A=...,B=...)
