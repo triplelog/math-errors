@@ -1,17 +1,17 @@
 <div class="w-full">
-	<div class="w-auto inline-block object-center px-4 py-4 border rounded">
-		<div>
+	<div class="w-auto inline-block object-center border rounded">
+		<div class="w-full px-4 py-4">
 		{{ node.getAttribute("cards").in | safe }}
 		</div>
 		{% for constraint in node.getAttribute("cards").constraintsYes %}
 		<hr>
-		<div class="bg-green-200">
+		<div class="w-full bg-green-200">
 			{{ constraint | safe }}
 		</div>
 		{% endfor %}
 		{% for constraint in node.getAttribute("cards").constraintsNo %}
 		<hr>
-		<div class="bg-red-200">
+		<div class="w-full bg-red-200">
 			{{ constraint | safe }}
 		</div>
 		{% endfor %}
