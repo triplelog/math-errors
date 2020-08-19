@@ -74,8 +74,8 @@ module.exports = function (registry) {
     	
       var jsonmessage = maincppp.onerule(target);
       console.log(jsonmessage);
-
-      var blk = self.createBlock(parent, 'example', "", {block:jsonmessage});
+	  var parsed = JSON.parse(jsonmessage);
+      var blk = self.createBlock(parent, 'example', "", {block:parsed.input});
       return blk;
     })
   })

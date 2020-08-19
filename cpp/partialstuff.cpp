@@ -671,7 +671,7 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//make tree
 	std::string postfixed = postfixify(a);
 	std::vector<std::vector<Step>> steps = partialTree(postfixed);
-	std::string jsonmessage = "{'input':\""+latexOne(postfixed)+"\",'steps':[";
+	std::string jsonmessage = "{input:\""+latexOne(postfixed)+"\",steps:[";
 	int i;
 	for (i=0;i<steps[0].size();i++){
 		flat_hash_map<char,std::string> partMap = steps[0][i].partMap;
@@ -681,10 +681,10 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		//std::cout << "RULE\n";
 		std::string oldString = ruleIndex[steps[0][i].rule].key + "@" + ruleIndex[steps[0][i].rule].operands;
 		if (jsonmessage.at(jsonmessage.length()-1)=='['){
-			jsonmessage += "{'input':\""+latexOne(oldString)+"\",'map':[";
+			jsonmessage += "{input:\""+latexOne(oldString)+"\",map:[";
 		}
 		else {
-			jsonmessage += ",{'input':\""+latexOne(oldString)+"\",'map':[";
+			jsonmessage += ",{input:\""+latexOne(oldString)+"\",map:[";
 		}
 		
 		
@@ -699,8 +699,8 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			
 		}
 		jsonmessage += "],";
-		jsonmessage += "'output':\""+latexOne(ruleIndex[steps[0][i].rule].out)+"\",";
-		jsonmessage += "'final':\""+latexOne(steps[0][i].next)+"\"}";
+		jsonmessage += "output:\""+latexOne(ruleIndex[steps[0][i].rule].out)+"\",";
+		jsonmessage += "final:\""+latexOne(steps[0][i].next)+"\"}";
 	}
 	jsonmessage += "]}";
 	//if applies, grab initial form (i.e. A=...,B=...)
