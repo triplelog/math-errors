@@ -71,10 +71,11 @@ module.exports = function (registry) {
     var self = this
     self.named('example')
     self.process(function (parent, target, attrs) {
-      var jsonmessage = JSON.parse(maincppp.onerule(target));
+    	
+      var jsonmessage = maincppp.onerule(target);
       console.log(jsonmessage);
 
-      var blk = self.createBlock(parent, 'example', "", {block:jsonmessage.input});
+      var blk = self.createBlock(parent, 'example', "", {block:jsonmessage});
       return blk;
     })
   })
