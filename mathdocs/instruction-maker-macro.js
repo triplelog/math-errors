@@ -32,7 +32,7 @@ module.exports = function (registry,filen) {
 				});
 				cards['out']=html;
 			}
-			else if (lines[i].substr(0,2).toLowerCase() == "--"){
+			else if (lines[i].substr(0,6).toLowerCase() == "ABCXYZ"){
 				console.log(lines[i]);
 				isText = true;
 			}
