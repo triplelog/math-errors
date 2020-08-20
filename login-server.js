@@ -22,12 +22,12 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://matherrors:kZGWGda3A@localhost:27017/matherrors', {useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, useUnifiedTopology: true });
 
 var schema = new mongoose.Schema({subject: String, name: String});
-var Tank = mongoose.model('Tank', schema);
-var dog = new Tank({subject:"a",name:"b"});
+var Tankk = mongoose.model('Tankk', schema);
+var dog = new Tankk({subject:"a",name:"b"});
 dog.save(function(err,result){
 	console.log("err1: ",err);
 	console.log("res2: ",result);
-	Tank.countDocuments({}, function(err,result){
+	Tankk.countDocuments({}, function(err,result){
 		console.log("res3: ",result);
 	});
 });
