@@ -35,7 +35,7 @@ const User = require('./models/user');
 //const SubjectData = require('./models/subjects');
 var schema = new mongoose.Schema({subject:String,name:String});
 var Tank = mongoose.model('Tank', schema);
-Tank.findOne({}, function(err,result){
+Tank.countDocuments({}, function(err,result){
 	console.log("res: ",result);
 });
 var SubjectData = mongoose.model('SubjectData', schema);
