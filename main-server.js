@@ -263,6 +263,7 @@ wss.on('connection', function connection(ws) {
 		else if (dm.type == 'previewText'){
 			var html;
 			var jsonmessage;
+			//require('./mathdocs/instruction-maker-macro.js')(registry,"subjects/prealgebra.csv");
 			if (dm.rules){
 				html = asciidoctor.convert('[rule]\n'+dm.rules,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 				jsonmessage ={'type':'previewText','rules':html};
@@ -461,7 +462,7 @@ B is not 11
 example::1/3+2+x^12[]
     
     `	
-    	require('./mathdocs/instruction-maker-macro.js')(registry,"subjects/prealgebra.csv");
+    	require('./mathdocs/instruction-maker-macro.js')(registry,instruction);
 		const html = asciidoctor.convert('this is a $A^12+B/7$ for real with more $x=7$ to come.\n'+instruction, { 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 		//console.log(html);
 		SubjectData.find({}, function(err,result) {

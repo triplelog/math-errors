@@ -104,3 +104,155 @@ void makeRules(std::string fileName){
 		
 	}
 }
+
+void makeRulesNew(std::string input){
+	std::vector<std::vector<std::string>> rawRules;
+	int i; int ii;
+	std::vector<std::string> rows;
+	std::string currentRow = "";
+	for (i=0;i<input.length();i++){
+		if (input.at(i) == '\n'){
+			rows.push_back(currentRow);
+			currentRow = "";
+		}
+		else {
+			currentRow += input.at(i);
+		}
+	}
+	if (currentRow.length()>0){
+		rows.push_back(currentRow);
+	}
+	
+	int nRows = rows.size();
+	
+	
+	std::cout << "Rows: " << nRows << "\n";
+	
+	std::vector<std::string> currentRawRule;
+	currentRawRule.resize(0);
+	bool inRule = false;
+	for (i=0;i<nRows;i++){
+		std::string rawRule = rows[i];
+		if (rawRule == "[rule]"){
+			if (inRule){
+				inRule = false;
+				rawRules.push_back(currentRawRule);
+				currentRawRule.resize(0);
+			}
+			currentRawRule.resize(4);
+			currentRawRule[2] = "c";
+			currentRawRule[3] = "";
+			inRule = true;
+		}
+		else if (rawRule == "[error]"){
+			if (inRule){
+				inRule = false;
+				rawRules.push_back(currentRawRule);
+				currentRawRule.resize(0);
+			}
+			currentRawRule.resize(4);
+			currentRawRule[2] = "i";
+			currentRawRule[3] = "";
+			inRule = true;
+		}
+		else if (rawRule.substr(0,9) == "example::"){
+			if (inRule){
+				inRule = false;
+				rawRules.push_back(currentRawRule);
+				currentRawRule.resize(0);
+			}
+			currentRawRule.resize(4);
+			currentRawRule[2] = "x";
+			currentRawRule[3] = "";
+			currentRawRule[0] = rawRule.substr(9,rawRule.length()-11);
+			currentRawRule[1] = "";
+			inRule = false;
+			rawRules.push_back(currentRawRule);
+			currentRawRule.resize(0);
+			
+			
+		}
+		else if (rawRule.length() == 0){
+			if (inRule){
+				inRule = false;
+				rawRules.push_back(currentRawRule);
+				currentRawRule.resize(0);
+			}
+		}
+		else if (rawRule.substr(0,4) == "in: "){
+			currentRawRule[0] = rawRule.substr(4,rawRule.length()-4);
+		}
+		else if (rawRule.substr(0,5) == "out: "){
+			currentRawRule[1] = rawRule.substr(5,rawRule.length()-5);
+		}
+		else if (inRule){
+			currentRawRule.push_back(rawRule);
+		}
+		
+	}
+	if (inRule){
+		inRule = false;
+		rawRules.push_back(currentRawRule);
+		currentRawRule.resize(0);
+	}
+	//jsonmessage += "rules.push(rule);\n";
+	
+	
+	std::vector<std::string> fullPost;
+	std::string key;
+	std::string val1;
+	std::string out;
+	for (i=0;i<rawRules.size();i++){
+		Rule rule;
+		
+		fullPost = makeRule(rawRules[i][0]);
+		key = fullPost[0];
+		val1 = fullPost[1];
+		rule.key = key;
+		std::cout << "key: "<< key << "\n";
+		std::cout << "val1: "<< val1 << "\n";
+		fullPost = makeRule(rawRules[i][1]);
+		std::cout << "raw: "<< rawRules[i][1] << "\n";
+		out = fullPost[0] + '@' + fullPost[1];
+		std::cout << "out: "<< out << "\n";
+		rule.operands = val1;
+		rule.out = out;
+		
+		if (rawRules[i][2] == "e" || rawRules[i][2] == "i"){
+			rule.type = "e";
+		}
+		else {
+			rule.type = rawRules[i][2];
+		}
+		if (rawRules[i].size()>3){
+			rule.explanation = rawRules[i][3];
+		}
+		
+
+		//TODO: add more constraint options
+		
+		if (rawRules[i].size()>4){
+			for (ii=4;ii<rawRules[i].size();ii++){
+				std::string constraint = constraintify(rawRules[i][ii]);
+				std::string postfixed = postfixify(constraint);
+				std::cout <<" constraint postfixed " << postfixed << "\n";
+				rule.constraints.push_back(postfixed);
+			}
+		}
+		
+		rule.id = ridx;
+		if (rules.find(key) != rules.end()){
+			rules[key].push_back(rule);
+		}
+		else {
+			rules[key] = {rule};
+		}
+		
+		
+		ruleIndex[ridx]=rule;
+		ridx++;
+		
+		
+		
+	}
+}

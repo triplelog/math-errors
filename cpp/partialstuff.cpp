@@ -661,8 +661,9 @@ void clearRules(){
 	ridx = 0;
 
 }
-void oneLesson(std::string filen){
-	makeRules(filen);
+void oneLesson(std::string s){
+	//makeRules(filen);
+	makeRulesNew(s);
 }
 
 
