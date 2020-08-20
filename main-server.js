@@ -284,6 +284,7 @@ wss.on('connection', function connection(ws) {
 		else if (dm.type == 'previewLesson'){
 			var html;
 			var jsonmessage;
+			console.log(dm.message);
 			require('./mathdocs/instruction-maker-macro.js')(registry,dm.message);
 			html = asciidoctor.convert(dm.message,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 			jsonmessage ={'type':'previewLesson','message':html};

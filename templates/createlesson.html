@@ -311,21 +311,24 @@
 				if (rules[i].value.length<2){
 					continue;
 				}
-				lesson+="[rule]\n"+rules[i].value+"\n";
+				lesson+="[rule]\n"+rules[i].value+"\n\n";
+				lesson = lesson.replace("\n\n\n","\n\n");
 			}
 			var errors = document.getElementById('errors').querySelectorAll('textarea');
 			for (var i=0;i<errors.length;i++){
 				if (errors[i].value.length<2){
 					continue;
 				}
-				lesson+="[error]\n"+errors[i].value+"\n";
+				lesson+="[error]\n"+errors[i].value+"\n\n";
+				lesson = lesson.replace("\n\n\n","\n\n");
 			}
 			var examples = document.getElementById('examples').querySelectorAll('textarea');
 			for (var i=0;i<examples.length;i++){
 				if (examples[i].value.length<2){
 					continue;
 				}
-				lesson+="example::"+examples[i].value+"[]\n";
+				lesson+="example::"+examples[i].value+"[]\n\n";
+				lesson = lesson.replace("\n\n\n","\n\n");
 			}
 			return lesson;
 		}
