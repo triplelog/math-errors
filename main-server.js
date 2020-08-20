@@ -32,7 +32,7 @@ const options = {
 const vm = require('vm');
 const context = { require:require };
 vm.createContext(context);
-const code = `const katex = require('katex'); const asciidoctor = require('asciidoctor')();`;
+const code = `const katex = require('katex'); const asciidoctor = require('asciidoctor');`;
 vm.runInContext(code,context);
 //const registry = asciidoctor.Extensions.create();
 //require('./mathdocs/rule-maker-macro.js')(registry);
