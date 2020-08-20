@@ -30,8 +30,13 @@ const options = {
 };
 
 
-const {VM} = require('vm2');
-new VM().run("const katex = require('katex'); const asciidoctor = require('asciidoctor')();");
+const {NodeVM} = require('vm2');
+const vm = new NodeVM({
+    require: {
+        external: true
+    }
+});
+vm.run("const katex = require('katex'); const asciidoctor = require('asciidoctor')();");
 
 /*
 const vm = require('vm');
