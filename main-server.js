@@ -549,7 +549,7 @@ example::3^2+4[]
     	require('./mathdocs/instruction-maker-macro.js')(registry,instruction);
 		const html = asciidoctor.convert('this is a $A^12+B/7$ for real with more $x=7$ to come.\n'+instruction, { 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 		//console.log(html);
-		SubjectData.find({}, function(err,result) {
+		//SubjectData.find({}, function(err,result) {
 			console.log("errrr", err);
 			console.log("res", result);
 			res.write(nunjucks.render('createlesson.html',{
@@ -578,7 +578,7 @@ example::3^2+4[]
 			*/
 			
 		
-		});
+		//});
 
     }
     
