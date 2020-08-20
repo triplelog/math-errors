@@ -13,7 +13,7 @@ const bindingP = require.resolve(`./build/Release/bindingP`);
 var fromLogin = require('./login-server.js');
 var app = fromLogin.loginApp;
 var tempKeys = fromLogin.tempKeys;
-var mongoose = fromLogin.mongoose;
+var mymongoose = fromLogin.mongoose;
 
 
 const https = require('https');
@@ -37,8 +37,8 @@ const katex = require('katex');
 
 const User = require('./models/user');
 //const SubjectData = require('./models/subjects');
-var schema = new mongoose.Schema({subject: String, name: String});
-var Tank = mongoose.model('Tank', schema);
+var schema = new mymongoose.Schema({subject: String, name: String});
+var Tank = mymongoose.model('Tank', schema);
 var dog = new Tank({subject:"a",name:"b"});
 dog.save(function(err,result){
 	console.log("err: ",err);
@@ -51,7 +51,7 @@ Tank.countDocuments({}, function(err,result){
 	console.log("res: ",result);
 });
 
-var SubjectData = mongoose.model('SubjectData', schema);
+var SubjectData = mymongoose.model('SubjectData', schema);
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
 // use static authenticate method of model in LocalStrategy
