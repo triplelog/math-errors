@@ -250,6 +250,7 @@ wss.on('connection', function connection(ws) {
 					if (result.topics[topic]){
 						for (var i=0;i<result.topics[topic].length;i++){
 							if (result.topics[topic][i].slug == slug){
+								console.log("slug: ",slug, " and ", result.topics[topic][i].slug);
 								result.topics[topic][i] = {slug:slug,lesson:lesson};
 								foundMatch = true;
 								break;
@@ -261,6 +262,7 @@ wss.on('connection', function connection(ws) {
 						}
 					}
 					else {
+						console.log("res: ",JSON.stringify(result))
 						result.topics[topic] = [{slug:slug,lesson:lesson}];
 					}
 					
