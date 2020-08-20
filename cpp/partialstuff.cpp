@@ -703,7 +703,7 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		}
 		oneStep += "],";
 		std::cout << "out: " << ruleIndex[steps[0][i].rule].out << "\n";
-		oneStep += "\"output\":\""+latexOne(ruleIndex[steps[0][i].rule].out)+"\",";
+		oneStep += "\"output\":\""+latexBoxed(ruleIndex[steps[0][i].rule].out,-1)+"\",";
 		int eNode = steps[0][i].endNode;
 		std::cout << "eNode: " << eNode << "\n";
 		if (steps[0][i].endNodes.size() > 0){

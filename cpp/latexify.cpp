@@ -1,3 +1,5 @@
+
+
 flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 	int i; int ii;
 	flat_hash_map<std::string,std::string> latexMap;
@@ -628,6 +630,10 @@ std::string latexBoxed(std::string input,int startNode) {
 	for (i=0;i<pfstr.length();i++){
 		if (pfstr.at(i) == '@'){
 			startOperands = true;
+		}
+		else if (pfstr.at(i) == '('){
+			flat_hash_map<int,int> m = removeParList({},pfstr);
+			return latexBoxed(pfstr,-1);
 		}
 		else if (startOperands){
 			if (pfstr.at(i) == '_'){
