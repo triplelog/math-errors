@@ -21,6 +21,10 @@ module.exports = function (registry) {
 		  	});
 		  	console.log(html);
 		  	var hput = "A^{2}+B \\cdot  \\frac{1}{7}";
+		  	console.log(hput,input);
+		  	if (hput == input){
+		  		console.log("match");
+		  	}
 		  	var html = katex.renderToString(hput, {
 				throwOnError: false
 		  	});
