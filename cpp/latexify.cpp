@@ -642,9 +642,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 				if (m.find(iii+offset) != m.end()){
 					offset += m[iii+offset]-1;
 					mm[iii+offset]=true;
-					std::cout << "mm: " << iii+offset << " of " << pfstr << "\n";
 				}
-				std::cout << "mm2: " << iii+offset << " of " << pfstr << "\n";
 			}
 					
 			return latexBoxed(pfstr,-1,mm);
@@ -967,7 +965,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 				s = "\\\\boxed{"+s+"}";
 			}
 			else if (bMap.find(i) != bMap.end()){
-				s = "{"+s+"}";
+				s = "\\\\left{"+s+"\\\\right}";
 			}
 			listMap[fullStr]=s;
 			lastOpMap[fullStr]=pfstr.at(i);
@@ -980,7 +978,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 				s = "\\\\boxed{"+s+"}";
 			}
 			else if (bMap.find(i) != bMap.end()){
-				s = "{"+s+"}";
+				s = "\\\\left{"+s+"\\\\right}";
 			}
 			listMap["#@" + std::to_string(idx) + "_"]=s;
 			lastOpMap["#@" + std::to_string(idx) + "_"]='#';
