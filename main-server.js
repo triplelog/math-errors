@@ -39,7 +39,7 @@ Tank.countDocuments({}, function(err,result){
 	console.log("res: ",result);
 });
 Tank.validate({subject:"a",name:"b"},function(err,result){
-	console.log(err,result);
+	console.log("a",err,result,"--");
 })
 var SubjectData = mongoose.model('SubjectData', schema);
 var passport = require('passport')
