@@ -162,6 +162,7 @@ wss.on('connection', function connection(ws) {
 			//var jsonmessage = {'type':'created'};
 			//ws.send(JSON.stringify(jsonmessage));
 		}
+		/*
 		else if (dm.type == 'saveRule'){
 			var subject = dm.subject.toLowerCase();
 			var topic = dm.topic.toLowerCase();
@@ -221,7 +222,7 @@ wss.on('connection', function connection(ws) {
 			
 			//var jsonmessage = {'type':'created'};
 			//ws.send(JSON.stringify(jsonmessage));
-		}
+		}*/
 		else if (dm.type == 'saveLesson'){
 			var subject = dm.subject.toLowerCase();
 			var topic = dm.topic.toLowerCase();
@@ -290,6 +291,7 @@ wss.on('connection', function connection(ws) {
 			//var jsonmessage = {'type':'created'};
 			//ws.send(JSON.stringify(jsonmessage));
 		}
+		/*
 		else if (dm.type == 'deleteRule'){
 			var subject = dm.subject.toLowerCase();
 			var topic = dm.topic.toLowerCase();
@@ -327,7 +329,7 @@ wss.on('connection', function connection(ws) {
 				}
 			});
 				
-		}
+		}*/
 		else if (dm.type == 'previewText'){
 			var html;
 			var jsonmessage;
@@ -432,6 +434,7 @@ app.get('/createquestion',
     }
     
 );
+/*
 app.get('/createrule',
 	function(req, res){
 		
@@ -507,6 +510,7 @@ app.get('/createrule',
     }
     
 );
+*/
 const katex = require('katex');
 const asciidoctor = require('asciidoctor')();
 const registry = asciidoctor.Extensions.create();
