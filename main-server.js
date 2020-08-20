@@ -34,8 +34,8 @@ const options = {
 const User = require('./models/user');
 //const SubjectData = require('./models/subjects');
 var schema = new mongoose.Schema({subject:'string'});
+var Tank = mongoose.model('Tank', schema);
 var SubjectData = mongoose.model('SubjectData', schema);
-
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
 // use static authenticate method of model in LocalStrategy
@@ -235,14 +235,14 @@ wss.on('connection', function connection(ws) {
 			
 			console.log(subject);
 			console.log(topic);
-			SubjectData.findOne({}, function(err,result) {
+			Tank.findOne({}, function(err,result) {
 				console.log("err: ",err);
 				console.log("res: ",result);
 				if (result == null){
 					console.log("sub: ",subject);
 					var topics = {};
 					topics[topic]=[{slug:slug,lesson:lesson}];
-					var subjectData = new SubjectData({subject:"subject"});
+					var subjectData = new Tank({subject:"subject"});
 					subjectData.save(function(err,result){
 						console.log("res: ",JSON.stringify(result));
 						if (err){
