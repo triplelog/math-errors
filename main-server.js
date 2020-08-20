@@ -448,10 +448,9 @@ app.get('/createlesson',
 		console.log(performance.now());
 		
 		var instruction = `[rule]
-IN: A^2+B/7
-OUT: B+A/2
+IN: A^2+B
+OUT: B+A^2
 A is 1
-B is not 11
 
 [error]
 IN: sin(A)+B
@@ -459,7 +458,7 @@ OUT: B+A
 A is 1
 B is not 11
 
-example::1/3+2+x^12[]
+example::3^2+4[]
     
     `	
     	require('./mathdocs/instruction-maker-macro.js')(registry,instruction);
