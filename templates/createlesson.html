@@ -317,10 +317,16 @@
 				jsonmessage["lesson"]="";
 				var rules = document.getElementById('rules').querySelectorAll('textarea');
 				for (var i=0;i<rules.length;i++){
+					if (rules[i].value.length<2){
+						continue;
+					}
 					jsonmessage["lesson"]+="[rule]\n"+rules[i].value+"\n";
 				}
 				var errors = document.getElementById('errors').querySelectorAll('textarea');
 				for (var i=0;i<errors.length;i++){
+					if (errors[i].value.length<2){
+						continue;
+					}
 					jsonmessage["lesson"]+="[error]\n"+errors[i].value+"\n";
 				}
 			}
