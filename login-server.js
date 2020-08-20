@@ -19,7 +19,7 @@ const { PerformanceObserver, performance } = require('perf_hooks');
 var tempKeys = {};
 const User = require('./models/user');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://matherrors:kZGWGda3A@localhost:27017/matherrors', {useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://matherrors:kZGWGda3A@localhost:27017/matherrors?authSource=matherrors', {useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, useUnifiedTopology: true });
 
 var schema = new mongoose.Schema({subject: String, name: String});
 var Tankk = mongoose.model('Tankk', schema);
