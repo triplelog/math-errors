@@ -686,6 +686,7 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void MakeLesson(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+	v8::Isolate* isolate = info.GetIsolate();
 	clearRules();
 	v8::String::Utf8Value s(isolate, info[0]);
 	std::string a(*s);
