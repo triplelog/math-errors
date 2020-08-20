@@ -75,6 +75,8 @@ module.exports = function (registry) {
     	
       var jsonmessage = maincppp.onerule(target);
       console.log(jsonmessage);
+      jsonmessage = jsonmessage.replace(/\\/g,"\\");
+      console.log(jsonmessage);
 	  var parsed = JSON.parse(jsonmessage);
 	  for (var i=0;i<parsed.length;i++){
 	  	parsed[i].start = katex.renderToString(parsed[i].start, {throwOnError: false});
