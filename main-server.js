@@ -32,7 +32,7 @@ const options = {
 const katex = require('katex');
 const asciidoctor = require('asciidoctor');
 
-const registry = asciidoctor.Extensions.create();
+const registry = asciidoctor().Extensions.create();
 //require('./mathdocs/rule-maker-macro.js')(registry);
 
 
