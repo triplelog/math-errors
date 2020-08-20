@@ -40,6 +40,9 @@ var Tank = mongoose.model('Tank', schema);
 Tank.create({subject:"a",name:"b"},function(err,result){
 	console.log("err: ",err);
 	console.log("res: ",result);
+	Tank.countDocuments({}, function(err,result){
+		console.log("res: ",result);
+	});
 });
 Tank.countDocuments({}, function(err,result){
 	console.log("res: ",result);
