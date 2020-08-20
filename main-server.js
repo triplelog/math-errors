@@ -232,7 +232,6 @@ wss.on('connection', function connection(ws) {
 			
 			console.log(subject);
 			console.log(topic);
-			console.log(SubjectData);
 			SubjectData.findOne({}, function(err,result) {
 				console.log("err: ",err);
 				console.log("res: ",result);
