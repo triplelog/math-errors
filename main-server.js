@@ -222,6 +222,67 @@ wss.on('connection', function connection(ws) {
 			//var jsonmessage = {'type':'created'};
 			//ws.send(JSON.stringify(jsonmessage));
 		}
+		else if (dm.type == 'saveLesson'){
+			var subject = dm.subject.toLowerCase();
+			var topic = dm.topic.toLowerCase();
+			var slug = dm.slug.toLowerCase();
+			var lesson = dm.lesson;
+			
+			
+			console.log(subject);
+			console.log(topic);
+			SubjectData.findOne({subject:subject}, function(err,result) {
+				if (result == null){
+					var topics = {};
+					topics[topic]=[{slug:slug,lesson:lesson}];
+					var subjectData = new SubjectData({subject:subject,topics:topics});
+					subjectData.save(function(err,result){
+						if (err){
+							console.log("error: ", err);
+						}
+						else {
+							console.log(JSON.stringify(topics[topic]));
+						}
+					});
+				}
+				else {
+					var foundMatch = false;
+					if (result.topics[topic]){
+						for (var i=0;i<result.topics[topic].length;i++){
+							if (result.topics[topic][i].slug == slug){
+								result.topics[topic][i] = {slug:slug,lesson:lesson};
+								foundMatch = true;
+								break;
+							}
+						}
+						if (!foundMatch){
+							result.topics[topic].push({slug:slug,lesson:lesson});
+						}
+					}
+					else {
+						result.topics[topic] = [{slug:slug,lesson:lesson}];
+					}
+					
+					
+					result.markModified('topics');
+					result.save(function(err,result){
+						if (err){
+							console.log("error: ", err);
+						}
+						else {
+							console.log(JSON.stringify(result.topics[topic]));
+						}
+					});
+				}
+			});
+				
+
+			
+			
+			
+			//var jsonmessage = {'type':'created'};
+			//ws.send(JSON.stringify(jsonmessage));
+		}
 		else if (dm.type == 'deleteRule'){
 			var subject = dm.subject.toLowerCase();
 			var topic = dm.topic.toLowerCase();

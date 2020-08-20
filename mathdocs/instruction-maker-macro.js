@@ -59,27 +59,41 @@ module.exports = function (registry,filen) {
     self.named('error')
     self.onContext('paragraph')
     self.process(function (parent, reader) {
-      var cards = {constraints:[]};
+      var cards = {constraints:[],explanation:""};
       var lines = reader.lines;
+      var isText = false;
       for (var i = 0; i < lines.length; i++) {
-      	if (lines[i].substr(0,4).toLowerCase() == "in: "){
-      		var html = katex.renderToString(maincppp.latexify(lines[i].substr(4)), {
-				throwOnError: false
-		  	});
-      		cards['in']=html;
+      	if (!isText){
+			if (lines[i].substr(0,4).toLowerCase() == "in: "){
+				var input = maincppp.latexify(lines[i].substr(4));
+				var html = katex.renderToString(input, {
+					throwOnError: false
+				});
+				cards['in']=html;
+			}
+			else if (lines[i].substr(0,5).toLowerCase() == "out: "){
+				var html = katex.renderToString(maincppp.latexify(lines[i].substr(5)), {
+					throwOnError: false
+				});
+				cards['out']=html;
+			}
+			else if (lines[i].substr(0,3) == "eee"){
+				isText = true;
+			}
+			else{
+				var html = katex.renderToString(maincppp.latexify(lines[i]), {
+					throwOnError: false
+				});
+				cards['constraints'].push(html);
+			}
       	}
-      	else if (lines[i].substr(0,5).toLowerCase() == "out: "){
-      		var html = katex.renderToString(maincppp.latexify(lines[i].substr(5)), {
-				throwOnError: false
-		  	});
-      		cards['out']=html;
+      	else {
+      		//render the asciidoc
+      		cards['explanation']+= lines[i]+"\n";
       	}
-      	else{
-      		var html = katex.renderToString(maincppp.latexify(lines[i]), {
-				throwOnError: false
-		  	});
-      		cards['constraints'].push(html);
-      	}
+      }
+      if (cards['explanation'].length > 0){
+      	cards['explanation']= asciidoctor2.convert(cards['explanation'],{ 'extension_registry': registry2, safe: 'safe', backend: 'html5', template_dir: '../templates' });
       }
       var blk = self.createBlock(parent, 'instruction', "",{cards:cards,type:"error"});
       return blk;

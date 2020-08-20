@@ -260,10 +260,19 @@
 		document.getElementById('errors').querySelector('div[name=preview]').addEventListener('click',previewText);
 		document.getElementById('examples').querySelector('div[name=preview]').addEventListener('click',previewText);
 		var asciidoctor = Asciidoctor();
-		//TODO: convert math into latex
 		function previewLesson() {
 			var lesson = makeLesson();
 			var jsonmessage = {'type':'previewLesson','message':lesson};
+			ws.send(JSON.stringify(jsonmessage));
+			
+		}
+		function saveLesson() {
+			var lesson = makeLesson();
+			var subtople = document.getElementById('subtople').value;
+			var subject = subtople.split('.')[0];
+			var topic = subtople.split('.')[1];
+			var slug = subtople.split('.')[2];
+			var jsonmessage = {'type':'saveLesson','subject':subject,'topic':topic,'slug':slug,'lesson':lesson};
 			ws.send(JSON.stringify(jsonmessage));
 			
 		}
