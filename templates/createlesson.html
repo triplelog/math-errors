@@ -110,10 +110,10 @@
 			  </div>
 			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
 				<div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="subtop">
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="subtople">
 						Subject.Topic.Lesson
 					  </label>
-					  <input id="subtop" value="{% if info.subtop %}{{ info.subtop }}{% endif %}" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+					  <input id="subtople" value="{% if info.subtople %}{{ info.subtople }}{% endif %}" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
 				<div>
@@ -257,15 +257,8 @@
 		var asciidoctor = Asciidoctor();
 		//TODO: convert math into latex
 		function previewLesson() {
-			var correct = [];
-			var correctEls = document.getElementById('rules').querySelectorAll('textarea');
-			for (var i=0;i<correctEls.length;i++){
-				if (correctEls[i].value.length > 1){
-					correct.push(correctEls[i].value);
-				}
-			}
-			console.log(correct);
-		
+			var lesson = makeLesson();
+			
 			document.getElementById('preview').style.display = "flex";
 			document.getElementById('edit').style.display = "none";
 		}
@@ -305,6 +298,32 @@
 			el = el.parentElement.parentElement;
 			el.parentNode.removeChild(el);
 		}
+		function makeLesson(){
+			var lesson = "";
+			lesson += "subtople::"+document.getElementById('subtople').value+"[]\n";
+			var rules = document.getElementById('rules').querySelectorAll('textarea');
+			for (var i=0;i<rules.length;i++){
+				if (rules[i].value.length<2){
+					continue;
+				}
+				lesson+="[rule]\n"+rules[i].value+"\n";
+			}
+			var errors = document.getElementById('errors').querySelectorAll('textarea');
+			for (var i=0;i<errors.length;i++){
+				if (errors[i].value.length<2){
+					continue;
+				}
+				lesson+="[error]\n"+errors[i].value+"\n";
+			}
+			var examples = document.getElementById('examples').querySelectorAll('textarea');
+			for (var i=0;i<examples.length;i++){
+				if (examples[i].value.length<2){
+					continue;
+				}
+				lesson+="example::"+examples[i].value+"[]\n";
+			}
+			return lesson;
+		}
 		function previewText(evt){
 			var el = evt.target;
 			while (el.getAttribute('name') != 'preview' && el.parentElement){
@@ -314,21 +333,8 @@
 			var jsonmessage = {'type':'previewText'};
 			jsonmessage[pel.parentElement.id]=pel.querySelector('textarea').value;
 			if (pel.parentElement.id == "examples"){
-				jsonmessage["lesson"]="";
-				var rules = document.getElementById('rules').querySelectorAll('textarea');
-				for (var i=0;i<rules.length;i++){
-					if (rules[i].value.length<2){
-						continue;
-					}
-					jsonmessage["lesson"]+="[rule]\n"+rules[i].value+"\n";
-				}
-				var errors = document.getElementById('errors').querySelectorAll('textarea');
-				for (var i=0;i<errors.length;i++){
-					if (errors[i].value.length<2){
-						continue;
-					}
-					jsonmessage["lesson"]+="[error]\n"+errors[i].value+"\n";
-				}
+				jsonmessage["lesson"]=makeLesson();
+				
 			}
 			ws.send(JSON.stringify(jsonmessage));
 		}
