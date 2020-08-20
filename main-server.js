@@ -429,7 +429,7 @@ const katex = require('katex');
 const asciidoctor = require('asciidoctor')();
 const registry = asciidoctor.Extensions.create();
 require('./mathdocs/rule-maker-macro.js')(registry);
-require('./mathdocs/instruction-maker-macro.js')(registry,"subjects/algebra.csv");
+
 		
 app.get('/createlesson',
 	function(req, res){
@@ -460,7 +460,8 @@ B is not 11
 
 example::1/3+2+x^12[]
     
-    `
+    `	
+    	require('./mathdocs/instruction-maker-macro.js')(registry,"subjects/prealgebra.csv");
 		const html = asciidoctor.convert('this is a $A^12+B/7$ for real with more $x=7$ to come.\n'+instruction, { 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 		//console.log(html);
 		SubjectData.find({}, function(err,result) {
