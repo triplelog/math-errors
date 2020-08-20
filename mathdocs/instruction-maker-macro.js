@@ -3,9 +3,10 @@ const assert = require('assert');
 const bindingP = require.resolve(`../build/Release/bindingP`);
 const maincppp = require(bindingP);
 var retHelloP = maincppp.hello();
-maincppp.makelesson("subjects/prealgebra.csv");
 
-module.exports = function (registry) {
+
+module.exports = function (registry,filen) {
+  maincppp.makelesson(filen);
   registry.block(function () {
     var self = this
     self.named('rule')

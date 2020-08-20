@@ -429,7 +429,7 @@ const katex = require('katex');
 const asciidoctor = require('asciidoctor')();
 const registry = asciidoctor.Extensions.create();
 require('./mathdocs/rule-maker-macro.js')(registry);
-require('./mathdocs/instruction-maker-macro.js')(registry);
+require('./mathdocs/instruction-maker-macro.js')(registry,"subjects/prealgebra.csv");
 		
 app.get('/createlesson',
 	function(req, res){
