@@ -258,7 +258,7 @@
 		//TODO: convert math into latex
 		function previewLesson() {
 			var correct = [];
-			var correctEls = document.getElementById('correct').querySelectorAll('textarea');
+			var correctEls = document.getElementById('rules').querySelectorAll('textarea');
 			for (var i=0;i<correctEls.length;i++){
 				if (correctEls[i].value.length > 1){
 					correct.push(correctEls[i].value);
