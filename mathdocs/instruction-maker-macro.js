@@ -15,24 +15,6 @@ module.exports = function (registry) {
       for (var i = 0; i < lines.length; i++) {
       	if (lines[i].substr(0,4).toLowerCase() == "in: "){
       		var input = maincppp.latexify(lines[i].substr(4));
-      		console.log("iiiinnput: ",input);
-      		var html = katex.renderToString("A \\cdot B", {
-				throwOnError: false
-		  	});
-		  	console.log(html);
-		  	var hput = "A^{2}+B \\cdot  \\frac{1}{7}";
-		  	console.log(hput,input);
-		  	if (hput == input){
-		  		console.log("match");
-		  	}
-		  	var html = katex.renderToString(hput, {
-				throwOnError: false
-		  	});
-		  	console.log(html);
-		  	var html = katex.renderToString("A \cdot B", {
-				throwOnError: false
-		  	});
-		  	console.log(html);
 		  	var html = katex.renderToString(input, {
 				throwOnError: false
 		  	});
