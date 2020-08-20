@@ -263,16 +263,18 @@ wss.on('connection', function connection(ws) {
 		else if (dm.type == 'previewText'){
 			var html;
 			var jsonmessage;
-			//require('./mathdocs/instruction-maker-macro.js')(registry,"subjects/prealgebra.csv");
 			if (dm.rules){
+				require('./mathdocs/instruction-maker-macro.js')(registry,"");
 				html = asciidoctor.convert('[rule]\n'+dm.rules,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 				jsonmessage ={'type':'previewText','rules':html};
 			}
 			else if (dm.errors){
+				require('./mathdocs/instruction-maker-macro.js')(registry,"");
 				html = asciidoctor.convert('[error]\n'+dm.errors,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 				jsonmessage ={'type':'previewText','errors':html};
 			}
 			else if (dm.examples){
+				require('./mathdocs/instruction-maker-macro.js')(registry,dm.lesson);
 				html = asciidoctor.convert('[example]\n'+dm.examples,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 				jsonmessage ={'type':'previewText','examples':html};
 			}
