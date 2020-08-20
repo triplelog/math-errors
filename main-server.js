@@ -256,6 +256,7 @@ wss.on('connection', function connection(ws) {
 							}
 						}
 						if (!foundMatch){
+							console.log("slug: ",slug);
 							result.topics[topic].push({slug:slug,lesson:lesson});
 						}
 					}
