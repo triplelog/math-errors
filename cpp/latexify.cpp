@@ -642,7 +642,9 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 				if (m.find(iii+offset) != m.end()){
 					offset += m[iii+offset]-1;
 					mm[iii+offset]=true;
+					std::cout << "mm: " << iii+offset << " of " << pfstr << "\n";
 				}
+				std::cout << "mm2: " << iii+offset << " of " << pfstr << "\n";
 			}
 					
 			return latexBoxed(pfstr,-1,mm);

@@ -702,15 +702,11 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			
 		}
 		oneStep += "],";
-		std::cout << "out: " << ruleIndex[steps[0][i].rule].out << "\n";
 		oneStep += "\"output\":\""+latexBoxed(ruleIndex[steps[0][i].rule].out,-1,{})+"\",";
 		int eNode = steps[0][i].endNode;
-		std::cout << "eNode: " << eNode << "\n";
 		if (steps[0][i].endNodes.size() > 0){
 			eNode = steps[0][i].endNodes[steps[0][i].endNodes.size()-1];
-			std::cout << "eNode2: " << eNode << "\n";
 		}
-		std::cout << "next: " << steps[0][i].next << " and " << removeBracketsOne(steps[0][i].next) << "\n";
 		oneStep += "\"final\":\""+latexBoxed(removeBracketsOne(steps[0][i].next),eNode,{})+"\"}";
 		if (uniqueSteps.find(oneStep) == uniqueSteps.end()){
 			if (idx ==0){
