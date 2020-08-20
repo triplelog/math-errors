@@ -30,7 +30,8 @@ const options = {
 };
 
 const vm = require('vm');
-vm.createContext({});
+const context = { };
+vm.createContext(context);
 const code = `const katex = require('katex'); const asciidoctor = require('asciidoctor')();`;
 vm.runInContext(code,context);
 //const registry = asciidoctor.Extensions.create();
