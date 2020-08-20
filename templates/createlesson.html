@@ -83,7 +83,7 @@
 	  </div>
 
 
-    <div class="w-4/5 flex-none px-2 max-h-screen overflow-y-auto">
+    <div class="w-4/5 flex-none px-2 max-h-screen overflow-y-auto pb-6">
         <div class="w-full mb-2 py-4">
 			<span class="text-2xl"><b>Create Lesson</b></span>
 			<button onclick="saveLesson()" class="float-right bg-white hover:border-gray-900 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-r focus:outline-none focus:shadow-outline" type="button">Save</button>
@@ -142,7 +142,7 @@
 			  		<div class="flex w-full">
 			  			<textarea rows="3" value="" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
 			  			<div class="w-auto flex-initial pb-2 mb-3">
-			  				<div class="border px-1 py-1 mb-3"><i data-feather="trash"></i></div><div class="border px-1 py-1 mb-2"><i data-feather="search"></i></div>
+			  				<div class="border px-1 py-1 mb-3" name="delete"><i data-feather="trash"></i></div><div class="border px-1 py-1 mb-2" name="preview"><i data-feather="search"></i></div>
 			  			</div>
 			  		</div>
 			  	</div>
@@ -225,6 +225,7 @@
 			
 		}
 		feather.replace();
+		document.getElementById('rules').querySelector('div[name=delete]').addEventListener('click',deleteText);
 		
 	</script>
 	<script src="js/asciidoctor.js"></script>
@@ -252,6 +253,7 @@
 			var clone = document.getElementById('rules').querySelector('div.flex');
 			var tArea = clone.cloneNode(true);
 			tArea.value = "";
+			tArea.querySelector('div[name=delete]').addEventListener('click',deleteText);
 			document.getElementById('rules').appendChild(tArea);
 		}
 		function addError() {
@@ -265,6 +267,14 @@
 			var tArea = clone.cloneNode(true);
 			tArea.value = "";
 			document.getElementById('examples').appendChild(tArea);
+		}
+		function deleteText(evt){
+			var el = evt.target;
+			while (el.getAttribute('name') != 'delete' && el.parentElement){
+				el = el.parentElement;
+			}
+			el = el.parentElement.parentElement;
+			el.parentNode.removeChild(el);
 		}
 	</script>
   </body>
