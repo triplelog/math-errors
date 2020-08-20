@@ -166,7 +166,7 @@ void makeRulesNew(std::string input){
 			currentRawRule[2] = "x";
 			currentRawRule[3] = "";
 			currentRawRule[0] = rawRule.substr(9,rawRule.length()-11);
-			currentRawRule[1] = "";
+			currentRawRule[1] = rawRule.substr(9,rawRule.length()-11);
 			inRule = false;
 			rawRules.push_back(currentRawRule);
 			currentRawRule.resize(0);
