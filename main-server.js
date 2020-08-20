@@ -274,8 +274,9 @@ wss.on('connection', function connection(ws) {
 				jsonmessage ={'type':'previewText','errors':html};
 			}
 			else if (dm.examples){
+				console.log(dm.lesson);
 				require('./mathdocs/instruction-maker-macro.js')(registry,dm.lesson);
-				html = asciidoctor.convert('[example]\n'+dm.examples,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+				html = asciidoctor.convert('example::'+dm.examples+"[]",{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 				jsonmessage ={'type':'previewText','examples':html};
 			}
 			ws.send(JSON.stringify(jsonmessage));

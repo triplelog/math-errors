@@ -313,6 +313,17 @@
 			var pel = el.parentElement.parentElement;
 			var jsonmessage = {'type':'previewText'};
 			jsonmessage[pel.parentElement.id]=pel.querySelector('textarea').value;
+			if (pel.parentElement.id == "examples"){
+				jsonmessage["lesson"]="";
+				var rules = document.getElementById('rules').querySelectorAll('textarea');
+				for (var i=0;i<rules.length;i++){
+					jsonmessage["lesson"]+="[rule]\n"+rules[i].value+"\n";
+				}
+				var errors = document.getElementById('errors').querySelectorAll('textarea');
+				for (var i=0;i<errors.length;i++){
+					jsonmessage["lesson"]+="[error]\n"+errors[i].value+"\n";
+				}
+			}
 			ws.send(JSON.stringify(jsonmessage));
 		}
 	</script>
