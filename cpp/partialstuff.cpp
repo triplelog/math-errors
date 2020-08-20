@@ -661,9 +661,11 @@ void clearRules(){
 	ridx = 0;
 
 }
-void OneLesson(std::string filen){
+void oneLesson(std::string filen){
 	makeRules(filen);
 }
+
+
 void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//v8::Isolate* isolate = info.GetIsolate();
 	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
@@ -673,8 +675,9 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	jsonmessage = "var rule = {};";
 	srand(time(NULL));
 	initialRun();
-	clearRules();
-	OneLesson("subjects/prealgebra.csv");
+	
+	
+	
 	
 	
 	//makeInt("[10,12)U((0,5)U[4,6]U(8,10])");
@@ -682,6 +685,12 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
 
+void MakeLesson(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+	clearRules();
+	v8::String::Utf8Value s(isolate, info[0]);
+	std::string a(*s);
+	oneLesson(a);
+}
 
 void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
@@ -689,6 +698,7 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//int row = info[0]->Int32Value(context).FromJust();
 	v8::String::Utf8Value s(isolate, info[0]);
 	std::string a(*s);
+	
 	
 	//Dewey dewey;
 	//TODO: check all rules of this dewey
@@ -795,6 +805,11 @@ void Init(v8::Local<v8::Object> exports) {
   exports->Set(context,
                Nan::New("latexify").ToLocalChecked(),
                Nan::New<v8::FunctionTemplate>(LatexIt)
+                   ->GetFunction(context)
+                   .ToLocalChecked());
+  exports->Set(context,
+               Nan::New("makelesson").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(MakeLesson)
                    ->GetFunction(context)
                    .ToLocalChecked());
 
