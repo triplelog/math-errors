@@ -349,32 +349,32 @@ wss.on('connection', function connection(ws) {
 				
 		}*/
 		else if (dm.type == 'previewText'){
-			var html;
+			var html = "";
 			var jsonmessage;
 			if (dm.rules){
-				require('./mathdocs/instruction-maker-macro.js')(registry,"");
-				html = asciidoctor.convert('[rule]\n'+dm.rules,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+				//require('./mathdocs/instruction-maker-macro.js')(registry,"");
+				//html = asciidoctor.convert('[rule]\n'+dm.rules,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 				jsonmessage ={'type':'previewText','rules':html};
 			}
 			else if (dm.errors){
-				require('./mathdocs/instruction-maker-macro.js')(registry,"");
-				html = asciidoctor.convert('[error]\n'+dm.errors,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+				//require('./mathdocs/instruction-maker-macro.js')(registry,"");
+				//html = asciidoctor.convert('[error]\n'+dm.errors,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 				jsonmessage ={'type':'previewText','errors':html};
 			}
 			else if (dm.examples){
 				console.log(dm.lesson);
-				require('./mathdocs/instruction-maker-macro.js')(registry,dm.lesson);
-				html = asciidoctor.convert('example::'+dm.examples+"[]",{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+				//require('./mathdocs/instruction-maker-macro.js')(registry,dm.lesson);
+				//html = asciidoctor.convert('example::'+dm.examples+"[]",{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 				jsonmessage ={'type':'previewText','examples':html};
 			}
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		else if (dm.type == 'previewLesson'){
-			var html;
+			var html = "";
 			var jsonmessage;
 			console.log(dm.message);
-			require('./mathdocs/instruction-maker-macro.js')(registry,dm.message);
-			html = asciidoctor.convert(dm.message,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+			//require('./mathdocs/instruction-maker-macro.js')(registry,dm.message);
+			//html = asciidoctor.convert(dm.message,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 			jsonmessage ={'type':'previewLesson','message':html};
 
 			ws.send(JSON.stringify(jsonmessage));
