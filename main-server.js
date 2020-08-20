@@ -38,7 +38,7 @@ var Tank = mongoose.model('Tank', schema);
 Tank.countDocuments({}, function(err,result){
 	console.log("res: ",result);
 });
-Tank.validate({subject:"a",name:"b"},function(err,result){
+Tank.validate({subject:"a",name:"b"},['subject','name'],function(err,result){
 	console.log("a",err,result,"--");
 })
 var SubjectData = mongoose.model('SubjectData', schema);
