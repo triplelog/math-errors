@@ -3,9 +3,9 @@ const assert = require('assert');
 const bindingP = require.resolve(`../build/Release/bindingP`);
 const maincppp = require(bindingP);
 var retHelloP = maincppp.hello();
-const asciidoctor = require('asciidoctor')();
-const registry = asciidoctor.Extensions.create();
-require('../mathdocs/rule-maker-macro.js')(registry);
+const asciidoctor2 = require('asciidoctor')();
+const registry2 = asciidoctor.Extensions.create();
+require('../mathdocs/rule-maker-macro.js')(registry2);
 
 module.exports = function (registry,filen) {
   maincppp.makelesson(filen);
@@ -47,7 +47,9 @@ module.exports = function (registry,filen) {
       		cards['explanation']+= lines[i]+"\n";
       	}
       }
-      cards['explanation']= asciidoctor.convert(cards['explanation'],{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: '../templates' });
+      console.log("before: ",cards['explanation']);
+      cards['explanation']= asciidoctor2.convert(cards['explanation'],{ 'extension_registry': registry2, safe: 'safe', backend: 'html5', template_dir: '../templates' });
+      console.log("before: ",cards['explanation']);
       var blk = self.createBlock(parent, 'instruction', "",{cards:cards,type:"rule"});
       return blk;
     })
