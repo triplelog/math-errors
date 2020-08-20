@@ -35,9 +35,10 @@ const options = {
 
 const User = require('./models/user');
 //const SubjectData = require('./models/subjects');
-var schema = new mongoose.Schema({});
+var schema = new mongoose.Schema({subject: String, name: String});
 var Tank = mongoose.model('Tank', schema);
-Tank.create({subject:"a",name:"b"},function(err,result){
+var dog = new Tank({subject:"a",name:"b"});
+dog.save(function(err,result){
 	console.log("err: ",err);
 	console.log("res: ",result);
 	Tank.countDocuments({}, function(err,result){
