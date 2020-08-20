@@ -180,6 +180,13 @@ void makeRulesNew(std::string input){
 				currentRawRule.resize(0);
 			}
 		}
+		else if (rawRule.substr(0,3) == "eee"){
+			if (inRule){
+				inRule = false;
+				rawRules.push_back(currentRawRule);
+				currentRawRule.resize(0);
+			}
+		}
 		else if (rawRule.substr(0,4) == "in: " || rawRule.substr(0,4) == "IN: " || rawRule.substr(0,4) == "In: "){
 			currentRawRule[0] = rawRule.substr(4,rawRule.length()-4);
 		}

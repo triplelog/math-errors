@@ -32,8 +32,7 @@ module.exports = function (registry,filen) {
 				});
 				cards['out']=html;
 			}
-			else if (lines[i].substr(0,6).toUpperCase() == "ABCXYZ"){
-				console.log(lines[i]);
+			else if (lines[i].substr(0,3) == "eee"){
 				isText = true;
 			}
 			else{
@@ -48,9 +47,9 @@ module.exports = function (registry,filen) {
       		cards['explanation']+= lines[i]+"\n";
       	}
       }
-      console.log("before: ",cards['explanation']);
-      cards['explanation']= asciidoctor2.convert(cards['explanation'],{ 'extension_registry': registry2, safe: 'safe', backend: 'html5', template_dir: '../templates' });
-      console.log("after: ",cards['explanation']);
+      if (cards['explanation'].length > 0){
+      	cards['explanation']= asciidoctor2.convert(cards['explanation'],{ 'extension_registry': registry2, safe: 'safe', backend: 'html5', template_dir: '../templates' });
+      }
       var blk = self.createBlock(parent, 'instruction', "",{cards:cards,type:"rule"});
       return blk;
     })
