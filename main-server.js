@@ -36,7 +36,7 @@ const vm = new NodeVM({
         external: true
     }
 });
-vm.run("const katex = require('katex'); const asciidoctor = require('asciidoctor')();");
+vm.run("const katex = require('katex'); const asciidoctor = require('asciidoctor')();", 'vm.js');
 
 /*
 const vm = require('vm');
