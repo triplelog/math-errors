@@ -62,7 +62,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							}
 							else {
 								if (prec[lastOpMap[child]] < 100){
-									s += "\\\\left("+latexMap[child]+"\\\\right)";
+									s += "\\left("+latexMap[child]+"\\right)";
 								}
 								else {
 									s += latexMap[child];
@@ -72,20 +72,20 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 						}
 						case -69: {
 							if (ii > 0){
-								s += latexMap[child]+"\\\\right]";
+								s += latexMap[child]+"\\right]";
 							}
 							else {
-								s += "\\frac{d}{d"+latexMap[child]+"}\\\\left[";
+								s += "\\frac{d}{d"+latexMap[child]+"}\\left[";
 							}
 							break;
 						
 						}
 						case -85: {
 							if (ii > 0){
-								s.replace(6,0,latexMap[child]+" \\\\text{d");
+								s.replace(6,0,latexMap[child]+" \\text{d");
 							}
 							else {
-								s += "\\\\int "+latexMap[child]+"}";
+								s += "\\int "+latexMap[child]+"}";
 							}
 							break;
 						
@@ -94,68 +94,68 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							s += "|"+latexMap[child]+"|";
 							break;
 						case -64:
-							s += "\\\\sin\\\\left("+latexMap[child]+"\\\\right)";
+							s += "\\sin\\left("+latexMap[child]+"\\right)";
 							break;
 						case -63:
-							s += "\\\\cos\\\\left("+latexMap[child]+"\\\\right)";
+							s += "\\cos\\left("+latexMap[child]+"\\right)";
 							break;
 						case -62:
-							s += "\\\\tan\\\\left("+latexMap[child]+"\\\\right)";
+							s += "\\tan\\left("+latexMap[child]+"\\right)";
 							break;
 						case -61:
-							s += "\\\\csc\\\\left("+latexMap[child]+"\\\\right)";
+							s += "\\csc\\left("+latexMap[child]+"\\right)";
 							break;
 						case -60:
-							s += "\\\\sec\\\\left("+latexMap[child]+"\\\\right)";
+							s += "\\sec\\left("+latexMap[child]+"\\right)";
 							break;
 						case -59:
-							s += "\\\\cot\\\\left("+latexMap[child]+"\\\\right)";
+							s += "\\cot\\left("+latexMap[child]+"\\right)";
 							break;
 						case -32:
-							s += "\\\\sin^{-1}\\\\left("+latexMap[child]+"\\\\right)";
+							s += "\\sin^{-1}\\left("+latexMap[child]+"\\right)";
 							break;
 						case -31:
-							s += "\\\\cos^{-1}\\\\left("+latexMap[child]+"\\\\right)";
+							s += "\\cos^{-1}\\left("+latexMap[child]+"\\right)";
 							break;
 						case -30:
-							s += "\\\\tan^{-1}\\\\left("+latexMap[child]+"\\\\right)";
+							s += "\\tan^{-1}\\left("+latexMap[child]+"\\right)";
 							break;
 						case -29:
-							s += "\\\\csc^{-1}\\\\left("+latexMap[child]+"\\\\right)";
+							s += "\\csc^{-1}\\left("+latexMap[child]+"\\right)";
 							break;
 						case -28:
-							s += "\\\\sec^{-1}\\\\left("+latexMap[child]+"\\\\right)";
+							s += "\\sec^{-1}\\left("+latexMap[child]+"\\right)";
 							break;
 						case -27:
-							s += "\\\\cot^{-1}\\\\left("+latexMap[child]+"\\\\right)";
+							s += "\\cot^{-1}\\left("+latexMap[child]+"\\right)";
 							break;
 						case -16:
-							s += "\\\\text{sinh}\\\\left("+latexMap[child]+"\\\\right)";
+							s += "\\text{sinh}\\left("+latexMap[child]+"\\right)";
 							break;
 						case -15:
-							s += "\\\\text{cosh}\\\\left("+latexMap[child]+"\\\\right)";
+							s += "\\text{cosh}\\left("+latexMap[child]+"\\right)";
 							break;
 						case -14:
-							s += "\\\\text{tanh}\\\\left("+latexMap[child]+"\\\\right)";
+							s += "\\text{tanh}\\left("+latexMap[child]+"\\right)";
 							break;
 						case -13:
-							s += "\\\\text{csch}\\\\left("+latexMap[child]+"\\\\right)";
+							s += "\\text{csch}\\left("+latexMap[child]+"\\right)";
 							break;
 						case -12:
-							s += "\\\\text{sech}\\\\left("+latexMap[child]+"\\\\right)";
+							s += "\\text{sech}\\left("+latexMap[child]+"\\right)";
 							break;
 						case -11:
-							s += "\\\\text{coth}\\\\left("+latexMap[child]+"\\\\right)";
+							s += "\\text{coth}\\left("+latexMap[child]+"\\right)";
 							break;
 						case -67:
-							s += "\\\\sqrt{"+latexMap[child]+"}";
+							s += "\\sqrt{"+latexMap[child]+"}";
 							break;
 						case -84: {
 							if (ii > 0){
 								s += latexMap[child]+"}";
 							}
 							else {
-								s += "\\\\sqrt["+latexMap[child]+"]{";
+								s += "\\sqrt["+latexMap[child]+"]{";
 							}
 							break;
 						
@@ -163,7 +163,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 						case -93: {
 							if (ii > 0){
 								if (prec[lastOpMap[child]] < 100){
-									s += "\\\\left("+latexMap[child]+"\\\\right)";
+									s += "\\left("+latexMap[child]+"\\right)";
 								}
 								else {
 									s += latexMap[child];
@@ -172,10 +172,10 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							}
 							else {
 								if (latexMap[child] == "e"){
-									s += "\\\\ln ";
+									s += "\\ln ";
 								}
 								else {
-									s += "\\\\log_{"+latexMap[child]+"} ";
+									s += "\\log_{"+latexMap[child]+"} ";
 								}
 							}
 							break;
@@ -205,7 +205,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							if (prec[lastOpMap[input[i*3]]] > prec[lastOpMap[child]]){
 								if (ii > 0){
 									if (lastOpMap[input[i*3]] == '*'){
-										s += " \\\\cdot ("+latexMap[child]+")";
+										s += "\\cdot ("+latexMap[child]+")";
 									}
 									else {
 										s += lastOpMap[input[i*3]]+"("+latexMap[child]+")";
@@ -218,7 +218,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							else if (prec[lastOpMap[input[i*3]]] == prec[lastOpMap[child]] && lastOpMap[input[i*3]] != lastOpMap[child]){
 								if (ii > 0){
 									if (lastOpMap[input[i*3]] == '*'){
-										s += " \\\\cdot "+latexMap[child];//want to move this into numerator somehow
+										s += "\\cdot "+latexMap[child];//want to move this into numerator somehow
 									}
 									else if (lastOpMap[input[i*3]] == '+'){
 										s += latexMap[child];
@@ -242,7 +242,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							else {
 								if (ii > 0){
 									if (lastOpMap[input[i*3]] == '*'){
-										s += " \\\\cdot "+latexMap[child];
+										s += "\\cdot "+latexMap[child];
 									}
 									else {
 										s += lastOpMap[input[i*3]]+latexMap[child];
@@ -392,10 +392,10 @@ std::string latexOne(std::string input) {
 					}
 					case -85: {
 						if (ii > 0){
-							s.replace(6,0,listMap[child]+" \\\\text{d");
+							s.replace(6,0,listMap[child]+" \\text{d");
 						}
 						else {
-							s += "\\\\int "+listMap[child]+"}";
+							s += "\\int "+listMap[child]+"}";
 						}
 						break;
 			
@@ -404,68 +404,68 @@ std::string latexOne(std::string input) {
 						s += "|"+listMap[child]+"|";
 						break;
 					case -64:
-						s += "\\\\sin("+listMap[child]+")";
+						s += "\\sin("+listMap[child]+")";
 						break;
 					case -63:
-						s += "\\\\cos("+listMap[child]+")";
+						s += "\\cos("+listMap[child]+")";
 						break;
 					case -62:
-						s += "\\\\tan("+listMap[child]+")";
+						s += "\\tan("+listMap[child]+")";
 						break;
 					case -61:
-						s += "\\\\csc("+listMap[child]+")";
+						s += "\\csc("+listMap[child]+")";
 						break;
 					case -60:
-						s += "\\\\sec("+listMap[child]+")";
+						s += "\\sec("+listMap[child]+")";
 						break;
 					case -59:
-						s += "\\\\cot("+listMap[child]+")";
+						s += "\\cot("+listMap[child]+")";
 						break;
 					case -32:
-						s += "\\\\sin^{-1}("+listMap[child]+")";
+						s += "\\sin^{-1}("+listMap[child]+")";
 						break;
 					case -31:
-						s += "\\\\cos^{-1}("+listMap[child]+")";
+						s += "\\cos^{-1}("+listMap[child]+")";
 						break;
 					case -30:
-						s += "\\\\tan^{-1}("+listMap[child]+")";
+						s += "\\tan^{-1}("+listMap[child]+")";
 						break;
 					case -29:
-						s += "\\\\csc^{-1}("+listMap[child]+")";
+						s += "\\csc^{-1}("+listMap[child]+")";
 						break;
 					case -28:
-						s += "\\\\sec^{-1}("+listMap[child]+")";
+						s += "\\sec^{-1}("+listMap[child]+")";
 						break;
 					case -27:
-						s += "\\\\cot^{-1}("+listMap[child]+")";
+						s += "\\cot^{-1}("+listMap[child]+")";
 						break;
 					case -16:
-						s += "\\\\text{sinh}("+listMap[child]+")";
+						s += "\\text{sinh}("+listMap[child]+")";
 						break;
 					case -15:
-						s += "\\\\text{cosh}("+listMap[child]+")";
+						s += "\\text{cosh}("+listMap[child]+")";
 						break;
 					case -14:
-						s += "\\\\text{tanh}("+listMap[child]+")";
+						s += "\\text{tanh}("+listMap[child]+")";
 						break;
 					case -13:
-						s += "\\\\text{csch}("+listMap[child]+")";
+						s += "\\text{csch}("+listMap[child]+")";
 						break;
 					case -12:
-						s += "\\\\text{sech}("+listMap[child]+")";
+						s += "\\text{sech}("+listMap[child]+")";
 						break;
 					case -11:
-						s += "\\\\text{coth}("+listMap[child]+")";
+						s += "\\text{coth}("+listMap[child]+")";
 						break;
 					case -67:
-						s += "\\\\sqrt{"+listMap[child]+"}";
+						s += "\\sqrt{"+listMap[child]+"}";
 						break;
 					case -84: {
 						if (ii > 0){
 							s += listMap[child]+"}";
 						}
 						else {
-							s += "\\\\sqrt["+listMap[child]+"]{";
+							s += "\\sqrt["+listMap[child]+"]{";
 						}
 						break;
 			
@@ -482,10 +482,10 @@ std::string latexOne(std::string input) {
 						}
 						else {
 							if (listMap[child] == "e"){
-								s += "\\\\ln ";
+								s += "\\ln ";
 							}
 							else {
-								s += "\\\\log_{"+listMap[child]+"} ";
+								s += "\\log_{"+listMap[child]+"} ";
 							}
 						}
 						break;
@@ -519,7 +519,7 @@ std::string latexOne(std::string input) {
 										s += "("+listMap[child]+")";
 									}
 									else {
-										s += " \\\\cdot ("+listMap[child]+")";//want to move this into numerator somehow
+										s += "\\cdot ("+listMap[child]+")";//want to move this into numerator somehow
 									}
 									
 								}
@@ -537,7 +537,7 @@ std::string latexOne(std::string input) {
 									if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
 										if (listMap[child].length()>0 && (listMap[child].at(0) >= '0' && listMap[child].at(0) <= '9')){
 											//digit followed by digit
-											s += " \\\\cdot "+listMap[child];
+											s += "\\cdot "+listMap[child];
 										}
 										else{
 											//digit followed by not a digit
@@ -545,7 +545,7 @@ std::string latexOne(std::string input) {
 										}
 									}
 									else {
-										s += " \\\\cdot "+listMap[child];//want to move this into numerator somehow
+										s += "\\cdot "+listMap[child];//want to move this into numerator somehow
 									}
 									
 								}
@@ -574,7 +574,7 @@ std::string latexOne(std::string input) {
 									if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
 										if (listMap[child].length()>0 && (listMap[child].at(0) >= '0' && listMap[child].at(0) <= '9')){
 											//digit followed by digit
-											s += " \\\\cdot "+listMap[child];
+											s += "\\cdot "+listMap[child];
 										}
 										else{
 											//digit followed by not a digit
@@ -582,7 +582,7 @@ std::string latexOne(std::string input) {
 										}
 									}
 									else {
-										s += " \\\\cdot "+listMap[child];//want to move this into numerator somehow
+										s += "\\cdot "+listMap[child];//want to move this into numerator somehow
 									}
 								}
 								else {
@@ -756,10 +756,10 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 					}
 					case -85: {
 						if (ii > 0){
-							s.replace(6,0,listMap[child]+" \\\\text{d");
+							s.replace(6,0,listMap[child]+" \\text{d");
 						}
 						else {
-							s += "\\\\int "+listMap[child]+"}";
+							s += "\\int "+listMap[child]+"}";
 						}
 						break;
 			
@@ -768,68 +768,68 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 						s += "|"+listMap[child]+"|";
 						break;
 					case -64:
-						s += "\\\\sin("+listMap[child]+")";
+						s += "\\sin("+listMap[child]+")";
 						break;
 					case -63:
-						s += "\\\\cos("+listMap[child]+")";
+						s += "\\cos("+listMap[child]+")";
 						break;
 					case -62:
-						s += "\\\\tan("+listMap[child]+")";
+						s += "\\tan("+listMap[child]+")";
 						break;
 					case -61:
-						s += "\\\\csc("+listMap[child]+")";
+						s += "\\csc("+listMap[child]+")";
 						break;
 					case -60:
-						s += "\\\\sec("+listMap[child]+")";
+						s += "\\sec("+listMap[child]+")";
 						break;
 					case -59:
-						s += "\\\\cot("+listMap[child]+")";
+						s += "\\cot("+listMap[child]+")";
 						break;
 					case -32:
-						s += "\\\\sin^{-1}("+listMap[child]+")";
+						s += "\\sin^{-1}("+listMap[child]+")";
 						break;
 					case -31:
-						s += "\\\\cos^{-1}("+listMap[child]+")";
+						s += "\\cos^{-1}("+listMap[child]+")";
 						break;
 					case -30:
-						s += "\\\\tan^{-1}("+listMap[child]+")";
+						s += "\\tan^{-1}("+listMap[child]+")";
 						break;
 					case -29:
-						s += "\\\\csc^{-1}("+listMap[child]+")";
+						s += "\\csc^{-1}("+listMap[child]+")";
 						break;
 					case -28:
-						s += "\\\\sec^{-1}("+listMap[child]+")";
+						s += "\\sec^{-1}("+listMap[child]+")";
 						break;
 					case -27:
-						s += "\\\\cot^{-1}("+listMap[child]+")";
+						s += "\\cot^{-1}("+listMap[child]+")";
 						break;
 					case -16:
-						s += "\\\\text{sinh}("+listMap[child]+")";
+						s += "\\text{sinh}("+listMap[child]+")";
 						break;
 					case -15:
-						s += "\\\\text{cosh}("+listMap[child]+")";
+						s += "\\text{cosh}("+listMap[child]+")";
 						break;
 					case -14:
-						s += "\\\\text{tanh}("+listMap[child]+")";
+						s += "\\text{tanh}("+listMap[child]+")";
 						break;
 					case -13:
-						s += "\\\\text{csch}("+listMap[child]+")";
+						s += "\\text{csch}("+listMap[child]+")";
 						break;
 					case -12:
-						s += "\\\\text{sech}("+listMap[child]+")";
+						s += "\\text{sech}("+listMap[child]+")";
 						break;
 					case -11:
-						s += "\\\\text{coth}("+listMap[child]+")";
+						s += "\\text{coth}("+listMap[child]+")";
 						break;
 					case -67:
-						s += "\\\\sqrt{"+listMap[child]+"}";
+						s += "\\sqrt{"+listMap[child]+"}";
 						break;
 					case -84: {
 						if (ii > 0){
 							s += listMap[child]+"}";
 						}
 						else {
-							s += "\\\\sqrt["+listMap[child]+"]{";
+							s += "\\sqrt["+listMap[child]+"]{";
 						}
 						break;
 			
@@ -846,10 +846,10 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 						}
 						else {
 							if (listMap[child] == "e"){
-								s += "\\\\ln ";
+								s += "\\ln ";
 							}
 							else {
-								s += "\\\\log_{"+listMap[child]+"} ";
+								s += "\\log_{"+listMap[child]+"} ";
 							}
 						}
 						break;
@@ -883,7 +883,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 										s += "("+listMap[child]+")";
 									}
 									else {
-										s += " \\\\cdot ("+listMap[child]+")";//want to move this into numerator somehow
+										s += "\\cdot ("+listMap[child]+")";//want to move this into numerator somehow
 									}
 									
 								}
@@ -901,7 +901,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 									if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
 										if (listMap[child].length()>0 && (listMap[child].at(0) >= '0' && listMap[child].at(0) <= '9')){
 											//digit followed by digit
-											s += " \\\\cdot "+listMap[child];
+											s += "\\cdot "+listMap[child];
 										}
 										else{
 											//digit followed by not a digit
@@ -909,7 +909,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 										}
 									}
 									else {
-										s += " \\\\cdot "+listMap[child];//want to move this into numerator somehow
+										s += "\\cdot "+listMap[child];//want to move this into numerator somehow
 									}
 									
 								}
@@ -938,7 +938,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 									if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
 										if (listMap[child].length()>0 && (listMap[child].at(0) >= '0' && listMap[child].at(0) <= '9')){
 											//digit followed by digit
-											s += " \\\\cdot "+listMap[child];
+											s += "\\cdot "+listMap[child];
 										}
 										else{
 											//digit followed by not a digit
@@ -946,7 +946,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 										}
 									}
 									else {
-										s += " \\\\cdot "+listMap[child];//want to move this into numerator somehow
+										s += "\\cdot "+listMap[child];//want to move this into numerator somehow
 									}
 								}
 								else {
@@ -962,10 +962,10 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 			}
 			
 			if (i == startNode){
-				s = "\\\\boxed{"+s+"}";
+				s = "\\boxed{"+s+"}";
 			}
 			else if (bMap.find(i) != bMap.end()){
-				s = "\\\\{\\\\{"+s+"\\\\}\\\\}";
+				s = "\\{\\{"+s+"\\}\\}";
 			}
 			listMap[fullStr]=s;
 			lastOpMap[fullStr]=pfstr.at(i);
@@ -975,10 +975,10 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 		else {
 			std::string s = originalMap[idx];
 			if (i == startNode){
-				s = "\\\\boxed{"+s+"}";
+				s = "\\boxed{"+s+"}";
 			}
 			else if (bMap.find(i) != bMap.end()){
-				s = "\\\\{\\\\{"+s+"\\\\}\\\\}";
+				s = "\\{\\{"+s+"\\}\\}";
 			}
 			listMap["#@" + std::to_string(idx) + "_"]=s;
 			lastOpMap["#@" + std::to_string(idx) + "_"]='#';
