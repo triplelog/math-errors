@@ -632,8 +632,11 @@ std::string latexBoxed(std::string input,int startNode) {
 			startOperands = true;
 		}
 		else if (pfstr.at(i) == '('){
+			std::cout << "pfstr1: " << pfstr << "\n";
 			flat_hash_map<int,int> m = removeParList({},pfstr);
-			std::cout << "pfstr: " << pfstr << "\n";
+			std::cout << "pfstr2: " << pfstr << "\n";
+			pfstr = removeParOne(pfstr);
+			std::cout << "pfstr3: " << pfstr << "\n";
 			return latexBoxed(pfstr,-1);
 		}
 		else if (startOperands){
