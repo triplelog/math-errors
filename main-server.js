@@ -35,10 +35,7 @@ const options = {
 
 const User = require('./models/user');
 //const SubjectData = require('./models/subjects');
-var schema = new mongoose.Schema({
-	subject:{type: String},
-	name:{type: String}
-});
+var schema = new mongoose.Schema({});
 var Tank = mongoose.model('Tank', schema);
 Tank.create({subject:"a",name:"b"},function(err,result){
 	console.log("err: ",err);
