@@ -75,7 +75,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 								s += latexMap[child]+"\\\\right]";
 							}
 							else {
-								s += "\\\\frac{d}{d"+latexMap[child]+"}\\\\left[";
+								s += " \\\\frac{d}{d"+latexMap[child]+"}\\\\left[";
 							}
 							break;
 						
@@ -191,7 +191,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							break;
 						}
 						case '/': {
-							s += "\\\\frac{1}{"+latexMap[child]+"}";
+							s += " \\\\frac{1}{"+latexMap[child]+"}";
 							/*
 							if (prec[lastOpMap[input[i*3]]] >= prec[lastOpMap[child]]){
 								s += "/("+latexMap[child]+")";
@@ -205,7 +205,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							if (prec[lastOpMap[input[i*3]]] > prec[lastOpMap[child]]){
 								if (ii > 0){
 									if (lastOpMap[input[i*3]] == '*'){
-										s += "\\\\cdot ("+latexMap[child]+")";
+										s += " \\\\cdot ("+latexMap[child]+")";
 									}
 									else {
 										s += lastOpMap[input[i*3]]+"("+latexMap[child]+")";
@@ -218,7 +218,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							else if (prec[lastOpMap[input[i*3]]] == prec[lastOpMap[child]] && lastOpMap[input[i*3]] != lastOpMap[child]){
 								if (ii > 0){
 									if (lastOpMap[input[i*3]] == '*'){
-										s += "\\\\cdot "+latexMap[child];//want to move this into numerator somehow
+										s += " \\\\cdot "+latexMap[child];//want to move this into numerator somehow
 									}
 									else if (lastOpMap[input[i*3]] == '+'){
 										s += latexMap[child];
@@ -242,7 +242,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							else {
 								if (ii > 0){
 									if (lastOpMap[input[i*3]] == '*'){
-										s += "\\\\cdot "+latexMap[child];
+										s += " \\\\cdot "+latexMap[child];
 									}
 									else {
 										s += lastOpMap[input[i*3]]+latexMap[child];
@@ -385,7 +385,7 @@ std::string latexOne(std::string input) {
 							s += listMap[child]+"]";
 						}
 						else {
-							s += "\\\\frac{d}{d"+listMap[child]+"}[";
+							s += " \\\\frac{d}{d"+listMap[child]+"}[";
 						}
 						break;
 			
@@ -501,7 +501,7 @@ std::string latexOne(std::string input) {
 						break;
 					}
 					case '/': {
-						s += "\\\\frac{1}{"+listMap[child]+"}";
+						s += " \\\\frac{1}{"+listMap[child]+"}";
 						/*
 						if (prec[pfstr.at(i)] >= prec[lastOpMap[child]]){
 							s += "/("+listMap[child]+")";
@@ -519,7 +519,7 @@ std::string latexOne(std::string input) {
 										s += "("+listMap[child]+")";
 									}
 									else {
-										s += "\\\\cdot ("+listMap[child]+")";//want to move this into numerator somehow
+										s += " \\\\cdot ("+listMap[child]+")";//want to move this into numerator somehow
 									}
 									
 								}
@@ -537,7 +537,7 @@ std::string latexOne(std::string input) {
 									if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
 										if (listMap[child].length()>0 && (listMap[child].at(0) >= '0' && listMap[child].at(0) <= '9')){
 											//digit followed by digit
-											s += "\\\\cdot "+listMap[child];
+											s += " \\\\cdot "+listMap[child];
 										}
 										else{
 											//digit followed by not a digit
@@ -545,7 +545,7 @@ std::string latexOne(std::string input) {
 										}
 									}
 									else {
-										s += "\\\\cdot "+listMap[child];//want to move this into numerator somehow
+										s += " \\\\cdot "+listMap[child];//want to move this into numerator somehow
 									}
 									
 								}
@@ -574,7 +574,7 @@ std::string latexOne(std::string input) {
 									if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
 										if (listMap[child].length()>0 && (listMap[child].at(0) >= '0' && listMap[child].at(0) <= '9')){
 											//digit followed by digit
-											s += "\\\\cdot "+listMap[child];
+											s += " \\\\cdot "+listMap[child];
 										}
 										else{
 											//digit followed by not a digit
@@ -582,7 +582,7 @@ std::string latexOne(std::string input) {
 										}
 									}
 									else {
-										s += "\\\\cdot "+listMap[child];//want to move this into numerator somehow
+										s += " \\\\cdot "+listMap[child];//want to move this into numerator somehow
 									}
 								}
 								else {
@@ -749,7 +749,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 							s += listMap[child]+"]";
 						}
 						else {
-							s += "\\\\frac{d}{d"+listMap[child]+"}[";
+							s += " \\\\frac{d}{d"+listMap[child]+"}[";
 						}
 						break;
 			
@@ -865,7 +865,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 						break;
 					}
 					case '/': {
-						s += "\\\\frac{1}{"+listMap[child]+"}";
+						s += " \\\\frac{1}{"+listMap[child]+"}";
 						/*
 						if (prec[pfstr.at(i)] >= prec[lastOpMap[child]]){
 							s += "/("+listMap[child]+")";
@@ -883,7 +883,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 										s += "("+listMap[child]+")";
 									}
 									else {
-										s += "\\\\cdot ("+listMap[child]+")";//want to move this into numerator somehow
+										s += " \\\\cdot ("+listMap[child]+")";//want to move this into numerator somehow
 									}
 									
 								}
@@ -901,7 +901,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 									if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
 										if (listMap[child].length()>0 && (listMap[child].at(0) >= '0' && listMap[child].at(0) <= '9')){
 											//digit followed by digit
-											s += "\\\\cdot "+listMap[child];
+											s += " \\\\cdot "+listMap[child];
 										}
 										else{
 											//digit followed by not a digit
@@ -909,7 +909,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 										}
 									}
 									else {
-										s += "\\\\cdot "+listMap[child];//want to move this into numerator somehow
+										s += " \\\\cdot "+listMap[child];//want to move this into numerator somehow
 									}
 									
 								}
@@ -938,7 +938,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 									if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
 										if (listMap[child].length()>0 && (listMap[child].at(0) >= '0' && listMap[child].at(0) <= '9')){
 											//digit followed by digit
-											s += "\\\\cdot "+listMap[child];
+											s += " \\\\cdot "+listMap[child];
 										}
 										else{
 											//digit followed by not a digit
@@ -946,7 +946,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 										}
 									}
 									else {
-										s += "\\\\cdot "+listMap[child];//want to move this into numerator somehow
+										s += " \\\\cdot "+listMap[child];//want to move this into numerator somehow
 									}
 								}
 								else {
