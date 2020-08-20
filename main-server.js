@@ -29,7 +29,10 @@ const options = {
   cert: fs.readFileSync('/etc/letsencrypt/live/matherrors.com/fullchain.pem')
 };
 
-
+const katex = require('katex');
+const asciidoctor = require('asciidoctor')();
+//const registry = asciidoctor.Extensions.create();
+//require('./mathdocs/rule-maker-macro.js')(registry);
 
 
 const User = require('./models/user');
@@ -526,10 +529,7 @@ app.get('/createrule',
     
 );
 */
-//const katex = require('katex');
-//const asciidoctor = require('asciidoctor')();
-//const registry = asciidoctor.Extensions.create();
-//require('./mathdocs/rule-maker-macro.js')(registry);
+
 
 		
 app.get('/createlesson',
@@ -562,7 +562,7 @@ example::3^2+4[]
     
     `	
     	//require('./mathdocs/instruction-maker-macro.js')(registry,instruction);
-    	var html = "hold";
+		var html = "";
 		//const html = asciidoctor.convert('this is a $A^12+B/7$ for real with more $x=7$ to come.\n'+instruction, { 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 		//console.log(html);
 		//SubjectData.find({}, function(err,result) {
