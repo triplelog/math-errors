@@ -526,10 +526,10 @@ app.get('/createrule',
     
 );
 */
-const katex = require('katex');
-const asciidoctor = require('asciidoctor')();
-const registry = asciidoctor.Extensions.create();
-require('./mathdocs/rule-maker-macro.js')(registry);
+//const katex = require('katex');
+//const asciidoctor = require('asciidoctor')();
+//const registry = asciidoctor.Extensions.create();
+//require('./mathdocs/rule-maker-macro.js')(registry);
 
 		
 app.get('/createlesson',
