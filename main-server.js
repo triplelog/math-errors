@@ -264,15 +264,15 @@ wss.on('connection', function connection(ws) {
 			var html;
 			var jsonmessage;
 			if (dm.rules){
-				html = asciidoctor.convert(dm.rules,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+				html = asciidoctor.convert('[rule]\n'+dm.rules,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 				jsonmessage ={'type':'previewText','rules':html};
 			}
 			else if (dm.errors){
-				html = asciidoctor.convert(dm.errors,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+				html = asciidoctor.convert('[error]\n'+dm.errors,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 				jsonmessage ={'type':'previewText','errors':html};
 			}
 			else if (dm.examples){
-				html = asciidoctor.convert(dm.examples,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+				html = asciidoctor.convert('[example]\n'+dm.examples,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 				jsonmessage ={'type':'previewText','examples':html};
 			}
 			ws.send(JSON.stringify(jsonmessage));
