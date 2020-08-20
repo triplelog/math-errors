@@ -133,6 +133,7 @@ void makeRulesNew(std::string input){
 	bool inRule = false;
 	for (i=0;i<nRows;i++){
 		std::string rawRule = rows[i];
+		std::cout << "rr: " << rawRule << "\n";
 		if (rawRule == "[rule]"){
 			if (inRule){
 				inRule = false;
@@ -188,7 +189,7 @@ void makeRulesNew(std::string input){
 		else if (inRule){
 			currentRawRule.push_back(rawRule);
 		}
-		
+		std::cout << "rrs: " << rawRules.size() << "\n";
 	}
 	if (inRule){
 		inRule = false;
