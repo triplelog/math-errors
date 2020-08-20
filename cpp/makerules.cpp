@@ -180,10 +180,10 @@ void makeRulesNew(std::string input){
 				currentRawRule.resize(0);
 			}
 		}
-		else if (rawRule.substr(0,4) == "in: "){
+		else if (rawRule.substr(0,4) == "in: " || rawRule.substr(0,4) == "IN: " || rawRule.substr(0,4) == "In: "){
 			currentRawRule[0] = rawRule.substr(4,rawRule.length()-4);
 		}
-		else if (rawRule.substr(0,5) == "out: "){
+		else if (rawRule.substr(0,5) == "out: " || rawRule.substr(0,5) == "OUT: " || rawRule.substr(0,5) == "Out: "){
 			currentRawRule[1] = rawRule.substr(5,rawRule.length()-5);
 		}
 		else if (inRule){
@@ -205,7 +205,7 @@ void makeRulesNew(std::string input){
 	std::string out;
 	for (i=0;i<rawRules.size();i++){
 		Rule rule;
-		
+		std::cout << "rrrs: " << rawRules[i].size() << "\n";
 		fullPost = makeRule(rawRules[i][0]);
 		key = fullPost[0];
 		val1 = fullPost[1];
