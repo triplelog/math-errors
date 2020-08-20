@@ -35,6 +35,9 @@ const User = require('./models/user');
 //const SubjectData = require('./models/subjects');
 var schema = new mongoose.Schema({subject:'string'});
 var Tank = mongoose.model('Tank', schema);
+Tank.createCollection().then(function(collection) {
+  console.log('Collection is created!');
+});
 var SubjectData = mongoose.model('SubjectData', schema);
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
