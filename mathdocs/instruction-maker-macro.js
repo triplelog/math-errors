@@ -14,7 +14,9 @@ module.exports = function (registry) {
       var lines = reader.lines;
       for (var i = 0; i < lines.length; i++) {
       	if (lines[i].substr(0,4).toLowerCase() == "in: "){
-      		var html = katex.renderToString(maincppp.latexify(lines[i].substr(4)), {
+      		var input = maincppp.latexify(lines[i].substr(4));
+      		console.log("iiiinnput: ",input);
+      		var html = katex.renderToString(input, {
 				throwOnError: false
 		  	});
       		cards['in']=html;
