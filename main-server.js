@@ -8,13 +8,12 @@ const bindingP = require.resolve(`./build/Release/bindingP`);
 
 //const postfix = require('./postfix.js');
 
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://matherrors:kZGWGda3A@localhost:27017/matherrors?authSource=admin', {useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, useUnifiedTopology: true });
 
 
 var fromLogin = require('./login-server.js');
 var app = fromLogin.loginApp;
 var tempKeys = fromLogin.tempKeys;
+var mongoose = fromLogin.mongoose;
 
 
 const https = require('https');
