@@ -9,7 +9,12 @@ const bindingP = require.resolve(`./build/Release/bindingP`);
 //const postfix = require('./postfix.js');
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://matherrors:kZGWGda3A@localhost:27017/matherrors', {useNewUrlParser: true});
+mongoose.connect('mongodb://matherrors:kZGWGda3A@localhost:27017/matherrors');
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
+
 var fromLogin = require('./login-server.js');
 var app = fromLogin.loginApp;
 var tempKeys = fromLogin.tempKeys;

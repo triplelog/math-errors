@@ -19,8 +19,11 @@ const { PerformanceObserver, performance } = require('perf_hooks');
 var tempKeys = {};
 const User = require('./models/user');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://matherrors:kZGWGda3A@localhost:27017/matherrors', {useNewUrlParser: true});
-
+mongoose.connect('mongodb://matherrors:kZGWGda3A@localhost:27017/matherrors');
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
 
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
@@ -38,7 +41,7 @@ var express = require('express');
 
 var app2 = express();
 const session = require("express-session");
-app2.use(session({ secret: "cats" }));
+app2.use(session({ secret: "cats", resave: true, saveUninitialized: true }));
 app2.use(express.urlencoded({ extended: true }));
 app2.use(bodyParser.json());
 app2.use(bodyParser.urlencoded({extended: false}));
