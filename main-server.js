@@ -242,7 +242,7 @@ wss.on('connection', function connection(ws) {
 					console.log("sub: ",subject);
 					var topics = {};
 					topics[topic]=[{slug:slug,lesson:lesson}];
-					var subjectData = new SubjectData({subject:subject});
+					var subjectData = new SubjectData({subject:"subject"});
 					subjectData.save(function(err,result){
 						console.log("res: ",JSON.stringify(result));
 						if (err){
