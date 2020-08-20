@@ -160,6 +160,8 @@
 				<b>Errors</b>
 			  </div>
 			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b" >
+			    <div id="previewError">
+			  	</div>
 			  	<div class="w-full" id="errors"> 
 			  		<div class="flex w-full">
 			  			<textarea rows="3" value="" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
@@ -178,6 +180,8 @@
 				<b>Examples</b>
 			  </div>
 			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b" >
+			    <div id="previewExample">
+			  	</div>
 			  	<div class="w-full" id="examples"> 
 			  		<div class="flex w-full">
 			  			<textarea rows="3" value="" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
@@ -224,7 +228,16 @@
 				document.getElementById("previewQ").textContent = dm.preview;
 			}
 			else if (dm.type == 'previewText'){
-				document.getElementById('previewRule').innerHTML = dm.message;
+				if (dm.rules){
+					document.getElementById('previewRule').innerHTML = dm.rules;
+				}
+				else if (dm.errors){
+					document.getElementById('previewError').innerHTML = dm.errors;
+				}
+				else if (dm.examples){
+					document.getElementById('previewExample').innerHTML = dm.examples;
+				}
+				
 			}
 			
 			
@@ -297,7 +310,9 @@
 			while (el.getAttribute('name') != 'preview' && el.parentElement){
 				el = el.parentElement;
 			}
-			var jsonmessage = {'type':'previewText','message':el.parentElement.parentElement.querySelector('textarea').value};
+			var pel = el.parentElement.parentElement;
+			var jsonmessage = {'type':'previewText'};
+			jsonmessage[pel.parentElement.id]=pel.querySelector('textarea').value;
 			ws.send(JSON.stringify(jsonmessage));
 		}
 	</script>

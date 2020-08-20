@@ -261,10 +261,20 @@ wss.on('connection', function connection(ws) {
 				
 		}
 		else if (dm.type == 'previewText'){
-			console.log(dm.message);
-			const html = asciidoctor.convert(dm.message,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
-			console.log(html);
-			var jsonmessage = {'type':'previewText','message':html};
+			var html;
+			var jsonmessage;
+			if (dm.rules){
+				html = asciidoctor.convert(dm.rules,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+				jsonmessage ={'type':'previewText','rules':html};
+			}
+			else if (dm.errors){
+				html = asciidoctor.convert(dm.errors,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+				jsonmessage ={'type':'previewText','errors':html};
+			}
+			else if (dm.examples){
+				html = asciidoctor.convert(dm.examples,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+				jsonmessage ={'type':'previewText','examples':html};
+			}
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		
