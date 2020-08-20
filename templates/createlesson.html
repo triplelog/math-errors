@@ -162,7 +162,7 @@
 			  		<div class="flex w-full">
 			  			<textarea rows="3" value="" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
 			  			<div class="w-auto flex-initial pb-2 mb-3">
-			  				<div class="border px-1 py-1 mb-3"><i data-feather="trash"></i></div><div class="border px-1 py-1 mb-2"><i data-feather="search"></i></div>
+			  				<div class="border px-1 py-1 mb-3" name="delete"><i data-feather="trash"></i></div><div class="border px-1 py-1 mb-2" name="preview"><i data-feather="search"></i></div>
 			  			</div>
 			  		</div>
 			  	</div>
@@ -180,7 +180,7 @@
 			  		<div class="flex w-full">
 			  			<textarea rows="3" value="" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
 			  			<div class="w-auto flex-initial pb-2 mb-3">
-			  				<div class="border px-1 py-1 mb-3"><i data-feather="trash"></i></div><div class="border px-1 py-1 mb-2"><i data-feather="search"></i></div>
+			  				<div class="border px-1 py-1 mb-3" name="delete"><i data-feather="trash"></i></div><div class="border px-1 py-1 mb-2" name="preview"><i data-feather="search"></i></div>
 			  			</div>
 			  		</div>
 			  	</div>
@@ -231,6 +231,11 @@
 	<script src="js/asciidoctor.js"></script>
 	<script>
 		document.getElementById('rules').querySelector('div[name=delete]').addEventListener('click',deleteText);
+		document.getElementById('errors').querySelector('div[name=delete]').addEventListener('click',deleteText);
+		document.getElementById('examples').querySelector('div[name=delete]').addEventListener('click',deleteText);
+		document.getElementById('rules').querySelector('div[name=preview]').addEventListener('click',previewText);
+		document.getElementById('errors').querySelector('div[name=preview]').addEventListener('click',previewText);
+		document.getElementById('examples').querySelector('div[name=preview]').addEventListener('click',previewText);
 		var asciidoctor = Asciidoctor();
 		//TODO: convert math into latex
 		function previewLesson() {
@@ -255,18 +260,23 @@
 			var tArea = clone.cloneNode(true);
 			tArea.querySelector('textarea').value = "";
 			tArea.querySelector('div[name=delete]').addEventListener('click',deleteText);
+			tArea.querySelector('div[name=preview]').addEventListener('click',previewText);
 			document.getElementById('rules').appendChild(tArea);
 		}
 		function addError() {
 			var clone = document.getElementById('errors').querySelector('div.flex');
 			var tArea = clone.cloneNode(true);
-			tArea.value = "";
+			tArea.querySelector('textarea').value = "";
+			tArea.querySelector('div[name=delete]').addEventListener('click',deleteText);
+			tArea.querySelector('div[name=preview]').addEventListener('click',previewText);
 			document.getElementById('errors').appendChild(tArea);
 		}
 		function addExample() {
 			var clone = document.getElementById('examples').querySelector('div.flex');
 			var tArea = clone.cloneNode(true);
-			tArea.value = "";
+			tArea.querySelector('textarea').value = "";
+			tArea.querySelector('div[name=delete]').addEventListener('click',deleteText);
+			tArea.querySelector('div[name=preview]').addEventListener('click',previewText);
 			document.getElementById('examples').appendChild(tArea);
 		}
 		function deleteText(evt){
@@ -276,6 +286,13 @@
 			}
 			el = el.parentElement.parentElement;
 			el.parentNode.removeChild(el);
+		}
+		function previewText(evt){
+			var el = evt.target;
+			while (el.getAttribute('name') != 'preview' && el.parentElement){
+				el = el.parentElement;
+			}
+			alert(el.parentElement.parentElement.querySelector('textarea').value);
 		}
 	</script>
   </body>
