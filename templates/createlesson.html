@@ -225,11 +225,12 @@
 			
 		}
 		feather.replace();
-		document.getElementById('rules').querySelector('div[name=delete]').addEventListener('click',deleteText);
+		
 		
 	</script>
 	<script src="js/asciidoctor.js"></script>
 	<script>
+		document.getElementById('rules').querySelector('div[name=delete]').addEventListener('click',deleteText);
 		var asciidoctor = Asciidoctor();
 		//TODO: convert math into latex
 		function previewLesson() {
@@ -252,7 +253,7 @@
 		function addRule() {
 			var clone = document.getElementById('rules').querySelector('div.flex');
 			var tArea = clone.cloneNode(true);
-			tArea.value = "";
+			tArea.querySelector('textarea').value = "";
 			tArea.querySelector('div[name=delete]').addEventListener('click',deleteText);
 			document.getElementById('rules').appendChild(tArea);
 		}
