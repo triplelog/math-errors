@@ -4,7 +4,7 @@ const bindingP = require.resolve(`../build/Release/bindingP`);
 const maincppp = require(bindingP);
 var retHelloP = maincppp.hello();
 const asciidoctor2 = require('asciidoctor')();
-const registry2 = asciidoctor.Extensions.create();
+const registry2 = asciidoctor2.Extensions.create();
 require('../mathdocs/rule-maker-macro.js')(registry2);
 
 module.exports = function (registry,filen) {
