@@ -238,6 +238,7 @@ wss.on('connection', function connection(ws) {
 					topics[topic]=[{slug:slug,lesson:lesson}];
 					var subjectData = new SubjectData({subject:subject,topics:topics});
 					subjectData.save(function(err,result){
+						console.log("res: ",JSON.stringify(result));
 						if (err){
 							console.log("error: ", err);
 						}
@@ -263,7 +264,7 @@ wss.on('connection', function connection(ws) {
 						}
 					}
 					else {
-						console.log("res: ",JSON.stringify(result))
+						console.log("res: ",JSON.stringify(result));
 						result.topics[topic] = [{slug:slug,lesson:lesson}];
 					}
 					
