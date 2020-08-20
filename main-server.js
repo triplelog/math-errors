@@ -32,7 +32,10 @@ const options = {
 
 
 const User = require('./models/user');
-const SubjectData = require('./models/subjects');
+//const SubjectData = require('./models/subjects');
+var schema = new mongoose.Schema({subject:'string'});
+var SubjectData = mongoose.model('SubjectData', schema);
+
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
 // use static authenticate method of model in LocalStrategy
