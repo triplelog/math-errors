@@ -20,7 +20,8 @@ module.exports = function (registry) {
 				throwOnError: false
 		  	});
 		  	console.log(html);
-		  	var html = katex.renderToString("A^{2}+B \\cdot  \\frac{1}{7}", {
+		  	var hput = "A^{2}+B \\cdot  \\frac{1}{7}";
+		  	var html = katex.renderToString(hput, {
 				throwOnError: false
 		  	});
 		  	console.log(html);
