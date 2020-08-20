@@ -16,7 +16,19 @@ module.exports = function (registry) {
       	if (lines[i].substr(0,4).toLowerCase() == "in: "){
       		var input = maincppp.latexify(lines[i].substr(4));
       		console.log("iiiinnput: ",input);
-      		var html = katex.renderToString(input, {
+      		var html = katex.renderToString("A \\cdot B", {
+				throwOnError: false
+		  	});
+		  	console.log(html);
+		  	var html = katex.renderToString("A \\\cdot B", {
+				throwOnError: false
+		  	});
+		  	console.log(html);
+		  	var html = katex.renderToString("A \cdot B", {
+				throwOnError: false
+		  	});
+		  	console.log(html);
+		  	var html = katex.renderToString(input, {
 				throwOnError: false
 		  	});
       		cards['in']=html;
