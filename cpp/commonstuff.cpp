@@ -547,6 +547,8 @@ std::string fromOriginal(std::string input,flat_hash_map<int,std::string> origin
 	return input;
 }
 
+flat_hash_map<int,int> removeParList(flat_hash_map<int,int> nodes, std::string input);
+
 #include "latexify.cpp"
 
 #include "postfixify.cpp"
