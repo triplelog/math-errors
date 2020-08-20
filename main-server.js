@@ -33,7 +33,7 @@ const options = {
 
 const User = require('./models/user');
 //const SubjectData = require('./models/subjects');
-var schema = new mongoose.Schema({subject:'string'});
+var schema = new mongoose.Schema({subject:String,name:String});
 var Tank = mongoose.model('Tank', schema);
 Tank.findOne({}, function(err,result){
 	console.log("res: ",result);
@@ -245,7 +245,7 @@ wss.on('connection', function connection(ws) {
 					console.log("sub: ",subject);
 					var topics = {};
 					topics[topic]=[{slug:slug,lesson:lesson}];
-					Tank.create({subject:"subject"},function(err,result){
+					Tank.create({subject:"subject",name:"name"},function(err,result){
 						console.log("res: ",JSON.stringify(result));
 						if (err){
 							console.log("error: ", err);
