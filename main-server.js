@@ -38,6 +38,9 @@ var Tank = mongoose.model('Tank', schema);
 Tank.countDocuments({}, function(err,result){
 	console.log("res: ",result);
 });
+Tank.validate({subject:"a",name:"b"},function(err,result){
+	console.log(err,result);
+})
 var SubjectData = mongoose.model('SubjectData', schema);
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
