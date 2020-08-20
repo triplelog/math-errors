@@ -29,8 +29,10 @@ const options = {
   cert: fs.readFileSync('/etc/letsencrypt/live/matherrors.com/fullchain.pem')
 };
 
-const katex = require('katex');
-const asciidoctor = require('asciidoctor')();
+const vm = require('vm');
+vm.createContext({});
+const code = `const katex = require('katex'); const asciidoctor = require('asciidoctor')();`;
+vm.runInContext(code,context);
 //const registry = asciidoctor.Extensions.create();
 //require('./mathdocs/rule-maker-macro.js')(registry);
 
