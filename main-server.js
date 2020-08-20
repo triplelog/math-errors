@@ -414,7 +414,7 @@ const registry = asciidoctor.Extensions.create();
 require('./mathdocs/rule-maker-macro.js')(registry);
 require('./mathdocs/instruction-maker-macro.js')(registry);
 		
-app.get('/rulepage',
+app.get('/createlesson',
 	function(req, res){
 		
 		var info = {};
@@ -447,7 +447,7 @@ example::1/3+2+x^12[]
 		const html = asciidoctor.convert('this is a $A^12+B/7$ for real with more $x=7$ to come.\n'+instruction, { 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 		//console.log(html);
 		SubjectData.find({}, function(err,result) {
-			res.write(nunjucks.render('rulepage.html',{
+			res.write(nunjucks.render('createlesson.html',{
 				info: info,
 				correct:correct,
 				errors:errors,

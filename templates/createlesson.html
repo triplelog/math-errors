@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.72.0">
+    <title>Dashboard Template · Bootstrap</title>
+
+    <link rel="canonical" href="">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+	<link rel="stylesheet" href="css/treeflex.css">
+
+    <style>
+
+      
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+    <link href="css/output.css" rel="stylesheet">
+  </head>
+<body class="overflow-y-hidden">
+    
+
+<div class="flex m-0 p-0">
+    
+	  <div class="w-1/5 flex-none bg-blue-200 min-h-screen">
+		<div class="w-full morsebg text-white py-2 text-center text-2xl">
+			<a>Math Errors</a>
+		</div>
+
+		<ul class="nav flex-column">
+		  <li class="nav-item">
+			<a class="nav-link active" aria-current="page" href="#">
+			  <span data-feather="plus"></span>
+			  New Question
+			</a>
+		  </li>
+	  
+		</ul>
+		<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+		  <span>History</span>
+		</h6>
+		<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+		  <span>Topics</span>
+		  <a class="link-secondary" href="#" aria-label="Add a new report">
+			<span data-feather="plus-circle"></span>
+		  </a>
+		</h6>
+		<ul class="mx-2 w-full">
+		  {% for subject in subjects %}
+		  <li class="my-3 uppercase">
+			<a class="uppercase" href="#" data-subject="{{ subject.subject }}">
+			  {{ subject.subject }}
+			</a>
+			<ul class="mx-2" data-subject="{{ subject.subject }}">
+				{% for name, list in subject.topics %}
+				<li class="my-1 capitalize">
+					<a href="#" data-topic="{{ name }}">{{ name }}</a>
+					<button class="float-right bg-green-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline" type="button">?</button>
+					<ul class="mx-2" data-topic="{{ name }}">
+						{% for item in list %}
+						<li class="my-1 capitalize">
+							<a href="createlesson?s={{subject.subject}}&t={{name}}&r={{item.name}}">{{ item.name }}</a>
+							<button class="float-right bg-green-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline" type="button">?</button>
+						</li>
+						{% endfor %}
+					</ul>
+				</li>
+				{% endfor %}
+			</ul>
+		  </li>
+		  {% endfor %}
+		  
+		</ul>
+	  </div>
+
+
+    <div class="w-4/5 flex-none px-2 max-h-screen overflow-y-auto">
+        <div class="w-full mb-2 py-4">
+			<span class="text-2xl"><b>Create Lesson</b></span>
+			<button onclick="saveLesson()" class="float-right bg-white hover:border-gray-900 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-r focus:outline-none focus:shadow-outline" type="button">Save</button>
+			<button onclick="previewLesson()" class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 focus:outline-none focus:shadow-outline" type="button">Preview</button>
+			<button onclick="editLesson()" class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-l focus:outline-none focus:shadow-outline" type="button">Edit</button>
+					
+        </div>
+        
+		<div class="flex flex-wrap w-full" id="preview" style="display: none;">
+		  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
+			<b>Preview</b>
+			
+		  </div>
+		  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
+		  	{{ preview | safe }}
+		  </div>
+		</div>
+		
+		<div class="flex flex-wrap w-full" id="edit">
+		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
+			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
+				<b>Info</b>
+				
+			  </div>
+			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
+				<div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="subtop">
+						Subject.Topic.Lesson
+					  </label>
+					  <input id="subtop" value="{% if info.subtop %}{{ info.subtop }}{% endif %}" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+
+				</div>
+				<div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="name">
+						Name
+					  </label>
+					  <input id="name" value="{% if info.name %}{{ info.name }}{% endif %}" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+
+				</div>
+				<div>
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="exp">
+						Explanation
+					  </label>
+						<textarea rows="3" id="exp" value="{% if info.explanation %}{{ info.explanation }}{% endif %}" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
+					  
+				</div>
+				
+			  </div>
+		  </div>
+		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
+			  <div class="w-full bg-green-200 border border-gray-300 px-2 py-2 rounded-t">
+				<b>Rules</b>
+			  </div>
+			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b" >
+			  	<div class="w-full" id="rules"> 
+			  		<textarea rows="3" value="" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
+			  	</div>
+			  	<div class="w-full">
+					<button onclick="addCorrect()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline" type="button">+ Add</button>
+				</div>
+			  </div>
+			  
+			  
+		  </div>
+		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
+			  <div class="w-full bg-red-200 border border-gray-300 px-2 py-2 rounded-t">
+				<b>Errors</b>
+			  </div>
+			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b" >
+			  	<div class="w-full" id="errors"> 
+			  		<textarea rows="3" value="" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
+			  	</div>
+			  	<div class="w-full">
+					<button onclick="addError()" class="bg-red-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline" type="button">+ Add</button>
+				</div>
+			  </div>
+		  </div>
+		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
+			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
+				<b>Examples</b>
+			  </div>
+			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b" >
+			  	<div class="w-full" id="examples"> 
+			  		<textarea rows="3" value="" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
+			  	</div>
+			  	<div class="w-full">
+					<button onclick="addExample()" class="bg-gray-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline" type="button">+ Add</button>
+				</div>
+			  </div>
+		  </div>
+		</div>
+
+		
+
+    </div>
+
+</div>
+
+
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" integrity="sha384-EbSscX4STvYAC/DxHse8z5gEDaNiKAIGW+EpfzYTfQrgIlHywXXrM9SUIZ0BlyfF" crossorigin="anonymous"></script>
+      <script src="js/dashboard.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+
+	<script>
+		ws = new WebSocket('wss://matherrors.com:8081');
+		ws.onopen = function(evt) {
+			//var jsonmessage = {'type':'soloKey'};
+			//jsonmessage.message = tkey;
+			//ws.send(JSON.stringify(jsonmessage));
+			
+		}
+		ws.onmessage = function(evt){
+			var dm = JSON.parse(evt.data);
+			console.log(dm);
+			if (dm.type == 'answer'){
+				createTrees(dm.answer);
+			}
+			else if (dm.type == 'preview'){
+				document.getElementById("previewQ").innerHTML = "";
+				document.getElementById("previewQ").textContent = dm.preview;
+			}
+			
+			
+		}
+		
+	</script>
+	<script src="js/asciidoctor.js"></script>
+	<script>
+		var asciidoctor = Asciidoctor();
+		//TODO: convert math into latex
+		function previewLesson() {
+			var correct = [];
+			var correctEls = document.getElementById('correct').querySelectorAll('textarea');
+			for (var i=0;i<correctEls.length;i++){
+				if (correctEls[i].value.length > 1){
+					correct.push(correctEls[i].value);
+				}
+			}
+			console.log(correct);
+		
+			document.getElementById('preview').style.display = "flex";
+			document.getElementById('edit').style.display = "none";
+		}
+		function editLesson() {
+			document.getElementById('preview').style.display = "none";
+			document.getElementById('edit').style.display = "flex";
+		}
+		function addCorrect() {
+			var clone = document.getElementById('correct').querySelector('textarea');
+			var tArea = clone.cloneNode(true);
+			tArea.value = "";
+			document.getElementById('correct').appendChild(tArea);
+		}
+	</script>
+  </body>
+</html>
