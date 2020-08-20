@@ -221,6 +221,9 @@
 				document.getElementById("previewQ").innerHTML = "";
 				document.getElementById("previewQ").textContent = dm.preview;
 			}
+			else if (dm.type == 'previewText'){
+				alert(dm.message);
+			}
 			
 			
 		}
@@ -292,7 +295,8 @@
 			while (el.getAttribute('name') != 'preview' && el.parentElement){
 				el = el.parentElement;
 			}
-			alert(el.parentElement.parentElement.querySelector('textarea').value);
+			var jsonmessage = {'type':'previewText','message':el.parentElement.parentElement.querySelector('textarea').value};
+			ws.send(JSON.stringify(jsonmessage));
 		}
 	</script>
   </body>

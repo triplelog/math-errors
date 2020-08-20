@@ -260,6 +260,13 @@ wss.on('connection', function connection(ws) {
 			});
 				
 		}
+		else if (dm.type == 'previewText'){
+			console.log(dm.message);
+			const html = asciidoctor.convert(dm.message,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+			console.log(html);
+			var jsonmessage = {'type':'previewText','message':html};
+			ws.send(JSON.stringify(jsonmessage));
+		}
 		
   	});
 });
