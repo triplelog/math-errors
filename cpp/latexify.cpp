@@ -75,7 +75,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 								s += latexMap[child]+"\\\\right]";
 							}
 							else {
-								s += " \\\\frac{d}{d"+latexMap[child]+"}\\\\left[";
+								s += "\\frac{d}{d"+latexMap[child]+"}\\\\left[";
 							}
 							break;
 						
@@ -191,7 +191,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							break;
 						}
 						case '/': {
-							s += " \\\\frac{1}{"+latexMap[child]+"}";
+							s += "\\frac{1}{"+latexMap[child]+"}";
 							/*
 							if (prec[lastOpMap[input[i*3]]] >= prec[lastOpMap[child]]){
 								s += "/("+latexMap[child]+")";
@@ -385,7 +385,7 @@ std::string latexOne(std::string input) {
 							s += listMap[child]+"]";
 						}
 						else {
-							s += " \\\\frac{d}{d"+listMap[child]+"}[";
+							s += "\\frac{d}{d"+listMap[child]+"}[";
 						}
 						break;
 			
@@ -501,7 +501,7 @@ std::string latexOne(std::string input) {
 						break;
 					}
 					case '/': {
-						s += " \\\\frac{1}{"+listMap[child]+"}";
+						s += "\\frac{1}{"+listMap[child]+"}";
 						/*
 						if (prec[pfstr.at(i)] >= prec[lastOpMap[child]]){
 							s += "/("+listMap[child]+")";
@@ -749,7 +749,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 							s += listMap[child]+"]";
 						}
 						else {
-							s += " \\\\frac{d}{d"+listMap[child]+"}[";
+							s += "\\frac{d}{d"+listMap[child]+"}[";
 						}
 						break;
 			
@@ -865,7 +865,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 						break;
 					}
 					case '/': {
-						s += " \\\\frac{1}{"+listMap[child]+"}";
+						s += "\\frac{1}{"+listMap[child]+"}";
 						/*
 						if (prec[pfstr.at(i)] >= prec[lastOpMap[child]]){
 							s += "/("+listMap[child]+")";
