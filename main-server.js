@@ -281,6 +281,15 @@ wss.on('connection', function connection(ws) {
 			}
 			ws.send(JSON.stringify(jsonmessage));
 		}
+		else if (dm.type == 'previewLesson'){
+			var html;
+			var jsonmessage;
+			require('./mathdocs/instruction-maker-macro.js')(registry,dm.message);
+			html = asciidoctor.convert(dm.message,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+			jsonmessage ={'type':'previewLesson','message':html};
+
+			ws.send(JSON.stringify(jsonmessage));
+		}
 		
   	});
 });

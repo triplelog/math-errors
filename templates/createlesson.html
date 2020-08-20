@@ -239,7 +239,12 @@
 				}
 				
 			}
-			
+			else if (dm.type == 'previewLesson'){
+				var el = document.getElementById('preview').querySelector('div.rounded-b');
+				el.innerHTML = dm.message;
+				document.getElementById('preview').style.display = "flex";
+				document.getElementById('edit').style.display = "none";
+			}
 			
 		}
 		feather.replace();
@@ -258,9 +263,9 @@
 		//TODO: convert math into latex
 		function previewLesson() {
 			var lesson = makeLesson();
+			var jsonmessage = {'type':'previewLesson','message':lesson};
+			ws.send(JSON.stringify(jsonmessage));
 			
-			document.getElementById('preview').style.display = "flex";
-			document.getElementById('edit').style.display = "none";
 		}
 		function editLesson() {
 			document.getElementById('preview').style.display = "none";
