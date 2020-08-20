@@ -965,7 +965,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 				s = "\\\\boxed{"+s+"}";
 			}
 			else if (bMap.find(i) != bMap.end()){
-				s = "\\\\left{"+s+"\\\\right}";
+				s = "\\\\{\\\\{"+s+"\\\\}\\\\}";
 			}
 			listMap[fullStr]=s;
 			lastOpMap[fullStr]=pfstr.at(i);
@@ -978,7 +978,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 				s = "\\\\boxed{"+s+"}";
 			}
 			else if (bMap.find(i) != bMap.end()){
-				s = "\\\\left{"+s+"\\\\right}";
+				s = "\\\\{\\\\{"+s+"\\\\}\\\\}";
 			}
 			listMap["#@" + std::to_string(idx) + "_"]=s;
 			lastOpMap["#@" + std::to_string(idx) + "_"]='#';
