@@ -567,6 +567,8 @@ example::3^2+4[]
 	const asciidoctor = require('asciidoctor')();
 	const registry = asciidoctor.Extensions.create();
 	console.log(Object.keys(global));
+	delete Opal;
+	console.log(Object.keys(global));
 	//require('./mathdocs/rule-maker-macro.js')(registry);
 	
     	//require('./mathdocs/instruction-maker-macro.js')(registry,instruction);
