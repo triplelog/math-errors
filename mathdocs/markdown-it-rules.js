@@ -8,11 +8,11 @@ var retHelloP = maincppp.hello();
 
 var mdoptions = {
   validate: function(params) {
-    return params.trim().match(/^rule\s+(.*)$/);
+    return params.trim().match(/^rule/);
   },
  
   render: function (tokens, idx) {
-    var m = tokens[idx].info.trim().match(/^rule\s+(.*)$/);
+    var m = tokens[idx].info.trim().match(/^rule/);
  
     if (tokens[idx].nesting === 1) {
       // opening tag
