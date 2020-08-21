@@ -55,20 +55,20 @@
 		  </a>
 		</h6>
 		<ul class="mx-2 w-full">
-		  {% for subject in subjects %}
+		  {% for subject,topics in toc %}
 		  <li class="my-3 uppercase">
-			<a class="uppercase" href="#" data-subject="{{ subject.subject }}">
-			  {{ subject.subject }}
+			<a class="uppercase" href="#" data-subject="{{ subject }}">
+			  {{ subject }}
 			</a>
-			<ul class="mx-2" data-subject="{{ subject.subject }}">
-				{% for name, list in subject.topics %}
+			<ul class="mx-2" data-subject="{{ subject }}">
+				{% for topic, lessons in topics %}
 				<li class="my-1 capitalize">
-					<a href="#" data-topic="{{ name }}">{{ name }}</a>
+					<a href="#" data-topic="{{ topic }}">{{ topic }}</a>
 					<button class="float-right bg-green-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline" type="button">?</button>
-					<ul class="mx-2" data-topic="{{ name }}">
-						{% for item in list %}
+					<ul class="mx-2" data-topic="{{ topic }}">
+						{% for lesson in lessons %}
 						<li class="my-1 capitalize">
-							<a href="createlesson?s={{subject.subject}}&t={{name}}&r={{item.name}}">{{ item.name }}</a>
+							<a href="createlesson?s={{subject}}&t={{topic}}&r={{lesson}}">{{ lesson }}</a>
 							<button class="float-right bg-green-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline" type="button">?</button>
 						</li>
 						{% endfor %}

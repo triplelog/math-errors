@@ -423,7 +423,8 @@ app.get('/createlesson',
 				rules: json.rules,
 				errors: json.errors,
 				examples: json.examples,
-				title: "TitlE"
+				title: "TitlE",
+				toc: toc,
 			}));
 			res.end();
 			/*
