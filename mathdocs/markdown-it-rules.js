@@ -46,7 +46,7 @@ var mdoptions = {
 				});
 				cards['out']=html;
 			}
-			else if (lines[i].substr(0,3) == "eee"){
+			else if (lines[i].substr(0,2) == "ee"){
 				isText = true;
 			}
 			else{
@@ -62,10 +62,9 @@ var mdoptions = {
       	}
       }
       if (cards['explanation'].length > 0){
-      	cards['explanation']= asciidoctor2.convert(cards['explanation'],{ 'extension_registry': registry2, safe: 'safe', backend: 'html5', template_dir: '../templates' });
+      	cards['explanation']= md.render(cards['explanation']);
       }
       console.log(cards);
   }
 };
 module.exports = mdoptions;
-
