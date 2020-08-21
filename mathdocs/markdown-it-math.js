@@ -26,9 +26,9 @@ module.exports = function(tokens,idx) {
 			else {
 				var newString = maincppp.latexify(currentMath);
 				var oldString = "$"+currentMath+"$";
-				//var newString = katex.renderToString(currentMath, {
-				//		throwOnError: false
-				//  });
+				newString = katex.renderToString(newString, {
+						throwOnError: false
+				  });
 				input = input.replace(oldString,newString);
 				ii += newString.length - (oldString.length);
 				insideDollar = false;
