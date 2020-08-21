@@ -44,9 +44,9 @@ function mdoptionsfn(filen){
 
 		  	  var lines = tokens[idx].markup.split('\n');
 		  	  var newStr = "";
-		  	  for (var i = 0; i < lines.length; i++) {
-		  	  	  if (lines[i].trim().length < 1){continue;}
-				  var ex = lines[i].trim();
+		  	  for (var iii = 0; iii < lines.length; iii++) {
+		  	  	  if (lines[iii].trim().length < 1){continue;}
+				  var ex = lines[iii].trim();
 				  console.log("ex: ",ex);
 				  var jsonmessage = maincppp.onerule(ex);
 				  console.log(jsonmessage);
