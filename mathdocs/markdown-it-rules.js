@@ -13,8 +13,9 @@ var mdoptions = {
   },
  
   render: function (tokens, idx) {
+  	console.log(tokens[idx]);
     var m = tokens[idx].info.trim().match(/^rule/);
- 
+ 	
     if (tokens[idx].nesting === 1) {
       // opening tag
       return '\n';
@@ -31,7 +32,6 @@ var mdoptions = {
       var lines = tokens[idx].markup.split('\n').slice(1,);
       var isText = false;
       for (var i = 0; i < lines.length; i++) {
-      	console.log(lines[i]);
       	if (lines[i].length < 2){continue;}
       	if (!isText){
 			if (lines[i].substr(0,4).toLowerCase() == "in: "){
