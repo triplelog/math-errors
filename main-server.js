@@ -398,6 +398,9 @@ wss.on('connection', function connection(ws) {
 			console.log(dm.message);
 			//require('./mathdocs/instruction-maker-macro.js')(registry,dm.message);
 			//html = asciidoctor.convert(dm.message,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+			var mdoptions2 = require('./mathdocs/markdown-it-rules.js')(dm.message);
+			md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions2);
+			html = md.render(dm.message);
 			jsonmessage ={'type':'previewLesson','message':html};
 
 			ws.send(JSON.stringify(jsonmessage));
