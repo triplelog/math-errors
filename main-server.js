@@ -32,28 +32,8 @@ const options = {
 
 const katex = require('katex');
 const markdown = require('markdown-it');
-var mdoptions = {
-  validate: function(params) {
-    return params.trim().match(/^rule\s+(.*)$/);
-  },
- 
-  render: function (tokens, idx) {
-    var m = tokens[idx].info.trim().match(/^rule\s+(.*)$/);
- 
-    if (tokens[idx].nesting === 1) {
-      // opening tag
-      return '<details><summary>' + md.utils.escapeHtml(m[1]) + '</summary>\n';
- 
-    } else {
-      // closing tag
-      return '</details>\n';
-    }
-  },
-  
-  content: function (tokens, idx) {
-  	console.log("CCC:",tokens[idx].markup);
-  }
-};
+var mdoptions = require('./markdown-it-rules.js');
+console.log(mdoptions);
 var md = new markdown();
 md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions);
 console.log(md.render('::: rule click me\nin: A+B\nout: B+A\n:::\n'));
