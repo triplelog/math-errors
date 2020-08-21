@@ -35,9 +35,7 @@ const markdown = require('markdown-it');
 var mdoptions = require('./mathdocs/markdown-it-rules.js');
 var md = new markdown();
 //md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions);
-md.renderer.rules.text = function (tokens, idx, options, env, self) {
-  console.log("TOKEN::: ",tokens[idx]);
-};
+md.renderer.rules.text = require('./mathdocs/markdown-it-math.js');
 console.log(md.render('::: rule\nin: $A+B$\nout: B+A\nee\nThis is *markdown*\n:::\n'));
 console.log(bre);
 

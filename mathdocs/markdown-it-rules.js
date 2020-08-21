@@ -1,3 +1,4 @@
+'use strict';
 const markdown = require('markdown-it');
 var md = new markdown();
 const katex = require('katex');
@@ -71,4 +72,10 @@ var mdoptions = {
       return newStr;
   }
 };
+
+
+
+
+
+
 module.exports = mdoptions;
