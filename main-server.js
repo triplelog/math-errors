@@ -30,7 +30,8 @@ const options = {
 };
 
 console.log(process.cwd());
-
+console.log(__filename);
+console.log(__dirname);
 const {NodeVM, VMScript} = require('vm2');
 const vm = new NodeVM({
     require: {
@@ -41,6 +42,8 @@ const script = new VMScript("const katex = require('katex'); const asciidoctor =
 vm.run(script);
 
 console.log(process.cwd());
+console.log(__filename);
+console.log(__dirname);
 
 /*
 const vm = require('vm');
