@@ -32,7 +32,27 @@ const options = {
 
 const katex = require('katex');
 const markdown = require('markdown-it');
+var mdoptions = {
+  validate: function(params) {
+    return params.trim().match(/^rule\s+(.*)$/);
+  },
+ 
+  render: function (tokens, idx) {
+    var m = tokens[idx].info.trim().match(/^rule\s+(.*)$/);
+ 
+    if (tokens[idx].nesting === 1) {
+      // opening tag
+      return '<details><summary>' + md.utils.escapeHtml(m[1]) + '</summary>\n';
+ 
+    } else {
+      // closing tag
+      return '</details>\n';
+    }
+  }
+};
 var md = new markdown();
+md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions);
+console.log(md.render('::: spoiler click me\n*content*\n:::\n'));
 
 //const asciidoctor = new require('asciidoctor')();
 //const registry = asciidoctor.Extensions.create();
