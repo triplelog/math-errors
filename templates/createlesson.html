@@ -226,6 +226,7 @@
 			else if (dm.type == 'preview'){
 				document.getElementById("previewQ").innerHTML = "";
 				document.getElementById("previewQ").textContent = dm.preview;
+				feather.replace();
 			}
 			else if (dm.type == 'previewText'){
 				if (dm.rules){
@@ -237,6 +238,7 @@
 				else if (dm.examples){
 					document.getElementById('previewExample').innerHTML = dm.examples;
 				}
+				feather.replace();
 				
 			}
 			else if (dm.type == 'previewLesson'){
@@ -244,6 +246,7 @@
 				el.innerHTML = dm.message;
 				document.getElementById('preview').style.display = "flex";
 				document.getElementById('edit').style.display = "none";
+				feather.replace();
 			}
 			
 		}
@@ -279,6 +282,7 @@
 		function editLesson() {
 			document.getElementById('preview').style.display = "none";
 			document.getElementById('edit').style.display = "flex";
+			feather.replace();
 		}
 		function addRule() {
 			var clone = document.getElementById('rules').querySelector('div.flex');
