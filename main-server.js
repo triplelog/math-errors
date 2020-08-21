@@ -29,11 +29,7 @@ const options = {
   cert: fs.readFileSync('/etc/letsencrypt/live/matherrors.com/fullchain.pem')
 };
 
-console.log(process.cwd());
-console.log(__filename);
-console.log(__dirname);
-console.log(Object.getOwnPropertyNames(global));
-console.log(Object.keys(global));
+
 const {NodeVM, VMScript} = require('vm2');
 const vm = new NodeVM({
     require: {
@@ -41,12 +37,10 @@ const vm = new NodeVM({
     	context: 'sandbox'
     }
 });
-const script = new VMScript("const katex = require('katex'); const asciidoctor = require('asciidoctor')();");
+const script = new VMScript("const katex = require('katex'); const asciidoctor = require('asciidoctor');");
 vm.run(script);
 
-console.log(process.cwd());
-console.log(__filename);
-console.log(__dirname);
+
 
 /*
 const vm = require('vm');
