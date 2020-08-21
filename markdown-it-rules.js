@@ -1,5 +1,10 @@
 const markdown = require('markdown-it');
 var md = new markdown();
+const katex = require('katex');
+const assert = require('assert');
+const bindingP = require.resolve(`../build/Release/bindingP`);
+const maincppp = require(bindingP);
+var retHelloP = maincppp.hello();
 
 var mdoptions = {
   validate: function(params) {
@@ -58,6 +63,7 @@ var mdoptions = {
       if (cards['explanation'].length > 0){
       	cards['explanation']= asciidoctor2.convert(cards['explanation'],{ 'extension_registry': registry2, safe: 'safe', backend: 'html5', template_dir: '../templates' });
       }
+      console.log(cards);
   }
 };
 module.exports = mdoptions;
