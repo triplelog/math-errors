@@ -30,28 +30,8 @@ const options = {
 };
 
 
-const {NodeVM, VMScript} = require('vm2');
-const vm = new NodeVM({
-    require: {
-    	external: true,
-    	builtin: ["*"],
-    	context: 'sandbox'
-    },
-    eval: true,
-    wasm: true
-});
-const script = new VMScript("const katex = require('katex'); const asciidoctor = require('asciidoctor')();");
-vm.run(script);
-
-
-
-/*
-const vm = require('vm');
-const context = { require:require };
-vm.createContext(context);
-const code = `const katex = require('katex'); const asciidoctor = require('asciidoctor')();`;
-vm.runInContext(code,context);
-*/
+const katex = require('katex');
+const asciidoctor = require('asciidoctor')();
 //const registry = asciidoctor.Extensions.create();
 //require('./mathdocs/rule-maker-macro.js')(registry);
 
