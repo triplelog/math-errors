@@ -65,7 +65,7 @@
 				<li class="my-1 capitalize">
 					<a href="#" data-topic="{{ topic }}">{{ topic }}</a>
 					<button class="float-right bg-green-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline" type="button">?</button>
-					<ul class="mx-2" data-topic="{{ topic }}" {% if info.subtople.split('.')[1] == topic %}{% else %}style="display:none;"{% endif %}>
+					<ul class="mx-2" data-topic="{{ topic }}" {% if info.subtople.split('.')[0] == subject and info.subtople.split('.')[1] == topic %}{% else %}style="display:none;"{% endif %}>
 						{% for lesson in lessons %}
 						<li class="my-1 capitalize">
 							<a href="createlesson?s={{subject}}&t={{topic}}&l={{lesson}}">{{ lesson }}</a>
