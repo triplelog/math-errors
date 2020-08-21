@@ -5,6 +5,7 @@ const assert = require('assert');
 const bindingP = require.resolve(`../build/Release/bindingP`);
 const maincppp = require(bindingP);
 var retHelloP = maincppp.hello();
+var nunjucks = require('nunjucks');
 
 var mdoptions = {
   validate: function(params) {
@@ -65,6 +66,8 @@ var mdoptions = {
       	cards['explanation']= md.render(cards['explanation']);
       }
       console.log(cards);
+      var newStr = nunjucks.render('../templates/instruction.njk',{cards: cards,type: "rule"});
+      console.log(newStr);
   }
 };
 module.exports = mdoptions;
