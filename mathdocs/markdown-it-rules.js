@@ -14,9 +14,6 @@ var mdoptions = {
   },
  
   render: function (tokens, idx) {
-  	console.log("bree");
-  	console.log(tokens[idx]);
-  	console.log(bree);
     var m = tokens[idx].info.trim().match(/^rule/);
  	
     if (tokens[idx].nesting === 1) {
