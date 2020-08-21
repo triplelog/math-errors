@@ -36,7 +36,9 @@ const vm = new NodeVM({
     	external: true,
     	builtin: ["*"],
     	context: 'sandbox'
-    }
+    },
+    eval: true,
+    wasm: true
 });
 const script = new VMScript("const katex = require('katex'); const asciidoctor = require('asciidoctor')();");
 vm.run(script);
