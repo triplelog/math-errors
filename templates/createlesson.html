@@ -141,7 +141,7 @@
 			  	<div id="previewRule">
 			  	</div>
 			  	<div class="w-full" id="rules">
-			  		{% for rule in rules %}
+			  		{% for idx,rule in rules %}
 			  		<div class="flex w-full">
 			  			<textarea rows="3" value="{{ rule }}" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
 			  			<div class="w-auto flex-initial pb-2 mb-3">
@@ -327,7 +327,9 @@
 		}
 		function makeLesson(){
 			var lesson = "";
-			lesson += ":subtople:"+document.getElementById('subtople').value+"[]\n";
+			lesson += ":subtople:"+document.getElementById('subtople').value+"\n";
+			lesson += ":name:"+document.getElementById('name').value+"\n";
+			lesson += document.getElementById('explanation').value+"\n";
 			var rules = document.getElementById('rules').querySelectorAll('textarea');
 			for (var i=0;i<rules.length;i++){
 				if (rules[i].value.length<2){
