@@ -66,7 +66,7 @@ var mdoptions = {
       	cards['explanation']= md.render(cards['explanation']);
       }
       console.log(cards);
-      var newStr = nunjucks.render('../templates/instruction.njk',{cards: cards,type: "rule"});
+      var newStr = nunjucks.render('templates/instruction.njk',{cards: cards,type: "rule"});
       console.log(newStr);
   }
 };
