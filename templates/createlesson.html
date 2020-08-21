@@ -364,6 +364,10 @@
 		}
 		function minimizeEl(evt){
 			var el = evt.target;
+			var ell = el;
+			while (!ell.classList.contains('minimizer') && ell.parentElement){
+				ell = ell.parentElement;
+			}
 			while (!el.classList.contains('summary') && el.parentElement){
 				el = el.parentElement;
 			}
@@ -371,9 +375,18 @@
 			var details = el.querySelectorAll('.detail');
 			for (var i=0;i<details.length;i++){
 				if (details[i].parentElement == el){
-					details[i].style.display = "none";
+					if (details[i].style.display == "none"){
+						delete details[i].style.display;
+						ell.innerHTML = '<i data-feather="maximize-2"></i>';
+					}
+					else {
+						details[i].style.display = "none";
+						ell.innerHTML = '<i data-feather="minimize-2"></i>';
+					}
+					
 				}
 			}
+			feather.replace();
 		}
 	</script>
   </body>
