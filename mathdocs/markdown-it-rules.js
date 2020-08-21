@@ -65,9 +65,10 @@ var mdoptions = {
       if (cards['explanation'].length > 0){
       	cards['explanation']= md.render(cards['explanation']);
       }
-      console.log(cards);
+      //console.log(cards);
       var newStr = nunjucks.render('templates/instruction.njk',{cards: cards,type: "rule"});
-      console.log(newStr);
+      //console.log(newStr);
+      return newStr;
   }
 };
 module.exports = mdoptions;
