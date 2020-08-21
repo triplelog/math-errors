@@ -544,7 +544,7 @@ function parseLesson(lesson){
 					continue;
 				}
 				else if (lines[i].match(/example/)){
-					currentType = ""; currentToken = "";
+					currentType = "examples"; currentToken = "";
 					continue;
 				}
 			}
