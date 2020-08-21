@@ -37,8 +37,8 @@ function mdoptionsfn(filen){
 					parsed[i].map[ii] = katex.renderToString(parsed[i].map[ii], {throwOnError: false});
 				}
 			  }
-			  var blk = self.createBlock(parent, 'example', "", {parsed:parsed});
-			  return blk;
+			  newStr = nunjucks.render('templates/example.njk',{parsed:parsed});
+			  return newStr;
 		}
 		else {
 			return '\n';

@@ -134,7 +134,7 @@ void makeRulesNew(std::string input){
 	for (i=0;i<nRows;i++){
 		std::string rawRule = rows[i];
 		std::cout << "rr: " << rawRule << "\n";
-		if (rawRule == "[rule]"){
+		if (rawRule == "::: rule"){
 			if (inRule){
 				inRule = false;
 				rawRules.push_back(currentRawRule);
@@ -145,7 +145,7 @@ void makeRulesNew(std::string input){
 			currentRawRule[3] = "";
 			inRule = true;
 		}
-		else if (rawRule == "[error]"){
+		else if (rawRule == "::: error"){
 			if (inRule){
 				inRule = false;
 				rawRules.push_back(currentRawRule);
@@ -156,7 +156,7 @@ void makeRulesNew(std::string input){
 			currentRawRule[3] = "";
 			inRule = true;
 		}
-		else if (rawRule.substr(0,9) == "example::"){
+		else if (rawRule.substr(0,11) == "::: example"){
 			if (inRule){
 				inRule = false;
 				rawRules.push_back(currentRawRule);
@@ -165,8 +165,8 @@ void makeRulesNew(std::string input){
 			currentRawRule.resize(4);
 			currentRawRule[2] = "x";
 			currentRawRule[3] = "";
-			currentRawRule[0] = rawRule.substr(9,rawRule.length()-11);
-			currentRawRule[1] = rawRule.substr(9,rawRule.length()-11);
+			currentRawRule[0] = rawRule.substr(12,rawRule.length()-16);
+			currentRawRule[1] = rawRule.substr(12,rawRule.length()-16);
 			inRule = false;
 			rawRules.push_back(currentRawRule);
 			currentRawRule.resize(0);
@@ -180,7 +180,7 @@ void makeRulesNew(std::string input){
 				currentRawRule.resize(0);
 			}
 		}
-		else if (rawRule.substr(0,3) == "eee"){
+		else if (rawRule.substr(0,2) == "ee"){
 			if (inRule){
 				inRule = false;
 				rawRules.push_back(currentRawRule);

@@ -320,7 +320,7 @@
 				if (rules[i].value.length<2){
 					continue;
 				}
-				lesson+="[rule]\n"+rules[i].value+"\n\n";
+				lesson+="::: rule\n"+rules[i].value+"\n:::\n";
 				lesson = lesson.replace("\n\n\n","\n\n");
 			}
 			var errors = document.getElementById('errors').querySelectorAll('textarea');
@@ -328,7 +328,7 @@
 				if (errors[i].value.length<2){
 					continue;
 				}
-				lesson+="[error]\n"+errors[i].value+"\n\n";
+				lesson+="::: error\n"+errors[i].value+"\n:::\n";
 				lesson = lesson.replace("\n\n\n","\n\n");
 			}
 			var examples = document.getElementById('examples').querySelectorAll('textarea');
@@ -336,7 +336,7 @@
 				if (examples[i].value.length<2){
 					continue;
 				}
-				lesson+="example::"+examples[i].value+"[]\n";
+				lesson+="::: example "+examples[i].value+" :::\n";
 			}
 			return lesson;
 		}
