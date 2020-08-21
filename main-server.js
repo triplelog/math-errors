@@ -32,7 +32,7 @@ const options = {
 console.log(process.cwd());
 console.log(__filename);
 console.log(__dirname);
-console.log(Object.keys(this));
+console.log(Object.getOwnPropertyNames(this));
 const {NodeVM, VMScript} = require('vm2');
 const vm = new NodeVM({
     require: {
