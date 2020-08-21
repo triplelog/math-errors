@@ -559,7 +559,9 @@ function parseLesson(lesson){
 			else if (currentType == "examples"){
 				var liness = currentToken.split("\n");
 				for (var ii=0;ii<liness.length;ii++){
-					examples.push(liness[ii].trim());
+					if (liness[ii].trim().length>0){
+						examples.push(liness[ii].trim());
+					}
 				}
 				currentType = ""; currentToken = "";
 			}
