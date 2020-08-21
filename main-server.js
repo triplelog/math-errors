@@ -38,7 +38,7 @@ const {NodeVM, VMScript} = require('vm2');
 const vm = new NodeVM({
     require: {
     	external: true,
-    	context: sandbox
+    	context: 'sandbox'
     }
 });
 const script = new VMScript("const katex = require('katex'); const asciidoctor = require('asciidoctor')();");
