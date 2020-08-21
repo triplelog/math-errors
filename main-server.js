@@ -571,7 +571,7 @@ example::3^2+4[]
 		//const html = asciidoctor.convert('this is a $A^12+B/7$ for real with more $x=7$ to come.\n'+instruction, { 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 		//console.log(html);
 		//SubjectData.find({}, function(err,result) {
-			res.write(nunjucks.render('createlesson.html',{
+			res.write(nunjucks.render('templates/createlesson.html',{
 				info: info,
 				correct:correct,
 				errors:errors,
