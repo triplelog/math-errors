@@ -201,7 +201,7 @@
 		document.getElementById('rules').querySelector('div[name=preview]').addEventListener('click',previewText);
 		document.getElementById('errors').querySelector('div[name=preview]').addEventListener('click',previewText);
 		document.getElementById('examples').querySelector('div[name=preview]').addEventListener('click',previewText);
-		var asciidoctor = Asciidoctor();
+
 		function previewLesson() {
 			var lesson = makeLesson();
 			var jsonmessage = {'type':'previewLesson','message':lesson};
