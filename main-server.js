@@ -35,36 +35,14 @@ const markdown = require('markdown-it');
 var mdoptions = require('./mathdocs/markdown-it-rules.js')("");
 var md = new markdown();
 
-//md.renderer.rules.text = require('./mathdocs/markdown-it-math.js');
-//console.log(md.render('::: rule\nin: $A+B$\nout: B+A\nee\nThis is *markdown*\n:::\n'));
-//console.log(bre);
 
-//const asciidoctor = new require('asciidoctor')();
-//const registry = asciidoctor.Extensions.create();
-
-//const katex = require('katex');
-//const asciidoctor = require('asciidoctor')();
-//const registry = asciidoctor.Extensions.create();
-//require('./mathdocs/rule-maker-macro.js')(registry);
 
 
 const User = require('./models/user');
 //const SubjectData = require('./models/subjects');
-var schema = new mymongoose.Schema({subject: String, name: String});
-var Tank = mymongoose.model('Tank', schema);
-var dog = new Tank({subject:"a",name:"b"});
-dog.save(function(err,result){
-	console.log("err: ",err);
-	console.log("res: ",result);
-	Tank.countDocuments({}, function(err,result){
-		console.log("res: ",result);
-	});
-});
-Tank.countDocuments({}, function(err,result){
-	console.log("res: ",result);
-});
-
+var schema = new mymongoose.Schema({subject: String, topics:{}});
 var SubjectData = mymongoose.model('SubjectData', schema);
+
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
 // use static authenticate method of model in LocalStrategy
@@ -264,14 +242,14 @@ wss.on('connection', function connection(ws) {
 			
 			console.log(subject);
 			console.log(topic);
-			Tank.findOne({}, function(err,result) {
+			SubjectData.findOne({}, function(err,result) {
 				console.log("err: ",err);
 				console.log("res: ",result);
 				if (result == null){
 					console.log("sub: ",subject);
 					var topics = {};
 					topics[topic]=[{slug:slug,lesson:lesson}];
-					Tank.create({subject:"subject",name:"name"},function(err,result){
+					SubjectData.create({subject:subject,topics:topics},function(err,result){
 						console.log("res: ",JSON.stringify(result));
 						if (err){
 							console.log("error: ", err);
@@ -365,16 +343,12 @@ wss.on('connection', function connection(ws) {
 			var html = "";
 			var jsonmessage;
 			if (dm.rules){
-				//require('./mathdocs/instruction-maker-macro.js')(registry,"");
-				//html = asciidoctor.convert('[rule]\n'+dm.rules,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 				md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions);
 				html = md.render('::: rule\n'+dm.rules+'\n:::\n');
 				console.log(html);
 				jsonmessage ={'type':'previewText','rules':html};
 			}
 			else if (dm.errors){
-				//require('./mathdocs/instruction-maker-macro.js')(registry,"");
-				//html = asciidoctor.convert('[error]\n'+dm.errors,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 				md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions);
 				html = md.render('::: error\n'+dm.errors+'\n:::\n');
 				console.log(html);
@@ -382,8 +356,6 @@ wss.on('connection', function connection(ws) {
 			}
 			else if (dm.examples){
 				console.log(dm.lesson);
-				//require('./mathdocs/instruction-maker-macro.js')(registry,dm.lesson);
-				//html = asciidoctor.convert('example::'+dm.examples+"[]",{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 				var mdoptions2 = require('./mathdocs/markdown-it-rules.js')(dm.lesson);
 				md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions2);
 				html = md.render('::: example '+dm.examples+' :::\n');
@@ -396,8 +368,6 @@ wss.on('connection', function connection(ws) {
 			var html = "";
 			var jsonmessage;
 			console.log(dm.message);
-			//require('./mathdocs/instruction-maker-macro.js')(registry,dm.message);
-			//html = asciidoctor.convert(dm.message,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 			var mdoptions2 = require('./mathdocs/markdown-it-rules.js')(dm.message);
 			md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions2);
 			html = md.render(dm.message);
@@ -573,27 +543,9 @@ app.get('/createlesson',
 		}
 		console.log(performance.now());
 		
-		var instruction = `[rule]
-IN: A^2+B
-OUT: B+A^2
-A is 1
 
-[error]
-IN: sin(A)+B
-OUT: B+A
-A is 1
-B is not 11
-
-example::3^2+4[]
-    
-    `
-    
-	//require('./mathdocs/rule-maker-macro.js')(registry);
-	
-    	//require('./mathdocs/instruction-maker-macro.js')(registry,instruction);
 		var html = "";
-		//const html = asciidoctor.convert('this is a $A^12+B/7$ for real with more $x=7$ to come.\n'+instruction, { 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
-		//console.log(html);
+
 		//SubjectData.find({}, function(err,result) {
 			res.write(nunjucks.render('templates/createlesson.html',{
 				info: info,
