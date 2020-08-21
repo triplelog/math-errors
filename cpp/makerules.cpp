@@ -169,7 +169,7 @@ void makeRulesNew(std::string input){
 			currentRawRule[1] = rawRule.substr(12,rawRule.length()-16);
 			inRule = false;
 			rawRules.push_back(currentRawRule);
-			std::cout << "crr: " << currentRawRule << "\n";
+			std::cout << "crr: " << currentRawRule[0] << "\n";
 			currentRawRule.resize(0);
 			
 			
