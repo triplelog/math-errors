@@ -9,6 +9,8 @@ var nunjucks = require('nunjucks');
 
 var mdoptions = {
   validate: function(params) {
+  	console.log(params);
+  	console.log(bree);
     return params.trim().match(/^rule/);
   },
  
