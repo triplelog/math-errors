@@ -56,7 +56,7 @@ var mdoptions = {
 };
 var md = new markdown();
 md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions);
-console.log(md.render('::: rule click me\n*content*\n:::\n'));
+console.log(md.render('::: rule click me\nin: A+B\nout: B+A\n:::\n'));
 console.log(bre);
 //const asciidoctor = new require('asciidoctor')();
 //const registry = asciidoctor.Extensions.create();
