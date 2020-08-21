@@ -1,7 +1,7 @@
 <div class="inline-block w-auto border rounded">
-	<div class="flex w-full bg-gray-200 border px-1 py-1">
-		<span class="mr-2 border px-1 py-1">
-		<i data-feather="minimize-2"></i>
+	<div class="flex w-full bg-gray-200 border px-1 py-1 summary">
+		<span class="mr-2 border px-1 py-1 minimizer">
+			<i data-feather="minimize-2"></i>
 		</span>
 		<span>
 		{% if type == "rule" %}
@@ -13,7 +13,7 @@
 		</span>
 	
 	</div>
-	<div class="flex w-full">
+	<div class="flex w-full px-2 py-2 detail">
 		<div class="w-auto inline-block object-center border rounded">
 			<div class="w-full px-3 py-3">
 			{{ cards.in | safe }}
@@ -42,7 +42,7 @@
 		</div>
 	
 	</div>
-	<div class="w-full">
+	<div class="max-w-4xl px-2 py-2 detail">
 		{{ cards.explanation | safe }}
 	</div>
 </div>

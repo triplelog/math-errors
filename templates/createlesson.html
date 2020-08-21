@@ -247,6 +247,7 @@
 				document.getElementById('preview').style.display = "flex";
 				document.getElementById('edit').style.display = "none";
 				feather.replace();
+				makeCollapsible(el);
 			}
 			
 		}
@@ -357,6 +358,22 @@
 				
 			}
 			ws.send(JSON.stringify(jsonmessage));
+		}
+		function makeCollapsible(el){
+			el.querySelector('.minimizer').addEventListener('click',minimizeEl);
+		}
+		function minimizeEl(evt){
+			var el = evt.target;
+			while (!el.classList.contains('summary') && el.parentElement){
+				el = el.parentElement;
+			}
+			el = el.parentElement;
+			var details = el.querySelectorAll('.detail');
+			for (var i=0;i<details.length;i++){
+				if (details[i].parentElement == el){
+					details[i].style.display = "none";
+				}
+			}
 		}
 	</script>
   </body>
