@@ -512,7 +512,8 @@ function parseLesson(lesson){
 					continue;
 				}
 				else if (lines[i].match(/example/)){
-					currentType = "example"; currentToken = "";
+					examples.push(lines[i].replace(":::","").replace(":::","").trim().substr(7).trim());
+					currentType = ""; currentToken = "";
 					continue;
 				}
 			}
@@ -522,10 +523,6 @@ function parseLesson(lesson){
 			}
 			else if (currentType == "error"){
 				errors.push(currentToken);
-				currentType = ""; currentToken = "";
-			}
-			else if (currentType == "example"){
-				examples.push(currentToken);
 				currentType = ""; currentToken = "";
 			}
 		}
