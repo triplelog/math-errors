@@ -416,11 +416,16 @@ app.get('/createlesson',
 				}
 			}
 			console.log(lesson);
+			var json = {};
+			if (lesson && lesson != ""){
+				json = parseLesson(lesson);
+			}
+			console.log(json);
 			res.write(nunjucks.render('templates/createlesson.html',{
-				info: info,
-				rules:rules,
-				errors:errors,
-				examples:examples,
+				info: json.info,
+				rules: json.rules,
+				errors: json.errors,
+				examples: json.examples,
 			}));
 			res.end();
 			/*
@@ -483,5 +488,60 @@ app.get('/history',
 	}
 );
 
+
+function parseLesson(lesson){
+	var lines = lesson.split('\n');
+	var rules = [];
+	var errors = [];
+	var examples = [];
+	var currentType = "explanation";
+	var currentToken = "";
+	var info = {};
+	for (var i=0;i<lines.length;i++){
+		if (lines[i].substr(0,3) == ":::"){
+			if (currentType == "" || currentType == "explanation"){
+				if (currentType == "explanation"){
+					info.explanation = currentToken;
+				}
+				if (lines[i].match(/rule/)){
+					currentType = "rule"; currentToken = "";
+					continue;
+				}
+				else if (lines[i].match(/error/)){
+					currentType = "error"; currentToken = "";
+					continue;
+				}
+				else if (lines[i].match(/example/)){
+					currentType = "example"; currentToken = "";
+					continue;
+				}
+			}
+			else if (currentType == "rule"){
+				rules.push(currentToken);
+				currentType = ""; currentToken = "";
+			}
+			else if (currentType == "error"){
+				errors.push(currentToken);
+				currentType = ""; currentToken = "";
+			}
+			else if (currentType == "example"){
+				examples.push(currentToken);
+				currentType = ""; currentToken = "";
+			}
+		}
+		else if (lines[i].substr(0,10) == ":subtople:"){
+			info.subtople = lines[i].substr(10).trim();
+			currentType = "explanation"; currentToken = "";
+		}
+		else if (lines[i].substr(0,6) == ":name:"){
+			info.name = lines[i].substr(6).trim();
+			currentType = "explanation"; currentToken = "";
+		}
+		else {
+			currentToken += lines[i]+'\n';
+		}
+	}
+	return {rules:rules,errors:errors,examples:examples,info:info};
+}
 
 

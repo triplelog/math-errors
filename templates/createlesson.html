@@ -98,7 +98,7 @@
 			
 		  </div>
 		  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
-		  	{{ preview | safe }}
+		  	
 		  </div>
 		</div>
 		
@@ -141,6 +141,14 @@
 			  	<div id="previewRule">
 			  	</div>
 			  	<div class="w-full" id="rules">
+			  		{% for rule in rules %}
+			  		<div class="flex w-full">
+			  			<textarea rows="3" value="{{ rule }}" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
+			  			<div class="w-auto flex-initial pb-2 mb-3">
+			  				<div class="border px-1 py-1 mb-3" name="delete"><i data-feather="trash"></i></div><div class="border px-1 py-1 mb-2" name="preview"><i data-feather="search"></i></div>
+			  			</div>
+			  		</div>
+			  		{% endfor %}
 			  		<div class="flex w-full">
 			  			<textarea rows="3" value="" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
 			  			<div class="w-auto flex-initial pb-2 mb-3">
