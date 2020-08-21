@@ -403,9 +403,9 @@ app.get('/createlesson',
 		SubjectData.find({subject:dewey.split('.')[0]}, function(err,result) {
 			var lesson = "";
 			for (var i=0;i<result.length;i++){
-				console.log(result[i]);
+				console.log(result[i].topics);
 				if (result[i].topics[dewey.split('.')[1]]){
-					console.log(dewey.split('.')[1]);
+					console.log(dewey.split('.')[1],dewey.split('.')[2]);
 					if (result[i].topics[dewey.split('.')[1]].slug == dewey.split('.')[2]){
 						lesson = result[i].topics[dewey.split('.')[1]].lesson;
 					}
