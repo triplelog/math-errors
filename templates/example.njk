@@ -1,20 +1,20 @@
-{% for i in range(0,node.getAttribute("parsed").length) %}
+{% for i in range(0,parsed.length) %}
 <div class="flex w-full py-3 border">
 	
 	<div class="w-auto inline-block object-center">
 		<div class="w-full px-3 py-3 border rounded mb-2">
-		{{ node.getAttribute("parsed")[i].start | safe }}
+		{{ parsed[i].start | safe }}
 		</div>
 
 		<div class="w-full border rounded">
 		
 			<div class="w-full px-3 py-3">
-			{{ node.getAttribute("parsed")[i].input | safe }}
+			{{ parsed[i].input | safe }}
 			</div>
-			{% for ii in range(0,node.getAttribute("parsed")[i].map.length/2) %}
+			{% for ii in range(0,parsed[i].map.length/2) %}
 			<hr>
 			<div class="w-full bg-red-100 px-2">
-				{{ node.getAttribute("parsed")[i].map[ii*2] | safe }}: {{ node.getAttribute("parsed")[i].map[ii*2+1] | safe }}
+				{{ parsed[i].map[ii*2] | safe }}: {{ parsed[i].map[ii*2+1] | safe }}
 			</div>
 			{% endfor %}
 		</div>
@@ -24,11 +24,11 @@
 	</div>
 	<div class="w-auto inline-block">
 		<div class="w-full object-center px-3 py-3 border rounded mb-2">
-		{{ node.getAttribute("parsed")[i].final | safe }}
+		{{ parsed[i].final | safe }}
 		</div>
 		
 		<div class="w-full px-3 py-3 border rounded">
-		{{ node.getAttribute("parsed")[i].output | safe }}
+		{{ parsed[i].output | safe }}
 		</div>
 	</div>
 	
