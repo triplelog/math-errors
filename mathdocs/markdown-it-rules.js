@@ -37,7 +37,7 @@ function mdoptionsfn(filen){
 					parsed[i].map[ii] = katex.renderToString(parsed[i].map[ii], {throwOnError: false});
 				}
 			  }
-			  newStr = nunjucks.render('templates/example.njk',{parsed:parsed});
+			  var newStr = nunjucks.render('templates/example.njk',{parsed:parsed});
 			  return newStr;
 		}
 		else {
