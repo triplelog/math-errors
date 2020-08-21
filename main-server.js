@@ -30,7 +30,7 @@ const options = {
 };
 
 
-const {NodeVM} = require('vm2');
+const {NodeVM, VMScript} = require('vm2');
 const vm = new NodeVM({
     require: {
         external: true
