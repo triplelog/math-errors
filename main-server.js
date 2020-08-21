@@ -486,7 +486,7 @@ app.get('/history',
 );
 
 function makeTOC() {
-	var toc = {};
+	
 	SubjectData.find({}, function(err,result) {
 		for (var i=0;i<result.length;i++){
 			console.log(result[i]);
@@ -517,9 +517,11 @@ function makeTOC() {
 				}
 			}
 		}
+		console.log(toc);
 	});
-	console.log(toc);
+	
 }
+var toc = {};
 makeTOC();
 function parseLesson(lesson){
 	var lines = lesson.split('\n');
