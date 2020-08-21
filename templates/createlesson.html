@@ -360,7 +360,10 @@
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		function makeCollapsible(el){
-			el.querySelector('.minimizer').addEventListener('click',minimizeEl);
+			var els = el.querySelectorAll('.minimizer');
+			for (var i=0;i<els.length;i++){
+				els[i].addEventListener('click',minimizeEl);
+			}
 		}
 		function minimizeEl(evt){
 			var el = evt.target;
