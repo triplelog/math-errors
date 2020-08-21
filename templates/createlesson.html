@@ -376,12 +376,12 @@
 			for (var i=0;i<details.length;i++){
 				if (details[i].parentElement == el){
 					if (details[i].style.display == "none"){
-						delete details[i].style.display;
-						ell.innerHTML = '<i data-feather="maximize-2"></i>';
+						details[i].style.removeProperty('display');
+						ell.innerHTML = '<i data-feather="minimize-2"></i>';
 					}
 					else {
 						details[i].style.display = "none";
-						ell.innerHTML = '<i data-feather="minimize-2"></i>';
+						ell.innerHTML = '<i data-feather="maximize-2"></i>';
 					}
 					
 				}
