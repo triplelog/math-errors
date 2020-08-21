@@ -51,7 +51,7 @@ var mdoptions = {
   },
   
   content: function (tokens, idx) {
-  	console.log("CCC:",tokens,idx);
+  	console.log("CCC:",tokens[idx].markup);
   }
 };
 var md = new markdown();
