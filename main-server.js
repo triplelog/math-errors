@@ -563,6 +563,7 @@ example::3^2+4[]
     
     `
     console.log(Object.keys(global));
+    console.log(global);
     const katex = require('katex');
 	const asciidoctor = require('asciidoctor')();
 	const registry = asciidoctor.Extensions.create();
