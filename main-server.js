@@ -48,7 +48,7 @@ var mdoptions = {
       // closing tag
       return '</details>\n';
     }
-  }
+  },
   
   content: function (tokens, idx) {
   	console.log("CCC:",tokens,idx);
