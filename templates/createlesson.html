@@ -204,6 +204,7 @@
 
 		function previewLesson() {
 			var lesson = makeLesson();
+			console.log(lesson);
 			var jsonmessage = {'type':'previewLesson','message':lesson};
 			ws.send(JSON.stringify(jsonmessage));
 			
