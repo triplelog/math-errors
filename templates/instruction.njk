@@ -1,4 +1,7 @@
-<div class="flex w-full">
+<div class="flex w-full bg-gray-200 border rounded-t">
+	Rule/Error
+</div>
+<div class="flex w-full border rounded-b">
 	<div class="w-auto inline-block object-center border rounded">
 		<div class="w-full px-3 py-3">
 		{{ cards.in | safe }}
@@ -25,7 +28,7 @@
 		{{ cards.out | safe }}
 		</div>
 	</div>
-</div>
-<div class="flex w-full">
-	{{ cards.explanation | safe }}
+	<div class="block w-full">
+		{{ cards.explanation | safe }}
+	</div>
 </div>
