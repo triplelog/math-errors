@@ -30,6 +30,13 @@ const options = {
 };
 
 
+const katex = require('katex');
+const markdown = require('markdown-it');
+var md = new markdown();
+
+const asciidoctor = new require('asciidoctor')();
+//const registry = asciidoctor.Extensions.create();
+
 //const katex = require('katex');
 //const asciidoctor = require('asciidoctor')();
 //const registry = asciidoctor.Extensions.create();
@@ -562,14 +569,7 @@ B is not 11
 example::3^2+4[]
     
     `
-    console.log(Object.keys(global));
-    console.log(global);
-    const katex = require('katex');
-	const asciidoctor = require('asciidoctor')();
-	const registry = asciidoctor.Extensions.create();
-	console.log(Object.keys(global));
-	delete global.Opal;
-	console.log(global);
+    
 	//require('./mathdocs/rule-maker-macro.js')(registry);
 	
     	//require('./mathdocs/instruction-maker-macro.js')(registry,instruction);
