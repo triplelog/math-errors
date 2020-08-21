@@ -10,12 +10,14 @@ var nunjucks = require('nunjucks');
 
 var mdoptions = {
   validate: function(params) {
-    return params.trim().match(/^rule/) || params.trim().match(/^error/);
+    return params.trim().match(/^rule/) || params.trim().match(/^error/) || params.trim().match(/^example/);
   },
  
   render: function (tokens, idx) {
-    var m = tokens[idx].info.trim().match(/^rule/);
- 	
+    var m = tokens[idx].info.trim().match(/^example/);
+ 	if (m){
+ 		console.log(tokens[idx]);
+ 	}
     if (tokens[idx].nesting === 1) {
       // opening tag
       return '\n';
@@ -27,7 +29,6 @@ var mdoptions = {
   },
   
   content: function (tokens, idx) {
-  	  console.log("CCC:",tokens[idx].markup);
   	  var cards = {constraints:[],explanation:""};
       var lines = tokens[idx].markup.split('\n').slice(1,);
       var isText = false;

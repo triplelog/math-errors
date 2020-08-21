@@ -374,12 +374,16 @@ wss.on('connection', function connection(ws) {
 			else if (dm.errors){
 				//require('./mathdocs/instruction-maker-macro.js')(registry,"");
 				//html = asciidoctor.convert('[error]\n'+dm.errors,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+				html = md.render('::: error\n'+dm.errors+'\n:::\n');
+				console.log(html);
 				jsonmessage ={'type':'previewText','errors':html};
 			}
 			else if (dm.examples){
 				console.log(dm.lesson);
 				//require('./mathdocs/instruction-maker-macro.js')(registry,dm.lesson);
 				//html = asciidoctor.convert('example::'+dm.examples+"[]",{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+				html = md.render('::: example this is an ex :::\n');
+				console.log(html);
 				jsonmessage ={'type':'previewText','examples':html};
 			}
 			ws.send(JSON.stringify(jsonmessage));
