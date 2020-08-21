@@ -34,12 +34,10 @@ const katex = require('katex');
 const markdown = require('markdown-it');
 var mdoptions = {
   validate: function(params) {
-  	console.log("BBB:",params);
     return params.trim().match(/^rule\s+(.*)$/);
   },
  
   render: function (tokens, idx) {
-    console.log("AAA:",tokens[idx].info);
     var m = tokens[idx].info.trim().match(/^rule\s+(.*)$/);
  
     if (tokens[idx].nesting === 1) {
@@ -50,6 +48,10 @@ var mdoptions = {
       // closing tag
       return '</details>\n';
     }
+  }
+  
+  content: function (tokens, idx) {
+  	console.log("CCC:",tokens,idx);
   }
 };
 var md = new markdown();
