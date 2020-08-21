@@ -3,7 +3,7 @@ const markdown = require('markdown-it');
 var iterator = require('markdown-it-for-inline');
 var repmath = require('./markdown-it-math.js');
 var md = new markdown();
-md.use(iterator, 'math_replace', 'html_inline', function (tokens, idx) {
+md.use(iterator, 'math_replace', 'text', function (tokens, idx) {
               tokens[idx].content = repmath(tokens,idx);
             });
 const katex = require('katex');
@@ -99,7 +99,7 @@ function mdoptionsfn(filen){
 			}
 		  }
 		  if (cards['explanation'].length > 0){
-			cards['explanation']= md.render(cards['explanation']);
+			cards['explanation']= md.utils.unescapeAll(md.render(cards['explanation']));
 		  }
 		  //console.log(cards);
 		  var newStr = "";
