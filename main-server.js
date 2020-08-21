@@ -400,7 +400,7 @@ app.get('/createlesson',
 
 		var html = "";
 
-		SubjectData.find({subject:dewey.split('.')[0]}, function(err,result) {
+		SubjectData.find({}, function(err,result) {
 			var lesson = "";
 			console.log(dewey.split('.')[0], result, err);
 			for (var i=0;i<result.length;i++){
