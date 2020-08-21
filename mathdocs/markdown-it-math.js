@@ -9,5 +9,6 @@ var retHelloP = maincppp.hello();
 var nunjucks = require('nunjucks');
 
 module.exports = function(tokens,idx) {
+	console.log("math?? ", tokens[idx].content);
   return tokens[idx].content;
 };
