@@ -10,8 +10,7 @@ var nunjucks = require('nunjucks');
 
 var mdoptions = {
   validate: function(params) {
-    //return params.trim().match(/^rule/);
-    return true;
+    return params.trim().match(/^rule/) || params.trim().match(/^error/);
   },
  
   render: function (tokens, idx) {
@@ -67,8 +66,14 @@ var mdoptions = {
       	cards['explanation']= md.render(cards['explanation']);
       }
       //console.log(cards);
-      var newStr = nunjucks.render('templates/instruction.njk',{cards: cards,type: "rule"});
-      //console.log(newStr);
+      var newStr = "";
+      if (tokens[idx-1].info.trim().match(/^rule/)){
+      	newStr = nunjucks.render('templates/instruction.njk',{cards: cards,type: "rule"});
+      }
+      else {
+      	newStr = nunjucks.render('templates/instruction.njk',{cards: cards,type: "error"});
+      }
+
       return newStr;
   }
 };

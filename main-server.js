@@ -34,10 +34,10 @@ const katex = require('katex');
 const markdown = require('markdown-it');
 var mdoptions = require('./mathdocs/markdown-it-rules.js');
 var md = new markdown();
-//md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions);
-md.renderer.rules.text = require('./mathdocs/markdown-it-math.js');
-console.log(md.render('::: rule\nin: $A+B$\nout: B+A\nee\nThis is *markdown*\n:::\n'));
-console.log(bre);
+md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions);
+//md.renderer.rules.text = require('./mathdocs/markdown-it-math.js');
+//console.log(md.render('::: rule\nin: $A+B$\nout: B+A\nee\nThis is *markdown*\n:::\n'));
+//console.log(bre);
 
 //const asciidoctor = new require('asciidoctor')();
 //const registry = asciidoctor.Extensions.create();
@@ -367,6 +367,8 @@ wss.on('connection', function connection(ws) {
 			if (dm.rules){
 				//require('./mathdocs/instruction-maker-macro.js')(registry,"");
 				//html = asciidoctor.convert('[rule]\n'+dm.rules,{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
+				html = md.render('::: rule\n'+dm.rules+'\n:::\n');
+				console.log(html);
 				jsonmessage ={'type':'previewText','rules':html};
 			}
 			else if (dm.errors){
