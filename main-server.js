@@ -405,9 +405,13 @@ app.get('/createlesson',
 			for (var i=0;i<result.length;i++){
 				console.log(result[i].topics);
 				if (result[i].topics[dewey.split('.')[1]]){
-					console.log(dewey.split('.')[1],dewey.split('.')[2]);
-					if (result[i].topics[dewey.split('.')[1]].slug == dewey.split('.')[2]){
-						lesson = result[i].topics[dewey.split('.')[1]].lesson;
+					
+					var arr = result[i].topics[dewey.split('.')[1]];
+					for (var ii=0;ii<arr.length;ii++){
+						console.log(arr[ii]);
+						if (arr[ii].slug == dewey.split('.')[2]){
+							lesson = arr[ii].lesson;
+						}
 					}
 				}
 			}
