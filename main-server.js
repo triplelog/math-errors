@@ -36,7 +36,9 @@ console.log(Object.getOwnPropertyNames(global));
 console.log(Object.keys(global));
 const {NodeVM, VMScript} = require('vm2');
 const vm = new NodeVM({
-    require: ['katex','asciidoctor']
+    require: {
+    	import: ['katex','asciidoctor']
+    }
 });
 const script = new VMScript("const katex = require('katex'); const asciidoctor = require('asciidoctor')();");
 vm.run(script);
