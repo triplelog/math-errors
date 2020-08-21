@@ -195,12 +195,14 @@
 		
 	</script>
 	<script>
-		document.getElementById('rules').querySelector('div[name=delete]').addEventListener('click',deleteText);
-		document.getElementById('errors').querySelector('div[name=delete]').addEventListener('click',deleteText);
-		document.getElementById('examples').querySelector('div[name=delete]').addEventListener('click',deleteText);
-		document.getElementById('rules').querySelector('div[name=preview]').addEventListener('click',previewText);
-		document.getElementById('errors').querySelector('div[name=preview]').addEventListener('click',previewText);
-		document.getElementById('examples').querySelector('div[name=preview]').addEventListener('click',previewText);
+		var els = document.querySelectorAll('div[name=delete]');
+		for (var i=0;i<els.length;i++){
+			els[i].addEventListener('click',deleteText);
+		}
+		els = document.querySelectorAll('div[name=preview]');
+		for (var i=0;i<els.length;i++){
+			els[i].addEventListener('click',previewText);
+		}
 
 		function previewLesson() {
 			var lesson = makeLesson();
