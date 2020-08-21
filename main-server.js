@@ -423,6 +423,7 @@ app.get('/createlesson',
 				rules: json.rules,
 				errors: json.errors,
 				examples: json.examples,
+				title: "TitlE"
 			}));
 			res.end();
 			/*
@@ -486,10 +487,9 @@ app.get('/history',
 );
 
 function makeTOC() {
-	
+	toc = {};
 	SubjectData.find({}, function(err,result) {
 		for (var i=0;i<result.length;i++){
-			console.log(result[i]);
 			var subject = result[i].subject;
 			if (toc[subject]){
 			
@@ -497,11 +497,9 @@ function makeTOC() {
 			else {
 				toc[subject] = {};
 			}
-			console.log(subject);
 			var topics = Object.keys(result[i].topics);
 			for (var ii=0;ii<topics.length;ii++){
 				var topic = topics[ii];
-				console.log(topic);
 				if (toc[result[i].subject][topic]){
 			
 				}
@@ -511,7 +509,6 @@ function makeTOC() {
 				var arr = result[i].topics[topic];
 				for (var iii=0;iii<arr.length;iii++){
 					var lesson = arr[iii].slug;
-					console.log(lesson);
 					toc[result[i].subject][topic].push(lesson);
 				
 				}

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.72.0">
+    <title>{{ title }}</title>
+
+    <link rel="canonical" href="">
+
+    
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+	<link rel="stylesheet" href="css/treeflex.css">
+
+    <style>
+
+      
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+    <link href="css/output.css" rel="stylesheet">
+  </head>
+<body class="overflow-y-hidden">
+    
+
+<div class="flex m-0 p-0">
+    
+	  <div class="w-1/5 flex-none bg-blue-200 min-h-screen">
+		<div class="w-full morsebg text-white py-2 text-center text-2xl">
+			<a>Math Errors</a>
+		</div>
+
+		<ul class="nav flex-column">
+		  <li class="nav-item">
+			<a class="nav-link active" aria-current="page" href="#">
+			  <span data-feather="plus"></span>
+			  New Question
+			</a>
+		  </li>
+	  
+		</ul>
+		<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+		  <span>History</span>
+		</h6>
+		<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+		  <span>Topics</span>
+		  <a class="link-secondary" href="#" aria-label="Add a new report">
+			<span data-feather="plus-circle"></span>
+		  </a>
+		</h6>
+		<ul class="mx-2 w-full">
+		  {% for subject in subjects %}
+		  <li class="my-3 uppercase">
+			<a class="uppercase" href="#" data-subject="{{ subject.subject }}">
+			  {{ subject.subject }}
+			</a>
+			<ul class="mx-2" data-subject="{{ subject.subject }}">
+				{% for name, list in subject.topics %}
+				<li class="my-1 capitalize">
+					<a href="#" data-topic="{{ name }}">{{ name }}</a>
+					<button class="float-right bg-green-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline" type="button">?</button>
+					<ul class="mx-2" data-topic="{{ name }}">
+						{% for item in list %}
+						<li class="my-1 capitalize">
+							<a href="createlesson?s={{subject.subject}}&t={{name}}&r={{item.name}}">{{ item.name }}</a>
+							<button class="float-right bg-green-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline" type="button">?</button>
+						</li>
+						{% endfor %}
+					</ul>
+				</li>
+				{% endfor %}
+			</ul>
+		  </li>
+		  {% endfor %}
+		  
+		</ul>
+	  </div>
+
+
+    <div class="w-4/5 flex-none px-2 max-h-screen overflow-y-auto pb-6">
+        {% block main %}
+		{% endblock %}
+		
+
+    </div>
+
+</div>
+
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" integrity="sha384-EbSscX4STvYAC/DxHse8z5gEDaNiKAIGW+EpfzYTfQrgIlHywXXrM9SUIZ0BlyfF" crossorigin="anonymous"></script>
+      <script src="js/dashboard.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+
+	{% block scripts %}
+	{% endblock %}
+  </body>
+</html>
