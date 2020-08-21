@@ -37,7 +37,7 @@ const vm = new NodeVM({
     }
 });
 const script = new VMScript("const katex = require('katex'); const asciidoctor = require('asciidoctor')();");
-vm.run(script);
+//vm.run(script);
 
 /*
 const vm = require('vm');
