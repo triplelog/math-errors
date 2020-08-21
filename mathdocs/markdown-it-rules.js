@@ -16,7 +16,7 @@ var mdoptions = {
   render: function (tokens, idx) {
     var m = tokens[idx].info.trim().match(/^example/);
  	if (m){
- 		console.log(m[1].replace(':::','').trim());
+ 		console.log(m);
  	}
     if (tokens[idx].nesting === 1) {
       // opening tag
