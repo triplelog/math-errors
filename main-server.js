@@ -34,7 +34,7 @@ const katex = require('katex');
 const markdown = require('markdown-it');
 var mdoptions = require('./mathdocs/markdown-it-rules.js');
 var md = new markdown();
-md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions);
+//md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions);
 md.renderer.rules.text = function (tokens, idx, options, env, self) {
   console.log("TOKEN::: ",tokens[idx]);
 };
