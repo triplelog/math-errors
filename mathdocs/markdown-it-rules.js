@@ -14,7 +14,10 @@ var retHelloP = maincppp.hello();
 var nunjucks = require('nunjucks');
 
 function mdoptionsfn(filen){
-	
+	console.log("filen: ",filen);
+	if (filen != ""){
+		maincppp.makelesson(filen);
+	}
 	var mdoptions = {
 	  validate: function(params) {
 		return params.trim().match(/^rule/) || params.trim().match(/^error/) || params.trim().match(/^example/);
@@ -22,12 +25,9 @@ function mdoptionsfn(filen){
  
 	  render: function (tokens, idx) {
 		var m = tokens[idx].info.trim().match(/^example/);
+		console.log("m?: ",tokens[idx]);
 		var ex;
 		if (m){
-			  console.log("filen: ",filen);
-			  if (filen != ""){
-			  	maincppp.makelesson(filen);
-			  }
 			  ex = tokens[idx].info.trim().replace('example','').replace(':::','').trim();
 			  console.log("ex: ",ex);
 			  var jsonmessage = maincppp.onerule(ex);
