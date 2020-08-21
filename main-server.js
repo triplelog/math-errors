@@ -36,7 +36,7 @@ var mdoptions = require('./mathdocs/markdown-it-rules.js');
 var md = new markdown();
 md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions);
 console.log(md.render('abc ::: rule\nin: A+B\nout: B+A\nee\nThis is *markdown*\n:::\n'));
-//console.log(bre);
+console.log(bre);
 
 //const asciidoctor = new require('asciidoctor')();
 //const registry = asciidoctor.Extensions.create();
