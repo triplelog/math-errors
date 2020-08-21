@@ -16,7 +16,7 @@ var mdoptions = {
   render: function (tokens, idx) {
     var m = tokens[idx].info.trim().match(/^example/);
  	if (m){
- 		console.log(tokens[idx]);
+ 		console.log(m[1].replace(':::','').trim());
  	}
     if (tokens[idx].nesting === 1) {
       // opening tag
@@ -29,6 +29,7 @@ var mdoptions = {
   },
   
   content: function (tokens, idx) {
+  	  console.log("content: ",tokens[idx]);
   	  var cards = {constraints:[],explanation:""};
       var lines = tokens[idx].markup.split('\n').slice(1,);
       var isText = false;
