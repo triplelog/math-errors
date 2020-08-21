@@ -100,5 +100,49 @@
 
 	{% block scripts %}
 	{% endblock %}
+	<script>
+		var subjectEls = document.querySelectorAll('a[data-subject]');
+		for (var i=0;i<subjectEls.length;i++){
+			var a = subjectEls[i];
+			var ul = a.parentElement.querySelector('ul[data-subject]');
+			ul.style.display = "none";
+			a.addEventListener('click',chgSubject);
+		}
+		var topicEls = document.querySelectorAll('a[data-topic]');
+		for (var i=0;i<topicEls.length;i++){
+			var a = topicEls[i];
+			var ul = a.parentElement.querySelector('ul[data-topic]');
+			ul.style.display = "none";
+			a.addEventListener('click',chgTopic);
+		}
+		function chgSubject(evt){
+			var a = evt.target;
+			while (a.tagName != "A" && a.parentElement){
+				a = a.parentElement;
+			}
+			var ul = a.parentElement.querySelector('ul[data-subject]');
+			if (ul.style.display == "none"){
+				ul.style.display = "block";
+			}
+			else {
+				ul.style.display = "none";
+			}
+			
+		}
+		function chgTopic(evt){
+			var a = evt.target;
+			while (a.tagName != "A" && a.parentElement){
+				a = a.parentElement;
+			}
+			var ul = a.parentElement.querySelector('ul[data-topic]');
+			if (ul.style.display == "none"){
+				ul.style.display = "block";
+			}
+			else {
+				ul.style.display = "none";
+			}
+			
+		}
+	</script>
   </body>
 </html>
