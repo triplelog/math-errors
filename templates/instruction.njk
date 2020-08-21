@@ -1,46 +1,48 @@
-<div class="flex w-full bg-gray-200 border rounded-t px-1 py-1">
-	<span class="mr-2 border px-1 py-1">
-	<i data-feather="minimize-2"></i>
-	</span>
-	<span>
-	{% if type == "rule" %}
-		Rule: 
-	{% endif %}
-	{% if type == "error" %}
-		Error: 
-	{% endif %}
-	</span>
+<div class="inline-block w-auto border rounded">
+	<div class="flex w-full bg-gray-200 border px-1 py-1">
+		<span class="mr-2 border px-1 py-1">
+		<i data-feather="minimize-2"></i>
+		</span>
+		<span>
+		{% if type == "rule" %}
+			Rule: 
+		{% endif %}
+		{% if type == "error" %}
+			Error: 
+		{% endif %}
+		</span>
 	
-</div>
-<div class="flex w-full border">
-	<div class="w-auto inline-block object-center border rounded">
-		<div class="w-full px-3 py-3">
-		{{ cards.in | safe }}
+	</div>
+	<div class="flex w-full">
+		<div class="w-auto inline-block object-center border rounded">
+			<div class="w-full px-3 py-3">
+			{{ cards.in | safe }}
+			</div>
+			{% for constraint in cards.constraints %}
+			<hr>
+			<div class="w-full bg-red-100 px-2">
+				{{ constraint | safe }}
+			</div>
+			{% endfor %}
 		</div>
-		{% for constraint in cards.constraints %}
-		<hr>
-		<div class="w-full bg-red-100 px-2">
-			{{ constraint | safe }}
+		{% if type == "rule" %}
+		<div class="w-auto inline-block object-center mx-2 py-3">
+			------------>
 		</div>
-		{% endfor %}
-	</div>
-	{% if type == "rule" %}
-	<div class="w-auto inline-block object-center mx-2 py-3">
-		------------>
-	</div>
-	{% endif %}
-	{% if type == "error" %}
-	<div class="w-auto text-red-400 inline-block object-center mx-2 py-3">
-		--X--X--X-->
-	</div>
-	{% endif %}
-	<div class="w-auto inline-block">
-		<div class="w-full object-center px-3 py-3 border rounded">
-		{{ cards.out | safe }}
+		{% endif %}
+		{% if type == "error" %}
+		<div class="w-auto text-red-400 inline-block object-center mx-2 py-3">
+			--X--X--X-->
 		</div>
-	</div>
+		{% endif %}
+		<div class="w-auto inline-block">
+			<div class="w-full object-center px-3 py-3 border rounded">
+			{{ cards.out | safe }}
+			</div>
+		</div>
 	
-</div>
-<div class="w-full border rounded-b">
-	{{ cards.explanation | safe }}
+	</div>
+	<div class="w-full">
+		{{ cards.explanation | safe }}
+	</div>
 </div>
