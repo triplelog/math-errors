@@ -1,5 +1,8 @@
-<div class="w-full bg-gray-200 border rounded-t">
-	<span class="float-left">
+<div class="flex w-full bg-gray-200 border rounded-t">
+	<span>
+	<i data-feather="minimize-2"></i>
+	</span>
+	<span>
 	{% if type == "rule" %}
 		Rule: 
 	{% endif %}
@@ -7,9 +10,7 @@
 		Error: 
 	{% endif %}
 	</span>
-	<span class="float-right">
-	X
-	</span>
+	
 </div>
 <div class="flex w-full border">
 	<div class="w-auto inline-block object-center border rounded">
