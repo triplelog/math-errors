@@ -172,67 +172,6 @@ wss.on('connection', function connection(ws) {
 			//var jsonmessage = {'type':'created'};
 			//ws.send(JSON.stringify(jsonmessage));
 		}
-		/*
-		else if (dm.type == 'saveRule'){
-			var subject = dm.subject.toLowerCase();
-			var topic = dm.topic.toLowerCase();
-			var name = dm.name.toLowerCase();
-			var explanation = dm.explanation;
-			var instructions = dm.instructions;
-			console.log(subject);
-			console.log(topic);
-			SubjectData.findOne({subject:subject}, function(err,result) {
-				if (result == null){
-					var topics = {};
-					topics[topic]=[{name:name,explanation:explanation,instructions:instructions}];
-					var subjectData = new SubjectData({subject:subject,topics:topics});
-					subjectData.save(function(err,result){
-						if (err){
-							console.log("error: ", err);
-						}
-						else {
-							console.log(JSON.stringify(topics[topic]));
-						}
-					});
-				}
-				else {
-					var foundMatch = false;
-					if (result.topics[topic]){
-						for (var i=0;i<result.topics[topic].length;i++){
-							if (result.topics[topic][i].name == name){
-								result.topics[topic][i] = {name:name,explanation:explanation,instructions:instructions};
-								foundMatch = true;
-								break;
-							}
-						}
-						if (!foundMatch){
-							result.topics[topic].push({name:name,explanation:explanation,instructions:instructions});
-						}
-					}
-					else {
-						result.topics[topic] = [{name:name,explanation:explanation,instructions:instructions}];
-					}
-					
-					
-					result.markModified('topics');
-					result.save(function(err,result){
-						if (err){
-							console.log("error: ", err);
-						}
-						else {
-							console.log(JSON.stringify(result.topics[topic]));
-						}
-					});
-				}
-			});
-				
-
-			
-			
-			
-			//var jsonmessage = {'type':'created'};
-			//ws.send(JSON.stringify(jsonmessage));
-		}*/
 		else if (dm.type == 'saveLesson'){
 			var subject = dm.subject.toLowerCase();
 			var topic = dm.topic.toLowerCase();
@@ -243,14 +182,10 @@ wss.on('connection', function connection(ws) {
 			console.log(subject);
 			console.log(topic);
 			SubjectData.findOne({}, function(err,result) {
-				console.log("err: ",err);
-				console.log("res: ",result);
 				if (result == null){
-					console.log("sub: ",subject);
 					var topics = {};
 					topics[topic]=[{slug:slug,lesson:lesson}];
 					SubjectData.create({subject:subject,topics:topics},function(err,result){
-						console.log("res: ",JSON.stringify(result));
 						if (err){
 							console.log("error: ", err);
 						}
@@ -264,19 +199,16 @@ wss.on('connection', function connection(ws) {
 					if (result.topics[topic]){
 						for (var i=0;i<result.topics[topic].length;i++){
 							if (result.topics[topic][i].slug == slug){
-								console.log("slug: ",slug, " and ", result.topics[topic][i].slug);
 								result.topics[topic][i] = {slug:slug,lesson:lesson};
 								foundMatch = true;
 								break;
 							}
 						}
 						if (!foundMatch){
-							console.log("slug: ",slug);
 							result.topics[topic].push({slug:slug,lesson:lesson});
 						}
 					}
 					else {
-						console.log("res: ",JSON.stringify(result));
 						result.topics[topic] = [{slug:slug,lesson:lesson}];
 					}
 					
@@ -448,84 +380,6 @@ app.get('/createquestion',
     }
     
 );
-/*
-app.get('/createrule',
-	function(req, res){
-		
-		var info = {};
-		var correct = [];
-		var errors = [];
-		var examples = [];
-		var dewey = '';
-		if (req.query && req.query.s && req.query.t && req.query.r){
-			dewey += req.query.s.toLowerCase() + '.';
-			dewey += req.query.t.toLowerCase() + '.';
-			dewey += req.query.r.toLowerCase();
-		}
-		console.log(performance.now());
-		//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
-		//ws.send(JSON.stringify(jsonmessage));
-
-		SubjectData.find({}, function(err,result) {
-			var subjects = [];
-			for (var i=0;i<result.length;i++){
-				subjects.push(result[i]);
-				for (var topic in result[i].topics){
-					for (var r=0;r<result[i].topics[topic].length;r++){
-						var rule = result[i].topics[topic][r];
-						var thisDewey = result[i].subject + '.' + topic + '.' + rule.name;
-						console.log(thisDewey,dewey);
-						if (thisDewey == dewey){
-							info = {subtop:result[i].subject + '.'+topic,name:rule.name,explanation:rule.explanation};
-							console.log(info);
-							for (var ii=0;ii<rule.instructions.length;ii++){
-								if (rule.instructions[ii].split(',')[2]=="c"){
-									correct.push(rule.instructions[ii]);
-								}
-								else if (rule.instructions[ii].split(',')[2]=="e" || rule.instructions[ii].split(',')[2]=="i"){
-									errors.push(rule.instructions[ii]);
-								}
-								else if (rule.instructions[ii].split(',')[2]=="x"){
-									examples.push(rule.instructions[ii]);
-								}
-							}
-							
-						}
-					}
-				}
-				
-			}
-			res.write(nunjucks.render('templates/createrule.html',{
-				subjects: subjects,
-				info: info,
-				correct:correct,
-				errors:errors,
-				examples:examples,
-			}));
-			res.end();
-			for (var i=0;i<result.length;i++){
-				subjects.push(result[i]);
-				var csvStr = "";
-				for (var topic in result[i].topics){
-					for (var r=0;r<result[i].topics[topic].length;r++){
-						var rule = result[i].topics[topic][r];
-						csvStr += "Rule,"+result[i].subject+"."+topic+"."+rule.name+","+rule.explanation+"\n";
-						for (var ii=0;ii<rule.instructions.length;ii++){
-							csvStr += rule.instructions[ii]+"\n";
-						}
-					}
-				}
-				fs.writeFile('cpp/subjects/'+result[i].subject+".csv", csvStr, function (err) {});
-			}
-			
-		
-		});
-
-    }
-    
-);
-*/
-
 
 		
 app.get('/createlesson',
@@ -578,6 +432,7 @@ app.get('/createlesson',
     }
     
 );
+
 app.get('/topic',
 	function(req, res){
 		

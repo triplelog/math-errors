@@ -1,6 +1,11 @@
 'use strict';
 const markdown = require('markdown-it');
+var iterator = require('markdown-it-for-inline');
+var repmath = require('./markdown-it-math.js');
 var md = new markdown();
+md.use(iterator, 'math_replace', 'text', function (tokens, idx) {
+              tokens[idx].content = repmath(tokens,idx);
+            });
 const katex = require('katex');
 const assert = require('assert');
 const bindingP = require.resolve(`../build/Release/bindingP`);
