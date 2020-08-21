@@ -34,7 +34,7 @@ const katex = require('katex');
 const markdown = require('markdown-it');
 var md = new markdown();
 
-const asciidoctor = new require('asciidoctor')();
+//const asciidoctor = new require('asciidoctor')();
 //const registry = asciidoctor.Extensions.create();
 
 //const katex = require('katex');
