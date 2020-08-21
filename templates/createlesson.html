@@ -203,12 +203,22 @@
 			    <div id="previewExample">
 			  	</div>
 			  	<div class="w-full" id="examples"> 
+			  		{% for example in examples %}
 			  		<div class="flex w-full">
-			  			<textarea rows="3" value="" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
+			  			<textarea rows="1" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" >{{ example }}</textarea>
 			  			<div class="w-auto flex-initial pb-2 mb-3">
 			  				<div class="border px-1 py-1 mb-3" name="delete"><i data-feather="trash"></i></div><div class="border px-1 py-1 mb-2" name="preview"><i data-feather="search"></i></div>
 			  			</div>
 			  		</div>
+			  		{% endfor %}
+			  		{% if examples.length < 1 %}
+			  		<div class="flex w-full">
+			  			<textarea rows="1" value="" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
+			  			<div class="w-auto flex-initial pb-2 mb-3">
+			  				<div class="border px-1 py-1 mb-3" name="delete"><i data-feather="trash"></i></div><div class="border px-1 py-1 mb-2" name="preview"><i data-feather="search"></i></div>
+			  			</div>
+			  		</div>
+			  		{% endif %}
 			  	</div>
 			  	<div class="w-full">
 					<button onclick="addExample()" class="bg-gray-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline" type="button"><i data-feather="plus-circle" class="inline-block"></i> Add</button>
