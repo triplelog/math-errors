@@ -1,3 +1,6 @@
+const markdown = require('markdown-it');
+var md = new markdown();
+
 var mdoptions = {
   validate: function(params) {
     return params.trim().match(/^rule\s+(.*)$/);
@@ -19,9 +22,10 @@ var mdoptions = {
   content: function (tokens, idx) {
   	  console.log("CCC:",tokens[idx].markup);
   	  var cards = {constraints:[],explanation:""};
-      var lines = reader.lines;
+      var lines = tokens[idx].markup.split('\n').slice(1,);
       var isText = false;
       for (var i = 0; i < lines.length; i++) {
+      	console.log(lines[i]);
       	if (!isText){
 			if (lines[i].substr(0,4).toLowerCase() == "in: "){
 				var input = maincppp.latexify(lines[i].substr(4));

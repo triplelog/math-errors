@@ -33,7 +33,6 @@ const options = {
 const katex = require('katex');
 const markdown = require('markdown-it');
 var mdoptions = require('./markdown-it-rules.js');
-console.log(mdoptions);
 var md = new markdown();
 md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions);
 console.log(md.render('::: rule click me\nin: A+B\nout: B+A\n:::\n'));
