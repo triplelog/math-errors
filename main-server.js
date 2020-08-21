@@ -390,23 +390,31 @@ app.get('/createlesson',
 		var errors = [];
 		var examples = [];
 		var dewey = '';
-		if (req.query && req.query.s && req.query.t && req.query.r){
+		if (req.query && req.query.s && req.query.t && req.query.l){
 			dewey += req.query.s.toLowerCase() + '.';
 			dewey += req.query.t.toLowerCase() + '.';
-			dewey += req.query.r.toLowerCase();
+			dewey += req.query.l.toLowerCase();
 		}
 		console.log(performance.now());
 		
 
 		var html = "";
 
-		//SubjectData.find({}, function(err,result) {
+		SubjectData.find({subject:dewey.split('.')[0]}, function(err,result) {
+			var lesson = "";
+			for (var i=0;i<result.length;i++){
+				if (result[i].topics[dewey.split('.')[1]]){
+					if (result[i].topics[dewey.split('.')[1]].slug == dewey.split('.')[2]){
+						lesson = result[i].topics[dewey.split('.')[1]].lesson;
+					}
+				}
+			}
+			console.log(lesson);
 			res.write(nunjucks.render('templates/createlesson.html',{
 				info: info,
-				correct:correct,
+				rules:rules,
 				errors:errors,
 				examples:examples,
-				preview:html,
 			}));
 			res.end();
 			/*
@@ -427,7 +435,7 @@ app.get('/createlesson',
 			*/
 			
 		
-		//});
+		});
 
     }
     
