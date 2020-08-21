@@ -1,5 +1,15 @@
 <div class="flex w-full bg-gray-200 border rounded-t">
-	Rule/Error
+	<span class="float-left">
+	{% if type == "rule" %}
+		Rule: 
+	{% endif %}
+	{% if type == "error" %}
+		Error: 
+	{% endif %}
+	</span>
+	<span class="float-right">
+	X
+	</span>
 </div>
 <div class="flex w-full border">
 	<div class="w-auto inline-block object-center border rounded">
