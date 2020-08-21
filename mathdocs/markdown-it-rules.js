@@ -19,10 +19,12 @@ function mdoptionsfn(filen){
 		var m = tokens[idx].info.trim().match(/^example/);
 		var ex;
 		if (m){
+			  console.log("filen: ",filen);
 			  if (filen != ""){
 			  	maincppp.makelesson(filen);
 			  }
 			  ex = tokens[idx].info.trim().replace('example','').replace(':::','').trim();
+			  console.log("ex: ",ex);
 			  var jsonmessage = maincppp.onerule(ex);
 			  console.log(jsonmessage);
 			  jsonmessage = jsonmessage.replace(/\\/g,"\\\\");
