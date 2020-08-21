@@ -31,6 +31,7 @@ var mdoptions = {
       var isText = false;
       for (var i = 0; i < lines.length; i++) {
       	console.log(lines[i]);
+      	if (lines[i].length < 2){continue;}
       	if (!isText){
 			if (lines[i].substr(0,4).toLowerCase() == "in: "){
 				var input = maincppp.latexify(lines[i].substr(4));
