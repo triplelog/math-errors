@@ -386,7 +386,7 @@ wss.on('connection', function connection(ws) {
 				//html = asciidoctor.convert('example::'+dm.examples+"[]",{ 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
 				var mdoptions2 = require('./mathdocs/markdown-it-rules.js')(dm.lesson);
 				md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions2);
-				html = md.render('::: example this is an ex :::\n');
+				html = md.render('::: example '+dm.examples+' :::\n');
 				console.log(html);
 				jsonmessage ={'type':'previewText','examples':html};
 			}
