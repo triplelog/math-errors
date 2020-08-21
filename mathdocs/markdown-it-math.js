@@ -39,5 +39,6 @@ module.exports = function(tokens,idx) {
 			currentMath += input[ii];
 		}
 	}
+	console.log(input);
   return input;
 };
