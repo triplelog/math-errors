@@ -566,8 +566,9 @@ example::3^2+4[]
     const katex = require('katex');
 	const asciidoctor = require('asciidoctor')();
 	const registry = asciidoctor.Extensions.create();
-	require('./mathdocs/rule-maker-macro.js')(registry);
 	console.log(Object.keys(global));
+	//require('./mathdocs/rule-maker-macro.js')(registry);
+	
     	//require('./mathdocs/instruction-maker-macro.js')(registry,instruction);
 		var html = "";
 		//const html = asciidoctor.convert('this is a $A^12+B/7$ for real with more $x=7$ to come.\n'+instruction, { 'extension_registry': registry, safe: 'safe', backend: 'html5', template_dir: './templates' });
