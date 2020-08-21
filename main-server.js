@@ -290,7 +290,7 @@ wss.on('connection', function connection(ws) {
 				console.log(dm.lesson);
 				var mdoptions2 = require('./mathdocs/markdown-it-rules.js')(dm.lesson);
 				md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions2);
-				html = md.render('::: example '+dm.examples+' :::\n');
+				html = md.render('::: examples\n'+dm.examples+'\n:::\n');
 				console.log(html);
 				jsonmessage ={'type':'previewText','examples':html};
 			}
@@ -544,7 +544,6 @@ function parseLesson(lesson){
 					continue;
 				}
 				else if (lines[i].match(/example/)){
-					examples.push(lines[i].replace(":::","").replace(":::","").trim().substr(7).trim());
 					currentType = ""; currentToken = "";
 					continue;
 				}
@@ -555,6 +554,13 @@ function parseLesson(lesson){
 			}
 			else if (currentType == "error"){
 				errors.push(currentToken);
+				currentType = ""; currentToken = "";
+			}
+			else if (currentType == "examples"){
+				var liness = currentToken.split("\n");
+				for (var ii=0;ii<liness.length;ii++){
+					examples.push(liness[ii].trim());
+				}
 				currentType = ""; currentToken = "";
 			}
 		}

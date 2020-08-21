@@ -162,16 +162,22 @@ void makeRulesNew(std::string input){
 				rawRules.push_back(currentRawRule);
 				currentRawRule.resize(0);
 			}
-			currentRawRule.resize(4);
-			currentRawRule[2] = "x";
-			currentRawRule[3] = "";
-			currentRawRule[0] = rawRule.substr(12,rawRule.length()-16);
-			currentRawRule[1] = rawRule.substr(12,rawRule.length()-16);
+			for (ii=i+1;ii<nRows;ii++){
+				if (rawRule.substr(0,3) == ":::"){
+					break;
+				}
+				if (rawRule == ""){continue;}
+				currentRawRule.resize(4);
+				currentRawRule[2] = "x";
+				currentRawRule[3] = "";
+				currentRawRule[0] = rawRule;
+				currentRawRule[1] = rawRule;
+				rawRules.push_back(currentRawRule);
+				std::cout << "crr: " << currentRawRule[0] << "\n";
+				currentRawRule.resize(0);
+			}
+			i = ii;
 			inRule = false;
-			rawRules.push_back(currentRawRule);
-			std::cout << "crr: " << currentRawRule[0] << "\n";
-			currentRawRule.resize(0);
-			
 			
 		}
 		else if (rawRule.length() == 0){

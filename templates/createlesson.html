@@ -277,11 +277,17 @@
 				lesson = lesson.replace("\n\n\n","\n\n");
 			}
 			var examples = document.getElementById('examples').querySelectorAll('textarea');
+			if (examples.length > 0){
+				lesson += "::: examples\n";
+			}
 			for (var i=0;i<examples.length;i++){
 				if (examples[i].value.length<2){
 					continue;
 				}
-				lesson+="::: example "+examples[i].value+" :::\n";
+				lesson+=examples[i].value+"\n";
+			}
+			if (examples.length > 0){
+				lesson += ":::\n";
 			}
 			return lesson;
 		}
