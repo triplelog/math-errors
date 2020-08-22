@@ -253,7 +253,9 @@ wss.on('connection', function connection(ws) {
 					}
 					if (!foundMatch){
 						if (result.topics[topic].length == 0){
+							console.log("deleting");
 							delete result.topics[topic];
+							console.log(result.topics);
 						}
 						if (Object.keys(result.topics).length == 0){
 							SubjectData.deleteOne({subject:subject}, function (err,result){});
