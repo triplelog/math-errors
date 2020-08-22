@@ -261,7 +261,6 @@ wss.on('connection', function connection(ws) {
 							SubjectData.deleteOne({subject:subject}, function (err,result){});
 							return;
 						}
-						return;
 					}
 					else {
 						if (result.topics[topic].length == 0){
