@@ -257,6 +257,7 @@ wss.on('connection', function connection(ws) {
 						}
 						if (Object.keys(result.topics).length == 0){
 							SubjectData.deleteOne({subject:subject}, function (err,result){});
+							return;
 						}
 						return;
 					}
@@ -266,6 +267,7 @@ wss.on('connection', function connection(ws) {
 						}
 						if (Object.keys(result.topics).length == 0){
 							SubjectData.deleteOne({subject:subject}, function (err,result){});
+							return;
 						}
 					}
 					
