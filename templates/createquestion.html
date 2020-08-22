@@ -1,107 +1,6 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.72.0">
-    <title>Dashboard Template · Bootstrap</title>
+{% extends "templates/skeleton.html" %}
 
-    <link rel="canonical" href="">
-
-    
-
-    <!-- Bootstrap core CSS -->
-<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
-	<link rel="stylesheet" href="css/treeflex.css">
-
-    <style>
-
-      
-    </style>
-
-    
-    <!-- Custom styles for this template -->
-    <link href="css/dashboard.css" rel="stylesheet">
-    <link href="css/output.css" rel="stylesheet">
-  </head>
-  <body>
-    
-<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Company name</a>
-  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-  <ul class="navbar-nav px-3">
-    <li class="nav-item text-nowrap">
-      <a class="nav-link" href="#">Sign out</a>
-    </li>
-  </ul>
-</nav>
-
-<div class="container-fluid">
-  <div class="row">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-      <div class="position-sticky pt-3">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
-              <span data-feather="plus"></span>
-              New Question
-            </a>
-          </li>
-          
-        </ul>
-		<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span>History</span>
-        </h6>
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span>Topics</span>
-          <a class="link-secondary" href="#" aria-label="Add a new report">
-            <span data-feather="plus-circle"></span>
-          </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Arithmetic
-            </a>
-            <div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
-			  <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Derivatives
-            </a>
-            <div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
-			  <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Integrals
-            </a>
-            <div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
-			  <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Limits
-            </a>
-            <div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
-			  <div class="progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+{% block main %}
         <div class="w-full mb-2 py-4">
 			<span class="text-2xl"><b>Create Question</b></span>
 			<button class="float-right bg-white hover:border-gray-900 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-r focus:outline-none focus:shadow-outline" type="button">Share</button>
@@ -222,17 +121,11 @@
 
 		
 
-    </main>
-  </div>
-</div>
+{% endblock %}
 
 
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" integrity="sha384-EbSscX4STvYAC/DxHse8z5gEDaNiKAIGW+EpfzYTfQrgIlHywXXrM9SUIZ0BlyfF" crossorigin="anonymous"></script>
-      <script src="js/dashboard.js"></script>
-  
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+{% block scripts %}  
 	<script>
 		function createTrees(input_str){
 			document.getElementById("accordionExample").innerHTML = "";
@@ -417,5 +310,5 @@
 		
 		
 	</script>
-  </body>
-</html>
+
+{% endblock %}
