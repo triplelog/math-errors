@@ -232,13 +232,10 @@ wss.on('connection', function connection(ws) {
 			//var jsonmessage = {'type':'created'};
 			//ws.send(JSON.stringify(jsonmessage));
 		}
-		/*
-		else if (dm.type == 'deleteRule'){
+		else if (dm.type == 'deleteLesson'){
 			var subject = dm.subject.toLowerCase();
 			var topic = dm.topic.toLowerCase();
-			var name = dm.name.toLowerCase();
-			var explanation = dm.explanation;
-			var instructions = dm.instructions;
+			var lesson = dm.lesson.toLowerCase();
 			console.log(subject);
 			console.log(topic);
 			SubjectData.findOne({subject:subject}, function(err,result) {
@@ -248,7 +245,7 @@ wss.on('connection', function connection(ws) {
 				else {
 					var foundMatch = false;
 					for (var i=0;i<result.topics[topic].length;i++){
-						if (result.topics[topic][i].name.toLowerCase() == name){
+						if (result.topics[topic][i].slug.toLowerCase() == lesson){
 							result.topics[topic].splice(i,1);
 							foundMatch = true;
 							break;
@@ -270,7 +267,7 @@ wss.on('connection', function connection(ws) {
 				}
 			});
 				
-		}*/
+		}
 		else if (dm.type == 'previewText'){
 			var html = "";
 			var jsonmessage;

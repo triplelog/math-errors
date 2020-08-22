@@ -220,6 +220,15 @@
 			ws.send(JSON.stringify(jsonmessage));
 			
 		}
+		function deleteLesson() {
+			var subtople = document.getElementById("subtople").value;
+			var subject = subtople.split('.')[0];
+			var topic = subtople.split('.')[1];
+			var lesson = subtople.split('.')[2];
+
+			var jsonmessage = {type:"deleteLesson",subject:subject,topic:topic,lesson:lesson};
+			ws.send(JSON.stringify(jsonmessage));
+		}
 		function editLesson() {
 			document.getElementById('preview').style.display = "none";
 			document.getElementById('edit').style.display = "flex";
