@@ -252,7 +252,21 @@ wss.on('connection', function connection(ws) {
 						}
 					}
 					if (!foundMatch){
+						if (result.topics[topic].length == 0){
+							delete result.topics[topic];
+						}
+						if (Object.keys(result.topics).length == 0){
+							SubjectData.deleteOne({subject:subject}, function (err,result){});
+						}
 						return;
+					}
+					else {
+						if (result.topics[topic].length == 0){
+							delete result.topics[topic];
+						}
+						if (Object.keys(result.topics).length == 0){
+							SubjectData.deleteOne({subject:subject}, function (err,result){});
+						}
 					}
 					
 					result.markModified('topics');
