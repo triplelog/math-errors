@@ -5,7 +5,7 @@
 			<span class="text-2xl"><b>Create Question</b></span>
 			<button class="float-right bg-white hover:border-gray-900 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-r focus:outline-none focus:shadow-outline" type="button">Share</button>
 			<button class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 focus:outline-none focus:shadow-outline" type="button">Save</button>
-			<button class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 focus:outline-none focus:shadow-outline" type="button">Preview</button>
+			<button onclick="refreshQuestion()" class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 focus:outline-none focus:shadow-outline" type="button">Preview</button>
 			<button class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 focus:outline-none focus:shadow-outline" type="button">Export</button>
 			<button class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-l focus:outline-none focus:shadow-outline" type="button">Import</button>
 					
@@ -18,10 +18,10 @@
 			  </div>
 			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
 				<div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="qid">
-						Category
+					<label class="block text-gray-700 text-sm font-bold mb-1" for="subtople">
+						Subject.Topic.Lesson
 					  </label>
-					  <input id="qid" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+					  <input id="subtople" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
 				<div>
@@ -206,9 +206,9 @@
 		}
 		function refreshQuestion() {
 			var outstr = makeQuestion();
-
-			var jsonmessage = {type:"previewQuestion",qstr:outstr};
-			ws.send(JSON.stringify(jsonmessage));
+			console.log(outstr);
+			//var jsonmessage = {type:"previewQuestion",qstr:outstr};
+			//ws.send(JSON.stringify(jsonmessage));
 		}
 		function saveQuestion() {
 			var outstr = makeQuestion();
@@ -227,19 +227,19 @@
 		}
 		function makeQuestion() {
 			var outstr = "";
-			var qid = document.getElementById("qid").value;
+			var subtople = document.getElementById("subtople").value;
 			var name = document.getElementById("name").value;
-			outstr += qid + ",\""+name+"\"\n";
+			outstr += ":subtople:"+subtople + "\n:name:"+name+"\n";
 			var human = document.getElementById("human").value;
-			outstr += human + "\n";
+			outstr += "::: layout\n"+human + "\n:::\n";
 			var compQ =  document.getElementById("compQ").value;
-			outstr += compQ + "\n";
-			outstr += "::: constraintsQ\n"+constraintsQ+"\n:::\n";
+			var constraintsQ =  document.getElementById("constraintsQ").value;
+			outstr += "::: question\n"+compQ + "\n"+constraintsQ+"\n:::\n";
 			var compA =  document.getElementById("compA").value;
-			outstr += compA + "\n";
-			outstr += "::: constraintsQ\n"+constraintsA+"\n:::\n";
+			var constraintsA =  document.getElementById("constraintsA").value;
+			outstr += "::: answer\n"+compA+"\n"+constraintsA+"\n:::\n";
 			for (var i=0;i<tags.length;i++){
-				outstr += "\"t\","+tags[i]+"\n";
+				outstr += "::: tags\n"+tags[i]+"\n:::\n";
 			}
 			return outstr;
 		}
