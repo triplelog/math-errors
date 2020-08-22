@@ -4,24 +4,14 @@
         <div class="w-full mb-2 py-4">
 			<span class="text-2xl"><b>Create Question</b></span>
 			<button class="float-right bg-white hover:border-gray-900 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-r focus:outline-none focus:shadow-outline" type="button">Share</button>
+			<button class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 focus:outline-none focus:shadow-outline" type="button">Save</button>
+			<button class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 focus:outline-none focus:shadow-outline" type="button">Preview</button>
 			<button class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 focus:outline-none focus:shadow-outline" type="button">Export</button>
 			<button class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-l focus:outline-none focus:shadow-outline" type="button">Import</button>
 					
         </div>
 
 		<div class="flex flex-wrap w-full">
-		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
-			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
-				<b>Preview</b>
-				<button onclick="saveQuestion()" class="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-0 px-2 rounded-r focus:outline-none focus:shadow-outline" type="button">Save</button>
-
-				<button onclick="refreshQuestion()" class="float-right bg-red-500 hover:bg-red-700 text-white font-bold py-0 px-2 rounded-l focus:outline-none focus:shadow-outline" type="button">Refresh</button>
-				
-			  </div>
-			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
-				<div id="previewQ"></div>
-			  </div>
-		  </div>
 		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
 			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
 				<b>Info</b>
@@ -42,6 +32,13 @@
 
 				</div>
 				<div>
+					  <label class="block text-gray-700 text-sm font-bold mb-1" for="human">
+						Layout
+					  </label>
+					  <textarea id="human" rows="5" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3"></textarea>
+
+				</div>
+				<div>
 					<label class="block text-gray-700 text-sm font-bold mb-1" for="addTag">
 						Tags
 					  </label>
@@ -56,64 +53,39 @@
 		  </div>
 		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
 			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
-				<b>Question</b>
+				<b>Q/A</b>
 			  </div>
 			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
 				<div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="humanQ">
-						Human
-					  </label>
-					  <textarea id="humanQ" rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3"></textarea>
-
-				</div>
-				<div>
 					<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
-						Computer
+						Question
 					  </label>
 					  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
 				<div>
-					<div id="constraintsQ"></div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="addConQ">
+					  <label class="block text-gray-700 text-sm font-bold mb-1" for="constraintsQ">
 						Constraints
 					  </label>
-					  <div class="w-full flex">
-						<input id="addConQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
-						<button onclick="addConQ()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Constraint</button>
-					  </div>
+					  <textarea id="constraintsQ" rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3"></textarea>
+
 				</div>
 
-			  </div>
-		  </div>
-		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
-			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
-				<b>Answer</b>
 			  </div>
 			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
 				<div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="humanA">
-						Human
-					  </label>
-					  <textarea id="humanA" rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3"></textarea>
-
-				</div>
-				<div>
 					<label class="block text-gray-700 text-sm font-bold mb-1" for="compA">
-						Computer
+						Answer
 					  </label>
 					  <input id="compA" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
 				<div>
-					<div id="constraintsA"></div>
-					<label class="block text-gray-700 text-sm font-bold mb-1" for="addConA">
+					  <label class="block text-gray-700 text-sm font-bold mb-1" for="constraintsA">
 						Constraints
 					  </label>
-					  <div class="w-full flex">
-						<input id="addConA" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
-						<button onclick="addConA()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Constraint</button>
-					  </div>						
+					  <textarea id="constraintsA" rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3"></textarea>
+						
 				</div>
 			  </div>
 		  </div>
@@ -233,72 +205,18 @@
 			
 		}
 		function refreshQuestion() {
-			var outstr = "";
-			var qid = document.getElementById("qid").value;
-			var name = document.getElementById("name").value;
-			outstr += qid + ",\""+name+"\"\n";
-			var humanQ = document.getElementById("humanQ").value;
-			outstr += humanQ + "\n";
-			var compQ =  document.getElementById("compQ").value;
-			outstr += compQ + "\n";
-			var humanA = document.getElementById("humanA").value;
-			outstr += humanA + "\n";
-			var compA =  document.getElementById("compA").value;
-			outstr += compA + "\n";
-			for (var i=0;i<constraintsQ.length;i++){
-				outstr += "\"q\","+constraintsQ[i]+"\n";
-			}
-			for (var i=0;i<constraintsA.length;i++){
-				outstr += "\"a\","+constraintsA[i]+"\n";
-			}
-			for (var i=0;i<tags.length;i++){
-				outstr += "\"t\","+tags[i]+"\n";
-			}
+			var outstr = makeQuestion();
 
 			var jsonmessage = {type:"previewQuestion",qstr:outstr};
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		function saveQuestion() {
-			var outstr = "";
-			var qid = document.getElementById("qid").value;
-			var name = document.getElementById("name").value;
-			outstr += qid + ",\""+name+"\"\n";
-			var humanQ = document.getElementById("humanQ").value;
-			outstr += humanQ + "\n";
-			var compQ =  document.getElementById("compQ").value;
-			outstr += compQ + "\n";
-			var humanA = document.getElementById("humanA").value;
-			outstr += humanA + "\n";
-			var compA =  document.getElementById("compA").value;
-			outstr += compA + "\n";
-			for (var i=0;i<constraintsQ.length;i++){
-				outstr += "\"q\","+constraintsQ[i]+"\n";
-			}
-			for (var i=0;i<constraintsA.length;i++){
-				outstr += "\"a\","+constraintsA[i]+"\n";
-			}
-			for (var i=0;i<tags.length;i++){
-				outstr += "\"t\","+tags[i]+"\n";
-			}
+			var outstr = makeQuestion();
 			document.getElementById("previewQ").innerHTML = "";
 			document.getElementById("previewQ").textContent = outstr;
 			
 			var jsonmessage = {type:"saveQuestion",qstr:outstr};
 			ws.send(JSON.stringify(jsonmessage));
-		}
-		var constraintsA = [];
-		function addConA() {
-			var el = document.getElementById('addConA');
-			constraintsA.push(el.value);
-			document.getElementById('constraintsA').textContent += "\n"+el.value;
-			el.value = "";
-		}
-		var constraintsQ = [];
-		function addConQ() {
-			var el = document.getElementById('addConQ');
-			constraintsQ.push(el.value);
-			document.getElementById('constraintsQ').textContent += "\n"+el.value;
-			el.value = "";
 		}
 		var tags = [];
 		function addTag() {
@@ -306,6 +224,24 @@
 			tags.push(el.value);
 			document.getElementById('tags').textContent += "\n"+el.value;
 			el.value = "";
+		}
+		function makeQuestion() {
+			var outstr = "";
+			var qid = document.getElementById("qid").value;
+			var name = document.getElementById("name").value;
+			outstr += qid + ",\""+name+"\"\n";
+			var human = document.getElementById("human").value;
+			outstr += human + "\n";
+			var compQ =  document.getElementById("compQ").value;
+			outstr += compQ + "\n";
+			outstr += "::: constraintsQ\n"+constraintsQ+"\n:::\n";
+			var compA =  document.getElementById("compA").value;
+			outstr += compA + "\n";
+			outstr += "::: constraintsQ\n"+constraintsA+"\n:::\n";
+			for (var i=0;i<tags.length;i++){
+				outstr += "\"t\","+tags[i]+"\n";
+			}
+			return outstr;
 		}
 		
 		
