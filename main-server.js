@@ -375,20 +375,14 @@ app.get('/createquestion',
 		
 		
 		console.log(performance.now());
-		//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
-		//ws.send(JSON.stringify(jsonmessage));
-		SubjectData.find({}, function(err,result) {
-			res.write(nunjucks.render('templates/createquestion.html',{
-			
-			}));
-			res.end();
-			
-		
-		});
-		
 
-		
-	
+		res.write(nunjucks.render('templates/createquestion.html',{
+			title: "TitlE",
+			toc: toc,
+		}));
+		res.end();
+			
+
     }
     
 );
