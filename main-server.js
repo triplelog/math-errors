@@ -45,6 +45,8 @@ const User = require('./models/user');
 //const SubjectData = require('./models/subjects');
 var schema = new mymongoose.Schema({subject: String, topics:{}});
 var SubjectData = mymongoose.model('SubjectData', schema);
+schema = new mymongoose.Schema({subject: String, topics:{}});
+var QuestionData = mymongoose.model('QuestionData', schema);
 
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
@@ -171,15 +173,67 @@ wss.on('connection', function connection(ws) {
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		else if (dm.type == 'saveQuestion'){
-			if (dm.qstr.length >= 10000){
-				return;
+			var subject = ".";
+			var topic = ".";
+			var lesson = ".";
+			if (dm.subject){
+				subject = dm.subject.toLowerCase();
+				if (dm.topic){
+					topic = dm.topic.toLowerCase();
+				}
+				if (dm.lesson){
+					lesson = dm.lesson.toLowerCase();
+				}
 			}
-			fs.appendFile('questions/de/default.csv', "\n"+dm.qstr, function (err) {
-			  if (err) throw err;
-			});
+			var question = dm.question;
+			var name = dm.name;
 			
-			//var jsonmessage = {'type':'created'};
-			//ws.send(JSON.stringify(jsonmessage));
+			
+			console.log(subject);
+			console.log(topic);
+			QuestionData.findOne({subject:subject}, function(err,result) {
+				if (result == null){
+					var topics = {};
+					topics[topic]=[{lesson:lesson,name:name,question:question}];
+					QuestionData.create({subject:subject,topics:topics},function(err,result){
+						if (err){
+							console.log("error: ", err);
+						}
+						else {
+							console.log(JSON.stringify(topics[topic]));
+						}
+					});
+				}
+				else {
+					var foundMatch = false;
+					if (result.topics[topic]){
+						for (var i=0;i<result.topics[topic].length;i++){
+							if (result.topics[topic][i].lesson == lesson && result.topics[topic][i].name == name){
+								result.topics[topic][i] = {lesson:lesson,name:name,question:question};
+								foundMatch = true;
+								break;
+							}
+						}
+						if (!foundMatch){
+							result.topics[topic].push({lesson:lesson,name:name,question:question});
+						}
+					}
+					else {
+						result.topics[topic] = [{lesson:lesson,name:name,question:question}];
+					}
+					
+					
+					result.markModified('topics');
+					result.save(function(err,result){
+						if (err){
+							console.log("error: ", err);
+						}
+						else {
+							console.log(JSON.stringify(result.topics[topic]));
+						}
+					});
+				}
+			});
 		}
 		else if (dm.type == 'saveLesson'){
 			var subject = dm.subject.toLowerCase();
@@ -382,14 +436,51 @@ app.get('/questiona',
 app.get('/createquestion',
 	function(req, res){
 		
-		
+		var info = {};
+		var correct = [];
+		var errors = [];
+		var examples = [];
+		var dewey = '';
+		var name = '';
+		var question = "";
+		if (req.query && req.query.s && req.query.t && req.query.l){
+			dewey += req.query.s.toLowerCase() + '.';
+			dewey += req.query.t.toLowerCase() + '.';
+			dewey += req.query.l.toLowerCase();
+		}
+		if (req.query && req.query.n){
+			name = req.query.n;
+		}
 		console.log(performance.now());
+		
 
-		res.write(nunjucks.render('templates/createquestion.html',{
-			title: "TitlE",
-			toc: toc,
-		}));
-		res.end();
+		var html = "";
+
+		SubjectData.find({subject:dewey.split('.')[0]}, function(err,result) {
+
+			for (var i=0;i<result.length;i++){
+				if (result[i].topics[dewey.split('.')[1]]){
+					var arr = result[i].topics[dewey.split('.')[1]];
+					for (var ii=0;ii<arr.length;ii++){
+						if (arr[ii].lesson == dewey.split('.')[2] && arr[ii].name == name){
+							question = arr[ii].question;
+						}
+					}
+				}
+			}
+			console.log(question);
+			var json = {};
+			if (question && question != ""){
+				json = parseQuestion(question);
+			}
+			console.log(json);
+			
+			res.write(nunjucks.render('templates/createquestion.html',{
+				title: "TitlE",
+				toc: toc,
+			}));
+			res.end();
+		});
 			
 
     }
