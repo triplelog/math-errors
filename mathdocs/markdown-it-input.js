@@ -63,6 +63,7 @@ input.render = function( type, data, regexp ) {
 		params.options = {};
 		params.options.class = "border";
 	}
+	console.log(params.options);
 	
 	var divParams = params.div;
 	var optionsParams = params.options;
