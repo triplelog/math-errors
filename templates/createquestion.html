@@ -239,7 +239,24 @@
 		}
 		function saveQuestion() {
 			var outstr = makeQuestion();
-			var jsonmessage = {type:"saveQuestion",qstr:outstr};
+
+			var subtople = document.getElementById('subtople').value.split('.');
+			var subject = ".";
+			var topic = ".";
+			var lesson = ".";
+
+			if (subtople.length>0){
+				subject = subtople[0];
+			}
+			else if (subtople.length>1){
+				topic = subtople[1];
+			}
+			else if (subtople.length>2){
+				lesson = subtople[2];
+			}
+			
+			var jsonmessage = {'type':'saveQuestion','subject':subject,'topic':topic,'lesson':lesson,'question':outstr};
+			console.log(jsonmessage);
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		function editQuestion() {
