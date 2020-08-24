@@ -153,7 +153,6 @@ wss.on('connection', function connection(ws) {
 			console.log(json);
 			//var qh = maincpp.previewQuestion(dm.qstr);
 			var layout = md.render(json.layout);
-			console.log(layout);
 			var jsonmessage = {'type':'preview','message':layout};
 			ws.send(JSON.stringify(jsonmessage));
 		}
@@ -592,7 +591,7 @@ function parseLesson(lesson){
 
 function parseQuestion(input){
 	var lines = input.split('\n');
-	var question = {comp:"",constraints:[]};
+	var question = {comp:"",constants:[]};
 	var answer = {comp:"",constraints:[]};
 	var tags = [];
 	var layout = "";
@@ -605,13 +604,12 @@ function parseQuestion(input){
 				if (lines[i].match(/question/)){
 					currentType = "question"; currentToken = "";
 					question.comp = lines[i+1];
-					i++;
+					answer.comp = lines[i+2];
+					i+=2;
 					continue;
 				}
 				else if (lines[i].match(/answer/)){
 					currentType = "answer"; currentToken = "";
-					answer.comp = lines[i+1];
-					i++;
 					continue;
 				}
 				else if (lines[i].match(/tag/)){
@@ -624,11 +622,11 @@ function parseQuestion(input){
 				}
 			}
 			else if (currentType == "question"){
-				question.constraints = currentToken.split("\n");
+				question.constants = currentToken.split("\n");
 				currentType = ""; currentToken = "";
 			}
 			else if (currentType == "answer"){
-				answer.constraints = currentToken.split("\n");
+				answer.constraints.push(currentToken);
 				currentType = ""; currentToken = "";
 			}
 			else if (currentType == "tags"){
