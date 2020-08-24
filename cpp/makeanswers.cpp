@@ -123,11 +123,11 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 	int i;
 	//std::string newQ = replaceVars(q,varMap);
 	std::vector<std::string> qv = postfixifyVector(qRow,true);
-	std::cout << "qv: " << qv[0] << " and " << qv[1] << "\n";
+	//std::cout << "qv: " << qv[0] << " and " << qv[1] << "\n";
 	std::string q = replaceVars(qv[0] + "@"+qv[1],varMap);
-	std::cout << "q: " << q << "\n";
+	//std::cout << "q: " << q << "\n";
 	std::string newQ = solveInsideQuestion(q);
-	std::cout << "nq: " << newQ << "\n";
+	//std::cout << "nq: " << newQ << "\n";
 	std::cout << "question for computer: " << newQ << "\n\n";
 	question.comp = newQ;
 
@@ -585,7 +585,6 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 					}
 					if (i+2 < nRows){
 						q.qC = rows[i+1];
-						i+= 2;
 					}
 					std::cout << "+3: "<< rows[i+3] << "\n";
 					for (ii=i+3;ii<nRows;ii++){
