@@ -589,8 +589,8 @@ function parseLesson(lesson){
 	return {rules:rules,errors:errors,examples:examples,info:info};
 }
 
-function parseQuestion(question){
-	var lines = question.split('\n');
+function parseQuestion(input){
+	var lines = input.split('\n');
 	var question = {comp:"",constraints:[]};
 	var answer = {comp:"",constraints:[]};
 	var tags = [];
@@ -598,6 +598,7 @@ function parseQuestion(question){
 	var currentType = "";
 	var currentToken = "";
 	var info = {};
+	console.log(lines);
 	for (var i=0;i<lines.length;i++){
 		if (lines[i].substr(0,3) == ":::"){
 			if (currentType == ""){
