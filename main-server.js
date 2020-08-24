@@ -33,8 +33,13 @@ const options = {
 const katex = require('katex');
 const markdown = require('markdown-it');
 var mdoptions = require('./mathdocs/markdown-it-rules.js')("");
+var iterator = require('markdown-it-for-inline');
+var repmath = require('./mathdocs/markdown-it-math.js');
 var md = new markdown();
 md.use(require('./mathdocs/markdown-it-input.js'));
+md.use(iterator, 'math_replace', 'text', function (tokens, idx) {
+    tokens[idx].content = repmath(tokens,idx);
+});
 
 
 
