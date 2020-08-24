@@ -546,6 +546,11 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 		oldIdx = startIdx;
 
 		flat_hash_map<char,std::string> rangeMap;
+		RawQuestion q;
+		
+		std::vector<std::string> currentRawRule;
+		currentRawRule.resize(0);
+		bool inRule = false;
 		for (i=startIdx+1;i<nRows;i++){
 			std::string rawRule = rows[i];
 			if (rawRule == ""){
@@ -555,8 +560,91 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 				idx--;
 				break;
 			}
-			/*
+			if (rawRule.substr(0,6) == ":name:"){
+				continue;
+			}
+			
 			if (makeThis){
+				if (rawRule == "::: layout"){
+					if (inRule){
+						inRule = false;
+					}
+					currentRawRule.resize(3);
+					currentRawRule[2] = "l";
+					currentRawRule[0] = "";
+					currentRawRule[1] = "";
+					inRule = true;
+				}
+				else if (rawRule == "::: question"){
+					if (inRule){
+						inRule = false;
+					}
+					if (i+2 < nRows){
+						q.qc = rows[i+1];
+						i+= 2;
+					}
+					for (ii=i+3;ii<nRows;ii++){
+						if (rows[ii].substr(0,3) == ":::"){
+							break;
+						}
+						if (rows[ii] == ""){continue;}
+						std::string range = "";
+						char var = rows[ii].at(0);
+						range = rows[ii].substr(2,rows[ii].length()-2);
+						rangeMap[var]=range;
+					}
+					i = ii;
+					currentRawRule.resize(0);
+					inRule = false;
+				}
+				else if (rawRule == "::: answerc"){
+					if (inRule){
+						inRule = false;
+					}
+					currentRawRule.resize(4);
+					currentRawRule[3] = "";
+					currentRawRule[2] = "c";
+					if (i+1 < nRows){
+						currentRawRule[0] = rows[i+1];
+						i++;
+					}
+					currentRawRule[1] = "";
+					inRule = true;
+				}
+				else if (rawRule == "::: answere"){
+					if (inRule){
+						inRule = false;
+					}
+					currentRawRule.resize(4);
+					currentRawRule[3] = "";
+					currentRawRule[2] = "e";
+					if (i+1 < nRows){
+						currentRawRule[0] = rows[i+1];
+						i++;
+					}
+					currentRawRule[1] = "";
+					inRule = true;
+				}
+				else if (rawRule.substr(0,3) == ":::"){
+					if (inRule){
+						inRule = false;
+						if (currentRawRule[2] == "l"){
+							q.qh = "";
+							for (ii=3;ii<currentRawRule.size();ii++){
+								q.qh += currentRawRule[ii];
+							}
+						}
+						else if (currentRawRule[2] == "c" || currentRawRule[2] == "i" || currentRawRule[2] == "e"){
+							rawRules.push_back(currentRawRule);
+						}
+						currentRawRule.resize(0);
+					}
+				}
+				else if (inRule){
+					currentRawRule.push_back(rawRule);
+				}
+		
+				/*
 				if (rawRule.size() < 3 || rawRule[0] == "t"){
 					continue;			
 				}
@@ -687,8 +775,9 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 					}
 					//jsonmessage += "rule.incorrect.push(\""+rawRule[0]+"\");\n";
 				}
+				*/
 			}
-			*/
+			
 		
 		}
 		
@@ -696,11 +785,9 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 			continue;
 		}
 		auto a1 = std::chrono::high_resolution_clock::now();
-		RawQuestion q;
-		//q.qH = doc.GetRow<std::string>(oldIdx+1)[0];
-		//q.qC = doc.GetRow<std::string>(oldIdx+2)[0];
-		//q.rangeMap = rangeMap;
-		//q.rawRules = rawRules;
+		
+		q.rangeMap = rangeMap;
+		q.rawRules = rawRules;
 		questions.push_back(q);
 		auto a2 = std::chrono::high_resolution_clock::now();
 		int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();

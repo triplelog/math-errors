@@ -162,15 +162,15 @@ void makeRulesNew(std::string input){
 				currentRawRule.resize(0);
 			}
 			for (ii=i+1;ii<nRows;ii++){
-				if (rawRule.substr(0,3) == ":::"){
+				if (rows[ii].substr(0,3) == ":::"){
 					break;
 				}
-				if (rawRule == ""){continue;}
+				if (rows[ii] == ""){continue;}
 				currentRawRule.resize(4);
 				currentRawRule[2] = "x";
 				currentRawRule[3] = "";
-				currentRawRule[0] = rawRule;
-				currentRawRule[1] = rawRule;
+				currentRawRule[0] = rows[ii];
+				currentRawRule[1] = rows[ii];
 				rawRules.push_back(currentRawRule);
 				currentRawRule.resize(0);
 			}
@@ -178,7 +178,7 @@ void makeRulesNew(std::string input){
 			inRule = false;
 			
 		}
-		else if (rawRule.length() == 0){
+		else if (rawRule.length() == 0 || rawRule.substr(0,3) == ":::"){
 			if (inRule){
 				inRule = false;
 				rawRules.push_back(currentRawRule);
