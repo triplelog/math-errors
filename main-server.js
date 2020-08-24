@@ -627,7 +627,7 @@ function parseQuestion(input){
 				currentType = ""; currentToken = "";
 			}
 			else if (currentType == "answer"){
-				answer.constraints.push(currentToken.replace("\n\n","\n").trim(););
+				answer.constraints.push(currentToken.replace("\n\n","\n").trim());
 				currentType = ""; currentToken = "";
 			}
 			else if (currentType == "tags"){
