@@ -155,7 +155,6 @@ wss.on('connection', function connection(ws) {
 				return;
 			}
 			var json = parseQuestion(dm.qstr);
-			maincpp.question();
 			console.log(json);
 			console.log(dm.qstr);
 			maincpp.question(dm.qstr,"algebra");
