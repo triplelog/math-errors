@@ -587,7 +587,9 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 						q.qC = rows[i+1];
 						i+= 2;
 					}
+					std::cout << "+3: "<< rows[i+3] << "\n";
 					for (ii=i+3;ii<nRows;ii++){
+						std::cout << rows[ii] << " was rows[ii]\n";
 						if (rows[ii].substr(0,3) == ":::"){
 							break;
 						}
@@ -595,6 +597,8 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 						std::string range = "";
 						char var = rows[ii].at(0);
 						range = rows[ii].substr(2,rows[ii].length()-2);
+						std::cout << var << " was var\n";
+						std::cout << range << " was range\n";
 						rangeMap[var]=range;
 					}
 					i = ii;
