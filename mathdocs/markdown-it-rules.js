@@ -3,7 +3,7 @@ const markdown = require('markdown-it');
 var iterator = require('markdown-it-for-inline');
 var repmath = require('./markdown-it-math.js');
 var md = new markdown();
-md.use(require('./mathdocs/markdown-it-input.js'));
+md.use(require('../mathdocs/markdown-it-input.js'));
 md.use(iterator, 'math_replace', 'text', function (tokens, idx) {
               tokens[idx].content = repmath(tokens,idx);
             });
