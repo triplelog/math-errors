@@ -622,11 +622,12 @@ function parseQuestion(input){
 				}
 			}
 			else if (currentType == "question"){
+				currentToken = currentToken.replace("\n\n","\n").trim();
 				question.constants = currentToken.split("\n");
 				currentType = ""; currentToken = "";
 			}
 			else if (currentType == "answer"){
-				answer.constraints.push(currentToken);
+				answer.constraints.push(currentToken.replace("\n\n","\n").trim(););
 				currentType = ""; currentToken = "";
 			}
 			else if (currentType == "tags"){
