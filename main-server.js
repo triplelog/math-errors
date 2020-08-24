@@ -149,9 +149,11 @@ wss.on('connection', function connection(ws) {
 			if (dm.qstr.length >= 10000){
 				return;
 			}
-			var qh = maincpp.previewQuestion(dm.qstr);
-			
-			var jsonmessage = {'type':'preview','preview':qh};
+			var json = parseQuestion(dm.str);
+			console.log(json);
+			//var qh = maincpp.previewQuestion(dm.qstr);
+			var layout = md.render(json.layout);
+			var jsonmessage = {'type':'preview','message':layout};
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		else if (dm.type == 'makeanswers'){

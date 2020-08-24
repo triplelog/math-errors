@@ -10,8 +10,18 @@
 			<button class="float-right bg-transparent hover:bg-gray-200 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-l focus:outline-none focus:shadow-outline" type="button">Import</button>
 					
         </div>
-
-		<div class="flex flex-wrap w-full">
+		
+		<div class="flex flex-wrap w-full" id="preview" style="display: none;">
+		  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
+			<b>Preview</b>
+			
+		  </div>
+		  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
+		  	
+		  </div>
+		</div>
+		
+		<div class="flex flex-wrap w-full" id="edit">
 		  <div class="w-full sm:w-1/1 md:w-1/2 lg:w-1/2 mb-4 px-2">
 			  <div class="w-full bg-gray-200 border border-gray-300 px-2 py-2 rounded-t">
 				<b>Info</b>
@@ -201,19 +211,27 @@
 				document.getElementById("previewQ").innerHTML = "";
 				document.getElementById("previewQ").textContent = dm.preview;
 			}
+			else if (dm.type == 'previewLesson'){
+				var el = document.getElementById('preview').querySelector('div.rounded-b');
+				el.innerHTML = dm.message;
+				document.getElementById('preview').style.display = "flex";
+				document.getElementById('edit').style.display = "none";
+				feather.replace();
+				//amakeCollapsible(el);
+			}
 			
 			
 		}
 		function refreshQuestion() {
 			var outstr = makeQuestion();
 			console.log(outstr);
-			//var jsonmessage = {type:"previewQuestion",qstr:outstr};
-			//ws.send(JSON.stringify(jsonmessage));
+			var jsonmessage = {type:"previewQuestion",qstr:outstr};
+			ws.send(JSON.stringify(jsonmessage));
 		}
 		function saveQuestion() {
 			var outstr = makeQuestion();
-			document.getElementById("previewQ").innerHTML = "";
-			document.getElementById("previewQ").textContent = outstr;
+			//document.getElementById("previewQ").innerHTML = "";
+			//document.getElementById("previewQ").textContent = outstr;
 			
 			var jsonmessage = {type:"saveQuestion",qstr:outstr};
 			ws.send(JSON.stringify(jsonmessage));
