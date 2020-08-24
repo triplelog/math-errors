@@ -157,7 +157,7 @@ wss.on('connection', function connection(ws) {
 			var json = parseQuestion(dm.qstr);
 			console.log(json);
 			//var qh = maincpp.previewQuestion(dm.qstr);
-			var layout = md.render(json.layout);
+			var layout =  md.utils.unescapeAll(md.render(json.layout));
 			var jsonmessage = {'type':'preview','message':layout};
 			ws.send(JSON.stringify(jsonmessage));
 		}
