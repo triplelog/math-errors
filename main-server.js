@@ -598,7 +598,6 @@ function parseQuestion(input){
 	var currentType = "";
 	var currentToken = "";
 	var info = {};
-	console.log(lines);
 	for (var i=0;i<lines.length;i++){
 		if (lines[i].substr(0,3) == ":::"){
 			if (currentType == ""){
@@ -642,11 +641,11 @@ function parseQuestion(input){
 		}
 		else if (lines[i].substr(0,10) == ":subtople:"){
 			info.subtople = lines[i].substr(10).trim();
-			currentType = "explanation"; currentToken = "";
+			currentType = ""; currentToken = "";
 		}
 		else if (lines[i].substr(0,6) == ":name:"){
 			info.name = lines[i].substr(6).trim();
-			currentType = "explanation"; currentToken = "";
+			currentType = ""; currentToken = "";
 		}
 		else {
 			currentToken += lines[i]+'\n';
