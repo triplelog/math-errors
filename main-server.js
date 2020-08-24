@@ -37,9 +37,7 @@ var iterator = require('markdown-it-for-inline');
 var repmath = require('./mathdocs/markdown-it-math.js');
 var md = new markdown();
 md.use(require('./mathdocs/markdown-it-input.js'));
-md.use(iterator, 'math_replace', 'text', function (tokens, idx) {
-    tokens[idx].content = repmath(tokens,idx);
-});
+
 
 
 
@@ -156,9 +154,12 @@ wss.on('connection', function connection(ws) {
 			}
 			var json = parseQuestion(dm.qstr);
 			console.log(json);
-			maincpp.question(dm.qstr,"algebra");
+			md.use(iterator, 'math_replace', 'text', function (tokens, idx) {
+				tokens[idx].content = repmath(tokens,idx,true);
+			});
+			var question = maincpp.question(dm.qstr,"algebra");
 			//var qh = maincpp.previewQuestion(dm.qstr);
-			var layout =  md.utils.unescapeAll(md.render(json.layout));
+			var layout =  md.utils.unescapeAll(md.render(question));
 			var jsonmessage = {'type':'preview','message':layout};
 			ws.send(JSON.stringify(jsonmessage));
 		}

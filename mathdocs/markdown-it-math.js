@@ -9,7 +9,7 @@ const maincppp = require(bindingP);
 var retHelloP = maincppp.hello();
 var nunjucks = require('nunjucks');
 
-module.exports = function(tokens,idx) {
+module.exports = function(tokens,idx,latex=false) {
 	var input = tokens[idx].content;
 	var currentMath = "";
 	var insideDollar = false;
@@ -25,7 +25,13 @@ module.exports = function(tokens,idx) {
 				//is $$ math
 			}
 			else {
-				var newString = maincppp.latexify(currentMath);
+				var newString;
+				if (latex){
+					newString = currentMath;
+				}
+				else{
+					newString = maincppp.latexify(currentMath);
+				}
 				var oldString = "$"+currentMath+"$";
 				newString = katex.renderToString(newString, {
 						throwOnError: false

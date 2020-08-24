@@ -117,7 +117,7 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 	flat_hash_map<char,std::string> varMap;
 	for (flat_hash_map<char,std::string>::iterator iter = rangeMap.begin(); iter != rangeMap.end(); ++iter){
 		varMap[iter->first]=makeInt(iter->second);	
-		std::cout << "if: " << iter->first << " is: " << iter->second << " and " << makeInt(iter->second) << "\n";
+		//std::cout << "if: " << iter->first << " is: " << iter->second << " and " << makeInt(iter->second) << "\n";
 	}
 	//std::string q = postfixify(qRow);
 	int i;
@@ -586,9 +586,7 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 					if (i+2 < nRows){
 						q.qC = rows[i+1];
 					}
-					std::cout << "+3: "<< rows[i+3] << "\n";
 					for (ii=i+3;ii<nRows;ii++){
-						std::cout << rows[ii] << " was rows[ii]\n";
 						if (rows[ii].substr(0,3) == ":::"){
 							break;
 						}
@@ -596,8 +594,6 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 						std::string range = "";
 						char var = rows[ii].at(0);
 						range = rows[ii].substr(2,rows[ii].length()-2);
-						std::cout << var << " was var\n";
-						std::cout << range << " was range\n";
 						rangeMap[var]=range;
 					}
 					i = ii;
