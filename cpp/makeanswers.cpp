@@ -246,8 +246,8 @@ std::vector<RawQuestion> makeQuestions(Dewey qDewey, std::string fileName){
 				else if (dewey.topic == "."){
 					dewey.topic = current;
 				}
-				else if (dewey.rule == "."){
-					dewey.rule = current;
+				else if (dewey.lesson == "."){
+					dewey.lesson = current;
 				}
 				else {
 					dewey.id = current;
@@ -265,8 +265,8 @@ std::vector<RawQuestion> makeQuestions(Dewey qDewey, std::string fileName){
 			else if (dewey.topic == "."){
 				dewey.topic = current;
 			}
-			else if (dewey.rule == "."){
-				dewey.rule = current;
+			else if (dewey.lesson == "."){
+				dewey.lesson = current;
 			}
 			else {
 				dewey.id = current;
@@ -455,6 +455,269 @@ std::vector<RawQuestion> makeQuestions(Dewey qDewey, std::string fileName){
 	return questions;
 }
 
+std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
+	
+
+	int i; int ii;
+	std::vector<std::string> rows;
+	std::string currentRow = "";
+	for (i=0;i<input.length();i++){
+		if (input.at(i) == '\n'){
+			rows.push_back(currentRow);
+			currentRow = "";
+		}
+		else {
+			currentRow += input.at(i);
+		}
+	}
+	if (currentRow.length()>0){
+		rows.push_back(currentRow);
+	}
+	
+	int nRows = rows.size();
+
+
+		
+	std::vector<RawQuestion> questions;
+
+	
+	int startIdx = 0;
+	int idx = 0;
+	int oldIdx = 0;
+	auto a0 = std::chrono::high_resolution_clock::now();
+	for (idx=0;idx<nRows;idx++){
+		bool makeThis = true;
+		Dewey dewey;
+		std::string firstRow = rows[startIdx];
+		
+		if (firstRow.substr(0,10) != ":subtople:"){
+			continue;
+		}
+		std::string rawDewey = firstRow.substr(10,firstRow.length()-10);
+		std::string current = "";
+		for (i=0;i<rawDewey.length();i++){
+			if (rawDewey.at(i)=='.'){
+				if (dewey.subject == "."){
+					dewey.subject = current;
+				}
+				else if (dewey.topic == "."){
+					dewey.topic = current;
+				}
+				else if (dewey.lesson == "."){
+					dewey.lesson = current;
+				}
+				else {
+					dewey.id = current;
+				}
+				current = "";
+			}
+			else {
+				current += rawDewey.at(i);
+			}
+		}
+		
+		if (current.length()>0){
+			if (dewey.subject == "."){
+				dewey.subject = current;
+			}
+			else if (dewey.topic == "."){
+				dewey.topic = current;
+			}
+			else if (dewey.lesson == "."){
+				dewey.lesson = current;
+			}
+			else {
+				dewey.id = current;
+			}
+		}
+		std::cout << "dewey: " << dewey.topic << "\n";
+		if (dewey <minEq> qDewey){
+		}
+		else {
+			makeThis = false;
+		}
+		std::vector<std::vector<std::string>> rawRules;
+
+		
+	
+		if (nRows<startIdx+5){
+			break;
+		}
+		oldIdx = startIdx;
+
+		flat_hash_map<char,std::string> rangeMap;
+		for (i=startIdx+1;i<nRows;i++){
+			std::string rawRule = rows[i];
+			if (rawRule == ""){
+				continue;
+			}
+			if (rawRule.substr(0,10) == ":subtople:"){
+				idx--;
+				break;
+			}
+			/*
+			if (makeThis){
+				if (rawRule.size() < 3 || rawRule[0] == "t"){
+					continue;			
+				}
+				else if (rawRule[0] != "a" && rawRule[0] != "q"){
+					continue;			
+				}
+				else if (rawRule[0] == "q" && rawRule[1].length() == 1){
+					std::string range = "";
+					char var = rawRule[1].at(0);
+					for (ii=3;ii<rawRule.size();ii++){
+						if (ii >3){
+							range += ",";
+						}
+						range += rawRule[ii];
+					}
+					//std::cout << "range: "<< range << "\n";		
+					//varMap[var]=makeInt(range);
+					rangeMap[var]=range;
+				}
+				else if (rawRule[2] == "x"){
+					//jsonmessage += "rule.examples.push(\""+rawRule[0]+"\");\n";
+				}
+				else if (rawRule[2] == "c"){
+					
+					if (rawRule.size()>5){
+						std::vector<std::string> tempV;
+						std::string currentCon = "";
+						int openPar = 0;
+						int iii;
+						for (ii=0;ii<rawRule.size();ii++){
+							if (ii<4){tempV.push_back(rawRule[ii]);}
+							else {
+								for (iii=0;iii<rawRule[ii].length();iii++){
+									if (rawRule[ii].at(iii) == '['){
+										openPar++;
+									}
+									else if (rawRule[ii].at(iii) == '{'){
+										openPar++;
+									}
+									else if (rawRule[ii].at(iii) == '('){
+										openPar++;
+									}
+									else if (rawRule[ii].at(iii) == '}'){
+										openPar--;
+									}
+									else if (rawRule[ii].at(iii) == ')'){
+										openPar--;
+									}
+									else if (rawRule[ii].at(iii) == ']'){
+										openPar--;
+									}
+									
+									if (rawRule[ii].at(iii) == ',' && openPar == 0){
+										tempV.push_back(currentCon);
+										currentCon = "";
+									}
+									else {
+										currentCon += rawRule[ii].at(iii);
+									}
+								}
+							}
+							
+						}
+						if (currentCon.length()>0){
+							tempV.push_back(currentCon);
+						}
+						rawRules.push_back(tempV);
+					}
+					else {
+						rawRules.push_back(rawRule);
+					}
+					
+					//jsonmessage += "rule.correct.push(\""+rawRule[0]+"\");\n";
+				}
+				else if (rawRule[2] == "i" || rawRule[2] == "e"){
+					if (rawRule.size()>5){
+						std::vector<std::string> tempV;
+						std::string currentCon = "";
+						int openPar = 0;
+						int iii;
+						for (ii=0;ii<rawRule.size();ii++){
+							if (ii<4){tempV.push_back(rawRule[ii]);}
+							else {
+								for (iii=0;iii<rawRule[ii].length();iii++){
+									if (rawRule[ii].at(iii) == '['){
+										openPar++;
+									}
+									else if (rawRule[ii].at(iii) == '{'){
+										openPar++;
+									}
+									else if (rawRule[ii].at(iii) == '('){
+										openPar++;
+									}
+									else if (rawRule[ii].at(iii) == '}'){
+										openPar--;
+									}
+									else if (rawRule[ii].at(iii) == ')'){
+										openPar--;
+									}
+									else if (rawRule[ii].at(iii) == ']'){
+										openPar--;
+									}
+									
+									if (rawRule[ii].at(iii) == ',' && openPar == 0){
+										tempV.push_back(currentCon);
+										currentCon = "";
+									}
+									else {
+										currentCon += rawRule[ii].at(iii);
+									}
+								}
+								
+								if (openPar > 0){
+									currentCon += ",";
+								}
+								
+								
+							}
+							
+						}
+						if (currentCon.length()>0){
+							tempV.push_back(currentCon);
+						}
+						rawRules.push_back(tempV);
+					}
+					else {
+						rawRules.push_back(rawRule);
+					}
+					//jsonmessage += "rule.incorrect.push(\""+rawRule[0]+"\");\n";
+				}
+			}
+			*/
+		
+		}
+		
+		if (!makeThis){
+			continue;
+		}
+		auto a1 = std::chrono::high_resolution_clock::now();
+		RawQuestion q;
+		//q.qH = doc.GetRow<std::string>(oldIdx+1)[0];
+		//q.qC = doc.GetRow<std::string>(oldIdx+2)[0];
+		//q.rangeMap = rangeMap;
+		//q.rawRules = rawRules;
+		questions.push_back(q);
+		auto a2 = std::chrono::high_resolution_clock::now();
+		int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();
+		std::cout << "time to makeQuestion(): " << dd1 << "\n";
+		int dd2 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a0 ).count();
+		std::cout << "time after rapidcsv: " << dd2 << "\n";
+		if (startIdx == oldIdx){
+			break;
+		}
+		
+		
+
+	}
+	
+	return questions;
+}
+
 Question previewQuestion(std::string input){
 	
 	RawQuestion q;
@@ -489,8 +752,8 @@ Question previewQuestion(std::string input){
 			else if (dewey.topic == "."){
 				dewey.topic = current;
 			}
-			else if (dewey.rule == "."){
-				dewey.rule = current;
+			else if (dewey.lesson == "."){
+				dewey.lesson = current;
 			}
 			else {
 				dewey.id = current;
@@ -508,14 +771,14 @@ Question previewQuestion(std::string input){
 		else if (dewey.topic == "."){
 			dewey.topic = current;
 		}
-		else if (dewey.rule == "."){
-			dewey.rule = current;
+		else if (dewey.lesson == "."){
+			dewey.lesson = current;
 		}
 		else {
 			dewey.id = current;
 		}
 	}
-	std::cout << dewey.subject << " -- " << dewey.topic << " -- " << dewey.rule << " -- " << dewey.id << "\n";
+	std::cout << dewey.subject << " -- " << dewey.topic << " -- " << dewey.lesson << " -- " << dewey.id << "\n";
 	std::vector<std::vector<std::string>> rawRules;
 
 	

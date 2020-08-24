@@ -2356,8 +2356,8 @@ std::string fullAnswer(std::string s){
 		deweyStr += currentQuestion.dewey.subject;
 		if (currentQuestion.dewey.topic != "."){
 			deweyStr += "."+currentQuestion.dewey.topic;
-			if (currentQuestion.dewey.rule != "."){
-				deweyStr += "."+currentQuestion.dewey.rule;
+			if (currentQuestion.dewey.lesson != "."){
+				deweyStr += "."+currentQuestion.dewey.lesson;
 			}
 		}
 	}
@@ -2590,25 +2590,34 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	Dewey dewey;
-
+	std::string q = "";
 	if (info.Length()>0){
 		v8::String::Utf8Value s(isolate, info[0]);
 		std::string a(*s);
-		dewey.subject = a;
+		q = a;
 	}
 	if (info.Length()>1){
 		v8::String::Utf8Value s(isolate, info[1]);
 		std::string a(*s);
-		dewey.topic = a;
+		dewey.subject = a;
 	}
 	if (info.Length()>2){
 		v8::String::Utf8Value s(isolate, info[2]);
 		std::string a(*s);
-		dewey.rule = a;
+		dewey.topic = a;
 	}
+	if (info.Length()>3){
+		v8::String::Utf8Value s(isolate, info[3]);
+		std::string a(*s);
+		dewey.lesson = a;
+	}
+	
 	answerConstraints.clear();
 	constraintMap.clear();
-	std::vector<RawQuestion> qs = makeQuestions(dewey, "answerconstraints.csv");
+	//std::vector<RawQuestion> qs = makeQuestions(dewey, "answerconstraints.csv");
+	std::cout << "starting" << q << "\n";
+	std::vector<RawQuestion> qs = makeQuestionsNew(dewey, q);
+	std::cout << "done\n";
 	currentQuestion = chooseQuestion(qs);
 	
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(currentQuestion.text);
