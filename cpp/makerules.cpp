@@ -216,17 +216,12 @@ void makeRulesNew(std::string input){
 	std::string out;
 	for (i=0;i<rawRules.size();i++){
 		Rule rule;
-		std::cout << "rrrs: " << rawRules[i].size() << "\n";
 		fullPost = makeRule(rawRules[i][0]);
 		key = fullPost[0];
 		val1 = fullPost[1];
 		rule.key = key;
-		std::cout << "key: "<< key << "\n";
-		std::cout << "val1: "<< val1 << "\n";
 		fullPost = makeRule(rawRules[i][1]);
-		std::cout << "raw: "<< rawRules[i][1] << "\n";
 		out = fullPost[0] + '@' + fullPost[1];
-		std::cout << "out: "<< out << "\n";
 		rule.operands = val1;
 		rule.out = out;
 		
