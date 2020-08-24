@@ -329,7 +329,7 @@ OperatorProxy idEq;
 OperatorProxy minEq;
 inline bool operator>(const OperatorProxy& a, const Dewey& b){
 	if (a.op == 0){
-		if (a.dewey.subject == b.subject && a.dewey.topic == b.topic && a.dewey.lesson == b.rule && a.dewey.id == b.id){
+		if (a.dewey.subject == b.subject && a.dewey.topic == b.topic && a.dewey.lesson == b.lesson && a.dewey.id == b.id){
 			return true;
 		}
 		return false;
@@ -347,7 +347,7 @@ inline bool operator>(const OperatorProxy& a, const Dewey& b){
 		return false;
 	}
 	else if (a.op == 3){
-		if (a.dewey.subject == b.subject && a.dewey.topic == b.topic && a.dewey.lesson == b.rule){
+		if (a.dewey.subject == b.subject && a.dewey.topic == b.topic && a.dewey.lesson == b.lesson){
 			return true;
 		}
 		return false;
@@ -359,7 +359,7 @@ inline bool operator>(const OperatorProxy& a, const Dewey& b){
 		else if (a.dewey.topic == "." || b.topic == "."){
 			return (a.dewey <subjectEq> b);
 		}
-		else if (a.dewey.lesson == "." || b.rule == "."){
+		else if (a.dewey.lesson == "." || b.lesson == "."){
 			return (a.dewey <topicEq> b);
 		}
 		else if (a.dewey.id == "." || b.id == "."){
