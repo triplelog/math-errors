@@ -208,10 +208,6 @@
 				createTrees(dm.answer);
 			}
 			else if (dm.type == 'preview'){
-				document.getElementById("previewQ").innerHTML = "";
-				document.getElementById("previewQ").textContent = dm.preview;
-			}
-			else if (dm.type == 'previewLesson'){
 				var el = document.getElementById('preview').querySelector('div.rounded-b');
 				el.innerHTML = dm.message;
 				document.getElementById('preview').style.display = "flex";

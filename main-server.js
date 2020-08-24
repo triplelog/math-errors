@@ -149,7 +149,7 @@ wss.on('connection', function connection(ws) {
 			if (dm.qstr.length >= 10000){
 				return;
 			}
-			var json = parseQuestion(dm.str);
+			var json = parseQuestion(dm.qstr);
 			console.log(json);
 			//var qh = maincpp.previewQuestion(dm.qstr);
 			var layout = md.render(json.layout);
