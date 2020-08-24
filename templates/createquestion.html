@@ -74,15 +74,12 @@
 
 				</div>
 				<div>
-					  <label class="block text-gray-700 text-sm font-bold mb-1" for="constraintsQ">
-						Constraints
+					  <label class="block text-gray-700 text-sm font-bold mb-1" for="constants">
+						Constants
 					  </label>
-					  <textarea id="constraintsQ" rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3"></textarea>
+					  <textarea id="constants" rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3"></textarea>
 
 				</div>
-
-			  </div>
-			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
 				<div>
 					<label class="block text-gray-700 text-sm font-bold mb-1" for="compA">
 						Answer
@@ -90,12 +87,31 @@
 					  <input id="compA" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
+
+			  </div>
+			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
 				<div>
-					  <label class="block text-gray-700 text-sm font-bold mb-1" for="constraintsA">
-						Constraints
-					  </label>
-					  <textarea id="constraintsA" rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3"></textarea>
-						
+					<div class="w-full" id="constraints"> 
+						{% for constraint in constraints %}
+						<div class="flex w-full">
+							<textarea rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" >{{ constraint }}</textarea>
+							<div class="w-auto flex-initial pb-2 mb-3">
+								<div class="border px-1 py-1 mb-3" name="delete"><i data-feather="trash"></i></div>
+							</div>
+						</div>
+						{% endfor %}
+						{% if !constraints || constraints.length < 1 %}
+						<div class="flex w-full">
+							<textarea rows="3" value="" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
+							<div class="w-auto flex-initial pb-2 mb-3">
+								<div class="border px-1 py-1 mb-3" name="delete"><i data-feather="trash"></i></div>
+							</div>
+						</div>
+						{% endif %}
+					</div>
+					<div class="w-full">
+						<button onclick="addConstraint()" class="bg-red-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline" type="button"><i data-feather="plus-circle" class="inline-block"></i> Add</button>
+					</div>
 				</div>
 			  </div>
 		  </div>
@@ -247,11 +263,18 @@
 			var human = document.getElementById("human").value;
 			outstr += "::: layout\n"+human + "\n:::\n";
 			var compQ =  document.getElementById("compQ").value;
-			var constraintsQ =  document.getElementById("constraintsQ").value;
-			outstr += "::: question\n"+compQ + "\n"+constraintsQ+"\n:::\n";
 			var compA =  document.getElementById("compA").value;
-			var constraintsA =  document.getElementById("constraintsA").value;
-			outstr += "::: answer\n"+compA+"\n"+constraintsA+"\n:::\n";
+			var constraintsQ =  document.getElementById("constants").value;
+			outstr += "::: question\n"+compQ + "\n"+compA+"\n"+constraintsQ+"\n:::\n";
+			
+			var constraints =  document.getElementById("constraints").querySelectorAll('textarea');
+			for (var i=0;i<constraints.length;i++){
+				if (constraints[i].value.trim().length > 0){
+					outstr += "::: answer\n"+constraints[i].value+"\n:::\n";
+				}
+				
+			}
+			
 			if (tags.length>0){
 				outstr += "::: tags\n";
 				for (var i=0;i<tags.length;i++){
@@ -261,6 +284,25 @@
 			}
 			
 			return outstr;
+		}
+		var els = document.querySelectorAll('div[name=delete]');
+		for (var i=0;i<els.length;i++){
+			els[i].addEventListener('click',deleteText);
+		}
+		function deleteText(evt){
+			var el = evt.target;
+			while (el.getAttribute('name') != 'delete' && el.parentElement){
+				el = el.parentElement;
+			}
+			el = el.parentElement.parentElement;
+			el.parentNode.removeChild(el);
+		}
+		function addConstraint() {
+			var clone = document.getElementById('constraints').querySelector('div.flex');
+			var tArea = clone.cloneNode(true);
+			tArea.querySelector('textarea').value = "";
+			tArea.querySelector('div[name=delete]').addEventListener('click',deleteText);
+			document.getElementById('constraints').appendChild(tArea);
 		}
 		
 		

@@ -66,7 +66,7 @@
 			  			</div>
 			  		</div>
 			  		{% endfor %}
-			  		{% if rules.length < 1 %}
+			  		{% if !rules || rules.length < 1 %}
 			  		<div class="flex w-full">
 			  			<textarea rows="3" value="" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
 			  			<div class="w-auto flex-initial pb-2 mb-3">
@@ -98,7 +98,7 @@
 			  			</div>
 			  		</div>
 			  		{% endfor %}
-			  		{% if errors.length < 1 %}
+			  		{% if !errors || errors.length < 1 %}
 			  		<div class="flex w-full">
 			  			<textarea rows="3" value="" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
 			  			<div class="w-auto flex-initial pb-2 mb-3">
