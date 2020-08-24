@@ -56,14 +56,6 @@ input.render = function( type, data, regexp ) {
 	if ( ( ( !regexp && data.length > 1) || ( regexp && data.length > 2) ) && data[data.length-1] ){
 		params = JSON.parse( data[data.length-1] );
 	}
-	if (params.options){
-		params.options.class = "border";
-	}
-	else {
-		params.options = {};
-		params.options.class = "border";
-	}
-	console.log(params.options);
 	
 	var divParams = params.div;
 	var optionsParams = params.options;
@@ -127,6 +119,11 @@ input.render = function( type, data, regexp ) {
 			if ( data.length > 3 && data[3] ) {
 				params.value = data[3];
 			}
+			console.log("params",params);
+			if (!params.class){
+				params.class = "border";
+			}
+			console.log("params",params);
 			html += '<label for="' + params.id + '">' + label + ' </label>';	
 			html += input.addAttributes( '<input type="text">', params);
 		break;
