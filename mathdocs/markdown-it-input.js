@@ -56,6 +56,7 @@ input.render = function( type, data, regexp ) {
 	if ( ( ( !regexp && data.length > 1) || ( regexp && data.length > 2) ) && data[data.length-1] ){
 		params = JSON.parse( data[data.length-1] );
 	}
+	params.options.class = "border";
 	var divParams = params.div;
 	var optionsParams = params.options;
 	delete params.div;
