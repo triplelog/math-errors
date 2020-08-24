@@ -34,7 +34,7 @@ const katex = require('katex');
 const markdown = require('markdown-it');
 var mdoptions = require('./mathdocs/markdown-it-rules.js')("");
 var md = new markdown();
-
+md.use(require('./mathdocs/markdown-it-input.js'));
 
 
 
@@ -587,4 +587,67 @@ function parseLesson(lesson){
 	return {rules:rules,errors:errors,examples:examples,info:info};
 }
 
-
+function parseQuestion(question){
+	var lines = question.split('\n');
+	var question = {comp:"",constraints:[]};
+	var answer = {comp:"",constraints:[]};
+	var tags = [];
+	var layout = "";
+	var currentType = "";
+	var currentToken = "";
+	var info = {};
+	for (var i=0;i<lines.length;i++){
+		if (lines[i].substr(0,3) == ":::"){
+			if (currentType == ""){
+				if (lines[i].match(/question/)){
+					currentType = "question"; currentToken = "";
+					question.comp = lines[i+1];
+					i++;
+					continue;
+				}
+				else if (lines[i].match(/answer/)){
+					currentType = "answer"; currentToken = "";
+					answer.comp = lines[i+1];
+					i++;
+					continue;
+				}
+				else if (lines[i].match(/tag/)){
+					currentType = "tags"; currentToken = "";
+					continue;
+				}
+				else if (lines[i].match(/layout/)){
+					currentType = "layout"; currentToken = "";
+					continue;
+				}
+			}
+			else if (currentType == "question"){
+				question.constraints = currentToken.split("\n");
+				currentType = ""; currentToken = "";
+			}
+			else if (currentType == "answer"){
+				answer.constraints = currentToken.split("\n");
+				currentType = ""; currentToken = "";
+			}
+			else if (currentType == "tags"){
+				tags = currentToken.split("\n");
+				currentType = ""; currentToken = "";
+			}
+			else if (currentType == "layout"){
+				layout = currentToken;
+				currentType = ""; currentToken = "";
+			}
+		}
+		else if (lines[i].substr(0,10) == ":subtople:"){
+			info.subtople = lines[i].substr(10).trim();
+			currentType = "explanation"; currentToken = "";
+		}
+		else if (lines[i].substr(0,6) == ":name:"){
+			info.name = lines[i].substr(6).trim();
+			currentType = "explanation"; currentToken = "";
+		}
+		else {
+			currentToken += lines[i]+'\n';
+		}
+	}
+	return {question:question,answer:answer,layout:layout,tags:tags,info:info};
+}

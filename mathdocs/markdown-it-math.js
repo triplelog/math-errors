@@ -1,6 +1,7 @@
 'use strict';
 const markdown = require('markdown-it');
 var md = new markdown();
+md.use(require('./mathdocs/markdown-it-input.js'));
 const katex = require('katex');
 const assert = require('assert');
 const bindingP = require.resolve(`../build/Release/bindingP`);

@@ -238,9 +238,14 @@
 			var compA =  document.getElementById("compA").value;
 			var constraintsA =  document.getElementById("constraintsA").value;
 			outstr += "::: answer\n"+compA+"\n"+constraintsA+"\n:::\n";
-			for (var i=0;i<tags.length;i++){
-				outstr += "::: tags\n"+tags[i]+"\n:::\n";
+			if (tags.length>0){
+				outstr += "::: tags\n";
+				for (var i=0;i<tags.length;i++){
+					outstr += tags[i]+"\n";
+				}
+				outstr += "\n:::\n";
 			}
+			
 			return outstr;
 		}
 		
