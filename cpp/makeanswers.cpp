@@ -117,13 +117,17 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 	flat_hash_map<char,std::string> varMap;
 	for (flat_hash_map<char,std::string>::iterator iter = rangeMap.begin(); iter != rangeMap.end(); ++iter){
 		varMap[iter->first]=makeInt(iter->second);	
+		std::cout << "if: " << iter->first << " is: " << iter->second << " and " << makeInt(iter->second) << "\n";
 	}
 	//std::string q = postfixify(qRow);
 	int i;
 	//std::string newQ = replaceVars(q,varMap);
 	std::vector<std::string> qv = postfixifyVector(qRow,true);
+	std::cout << "qv: " << qv[0] << " and " << qv[1] << "\n";
 	std::string q = replaceVars(qv[0] + "@"+qv[1],varMap);
+	std::cout << "q: " << q << "\n";
 	std::string newQ = solveInsideQuestion(q);
+	std::cout << "nq: " << newQ << "\n";
 	std::cout << "question for computer: " << newQ << "\n\n";
 	question.comp = newQ;
 
