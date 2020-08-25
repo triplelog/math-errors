@@ -173,8 +173,8 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 
 Question chooseQuestion(std::vector<RawQuestion> questions){
 	Question q = makeQuestion(questions[0].qC, questions[0].qH, questions[0].rangeMap);
-	std::cout << "hi" << q.text << "\n";
 	q.rawRules = questions[0].rawRules;
+	std::cout << "hi" << q.rawRules.size() << "\n";
 	std::vector<std::string> fullPost;
 	std::string key;
 	std::string val1;
@@ -613,6 +613,9 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 						i++;
 					}
 					currentRawRule[1] = "";
+					for (ii=0;ii<4;ii++){
+						std::cout << "crr: " << currentRawRule[ii] << "\n";
+					}
 					inRule = true;
 				}
 				else if (rawRule == "::: answere"){
@@ -639,6 +642,9 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 							}
 						}
 						else if (currentRawRule[2] == "c" || currentRawRule[2] == "i" || currentRawRule[2] == "e"){
+							for (ii=0;ii<4;ii++){
+								std::cout << "crra: " << currentRawRule[ii] << "\n";
+							}
 							rawRules.push_back(currentRawRule);
 						}
 						currentRawRule.resize(0);

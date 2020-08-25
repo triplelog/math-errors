@@ -2626,7 +2626,6 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//std::vector<RawQuestion> qs = makeQuestions(dewey, "answerconstraints.csv");
 	std::cout << "starting" << q << "\n";
 	std::vector<RawQuestion> qs = makeQuestionsNew(dewey, q);
-	std::cout << "hi" << qs.size() << "\n";
 	std::cout << "done\n";
 	currentQuestion = chooseQuestion(qs);
 	
