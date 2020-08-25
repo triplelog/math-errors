@@ -73,8 +73,16 @@ QuestionData.find({}, function(err,result) {
 				}
 				console.log(question);
 				maincpp.question(question);
-				var filen = "newtest.txt"
+				var filen = "newtest.txt";
+				var dir = "./cpp/questions";
+				if (!fs.existsSync(dir)){
+					fs.mkdirSync(dir);
+				}
+				
 				var outstr = maincpp.answers(filen);
+				
+				
+
 				result[i].topics[topic][iii].generated = {"filen":filen,"text":outstr};
 				result[i].markModified('topics[\"'+topic+'\"]['+iii+']');
 				result[i].save(function(err,result){
