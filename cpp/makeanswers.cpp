@@ -173,6 +173,7 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 
 Question chooseQuestion(std::vector<RawQuestion> questions){
 	Question q = makeQuestion(questions[0].qC, questions[0].qH, questions[0].rangeMap);
+	std::cout << "hi" << q.text << "\n";
 	q.rawRules = questions[0].rawRules;
 	std::vector<std::string> fullPost;
 	std::string key;
