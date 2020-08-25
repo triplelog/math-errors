@@ -176,7 +176,7 @@ wss.on('connection', function connection(ws) {
 			console.log("___",performance.now());
 			var question = "";
 			QuestionData.findOne({subject:subject},function(err,result){
-				var arr = result[topic];
+				var arr = result.topics[topic];
 				for (var i=0;i<arr.length;i++){
 					if (arr[i].name == name && arr[i].lesson == lesson){
 						question = arr[i].generated[0].text;
