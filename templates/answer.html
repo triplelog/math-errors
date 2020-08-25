@@ -348,7 +348,8 @@
 			}
 			else if (dm.type == 'question'){
 				var div = document.getElementById('question');
-				div.innerHTML = "";
+				div.innerHTML = dm.question;
+				/*
 				var isMath = false;
 				var currentSpan = "";
 				for (var i=0;i<dm.question.length;i++){
@@ -380,6 +381,7 @@
 					span.textContent = currentSpan;
 					div.appendChild(span);
 				}
+				*/
 				
 			}
 			else if (dm.type == 'auto'){
