@@ -636,11 +636,12 @@ app.get('/history',
 
 function makeTOC() {
 	toc = {};
+	toq = {};
 	SubjectData.find({}, function(err,result) {
 		for (var i=0;i<result.length;i++){
 			var subject = result[i].subject;
 			if (toc[subject]){
-			
+		
 			}
 			else {
 				toc[subject] = {};
@@ -649,7 +650,7 @@ function makeTOC() {
 			for (var ii=0;ii<topics.length;ii++){
 				var topic = topics[ii];
 				if (toc[result[i].subject][topic]){
-			
+		
 				}
 				else {
 					toc[result[i].subject][topic] = [];
@@ -658,15 +659,45 @@ function makeTOC() {
 				for (var iii=0;iii<arr.length;iii++){
 					var lesson = arr[iii].slug;
 					toc[result[i].subject][topic].push(lesson);
-				
+			
 				}
 			}
 		}
 		console.log(toc);
+		QuestionData.find({}, function(err2,result2) {
+			for (var i=0;i<result2.length;i++){
+				var subject = result2[i].subject;
+				if (toq[subject]){
+		
+				}
+				else {
+					toq[subject] = {};;
+				}
+				var topics = Object.keys(result2[i].topics);
+				for (var ii=0;ii<topics.length;ii++){
+					var topic = topics[ii];
+					if (toq[subject][topic]){
+		
+					}
+					else {
+						toq[subject][topic] = {};
+					}
+					var arr = result2[i].topics[topic];
+					for (var iii=0;iii<arr.length;iii++){
+						var lesson = arr[iii].lesson;
+						toq[subject][topic][lesson]=true;
+			
+					}
+				}
+			}
+			console.log(toq);
+		});
+		
 	});
 	
 }
 var toc = {};
+var toq = {};
 makeTOC();
 function parseLesson(lesson){
 	var lines = lesson.split('\n');
