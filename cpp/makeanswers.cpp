@@ -609,10 +609,10 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 					currentRawRule[3] = "";
 					currentRawRule[2] = "c";
 					if (i+1 < nRows){
-						currentRawRule[0] = rows[i+1];
+						currentRawRule[1] = rows[i+1];
 						i++;
 					}
-					currentRawRule[1] = "";
+					currentRawRule[0] = "a";
 					for (ii=0;ii<4;ii++){
 						std::cout << "crr: " << currentRawRule[ii] << "\n";
 					}
@@ -626,10 +626,10 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 					currentRawRule[3] = "";
 					currentRawRule[2] = "e";
 					if (i+1 < nRows){
-						currentRawRule[0] = rows[i+1];
+						currentRawRule[1] = rows[i+1];
 						i++;
 					}
-					currentRawRule[1] = "";
+					currentRawRule[0] = "a";
 					inRule = true;
 				}
 				else if (rawRule.substr(0,3) == ":::"){
@@ -642,7 +642,7 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 							}
 						}
 						else if (currentRawRule[2] == "c" || currentRawRule[2] == "i" || currentRawRule[2] == "e"){
-							for (ii=0;ii<4;ii++){
+							for (ii=0;ii<currentRawRule.size();ii++){
 								std::cout << "crra: " << currentRawRule[ii] << "\n";
 							}
 							rawRules.push_back(currentRawRule);
