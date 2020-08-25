@@ -68,6 +68,9 @@ QuestionData.find({}, function(err,result) {
 				var lesson = arr[iii].lesson;
 				var question = arr[iii].question;
 				console.log(question);
+				if (arr[iii].name != "two"){
+					continue;
+				}
 				maincpp.question(question);
 				var outstr = maincpp.answers("testanswer.txt");
 				console.log(outstr);
