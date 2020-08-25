@@ -72,7 +72,8 @@ QuestionData.find({}, function(err,result) {
 			}
 		}
 	}
-}
+});
+
 function makeTOC() {
 	toc = {};
 	SubjectData.find({}, function(err,result) {
