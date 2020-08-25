@@ -92,6 +92,9 @@
 						{% for lesson in lessons %}
 						<li class="my-1 capitalize">
 							<a href="createlesson?s={{subject}}&t={{topic}}&l={{lesson}}">{{ lesson }}</a>
+							{% if toq[subject][topic] %}
+							<a href="questiona?s={{subject}}&t={{topic}}&l={{lesson}}" class="float-right bg-green-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline">?</a>
+							{% endif %}
 							<a href="createquestion?s={{subject}}&t={{topic}}&l={{lesson}}" class="float-right bg-green-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline">Q</a>
 						</li>
 						{% endfor %}

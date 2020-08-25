@@ -268,10 +268,19 @@
 		function submitQuestion() {
 			//var question = document.getElementById("equation").value;
 			//var answer = "x";//document.getElementById("answer").value;
-			var subject = "calculus";
-			var topic = "derivatives";
-			var lesson = "power";
+			var subject = "";
+			var topic = "";
+			var lesson = "";
 			var name = "{{ name }}";
+			{% if info.subtople and info.subtople.split('.')[0] %}
+			subject = "{{ info.subtople.split('.')[0] }}";
+			{% endif %}
+			{% if info.subtople and info.subtople.split('.')[1] %}
+			topic = "{{ info.subtople.split('.')[1] }}";
+			{% endif %}
+			{% if info.subtople and info.subtople.split('.')[2] %}
+			lesson = "{{ info.subtople.split('.')[2] }}";
+			{% endif %}
 			var jsonmessage = {type:"makeanswers",subject:subject,topic:topic,lesson:lesson,name:name};
 			ws.send(JSON.stringify(jsonmessage));
 		}

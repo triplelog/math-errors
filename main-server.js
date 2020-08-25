@@ -442,11 +442,27 @@ app.get('/question',
 app.get('/questiona',
 	function(req, res){
 		
-		
+		var name = "";
+		var dewey = "";
+		var info = {};
+		if (req.query && req.query.s){
+			dewey += req.query.s.toLowerCase() + '.';
+		}
+		if (req.query && req.query.t){
+			dewey += req.query.t.toLowerCase() + '.';
+		}
+		if (req.query && req.query.l){
+			dewey += req.query.l.toLowerCase();
+		}
+		if (req.query && req.query.n){
+			name = req.query.n.toLowerCase();
+		}
+		info.subtople = dewey;
 		console.log(performance.now());
 		//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
 		//ws.send(JSON.stringify(jsonmessage));
 		res.write(nunjucks.render('templates/answer.html',{
+			info: info,
 			title: "TitlE",
 			toc: toc,
 			toq:toq,
