@@ -443,9 +443,13 @@ app.get('/createquestion',
 		var dewey = '';
 		var name = '';
 		var question = "";
-		if (req.query && req.query.s && req.query.t && req.query.l){
+		if (req.query && req.query.s){
 			dewey += req.query.s.toLowerCase() + '.';
+		}
+		if	(req.query && req.query.t){
 			dewey += req.query.t.toLowerCase() + '.';
+		}
+		if (req.query && req.query.l){
 			dewey += req.query.l.toLowerCase();
 		}
 		if (req.query && req.query.n){
@@ -463,6 +467,12 @@ app.get('/createquestion',
 					var arr = result[i].topics[dewey.split('.')[1]];
 					for (var ii=0;ii<arr.length;ii++){
 						if (arr[ii].lesson == dewey.split('.')[2] && arr[ii].name == name){
+							question = arr[ii].question;
+						}
+						else if (arr[ii].lesson == dewey.split('.')[2] && "" == name){
+							question = arr[ii].question;
+						}
+						else if ("" == dewey.split('.')[2] && "" == name){
 							question = arr[ii].question;
 						}
 					}
