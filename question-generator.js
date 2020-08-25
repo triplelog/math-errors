@@ -73,8 +73,16 @@ QuestionData.find({}, function(err,result) {
 				}
 				console.log(question);
 				maincpp.question(question);
-				var filen = "newtest.txt";
+				var filen = "sub_"+subject+"/top_"+topic+"/l_"+lesson+"_n_"+arr[iii].name+".txt";
 				var dir = "./cpp/questions";
+				if (!fs.existsSync(dir)){
+					fs.mkdirSync(dir);
+				}
+				dir = "./cpp/questions/sub_"+subject;
+				if (!fs.existsSync(dir)){
+					fs.mkdirSync(dir);
+				}
+				dir = "./cpp/questions/sub_"+subject+"/top_"+topic;
 				if (!fs.existsSync(dir)){
 					fs.mkdirSync(dir);
 				}

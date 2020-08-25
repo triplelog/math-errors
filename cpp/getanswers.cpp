@@ -516,10 +516,9 @@ void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//int row = info[0]->Int32Value(context).FromJust();
 	v8::String::Utf8Value s(isolate, info[0]);
 	std::string a(*s);
-	std::cout << "your question: " << a << "\n";
 	
 
-	rapidcsv::Document doc("testanswer.txt", rapidcsv::LabelParams(-1, -1));
+	rapidcsv::Document doc("./questions/" + a, rapidcsv::LabelParams(-1, -1));
 	
 	int nRows = doc.GetRowCount();
 	int i; int ii; int iii;
