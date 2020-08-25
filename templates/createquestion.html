@@ -29,21 +29,21 @@
 					<label class="block text-gray-700 text-sm font-bold mb-1" for="subtople">
 						Subject.Topic.Lesson
 					  </label>
-					  <input id="subtople" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+					  <input id="subtople" value="{% if info and info.subtople %}{{ info.subtople }}{% endif %}" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
 				<div>
 					<label class="block text-gray-700 text-sm font-bold mb-1" for="name">
 						Name
 					  </label>
-					  <input id="name" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+					  <input id="name" value="{% if info and info.name %}{{ info.name }}{% endif %}" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
 				<div>
 					  <label class="block text-gray-700 text-sm font-bold mb-1" for="human">
 						Layout
 					  </label>
-					  <textarea id="human" rows="5" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3"></textarea>
+					  <textarea id="human" rows="5" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3">{% if layoiut %}{{ layout }}{% endif %}</textarea>
 
 				</div>
 				<div>
@@ -68,21 +68,21 @@
 					<label class="block text-gray-700 text-sm font-bold mb-1" for="compQ">
 						Question
 					  </label>
-					  <input id="compQ" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+					  <input id="compQ" value="{% if question and question.comp %}{{ quesiton.comp }}{% endif %}" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
 				<div>
 					  <label class="block text-gray-700 text-sm font-bold mb-1" for="constants">
 						Constants
 					  </label>
-					  <textarea id="constants" rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3"></textarea>
+					  <textarea id="constants" rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3">{% if question and question.constants %}{% for c in question.constants %}{{ c }}\n{% endfor %}{% endif %}</textarea>
 
 				</div>
 				<div>
 					<label class="block text-gray-700 text-sm font-bold mb-1" for="compA">
 						Answer
 					  </label>
-					  <input id="compA" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
+					  <input id="compA" value="{% if answer and answer.comp %}{{ answer.comp }}{% endif %}" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3" type="text">
 
 				</div>
 
@@ -90,7 +90,7 @@
 			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
 				<div>
 					<div class="w-full" id="constraints"> 
-						{% for constraint in constraints %}
+						{% for constraint in answer.constraints %}
 						<div class="flex w-full">
 							<textarea rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" >{{ constraint }}</textarea>
 							<div class="w-auto flex-initial pb-2 mb-3">
@@ -98,7 +98,7 @@
 							</div>
 						</div>
 						{% endfor %}
-						{% if not constraints or constraints.length < 1 %}
+						{% if not answer.constraints or answer.constraints.length < 1 %}
 						<div class="flex w-full">
 							<textarea rows="3" value="" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
 							<div class="w-auto flex-initial pb-2 mb-3">

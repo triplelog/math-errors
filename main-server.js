@@ -476,6 +476,11 @@ app.get('/createquestion',
 			console.log(json);
 			
 			res.write(nunjucks.render('templates/createquestion.html',{
+				info: json.info,
+				layout: json.layout,
+				question: json.question,
+				answer: json.answer,
+				tags: json.tags,
 				title: "TitlE",
 				toc: toc,
 			}));
