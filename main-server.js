@@ -472,6 +472,7 @@ app.get('/createquestion',
 			var json = {};
 			if (question && question != ""){
 				json = parseQuestion(question);
+				json.question.constants = json.question.constants.join("\n");
 			}
 			console.log(json);
 			
