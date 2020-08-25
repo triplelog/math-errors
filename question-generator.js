@@ -67,7 +67,7 @@ QuestionData.find({}, function(err,result) {
 			for (var iii=0;iii<arr.length;iii++){
 				var lesson = arr[iii].lesson;
 				var question = arr[iii].question;
-				console.log(question.layout);
+				console.log(question);
 			
 			}
 		}
