@@ -187,9 +187,8 @@ wss.on('connection', function connection(ws) {
 				else {
 					arr = result.topics[topic];
 				}
-				console.log("arr",arr);
 				for (var i=0;i<arr.length;i++){
-					if ( (arr[i].name == name || name == "") && (arr[i].lesson == lesson || lesson == "")){
+					if (arr[i].generated && (arr[i].name == name || name == "") && (arr[i].lesson == lesson || lesson == "")){
 						question = md.utils.unescapeAll(md.render(arr[i].generated[0].text));
 						filen = arr[i].generated[0].filen;
 						break;
