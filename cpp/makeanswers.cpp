@@ -559,6 +559,7 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 		for (i=startIdx+1;i<nRows;i++){
 			std::string rawRule = rows[i];
 			if (rawRule == ""){
+				currentRawRule.push_back(rawRule);
 				continue;
 			}
 			if (rawRule.substr(0,10) == ":subtople:"){
