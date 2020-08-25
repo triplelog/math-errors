@@ -241,6 +241,7 @@
 			var outstr = makeQuestion();
 
 			var subtople = document.getElementById('subtople').value.split('.');
+			var name = document.getElementById('name').value;
 			var subject = "";
 			var topic = "";
 			var lesson = "";
@@ -255,7 +256,7 @@
 				lesson = subtople[2];
 			}
 			
-			var jsonmessage = {'type':'saveQuestion','subject':subject,'topic':topic,'lesson':lesson,'question':outstr};
+			var jsonmessage = {'type':'saveQuestion','subject':subject,'topic':topic,'lesson':lesson,'question':outstr, 'name':name};
 			console.log(jsonmessage);
 			ws.send(JSON.stringify(jsonmessage));
 		}
