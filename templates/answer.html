@@ -227,6 +227,12 @@
 				var div = document.getElementById('question');
 				div.innerHTML = dm.question;
 				
+				autoComplete = {};
+				autoNow = "";
+				var answerEl = document.getElementById('answer');
+				answerEl.addEventListener('keydown',answerDown);
+				answerEl.addEventListener('input',answerChange);
+				
 			}
 			else if (dm.type == 'auto'){
 				console.log("ret message");
@@ -326,9 +332,6 @@
 		}
 		var autoComplete = {};
 		var autoNow = "";
-		var answerEl = document.getElementById('answer');
-		answerEl.addEventListener('keydown',answerDown);
-		answerEl.addEventListener('input',answerChange);
 		
 		
 	</script>
