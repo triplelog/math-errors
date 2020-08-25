@@ -184,7 +184,7 @@ wss.on('connection', function connection(ws) {
 				}
 				var jsonmessage = {'type':'question','question':question};
 				ws.send(JSON.stringify(jsonmessage));
-			}
+			});
 			
 		}
 		else if (dm.type == 'saveQuestion'){
