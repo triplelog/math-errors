@@ -92,7 +92,7 @@ QuestionData.find({}, function(err,result) {
 				
 
 				result[i].topics[topic][iii].generated = [{"filen":filen,"text":outstr}];
-				result[i].markModified('topics[\"'+topic+'\"]['+iii+']');
+				result[i].markModified('topics');
 				result[i].save(function(err,result){
 					console.log("err:",err);
 					console.log("new",JSON.stringify(result));
