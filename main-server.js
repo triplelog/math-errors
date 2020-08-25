@@ -159,7 +159,7 @@ wss.on('connection', function connection(ws) {
 			md.use(iterator, 'math_replace', 'text', function (tokens, idx) {
 				tokens[idx].content = repmath(tokens,idx,true);
 			});
-			var question = maincpp.question(dm.qstr,"algebra");
+			var question = maincpp.question(dm.qstr);
 			//var qh = maincpp.previewQuestion(dm.qstr);
 			var layout =  md.utils.unescapeAll(md.render(question));
 			var jsonmessage = {'type':'preview','message':layout};

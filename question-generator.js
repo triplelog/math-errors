@@ -68,46 +68,17 @@ QuestionData.find({}, function(err,result) {
 				var lesson = arr[iii].lesson;
 				var question = arr[iii].question;
 				console.log(question);
+				maincpp.question(question);
+				var outstr = maincpp.answers("testanswer.txt");
+				console.log(outstr);
+				//make question, answers, save to file, link file to database
 			
 			}
 		}
 	}
 });
 
-function makeTOC() {
-	toc = {};
-	SubjectData.find({}, function(err,result) {
-		for (var i=0;i<result.length;i++){
-			var subject = result[i].subject;
-			if (toc[subject]){
-			
-			}
-			else {
-				toc[subject] = {};
-			}
-			var topics = Object.keys(result[i].topics);
-			for (var ii=0;ii<topics.length;ii++){
-				var topic = topics[ii];
-				if (toc[result[i].subject][topic]){
-			
-				}
-				else {
-					toc[result[i].subject][topic] = [];
-				}
-				var arr = result[i].topics[topic];
-				for (var iii=0;iii<arr.length;iii++){
-					var lesson = arr[iii].slug;
-					toc[result[i].subject][topic].push(lesson);
-				
-				}
-			}
-		}
-		console.log(toc);
-	});
-	
-}
-var toc = {};
-makeTOC();
+
 function parseLesson(lesson){
 	var lines = lesson.split('\n');
 	var rules = [];

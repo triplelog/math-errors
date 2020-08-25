@@ -2226,7 +2226,7 @@ std::vector<Step> makeIncorrectSolutionList(std::string s, std::string q){
 	return v;
 }
 
-std::string fullAnswer(std::string s){
+std::string fullAnswer(std::string s, std::string filen){
 	std::string newPostfix = removeBracketsOne(s);
 	std::cout << "\n\nStarting the Loop @$*&^@$*&^@*$&^@*$&^\n\n";
 	
@@ -2349,7 +2349,7 @@ std::string fullAnswer(std::string s){
 	inputify();
 	
 	std::ofstream myfile;
-	myfile.open("testanswer.txt");
+	myfile.open(filen);
 	myfile << currentQuestion.text +"\n";
 	std::string deweyStr = "";
 	if (currentQuestion.dewey.subject != "."){
@@ -2599,17 +2599,26 @@ void GetQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	if (info.Length()>1){
 		v8::String::Utf8Value s(isolate, info[1]);
 		std::string a(*s);
-		dewey.subject = a;
+		if (a.length()>0){
+			dewey.subject = a;
+		}
 	}
 	if (info.Length()>2){
 		v8::String::Utf8Value s(isolate, info[2]);
 		std::string a(*s);
-		dewey.topic = a;
+		if (a.length()>0){
+			dewey.topic = a;
+		}
+		
+		
 	}
 	if (info.Length()>3){
 		v8::String::Utf8Value s(isolate, info[3]);
 		std::string a(*s);
-		dewey.lesson = a;
+		if (a.length()>0){
+			dewey.lesson = a;
+		}
+		
 	}
 	
 	answerConstraints.clear();
@@ -2642,7 +2651,8 @@ void PreviewQuestion(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
-	
+	v8::String::Utf8Value s(isolate, info[0]);
+	std::string filen(*s);
 	
 	finishedAnswers.resize(0);
 	answerListMap.clear();
@@ -2662,7 +2672,7 @@ void GetAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	
 	std::cout << "mf:" << maxFound << " times: " << duration1 << " and " << duration2 << " and " << duration3 << "\n";
 	
-	std::string error = fullAnswer(currentQuestion.comp);
+	std::string error = fullAnswer(currentQuestion.comp,filen);
 	
 	
 	auto a2 = std::chrono::high_resolution_clock::now();
