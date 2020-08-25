@@ -518,7 +518,7 @@ void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::string a(*s);
 	
 
-	rapidcsv::Document doc("./questions/" + a, rapidcsv::LabelParams(-1, -1));
+	rapidcsv::Document doc("./cpp/questions/" + a, rapidcsv::LabelParams(-1, -1));
 	
 	int nRows = doc.GetRowCount();
 	int i; int ii; int iii;
