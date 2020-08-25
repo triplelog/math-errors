@@ -456,7 +456,7 @@ app.get('/createquestion',
 
 		var html = "";
 
-		SubjectData.find({subject:dewey.split('.')[0]}, function(err,result) {
+		QuestionData.find({subject:dewey.split('.')[0]}, function(err,result) {
 
 			for (var i=0;i<result.length;i++){
 				if (result[i].topics[dewey.split('.')[1]]){
