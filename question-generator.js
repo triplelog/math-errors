@@ -68,7 +68,7 @@ QuestionData.find({}, function(err,result) {
 				var lesson = arr[iii].lesson;
 				var question = arr[iii].question;
 				
-				if (arr[iii].name != "two"){
+				if (arr[iii].name != "two" && arr[iii].name != "three"){
 					continue;
 				}
 				console.log(question);
