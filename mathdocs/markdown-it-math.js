@@ -33,6 +33,7 @@ module.exports = function(tokens,idx,latex=false) {
 					newString = maincppp.latexify(currentMath);
 				}
 				var oldString = "$"+currentMath+"$";
+				console.log("ns:",newString);
 				newString = katex.renderToString(newString, {
 						throwOnError: false
 				  });
