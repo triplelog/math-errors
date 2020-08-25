@@ -271,7 +271,7 @@
 			var subject = "calculus";
 			var topic = "derivatives";
 			var lesson = "power";
-			var name = {{ name }};
+			var name = "{{ name }}";
 			var jsonmessage = {type:"makeanswers",subject:subject,topic:topic,lesson:lesson,name:name};
 			ws.send(JSON.stringify(jsonmessage));
 		}
