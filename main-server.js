@@ -168,6 +168,9 @@ wss.on('connection', function connection(ws) {
 		}
 		else if (dm.type == 'makeanswers'){
 			console.log("___",performance.now());
+			md.use(iterator, 'math_replace', 'text', function (tokens, idx) {
+				tokens[idx].content = repmath(tokens,idx,true);
+			});
 			var subject = dm.subject;
 			var topic = dm.topic;
 			var lesson = dm.lesson;
