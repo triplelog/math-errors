@@ -175,6 +175,7 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 Question chooseQuestion(std::vector<RawQuestion> questions){
 	Question q = makeQuestion(questions[0].qC, questions[0].qH, questions[0].rangeMap);
 	q.rawRules = questions[0].rawRules;
+	q.dewey = questions[0].dewey;
 	std::vector<std::string> fullPost;
 	std::string key;
 	std::string val1;
@@ -793,6 +794,7 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 		
 		q.rangeMap = rangeMap;
 		q.rawRules = rawRules;
+		q.dewey = dewey;
 		questions.push_back(q);
 		auto a2 = std::chrono::high_resolution_clock::now();
 		int dd1 = std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count();

@@ -20,17 +20,19 @@ bool answerIsFinished;
 flat_hash_map<int,int> eloMap;
 
 
-struct RawQuestion {
-	std::string qH = "";
-	std::string qC = "";
-	flat_hash_map<char,std::string> rangeMap;
-	std::vector<std::vector<std::string>> rawRules;
-};
+
 struct Dewey {
 	std::string subject = ".";
 	std::string topic = ".";
 	std::string lesson = ".";
 	std::string id = ".";
+};
+struct RawQuestion {
+	std::string qH = "";
+	std::string qC = "";
+	flat_hash_map<char,std::string> rangeMap;
+	std::vector<std::vector<std::string>> rawRules;
+	Dewey dewey;
 };
 struct Question {
 	std::string text = "";
