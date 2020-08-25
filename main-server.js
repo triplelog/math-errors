@@ -175,16 +175,21 @@ wss.on('connection', function connection(ws) {
 			var topic = dm.topic;
 			var lesson = dm.lesson;
 			var name = dm.name;
-			var outS = maincppa.makeanswers("sub_"+subject+"/top_"+topic+"/l_"+lesson+"_n_"+name+".txt");
-			console.log("___",performance.now());
 			var question = "";
+			var filen = "";
 			QuestionData.findOne({subject:subject},function(err,result){
 				var arr = result.topics[topic];
 				for (var i=0;i<arr.length;i++){
 					if (arr[i].name == name && arr[i].lesson == lesson){
 						question = md.utils.unescapeAll(md.render(arr[i].generated[0].text));
+						filen = arr[i].generated[0].filen;
+						break;
 					}
 				}
+				if (filen != ""){
+					maincppa.makeanswers(filen);
+				}
+				
 				var jsonmessage = {'type':'question','question':question};
 				ws.send(JSON.stringify(jsonmessage));
 			});
