@@ -1,115 +1,6 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.72.0">
-    <title>Dashboard Template · Bootstrap</title>
+{% extends "templates/skeleton.html" %}
 
-    <link rel="canonical" href="">
-
-    
-
-    <!-- Bootstrap core CSS -->
-<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
-	<link rel="stylesheet" href="css/treeflex.css">
-
-    <style>
-	.morsebg {
-		background-image: url("../images/morsebg.png");
-		background-size: 100% 100%;
-		background-repeat: no-repeat;
-	}
-	.tf-tree > ul > li:nth-child(1) .startNode {
-		border-color: red;
-	}
-	.tf-tree > ul > li:nth-child(1) .startNodes {
-		border-color: red;
-	}
-	.tf-tree > ul > li:nth-child(2) .endNode {
-		background-color: rgba(0,255,0,.2);
-	}
-	.tf-tree > ul > li:nth-child(2) .endNodes {
-		background-color: rgba(0,255,0,.2);
-	}
-      
-    </style>
-
-    
-    <!-- Custom styles for this template -->
-    <link href="css/dashboard.css" rel="stylesheet">
-    <link href="css/output.css" rel="stylesheet">
-</head>
-<body>
-    
-
-
-<div class="flex m-0 p-0">
-    
-	  <div class="w-1/5 flex-none bg-blue-200 min-h-screen">
-		<div class="w-full morsebg text-white py-2 text-center text-2xl">
-			<a>Math Errors</a>
-		</div>
-
-		<ul class="nav flex-column">
-		  <li class="nav-item">
-			<a class="nav-link active" aria-current="page" href="#">
-			  <span data-feather="plus"></span>
-			  New Question
-			</a>
-		  </li>
-	  
-		</ul>
-		<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-		  <span>History</span>
-		</h6>
-		<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-		  <span>Topics</span>
-		  <a class="link-secondary" href="#" aria-label="Add a new report">
-			<span data-feather="plus-circle"></span>
-		  </a>
-		</h6>
-		<ul class="nav flex-column mb-2">
-		  <li class="nav-item">
-			<a class="nav-link" href="#">
-			  Arithmetic
-			</a>
-			<div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
-			  <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#">
-			  Derivatives
-			</a>
-			<div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
-			  <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#">
-			  Integrals
-			</a>
-			<div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
-			  <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#">
-			  Limits
-			</a>
-			<div class="progress" style="height: 5px; top: -.5rem; position: relative; margin: 0rem 1rem;">
-			  <div class="progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
-		  </li>
-		</ul>
-	  </div>
-
-
-    <div class="w-4/5 flex-none px-2 max-h-screen">
+{% block main %}
     	<div class="w-full mb-2 py-4">
 			<span class="text-2xl"><b>Quiz</b></span>
 			<button class="float-right bg-white hover:border-gray-900 text-gray-700 font-bold py-2 px-2 border border-gray-400 rounded-r focus:outline-none focus:shadow-outline" type="button">Share</button>
@@ -209,18 +100,8 @@
 		  </div>
 		</div>
 
-
-    </div>
-
-</div>
-
-
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" integrity="sha384-EbSscX4STvYAC/DxHse8z5gEDaNiKAIGW+EpfzYTfQrgIlHywXXrM9SUIZ0BlyfF" crossorigin="anonymous"></script>
-      <script src="js/dashboard.js"></script>
-  
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+{% endblock %}
+{% block scripts %}
 	<script>
 		function toggleNode(evt) {
 			var collapseTarget = evt.target.getAttribute('data-target');
@@ -349,39 +230,6 @@
 			else if (dm.type == 'question'){
 				var div = document.getElementById('question');
 				div.innerHTML = dm.question;
-				/*
-				var isMath = false;
-				var currentSpan = "";
-				for (var i=0;i<dm.question.length;i++){
-					if (dm.question.charAt(i)=='$'){
-						if (isMath){
-							isMath = false;
-							var span = document.createElement('span');
-							span.textContent = currentSpan;
-							div.appendChild(span);
-							katex.render(span.textContent, span, {
-								throwOnError: false
-							});
-							currentSpan = "";
-						}
-						else {
-							var span = document.createElement('span');
-							span.textContent = currentSpan;
-							div.appendChild(span);
-							isMath = true;
-							currentSpan = "";
-						}
-					}
-					else {
-						currentSpan += dm.question.charAt(i);
-					}
-				}
-				if (currentSpan.length > 0){
-					var span = document.createElement('span');
-					span.textContent = currentSpan;
-					div.appendChild(span);
-				}
-				*/
 				
 			}
 			else if (dm.type == 'auto'){
@@ -423,7 +271,7 @@
 			var subject = "calculus";
 			var topic = "derivatives";
 			var lesson = "power";
-			var name = "two";
+			var name = {{ name }};
 			var jsonmessage = {type:"makeanswers",subject:subject,topic:topic,lesson:lesson,name:name};
 			ws.send(JSON.stringify(jsonmessage));
 		}
@@ -479,5 +327,4 @@
 		
 		
 	</script>
-  </body>
-</html>
+{% endblock %}

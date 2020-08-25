@@ -447,7 +447,9 @@ app.get('/questiona',
 		//var jsonmessage = {'type':'imageSrc','src':inSrc.replace('static/','../')};
 		//ws.send(JSON.stringify(jsonmessage));
 		res.write(nunjucks.render('templates/answer.html',{
-
+			title: "TitlE",
+			toc: toc,
+			name: "two",
 		}));
 		res.end();
 
