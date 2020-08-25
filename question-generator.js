@@ -77,7 +77,7 @@ QuestionData.find({}, function(err,result) {
 				var outstr = maincpp.answers(filen);
 				result[i].topics[topic][iii].generated = filen;
 				result[i].markModified('topics[\"'+topic+'\"]['+iii+']');
-				result[i].save(funciton(err,result){
+				result[i].save(function(err,result){
 					console.log("new",JSON.stringify(result));
 				});
 				console.log(outstr);
