@@ -2350,7 +2350,7 @@ std::string fullAnswer(std::string s, std::string filen){
 	
 	std::ofstream myfile;
 	myfile.open(filen);
-	myfile << "" +"\n";
+	myfile << "\n";
 	std::string deweyStr = "";
 	if (currentQuestion.dewey.subject != "."){
 		deweyStr += currentQuestion.dewey.subject;
