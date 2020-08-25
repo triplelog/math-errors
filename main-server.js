@@ -178,9 +178,18 @@ wss.on('connection', function connection(ws) {
 			var question = "";
 			var filen = "";
 			QuestionData.findOne({subject:subject},function(err,result){
-				var arr = result.topics[topic];
+				var arr = [];
+				if (topic == ""){
+					for (var t in result.topics){
+						arr += result.topics[t];
+					}
+				}
+				else {
+					arr = result.topics[topic];
+				}
+				console.log("arr",arr);
 				for (var i=0;i<arr.length;i++){
-					if (arr[i].name == name && arr[i].lesson == lesson){
+					if ( (arr[i].name == name || name == "") && (arr[i].lesson == lesson || lesson == "")){
 						question = md.utils.unescapeAll(md.render(arr[i].generated[0].text));
 						filen = arr[i].generated[0].filen;
 						break;
@@ -466,7 +475,7 @@ app.get('/questiona',
 			title: "TitlE",
 			toc: toc,
 			toq:toq,
-			name: "three",
+			name: name,
 		}));
 		res.end();
 
