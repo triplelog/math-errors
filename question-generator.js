@@ -57,7 +57,21 @@ console.log(startTime, performance.now(), rules.length);
 
 
 QuestionData.find({}, function(err,result) {
+	for (var i=0;i<result.length;i++){
+		var subject = result[i].subject;
+		var topics = Object.keys(result[i].topics);
+		for (var ii=0;ii<topics.length;ii++){
+			var topic = topics[ii];
 
+			var arr = result[i].topics[topic];
+			for (var iii=0;iii<arr.length;iii++){
+				var lesson = arr[iii].lesson;
+				var question = arr[iii].question;
+				console.log(question.layout);
+			
+			}
+		}
+	}
 }
 function makeTOC() {
 	toc = {};
