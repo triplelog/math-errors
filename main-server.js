@@ -179,8 +179,7 @@ wss.on('connection', function connection(ws) {
 				var arr = result.topics[topic];
 				for (var i=0;i<arr.length;i++){
 					if (arr[i].name == name && arr[i].lesson == lesson){
-						console.log(arr[i]);
-						question = arr[i].generated[0].text;
+						question = md.utils.unescapeAll(md.render(arr[i].generated[0].text));
 					}
 				}
 				var jsonmessage = {'type':'question','question':question};
