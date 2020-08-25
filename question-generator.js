@@ -73,7 +73,13 @@ QuestionData.find({}, function(err,result) {
 				}
 				console.log(question);
 				maincpp.question(question);
-				var outstr = maincpp.answers("testanswer.txt");
+				var filen = "newtest.txt"
+				var outstr = maincpp.answers(filen);
+				result[i].topics[topic][iii].generated = filen;
+				result[i].markModified('topics[\"'+topic+'\"]['+iii+']');
+				result[i].save(funciton(err,result){
+					console.log("new",JSON.stringify(result));
+				});
 				console.log(outstr);
 				//make question, answers, save to file, link file to database
 			
