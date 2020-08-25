@@ -449,6 +449,7 @@ app.get('/questiona',
 		res.write(nunjucks.render('templates/answer.html',{
 			title: "TitlE",
 			toc: toc,
+			toq:toq,
 			name: "three",
 		}));
 		res.end();
@@ -519,6 +520,7 @@ app.get('/createquestion',
 				tags: json.tags,
 				title: "TitlE",
 				toc: toc,
+				toq:toq,
 			}));
 			res.end();
 		});
@@ -572,6 +574,7 @@ app.get('/createlesson',
 				examples: json.examples,
 				title: "TitlE",
 				toc: toc,
+				toq:toq,
 			}));
 			res.end();
 			/*
