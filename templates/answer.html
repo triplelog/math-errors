@@ -418,8 +418,11 @@
 		function submitQuestion() {
 			//var question = document.getElementById("equation").value;
 			//var answer = "x";//document.getElementById("answer").value;
-			
-			var jsonmessage = {type:"makeanswers"};
+			var subject = "calculus";
+			var topic = "derivatives";
+			var lesson = "power";
+			var name = "two";
+			var jsonmessage = {type:"makeanswers",subject:subject,topic:topic,lesson:lesson,name:name};
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		function submitAnswer(answer="") {

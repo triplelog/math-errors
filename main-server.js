@@ -168,10 +168,24 @@ wss.on('connection', function connection(ws) {
 		}
 		else if (dm.type == 'makeanswers'){
 			console.log("___",performance.now());
-			var outS = maincppa.makeanswers("sub_calculus/top_derivatives/l_power_n_two.txt");
-			console.log("___",outS,performance.now());
-			var jsonmessage = {'type':'question','question':outS};
-			ws.send(JSON.stringify(jsonmessage));
+			var subject = dm.subject;
+			var topic = dm.topic;
+			var lesson = dm.lesson;
+			var name = dm.name;
+			var outS = maincppa.makeanswers("sub_"+subject+"/top_"+topic+"/l_"+lesson+"_n_"+name+".txt");
+			console.log("___",performance.now());
+			var question = "";
+			QuestionData.findOne({subject:subject},function(err,result){
+				var arr = result[topic];
+				for (var i=0;i<arr.length;i++){
+					if (arr[i].name == name && arr[i].lesson == lesson){
+						question = arr[i].generated[0].text;
+					}
+				}
+				var jsonmessage = {'type':'question','question':question};
+				ws.send(JSON.stringify(jsonmessage));
+			}
+			
 		}
 		else if (dm.type == 'saveQuestion'){
 			var subject = "";
