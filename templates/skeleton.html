@@ -70,7 +70,7 @@
 			<span data-feather="plus-circle"></span>
 		  </a>
 		</h6>
-		<ul class="mx-2 w-full">
+		<ul class="ml-2 mr-4 w-full">
 		  {% for subject,topics in toc %}
 		  <li class="my-3 uppercase">
 			<a class="uppercase" href="#" data-subject="{{ subject }}">
@@ -80,7 +80,7 @@
 			<a href="questiona?s={{subject}}" class="float-right bg-green-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline">?</a>
 			{% endif %}
 			<a href="createquestion?s={{subject}}" class="float-right bg-green-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline">Q</a>
-			<ul class="mx-2" data-subject="{{ subject }}" {% if info.subtople and info.subtople.split('.')[0] == subject %}{% else %}style="display:none;"{% endif %}>
+			<ul class="ml-2" data-subject="{{ subject }}" {% if info.subtople and info.subtople.split('.')[0] == subject %}{% else %}style="display:none;"{% endif %}>
 				{% for topic, lessons in topics %}
 				<li class="my-1 capitalize">
 					<a href="#" data-topic="{{ topic }}">{{ topic }}</a>
@@ -88,7 +88,7 @@
 					<a href="questiona?s={{subject}}&t={{topic}}" class="float-right bg-green-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline">?</a>
 					{% endif %}
 					<a href="createquestion?s={{subject}}&t={{topic}}" class="float-right bg-green-500 hover:bg-green-700 text-white font-bold py-0 px-1 rounded focus:outline-none focus:shadow-outline">Q</a>
-					<ul class="mx-2" data-topic="{{ topic }}" {% if info.subtople and info.subtople.split('.')[0] == subject and info.subtople.split('.')[1] == topic %}{% else %}style="display:none;"{% endif %}>
+					<ul class="ml-2" data-topic="{{ topic }}" {% if info.subtople and info.subtople.split('.')[0] == subject and info.subtople.split('.')[1] == topic %}{% else %}style="display:none;"{% endif %}>
 						{% for lesson in lessons %}
 						<li class="my-1 capitalize">
 							<a href="createlesson?s={{subject}}&t={{topic}}&l={{lesson}}">{{ lesson }}</a>

@@ -119,11 +119,15 @@ input.render = function( type, data, regexp ) {
 			if ( data.length > 3 && data[3] ) {
 				params.value = data[3];
 			}
-			if (!params.class){
-				params.class = "border";
-			}
+			/*
 			html += '<label for="' + params.id + '">' + label + ' </label>';	
 			html += input.addAttributes( '<input type="text">', params);
+			*/
+			html += `<div class="w-full flex mt-4">
+					<input id="answer" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
+					<button onclick="submitAnswer()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Submit</button>
+
+				</div>`;
 		break;
 		case "textarea":
 			var language = data[1].trim();
