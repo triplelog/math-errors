@@ -173,9 +173,9 @@ wss.on('connection', function connection(ws) {
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		else if (dm.type == 'saveQuestion'){
-			var subject = ".";
-			var topic = ".";
-			var lesson = ".";
+			var subject = "";
+			var topic = "";
+			var lesson = "";
 			if (dm.subject){
 				subject = dm.subject.toLowerCase();
 				if (dm.topic){
