@@ -129,6 +129,7 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 	std::string newQ = solveInsideQuestion(q);
 	//std::cout << "nq: " << newQ << "\n";
 	std::cout << "question for computer: " << newQ << "\n\n";
+	std::cout << "question for human: " << qText << "\n\n";
 	question.comp = newQ;
 
 	bool isMath = false;
@@ -166,7 +167,7 @@ Question makeQuestion(std::string qRow, std::string qText,flat_hash_map<char,std
 			newText += qText.at(i);
 		}
 	}
-
+	std::cout << "question for human: " << newText << "\n\n";
 	question.text = newText;
 	return question;
 }
@@ -634,7 +635,7 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 						if (currentRawRule[2] == "l"){
 							q.qH = "";
 							for (ii=3;ii<currentRawRule.size();ii++){
-								q.qH += currentRawRule[ii];
+								q.qH += currentRawRule[ii]+"\n";
 							}
 						}
 						else if (currentRawRule[2] == "c" || currentRawRule[2] == "i" || currentRawRule[2] == "e"){
