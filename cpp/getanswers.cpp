@@ -894,7 +894,7 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		else {
 			treeStr = outputTree(bestSolution[i],bestSolution[i]);
 		}
-		if (jsonmessage == "trees = ["){
+		if (jsonmessage == "["){
 			jsonmessage += treeStr;
 		}
 		else {
@@ -903,7 +903,6 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		
 		if (i+1<bestSolution.size()){
 			std::string oneStep = displayOne(bestSolution[i],bestSolution[i].next,bestSolution[i+1].next);
-			std::cout << "oneStep:\n" << oneStep << " \nwasOneStep\n";
 		}
 			
 		

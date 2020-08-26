@@ -101,45 +101,8 @@ wss.on('connection', function connection(ws) {
 			console.log(performance.now(), dm.answer);
 			stdout = maincppa.solution(dm.answer);
 			console.log(stdout,performance.now());
-			console.log(bree);
-			var outStr = "";
-		
-			var len = stdout.length;
-			var nodeStr = "......";
-			var inAction = false;
-		
-			var idx = 0;
-			var allStrings = [];
-			var allSteps = [];
-			for (var i=0;i<len;i++){
-				nodeStr += stdout[i];
-				nodeStr = nodeStr.substring(1,7);
-	
-				if (nodeStr == "-DOJS-"){
-					inAction = true;
-				}
-				else if (nodeStr == "-ODJS-"){
-					inAction = false;
-				
-					outStr = outStr.replace("#tree-simple","#tree-simple"+idx);
-					outStr = outStr.replace("var chart =","var chart"+idx+" =");
-					outStr = outStr.substring(0,outStr.length-5);
-					allStrings.push(outStr);
-					allSteps.push("node"+i);
-					idx++;
-					outStr = "";
-				}
-				else if (inAction){
-					outStr += stdout[i];
-				}
-			}
-		
-			//console.log(allStrings);
-			outStr =  "";
-			for (var i=0;i<allStrings.length;i++){
-				outStr += allStrings[i];
-			}
-			var jsonmessage = {'type':'answer','answer':outStr};
+
+			var jsonmessage = {'type':'answer','answer':stdout};
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		else if (dm.type == 'auto'){
