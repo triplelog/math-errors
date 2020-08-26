@@ -104,7 +104,7 @@
 							<textarea rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" >{{ constraint }}</textarea>
 							<div class="w-auto flex-initial pb-2 mb-3">
 								<div class="border px-1 py-1 mb-3" name="delete"><i data-feather="trash"></i></div>
-								<div class="border px-1 py-1 mb-3" name="required"><i data-feather="slash"></i></div>
+								<div class="border px-1 py-1 mb-3" name="incomplete"><i data-feather="slash"></i></div>
 							</div>
 						</div>
 						{% endfor %}
@@ -298,7 +298,7 @@
 			var constraints =  document.getElementById("constraints").querySelectorAll('textarea');
 			for (var i=0;i<constraints.length;i++){
 				if (constraints[i].value.trim().length > 0){
-					if (constraints[i].parentElement.querySelector('i[data-feather=slash]')){
+					if (constraints[i].parentElement.querySelector('div[name=incomplete]')){
 						outstr += "::: answern\n"+constraints[i].value+"\n:::\n";
 					}
 					else {
@@ -327,6 +327,10 @@
 		for (var i=0;i<els.length;i++){
 			els[i].addEventListener('click',requiredConstraint);
 		}
+		els = document.querySelectorAll('div[name=incomplete]');
+		for (var i=0;i<els.length;i++){
+			els[i].addEventListener('click',incompleteConstraint);
+		}
 		function deleteText(evt){
 			var el = evt.target;
 			while (el.getAttribute('name') != 'delete' && el.parentElement){
@@ -340,12 +344,18 @@
 			while (el.getAttribute('name') != 'required' && el.parentElement){
 				el = el.parentElement;
 			}
-			if (el.querySelector('i[data-feather=slash]')){
-				el.innerHTML = '<i data-feather="check"></i>';
+			el.setAttribute('name','incomplete');
+			el.innerHTML = '<i data-feather="slash"></i>';
+			feather.replace();
+		}
+		function incompleteConstraint(evt){
+			var el = evt.target;
+			while (el.getAttribute('name') != 'incomplete' && el.parentElement){
+				el = el.parentElement;
 			}
-			else {
-				el.innerHTML = '<i data-feather="slash"></i>';
-			}
+			el.setAttribute('name','required');
+			el.innerHTML = '<i data-feather="check"></i>';
+
 			feather.replace();
 		}
 		function addConstraint() {
@@ -356,6 +366,7 @@
 			tArea.querySelector('div[name=required]').innerHTML = '<i data-feather="check"></i>';
 			tArea.querySelector('div[name=required]').addEventListener('click',requiredConstraint);
 			document.getElementById('constraints').appendChild(tArea);
+			feather.replace();
 		}
 		
 		
