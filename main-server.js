@@ -177,6 +177,7 @@ wss.on('connection', function connection(ws) {
 			var name = dm.name;
 			var question = "";
 			var filen = "";
+			console.log(name);
 			QuestionData.findOne({subject:subject},function(err,result){
 				var arr = [];
 				if (topic == ""){
@@ -194,6 +195,7 @@ wss.on('connection', function connection(ws) {
 						break;
 					}
 				}
+				console.log(filen);
 				if (filen != ""){
 					maincppa.makeanswers(filen);
 				}
