@@ -225,6 +225,9 @@ wss.on('connection', function connection(ws) {
 			QuestionData.findOne({subject:subject}, function(err,result) {
 				if (result == null){
 					var topics = {};
+					if (name == ""){
+						name = "one";
+					}
 					topics[topic]=[{lesson:lesson,name:name,question:question}];
 					QuestionData.create({subject:subject,topics:topics},function(err,result){
 						if (err){
@@ -238,6 +241,11 @@ wss.on('connection', function connection(ws) {
 				else {
 					var foundMatch = false;
 					if (result.topics[topic]){
+						var nameList = [];
+						var needsName = false;
+						if (name == ""){
+							needsName = true;
+						}
 						for (var i=0;i<result.topics[topic].length;i++){
 							if (result.topics[topic][i].lesson == lesson && result.topics[topic][i].name == name){
 								if (dm.overwrite){
@@ -250,16 +258,39 @@ wss.on('connection', function connection(ws) {
 								}
 								break;
 							}
+							nameList.push(result.topics[topic][i].name);
+						}
+						var idx = 2;
+						while (needsName){
+							name = ""+idx;
+							needsName = false;
+							for (var ii=0;ii<nameList.length;ii++){
+								if (nameList[ii] == name){
+									needsName = true;
+									break;
+								}
+							}
+							idx++;
 						}
 						if (!foundMatch){
 							result.topics[topic].push({lesson:lesson,name:name,question:question});
 						}
 					}
 					else {
+						if (name == ""){
+							name = "one";
+						}
 						result.topics[topic] = [{lesson:lesson,name:name,question:question}];
 					}
-					
-					
+					var subtople = subject;
+					if (topic != ""){
+						subtople += "."+topic;
+					}
+					if (lesson != ""){
+						subtople += "."+lesson;
+					}
+					var jsonmessage = {'type':'saved',name:name,subtople:subtople};
+					ws.send(JSON.stringify(jsonmessage));
 					result.markModified('topics');
 					result.save(function(err,result){
 						if (err){
