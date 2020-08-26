@@ -572,9 +572,9 @@ app.get('/createquestion',
 			
 			res.write(nunjucks.render('templates/createquestion.html',{
 				info: json.info,
-				layout: json.layout,
-				question: json.question,
-				answer: json.answer,
+				layout: json.layout.trim(),
+				question: json.question.trim(),
+				answer: json.answer.trim(),
 				tags: json.tags,
 				title: "TitlE",
 				toc: toc,
