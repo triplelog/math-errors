@@ -101,8 +101,8 @@ wss.on('connection', function connection(ws) {
 			console.log(performance.now(), dm.answer);
 			stdout = maincppa.solution(dm.answer);
 			console.log(stdout,performance.now());
-
-			var jsonmessage = {'type':'answer','answer':stdout};
+			var parsed = JSON.parse(stdout);
+			var jsonmessage = {'type':'answer','answer':parsed};
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		else if (dm.type == 'auto'){

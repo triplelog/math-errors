@@ -218,6 +218,8 @@
 			var dm = JSON.parse(evt.data);
 			console.log(dm);
 			if (dm.type == 'answer'){
+				console.log(dm.answer);
+				console.log(bree);
 				createTrees(dm.answer);
 			}
 			else if (dm.type == 'question'){
