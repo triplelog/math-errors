@@ -662,8 +662,21 @@ void clearRules(){
 
 }
 void oneLesson(std::string s){
-	//makeRules(filen);
-	makeRulesNew(s);
+	std::vector<std::string> rows;
+	std::string currentRow = "";
+	for (i=0;i<s.length();i++){
+		if (s.at(i) == '\n'){
+			rows.push_back(currentRow);
+			currentRow = "";
+		}
+		else {
+			currentRow += s.at(i);
+		}
+	}
+	if (currentRow.length()>0){
+		rows.push_back(currentRow);
+	}
+	makeRulesNew(rows);
 }
 
 

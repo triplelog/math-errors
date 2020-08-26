@@ -105,23 +105,9 @@ void makeRules(std::string fileName){
 	}
 }
 
-void makeRulesNew(std::string input){
+void makeRulesNew(std::vector<std::string> rows){
 	std::vector<std::vector<std::string>> rawRules;
 	int i; int ii;
-	std::vector<std::string> rows;
-	std::string currentRow = "";
-	for (i=0;i<input.length();i++){
-		if (input.at(i) == '\n'){
-			rows.push_back(currentRow);
-			currentRow = "";
-		}
-		else {
-			currentRow += input.at(i);
-		}
-	}
-	if (currentRow.length()>0){
-		rows.push_back(currentRow);
-	}
 	
 	int nRows = rows.size();
 	

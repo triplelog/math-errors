@@ -602,6 +602,17 @@ void initialRun(){
 	makeRules("rules/derivatives.csv");
 	makeRules("subjects/prealgebra.csv");
 	makeRules("subjects/algebra.csv");
+	std::ifstream file("subjects/calculus.csv"); //file just has some sentences
+	if (!file) {
+		cout << "unable to open file";
+		return false;
+	}
+	std::string row;
+	std::vector<std::string> rows;
+	while (getline(file, row)) {
+		rows.push_back(row);
+	}
+	makeRulesNew(rows);
 	
 	auto t2 = std::chrono::high_resolution_clock::now();
 }
