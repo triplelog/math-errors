@@ -407,7 +407,12 @@ std::string outputTree(Step stepS,Step stepE){
 				nodes += ","+outText;
 			}
 			//std::cout << outText << "\n";
-			allNodes += "\""+nodeList[orderedKeyList[ii]][0] + "\", ";
+			if (allNodes == "["){
+				allNodes += "\""+nodeList[orderedKeyList[ii]][0] + "\"";
+			}
+			else {
+				allNodes += ","+"\""+nodeList[orderedKeyList[ii]][0] + "\"";
+			}
 		}
 		
 		
