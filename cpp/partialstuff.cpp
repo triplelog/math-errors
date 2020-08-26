@@ -664,6 +664,7 @@ void clearRules(){
 void oneLesson(std::string s){
 	std::vector<std::string> rows;
 	std::string currentRow = "";
+	int i;
 	for (i=0;i<s.length();i++){
 		if (s.at(i) == '\n'){
 			rows.push_back(currentRow);
