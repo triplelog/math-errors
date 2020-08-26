@@ -883,7 +883,7 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			bestSolution = oldBest;
 		}
 	}
-	jsonmessage = "trees = [";
+	jsonmessage = "[";
 	for (i=0;i<bestSolution.size();i++){
 		std::cout << "bs: " << bestSolution[i].next << "\n";
 		std::cout << "bsr: " << bestSolution[i].rule << "\n";
