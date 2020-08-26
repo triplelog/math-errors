@@ -897,7 +897,7 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			outputTree(bestSolution[i],bestSolution[i-1]);
 			
 			std::string oneStep = displayOne(bestSolution[i],bestSolution[i].next);
-			std::cout << "oneStep:\n" << oneStep << " \nwasOneStep\n"
+			std::cout << "oneStep:\n" << oneStep << " \nwasOneStep\n";
 		}
 		else {
 			outputTree(bestSolution[i],bestSolution[i]);
