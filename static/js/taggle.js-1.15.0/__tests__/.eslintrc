@@ -1,0 +1,24 @@
+{
+    "extends": "../.eslintrc",
+    "env": {
+        "node": true
+    },
+    "globals": {
+        "before": true,
+        "after": true,
+        "beforeEach": true,
+        "afterEach": true,
+        "describe": true,
+        "it": true,
+        "fit": true,
+        "xit": true,
+        "jasmine": true,
+        "sinon": true,
+        "Taggle": true,
+        "expect": true
+    },
+    "rules": {
+        "max-nested-callbacks": [1, 4],
+        "no-unused-expressions": 0
+    }
+}
