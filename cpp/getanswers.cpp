@@ -411,7 +411,7 @@ std::string outputTree(Step stepS,Step stepE){
 				allNodes += "\""+nodeList[orderedKeyList[ii]][0] + "\"";
 			}
 			else {
-				allNodes += ","+"\""+nodeList[orderedKeyList[ii]][0] + "\"";
+				allNodes += ",\""+nodeList[orderedKeyList[ii]][0] + "\"";
 			}
 		}
 		
