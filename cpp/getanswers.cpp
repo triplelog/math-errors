@@ -896,12 +896,16 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		if (i>0){
 			outputTree(bestSolution[i],bestSolution[i-1]);
 			
-			std::string oneStep = displayOne(bestSolution[i],bestSolution[i].next);
-			std::cout << "oneStep:\n" << oneStep << " \nwasOneStep\n";
 		}
 		else {
 			outputTree(bestSolution[i],bestSolution[i]);
 		}
+		
+		if (i+1<bestSolution.size()){
+			std::string oneStep = displayOne(bestSolution[i],bestSolution[i].next,bestSolution[i+1].next);
+			std::cout << "oneStep:\n" << oneStep << " \nwasOneStep\n";
+		}
+			
 		
 	}
 	

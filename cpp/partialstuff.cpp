@@ -732,7 +732,7 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		}
 		
 		
-		std::string oneStep = displayOne(steps[0][i],postfixed);
+		std::string oneStep = displayOne(steps[0][i],postfixed,steps[0][i].next);
 		
 		
 		if (uniqueSteps.find(oneStep) == uniqueSteps.end()){

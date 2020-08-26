@@ -563,12 +563,12 @@ flat_hash_map<int,int> removeParList(flat_hash_map<int,int> nodes, std::string i
 
 #include "makenumbers.cpp"
 
-std::string displayOne(Step step,std::string postfixed){
+std::string displayOne(Step step,std::string start,std::string end){
 	flat_hash_map<char,std::string> partMap = step.partMap;
 	if (step.rule < 0){
 		return "";
 	}
-	std::string oneStep = "{\"start\":\""+latexBoxed(postfixed,step.startNode,{})+"\",";
+	std::string oneStep = "{\"start\":\""+latexBoxed(start,step.startNode,{})+"\",";
 	std::string oldString = ruleIndex[step.rule].key + "@" + ruleIndex[step.rule].operands;
 	
 	oneStep += "\"input\":\""+latexOne(oldString)+"\",\"map\":[";
@@ -594,7 +594,7 @@ std::string displayOne(Step step,std::string postfixed){
 	if (step.endNodes.size() > 0){
 		eNode = step.endNodes[step.endNodes.size()-1];
 	}
-	oneStep += "\"final\":\""+latexBoxed(removeBracketsOne(step.next),eNode,{})+"\"}";
+	oneStep += "\"final\":\""+latexBoxed(removeBracketsOne(end),eNode,{})+"\"}";
 	
 	return oneStep;
 }
