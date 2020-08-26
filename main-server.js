@@ -789,7 +789,7 @@ function parseLesson(lesson){
 function parseQuestion(input){
 	var lines = input.split('\n');
 	var question = {comp:"",constants:[]};
-	var answer = {comp:"",constraints:[]};
+	var answer = {comp:"",constraintsY:[],constraintsN:[]};
 	var tags = [];
 	var layout = "";
 	var currentType = "";
@@ -805,8 +805,12 @@ function parseQuestion(input){
 					i+=2;
 					continue;
 				}
-				else if (lines[i].match(/answer/)){
-					currentType = "answer"; currentToken = "";
+				else if (lines[i].match(/answery/)){
+					currentType = "answerY"; currentToken = "";
+					continue;
+				}
+				else if (lines[i].match(/answern/)){
+					currentType = "answerN"; currentToken = "";
 					continue;
 				}
 				else if (lines[i].match(/tag/)){
@@ -823,8 +827,12 @@ function parseQuestion(input){
 				question.constants = currentToken.split("\n");
 				currentType = ""; currentToken = "";
 			}
-			else if (currentType == "answer"){
-				answer.constraints.push(currentToken.replace("\n\n","\n").trim());
+			else if (currentType == "answerY"){
+				answer.constraintsY.push(currentToken.replace("\n\n","\n").trim());
+				currentType = ""; currentToken = "";
+			}
+			else if (currentType == "answerN"){
+				answer.constraintsN.push(currentToken.replace("\n\n","\n").trim());
 				currentType = ""; currentToken = "";
 			}
 			else if (currentType == "tags"){

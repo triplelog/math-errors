@@ -603,7 +603,7 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 					currentRawRule.resize(0);
 					inRule = false;
 				}
-				else if (rawRule == "::: answerc"){
+				else if (rawRule == "::: answery"){
 					if (inRule){
 						inRule = false;
 					}
@@ -617,13 +617,13 @@ std::vector<RawQuestion> makeQuestionsNew(Dewey qDewey, std::string input){
 					currentRawRule[0] = "a";
 					inRule = true;
 				}
-				else if (rawRule == "::: answere"){
+				else if (rawRule == "::: answern"){
 					if (inRule){
 						inRule = false;
 					}
 					currentRawRule.resize(4);
 					currentRawRule[3] = "";
-					currentRawRule[2] = "e";
+					currentRawRule[2] = "i";
 					if (i+1 < nRows){
 						currentRawRule[1] = rows[i+1];
 						i++;

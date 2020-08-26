@@ -90,19 +90,30 @@
 			  <div class="w-full bg-white border border-gray-300 px-2 py-2 rounded-b">
 				<div>
 					<div class="w-full" id="constraints"> 
-						{% for constraint in answer.constraints %}
+						{% for constraint in answer.constraintsY %}
 						<div class="flex w-full">
 							<textarea rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" >{{ constraint }}</textarea>
 							<div class="w-auto flex-initial pb-2 mb-3">
 								<div class="border px-1 py-1 mb-3" name="delete"><i data-feather="trash"></i></div>
+								<div class="border px-1 py-1 mb-3" name="required"><i data-feather="check"></i></div>
 							</div>
 						</div>
 						{% endfor %}
-						{% if not answer.constraints or answer.constraints.length < 1 %}
+						{% for constraint in answer.constraintsN %}
+						<div class="flex w-full">
+							<textarea rows="3" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" >{{ constraint }}</textarea>
+							<div class="w-auto flex-initial pb-2 mb-3">
+								<div class="border px-1 py-1 mb-3" name="delete"><i data-feather="trash"></i></div>
+								<div class="border px-1 py-1 mb-3" name="required"><i data-feather="slash"></i></div>
+							</div>
+						</div>
+						{% endfor %}
+						{% if (not answer.constraintsY or answer.constraintsY.length < 1) and (not answer.constraintsN or answer.constraintsN.length < 1) %}
 						<div class="flex w-full">
 							<textarea rows="3" value="" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-auto flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" ></textarea>
 							<div class="w-auto flex-initial pb-2 mb-3">
 								<div class="border px-1 py-1 mb-3" name="delete"><i data-feather="trash"></i></div>
+								<div class="border px-1 py-1 mb-3" name="required"><i data-feather="check"></i></div>
 							</div>
 						</div>
 						{% endif %}
@@ -287,7 +298,13 @@
 			var constraints =  document.getElementById("constraints").querySelectorAll('textarea');
 			for (var i=0;i<constraints.length;i++){
 				if (constraints[i].value.trim().length > 0){
-					outstr += "::: answerc\n"+constraints[i].value+"\n:::\n";
+					if (constraints[i].parentElement.querySelector('i[data-feather=slash]')){
+						outstr += "::: answern\n"+constraints[i].value+"\n:::\n";
+					}
+					else {
+						outstr += "::: answery\n"+constraints[i].value+"\n:::\n";
+					}
+					
 				}
 				
 			}
@@ -306,6 +323,10 @@
 		for (var i=0;i<els.length;i++){
 			els[i].addEventListener('click',deleteText);
 		}
+		els = document.querySelectorAll('div[name=required]');
+		for (var i=0;i<els.length;i++){
+			els[i].addEventListener('click',requiredConstraint);
+		}
 		function deleteText(evt){
 			var el = evt.target;
 			while (el.getAttribute('name') != 'delete' && el.parentElement){
@@ -314,11 +335,26 @@
 			el = el.parentElement.parentElement;
 			el.parentNode.removeChild(el);
 		}
+		function requiredConstraint(evt){
+			var el = evt.target;
+			while (el.getAttribute('name') != 'required' && el.parentElement){
+				el = el.parentElement;
+			}
+			if (el.querySelector('i[data-feather=slash]')){
+				el.innerHTML = '<i data-feather="check"></i>';
+			}
+			else {
+				el.innerHTML = '<i data-feather="slash"></i>';
+			}
+			feather.replace();
+		}
 		function addConstraint() {
 			var clone = document.getElementById('constraints').querySelector('div.flex');
 			var tArea = clone.cloneNode(true);
 			tArea.querySelector('textarea').value = "";
 			tArea.querySelector('div[name=delete]').addEventListener('click',deleteText);
+			tArea.querySelector('div[name=required]').innerHTML = '<i data-feather="check"></i>';
+			tArea.querySelector('div[name=required]').addEventListener('click',requiredConstraint);
 			document.getElementById('constraints').appendChild(tArea);
 		}
 		
