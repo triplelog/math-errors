@@ -294,6 +294,7 @@
 						ruleText[1] = "out: "+ruleText[1].substr(4).trim();
 					}
 				}
+				console.log(ruleText);
 				rules[i].value = ruleText.join("\n");
 				lesson+="::: rule\n"+rules[i].value+"\n:::\n";
 				lesson = lesson.replace("\n\n\n","\n\n");
