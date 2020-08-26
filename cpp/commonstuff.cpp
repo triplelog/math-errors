@@ -604,8 +604,7 @@ void initialRun(){
 	makeRules("subjects/algebra.csv");
 	std::ifstream file("subjects/calculus.csv"); //file just has some sentences
 	if (!file) {
-		cout << "unable to open file";
-		return false;
+		std::cout << "unable to open file";
 	}
 	std::string row;
 	std::vector<std::string> rows;
