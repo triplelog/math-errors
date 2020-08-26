@@ -192,9 +192,9 @@
 					var nextNode = document.getElementById('tree-simple'+(ii+1)).querySelector('li');
 					var node = nextNode.cloneNode(true);
 					document.getElementById('tree-simple'+ii).appendChild(node);
-					var step = document.createElement('li');
+					var step = document.createElement('div');
 					step.innerHTML = trees[ii].step;
-					document.getElementById('tree-simple'+ii).appendChild(step);
+					document.getElementById('tree-simple'+ii).parentElement.appendChild(step);
 				}
 				
 			}
