@@ -609,6 +609,7 @@ void initialRun(){
 	std::string row;
 	std::vector<std::string> rows;
 	while (getline(file, row)) {
+		std::cout << "row: " << row << "\n";
 		rows.push_back(row);
 	}
 	makeRulesNew(rows);

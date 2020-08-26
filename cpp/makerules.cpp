@@ -57,12 +57,12 @@ void makeRules(std::string fileName){
 		key = fullPost[0];
 		val1 = fullPost[1];
 		rule.key = key;
-		std::cout << "key: "<< key << "\n";
-		std::cout << "val1: "<< val1 << "\n";
+		//std::cout << "key: "<< key << "\n";
+		//std::cout << "val1: "<< val1 << "\n";
 		fullPost = makeRule(rawRules[i][1]);
-		std::cout << "raw: "<< rawRules[i][1] << "\n";
+		//std::cout << "raw: "<< rawRules[i][1] << "\n";
 		out = fullPost[0] + '@' + fullPost[1];
-		std::cout << "out: "<< out << "\n";
+		//std::cout << "out: "<< out << "\n";
 		rule.operands = val1;
 		rule.out = out;
 		
@@ -83,7 +83,7 @@ void makeRules(std::string fileName){
 			for (ii=4;ii<rawRules[i].size();ii++){
 				std::string constraint = constraintify(rawRules[i][ii]);
 				std::string postfixed = postfixify(constraint);
-				std::cout <<" constraint postfixed " << postfixed << "\n";
+				//std::cout <<" constraint postfixed " << postfixed << "\n";
 				rule.constraints.push_back(postfixed);
 			}
 		}
@@ -112,7 +112,7 @@ void makeRulesNew(std::vector<std::string> rows){
 	int nRows = rows.size();
 	
 	
-	std::cout << "Rows: " << nRows << "\n";
+	std::cout << "RowsNew: " << nRows << "\n";
 	
 	std::vector<std::string> currentRawRule;
 	currentRawRule.resize(0);
