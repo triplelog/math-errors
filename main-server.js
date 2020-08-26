@@ -227,6 +227,7 @@ wss.on('connection', function connection(ws) {
 					var topics = {};
 					if (name == ""){
 						name = "one";
+						question = question.replace(":name:\n",":name:one\n");
 					}
 					topics[topic]=[{lesson:lesson,name:name,question:question}];
 					QuestionData.create({subject:subject,topics:topics},function(err,result){
@@ -272,6 +273,7 @@ wss.on('connection', function connection(ws) {
 							}
 							idx++;
 						}
+						question = question.replace(":name:\n",":name:"+name+"\n");
 						if (!foundMatch){
 							result.topics[topic].push({lesson:lesson,name:name,question:question});
 						}
@@ -279,6 +281,7 @@ wss.on('connection', function connection(ws) {
 					else {
 						if (name == ""){
 							name = "one";
+							question = question.replace(":name:\n",":name:one\n");
 						}
 						result.topics[topic] = [{lesson:lesson,name:name,question:question}];
 					}
