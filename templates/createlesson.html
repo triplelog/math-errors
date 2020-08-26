@@ -261,6 +261,32 @@
 			el = el.parentElement.parentElement;
 			el.parentNode.removeChild(el);
 		}
+		function addInOut(input){
+			var ruleText = input.trim().split("\n");
+			if (ruleText[0].substr(0,4) != "in: "){
+				if (ruleText[0].substr(0,2) != "in"){
+					ruleText[0] = "in: "+ruleText[0].trim();
+				}
+				else if (ruleText[0].substr(0,3) != "in:"){
+					ruleText[0] = "in: "+ruleText[0].substr(2).trim();
+				}
+				else {
+					ruleText[0] = "in: "+ruleText[0].substr(3).trim();
+				}
+			}
+			if (ruleText[1].substr(0,5) != "out: "){
+				if (ruleText[1].substr(0,3) != "out"){
+					ruleText[1] = "out: "+ruleText[1].trim();
+				}
+				else if (ruleText[1].substr(0,4) != "out:"){
+					ruleText[1] = "out: "+ruleText[1].substr(3).trim();
+				}
+				else {
+					ruleText[1] = "out: "+ruleText[1].substr(4).trim();
+				}
+			}
+			return ruleText.join("\n");
+		}
 		function makeLesson(){
 			var lesson = "";
 			lesson += ":subtople:"+document.getElementById('subtople').value+"\n";
@@ -271,31 +297,7 @@
 				if (rules[i].value.length<2){
 					continue;
 				}
-				var ruleText = rules[i].value.trim().split("\n");
-				if (ruleText[0].substr(0,4) != "in: "){
-					if (ruleText[0].substr(0,2) != "in"){
-						ruleText[0] = "in: "+ruleText[0].trim();
-					}
-					else if (ruleText[0].substr(0,3) != "in:"){
-						ruleText[0] = "in: "+ruleText[0].substr(2).trim();
-					}
-					else {
-						ruleText[0] = "in: "+ruleText[0].substr(3).trim();
-					}
-				}
-				if (ruleText[1].substr(0,5) != "out: "){
-					if (ruleText[1].substr(0,3) != "out"){
-						ruleText[1] = "out: "+ruleText[1].trim();
-					}
-					else if (ruleText[1].substr(0,4) != "out:"){
-						ruleText[1] = "out: "+ruleText[1].substr(3).trim();
-					}
-					else {
-						ruleText[1] = "out: "+ruleText[1].substr(4).trim();
-					}
-				}
-				console.log("RrrrrrrR:",ruleText);
-				rules[i].value = ruleText.join("\n");
+				rules[i].value = addInOut(rules[i].value);
 				lesson+="::: rule\n"+rules[i].value+"\n:::\n";
 				lesson = lesson.replace("\n\n\n","\n\n");
 			}
@@ -304,30 +306,7 @@
 				if (errors[i].value.length<2){
 					continue;
 				}
-				var errorText = errors[i].value.trim().split("\n");
-				if (errorText[0].substr(0,4) != "in: "){
-					if (errorText[0].substr(0,2) != "in"){
-						errorText[0] = "in: "+errorText[0].trim();
-					}
-					else if (errorText[0].substr(0,3) != "in:"){
-						errorText[0] = "in: "+errorText[0].substr(2).trim();
-					}
-					else {
-						errorText[0] = "in: "+errorText[0].substr(3).trim();
-					}
-				}
-				if (errorText[1].substr(0,5) != "out: "){
-					if (errorText[1].substr(0,3) != "out"){
-						errorText[1] = "out: "+errorText[1].trim();
-					}
-					else if (errorText[1].substr(0,4) != "out:"){
-						errorText[1] = "out: "+errorText[1].substr(3).trim();
-					}
-					else {
-						errorText[1] = "out: "+errorText[1].substr(4).trim();
-					}
-				}
-				errors[i].value = errorText.join("\n");
+				errors[i].value = addInOut(errors[i].value);
 				lesson+="::: error\n"+errors[i].value+"\n:::\n";
 				lesson = lesson.replace("\n\n\n","\n\n");
 			}
@@ -353,10 +332,14 @@
 			}
 			var pel = el.parentElement.parentElement;
 			var jsonmessage = {'type':'previewText'};
-			jsonmessage[pel.parentElement.id]=pel.querySelector('textarea').value;
 			if (pel.parentElement.id == "examples"){
 				jsonmessage["lesson"]=makeLesson();
+				jsonmessage[pel.parentElement.id]=pel.querySelector('textarea').value;
 				
+			}
+			else {
+				pel.querySelector('textarea').value = addInOut(pel.querySelector('textarea').value);
+				jsonmessage[pel.parentElement.id]=pel.querySelector('textarea').value;
 			}
 			ws.send(JSON.stringify(jsonmessage));
 		}
