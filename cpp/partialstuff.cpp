@@ -783,7 +783,7 @@ void LatexIt(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::vector<std::string> postfixedV = postfixifyVector(a,true);
 	std::string postfixed = postfixedV[0]+"@"+postfixedV[1];
 	std::cout << "postfixed: " << postfixed <<"\n";
-	std::string latexed = latexOne(postfixed);
+	std::string latexed = latexBoxed(postfixed,-1,{});
 	std::cout << "latexed: " << latexed <<"\n";
 	
 	
