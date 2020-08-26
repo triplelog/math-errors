@@ -271,6 +271,30 @@
 				if (rules[i].value.length<2){
 					continue;
 				}
+				var ruleText = rules[i].value.trim().split("\n");
+				if (ruleText[0].substr(0,4) != "in: "){
+					if (ruleText[0].substr(0,2) != "in"){
+						ruleText[0] = "in: "+ruleText[0].trim();
+					}
+					else if (ruleText[0].substr(0,3) != "in:"){
+						ruleText[0] = "in: "+ruleText[0].substr(2).trim();
+					}
+					else {
+						ruleText[0] = "in: "+ruleText[0].substr(3).trim();
+					}
+				}
+				if (ruleText[1].substr(0,5) != "out: "){
+					if (ruleText[1].substr(0,3) != "out"){
+						ruleText[1] = "out: "+ruleText[1].trim();
+					}
+					else if (ruleText[1].substr(0,4) != "out:"){
+						ruleText[1] = "out: "+ruleText[1].substr(3).trim();
+					}
+					else {
+						ruleText[1] = "out: "+ruleText[1].substr(4).trim();
+					}
+				}
+				rules[i].value = ruleText.join("\n");
 				lesson+="::: rule\n"+rules[i].value+"\n:::\n";
 				lesson = lesson.replace("\n\n\n","\n\n");
 			}
@@ -279,6 +303,30 @@
 				if (errors[i].value.length<2){
 					continue;
 				}
+				var errorText = errors[i].value.trim().split("\n");
+				if (errorText[0].substr(0,4) != "in: "){
+					if (errorText[0].substr(0,2) != "in"){
+						errorText[0] = "in: "+errorText[0].trim();
+					}
+					else if (errorText[0].substr(0,3) != "in:"){
+						errorText[0] = "in: "+errorText[0].substr(2).trim();
+					}
+					else {
+						errorText[0] = "in: "+errorText[0].substr(3).trim();
+					}
+				}
+				if (errorText[1].substr(0,5) != "out: "){
+					if (errorText[1].substr(0,3) != "out"){
+						errorText[1] = "out: "+errorText[1].trim();
+					}
+					else if (errorText[1].substr(0,4) != "out:"){
+						errorText[1] = "out: "+errorText[1].substr(3).trim();
+					}
+					else {
+						errorText[1] = "out: "+errorText[1].substr(4).trim();
+					}
+				}
+				errors[i].value = errorText.join("\n");
 				lesson+="::: error\n"+errors[i].value+"\n:::\n";
 				lesson = lesson.replace("\n\n\n","\n\n");
 			}
