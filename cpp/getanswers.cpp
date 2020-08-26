@@ -381,23 +381,23 @@ std::string outputTree(Step stepS,Step stepE){
 		std::string postfix = fromOriginal(orderedKeyList[ii],originalMap);
 
 		if (latexMap.find(name) != latexMap.end()){
-			std::string outText = "\""+name + "\": {text:";
+			std::string outText = "\""+name + "\": {\"text\":";
 			outText += "\"" + latexMap[name] + "\",";
 			if (name == startNode){
-				outText += "startNode: true,";
+				outText += "\"startNode\": true,";
 			}
 			else if (startNodes.find(name) != startNodes.end()){
-				outText += "startNodes: true,";
+				outText += "\"startNodes\": true,";
 			}
 			if (name == endNode){
-				outText += "endNode: true,";
+				outText += "\"endNode\": true,";
 			}
 			else if (endNodes.find(name) != endNodes.end()){
-				outText += "endNodes: true,";
+				outText += "\"endNodes\": true,";
 			}
 			
-			outText += "op: \"" + nodeList[orderedKeyList[ii]][2] + "\",";
-			outText += "parent: \""+ parent + "\"}";
+			outText += "\"op\": \"" + nodeList[orderedKeyList[ii]][2] + "\",";
+			outText += "\"parent\": \""+ parent + "\"}";
 		
 
 			if (nodes == "{"){
