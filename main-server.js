@@ -100,7 +100,8 @@ wss.on('connection', function connection(ws) {
 			var stdout = maincppa.check(dm.answer);
 			console.log(performance.now(), dm.answer);
 			stdout = maincppa.solution(dm.answer);
-			console.log(performance.now());
+			console.log(stdout,performance.now());
+			console.log(bree);
 			var outStr = "";
 		
 			var len = stdout.length;
