@@ -703,6 +703,7 @@ function makeTOC() {
 	toq = {};
 	SubjectData.find({}, function(err,result) {
 		for (var i=0;i<result.length;i++){
+			var lessonFile = "";
 			var subject = result[i].subject;
 			if (toc[subject]){
 		
@@ -723,9 +724,15 @@ function makeTOC() {
 				for (var iii=0;iii<arr.length;iii++){
 					var lesson = arr[iii].slug;
 					toc[result[i].subject][topic].push(lesson);
-			
+					lessonFile += arr[iii].lesson + "\n";
 				}
 			}
+			var dir = "./cpp/subjects";
+			if (!fs.existsSync(dir)){
+				fs.mkdirSync(dir);
+			}
+			console.log(subject, lessonFile);
+			fs.writeFile('./cpp/subjects/'+subject+".csv", lessonFile, function (err) {});
 		}
 		console.log(toc);
 		QuestionData.find({}, function(err2,result2) {
