@@ -262,8 +262,11 @@
 			if (subtople.length>2){
 				lesson = subtople[2];
 			}
-			
-			var jsonmessage = {'type':'saveQuestion','subject':subject,'topic':topic,'lesson':lesson,'question':outstr, 'name':name};
+			var overwrite = false;
+			if (name == originalName && document.getElementById('subtople').value == originalSubtople){
+				var overwrite = true;
+			}
+			var jsonmessage = {'type':'saveQuestion',overwrite:overwrite,'subject':subject,'topic':topic,'lesson':lesson,'question':outstr, 'name':name};
 			console.log(jsonmessage);
 			ws.send(JSON.stringify(jsonmessage));
 		}
@@ -330,6 +333,9 @@
 				
 			}
 		});
+		
+		var originalSubtople = "{{ info.subtople }}";
+		var originalName = "{{ info.name }}";
 		
 		
 		function addTag() {

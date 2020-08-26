@@ -240,8 +240,14 @@ wss.on('connection', function connection(ws) {
 					if (result.topics[topic]){
 						for (var i=0;i<result.topics[topic].length;i++){
 							if (result.topics[topic][i].lesson == lesson && result.topics[topic][i].name == name){
-								result.topics[topic][i] = {lesson:lesson,name:name,question:question};
-								foundMatch = true;
+								if (dm.overwrite){
+									result.topics[topic][i] = {lesson:lesson,name:name,question:question};
+									foundMatch = true;
+								}
+								else {
+									console.log("already exists");
+									return;
+								}
 								break;
 							}
 						}
@@ -511,20 +517,17 @@ app.get('/createquestion',
 		var html = "";
 
 		QuestionData.find({subject:dewey.split('.')[0]}, function(err,result) {
-
+			
 			for (var i=0;i<result.length;i++){
 				if (result[i].topics[dewey.split('.')[1]]){
 					var arr = result[i].topics[dewey.split('.')[1]];
 					for (var ii=0;ii<arr.length;ii++){
-						if (arr[ii].lesson == dewey.split('.')[2] && arr[ii].name == name){
-							question = arr[ii].question;
+						if (arr[ii].lesson == dewey.split('.')[2] || "" == dewey.split('.')[2]){
+							if ("" == name || arr[ii].name == name){
+								question = arr[ii].question;
+							}
 						}
-						else if (arr[ii].lesson == dewey.split('.')[2] && "" == name){
-							question = arr[ii].question;
-						}
-						else if ("" == dewey.split('.')[2] && "" == name){
-							question = arr[ii].question;
-						}
+						
 					}
 				}
 			}
