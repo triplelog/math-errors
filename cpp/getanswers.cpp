@@ -432,6 +432,7 @@ std::vector<std::string> outputTree(Step stepS,Step stepE){
 
 
 flat_hash_map<std::string,Answer> answerMap;
+flat_hash_map<std::string,std::vector<int>> answerListMapF;
 int maxFound;
 int maxSteps;
 
@@ -508,7 +509,7 @@ int probCorrect(){
 	return probc*10000/probt;
 }
 
-flat_hash_map<std::string,std::vector<int>> answerListMapF;
+
 
 void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
@@ -517,6 +518,8 @@ void MakeAnswers(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::String::Utf8Value s(isolate, info[0]);
 	std::string a(*s);
 	
+	answerListMapF.clear();
+	answerMap.clear();
 
 	rapidcsv::Document doc("./cpp/questions/" + a, rapidcsv::LabelParams(-1, -1));
 	
