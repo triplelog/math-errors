@@ -111,9 +111,8 @@
 			}
 			
 		}
-		function createTrees(treeStr){
+		function createTrees(trees){
 			document.getElementById("accordionSolution").innerHTML = "";
-			var trees = JSON.parse(treeStr);
 			
 			for (var i=0;i<trees.length-1;i++){
 				var template = document.querySelector('#errorTemplate');
