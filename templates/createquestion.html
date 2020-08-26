@@ -50,11 +50,7 @@
 					<label class="block text-gray-700 text-sm font-bold mb-1" for="addTag">
 						Tags
 					  </label>
-					  <div id="tags"></div>
-					  <div class="w-full flex">
-						<input id="addTag" class="bg-gray-100 appearance-none border-2 border-gray-400 rounded flex-grow py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mb-3 mr-2" type="text">
-						<button onclick="addTag()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-none focus:outline-none focus:shadow-outline mb-3" type="button">Add Tag</button>
-					  </div>
+					  <div id="tags" class="w-full"></div>
 				</div>
 				
 			  </div>
@@ -276,13 +272,7 @@
 			document.getElementById('edit').style.display = "flex";
 			feather.replace();
 		}
-		var tags = [];
-		function addTag() {
-			var el = document.getElementById('addTag');
-			tags.push(el.value);
-			document.getElementById('tags').textContent += "\n"+el.value;
-			el.value = "";
-		}
+		
 		function makeQuestion() {
 			var outstr = "";
 			var subtople = document.getElementById("subtople").value;
@@ -308,11 +298,11 @@
 				}
 				
 			}
-			
-			if (tags.length>0){
+			var tagArray = tags.getTagValues();
+			if (tagArray.length>0){
 				outstr += "::: tags\n";
-				for (var i=0;i<tags.length;i++){
-					outstr += tags[i]+"\n";
+				for (var i=0;i<tagArray.length;i++){
+					outstr += tagArray[i]+"\n";
 				}
 				outstr += "\n:::\n";
 			}
@@ -331,6 +321,25 @@
 		for (var i=0;i<els.length;i++){
 			els[i].addEventListener('click',incompleteConstraint);
 		}
+
+		var tags = new Taggle('tags',{
+			onTagAdd: function(event, tag) {
+				
+			},
+			onTagRemove: function(event, tag) {
+				
+			}
+		});
+		
+		
+		function addTag() {
+			var el = document.getElementById('addTag');
+			tags.push(el.value);
+			document.getElementById('tags').textContent += "\n"+el.value;
+			el.value = "";
+		}
+		
+		
 		function deleteText(evt){
 			var el = evt.target;
 			while (el.getAttribute('name') != 'delete' && el.parentElement){
