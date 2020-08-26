@@ -104,6 +104,13 @@ wss.on('connection', function connection(ws) {
 			var jsonParsed = JSON.parse(stdout.replace(/\\/g,"\\\\"));
 			for (var i=0;i<jsonParsed.length;i++){
 				if (jsonParsed[i].step){
+					jsonParsed[i].step.start = katex.renderToString(jsonParsed[i].step.start, {throwOnError: false});
+					jsonParsed[i].step.input = katex.renderToString(jsonParsed[i].step.input, {throwOnError: false});
+					jsonParsed[i].step.output = katex.renderToString(jsonParsed[i].step.output, {throwOnError: false});
+					jsonParsed[i].step.final = katex.renderToString(jsonParsed[i].step.final, {throwOnError: false});
+					for (var ii=0;ii<jsonParsed[i].step.map.length;ii++){
+						jsonParsed[i].step.map[ii] = katex.renderToString(jsonParsed[i].step.map[ii], {throwOnError: false});
+					}
 					var newStr = nunjucks.render('templates/example.njk',{
 						parsed: [jsonParsed[i].step],
 					})
