@@ -101,8 +101,17 @@ wss.on('connection', function connection(ws) {
 			console.log(performance.now(), dm.answer);
 			stdout = maincppa.solution(dm.answer);
 			console.log(stdout,performance.now());
-			var parsed = JSON.parse(stdout.replace(/\\/g,"\\\\"));
-			var jsonmessage = {'type':'answer','answer':parsed};
+			var jsonParsed = JSON.parse(stdout.replace(/\\/g,"\\\\"));
+			for (var i=0;i<jsonParsed.length;i++){
+				if (jsonParsed[i].step){
+					var newStr = nunjucks.render('templates/example.njk',{
+						parsed: [jsonParsed[i].step],
+					})
+					jsonParsed[i].step = newStr;
+				}
+			}
+			
+			var jsonmessage = {'type':'answer','answer':jsonParsed};
 			ws.send(JSON.stringify(jsonmessage));
 		}
 		else if (dm.type == 'auto'){
