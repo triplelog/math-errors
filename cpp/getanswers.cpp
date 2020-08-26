@@ -902,7 +902,7 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		
 		if (i+1<bestSolution.size()){
 			std::string oneStep = displayOne(bestSolution[i],bestSolution[i].next,bestSolution[i+1].next);
-			treeStr += ",\"step\":" + "{}";
+			treeStr += ",\"step\":{}";
 		}
 		
 		if (jsonmessage == "["){
