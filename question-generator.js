@@ -94,7 +94,7 @@ QuestionData.find({}, function(err,result) {
 				result[i].topics[topic][iii].generated = [{"filen":filen,"text":outstr}];
 				result[i].markModified('topics');
 				
-				console.log(outstr);
+				//console.log(outstr);
 				//make question, answers, save to file, link file to database
 			
 			}

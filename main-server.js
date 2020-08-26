@@ -189,14 +189,12 @@ wss.on('connection', function connection(ws) {
 					arr = result.topics[topic];
 				}
 				for (var i=0;i<arr.length;i++){
-					console.log("arr",arr[i]);
 					if (arr[i].generated && (arr[i].name == name || name == "") && (arr[i].lesson == lesson || lesson == "")){
 						question = md.utils.unescapeAll(md.render(arr[i].generated[0].text));
 						filen = arr[i].generated[0].filen;
 						break;
 					}
 				}
-				console.log(filen);
 				if (filen != ""){
 					maincppa.makeanswers(filen);
 				}

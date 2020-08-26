@@ -519,6 +519,41 @@ std::string removeParOne(std::string input) {
 	
 }
 
+std::string displayOne(Step step,std::string postfixed){
+	flat_hash_map<char,std::string> partMap = step.partMap;
+	if (step.rule < 0){
+		return "";
+	}
+	std::string oneStep = "{\"start\":\""+latexBoxed(postfixed,step.startNode,{})+"\",";
+	std::string oldString = ruleIndex[step.rule].key + "@" + ruleIndex[step.rule].operands;
+	
+	oneStep += "\"input\":\""+latexOne(oldString)+"\",\"map\":[";
+
+	for (flat_hash_map<char,std::string>::iterator iter = partMap.begin(); iter != partMap.end(); ++iter){
+		std::string s(1,iter->first);
+		std::string sec = iter->second;
+		if (sec.length()>0 && sec.at(0) == '{'){
+			sec = sec.substr(1,sec.length()-2);
+			sec = latexOne(sec);
+		}
+		if (oneStep.at(oneStep.length()-1)=='['){
+			oneStep += "\"" + s +"\",\""+ sec +"\"";
+		}
+		else {
+			oneStep += ",\"" + s +"\",\""+ sec +"\"";
+		}
+		
+	}
+	oneStep += "],";
+	oneStep += "\"output\":\""+latexBoxed(ruleIndex[step.rule].out,-1,{})+"\",";
+	int eNode = step.endNode;
+	if (step.endNodes.size() > 0){
+		eNode = step.endNodes[step.endNodes.size()-1];
+	}
+	oneStep += "\"final\":\""+latexBoxed(removeBracketsOne(step.next),eNode,{})+"\"}";
+	
+	return oneStep;
+}
 std::string fromOriginal(std::string input,flat_hash_map<int,std::string> originalMap) {
 	int i;
 	bool startOperands = false;
@@ -609,7 +644,6 @@ void initialRun(){
 	std::string row;
 	std::vector<std::string> rows;
 	while (getline(file, row)) {
-		std::cout << "row: " << row << "\n";
 		rows.push_back(row);
 	}
 	makeRulesNew(rows);

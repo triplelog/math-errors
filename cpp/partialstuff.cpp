@@ -730,34 +730,11 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		if (steps[0][i].rule < 0){
 			continue;
 		}
-		//std::cout << "RULE\n";
-		std::string oneStep = "{\"start\":\""+latexBoxed(postfixed,steps[0][i].startNode,{})+"\",";
-		std::string oldString = ruleIndex[steps[0][i].rule].key + "@" + ruleIndex[steps[0][i].rule].operands;
 		
-		oneStep += "\"input\":\""+latexOne(oldString)+"\",\"map\":[";
-	
-		for (flat_hash_map<char,std::string>::iterator iter = partMap.begin(); iter != partMap.end(); ++iter){
-			std::string s(1,iter->first);
-			std::string sec = iter->second;
-			if (sec.length()>0 && sec.at(0) == '{'){
-				sec = sec.substr(1,sec.length()-2);
-				sec = latexOne(sec);
-			}
-			if (oneStep.at(oneStep.length()-1)=='['){
-				oneStep += "\"" + s +"\",\""+ sec +"\"";
-			}
-			else {
-				oneStep += ",\"" + s +"\",\""+ sec +"\"";
-			}
-			
-		}
-		oneStep += "],";
-		oneStep += "\"output\":\""+latexBoxed(ruleIndex[steps[0][i].rule].out,-1,{})+"\",";
-		int eNode = steps[0][i].endNode;
-		if (steps[0][i].endNodes.size() > 0){
-			eNode = steps[0][i].endNodes[steps[0][i].endNodes.size()-1];
-		}
-		oneStep += "\"final\":\""+latexBoxed(removeBracketsOne(steps[0][i].next),eNode,{})+"\"}";
+		
+		std::string oneStep = displayOne(steps[0][i],postfixed);
+		
+		
 		if (uniqueSteps.find(oneStep) == uniqueSteps.end()){
 			if (idx ==0){
 				jsonmessage += oneStep;
