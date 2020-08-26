@@ -35,7 +35,7 @@ using phmap::flat_hash_map;
 #include "solve.cpp"
 
 
-std::vector<std::string> outputTree(Step stepS,Step stepE){
+std::string outputTree(Step stepS,Step stepE){
 	std::string pfstr = stepS.next;
 	//std::cout << "pfstr: " << pfstr << " and ";
 	int i; int ii; int iii;
@@ -338,8 +338,8 @@ std::vector<std::string> outputTree(Step stepS,Step stepE){
 	//}
 	
 	flat_hash_map<std::string,std::string> skipList;
-	jsonmessage += "-DOJS-\nnodes = {};\n";
-	std::string nodeString = "allNodes = [";
+	std::string nodes = "{";
+	std::string allNodes = "[";
 	//std::cout << "-DOJS-\nnodes = {};\n";
 	
 	std::vector<std::string> forLatex;
@@ -381,7 +381,7 @@ std::vector<std::string> outputTree(Step stepS,Step stepE){
 		std::string postfix = fromOriginal(orderedKeyList[ii],originalMap);
 
 		if (latexMap.find(name) != latexMap.end()){
-			std::string outText = "nodes[\""+name + "\"] = {text:";
+			std::string outText = "\""+name + "\": {text:";
 			outText += "\"" + latexMap[name] + "\",";
 			if (name == startNode){
 				outText += "startNode: true,";
@@ -397,34 +397,28 @@ std::vector<std::string> outputTree(Step stepS,Step stepE){
 			}
 			
 			outText += "op: \"" + nodeList[orderedKeyList[ii]][2] + "\",";
-			outText += "parent: \""+ parent + "\"};\n";
+			outText += "parent: \""+ parent + "\"}";
 		
-			jsonmessage += outText + "\n";
+
+			if (nodes == "{"){
+				nodes += outText;
+			}
+			else {
+				nodes += ","+outText;
+			}
 			//std::cout << outText << "\n";
-			nodeString += "\""+nodeList[orderedKeyList[ii]][0] + "\", ";
+			allNodes += "\""+nodeList[orderedKeyList[ii]][0] + "\", ";
 		}
 		
 		
 	}
 	
-	nodeString += "];\n";
-	jsonmessage += nodeString + "\n";
-	//std::cout <<  nodeString << "\n";
-	jsonmessage += "trees.push({nodes:nodes,allNodes:allNodes});\n-ODJS-\n";
-	//std::cout << "trees.push({nodes:nodes,allNodes:allNodes});\n-ODJS-\n";
+	allNodes += "]";
+	nodes += "}";
 	
-	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
-	//	std::cout << iter->first << " and " << iter->second << '\n';
-	//}
-	
-	//std::cout << "\n\n----End bracketless----\n";
-	
-	
-	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
-	//	std::cout << iter->first << " bracketless " << iter->second << '\n';
-	//}
-	//std::cout << '\n';
-	return treeOptions;
+	std::string treeStr = "{\"nodes\":"+nodes+",\"allNodes\":"+allNodes+"}";
+	std::cout <<  treeStr << "\n";
+	return treeStr;
 }
 
 
@@ -859,7 +853,7 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			}
 		}
 	}
-	jsonmessage = "";
+
 	
 	while (!foundSolution){
 		foundSolution = true;
@@ -889,16 +883,22 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			bestSolution = oldBest;
 		}
 	}
-	
+	jsonmessage = "trees = [";
 	for (i=0;i<bestSolution.size();i++){
 		std::cout << "bs: " << bestSolution[i].next << "\n";
 		std::cout << "bsr: " << bestSolution[i].rule << "\n";
+		std::string treeStr;
 		if (i>0){
-			outputTree(bestSolution[i],bestSolution[i-1]);
-			
+			treeStr = outputTree(bestSolution[i],bestSolution[i-1]);
 		}
 		else {
-			outputTree(bestSolution[i],bestSolution[i]);
+			treeStr = outputTree(bestSolution[i],bestSolution[i]);
+		}
+		if (jsonmessage == "trees = ["){
+			jsonmessage += treeStr;
+		}
+		else {
+			jsonmessage += ","+treeStr;
 		}
 		
 		if (i+1<bestSolution.size()){
@@ -908,6 +908,7 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 			
 		
 	}
+	jsonmessage += "]";
 	
 	
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(jsonmessage);
