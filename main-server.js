@@ -102,6 +102,7 @@ wss.on('connection', function connection(ws) {
 			stdout = maincppa.solution(dm.answer);
 			console.log(stdout,performance.now());
 			var parsed = JSON.parse(stdout);
+			console.log(parsed[0].step);
 			var jsonmessage = {'type':'answer','answer':parsed};
 			ws.send(JSON.stringify(jsonmessage));
 		}

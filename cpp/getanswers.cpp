@@ -421,8 +421,8 @@ std::string outputTree(Step stepS,Step stepE){
 	allNodes += "]";
 	nodes += "}";
 	
-	std::string treeStr = "{\"nodes\":"+nodes+",\"allNodes\":"+allNodes+"}";
-	std::cout <<  treeStr << "\n";
+	std::string treeStr = "\"nodes\":"+nodes+",\"allNodes\":"+allNodes;
+	//std::cout <<  treeStr << "\n";
 	return treeStr;
 }
 
@@ -899,16 +899,20 @@ void GetSolution(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 		else {
 			treeStr = outputTree(bestSolution[i],bestSolution[i]);
 		}
-		if (jsonmessage == "["){
-			jsonmessage += treeStr;
-		}
-		else {
-			jsonmessage += ","+treeStr;
-		}
 		
 		if (i+1<bestSolution.size()){
 			std::string oneStep = displayOne(bestSolution[i],bestSolution[i].next,bestSolution[i+1].next);
+			treeStr += ",\"step\":" + oneStep; 
 		}
+		
+		if (jsonmessage == "["){
+			jsonmessage += "{" + treeStr + "}";
+		}
+		else {
+			jsonmessage += ",{" + treeStr + "}";
+		}
+		
+		
 			
 		
 	}
