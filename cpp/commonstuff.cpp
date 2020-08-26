@@ -602,7 +602,7 @@ void initialRun(){
 	makeRules("rules/derivatives.csv");
 	makeRules("subjects/prealgebra.csv");
 	makeRules("subjects/algebra.csv");
-	std::ifstream file("subjects/calculus.csv"); //file just has some sentences
+	std::ifstream file("cpp/subjects/calculus.csv"); //file just has some sentences
 	if (!file) {
 		std::cout << "unable to open file";
 	}
