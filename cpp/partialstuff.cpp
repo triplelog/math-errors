@@ -764,7 +764,7 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
 std::string getPoints(std::string fn,double domainLeft,double domainRight) {
 	std::string indVar = "x";
-
+	std::cout << "fn: " << fn << "\n";
 	fn = fn.substr(2,fn.length()-2);
 	std::cout << "fn: " << fn << "\n";
 	std::vector<std::string> postfixedV = postfixifyVector(fn,true);
