@@ -144,9 +144,9 @@ function convertCoordinates(x,y,domain,range){
 function makeGraph(input){
 	var fn = input.split("\n")[0];
 	var domain = [-20,10];
-	var range = [-10,10];
+	var range = [-20,10];
 	var svg = '<svg version="1.1" baseProfile="full" width="100" height="100" xmlns="http://www.w3.org/2000/svg">';
-	svg += '<path d="M'+convertCoordinates(0,range[1],domain,range)+' V100 M0 50 H100" stroke="rgba(0,0,0,.7)"/>';
+	svg += '<path d="M'+convertCoordinates(0,range[1],domain,range)+' V100 M'+convertCoordinates(domain[0],0,domain,range)+' H100" stroke="rgb(60,60,60)"/>';
 	svg += '</svg>';
 	return svg;
 }
