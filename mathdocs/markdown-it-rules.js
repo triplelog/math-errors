@@ -166,9 +166,9 @@ function makeGraph(input){
 	var svg = '<svg version="1.1" baseProfile="full" width="100" height="100" xmlns="http://www.w3.org/2000/svg">';
 	svg += '<path d="M'+convertCoordinates(0,range[1],domain,range)+' V100 M'+convertCoordinates(domain[0],0,domain,range)+' H100" stroke="rgb(60,60,60)"/>';
 	if (domain[1]-domain[0]>5){
-		for (var i=math.floor(domain[0])+1;i<math.floor(domain[1])+1;i++){
+		for (var i=Math.floor(domain[0])+1;i<Math.floor(domain[1])+1;i++){
 			if (range[1]-range[0]>5){
-				for (var ii=math.floor(range[0])+1;ii<math.floor(range[1])+1;ii++){
+				for (var ii=Math.floor(range[0])+1;ii<Math.floor(range[1])+1;ii++){
 					svg += '<circle cx="'+convertX(i,domain)+'" cy="'+convertY(ii,range)+'" r=".2" fill="red"/>';
 				}
 			}
