@@ -762,8 +762,8 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
 
-std::string getPoints(std::string fn,double domainLeft,double domainRight) {
-	std::string indVar = "x";
+std::string getPoints(std::string fn, std::string indVar,double domainLeft,double domainRight) {
+	std::string depVar = "y";
 	fn = fn.substr(2,fn.length()-2);
 	std::vector<std::string> postfixedV = postfixifyVector(fn,true);
 	std::vector<int> xIdx;
@@ -795,7 +795,7 @@ std::string getPoints(std::string fn,double domainLeft,double domainRight) {
 		out += std::to_string(x) + ","+outputNumber(y)+";";
 	}
 	auto a2 = std::chrono::high_resolution_clock::now();
-	std::cout << "time to solve 1000" << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n";
+	std::cout << "time to solve 1000: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n";
 	
 	return out;
 }
@@ -812,7 +812,7 @@ void GraphPoints(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	std::string ar(*sr);
 	double domainLeft = std::stod(al);
 	double domainRight = std::stod(ar);
-	std::string pointStr = getPoints(a,domainLeft,domainRight);
+	std::string pointStr = getPoints(a,"x",domainLeft,domainRight);
 	
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(pointStr);
 
