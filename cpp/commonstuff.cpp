@@ -589,7 +589,7 @@ std::string displayOne(Step step,std::string start,std::string end){
 		
 	}
 	oneStep += "],";
-	oneStep += "\"output\":\""+latexOne(ruleIndex[step.rule].out,-1,{})+"\",";
+	oneStep += "\"output\":\""+latexOne(ruleIndex[step.rule].out)+"\",";
 	int eNode = step.endNode;
 	if (step.endNodes.size() > 0){
 		eNode = step.endNodes[step.endNodes.size()-1];
