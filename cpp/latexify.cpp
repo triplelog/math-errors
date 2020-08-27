@@ -306,9 +306,6 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 }
 
 std::string latexOne(std::string input) {
-	std::vector<std::string> inputs = {"node","",input};
-	flat_hash_map<std::string,std::string> latexMap = toLatex(inputs);
-	return latexMap["node"];
 	
 	int i; int ii; int iii; int idx = 0;
 	bool startOperands = false;
