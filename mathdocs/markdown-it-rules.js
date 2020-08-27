@@ -167,7 +167,7 @@ function convertY(y,range,shift=0){
 	}
 }
 function makeGraph(input){
-	var fn = input.split("\n")[0];
+	var fn = input.trim().split("\n")[0];
 	var domain = [-20,20];
 	var range = [-20,20];
 	var svg = '<svg version="1.1" baseProfile="full" viewBox="0 0 100 100" width="200" height="200" xmlns="http://www.w3.org/2000/svg">';
@@ -207,12 +207,12 @@ function makeGraph(input){
 	
 	
 	var path = "M";
-	console.log(input.split("\n"));
+	console.log(fn);
 	fn = "y=2*x+1";
 	var outStr = maincppp.graphpoints(fn,""+domain[0],""+domain[1]);
 	var points = outStr.split(";").slice(0,1001);
-	console.log(outStr);
-	for (var i=0;i<11;i++){
+	//console.log(outStr);
+	for (var i=0;i<1001;i++){
 		path += convertCoordinates(points[i].split(",")[0],points[i].split(",")[1],domain,range)+ " ";
 	}
 	svg += '<path d="'+path+'" stroke="rgb(60,60,60)"/>';
