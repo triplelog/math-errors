@@ -781,8 +781,10 @@ void GraphPoints(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::String::Utf8Value sl(isolate, info[1]);
 	v8::String::Utf8Value sr(isolate, info[2]);
 	std::string a(*s);
-	double domainLeft = std::stod(sl);
-	double domainRight = std::stod(sr);
+	std::string al(*sl);
+	std::string ar(*sr);
+	double domainLeft = std::stod(al);
+	double domainRight = std::stod(ar);
 	std::string pointStr = getPoints(a,domainLeft,domainRight);
 	
 	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(pointStr);
