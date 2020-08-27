@@ -182,7 +182,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 			
 						}
 						case '-': {
-							if (prec[pfstr.at(i)] >= prec[lastOpMap[child]]){
+							if (prec['-'] >= prec[lastOpMap[child]]){
 								s += "-("+latexMap[child]+")";
 							}
 							else {
@@ -193,7 +193,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 						case '/': {
 							s += "\\frac{1}{"+latexMap[child]+"}";
 							/*
-							if (prec[pfstr.at(i)] >= prec[lastOpMap[child]]){
+							if (prec['/'] >= prec[lastOpMap[child]]){
 								s += "/("+latexMap[child]+")";
 							}
 							else {
@@ -202,9 +202,10 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							break;
 						}
 						default: {
-							if (prec[pfstr.at(i)] > prec[lastOpMap[child]]){
+							char thisChar = lastOpMap[input[i*3];
+							if (prec[thisChar] > prec[lastOpMap[child]]){
 								if (ii > 0){
-									if (pfstr.at(i) == '*'){
+									if (thisChar == '*'){
 										if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
 											s += "("+latexMap[child]+")";
 										}
@@ -214,16 +215,16 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 									
 									}
 									else {
-										s += pfstr.at(i)+"("+latexMap[child]+")";
+										s += thisChar+"("+latexMap[child]+")";
 									}
 								}
 								else {
 									s += "("+latexMap[child]+")";
 								}
 							}
-							else if (prec[pfstr.at(i)] == prec[lastOpMap[child]] && pfstr.at(i) != lastOpMap[child]){
+							else if (prec[thisChar] == prec[lastOpMap[child]] && thisChar != lastOpMap[child]){
 								if (ii > 0){
-									if (pfstr.at(i) == '*'){
+									if (thisChar == '*'){
 										if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
 											if (latexMap[child].length()>0 && (latexMap[child].at(0) >= '0' && latexMap[child].at(0) <= '9')){
 												//digit followed by digit
@@ -239,18 +240,18 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 										}
 									
 									}
-									else if (pfstr.at(i) == '+'){
+									else if (thisChar == '+'){
 										s += latexMap[child];
 									}
 									else {
-										s += pfstr.at(i)+"("+latexMap[child]+")";
+										s += thisChar+"("+latexMap[child]+")";
 									}
 								}
 								else {
-									if (pfstr.at(i) == '*'){
+									if (thisChar == '*'){
 										s += latexMap[child];
 									}
-									else if (pfstr.at(i) == '+'){
+									else if (thisChar == '+'){
 										s += latexMap[child];
 									}
 									else {
@@ -260,7 +261,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							}
 							else {
 								if (ii > 0){
-									if (pfstr.at(i) == '*'){
+									if (thisChar == '*'){
 										if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
 											if (latexMap[child].length()>0 && (latexMap[child].at(0) >= '0' && latexMap[child].at(0) <= '9')){
 												//digit followed by digit
@@ -276,7 +277,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 										}
 									}
 									else {
-										s += pfstr.at(i)+latexMap[child];
+										s += thisChar+latexMap[child];
 									}
 								}
 								else {
