@@ -768,7 +768,7 @@ std::string getPoints(std::string fn,double domainLeft,double domainRight) {
 	for (i=0;i<101;i++){
 		double x = domainLeft + i*(domainRight-domainLeft)/100.0;
 		double y = 2*x + 1;
-		out += std::string(x) + ","+std::string(y)+";";
+		out += std::to_string(x) + ","+std::to_string(y)+";";
 	}
 	return out;
 }
