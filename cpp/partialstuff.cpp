@@ -763,10 +763,34 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 std::string getPoints(std::string fn,double domainLeft,double domainRight) {
+	std::string indVar = "x";
+
+	fn = fn.substr(2,fn.length()-2);
+	std::vector<std::string> postfixedV = postfixifyVector(fn,true);
+	std::vector<int> xIdx;
 	std::string out = "";
-	int i;
-	for (i=0;i<1001;i++){
-		double x = domainLeft + i*(domainRight-domainLeft)/1000.0;
+	int i; int ii;
+	std::string currentOperand = "";
+	for (i=0;i<postfixedV[1].length();i++){
+		if (postfixedV[1].at(i) == '_'){
+			if (currentOperand == indVar){
+				xIdx.push_back(i);	
+			}
+			currentOperand = "";
+		}
+		else {
+			currentOperand += postfixedV[1].at(i);
+		}
+	}
+	for (i=0;i<11;i++){
+		double x = domainLeft + i*(domainRight-domainLeft)/10.0;
+		std::string solvableR = postfixedV[1];
+		std::cout << "solvableR: " << solvableR << "\n";
+		for (ii=xIdx.length()-1;ii>=0;ii=--){
+			solvableR.replace(xIdx[ii]-indVar.length(),indVar.length(),std::to_string(x));
+		}
+		std::string solvable = postfixedV[0] + "@" + solvableR;
+		std::cout << "solvable: " << solvable << "\n";
 		double y = 2*x + 1;
 		out += std::to_string(x) + ","+std::to_string(y)+";";
 	}

@@ -208,9 +208,9 @@ function makeGraph(input){
 	
 	var path = "M";
 	var outStr = maincppp.graphpoints(fn,""+domain[0],""+domain[1]);
-	var points = outStr.split(";").slice(0,1001);
+	var points = outStr.split(";").slice(0,11);
 	console.log(outStr);
-	for (var i=0;i<1001;i++){
+	for (var i=0;i<11;i++){
 		path += convertCoordinates(points[i].split(",")[0],points[i].split(",")[1],domain,range)+ " ";
 	}
 	svg += '<path d="'+path+'" stroke="rgb(60,60,60)"/>';
