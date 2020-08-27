@@ -765,8 +765,8 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 std::string getPoints(std::string fn,double domainLeft,double domainRight) {
 	std::string out = "";
 	int i;
-	for (i=0;i<101;i++){
-		double x = domainLeft + i*(domainRight-domainLeft)/100.0;
+	for (i=0;i<1001;i++){
+		double x = domainLeft + i*(domainRight-domainLeft)/1000.0;
 		double y = 2*x + 1;
 		out += std::to_string(x) + ","+std::to_string(y)+";";
 	}
