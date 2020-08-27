@@ -202,7 +202,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 							break;
 						}
 						default: {
-							char thisChar = lastOpMap[input[i*3];
+							char thisChar = lastOpMap[input[i*3]];
 							if (prec[thisChar] > prec[lastOpMap[child]]){
 								if (ii > 0){
 									if (thisChar == '*'){
