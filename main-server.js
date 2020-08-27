@@ -415,7 +415,7 @@ wss.on('connection', function connection(ws) {
 				console.log(dm.lesson);
 				var mdoptions2 = require('./mathdocs/markdown-it-rules.js')(dm.lesson);
 				md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions2);
-				html = md.render('::: graph\ny=2*x+1\n:::\n');
+				html = md.render('::: graph\ny=x^2+1\n:::\n');
 				
 				//html = md.render('::: examples\n'+dm.examples+'\n:::\n');
 				jsonmessage ={'type':'previewText','examples':html};
