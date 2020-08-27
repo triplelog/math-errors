@@ -164,9 +164,11 @@ function makeGraph(input){
 	var domain = [-20,20];
 	var range = [-20,20];
 	var svg = '<svg version="1.1" baseProfile="full" viewBox="0 0 100 100" width="200" height="200" xmlns="http://www.w3.org/2000/svg">';
-	svg += '<path d="M'+convertCoordinates(0,range[1],domain,range)+' V100 M'+convertCoordinates(domain[0],0,domain,range)+' H100" stroke="rgb(160,160,160)"/>';
 	if (domain[1]-domain[0]>5){
 		for (var i=Math.floor(domain[0])+1;i<Math.floor(domain[1])+1;i++){
+			if (i%5 == 0 && i != 0){
+				svg += '<text x="'+convertX(i,domain)+'" y="'+convertY(0,range)+'">'+i+'</text>';
+			}
 			if (range[1]-range[0]>5){
 				for (var ii=Math.floor(range[0])+1;ii<Math.floor(range[1])+1;ii++){
 					if (i%5==0 && ii%5 == 0){
@@ -183,6 +185,9 @@ function makeGraph(input){
 			}
 		}
 	}
+	svg += '<path d="M'+convertCoordinates(0,range[1],domain,range)+' V100 M'+convertCoordinates(domain[0],0,domain,range)+' H100" stroke="rgb(160,160,160)"/>';
+	
+	
 	var path = "M";
 	for (var i=domain[0];i<=domain[1];i+= .01){
 		path += convertCoordinates(i,2*i+1,domain,range)+ " ";
