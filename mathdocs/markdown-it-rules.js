@@ -214,7 +214,7 @@ function makeGraph(input){
 	for (var i=0;i<1001;i++){
 		path += convertCoordinates(points[i].split(",")[0],points[i].split(",")[1],domain,range)+ " ";
 	}
-	svg += '<path d="'+path+'" stroke="rgb(60,60,60)"/>';
+	svg += '<path d="'+path+'" stroke="rgb(60,60,60)" fill="none"/>';
 	
 	svg += '</svg>';
 	return svg;
