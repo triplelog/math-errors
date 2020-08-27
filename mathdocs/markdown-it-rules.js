@@ -126,12 +126,27 @@ function mdoptionsfn(filen){
 	return mdoptions;
 }
 
+function convertCoordinates(x,y,domain,range){
+	if (x>=domain[0] && x<=domain[1]){
+		var xstr = "" + (100*(x-domain[0])/(domain[1]-domain[0]));
+		if (y>=range[0] && y<=range[1]){
+			var ystr = "" + (100-100*(y-range[0])/(range[1]-range[0]));
+			return xstr + " " + ystr;
+		}
+		else {
+			return "";
+		}
+	}
+	else {
+		return "";
+	}
+}
 function makeGraph(input){
 	var fn = input.split("\n")[0];
-	var domain = [-10,10];
-	var range = "auto";
+	var domain = [-20,10];
+	var range = [-10,10];
 	var svg = '<svg version="1.1" baseProfile="full" width="100" height="100" xmlns="http://www.w3.org/2000/svg">';
-	svg += '<path d="M50 0 V100 M0 50 H100" stroke="black"/>';
+	svg += '<path d="M'+convertCoordinates(0,range[1],domain,range)+' V100 M0 50 H100" stroke="rgba(0,0,0,.7)"/>';
 	svg += '</svg>';
 	return svg;
 }
