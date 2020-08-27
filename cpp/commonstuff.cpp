@@ -568,7 +568,7 @@ std::string displayOne(Step step,std::string start,std::string end){
 	if (step.rule < 0){
 		return "";
 	}
-	std::string oneStep = "{\"start\":\""+latexBoxed(start,step.startNode,{})+"\",";
+	std::string oneStep = "{\"start\":\""+latexOne(start,step.startNode,{})+"\",";
 	std::string oldString = ruleIndex[step.rule].key + "@" + ruleIndex[step.rule].operands;
 	
 	oneStep += "\"input\":\""+latexOne(oldString)+"\",\"map\":[";
@@ -589,12 +589,12 @@ std::string displayOne(Step step,std::string start,std::string end){
 		
 	}
 	oneStep += "],";
-	oneStep += "\"output\":\""+latexBoxed(ruleIndex[step.rule].out,-1,{})+"\",";
+	oneStep += "\"output\":\""+latexOne(ruleIndex[step.rule].out,-1,{})+"\",";
 	int eNode = step.endNode;
 	if (step.endNodes.size() > 0){
 		eNode = step.endNodes[step.endNodes.size()-1];
 	}
-	oneStep += "\"final\":\""+latexBoxed(removeBracketsOne(end),eNode,{})+"\"}";
+	oneStep += "\"final\":\""+latexOne(removeBracketsOne(end),eNode,{})+"\"}";
 	
 	return oneStep;
 }

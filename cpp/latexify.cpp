@@ -304,7 +304,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 	
 	return latexMap;
 }
-
+/*
 std::string latexOne(std::string input) {
 	
 	int i; int ii; int iii; int idx = 0;
@@ -422,8 +422,8 @@ std::string latexOne(std::string input) {
 	
 
 }
-
-std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> bMap) {
+*/
+std::string latexOne(std::string input,int startNode,flat_hash_map<int,bool> bMap) {
 
 	int i; int ii; int iii; int idx = 0;
 	bool startOperands = false;
@@ -450,7 +450,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 				}
 			}
 					
-			return latexBoxed(pfstr,-1,mm);
+			return latexOne(pfstr,-1,mm);
 		}
 		else if (startOperands){
 			if (pfstr.at(i) == '_'){
@@ -533,237 +533,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 				else if (ii==1 && firstChild == ""){
 					break;
 				}
-				switch (pfstr.at(i)){
-					case '^': {
-						if (ii > 0){
-							s += "^{";
-							s += listMap[child]+"}";
-						}
-						else {
-							if (prec[lastOpMap[child]] < 100){
-								s += "("+listMap[child]+")";
-							}
-							else {
-								s += listMap[child];
-							}
-						}
-						break;
-					}
-					case -69: {
-						if (ii > 0){
-							s += listMap[child]+"]";
-						}
-						else {
-							s += "\\frac{d}{d"+listMap[child]+"}[";
-						}
-						break;
-			
-					}
-					case -85: {
-						if (ii > 0){
-							s.replace(6,0,listMap[child]+" \\text{d");
-						}
-						else {
-							s += "\\int "+listMap[child]+"}";
-						}
-						break;
-			
-					}
-					case -34:
-						s += "|"+listMap[child]+"|";
-						break;
-					case -64:
-						s += "\\sin("+listMap[child]+")";
-						break;
-					case -63:
-						s += "\\cos("+listMap[child]+")";
-						break;
-					case -62:
-						s += "\\tan("+listMap[child]+")";
-						break;
-					case -61:
-						s += "\\csc("+listMap[child]+")";
-						break;
-					case -60:
-						s += "\\sec("+listMap[child]+")";
-						break;
-					case -59:
-						s += "\\cot("+listMap[child]+")";
-						break;
-					case -32:
-						s += "\\sin^{-1}("+listMap[child]+")";
-						break;
-					case -31:
-						s += "\\cos^{-1}("+listMap[child]+")";
-						break;
-					case -30:
-						s += "\\tan^{-1}("+listMap[child]+")";
-						break;
-					case -29:
-						s += "\\csc^{-1}("+listMap[child]+")";
-						break;
-					case -28:
-						s += "\\sec^{-1}("+listMap[child]+")";
-						break;
-					case -27:
-						s += "\\cot^{-1}("+listMap[child]+")";
-						break;
-					case -16:
-						s += "\\text{sinh}("+listMap[child]+")";
-						break;
-					case -15:
-						s += "\\text{cosh}("+listMap[child]+")";
-						break;
-					case -14:
-						s += "\\text{tanh}("+listMap[child]+")";
-						break;
-					case -13:
-						s += "\\text{csch}("+listMap[child]+")";
-						break;
-					case -12:
-						s += "\\text{sech}("+listMap[child]+")";
-						break;
-					case -11:
-						s += "\\text{coth}("+listMap[child]+")";
-						break;
-					case -67:
-						s += "\\sqrt{"+listMap[child]+"}";
-						break;
-					case -84: {
-						if (ii > 0){
-							s += listMap[child]+"}";
-						}
-						else {
-							s += "\\sqrt["+listMap[child]+"]{";
-						}
-						break;
-			
-					}
-					case -93: {
-						if (ii > 0){
-							if (prec[lastOpMap[child]] < 100){
-								s += "("+listMap[child]+")";
-							}
-							else {
-								s += listMap[child];
-							}
-					
-						}
-						else {
-							if (listMap[child] == "e"){
-								s += "\\ln ";
-							}
-							else {
-								s += "\\log_{"+listMap[child]+"} ";
-							}
-						}
-						break;
-			
-					}
-					case '-': {
-						if (prec[pfstr.at(i)] >= prec[lastOpMap[child]]){
-							s += "-("+listMap[child]+")";
-						}
-						else {
-							s += "-"+listMap[child];
-						}
-						break;
-					}
-					case '/': {
-						s += "\\frac{1}{"+listMap[child]+"}";
-						/*
-						if (prec[pfstr.at(i)] >= prec[lastOpMap[child]]){
-							s += "/("+listMap[child]+")";
-						}
-						else {
-							s += "/"+listMap[child];
-						}*/
-						break;
-					}
-					default: {
-						if (prec[pfstr.at(i)] > prec[lastOpMap[child]]){
-							if (ii > 0){
-								if (pfstr.at(i) == '*'){
-									if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
-										s += "("+listMap[child]+")";
-									}
-									else {
-										s += "\\cdot ("+listMap[child]+")";//want to move this into numerator somehow
-									}
-									
-								}
-								else {
-									s += pfstr.at(i)+"("+listMap[child]+")";
-								}
-							}
-							else {
-								s += "("+listMap[child]+")";
-							}
-						}
-						else if (prec[pfstr.at(i)] == prec[lastOpMap[child]] && pfstr.at(i) != lastOpMap[child]){
-							if (ii > 0){
-								if (pfstr.at(i) == '*'){
-									if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
-										if (listMap[child].length()>0 && (listMap[child].at(0) >= '0' && listMap[child].at(0) <= '9')){
-											//digit followed by digit
-											s += "\\cdot "+listMap[child];
-										}
-										else{
-											//digit followed by not a digit
-											s += listMap[child];
-										}
-									}
-									else {
-										s += "\\cdot "+listMap[child];//want to move this into numerator somehow
-									}
-									
-								}
-								else if (pfstr.at(i) == '+'){
-									s += listMap[child];
-								}
-								else {
-									s += pfstr.at(i)+"("+listMap[child]+")";
-								}
-							}
-							else {
-								if (pfstr.at(i) == '*'){
-									s += listMap[child];
-								}
-								else if (pfstr.at(i) == '+'){
-									s += listMap[child];
-								}
-								else {
-									s += "("+listMap[child]+")";
-								}
-							}
-						}
-						else {
-							if (ii > 0){
-								if (pfstr.at(i) == '*'){
-									if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
-										if (listMap[child].length()>0 && (listMap[child].at(0) >= '0' && listMap[child].at(0) <= '9')){
-											//digit followed by digit
-											s += "\\cdot "+listMap[child];
-										}
-										else{
-											//digit followed by not a digit
-											s += listMap[child];
-										}
-									}
-									else {
-										s += "\\cdot "+listMap[child];//want to move this into numerator somehow
-									}
-								}
-								else {
-									s += pfstr.at(i)+listMap[child];
-								}
-							}
-							else {
-								s += listMap[child];
-							}
-						}
-					}
-				}
+				s = latexLogic(pfstr.at(i), s, ii, listMap[child],lastOpMap[child]);
 			}
 			
 			if (i == startNode){
@@ -798,4 +568,7 @@ std::string latexBoxed(std::string input,int startNode,flat_hash_map<int,bool> b
 	return lastInput;
 
 
+}
+std::string latexOne(std::string input){
+	return latexOne(input,-1,{});
 }
