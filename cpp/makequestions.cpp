@@ -1642,6 +1642,7 @@ bool getAnswerList(std::string s, int nSteps) {
 }
 
 
+#include "autocomplete.cpp"
 
 
 
