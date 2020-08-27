@@ -1,4 +1,4 @@
-std::string latexLogic(char c, std::string s, int ii, std::string child, std::string lastOp){
+std::string latexLogic(char c, std::string s, int ii, std::string child, char lastOp){
 	switch (c){
 		case '^': {
 			if (ii > 0){
