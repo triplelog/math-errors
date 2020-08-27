@@ -766,6 +766,7 @@ std::string getPoints(std::string fn,double domainLeft,double domainRight) {
 	std::string indVar = "x";
 
 	fn = fn.substr(2,fn.length()-2);
+	std::cout << "fn: " << fn << "\n";
 	std::vector<std::string> postfixedV = postfixifyVector(fn,true);
 	std::vector<int> xIdx;
 	std::string out = "";
@@ -782,6 +783,7 @@ std::string getPoints(std::string fn,double domainLeft,double domainRight) {
 			currentOperand += postfixedV[1].at(i);
 		}
 	}
+	std::cout << "xIdxSz: " << xIdx.size() << "\n";
 	for (i=0;i<11;i++){
 		double x = domainLeft + i*(domainRight-domainLeft)/10.0;
 		std::string solvableR = postfixedV[1];
