@@ -136,6 +136,7 @@ std::string latexLogic(char c, std::string s, int ii, std::string child, char la
 			break;
 		}
 		case '/': {
+			//TODO: check if child is \\frac{}{}
 			s += "\\frac{1}{"+child+"}";
 			/*
 			if (prec['/'] >= prec[lastOp]){
@@ -169,6 +170,18 @@ std::string latexLogic(char c, std::string s, int ii, std::string child, char la
 			else if (prec[c] == prec[lastOp] && c != lastOp){
 				if (ii > 0){
 					if (c == '*'){
+						//This is the * right after /
+						int iii; int openBracket = 1;
+						for (iii=5;iii<s.length();iii++){
+							if (s.at(iii) == '}'){openBracket--;}
+							else if (s.at(iii) == '{'){openBracket++;}
+							
+							if (openBracket == 0){
+								s.replace(5,iii-5,child);
+								break;
+							}
+						}
+						/*
 						if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
 							if (child.length()>0 && (child.at(0) >= '0' && child.at(0) <= '9')){
 								//digit followed by digit
@@ -181,7 +194,7 @@ std::string latexLogic(char c, std::string s, int ii, std::string child, char la
 						}
 						else {
 							s += "\\cdot "+child;//want to move this into numerator somehow
-						}
+						}*/
 					
 					}
 					else if (c == '+'){
@@ -304,125 +317,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 	
 	return latexMap;
 }
-/*
-std::string latexOne(std::string input) {
-	
-	int i; int ii; int iii; int idx = 0;
-	bool startOperands = false;
-	std::string currentOperator = "";
-	flat_hash_map<int,std::string> originalMap;
-	int iidx = 0;
-	std::string pfstr = input;
-	
-	for (i=0;i<pfstr.length();i++){
-		if (pfstr.at(i) == '@'){
-			startOperands = true;
-		}
-		else if (startOperands){
-			if (pfstr.at(i) == '_'){
-				originalMap[iidx] = currentOperator;
-				iidx++; 
-				currentOperator = "";
-			}
-			else {
-				currentOperator += pfstr.at(i);
-			}
-		}
-	}
-	
-	flat_hash_map<std::string,std::string> listMap;
-	flat_hash_map<std::string,char> lastOpMap;
-	
-	flat_hash_map<int,std::string> operandMap;
-	std::string lastInput = "";
-	for (i=0;i<pfstr.length();i++){
-		if (pfstr.at(i) == '@'){
-			break;
-		}
-		else if (pfstr.at(i) != '#'){
-			std::string secondStr = "";
-			std::string secondTtr = "";
-			std::string secondChild = "";
-			int maxi = i-1;
-			
-			for (ii=0;ii<i;ii++){
-				std::string s = "";
-				std::string t = "";
-				for (iii=ii;iii<i;iii++){
-					s += pfstr.at(iii);
-					if (pfstr.at(iii) == '#'){
-						t += operandMap[iii] + '_';
-					}
-				}
-				if (listMap.find(s + '@' + t) != listMap.end()){
-					secondStr = s;
-					secondTtr = t;
-					secondChild = s + '@' + t;
-					maxi = ii;
-					break;
-				}
-			}
-			std::string firstStr = "";
-			std::string firstTtr = "";
-			std::string firstChild = "";
-			std::vector<std::string> fullTrees;
-			
-			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && (pfstr.at(i) >= 0 || pfstr.at(i) <= -69 )){ // Is at least binary function
-				
-				for (ii=0;ii<maxi;ii++){
-					std::string s = "";
-					std::string t = "";
-					for (iii=ii;iii<maxi;iii++){
-						s += pfstr.at(iii);
-						if (pfstr.at(iii) == '#'){
-							t += operandMap[iii] + '_';
-						}
-					}
-					if (listMap.find(s + '@' + t) != listMap.end()){
-						firstStr = s;
-						firstTtr = t;
-						firstChild = s + '@' + t;
-						break;
-					}
-				}
-				
-				
-			}
-			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
-			
-			std::string s = "";
-			for (ii=0;ii<2;ii++){
-				std::string child = secondChild;
-				if (ii==0 && firstChild != ""){
-					child = firstChild;
-				}
-				else if (ii==1 && firstChild == ""){
-					break;
-				}
-				s = latexLogic(pfstr.at(i), s, ii, listMap[child],lastOpMap[child]);
-			}
-			
-			listMap[fullStr]=s;
-			lastOpMap[fullStr]=pfstr.at(i);
-			lastInput = s;
-			
-		}
-		else {
-			listMap["#@" + std::to_string(idx) + "_"]=originalMap[idx];
-			lastOpMap["#@" + std::to_string(idx) + "_"]='#';
-			operandMap[i]=std::to_string(idx);
-			lastInput = originalMap[idx];
-			idx++;
-		}
-		
-	}
-	
-	//std::cout << lastInput << "\n";
-	return lastInput;
-	
 
-}
-*/
 std::string latexOne(std::string input,int startNode,flat_hash_map<int,bool> bMap) {
 
 	int i; int ii; int iii; int idx = 0;
