@@ -193,13 +193,13 @@ function makeGraph(input){
 			}
 			
 			if (i%5 == 0 && i != 0){
-				svg += '<circle cx="'+convertX(i,domain)+'" cy="'+convertY(0,range,3)+'" r="6px" fill="white"/>';
+				svg += '<circle cx="'+convertX(i,domain)+'" cy="'+convertY(0,range,3)+'" r="4px" fill="white"/>';
 				svg += '<text fill="black" font-size="6px" text-anchor="middle" dominant-baseline="hanging" x="'+convertX(i,domain)+'" y="'+convertY(0,range,1)+'">&nbsp;'+i+'&nbsp;</text>';
 			}
 		}
 		for (var ii=Math.floor(range[0])+1;ii<Math.floor(range[1])+1;ii++){
 			if (ii%5 == 0 && ii != 0){
-				svg += '<circle cx="'+convertX(0,domain,-3)+'" cy="'+convertY(ii,range,1)+'" r="6px" fill="white"/>';
+				svg += '<circle cx="'+convertX(0,domain,-3)+'" cy="'+convertY(ii,range)+'" r="4px" fill="white"/>';
 				svg += '<text font-size="6px" text-anchor="end" dominant-baseline="middle" x="'+convertX(0,domain,-1)+'" y="'+convertY(ii,range,1)+'">'+ii+'</text>';
 			}	
 		}
