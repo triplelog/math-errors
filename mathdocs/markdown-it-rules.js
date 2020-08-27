@@ -166,9 +166,7 @@ function makeGraph(input){
 	var svg = '<svg version="1.1" baseProfile="full" viewBox="0 0 100 100" width="200" height="200" xmlns="http://www.w3.org/2000/svg">';
 	if (domain[1]-domain[0]>5){
 		for (var i=Math.floor(domain[0])+1;i<Math.floor(domain[1])+1;i++){
-			if (i%5 == 0 && i != 0){
-				svg += '<text font-size="8px" text-anchor="middle" dominant-baseline="hanging" x="'+convertX(i,domain)+'" y="'+convertY(0,range)+'">'+i+'</text>';
-			}
+			
 			if (range[1]-range[0]>5){
 				for (var ii=Math.floor(range[0])+1;ii<Math.floor(range[1])+1;ii++){
 					if (i%5==0 && ii%5 == 0){
@@ -182,6 +180,10 @@ function makeGraph(input){
 					}
 					
 				}
+			}
+			
+			if (i%5 == 0 && i != 0){
+				svg += '<text font-size="6px" text-anchor="middle" dominant-baseline="hanging" x="'+convertX(i,domain)+'" y="'+convertY(0,range)+'">'+i+'</text>';
 			}
 		}
 	}
