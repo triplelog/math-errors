@@ -129,8 +129,12 @@ function mdoptionsfn(filen){
 function convertCoordinates(x,y,domain,range){
 	if (x>=domain[0] && x<=domain[1]){
 		var xstr = "" + (100*(x-domain[0])/(domain[1]-domain[0]));
+		if (xstr[0] == "-"){xstr = xstr.substr(0,6);}
+		else{xstr = xstr.substr(0,5);}
 		if (y>=range[0] && y<=range[1]){
 			var ystr = "" + (100-100*(y-range[0])/(range[1]-range[0]));
+			if (ystr[0] == "-"){ystr = ystr.substr(0,6);}
+			else{ystr = ystr.substr(0,5);}
 			return xstr + " " + ystr;
 		}
 		else {
@@ -144,6 +148,8 @@ function convertCoordinates(x,y,domain,range){
 function convertX(x,domain,shift=0){
 	if (x>=domain[0] && x<=domain[1]){
 		var xstr = "" + (shift+100*(x-domain[0])/(domain[1]-domain[0]));
+		if (xstr[0] == "-"){xstr = xstr.substr(0,6);}
+		else{xstr = xstr.substr(0,5);}
 		return xstr;
 	}
 	else {
@@ -153,6 +159,8 @@ function convertX(x,domain,shift=0){
 function convertY(y,range,shift=0){
 	if (y>=range[0] && y<=range[1]){
 		var ystr = "" + (shift+100-100*(y-range[0])/(range[1]-range[0]));
+		if (ystr[0] == "-"){ystr = ystr.substr(0,6);}
+		else{ystr = ystr.substr(0,5);}
 		return ystr;
 	}
 	else {
@@ -188,7 +196,7 @@ function makeGraph(input){
 		}
 		for (var ii=Math.floor(range[0])+1;ii<Math.floor(range[1])+1;ii++){
 			if (ii%5 == 0 && ii != 0){
-				svg += '<text font-size="6px" text-anchor="right" dominant-baseline="middle" x="'+convertX(0,domain,-2)+'" y="'+convertY(ii,range)+'">'+ii+'</text>';
+				svg += '<text font-size="6px" text-anchor="end" dominant-baseline="middle" x="'+convertX(0,domain,-2)+'" y="'+convertY(ii,range)+'">'+ii+'</text>';
 			}	
 		}
 	}
