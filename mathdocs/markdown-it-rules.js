@@ -170,13 +170,13 @@ function makeGraph(input){
 			if (range[1]-range[0]>5){
 				for (var ii=Math.floor(range[0])+1;ii<Math.floor(range[1])+1;ii++){
 					if (i%5==0 && ii%5 == 0){
-						svg += '<circle cx="'+convertX(i,domain)+'" cy="'+convertY(ii,range)+'" r=".4" fill="red"/>';
+						svg += '<circle cx="'+convertX(i,domain)+'" cy="'+convertY(ii,range)+'" r=".6" fill="red"/>';
 					}
 					else if (i%5==0 || ii%5 == 0){
-						svg += '<circle cx="'+convertX(i,domain)+'" cy="'+convertY(ii,range)+'" r=".2" fill="red"/>';
+						svg += '<circle cx="'+convertX(i,domain)+'" cy="'+convertY(ii,range)+'" r=".4" fill="red"/>';
 					}
 					else {
-						svg += '<circle cx="'+convertX(i,domain)+'" cy="'+convertY(ii,range)+'" r=".1" fill="red"/>';
+						svg += '<circle cx="'+convertX(i,domain)+'" cy="'+convertY(ii,range)+'" r=".2" fill="red"/>';
 					}
 					
 				}
