@@ -141,12 +141,39 @@ function convertCoordinates(x,y,domain,range){
 		return "";
 	}
 }
+function convertX(x,domain){
+	if (x>=domain[0] && x<=domain[1]){
+		var xstr = "" + (100*(x-domain[0])/(domain[1]-domain[0]));
+		return xstr;
+	}
+	else {
+		return "";
+	}
+}
+function convertY(y,range){
+	if (y>=range[0] && y<=range[1]){
+		var ystr = "" + (100-100*(y-range[0])/(range[1]-range[0]));
+		return ystr;
+	}
+	else {
+		return "";
+	}
+}
 function makeGraph(input){
 	var fn = input.split("\n")[0];
 	var domain = [-20,10];
 	var range = [-20,10];
 	var svg = '<svg version="1.1" baseProfile="full" width="100" height="100" xmlns="http://www.w3.org/2000/svg">';
 	svg += '<path d="M'+convertCoordinates(0,range[1],domain,range)+' V100 M'+convertCoordinates(domain[0],0,domain,range)+' H100" stroke="rgb(60,60,60)"/>';
+	if (domain[1]-domain[0]>5){
+		for (var i=math.floor(domain[0])+1;i<math.floor(domain[1])+1;i++){
+			if (range[1]-range[0]>5){
+				for (var ii=math.floor(range[0])+1;ii<math.floor(range[1])+1;ii++){
+					svg += '<circle cx="'+convertX(i,domain)+'" cy="'+convertY(ii,range)+'" r=".2" fill="red"/>';
+				}
+			}
+		}
+	}
 	svg += '</svg>';
 	return svg;
 }
