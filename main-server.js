@@ -404,13 +404,11 @@ wss.on('connection', function connection(ws) {
 			if (dm.rules){
 				md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions);
 				html = md.render('::: rule\n'+dm.rules+'\n:::\n');
-				console.log(html);
 				jsonmessage ={'type':'previewText','rules':html};
 			}
 			else if (dm.errors){
 				md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions);
 				html = md.render('::: error\n'+dm.errors+'\n:::\n');
-				console.log(html);
 				jsonmessage ={'type':'previewText','errors':html};
 			}
 			else if (dm.examples){
@@ -418,7 +416,6 @@ wss.on('connection', function connection(ws) {
 				var mdoptions2 = require('./mathdocs/markdown-it-rules.js')(dm.lesson);
 				md.use(require('@gerhobbelt/markdown-it-container'), 'rule' , mdoptions2);
 				html = md.render('::: examples\n'+dm.examples+'\n:::\n');
-				console.log(html);
 				jsonmessage ={'type':'previewText','examples':html};
 			}
 			ws.send(JSON.stringify(jsonmessage));

@@ -637,8 +637,8 @@ void initialRun(){
 	auto t1 = std::chrono::high_resolution_clock::now();
 	ridx = 0;
 	makeRules("rules/derivatives.csv");
-	makeRules("subjects/prealgebra.csv");
-	makeRules("subjects/algebra.csv");
+	makeRules("subjects/prealgebraold.csv");
+	makeRules("subjects/algebraold.csv");
 	std::ifstream file("cpp/subjects/calculus.csv"); //file just has some sentences
 	if (!file) {
 		std::cout << "unable to open file";
