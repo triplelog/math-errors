@@ -208,7 +208,6 @@ function makeGraph(input){
 	
 	var path = "M";
 	console.log(fn);
-	fn = "y=2*x+1";
 	var outStr = maincppp.graphpoints(fn,""+domain[0],""+domain[1]);
 	var points = outStr.split(";").slice(0,1001);
 	//console.log(outStr);
