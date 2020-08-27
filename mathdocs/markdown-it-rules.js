@@ -167,7 +167,7 @@ function makeGraph(input){
 	if (domain[1]-domain[0]>5){
 		for (var i=Math.floor(domain[0])+1;i<Math.floor(domain[1])+1;i++){
 			if (i%5 == 0 && i != 0){
-				svg += '<text x="'+convertX(i,domain)+'" y="'+convertY(0,range)+'">'+i+'</text>';
+				svg += '<text font-size="8px" text-anchor="middle" dominant-baseline="hanging" x="'+convertX(i,domain)+'" y="'+convertY(0,range)+'">'+i+'</text>';
 			}
 			if (range[1]-range[0]>5){
 				for (var ii=Math.floor(range[0])+1;ii<Math.floor(range[1])+1;ii++){
