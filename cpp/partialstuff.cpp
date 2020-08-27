@@ -786,7 +786,7 @@ std::string getPoints(std::string fn,double domainLeft,double domainRight) {
 		double x = domainLeft + i*(domainRight-domainLeft)/10.0;
 		std::string solvableR = postfixedV[1];
 		std::cout << "solvableR: " << solvableR << "\n";
-		for (ii=xIdx.length()-1;ii>=0;ii=--){
+		for (ii=xIdx.size()-1;ii>=0;ii--){
 			solvableR.replace(xIdx[ii]-indVar.length(),indVar.length(),std::to_string(x));
 		}
 		std::string solvable = postfixedV[0] + "@" + solvableR;
