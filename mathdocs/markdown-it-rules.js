@@ -188,7 +188,7 @@ function makeGraph(input){
 		}
 		for (var ii=Math.floor(range[0])+1;ii<Math.floor(range[1])+1;ii++){
 			if (ii%5 == 0 && ii != 0){
-				svg += '<text font-size="6px" text-anchor="right" dominant-baseline="middle" x="'+(convertX(0,domain)-2)+'" y="'+convertY(y,range)+'">'+ii+'</text>';
+				svg += '<text font-size="6px" text-anchor="right" dominant-baseline="middle" x="'+(convertX(0,domain)-2)+'" y="'+convertY(ii,range)+'">'+ii+'</text>';
 			}	
 		}
 	}
