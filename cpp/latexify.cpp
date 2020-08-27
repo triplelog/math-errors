@@ -303,7 +303,10 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 }
 
 std::string latexOne(std::string input) {
-
+	std::vector<std::string> inputs = {input};
+	flat_hash_map<std::string,std::string> latexMap = toLatex(inputs);
+	return latexMap[input];
+	
 	int i; int ii; int iii; int idx = 0;
 	bool startOperands = false;
 	std::string currentOperator = "";
@@ -646,7 +649,7 @@ std::string latexOne(std::string input) {
 	
 	//std::cout << lastInput << "\n";
 	return lastInput;
-
+	
 
 }
 
