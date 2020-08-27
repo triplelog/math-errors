@@ -131,7 +131,7 @@ function makeGraph(input){
 	var domain = [-10,10];
 	var range = "auto";
 	var svg = '<svg version="1.1" baseProfile="full" width="100" height="100" xmlns="http://www.w3.org/2000/svg">';
-	svg += '<path d="M50 0 V100 M0 50 H100" fill="black"/>';
+	svg += '<path d="M50 0 V100 M0 50 H100" stroke="black"/>';
 	svg += '</svg>';
 	return svg;
 }
