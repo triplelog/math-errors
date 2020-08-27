@@ -1,4 +1,4 @@
-std::string latexLogic(char c, stf::string s,std::string child, std::string lastOp){
+std::string latexLogic(char c, std::string s, int ii, std::string child, std::string lastOp){
 	switch (c){
 		case '^': {
 			if (ii > 0){
@@ -287,7 +287,7 @@ flat_hash_map<std::string,std::string> toLatex(std::vector<std::string> input){
 					break;
 				}
 				else {
-					s = latexLogic(lastOpMap[input[i*3]], s, latexMap[child],lastOpMap[child]);
+					s = latexLogic(lastOpMap[input[i*3]], s, ii, latexMap[child],lastOpMap[child]);
 					
 					
 				}
@@ -402,7 +402,7 @@ std::string latexOne(std::string input) {
 				else if (ii==1 && firstChild == ""){
 					break;
 				}
-				s = latexLogic(pfstr.at(i), s, listMap[child],lastOpMap[child]);
+				s = latexLogic(pfstr.at(i), s, ii, listMap[child],lastOpMap[child]);
 			}
 			
 			listMap[fullStr]=s;
