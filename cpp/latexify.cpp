@@ -172,7 +172,7 @@ std::string latexLogic(char c, std::string s, int ii, std::string child, char la
 					if (c == '*'){
 						//This is the * right after /
 						int iii; int openBracket = 1;
-						for (iii=5;iii<child.length();iii++){
+						for (iii=6;iii<child.length();iii++){
 							if (child.at(iii) == '}'){openBracket--;}
 							else if (child.at(iii) == '{'){openBracket++;}
 							
