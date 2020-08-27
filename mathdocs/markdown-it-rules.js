@@ -43,7 +43,6 @@ function mdoptionsfn(filen){
 		  }
 		  if (tokens[idx-1].info.trim().match(/^graph/)) {
 		  	var newStr = makeGraph(tokens[idx].markup);
-		  	console.log(newStr);
 		  	return newStr;
 		  }
 		  else if (tokens[idx-1].info.trim().match(/^example/)) {
@@ -208,6 +207,8 @@ function makeGraph(input){
 	
 	
 	var path = "M";
+	var outStr = maincppp.graphpoints(fn,""+domain[0],""+domain[1]);
+	console.log(outStr);
 	for (var i=domain[0];i<=domain[1];i+= .01){
 		path += convertCoordinates(i,2*i+1,domain,range)+ " ";
 	}

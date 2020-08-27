@@ -762,6 +762,36 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
 
+std::string getPoints(std::string fn,double domainLeft,double domainRight) {
+	std::string out = "";
+	int i;
+	for (i=0;i<101;i++){
+		double x = domainLeft + i*(domainRight-domainLeft)/100.0;
+		double y = 2*x + 1;
+		out += std::string(x) + ","+std::string(y)+";";
+	}
+	return out;
+}
+
+void GraphPoints(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+	v8::Isolate* isolate = info.GetIsolate();
+	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
+	//int row = info[0]->Int32Value(context).FromJust();
+	v8::String::Utf8Value s(isolate, info[0]);
+	v8::String::Utf8Value sl(isolate, info[1]);
+	v8::String::Utf8Value sr(isolate, info[2]);
+	std::string a(*s);
+	double domainLeft = std::stod(sl);
+	double domainRight = std::stod(sr);
+	std::string pointStr = getPoints(a,domainLeft,domainRight);
+	
+	Nan::MaybeLocal<v8::String> h = Nan::New<v8::String>(pointStr);
+
+	
+	info.GetReturnValue().Set(h.ToLocalChecked());
+	
+}
+	
 void LatexIt(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
 	//v8::Local<v8::Context> context = isolate->GetCurrentContext();
@@ -805,6 +835,11 @@ void Init(v8::Local<v8::Object> exports) {
   exports->Set(context,
                Nan::New("makelesson").ToLocalChecked(),
                Nan::New<v8::FunctionTemplate>(MakeLesson)
+                   ->GetFunction(context)
+                   .ToLocalChecked());
+  exports->Set(context,
+               Nan::New("graphpoints").ToLocalChecked(),
+               Nan::New<v8::FunctionTemplate>(GraphPoints)
                    ->GetFunction(context)
                    .ToLocalChecked());
 
