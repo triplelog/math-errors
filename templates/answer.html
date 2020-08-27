@@ -198,6 +198,10 @@
 				}
 				
 			}
+			var step = document.createElement('div');
+			step.innerHTML = trees[trees.length-1].step;
+			document.getElementById('tree-simple'+ (trees.length-1) ).parentElement.appendChild(step);
+			
 			var katexElements = document.querySelectorAll('span.tf-nc');
 			for (var i=0;i<katexElements.length;i++){
 				var el = katexElements[i];
