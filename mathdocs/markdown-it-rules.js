@@ -183,8 +183,13 @@ function makeGraph(input){
 			}
 			
 			if (i%5 == 0 && i != 0){
-				svg += '<text font-size="6px" text-anchor="middle" dominant-baseline="hanging" x="'+convertX(i,domain)+'" y="'+convertY(0,range)+'">'+i+'</text>';
+				svg += '<text font-size="6px" text-anchor="middle" dominant-baseline="hanging" x="'+convertX(i,domain)+'" y="'+(convertY(0,range)+2)+'">'+i+'</text>';
 			}
+		}
+		for (var ii=Math.floor(range[0])+1;ii<Math.floor(range[1])+1;ii++){
+			if (ii%5 == 0 && ii != 0){
+				svg += '<text font-size="6px" text-anchor="right" dominant-baseline="middle" x="'+(convertX(0,domain)-2)+'" y="'+convertY(y,range)+'">'+ii+'</text>';
+			}	
 		}
 	}
 	svg += '<path d="M'+convertCoordinates(0,range[1],domain,range)+' V100 M'+convertCoordinates(domain[0],0,domain,range)+' H100" stroke="rgb(160,160,160)"/>';
