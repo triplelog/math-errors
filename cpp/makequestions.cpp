@@ -1391,9 +1391,6 @@ bool doubleCheckAnswer(std::string pfstr){
 }
 
 
-
-
-
 bool getAnswerList(std::string s, int nSteps) {
 	//std::cout << "s: "<< s << "\n";
 
