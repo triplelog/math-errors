@@ -33,7 +33,22 @@ using phmap::flat_hash_map;
 
 #include "solve.cpp"
 
+flat_hash_map<std::string,int> answerListMap;
+flat_hash_map<std::string,std::vector<int>> answerListMapF;
+flat_hash_map<std::string,std::vector<Step>> reverseMap;
+flat_hash_map<std::string,std::vector<Step>> reverseMapCorrect;
+flat_hash_map<std::string,std::vector<Step>> correctSolutionList;
+flat_hash_map<std::string,std::vector<Step>> incorrectSolutionList;
+int totalAnswers;
+std::vector<std::string> finishedAnswers;
+flat_hash_map<std::string,bool> unfinishedOptions;
 
+flat_hash_map<std::string,Answer> answerMap;
+int maxFound;
+int maxSteps;
+
+bool foundOneAnswer;
+bool startedWrong;
 
 
 std::vector<std::vector<Step>> makeTree(std::string pfstr){
@@ -649,348 +664,6 @@ std::vector<std::vector<Step>> makeTree(std::string pfstr){
 	
 
 }
-
-std::vector<std::string> outputTree(std::string pfstr){
-	std::vector<std::string> treeOptions;
-	flat_hash_map<std::string,std::vector<std::string>> listMap;
-	flat_hash_map<int,std::string> operandMap;
-	flat_hash_map<int,std::string> originalMap;
-	std::vector<std::string> finalList;
-	std::vector<std::string> orderedKeyList;
-	flat_hash_map<std::string,std::vector<std::string>> nodeList;
-	
-    
-    
-	int i; int ii; int iii;
-	int idx =0;
-	bool startOperands = false;
-	std::string currentOperator = "";
-	int iidx = 0;
-	bool midBrackets = false;
-	for (i=0;i<pfstr.length();i++){
-		if (pfstr.at(i) == '@'){
-			startOperands = true;
-		}
-		else if (startOperands && !midBrackets){
-			if (pfstr.at(i) == '_'){
-				originalMap[iidx] = currentOperator;
-				iidx++; 
-				currentOperator = "";
-			}
-			else if (pfstr.at(i) == '{'){
-				midBrackets = true;
-				currentOperator += pfstr.at(i);
-			}
-			else {
-				currentOperator += pfstr.at(i);
-			}
-		}
-		else if (startOperands && midBrackets){
-			if (pfstr.at(i) == '}'){
-				midBrackets = false;
-				currentOperator += pfstr.at(i);
-			}
-			else {
-				currentOperator += pfstr.at(i);
-			}
-		}
-	}
-	
-
-    
-    
-    
-	int treeIdx = 0;
-	//std::cout << "before third: " << pfstr << "\n";
-
-	for (i=0;i<pfstr.length();i++){
-		
-		if (pfstr.at(i) == '@'){
-			break;
-		}
-		else if (pfstr.at(i) != '#'){
-			std::string secondStr = "";
-			std::string secondTtr = "";
-			
-			int maxi = i-1;
-			
-			for (ii=0;ii<i;ii++){
-				std::string s = "";
-				std::string t = "";
-				for (iii=ii;iii<i;iii++){
-					s += pfstr.at(iii);
-					if (pfstr.at(iii) == '#'){
-						t += operandMap[iii] + '_';
-					}
-				}
-				if (listMap.find(s + '@' + t) != listMap.end()){
-					secondStr = s;
-					secondTtr = t;
-					maxi = ii;
-					break;
-				}
-			}
-			std::string firstStr = "";
-			std::string firstTtr = "";
-			std::vector<std::string> fullTrees;
-			
-			if (pfstr.at(i) != '-' && pfstr.at(i) != '/' && (pfstr.at(i) >= 0 || pfstr.at(i) <= -69 )){ // Is at least binary function
-				
-				for (ii=0;ii<maxi;ii++){
-					std::string s = "";
-					std::string t = "";
-					for (iii=ii;iii<maxi;iii++){
-						s += pfstr.at(iii);
-						if (pfstr.at(iii) == '#'){
-							t += operandMap[iii] + '_';
-						}
-					}
-					if (listMap.find(s + '@' + t) != listMap.end()){
-						firstStr = s;
-						firstTtr = t;
-						break;
-					}
-				}
-				
-				
-			}
-
-			std::string fullStr = firstStr + secondStr + pfstr.at(i) + '@' + firstTtr + secondTtr;
-			
-			
-			//Parent Node
-			std::string opStr = "";
-			opStr += pfstr.at(i);
-			std::string name = "node"+std::to_string(treeIdx);
-			treeIdx++;
-			std::string parent = "";
-			std::string nodeText = fullStr;
-			std::string pname = name;
-			nodeList[fullStr]={pname,parent,opStr};
-			
-			
-			//Child 1
-			nodeText = secondStr + '@' + secondTtr;
-			if (nodeList.find(nodeText) != nodeList.end()){
-				
-				if (secondStr.at(secondStr.length()-1) == pfstr.at(i) && ( pfstr.at(i) == '+' || pfstr.at(i) == '*') ){
-					std::vector<std::string> revList;
-					for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
-						if (iter->second[1] == nodeList[nodeText][0]){
-							nodeList[iter->first][1] = pname;
-							revList.push_back(iter->first);
-						}
-					}
-					int okSz = orderedKeyList.size();
-					for (ii=0;ii<okSz;ii++){
-						for (iii=revList.size()-1;iii>=0;iii--){
-							if (orderedKeyList[ii] == revList[iii]){
-								orderedKeyList.push_back(revList[iii]);
-							}
-						}
-					}
-					
-				}
-				else {
-					nodeList[nodeText][1] = pname;
-					orderedKeyList.push_back(nodeText);
-				}
-				
-			}
-			else {
-				name = "node"+std::to_string(treeIdx);
-				treeIdx++;
-				if (secondStr.at(secondStr.length()-1) == pfstr.at(i) && ( pfstr.at(i) == '+' || pfstr.at(i) == '*')){
-					std::vector<std::string> revList;
-					for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
-						if (iter->second[1] == name){
-							nodeList[iter->first][1] = pname;
-							revList.push_back(iter->first);
-						}
-					}
-					int okSz = orderedKeyList.size();
-					for (ii=0;ii<okSz;ii++){
-						for (iii=revList.size()-1;iii>=0;iii--){
-							if (orderedKeyList[ii] == revList[iii]){
-								orderedKeyList.push_back(revList[iii]);
-							}
-						}
-					}
-				}
-				else {
-					nodeList[nodeText] = {name,pname,opStr};
-					orderedKeyList.push_back(nodeText);
-				}
-				
-			}
-			
-			if (firstStr.length() > 0){
-				//Child 2
-				nodeText = firstStr + '@' + firstTtr;
-				if (nodeList.find(nodeText) != nodeList.end()){
-					if (firstStr.at(firstStr.length()-1) == pfstr.at(i) && ( pfstr.at(i) == '+' || pfstr.at(i) == '*')){
-						std::vector<std::string> revList;
-						for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
-							if (iter->second[1] == nodeList[nodeText][0]){
-								nodeList[iter->first][1] = pname;
-								revList.push_back(iter->first);
-							}
-						}
-						int okSz = orderedKeyList.size();
-						for (ii=0;ii<okSz;ii++){
-							for (iii=revList.size()-1;iii>=0;iii--){
-								if (orderedKeyList[ii] == revList[iii]){
-									orderedKeyList.push_back(revList[iii]);
-								}
-							}
-						}
-					}
-					else {
-						nodeList[nodeText][1] = pname;
-						orderedKeyList.push_back(nodeText);
-					}
-				
-				}
-				else {
-					name = "node"+std::to_string(treeIdx);
-					treeIdx++;
-					if (firstStr.at(firstStr.length()-1) == pfstr.at(i) && ( pfstr.at(i) == '+' || pfstr.at(i) == '*')){
-						std::vector<std::string> revList;
-						for (flat_hash_map<std::string,std::vector<std::string>>::iterator iter = nodeList.begin(); iter != nodeList.end(); ++iter){
-							if (iter->second[1] == name){
-								nodeList[iter->first][1] = pname;
-								revList.push_back(iter->first);
-							}
-						}
-						int okSz = orderedKeyList.size();
-						for (ii=0;ii<okSz;ii++){
-							for (iii=revList.size()-1;iii>=0;iii--){
-								if (orderedKeyList[ii] == revList[iii]){
-									orderedKeyList.push_back(revList[iii]);
-								}
-							}
-						}
-					}
-					else {
-						nodeList[nodeText] = {name,pname,opStr};
-						orderedKeyList.push_back(nodeText);
-					}
-				
-				}
-				
-			}
-			orderedKeyList.push_back(fullStr);
-			
-
-			
-			listMap[fullStr]={"#","_"};
-			
-		}
-		else {
-			listMap["#@" + std::to_string(idx) + "_"]={"#","_"};
-			operandMap[i]=std::to_string(idx);
-			
-			std::string name = "node"+std::to_string(treeIdx);
-			treeIdx++;
-			nodeList["#@" + std::to_string(idx) + "_"] = {name,"","#"};
-			orderedKeyList.push_back("#@" + std::to_string(idx) + "_");
-			idx++;
-		}
-		
-	}
-		
-	
-	//std::cout << "\n\n---start Original-----\n";
-	int iiii;
-	
-	//for (flat_hash_map<int,std::string>::iterator iter = originalMap.begin(); iter != originalMap.end(); ++iter){
-	//	std::cout << iter->first << " and " << iter->second << '\n';
-	//}
-	
-
-	//std::cout << " ENd bracketless\n";
-	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
-	//	std::cout << iter->first << " and " << iter->second << '\n';
-	//}
-	
-	flat_hash_map<std::string,std::string> skipList;
-	jsonmessage += "-DOJS-\nnodes = {};\n";
-	std::string nodeString = "allNodes = [";
-	//std::cout << "-DOJS-\nnodes = {};\n";
-	
-	std::vector<std::string> forLatex;
-	
-	for (ii=orderedKeyList.size()-1;ii>=0;ii--){
-		//std::cout << "anything: " << orderedKeyList[ii] << " and node: " << nodeList[orderedKeyList[ii]][0] << "\n";
-		if (skipList.find(orderedKeyList[ii]) != skipList.end()){
-			//std::cout << "skip: " << nodeList[orderedKeyList[ii]][0] << "\n";
-			continue;
-		}
-		else {
-			skipList[orderedKeyList[ii]] = "";
-		}
-		
-		std::string name = nodeList[orderedKeyList[ii]][0];
-		std::string parent = nodeList[orderedKeyList[ii]][1];
-		std::string postfix = fromOriginal(orderedKeyList[ii],originalMap);
-		forLatex.push_back(name);
-		forLatex.push_back(parent);
-		forLatex.push_back(postfix);
-		
-		
-	}
-	flat_hash_map<std::string,std::string> latexMap =toLatex(forLatex);
-	
-	
-	skipList.clear();
-	for (ii=orderedKeyList.size()-1;ii>=0;ii--){
-		if (skipList.find(orderedKeyList[ii]) != skipList.end()){
-			//std::cout << "skip: " << nodeList[orderedKeyList[ii]][0] << "\n";
-			continue;
-		}
-		else {
-			skipList[orderedKeyList[ii]] = "";
-		}
-		
-		std::string name = nodeList[orderedKeyList[ii]][0];
-		std::string parent = nodeList[orderedKeyList[ii]][1];
-		std::string postfix = fromOriginal(orderedKeyList[ii],originalMap);
-
-		if (latexMap.find(name) != latexMap.end()){
-			std::string outText = "nodes[\""+name + "\"] = {text:";
-			outText += "\"" + latexMap[name] + "\",";
-			outText += "op: \"" + nodeList[orderedKeyList[ii]][2] + "\",";
-			outText += "parent: \""+ parent + "\"};\n";
-		
-			jsonmessage += outText + "\n";
-			//std::cout << outText << "\n";
-			nodeString += "\""+nodeList[orderedKeyList[ii]][0] + "\", ";
-		}
-		
-		
-	}
-	
-	nodeString += "];\n";
-	jsonmessage += nodeString + "\n";
-	//std::cout <<  nodeString << "\n";
-	jsonmessage += "trees.push({nodes:nodes,allNodes:allNodes});\n-ODJS-\n";
-	//std::cout << "trees.push({nodes:nodes,allNodes:allNodes});\n-ODJS-\n";
-	
-	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
-	//	std::cout << iter->first << " and " << iter->second << '\n';
-	//}
-	
-	//std::cout << "\n\n----End bracketless----\n";
-	
-	
-	//for (flat_hash_map<int,std::string>::iterator iter = bracketlessMap.begin(); iter != bracketlessMap.end(); ++iter){
-	//	std::cout << iter->first << " bracketless " << iter->second << '\n';
-	//}
-	//std::cout << '\n';
-	return treeOptions;
-}
-
-
 
 
 bool checkAnswer(std::string answer){
@@ -1719,20 +1392,7 @@ bool doubleCheckAnswer(std::string pfstr){
 
 
 
-flat_hash_map<std::string,int> answerListMap;
-flat_hash_map<std::string,std::vector<int>> answerListMapF;
-flat_hash_map<std::string,std::vector<Step>> reverseMap;
-flat_hash_map<std::string,std::vector<Step>> reverseMapCorrect;
-int totalAnswers;
-std::vector<std::string> finishedAnswers;
-flat_hash_map<std::string,bool> unfinishedOptions;
 
-flat_hash_map<std::string,Answer> answerMap;
-int maxFound;
-int maxSteps;
-
-bool foundOneAnswer;
-bool startedWrong;
 
 bool getAnswerList(std::string s, int nSteps) {
 	//std::cout << "s: "<< s << "\n";
@@ -1982,10 +1642,9 @@ bool getAnswerList(std::string s, int nSteps) {
 }
 
 
-#include "autocomplete.cpp"
 
-flat_hash_map<std::string,std::vector<Step>> correctSolutionList;
-flat_hash_map<std::string,std::vector<Step>> incorrectSolutionList;
+
+
 std::vector<Step> makeSolutionList(std::string s, std::string q){
 	std::vector<Step> v;
 	//std::cout << "s: " << s << "\n";
