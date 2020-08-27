@@ -21,7 +21,7 @@ function mdoptionsfn(filen){
 	}
 	var mdoptions = {
 	  validate: function(params) {
-		return params.trim().match(/^rule/) || params.trim().match(/^error/) || params.trim().match(/^example/);
+		return params.trim().match(/^rule/) || params.trim().match(/^error/) || params.trim().match(/^example/) || params.trim().match(/^graph/);
 	  },
  
 	  render: function (tokens, idx) {
@@ -41,7 +41,12 @@ function mdoptionsfn(filen){
 		  if (tokens[idx].markup.length < 1){
 			return "";
 		  }
-		  if (tokens[idx-1].info.trim().match(/^example/)) {
+		  if (tokens[idx-1].info.trim().match(/^graph/)) {
+		  	var newStr = makeGraph(tokens[idx].markup);
+		  	console.log(newStr);
+		  	return newStr;
+		  }
+		  else if (tokens[idx-1].info.trim().match(/^example/)) {
 
 		  	  var lines = tokens[idx].markup.split('\n');
 		  	  var newStr = "";
@@ -121,7 +126,15 @@ function mdoptionsfn(filen){
 	return mdoptions;
 }
 
-
+function makeGraph(input){
+	var fn = input.split("\n")[0];
+	var domain = [-10,10];
+	var range = "auto";
+	var svg = '<svg version="1.1" baseProfile="full" width="100" height="100" xmlns="http://www.w3.org/2000/svg">';
+	svg += '<path d="M50 0 V100 M0 50 H100"/>';
+	svg += '</svg>';
+	return svg;
+}
 
 
 

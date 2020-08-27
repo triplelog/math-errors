@@ -171,33 +171,18 @@ std::string latexLogic(char c, std::string s, int ii, std::string child, char la
 				if (ii > 0){
 					if (c == '*'){
 						//This is the * right after /
+						//TODO: deal with fraction in s
+						//TODO: deal with non-1 in numerator of child
 						int iii; int openBracket = 1;
 						for (iii=6;iii<child.length();iii++){
 							if (child.at(iii) == '}'){openBracket--;}
 							else if (child.at(iii) == '{'){openBracket++;}
 							
 							if (openBracket == 0){
-								std::cout << s << " is s\n";
-								std::cout << child << " is child\n";
 								s = child.replace(6,iii-6,s);
-								std::cout << s << " is new s\n";
 								break;
 							}
 						}
-						/*
-						if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
-							if (child.length()>0 && (child.at(0) >= '0' && child.at(0) <= '9')){
-								//digit followed by digit
-								s += "\\cdot "+child;
-							}
-							else{
-								//digit followed by not a digit
-								s += child;
-							}
-						}
-						else {
-							s += "\\cdot "+child;//want to move this into numerator somehow
-						}*/
 					
 					}
 					else if (c == '+'){
@@ -222,6 +207,7 @@ std::string latexLogic(char c, std::string s, int ii, std::string child, char la
 			else {
 				if (ii > 0){
 					if (c == '*'){
+						//TODO: deal with fraction in s or child
 						if (s.length()>0 && (s.at(s.length()-1) >= '0' && s.at(s.length()-1) <= '9')){
 							if (child.length()>0 && (child.at(0) >= '0' && child.at(0) <= '9')){
 								//digit followed by digit
@@ -233,7 +219,7 @@ std::string latexLogic(char c, std::string s, int ii, std::string child, char la
 							}
 						}
 						else {
-							s += "\\cdot "+child;//want to move this into numerator somehow
+							s += "\\cdot "+child;
 						}
 					}
 					else {
