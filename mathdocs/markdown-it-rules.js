@@ -207,10 +207,10 @@ function makeGraph(input){
 	
 	
 	var path = "M";
-	console.log(fn);
+	console.log(input.split("\n"));
 	fn = "y=2*x+1";
 	var outStr = maincppp.graphpoints(fn,""+domain[0],""+domain[1]);
-	var points = outStr.split(";").slice(0,11);
+	var points = outStr.split(";").slice(0,1001);
 	console.log(outStr);
 	for (var i=0;i<11;i++){
 		path += convertCoordinates(points[i].split(",")[0],points[i].split(",")[1],domain,range)+ " ";
