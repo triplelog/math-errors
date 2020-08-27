@@ -172,12 +172,15 @@ std::string latexLogic(char c, std::string s, int ii, std::string child, char la
 					if (c == '*'){
 						//This is the * right after /
 						int iii; int openBracket = 1;
-						for (iii=5;iii<s.length();iii++){
-							if (s.at(iii) == '}'){openBracket--;}
-							else if (s.at(iii) == '{'){openBracket++;}
+						for (iii=5;iii<child.length();iii++){
+							if (child.at(iii) == '}'){openBracket--;}
+							else if (child.at(iii) == '{'){openBracket++;}
 							
 							if (openBracket == 0){
-								s.replace(5,iii-5,child);
+								std::cout << s << " is s\n";
+								std::cout << child << " is child\n";
+								s = child.replace(5,iii-5,s);
+								std::cout << s << " is new s\n";
 								break;
 							}
 						}
