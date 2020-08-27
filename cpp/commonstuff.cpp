@@ -637,15 +637,37 @@ void initialRun(){
 	auto t1 = std::chrono::high_resolution_clock::now();
 	ridx = 0;
 	makeRules("rules/derivatives.csv");
-	makeRules("subjects/prealgebraold.csv");
-	makeRules("subjects/algebraold.csv");
-	std::ifstream file("cpp/subjects/calculus.csv"); //file just has some sentences
-	if (!file) {
+	
+	std::ifstream file1("cpp/subjects/prealgebra.csv"); //file just has some sentences
+	if (!file1) {
 		std::cout << "unable to open file";
 	}
 	std::string row;
 	std::vector<std::string> rows;
-	while (getline(file, row)) {
+	while (getline(file1, row)) {
+		rows.push_back(row);
+	}
+	makeRulesNew(rows);
+	
+	std::ifstream file2("cpp/subjects/precalculus.csv"); //file just has some sentences
+	if (!file2) {
+		std::cout << "unable to open file";
+	}
+	rows.resize(0);
+	while (getline(file2, row)) {
+		rows.push_back(row);
+	}
+	makeRulesNew(rows);
+	
+
+	makeRules("subjects/algebraold.csv");
+	
+	std::ifstream file3("cpp/subjects/calculus.csv"); //file just has some sentences
+	if (!file3) {
+		std::cout << "unable to open file";
+	}
+	rows.resize(0);
+	while (getline(file3, row)) {
 		rows.push_back(row);
 	}
 	makeRulesNew(rows);
