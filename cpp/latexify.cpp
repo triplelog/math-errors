@@ -179,7 +179,7 @@ std::string latexLogic(char c, std::string s, int ii, std::string child, char la
 							if (openBracket == 0){
 								std::cout << s << " is s\n";
 								std::cout << child << " is child\n";
-								s = child.replace(5,iii-5,s);
+								s = child.replace(6,iii-6,s);
 								std::cout << s << " is new s\n";
 								break;
 							}
