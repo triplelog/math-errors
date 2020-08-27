@@ -195,7 +195,7 @@ function makeGraph(input){
 			if (i%5 == 0 && i != 0){
 				svg += '<text filter="url(#solid)" fill="black" font-size="6px" text-anchor="middle" dominant-baseline="hanging" x="'+convertX(i,domain)+'" y="'+convertY(0,range,2)+'">&nbsp;'+i+'&nbsp;</text>';
 
-				svg += '<text stroke="blue" font-size="6px" text-anchor="middle" dominant-baseline="hanging" x="'+convertX(i,domain)+'" y="'+convertY(0,range,2)+'">'+i+'</text>';
+				//svg += '<text stroke="blue" font-size="6px" text-anchor="middle" dominant-baseline="hanging" x="'+convertX(i,domain)+'" y="'+convertY(0,range,2)+'">'+i+'</text>';
 			}
 		}
 		for (var ii=Math.floor(range[0])+1;ii<Math.floor(range[1])+1;ii++){
