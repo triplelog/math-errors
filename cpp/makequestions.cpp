@@ -51,7 +51,7 @@ bool foundOneAnswer;
 bool startedWrong;
 
 
-std::vector<std::vector<Step>> makeTree(std::string pfstr){
+std::vector<std::vector<Step>> makeTree(std::string pfstr,int maxList){
 	flat_hash_map<std::string,std::vector<std::string>> listMap;
 	flat_hash_map<int,int> operandMap;
 	flat_hash_map<int,std::string> originalMap;
@@ -364,6 +364,9 @@ std::vector<std::vector<Step>> makeTree(std::string pfstr){
 						int iiiiii;
 						for (iiiiii=0;iiiiii<someStringsC.size();iiiiii++){
 							returnStringsCorrect.push_back(someStringsC[iiiiii]);
+							if (maxList < 1000 && returnStringsCorrect.size()>= maxList){
+								return {returnStringsCorrect,returnStringsIncorrect};
+							}
 						}
 						for (iiiiii=0;iiiiii<someStringsI.size();iiiiii++){
 							returnStringsIncorrect.push_back(someStringsI[iiiiii]);
@@ -545,6 +548,9 @@ std::vector<std::vector<Step>> makeTree(std::string pfstr){
 					int iiiiii;
 					for (iiiiii=0;iiiiii<someStringsC.size();iiiiii++){
 						returnStringsCorrect.push_back(someStringsC[iiiiii]);
+						if (maxList < 1000 && returnStringsCorrect.size()>= maxList){
+							return {returnStringsCorrect,returnStringsIncorrect};
+						}
 					}
 					for (iiiiii=0;iiiiii<someStringsI.size();iiiiii++){
 						returnStringsIncorrect.push_back(someStringsI[iiiiii]);
@@ -1421,7 +1427,7 @@ bool getAnswerList(std::string s, int nSteps) {
 	
 	//std::cout << s << " before pl\n";
 	auto a1 = std::chrono::high_resolution_clock::now();
-	std::vector<std::vector<Step>> someStrings = makeTree(newPostfix);
+	std::vector<std::vector<Step>> someStrings = makeTree(newPostfix,1000);
 	//std::cout << "npf3: "<< newPostfix << "\n";
 	
 	if (answerListMap.find(newPostfix) == answerListMap.end()){
@@ -2117,7 +2123,7 @@ bool getOneAnswer(std::string s, int nSteps, std::string oquestion) {
 	
 	//std::cout << s << " before pl\n";
 	auto a1 = std::chrono::high_resolution_clock::now();
-	std::vector<std::vector<Step>> someStrings = makeTree(newPostfix);
+	std::vector<std::vector<Step>> someStrings = makeTree(newPostfix,1000);
 	
 	if (answerIsFinished){
 		if (doubleCheckAnswer(newPostfix)){
