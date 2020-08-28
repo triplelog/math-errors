@@ -646,7 +646,7 @@ app.get('/wasm',
 	function(req, res){
 		
 		
-		res.write(nunjucks.render('templates/wasmhello.html',{
+		res.write(nunjucks.render('templates/wasmblank.html',{
 
 		}));
 		res.end();
