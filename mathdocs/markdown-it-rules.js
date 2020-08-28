@@ -171,7 +171,6 @@ function makeGraph(input){
 	var domain = [-20,20];
 	var range = [-20,20];
 	var svg = '<svg version="1.1" baseProfile="full" viewBox="0 0 100 100" width="200" height="200" xmlns="http://www.w3.org/2000/svg">';
-	svg += '<defs><filter x="0" y="0" width="1" height="1" id="solid"><feFlood flood-color="white"/><feComposite in="SourceGraphic" operator="xor"/></filter></defs>';
 	
 	if (domain[1]-domain[0]>5){
 		for (var i=Math.floor(domain[0])+1;i<Math.floor(domain[1])+1;i++){

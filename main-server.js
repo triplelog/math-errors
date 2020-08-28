@@ -642,6 +642,17 @@ app.get('/createlesson',
     
 );
 
+app.get('/wasm',
+	function(req, res){
+		
+		
+		res.write(nunjucks.render('../inline-math/cpp/hello.html',{
+
+		}));
+		res.end();
+	}
+);
+
 app.get('/topic',
 	function(req, res){
 		

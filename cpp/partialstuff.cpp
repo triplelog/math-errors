@@ -680,6 +680,44 @@ void oneLesson(std::string s){
 	makeRulesNew(rows);
 }
 
+std::string getPoints(std::string fn, std::string indVar,double domainLeft,double domainRight) {
+	std::string depVar = "y";
+	fn = fn.substr(2,fn.length()-2);
+	std::vector<std::string> postfixedV = postfixifyVector(fn,true);
+	std::vector<int> xIdx;
+	std::string out = "";
+	int i; int ii;
+	std::string currentOperand = "";
+	for (i=0;i<postfixedV[1].length();i++){
+		if (postfixedV[1].at(i) == '_'){
+			if (currentOperand == indVar){
+				xIdx.push_back(i);	
+			}
+			currentOperand = "";
+		}
+		else {
+			currentOperand += postfixedV[1].at(i);
+		}
+	}
+	auto a1 = std::chrono::high_resolution_clock::now();
+	
+	for (i=0;i<1001;i++){
+		double x = domainLeft + i*(domainRight-domainLeft)/1000.0;
+		std::string solvableR = postfixedV[1];
+		for (ii=xIdx.size()-1;ii>=0;ii--){
+			solvableR.replace(xIdx[ii]-indVar.length(),indVar.length(),std::to_string(x));
+		}
+		std::string solvable = postfixedV[0] + "@" + solvableR;
+		//std::cout << "solvable: " << solvable << "\n";
+		Number y = solvePostfix(solvable);
+		out += std::to_string(x) + ","+outputNumber(y)+";";
+	}
+	auto a2 = std::chrono::high_resolution_clock::now();
+	std::cout << "time to solve 1000: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n";
+	
+	return out;
+}
+
 
 void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//v8::Isolate* isolate = info.GetIsolate();
@@ -762,43 +800,6 @@ void OneRule(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	info.GetReturnValue().Set(h.ToLocalChecked());
 }
 
-std::string getPoints(std::string fn, std::string indVar,double domainLeft,double domainRight) {
-	std::string depVar = "y";
-	fn = fn.substr(2,fn.length()-2);
-	std::vector<std::string> postfixedV = postfixifyVector(fn,true);
-	std::vector<int> xIdx;
-	std::string out = "";
-	int i; int ii;
-	std::string currentOperand = "";
-	for (i=0;i<postfixedV[1].length();i++){
-		if (postfixedV[1].at(i) == '_'){
-			if (currentOperand == indVar){
-				xIdx.push_back(i);	
-			}
-			currentOperand = "";
-		}
-		else {
-			currentOperand += postfixedV[1].at(i);
-		}
-	}
-	auto a1 = std::chrono::high_resolution_clock::now();
-	
-	for (i=0;i<1001;i++){
-		double x = domainLeft + i*(domainRight-domainLeft)/1000.0;
-		std::string solvableR = postfixedV[1];
-		for (ii=xIdx.size()-1;ii>=0;ii--){
-			solvableR.replace(xIdx[ii]-indVar.length(),indVar.length(),std::to_string(x));
-		}
-		std::string solvable = postfixedV[0] + "@" + solvableR;
-		//std::cout << "solvable: " << solvable << "\n";
-		Number y = solvePostfix(solvable);
-		out += std::to_string(x) + ","+outputNumber(y)+";";
-	}
-	auto a2 = std::chrono::high_resolution_clock::now();
-	std::cout << "time to solve 1000: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n";
-	
-	return out;
-}
 
 void GraphPoints(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	v8::Isolate* isolate = info.GetIsolate();
