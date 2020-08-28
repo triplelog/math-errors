@@ -14,19 +14,46 @@
 <body>
 
   <input type="text" id="inline-math"></input>
-  <button onclick="submitMath()">Submit</button>
-  <span id="output-math"></span>	
+  <div id="output-math"></div>	
 	
   <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
   <script src="wasmhello.js"></script>
   <script>
   	var l = Module.cwrap("LatexIt","string",["string"]);
-  	function submitMath() {
-  		var v = document.getElementById('inline-math').value;
-  		var latex = l(v);
+  	
+  	function submitMath(input) {
+  		var latex = l(input);
   		var html = katex.renderToString(latex, {throwOnError: false});
-  		document.getElementById("output-math").innerHTML = html;
+  		autoComplete[input] = html;
   	}
+  	function chgAuto(input) {
+		var el = document.getElementById('output-math');
+		el.innerHTML = autoComplete[input];
+	}
+  	function answerDown(evt) {
+		var key = evt.key;
+		if (key != 'Shift'){
+			var answer = document.getElementById("answer").value;
+			submitMath(answer+key);
+		}
+		
+	}
+	function answerChange(evt) {
+		var answer = document.getElementById("inline-math").value;
+		if (autoComplete[answer]){
+			chgAuto(answer);
+		}
+		else {
+			submitMath(answer);
+			chgAuto(answer);
+			
+		}
+		
+	}
+	var autoComplete = {};
+	var answerEl = document.getElementById('inline-math');
+	answerEl.addEventListener('keydown',answerDown);
+	answerEl.addEventListener('input',answerChange);
   </script>
 </body>
 
