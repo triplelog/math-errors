@@ -40,9 +40,19 @@ int lev(std::string ss, std::string st){
 
             }
 
-            temp = MIN((d[i-1][j]+1),(d[i][j-1]+1));
-
-            d[i][j] = MIN(temp,(d[i-1][j-1]+tracker));
+            if ( (d[i-1][j]+1) < (d[i][j-1]+1) ){
+				temp = (d[i-1][j]+1);
+			}
+			else {
+				temp = (d[i][j-1]+1);
+			}
+            
+			if (temp < (d[i-1][j-1]+tracker) ){
+				d[i][j] = temp;
+			}
+			else {
+				d[i][j] = (d[i-1][j-1]+tracker);
+			}
 
         }
 
