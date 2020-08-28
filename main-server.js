@@ -646,7 +646,7 @@ app.get('/wasm',
 	function(req, res){
 		
 		
-		res.write(nunjucks.render('../inline-math/cpp/hello.html',{
+		res.write(nunjucks.render('templates/hello.html',{
 
 		}));
 		res.end();
