@@ -25,7 +25,7 @@
   <script src="wasmhello.js"></script>
   <script>
   	var l = Module.cwrap("LatexIt","string",["string"]);
-  	var p = Module.cwrap("PlotIt","string",["string","number"]);
+  	var p = Module.cwrap("PlotIt","string",["string","number","number","number"]);
   	
   	function submitMath(input) {
   		var latex = l(input);
@@ -66,13 +66,24 @@
 	}
 	function plotChange(evt) {
 		var left = -10;
+		var right = 10;
+		var spread = 20;
+		var bottom = -10;
+		var top = 10;
 		if (evt){
-			left = evt.target.value;
+			spread = evt.target.value;
+			left = -.5*spread;
+			right = .5*spread;
+		}
+		else if (document.getElementById("domainSlider")){
+			spread = document.getElementById("domainSlider").value;
+			left = -.5*spread;
+			right = .5*spread;
 		}
 		var input = document.getElementById("inline-graph").value;
 		svg = "";
-		p(input,left);
-		svg += '<input type="range" id="domainSlider" min="-50" max="0" value="'+left+'"></input>';
+		p(input,left,right,bottom,top);
+		svg += '<input type="range" id="domainSlider" min="0" max="'+(spread*2)+'" value="'+spread+'"></input>';
 		document.getElementById("output-graph").innerHTML = svg;
 		document.getElementById("domainSlider").addEventListener('change',plotChange);
 	}
