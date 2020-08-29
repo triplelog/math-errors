@@ -19,12 +19,13 @@
   <input type="text" id="inline-graph"></input>
   <button onclick="plotChange()">Submit</button>
   <div id="output-graph"></div>	
+  
 	
   <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
   <script src="wasmhello.js"></script>
   <script>
   	var l = Module.cwrap("LatexIt","string",["string"]);
-  	var p = Module.cwrap("PlotIt","string",["string"]);
+  	var p = Module.cwrap("PlotIt","string",["string","number"]);
   	
   	function submitMath(input) {
   		var latex = l(input);
@@ -63,11 +64,17 @@
 	function addSVG(x) {
 		svg += x;
 	}
-	function plotChange() {
+	function plotChange(evt) {
+		var left = -10;
+		if (evt){
+			left = evt.target.value;
+		}
 		var input = document.getElementById("inline-graph").value;
 		svg = "";
-		p(input);
+		p(input,left);
+		svg += '<input type="range" id="domainSlider" min="-50" max="0" value="'+left+'"></input>';
 		document.getElementById("output-graph").innerHTML = svg;
+		document.getElementById("domainSlider").addEventListener('change',plotChange);
 	}
   </script>
 </body>
