@@ -60,11 +60,12 @@
 	answerEl.addEventListener('keydown',answerDown);
 	answerEl.addEventListener('input',answerChange);
 	var svg = "";
-	function setSVG(x) {
-		svg = x;
+	function addSVG(x) {
+		svg += x;
 	}
 	function plotChange() {
 		var input = document.getElementById("inline-graph").value;
+		svg = "";
 		p(input);
 		document.getElementById("output-graph").innerHTML = svg;
 	}
