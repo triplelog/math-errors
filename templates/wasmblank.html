@@ -63,8 +63,9 @@
 	
 	function plotChange() {
 		var input = document.getElementById("inline-graph").value;
-		var html = p(input);
-		document.getElementById("output-graph").innerHTML = html;
+		var svg;
+		p(input);
+		document.getElementById("output-graph").innerHTML = svg;
 	}
   </script>
 </body>
