@@ -15,11 +15,15 @@
 
   <input type="text" id="inline-math"></input>
   <div id="output-math"></div>	
+  
+  <input type="text" id="inline-graph"></input>
+  <div id="output-graph"></div>	
 	
   <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
   <script src="wasmhello.js"></script>
   <script>
   	var l = Module.cwrap("LatexIt","string",["string"]);
+  	var p = Module.cwrap("PlotIt","string",["string"]);
   	
   	function submitMath(input) {
   		var latex = l(input);
@@ -54,6 +58,14 @@
 	var answerEl = document.getElementById('inline-math');
 	answerEl.addEventListener('keydown',answerDown);
 	answerEl.addEventListener('input',answerChange);
+	
+	
+	function plotChange() {
+		var input = document.getElementById("inline-graph").value;
+		var html = p(input);
+		document.getElementById("output-graph").innerHTML = html;
+	}
+	document.getElementById('inline-graph').addEventListener('input',plotChange);
   </script>
 </body>
 

@@ -680,12 +680,12 @@ void oneLesson(std::string s){
 	makeRulesNew(rows);
 }
 
-std::string getPoints(std::string fn, std::string indVar,double domainLeft,double domainRight) {
+std::vector<double> getPoints(std::string fn, std::string indVar,double domainLeft,double domainRight) {
 	std::string depVar = "y";
 	fn = fn.substr(2,fn.length()-2);
 	std::vector<std::string> postfixedV = postfixifyVector(fn,true);
 	std::vector<int> xIdx;
-	std::string out = "";
+	std::vector<double> out;
 	int i; int ii;
 	std::string currentOperand = "";
 	for (i=0;i<postfixedV[1].length();i++){
@@ -710,14 +710,15 @@ std::string getPoints(std::string fn, std::string indVar,double domainLeft,doubl
 		std::string solvable = postfixedV[0] + "@" + solvableR;
 		//std::cout << "solvable: " << solvable << "\n";
 		Number y = solvePostfix(solvable);
-		out += std::to_string(x) + ","+outputNumber(y)+";";
+		
+		out.push_back(x);
+		out.push_back(std::stod(outputNumber(y)));
 	}
 	auto a2 = std::chrono::high_resolution_clock::now();
-	std::cout << "time to solve 1000: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n";
+	//std::cout << "time to solve 1000: " << std::chrono::duration_cast<std::chrono::microseconds>( a2 - a1 ).count() << "\n\n";
 	
 	return out;
 }
-
 
 void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 	//v8::Isolate* isolate = info.GetIsolate();
