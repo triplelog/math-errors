@@ -19,7 +19,6 @@ onmessage = function(e) {
 	var result = [];
 	if (message[0] == "latex"){
 		latex = "";
-		console.log(message[1]);
 		l(message[1]);
 		console.log(latex);
 		result = ["latex",message[1],latex];
@@ -29,5 +28,6 @@ onmessage = function(e) {
 		p(message[1]);
 		result = ["svg",message[1],svg];
 	}
+	console.log(result);
 	postMessage(result);
 }
