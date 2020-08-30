@@ -27,7 +27,7 @@
   	var myWorker = new Worker('wasmworker.js');
   	
   	myWorker.onmessage = function(e) {
-	  result.textContent = e.data;
+	  console.log(e.data);
 	  console.log('Message received from worker');
 	}
   	function submitMath(input) {
