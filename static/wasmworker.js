@@ -15,10 +15,17 @@ function addSVG(x) {
 
 
 onmessage = function(e) {
-  console.log('Message received from main script');
-  var workerResult = 'Result: ' + (e.data);
-  console.log(workerResult);
-  l(e.data);
-  console.log('Posting message back to main script');
-  postMessage(workerResult);
+	var message = e.data;
+	var result = [];
+	if (message[0] == "latex"){
+		latex = "";
+		l(message[1]);
+		result = ["latex",message[1],latex];
+	}
+	else {
+		svg = "";
+		p(message[1]);
+		result = ["svg",message[1],svg];
+	}
+	postMessage(result);
 }

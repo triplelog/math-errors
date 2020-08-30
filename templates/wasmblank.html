@@ -27,16 +27,25 @@
   	var myWorker = new Worker('wasmworker.js');
   	
   	myWorker.onmessage = function(e) {
-	  console.log(e.data);
-	  console.log('Message received from worker');
+		if (e.data[0] == "latex"){
+			if (autoNow == e.data[1]){
+				var latex = e.data[2];
+				var html = katex.renderToString(latex, {throwOnError: false});
+  				autoComplete[input] = html;
+  				chgAuto(html);
+			}
+			else {
+				var latex = e.data[2];
+				var html = katex.renderToString(latex, {throwOnError: false});
+  				autoComplete[input] = html;
+			}
+		}
 	}
   	function submitMath(input) {
-  		latex = "";
   		myWorker.postMessage(input);
   		
   		//l(input);
-  		var html = katex.renderToString(latex, {throwOnError: false});
-  		autoComplete[input] = html;
+  		
   	}
   	function chgAuto(input) {
 		var el = document.getElementById('output-math');
@@ -46,23 +55,27 @@
 		var key = evt.key;
 		if (key != 'Shift'){
 			var answer = document.getElementById("inline-math").value;
-			submitMath(answer+key);
+			autoComplete[answer+key] = "in-progress";
+			myWorker.postMessage(["latex",answer+key]);
 		}
 		
 	}
 	function answerChange(evt) {
 		var answer = document.getElementById("inline-math").value;
-		if (autoComplete[answer]){
+		if (autoComplete[answer] == "in-progress"){
+			autoNow = answer;
+		}
+		else if (autoComplete[answer]){
 			chgAuto(answer);
 		}
 		else {
-			submitMath(answer);
-			chgAuto(answer);
-			
+			myWorker.postMessage(["latex",answer]);
+			autoNow = answer;
 		}
 		
 	}
 	var autoComplete = {};
+	var autoNow = "";
 	var answerEl = document.getElementById('inline-math');
 	answerEl.addEventListener('keydown',answerDown);
 	answerEl.addEventListener('input',answerChange);
