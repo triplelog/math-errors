@@ -31,22 +31,17 @@
 			if (autoNow == e.data[1]){
 				var latex = e.data[2];
 				var html = katex.renderToString(latex, {throwOnError: false});
-  				autoComplete[input] = html;
+  				autoComplete[e.data[1]] = html;
   				chgAuto(html);
 			}
 			else {
 				var latex = e.data[2];
 				var html = katex.renderToString(latex, {throwOnError: false});
-  				autoComplete[input] = html;
+  				autoComplete[e.data[1]] = html;
 			}
 		}
 	}
-  	function submitMath(input) {
-  		myWorker.postMessage(input);
-  		
-  		//l(input);
-  		
-  	}
+
   	function chgAuto(input) {
 		var el = document.getElementById('output-math');
 		el.innerHTML = autoComplete[input];
