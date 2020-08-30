@@ -1,0 +1,1 @@
+importScripts('wasmhello.js');
