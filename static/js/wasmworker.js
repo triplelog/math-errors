@@ -1,1 +1,1 @@
-importScripts('wasmhello.js');
+importScripts('../wasmhello.js');
