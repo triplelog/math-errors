@@ -24,7 +24,8 @@ onmessage = function(e) {
 	}
 	else {
 		svg = "";
-		p(message[1]);
+		p(message[1],message[2],message[3],message[4],message[5]);
+		svg += '<input type="range" id="domainSlider" min="0" max="'+(message[6]*2)+'" value="'+message[6]+'"></input>';
 		result = ["svg",message[1],svg];
 	}
 	postMessage(result);

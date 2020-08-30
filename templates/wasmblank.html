@@ -40,6 +40,18 @@
   				autoComplete[e.data[1]] = html;
 			}
 		}
+		else if (e.data[0] == "svg"){
+			//if (autoNow == e.data[1]){
+				var svg = e.data[2];
+				document.getElementById("output-graph").innerHTML = svg;
+				document.getElementById("domainSlider").addEventListener('change',plotChange);
+			//}
+			//else {
+			//	var latex = e.data[2];
+			//	var html = katex.renderToString(latex, {throwOnError: false});
+  			//	autoComplete[e.data[1]] = html;
+			//}
+		}
 	}
 
   	function chgAuto(input) {
@@ -92,11 +104,8 @@
 			right = .5*spread;
 		}
 		var input = document.getElementById("inline-graph").value;
-		svg = "";
-		//p(input,left,right,bottom,top);
-		svg += '<input type="range" id="domainSlider" min="0" max="'+(spread*2)+'" value="'+spread+'"></input>';
-		document.getElementById("output-graph").innerHTML = svg;
-		document.getElementById("domainSlider").addEventListener('change',plotChange);
+		myWorker.postMessage(["plot",input,left,right,bottom,top,spread]);
+		
 	}
   </script>
 </body>
