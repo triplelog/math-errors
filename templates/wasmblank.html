@@ -26,9 +26,13 @@
   <script>
   	var l = Module.cwrap("LatexIt","string",["string"]);
   	var p = Module.cwrap("PlotIt","string",["string","number","number","number"]);
-  	
+  	var latex = "";
+	function addLatex(x) {
+		latex += x;
+	}
   	function submitMath(input) {
-  		var latex = l(input);
+  		latex = "";
+  		l(input);
   		var html = katex.renderToString(latex, {throwOnError: false});
   		autoComplete[input] = html;
   	}
