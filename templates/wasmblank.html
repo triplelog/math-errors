@@ -22,8 +22,9 @@
   
 	
   <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-  <script src="wasmhello.js"></script>
+  <!--<script src="wasmhello.js"></script>-->
   <script>
+  	var myWorker = new Worker('js/wasmworker.js');
   	var l = Module.cwrap("LatexIt","string",["string"]);
   	var p = Module.cwrap("PlotIt","string",["string","number","number","number"]);
   	var latex = "";
