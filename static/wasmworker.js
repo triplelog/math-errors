@@ -19,7 +19,9 @@ onmessage = function(e) {
 	var result = [];
 	if (message[0] == "latex"){
 		latex = "";
+		console.log(message[1]);
 		l(message[1]);
+		console.log(latex);
 		result = ["latex",message[1],latex];
 	}
 	else {
