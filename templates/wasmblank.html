@@ -25,15 +25,16 @@
   <!--<script src="wasmhello.js"></script>-->
   <script>
   	var myWorker = new Worker('js/wasmworker.js');
-  	var l = Module.cwrap("LatexIt","string",["string"]);
-  	var p = Module.cwrap("PlotIt","string",["string","number","number","number"]);
-  	var latex = "";
-	function addLatex(x) {
-		latex += x;
+  	
+  	myWorker.onmessage = function(e) {
+	  result.textContent = e.data;
+	  console.log('Message received from worker');
 	}
   	function submitMath(input) {
   		latex = "";
-  		l(input);
+  		myWorker.postMessage(input);
+  		
+  		//l(input);
   		var html = katex.renderToString(latex, {throwOnError: false});
   		autoComplete[input] = html;
   	}
@@ -65,10 +66,7 @@
 	var answerEl = document.getElementById('inline-math');
 	answerEl.addEventListener('keydown',answerDown);
 	answerEl.addEventListener('input',answerChange);
-	var svg = "";
-	function addSVG(x) {
-		svg += x;
-	}
+	
 	function plotChange(evt) {
 		var left = -10;
 		var right = 10;
@@ -87,7 +85,7 @@
 		}
 		var input = document.getElementById("inline-graph").value;
 		svg = "";
-		p(input,left,right,bottom,top);
+		//p(input,left,right,bottom,top);
 		svg += '<input type="range" id="domainSlider" min="0" max="'+(spread*2)+'" value="'+spread+'"></input>';
 		document.getElementById("output-graph").innerHTML = svg;
 		document.getElementById("domainSlider").addEventListener('change',plotChange);
