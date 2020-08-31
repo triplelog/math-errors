@@ -12,7 +12,11 @@
 </head>
 
 <body>
-
+  
+  <textarea id="inline-rules"></textarea>
+  <button onclick="rulesChange()">Submit</button>
+  
+  
   <input type="text" id="inline-math"></input>
   <div id="output-math"></div>	
   
@@ -51,6 +55,9 @@
 			//	var html = katex.renderToString(latex, {throwOnError: false});
   			//	autoComplete[e.data[1]] = html;
 			//}
+		}
+		else if (e.data[0] == "rules"){
+			console.log(e.data[1]);
 		}
 	}
 
@@ -106,6 +113,11 @@
 		var input = document.getElementById("inline-graph").value;
 		myWorker.postMessage(["plot",input,left,right,bottom,top,spread]);
 		
+	}
+	function rulesChange(){
+		var ruleText = document.getElementById("inline-rules").value;
+		console.log(ruleText);
+		myWorker.postMessage(["rules","identities",ruleText]);
 	}
   </script>
 </body>
